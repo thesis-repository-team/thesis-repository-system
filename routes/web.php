@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
@@ -30,8 +31,10 @@ Route::middleware('auth')->group(function () {
 
 ///// for /role/dashboard // if we create controller, dont forget to used controller class in this
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])
-        ->name('admin.dashboard');
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/departments', [DepartmentController::class, 'index'])->name('admin.departments.index');
+    Route::get('/admin/departments/create', [DepartmentController::class, 'create'])->name('admin.departments.create');
+    Route::post('/admin/departments/store', [DepartmentController::class, 'store'])->name('admin.departments.store');
 });
 
 Route::middleware(['auth', 'role:hod'])->group(function () {
