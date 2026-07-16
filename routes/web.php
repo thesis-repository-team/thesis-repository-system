@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\HoDController as AdminHoDController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Hod\HodController;
 use App\Http\Controllers\Student\StudentController;
 
 Route::get('/', function () {
@@ -35,6 +35,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/departments/edit/{department}', [DepartmentController::class, 'edit'])->name('admin.departments.edit');
     Route::put('/admin/departments/update/{department}', [DepartmentController::class, 'update'])->name('admin.departments.update');
     Route::delete('/admin/departments/delete/{department}', [DepartmentController::class, 'destroy'])->name('admin.departments.destroy');
+
+    //HoD routes
+    Route::get('/admin/hods', [AdminHoDController::class, 'index'])->name('admin.hods.index');
+    Route::get('/admin/hods/create', [AdminHoDController::class, 'create'])->name('admin.hods.create');
+    Route::post('/admin/hods/store', [AdminHoDController::class, 'store'])->name('admin.hods.store');
+    Route::get('/admin/hods/edit/{hod}', [AdminHoDController::class, 'edit'])->name('admin.hods.edit');
+    Route::put('/admin/hods/update/{hod}', [AdminHoDController::class, 'update'])->name('admin.hods.update');
+    Route::delete('/admin/hods/delete/{hod}', [AdminHoDController::class, 'destroy'])->name('admin.hods.destroy');
+
+
 });
 
 // hod routes

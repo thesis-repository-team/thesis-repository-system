@@ -19,6 +19,6 @@
     @endforeach
 
     <a href="{{ route('admin.departments.create') }}" class="btn btn-sm btn-primary ms-2">
-        + Create Department
-    </a>
+                + Create Department
+            </a>
 </x-app-layout>
