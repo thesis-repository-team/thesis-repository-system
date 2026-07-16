@@ -5,7 +5,6 @@
             <label for="name" class="form-label">Department Name</label>
             <input type="text" name="name" id="name" class="form-control" aria-describedby="emailHelp">
         </div>
-
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </x-app-layout>

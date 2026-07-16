@@ -24,13 +24,15 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:100',
+            'name' => 'required',
         ]);
         Department::create([
             'name' => $request->name,
         ]);
+
         return redirect()->route('admin.departments.index');
     }
+
 
     public function edit(Department $department)
     {
@@ -51,7 +53,6 @@ class DepartmentController extends Controller
     {
         $department->delete();
 
-        return redirect()->route('admin.departments.index')
-            ->with('success', 'Department deleted successfully.');
+        return redirect()->route('admin.departments.index');
     }
 }
