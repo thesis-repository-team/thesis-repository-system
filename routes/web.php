@@ -3,10 +3,11 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\HoDController as AdminHoDController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HoD\HoDController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Student\StudentController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -49,7 +50,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // hod routes
 Route::middleware(['auth', 'role:hod'])->group(function () {
-    Route::get('/hod/dashboard', [HodController::class, 'index'])->name('hod.dashboard');
+    Route::get('/hod/dashboard', [HoDController::class, 'index'])->name('hod.dashboard');
 });
 
 // student routes
