@@ -13,7 +13,10 @@ class HoDController extends Controller
     public function index()
     {
         $hods = HoD::all();
+<<<<<<< HEAD
 
+=======
+>>>>>>> admin
         return view('admin.hods.index', compact('hods'));
     }
 
