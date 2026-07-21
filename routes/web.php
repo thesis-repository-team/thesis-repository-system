@@ -3,6 +3,13 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\HoDController as AdminHoDController;
+<<<<<<< Updated upstream
+=======
+use App\Http\Controllers\Admin\StudentController as AdminStudentController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HoD\HodController;
+use App\Http\Controllers\HoD\ThesisController as HoDThesisController;
+>>>>>>> Stashed changes
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
@@ -44,12 +51,30 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin/hods/update/{hod}', [AdminHoDController::class, 'update'])->name('admin.hods.update');
     Route::delete('/admin/hods/delete/{hod}', [AdminHoDController::class, 'destroy'])->name('admin.hods.destroy');
 
+<<<<<<< Updated upstream
+=======
+    // Student routes
+    Route::get('/admin/students', [AdminStudentController::class, 'index'])->name('admin.students.index');
+    Route::get('/admin/students/edit/{student}', [AdminStudentController::class, 'edit'])->name('admin.students.edit');
+    Route::put('/admin/students/update/{student}', [AdminStudentController::class, 'update'])->name('admin.students.update');
+>>>>>>> Stashed changes
 
 });
 
 // hod routes
 Route::middleware(['auth', 'role:hod'])->group(function () {
     Route::get('/hod/dashboard', [HodController::class, 'index'])->name('hod.dashboard');
+<<<<<<< Updated upstream
+=======
+
+    // Thesis routes
+    Route::get('/hod/thesis', [HoDThesisController::class, 'index'])->name('hod.thesis.index');
+    Route::get('/hod/thesis/create', [HoDThesisController::class, 'create'])->name('hod.thesis.create');
+    Route::get('/hod/thesis/edit/{thesis}', [HoDThesisController::class, 'edit'])->name('hod.thesis.edit');
+    Route::post('/hod/thesis/store', [HoDThesisController::class, 'store'])->name('hod.thesis.store');
+    Route::put('/hod/thesis/update/{thesis}', [HoDThesisController::class, 'update'])->name('hod.thesis.update');
+
+>>>>>>> Stashed changes
 });
 
 // student routes
