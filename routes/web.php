@@ -1,34 +1,26 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
+
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\HoDController as AdminHoDController;
-<<<<<<<<< Temporary merge branch 1
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Student\StudentController;
-=========
+use App\Http\Controllers\Admin\StudentController as AdminStudentController;
+
 use App\Http\Controllers\HoD\HoDController;
 use App\Http\Controllers\HoD\ThesisController as HoDThesisController;
->>>>>>> admin
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DashboardController;
-<<<<<<< HEAD
+
 use App\Http\Controllers\Student\StudentController;
-=======
-use Illuminate\Support\Facades\Route;
->>>>>>>>> Temporary merge branch 2
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -36,10 +28,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// /// for /role/dashboard
-// admin routes
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+*/
 Route::middleware(['auth', 'role:admin'])->group(function () {
+
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+
+    // Department Routes
     Route::get('/admin/departments', [DepartmentController::class, 'index'])->name('admin.departments.index');
     Route::get('/admin/departments/create', [DepartmentController::class, 'create'])->name('admin.departments.create');
     Route::post('/admin/departments/store', [DepartmentController::class, 'store'])->name('admin.departments.store');
@@ -47,11 +45,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin/departments/update/{department}', [DepartmentController::class, 'update'])->name('admin.departments.update');
     Route::delete('/admin/departments/delete/{department}', [DepartmentController::class, 'destroy'])->name('admin.departments.destroy');
 
-<<<<<<< HEAD
-    //HoD routes
-=======
-    // HoD routes
->>>>>>> admin
+    // HoD Routes
     Route::get('/admin/hods', [AdminHoDController::class, 'index'])->name('admin.hods.index');
     Route::get('/admin/hods/create', [AdminHoDController::class, 'create'])->name('admin.hods.create');
     Route::post('/admin/hods/store', [AdminHoDController::class, 'store'])->name('admin.hods.store');
@@ -59,56 +53,36 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin/hods/update/{hod}', [AdminHoDController::class, 'update'])->name('admin.hods.update');
     Route::delete('/admin/hods/delete/{hod}', [AdminHoDController::class, 'destroy'])->name('admin.hods.destroy');
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-    // Student routes
+    // Student Routes
     Route::get('/admin/students', [AdminStudentController::class, 'index'])->name('admin.students.index');
     Route::get('/admin/students/edit/{student}', [AdminStudentController::class, 'edit'])->name('admin.students.edit');
     Route::put('/admin/students/update/{student}', [AdminStudentController::class, 'update'])->name('admin.students.update');
->>>>>>> Stashed changes
-=======
-    //Student routes
-    Route::get('/admin/students', [AdminStudentController::class, 'index'])->name('admin.students.index');
-    Route::get('/admin/students/edit/{student}', [AdminStudentController::class, 'edit'])->name('admin.students.edit');
-    Route::put('/admin/students/update/{student}', [AdminStudentController::class, 'update'])->name('admin.students.update');
->>>>>>> admin
-
 });
 
-// hod routes
+/*
+|--------------------------------------------------------------------------
+| HoD Routes
+|--------------------------------------------------------------------------
+*/
 Route::middleware(['auth', 'role:hod'])->group(function () {
-<<<<<<< HEAD
-    Route::get('/hod/dashboard', [HodController::class, 'index'])->name('hod.dashboard');
-<<<<<<< Updated upstream
-=======
 
-    // Thesis routes
-=======
     Route::get('/hod/dashboard', [HoDController::class, 'index'])->name('hod.dashboard');
 
-    //Thesis routes
->>>>>>> admin
+    // Thesis Routes
     Route::get('/hod/thesis', [HoDThesisController::class, 'index'])->name('hod.thesis.index');
     Route::get('/hod/thesis/create', [HoDThesisController::class, 'create'])->name('hod.thesis.create');
-    Route::get('/hod/thesis/edit/{thesis}', [HoDThesisController::class, 'edit'])->name('hod.thesis.edit');
     Route::post('/hod/thesis/store', [HoDThesisController::class, 'store'])->name('hod.thesis.store');
+    Route::get('/hod/thesis/edit/{thesis}', [HoDThesisController::class, 'edit'])->name('hod.thesis.edit');
     Route::put('/hod/thesis/update/{thesis}', [HoDThesisController::class, 'update'])->name('hod.thesis.update');
-
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> admin
 });
 
-// student routes
+/*
+|--------------------------------------------------------------------------
+| Student Routes
+|--------------------------------------------------------------------------
+*/
 Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/dashboard', [StudentController::class, 'index'])->name('student.dashboard');
 });
 
-<<<<<<< HEAD
-
-require __DIR__ . '/auth.php';
-=======
 require __DIR__.'/auth.php';
->>>>>>> admin
