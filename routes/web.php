@@ -3,16 +3,12 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\HoDController as AdminHoDController;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-use App\Http\Controllers\Admin\StudentController as AdminStudentController;
+<<<<<<<<< Temporary merge branch 1
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\HoD\HodController;
-use App\Http\Controllers\HoD\ThesisController as HoDThesisController;
->>>>>>> Stashed changes
-=======
-use App\Http\Controllers\Admin\StudentController as AdminStudentController;
+use App\Http\Controllers\Student\StudentController;
+=========
 use App\Http\Controllers\HoD\HoDController;
 use App\Http\Controllers\HoD\ThesisController as HoDThesisController;
 >>>>>>> admin
@@ -22,7 +18,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Student\StudentController;
 =======
 use Illuminate\Support\Facades\Route;
->>>>>>> admin
+>>>>>>>>> Temporary merge branch 2
 
 Route::get('/', function () {
     return redirect()->route('login');
