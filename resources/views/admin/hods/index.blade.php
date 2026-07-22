@@ -1,15 +1,13 @@
 <x-app-layout>
     <div class="container py-4">
-
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="fw-bold">Head of Departments</h2>
-
             <a href="{{ route('admin.hods.create') }}" class="btn btn-primary">
                 + Add HoD
             </a>
         </div>
 
-        @if(session('success'))
+        @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
@@ -17,8 +15,7 @@
 
         <div class="card shadow-sm">
             <div class="card-body">
-
-                @if($hods->count())
+                @if ($hods->count())
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover align-middle">
                             <thead class="table-dark">
@@ -34,23 +31,17 @@
                             </thead>
 
                             <tbody>
-                                @foreach($hods as $hod)
+                                @foreach ($hods as $hod)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-
                                         <td>{{ $hod->full_name }}</td>
-
                                         <td>{{ $hod->user->email }}</td>
-
-
                                         <td>
                                             {{ $hod->department->name ?? 'N/A' }}
                                         </td>
-
                                         <td>{{ $hod->started_year }}</td>
-
                                         <td>
-                                            @if($hod->is_active)
+                                            @if ($hod->is_active)
                                                 <span class="badge bg-success">
                                                     Active
                                                 </span>
@@ -60,7 +51,6 @@
                                                 </span>
                                             @endif
                                         </td>
-
                                         <td>
                                             {{-- <a href="{{ route('admin.hods.show', $hod->id) }}"
                                                 class="btn btn-info btn-sm">
@@ -71,13 +61,10 @@
                                                 class="btn btn-warning btn-sm">
                                                 Edit
                                             </a>
-
-                                            
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
-
                         </table>
                     </div>
                 @else
@@ -85,9 +72,7 @@
                         <h5>No Head of Department found.</h5>
                     </div>
                 @endif
-
             </div>
         </div>
-
     </div>
 </x-app-layout>

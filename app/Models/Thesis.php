@@ -41,4 +41,9 @@ class Thesis extends Model
     {
         return $this->belongsTo(User::class, 'published_by');
     }
+
+    public function files()
+    {
+        return $this->hasMany(ThesisFile::class);
+    }
 }

@@ -5,13 +5,16 @@ namespace App\Http\Controllers\HoD;
 use App\Http\Controllers\Controller;
 use App\Models\Thesis;
 use App\Models\Department;
+use App\Models\ThesisFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ThesisController extends Controller
 {
     public function index()
     {
-        $theses = Thesis::where('published_by', auth()->id())->get();
+        $theses = Thesis::with('files')->get();
         return view('hod.thesis.index', compact('theses'));
     }
 
@@ -27,20 +30,37 @@ class ThesisController extends Controller
             'title' => 'required|string|max:255',
             'abstract' => 'nullable|string',
             'description' => 'nullable|string',
-            'department_id' => 'required|exists:departments,id',
             'author_name' => 'required|string|max:255',
+
+            // thesis file
+            'files' => 'required|array|min:1',
+            'files.*' => 'required|file|mimes:pdf|max:20480',
         ]);
 
-        Thesis::create([
-            'title' => $request->title,
-            'abstract' => $request->abstract,
-            'description' => $request->description,
-            'department_id' => $request->department_id,
-            'author_name' => $request->author_name,
-            'submitted_by' => auth()->id(),
-            'published_by' => auth()->id(),
-            'published_at' => now(),
-        ]);
+        DB::transaction(function () use ($request) {
+            $department_id = auth()->user()->hod->department_id;
+            $thesis = Thesis::create([
+                'title' => $request->title,
+                'abstract' => $request->abstract,
+                'description' => $request->description,
+                'department_id' => $department_id,
+                'author_name' => $request->author_name,
+                'submitted_by' => auth()->id(),
+                'published_by' => auth()->id(),
+                'published_at' => now(),
+            ]);
+
+            foreach ($request->file('files') as $file) {
+                $path = $file->store('thesis_files', 'public');
+                ThesisFile::create([
+                    'thesis_id'   => $thesis->id,
+                    'file_name'   => $file->getClientOriginalName(),
+                    'file_type'   => $file->getClientOriginalExtension(),
+                    'file_path'   => $path,
+                    'uploaded_at' => now(),
+                ]);
+            }
+        });
 
         return redirect()->route('hod.thesis.index')->with('success', 'Thesis created successfully.');
     }
@@ -48,30 +68,62 @@ class ThesisController extends Controller
     public function edit(Thesis $thesis)
     {
         $departments = Department::all();
+
+        if (auth()->user()->hod->department_id !== $thesis->department_id) {
+            return redirect()->route('hod.thesis.index')->with('error', 'You are not allowed to edit theses from another department.');
+        }
+
         return view('hod.thesis.edit', compact('thesis', 'departments'));
     }
 
     public function update(Request $request, Thesis $thesis)
     {
+        if (auth()->user()->hod->department_id !== $thesis->department_id) {
+            return redirect()
+                ->route('hod.thesis.index')->with('error', 'You are not allowed to edit theses from another department.');
+        }
+
         $request->validate([
             'title' => 'required|string|max:255',
             'abstract' => 'nullable|string',
             'description' => 'nullable|string',
-            'department_id' => 'required|exists:departments,id',
             'author_name' => 'required|string|max:255',
+
+            'files' => 'nullable|array',
+            'files.*' => 'nullable|file|mimes:pdf|max:20480',
         ]);
 
-        $thesis->update([
-            'title' => $request->title,
-            'abstract' => $request->abstract,
-            'description' => $request->description,
-            'department_id' => $request->department_id,
-            'author_name' => $request->author_name,
-        ]);
+        DB::transaction(function () use ($request, $thesis) {
+
+            $thesis->update([
+                'title' => $request->title,
+                'abstract' => $request->abstract,
+                'description' => $request->description,
+                'author_name' => $request->author_name,
+            ]);
+
+            // replace old files if new ones are uploaded
+            if ($request->hasFile('files')) {
+                // delete old files from storage and database
+                foreach ($thesis->files as $oldFile) {
+                    Storage::disk('public')->delete($oldFile->file_path);
+                    $oldFile->delete();
+                }
+
+                // save new files
+                foreach ($request->file('files') as $file) {
+                    $path = $file->store('thesis_files', 'public');
+                    ThesisFile::create([
+                        'thesis_id'   => $thesis->id,
+                        'file_name'   => $file->getClientOriginalName(),
+                        'file_type'   => $file->getClientOriginalExtension(),
+                        'file_path'   => $path,
+                        'uploaded_at' => now(),
+                    ]);
+                }
+            }
+        });
 
         return redirect()->route('hod.thesis.index')->with('success', 'Thesis updated successfully.');
     }
-
-
-    
 }

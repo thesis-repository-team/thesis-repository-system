@@ -11,8 +11,15 @@ use App\Http\Controllers\Admin\StudentController as AdminStudentController;
 
 use App\Http\Controllers\HoD\HoDController;
 use App\Http\Controllers\HoD\ThesisController as HoDThesisController;
+<<<<<<< Updated upstream
 
 use App\Http\Controllers\Student\StudentController;
+=======
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Student\StudentController;
+use Illuminate\Support\Facades\Route;
+>>>>>>> Stashed changes
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -85,4 +92,8 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/dashboard', [StudentController::class, 'index'])->name('student.dashboard');
 });
 
+<<<<<<< Updated upstream
 require __DIR__.'/auth.php';
+=======
+require __DIR__ . '/auth.php';
+>>>>>>> Stashed changes

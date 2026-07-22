@@ -69,22 +69,10 @@ class HoDController extends Controller
 
     public function update(Request $request, HoD $hod)
     {
-        // $data = $request->validate([
-        //     'full_name' => 'required|string|max:255',
-        //     'department_id' => 'required|exists:departments,id',
-        //     'is_active' => 'boolean',
-        //     'started_year' => 'nullable|date_format:Y',
-        // ]);
-
-        // $hod->update($data);
-
         $request->validate([
-            'email' => 'required|email|unique:users,email,'.$hod->user_id,
-            'username' => 'required|string|max:100|unique:users,username,'.$hod->user_id,
-            // 'username' => 'required|string|max:100|unique:users,username',
-            'password' => 'required|string|min:8',
-            // 'email' => 'required|email|unique:users,email',
-            // 'user_id' => 'required|exists:users,id',
+            'email' => 'required|email|unique:users,email,' . $hod->user_id,
+            'username' => 'required|string|max:100|unique:users,username,' . $hod->user_id,
+            'password' => 'nullable|string|min:8',
             'full_name' => 'required|string|max:255',
             'department_id' => 'required|exists:departments,id',
             'is_active' => 'required|boolean',
@@ -94,7 +82,6 @@ class HoDController extends Controller
         \DB::transaction(function () use ($request, $hod) {
             $user = $hod->user;
             $user->username = $request->username;
-            // $user->email = $request->email;
             if ($request->email) {
                 $user->email = $request->email;
             }
