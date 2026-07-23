@@ -11,15 +11,7 @@ use App\Http\Controllers\Admin\StudentController as AdminStudentController;
 
 use App\Http\Controllers\HoD\HoDController;
 use App\Http\Controllers\HoD\ThesisController as HoDThesisController;
-<<<<<<< Updated upstream
 
-use App\Http\Controllers\Student\StudentController;
-=======
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Student\StudentController;
-use Illuminate\Support\Facades\Route;
->>>>>>> Stashed changes
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -81,6 +73,9 @@ Route::middleware(['auth', 'role:hod'])->group(function () {
     Route::post('/hod/thesis/store', [HoDThesisController::class, 'store'])->name('hod.thesis.store');
     Route::get('/hod/thesis/edit/{thesis}', [HoDThesisController::class, 'edit'])->name('hod.thesis.edit');
     Route::put('/hod/thesis/update/{thesis}', [HoDThesisController::class, 'update'])->name('hod.thesis.update');
+    Route::get('/hod/thesis/view-pdf/{file}', [HoDThesisController::class, 'viewPDF'])->name('hod.thesis.view-pdf');
+    Route::delete('/hod/thesis/destroy/{thesis}', [HoDThesisController::class, 'destroy'])->name('hod.thesis.destroy');
+    Route::get('/hod/thesis/my-theses', [HoDThesisController::class, 'myTheses'])->name('hod.thesis.my-theses');
 });
 
 /*
@@ -92,8 +87,6 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/dashboard', [StudentController::class, 'index'])->name('student.dashboard');
 });
 
-<<<<<<< Updated upstream
+
 require __DIR__.'/auth.php';
-=======
-require __DIR__ . '/auth.php';
->>>>>>> Stashed changes
+

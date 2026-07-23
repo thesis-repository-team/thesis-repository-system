@@ -53,10 +53,10 @@ class ThesisController extends Controller
             foreach ($request->file('files') as $file) {
                 $path = $file->store('thesis_files', 'public');
                 ThesisFile::create([
-                    'thesis_id'   => $thesis->id,
-                    'file_name'   => $file->getClientOriginalName(),
-                    'file_type'   => $file->getClientOriginalExtension(),
-                    'file_path'   => $path,
+                    'thesis_id' => $thesis->id,
+                    'file_name' => $file->getClientOriginalName(),
+                    'file_type' => $file->getClientOriginalExtension(),
+                    'file_path' => $path,
                     'uploaded_at' => now(),
                 ]);
             }
@@ -114,10 +114,10 @@ class ThesisController extends Controller
                 foreach ($request->file('files') as $file) {
                     $path = $file->store('thesis_files', 'public');
                     ThesisFile::create([
-                        'thesis_id'   => $thesis->id,
-                        'file_name'   => $file->getClientOriginalName(),
-                        'file_type'   => $file->getClientOriginalExtension(),
-                        'file_path'   => $path,
+                        'thesis_id' => $thesis->id,
+                        'file_name' => $file->getClientOriginalName(),
+                        'file_type' => $file->getClientOriginalExtension(),
+                        'file_path' => $path,
                         'uploaded_at' => now(),
                     ]);
                 }
@@ -125,5 +125,49 @@ class ThesisController extends Controller
         });
 
         return redirect()->route('hod.thesis.index')->with('success', 'Thesis updated successfully.');
+    }
+
+    public function viewPDF(ThesisFile $file)
+    {
+        if (! Storage::disk('public')->exists($file->file_path)) {
+            return redirect()->back()->with('error', 'File not found.');
+        }
+
+        return response()->file(storage_path('app/public/'.$file->file_path));
+    }
+
+    public function destroy(Thesis $thesis)
+    {
+        if (auth()->user()->hod->department_id !== $thesis->department_id) {
+            return redirect()
+                ->route('hod.thesis.index')->with('error', 'You are not allowed to delete theses from another department.');
+        }
+
+        DB::transaction(function () use ($thesis) {
+            // delete associated files from storage and database
+            foreach ($thesis->files as $file) {
+                Storage::disk('public')->delete($file->file_path);
+                $file->delete();
+            }
+
+            $thesis->delete();
+        });
+
+        return redirect()->route('hod.thesis.index')->with('success', 'Thesis deleted successfully.');
+    }
+
+    public function myTheses()
+    {
+        // $department_id = auth()->user()->hod->department_id;
+        // $theses = Thesis::where('department_id', $department_id)->with('files')->get();
+        
+        $department_id = auth()->user()->hod->department_id;
+        
+        $theses = Thesis::where('department_id', $department_id)
+        ->where('published_by', auth()->id())
+        ->with('files')
+        ->get();
+
+        return view('hod.thesis.my-theses', compact('theses'));
     }
 }
