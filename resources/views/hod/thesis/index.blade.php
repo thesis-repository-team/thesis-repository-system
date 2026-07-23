@@ -50,15 +50,17 @@
                                     {{ $thesis->published_at?->format('M d, Y h:i A') ?? 'Not Published' }}
                                 </td>
                                 <td>
-                                    @if (auth()->user()->hod->department_id == $thesis->department_id)
-                                        <a href="{{ route('hod.thesis.edit', $thesis) }}"
-                                            class="btn btn-warning btn-sm">
-                                            Edit
+
+                                    @if (auth()->user()->hod->department_id == $thesis->published_by)
+                                        <a href="{{ route('hod.thesis.view-pdf', $thesis->id) }}" target="_blank"
+                                            class="btn btn-success me-4">
+                                            View PDF
                                         </a>
                                     @else
-                                        <button class="btn btn-sm btn-outline-primary">
-                                            View
-                                        </button>
+                                        <a href="{{ route('hod.thesis.view-pdf', $thesis->id) }}" target="_blank"
+                                            class="btn btn-success me-4">
+                                            View PDF
+                                        </a>
                                     @endif
 
                                     {{-- <form action="{{ route('hod.thesis.destroy',$thesis) }}"
