@@ -49,36 +49,19 @@
                                 <td>
                                     {{ $thesis->published_at?->format('M d, Y h:i A') ?? 'Not Published' }}
                                 </td>
+
+                                {{-- Update--}}
                                 <td>
-
-                                    @if (auth()->user()->hod->department_id == $thesis->published_by)
-                                        <a href="{{ route('hod.thesis.view-pdf', $thesis->id) }}" target="_blank"
-                                            class="btn btn-success me-4">
-                                            View PDF
-                                        </a>
+                                    @if ($thesis->files->count())
+                                        @foreach ($thesis->files as $file)
+                                            <a href="{{ route('hod.thesis.view-pdf', $file) }}" target="_blank"
+                                                class="btn btn-success btn-sm mb-1">
+                                                View PDF
+                                            </a>
+                                        @endforeach
                                     @else
-                                        <a href="{{ route('hod.thesis.view-pdf', $thesis->id) }}" target="_blank"
-                                            class="btn btn-success me-4">
-                                            View PDF
-                                        </a>
+                                        <span class="text-muted">No PDF</span>
                                     @endif
-
-                                    {{-- <form action="{{ route('hod.thesis.destroy',$thesis) }}"
-                                    method="POST"
-                                    class="d-inline">
-
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button class="btn btn-danger btn-sm"
-                                        onclick="return confirm('Delete this thesis?')">
-
-                                        Delete
-
-                                    </button>
-
-                                </form> --}}
-
                                 </td>
                             </tr>
                         @empty
