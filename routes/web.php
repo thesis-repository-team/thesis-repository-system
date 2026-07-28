@@ -12,6 +12,9 @@ use App\Http\Controllers\Admin\StudentController as AdminStudentController;
 use App\Http\Controllers\HoD\HoDController;
 use App\Http\Controllers\HoD\ThesisController as HoDThesisController;
 
+use App\Http\Controllers\Student\StudentController;
+use App\Http\Controllers\Student\ThesisController as StudentThesisController;
+
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -85,6 +88,7 @@ Route::middleware(['auth', 'role:hod'])->group(function () {
 */
 Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/dashboard', [StudentController::class, 'index'])->name('student.dashboard');
+    Route::get('/student/thesis', [StudentThesisController::class, 'index'])->name('student.thesis.index');
 });
 
 
