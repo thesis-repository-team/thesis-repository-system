@@ -89,6 +89,7 @@ Route::middleware(['auth', 'role:hod'])->group(function () {
 Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/dashboard', [StudentController::class, 'index'])->name('student.dashboard');
     Route::get('/student/thesis', [StudentThesisController::class, 'index'])->name('student.thesis.index');
+    // Route::get('/student/thesis/view-pdf/{file}', [StudentThesisController::class, 'viewPDF'])->name('student.thesis.view-pdf');
 });
 
 

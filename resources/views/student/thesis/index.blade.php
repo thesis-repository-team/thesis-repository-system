@@ -1,23 +1,6 @@
 <x-app-layout>
     <div class="container mt-4">
-        {{-- <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Thesis List</h2>
-            <a href="{{ route('hod.thesis.create') }}" class="btn btn-primary">
-                + Add Thesis
-            </a>
-        </div>
-
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif --}}
+    
 
         <div class="card shadow">
             <div class="card-body table-responsive">
@@ -54,7 +37,7 @@
                                 <td>
                                     @if ($thesis->files->count())
                                         @foreach ($thesis->files as $file)
-                                            <a href="{{ route('hod.thesis.view-pdf', $file) }}" target="_blank"
+                                            <a href="{{ route('student.thesis.view-pdf', $file) }}" target="_blank"
                                                 class="btn btn-success btn-sm mb-1">
                                                 View PDF
                                             </a>
