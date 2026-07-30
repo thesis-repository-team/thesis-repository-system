@@ -35,6 +35,9 @@
                         <x-nav-link :href="route('student.thesis.index')" :active="request()->routeIs('student.thesis.index')">
                             {{ __('Theses') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('student.thesis.my-theses')" :active="request()->routeIs('student.thesis.my-theses')">
+                            {{ __('My Theses') }}
+                        </x-nav-link>
                     @else
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}

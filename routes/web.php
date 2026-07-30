@@ -89,7 +89,13 @@ Route::middleware(['auth', 'role:hod'])->group(function () {
 Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/dashboard', [StudentController::class, 'index'])->name('student.dashboard');
     Route::get('/student/thesis', [StudentThesisController::class, 'index'])->name('student.thesis.index');
-    // Route::get('/student/thesis/view-pdf/{file}', [StudentThesisController::class, 'viewPDF'])->name('student.thesis.view-pdf');
+    Route::get('/student/thesis/view-pdf/{file}', [StudentThesisController::class, 'viewPDF'])->name('student.thesis.view-pdf');
+    Route::get('/student/thesis/my-theses', [StudentThesisController::class, 'myTheses'])->name('student.thesis.my-theses');
+    Route::get('/student/thesis/create', [StudentThesisController::class, 'create'])->name('student.thesis.create');
+    Route::post('/student/thesis/store', [StudentThesisController::class, 'store'])->name('student.thesis.store');
+    Route::get('/student/thesis/edit/{thesis}', [StudentThesisController::class, 'edit'])->name('student.thesis.edit');
+    Route::put('/student/thesis/update/{thesis}', [StudentThesisController::class, 'update'])->name('student.thesis.update');
+    Route::delete('/student/thesis/destroy/{thesis}', [StudentThesisController::class, 'destroy'])->name('student.thesis.destroy');
 });
 
 
