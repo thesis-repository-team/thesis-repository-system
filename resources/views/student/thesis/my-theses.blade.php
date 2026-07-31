@@ -4,24 +4,24 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>My Theses</h2>
 
-            <a href="{{ route('student.thesis.create') }}" class="btn btn-primary">
-                Upload Thesis
-            </a>
+            @if (auth()->user()->student && auth()->user()->student->upload_permission)
+                <a href="{{ route('student.thesis.create') }}" class="btn btn-primary"> Request Upload </a>
+            @endif
         </div>
 
-        @if(session('success'))
+        @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
 
-        @if(session('error'))
+        @if (session('error'))
             <div class="alert alert-danger">
                 {{ session('error') }}
             </div>
         @endif
 
-        @if($theses->count())
+        @if ($theses->count())
             <div class="table-responsive">
                 <table class="table table-bordered table-hover align-middle">
                     <thead class="table-dark">
@@ -36,14 +36,14 @@
                     </thead>
 
                     <tbody>
-                        @foreach($theses as $thesis)
+                        @foreach ($theses as $thesis)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
 
                                 <td>
                                     <strong>{{ $thesis->title }}</strong>
 
-                                    @if($thesis->description)
+                                    @if ($thesis->description)
                                         <br>
                                         <small class="text-muted">
                                             {{ Str::limit($thesis->description, 80) }}
@@ -55,9 +55,8 @@
 
                                 <td>
                                     @forelse($thesis->files as $file)
-                                        <a href="{{ route('student.thesis.view-pdf', $file) }}"
-                                           target="_blank"
-                                           class="btn btn-sm btn-outline-primary mb-1">
+                                        <a href="{{ route('student.thesis.view-pdf', $file) }}" target="_blank"
+                                            class="btn btn-sm btn-outline-primary mb-1">
                                             {{ $file->file_name }}
                                         </a>
                                         <br>
@@ -74,14 +73,12 @@
 
                                 <td>
                                     <a href="{{ route('student.thesis.edit', $thesis) }}"
-                                       class="btn btn-warning btn-sm">
+                                        class="btn btn-warning btn-sm">
                                         Edit
                                     </a>
 
-                                    <form action="{{ route('student.thesis.destroy', $thesis) }}"
-                                          method="POST"
-                                          class="d-inline"
-                                          onsubmit="return confirm('Delete this thesis?')">
+                                    <form action="{{ route('student.thesis.destroy', $thesis) }}" method="POST"
+                                        class="d-inline" onsubmit="return confirm('Delete this thesis?')">
                                         @csrf
                                         @method('DELETE')
 

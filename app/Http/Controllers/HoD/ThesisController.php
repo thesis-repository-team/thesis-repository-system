@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\HoD;
 
 use App\Http\Controllers\Controller;
-use App\Models\Thesis;
 use App\Models\Department;
+use App\Models\Thesis;
 use App\Models\ThesisFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,12 +15,14 @@ class ThesisController extends Controller
     public function index()
     {
         $theses = Thesis::with('files')->get();
+
         return view('hod.thesis.index', compact('theses'));
     }
 
     public function create()
     {
         $departments = Department::all();
+
         return view('hod.thesis.create', compact('departments'));
     }
 
@@ -158,16 +160,16 @@ class ThesisController extends Controller
 
     public function myTheses()
     {
-        // $department_id = auth()->user()->hod->department_id;
-        // $theses = Thesis::where('department_id', $department_id)->with('files')->get();
-        
+
         $department_id = auth()->user()->hod->department_id;
-        
+
         $theses = Thesis::where('department_id', $department_id)
-        ->where('published_by', auth()->id())
-        ->with('files')
-        ->get();
+            ->where('published_by', auth()->id())
+            ->with('files')
+            ->get();
 
         return view('hod.thesis.my-theses', compact('theses'));
     }
+   
 }
+

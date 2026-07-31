@@ -5,7 +5,7 @@
                 <h3 class="mb-0">Add Thesis</h3>
             </div>
             <div class="card-body">
-                <form action="{{ route('hod.thesis.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('student.thesis.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="mb-3">

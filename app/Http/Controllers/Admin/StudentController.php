@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Student;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
     public function index()
     {
         $students = Student::with('department', 'user')->get();
-
         return view('admin.students.index', compact('students'));
     }
 
@@ -19,10 +19,10 @@ class StudentController extends Controller
         return view('admin.students.edit', compact('student'));
     }
 
-    public function update(Student $student)
+    public function update(Request $request, Student $student)
     {
         $student->update([
-            'upload_permission' => request()->has('upload_permission'),
+            'upload_permission' => $request->upload_permission,
         ]);
 
         return redirect()->route('admin.students.index')->with('success', 'Student updated successfully.');

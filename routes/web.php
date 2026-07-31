@@ -79,6 +79,7 @@ Route::middleware(['auth', 'role:hod'])->group(function () {
     Route::get('/hod/thesis/view-pdf/{file}', [HoDThesisController::class, 'viewPDF'])->name('hod.thesis.view-pdf');
     Route::delete('/hod/thesis/destroy/{thesis}', [HoDThesisController::class, 'destroy'])->name('hod.thesis.destroy');
     Route::get('/hod/thesis/my-theses', [HoDThesisController::class, 'myTheses'])->name('hod.thesis.my-theses');
+
 });
 
 /*

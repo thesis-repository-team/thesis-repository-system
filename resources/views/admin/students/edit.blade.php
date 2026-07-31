@@ -43,7 +43,8 @@
 
                     <div class="mb-4">
                         <label class="form-label">Status</label>
-                        <select name="is_active" class="form-select">
+
+                        <select name="upload_permission" class="form-select">
                             <option value="1"
                                 {{ old('upload_permission', $student->upload_permission) == 1 ? 'selected' : '' }}>
                                 Allowed

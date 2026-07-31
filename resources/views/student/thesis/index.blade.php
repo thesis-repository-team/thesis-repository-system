@@ -1,6 +1,24 @@
 <x-app-layout>
     <div class="container mt-4">
-    
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Thesis List</h2>
+            @if (auth()->user()->student && auth()->user()->student->upload_permission)
+                <a href="{{ route('student.thesis.create') }}" class="btn btn-primary"> + Add Thesis </a>
+            @endif
+        </div>
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
 
         <div class="card shadow">
             <div class="card-body table-responsive">
@@ -33,7 +51,7 @@
                                     {{ $thesis->published_at?->format('M d, Y h:i A') ?? 'Not Published' }}
                                 </td>
 
-                                {{-- Update--}}
+                                {{-- Update --}}
                                 <td>
                                     @if ($thesis->files->count())
                                         @foreach ($thesis->files as $file)
