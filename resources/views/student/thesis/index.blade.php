@@ -1,7 +1,12 @@
 <x-app-layout>
     <div class="container mt-4">
+        <form action="{{ route('admin.students.index') }}" method="GET" class="mb-3 d-flex">
+            <input type="text" name="search" class="form-control me-2"
+                placeholder="Search by student name or department" value="{{ request('search') }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        {{-- <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>Thesis List</h2>
             @if (auth()->user()->student && auth()->user()->student->upload_permission)
                 <a href="{{ route('student.thesis.create') }}" class="btn btn-primary"> + Add Thesis </a>
@@ -18,7 +23,7 @@
             <div class="alert alert-danger">
                 {{ session('error') }}
             </div>
-        @endif
+        @endif --}}
 
         <div class="card shadow">
             <div class="card-body table-responsive">

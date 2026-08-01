@@ -1,5 +1,6 @@
 <x-app-layout>
     <div class="container py-4">
+        
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}

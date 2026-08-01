@@ -1,20 +1,17 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProfileController;
-
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\HoDController as AdminHoDController;
 use App\Http\Controllers\Admin\StudentController as AdminStudentController;
-
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HoD\HoDController;
 use App\Http\Controllers\HoD\ThesisController as HoDThesisController;
-
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Student\ThesisController as StudentThesisController;
-
+use App\Http\Controllers\Student\ThesisRequestsController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -97,8 +94,9 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/thesis/edit/{thesis}', [StudentThesisController::class, 'edit'])->name('student.thesis.edit');
     Route::put('/student/thesis/update/{thesis}', [StudentThesisController::class, 'update'])->name('student.thesis.update');
     Route::delete('/student/thesis/destroy/{thesis}', [StudentThesisController::class, 'destroy'])->name('student.thesis.destroy');
+    Route::get('/student/thesis-requests/index', [ThesisRequestsController::class, 'index'])->name('student.thesis_requests.index');
+    Route::get('/student/thesis-requests/create', [ThesisRequestsController::class, 'create'])->name('student.thesis_requests.create');
+    Route::post('/student/thesis-requests/store', [ThesisRequestsController::class, 'store'])->name('student.thesis_requests.store');
 });
 
-
 require __DIR__.'/auth.php';
-
