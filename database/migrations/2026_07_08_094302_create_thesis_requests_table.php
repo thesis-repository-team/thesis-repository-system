@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('thesis_requests', function (Blueprint $table) {
             $table->id();
+            $table->string('author_name');
             $table->foreignId('submitted_by')->constrained('users'); // student and student can not be deleted
             $table->foreignId('department_id')->constrained('departments')->onDelete('cascade');
             $table->foreignId('thesis_id')->nullable()->constrained()->nullOnDelete();

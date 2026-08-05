@@ -133,7 +133,7 @@ class ThesisController extends Controller
             return redirect()->back()->with('error', 'File not found.');
         }
 
-        return response()->file(storage_path('app/public/'.$file->file_path));
+        return response()->file(storage_path('app/public/' . $file->file_path));
     }
 
     public function destroy(Thesis $thesis)
@@ -160,13 +160,13 @@ class ThesisController extends Controller
     {
         // $department_id = auth()->user()->hod->department_id;
         // $theses = Thesis::where('department_id', $department_id)->with('files')->get();
-        
+
         $department_id = auth()->user()->student->department_id;
-        
+
         $theses = Thesis::where('department_id', $department_id)
-        ->where('published_by', auth()->id())
-        ->with('files')
-        ->get();
+            ->where('published_by', auth()->id())
+            ->with('files')
+            ->get();
 
         return view('student.thesis.my-theses', compact('theses'));
     }

@@ -1,29 +1,14 @@
 <x-app-layout>
     <div class="container mt-4">
-        <form action="{{ route('student.thesis.index') }}" method="GET" class="mb-3 d-flex">
+        <form action="{{ route('admin.students.index') }}" method="GET" class="mb-3 d-flex">
             <input type="text" name="search" class="form-control me-2"
                 placeholder="Search by student name or department" value="{{ request('search') }}">
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Thesis List</h2>
-            @if (auth()->user()->student && auth()->user()->student->upload_permission)
-                <a href="{{ route('student.thesis.create') }}" class="btn btn-primary"> + Request Upload Thesis </a>
-            @endif
-        </div>
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+        <a href="{{ route('student.thesis.create') }}" class="btn btn-primary"> + Add Thesis </a>
 
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
 
         <div class="card shadow">
             <div class="card-body table-responsive">
@@ -60,7 +45,7 @@
                                 <td>
                                     @if ($thesis->files->count())
                                         @foreach ($thesis->files as $file)
-                                            <a href="{{ route('student.thesis.view-pdf', $file) }}" target="_blank"
+                                            <a href="{{ route('admin.thesis.view-pdf', $file) }}" target="_blank"
                                                 class="btn btn-success btn-sm mb-1">
                                                 View PDF
                                             </a>
