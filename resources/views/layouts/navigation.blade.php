@@ -15,10 +15,47 @@
                         <x-nav-link :href="route('admin.hods.index')" :active="request()->routeIs('admin.hods.index')">
                             {{ __('HoDs') }}
                         </x-nav-link>
+<<<<<<< Updated upstream
+=======
+                        <x-nav-link :href="route('admin.students.index')" :active="request()->routeIs('admin.students.index')">
+                            {{ __('Students') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.thesis.index')" :active="request()->routeIs('admin.thesis.index')">
+                            {{ __('Theses') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.thesis_requests.index')" :active="request()->routeIs('admin.thesis_requests.index')">
+                            {{ __('Thesis Requests') }}
+                        </x-nav-link>
+>>>>>>> Stashed changes
                     @elseif (Auth::user()->role === 'hod')
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
+<<<<<<< Updated upstream
+=======
+                        <x-nav-link :href="route('hod.thesis.index')" :active="request()->routeIs('hod.thesis.index')">
+                            {{ __('Theses') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('hod.thesis.my-theses')" :active="request()->routeIs('hod.thesis.my-theses')">
+                            {{ __('My Theses') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('hod.thesis_requests.index')" :active="request()->routeIs('hod.thesis-requests.index')">
+                            {{ __('Thesis Requests') }}
+                        </x-nav-link>
+                    @elseif (Auth::user()->role === 'student')
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('student.thesis.index')" :active="request()->routeIs('student.thesis.index')">
+                            {{ __('Theses') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('student.thesis.my-theses')" :active="request()->routeIs('student.thesis.my-theses')">
+                            {{ __('My Theses') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('student.thesis_requests.index')" :active="request()->routeIs('student.thesis_requests.index')">
+                            {{ __('Thesis Requests') }}
+                        </x-nav-link>
+>>>>>>> Stashed changes
                     @else
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
