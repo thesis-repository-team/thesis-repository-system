@@ -2,7 +2,6 @@
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="fw-bold">Thesis Requests</h2>
-
             <a href="{{ route('student.thesis_requests.create') }}" class="btn btn-primary">
                 + New Request
             </a>
@@ -11,6 +10,12 @@
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
+            </div>
+        @endif
+        
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
             </div>
         @endif
 
@@ -23,11 +28,12 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th>#</th>
-                                    <th>Student</th>
+                                    <th>Author(s) Name</th>
+                                    <th>Submitted By</th>
                                     <th>Department</th>
                                     <th>Title</th>
                                     <th>Status</th>
-                                    <th>Submitted</th>
+                                    <th>Submitted at</th>
                                     <th width="180">Actions</th>
                                 </tr>
                             </thead>
@@ -37,6 +43,9 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
 
+                                        <td>
+                                            {{ $thesisRequest->author_name }}
+                                        </td>
                                         <td>
                                             {{ $thesisRequest->user->name ?? 'N/A' }}
                                         </td>
@@ -68,18 +77,31 @@
                                         <td>
                                             {{ $thesisRequest->submitted_at }}
                                         </td>
+                                        <td>
 
+                                            <a href="{{ route('student.thesis_requests.show', $thesisRequest) }}"
+                                                target="_blank" class="btn btn-success btn-sm mb-1">
+                                                View Details
+                                            </a>
+
+                                            @if ($thesisRequest->pdf_file)
+                                                <a href="{{ route('student.thesis_requests.view-request-pdf', $thesisRequest) }}"
+                                                    target="_blank" class="btn btn-success btn-sm mb-1">
+                                                    View PDF
+                                                </a>
+                                            @endif
+                                        </td>
                                         {{-- <td>
                                             <a href="{{ route('thesis-requests.show', $thesisRequest->id) }}"
-                                                class="btn btn-info btn-sm">
-                                                View
-                                            </a>
+                                class="btn btn-info btn-sm">
+                                View
+                                </a>
 
-                                            <a href="{{ route('thesis-requests.edit', $thesisRequest->id) }}"
-                                                class="btn btn-warning btn-sm">
-                                                Edit
-                                            </a>
-                                        </td> --}}
+                                <a href="{{ route('thesis-requests.edit', $thesisRequest->id) }}"
+                                    class="btn btn-warning btn-sm">
+                                    Edit
+                                </a>
+                                </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>

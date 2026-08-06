@@ -22,19 +22,15 @@
                     enctype="multipart/form-data">
                     @csrf
 
-                    <!-- Department -->
-                    {{-- <div class="mb-3">
-                        <label class="form-label">Department</label>
-                        <select name="department_id" class="form-select" required>
-                            <option value="">-- Select Department --</option>
-                            @foreach($departments as $department)
-                                <option value="{{ $department->id }}"
-                                    {{ old('department_id') == $department->id ? 'selected' : '' }}>
-                                    {{ $department->dept_name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div> --}}
+                    <!-- Author(s) Name -->
+                    <div class="mb-3">
+                        <label class="form-label">Author(s) Name</label>
+                        <input type="text"
+                               name="author_name"
+                               class="form-control"
+                               value="{{ old('author_name') }}"
+                               required>
+                    </div>
 
                     <!-- Title -->
                     <div class="mb-3">
@@ -85,7 +81,6 @@
                     </div>
 
                 </form>
-
             </div>
         </div>
     </div>

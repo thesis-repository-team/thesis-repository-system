@@ -1,36 +1,30 @@
 <x-app-layout>
 
     <div class="container mt-4">
-
-        <form action="{{ route('student.thesis.index') }}" method="GET" class="mb-3 d-flex gap-3">
-
-            {{-- Search --}}
-            <input type="text" id="search" name="search" class="form-control w-25"
-                placeholder="Search name, department, email...">
-
-            {{-- Department Filter --}}
-            <select class="form-select w-25" id="departmentFilter" name="department">
-                <option value="">All Departments</option>
-                <option value="Information Technology">Information Technology</option>
-                <option value="Software Engineering">Software Engineering</option>
-                <option value="Mathematics">Mathematics</option>
-                <option value="Physics">Physics</option>
-            </select>
-
-            {{-- Year Filter --}}
-            <select class="form-select w-25" id="yearFilter" name="year">
-                <option value="">All Years</option>
-                <option value="2026">2026</option>
-                <option value="2025">2025</option>
-                <option value="2024">2024</option>
-            </select>
-
-            {{-- Reset Button --}}
-            <button type="button" id="resetFilter" class="btn btn-secondary">
-                Reset
-            </button>
-
+        <form action="{{ route('student.thesis.index') }}" method="GET" class="mb-3 d-flex">
+            <input type="text" name="search" class="form-control me-2"
+                placeholder="Search by student name or department" value="{{ request('search') }}">
+            <button type="submit" class="btn btn-primary">Search</button>
         </form>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Thesis List</h2>
+            @if (auth()->user()->student && auth()->user()->student->upload_permission)
+                <a href="{{ route('student.thesis.create') }}" class="btn btn-primary"> + Request Upload Thesis </a>
+            @endif
+        </div>
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
 
         <div class="card shadow">
             <div class="card-body table-responsive">

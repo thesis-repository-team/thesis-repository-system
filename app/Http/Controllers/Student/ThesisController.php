@@ -137,7 +137,7 @@ class ThesisController extends Controller
             return redirect()->back()->with('error', 'File not found.');
         }
 
-        return response()->file(storage_path('app/public/'.$file->file_path));
+        return response()->file(storage_path('app/public/' . $file->file_path));
     }
 
     public function destroy(Thesis $thesis)
@@ -173,63 +173,5 @@ class ThesisController extends Controller
             ->get();
 
         return view('student.thesis.my-theses', compact('theses'));
-    }
-
-    // Add a search function to search for theses by title, author_name, or department name
-    // public function search(Request $request)
-    // {
-    //     $query = $request->search;
-    //     $department = $request->department;
-    //     $year = $request->year;
-    //     $status = $request->status;
-
-    //     $theses = Thesis::with(['user', 'department'])
-    //         ->where(function ($q) use ($query) {
-    //             $q->where('title', 'like', "%{$query}%")
-    //                 ->orWhere('author_name', 'like', "%{$query}%")
-    //                 ->orWhereHas('department', function ($department) use ($query) {
-    //                     $department->where('name', 'like', "%{$query}%");
-    //                 });
-    //         })
-    //         ->orWhereHas('department', function ($department) use ($query) {
-    //             $department->where('name', 'like', "%{$query}%");
-    //         })
-    //         ->get();
-
-    //     return view('student.thesis.table', compact('theses'));
-    // }
-
-    public function search(Request $request)
-    {
-        $search = $request->search;
-
-        $query = Thesis::with(['user', 'department']);
-
-        // Search
-        if ($request->filled('search')) {
-            $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', "%{$search}%")
-                    ->orWhere('author_name', 'like', "%{$search}%")
-                    ->orWhereHas('department', function ($d) use ($search) {
-                        $d->where('name', 'like', "%{$search}%");
-                    });
-            });
-        }
-
-        // Department filter
-        if ($request->filled('department')) {
-            $query->whereHas('department', function ($q) use ($request) {
-                $q->where('name', $request->department);
-            });
-        }
-
-        // Year filter
-        if ($request->filled('year')) {
-            $query->whereYear('published_at', $request->year);
-        }
-
-        $theses = $query->get();
-
-        return view('student.thesis.table', compact('theses'));
     }
 }

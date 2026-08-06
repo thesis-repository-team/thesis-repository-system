@@ -4,9 +4,14 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\HoDController as AdminHoDController;
 use App\Http\Controllers\Admin\StudentController as AdminStudentController;
+use App\Http\Controllers\Admin\ThesisController as AdminThesisController;
+use App\Http\Controllers\Admin\ThesisRequestsController as AdminThesisRequestsController;
+
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HoD\HoDController;
 use App\Http\Controllers\HoD\ThesisController as HoDThesisController;
+use App\Http\Controllers\HoD\ThesisRequestsController as HoDThesisRequestsController;
+
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Student\ThesisController as StudentThesisController;
 use App\Http\Controllers\Student\ThesisRequestsController as StudentThesisRequestsController;
@@ -18,9 +23,11 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth'])
-    ->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -28,16 +35,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Admin Routes
-|--------------------------------------------------------------------------
-*/
+
+///// for /role/dashboard 
+// admin routes
 Route::middleware(['auth', 'role:admin'])->group(function () {
-
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-
-    // Department Routes
     Route::get('/admin/departments', [DepartmentController::class, 'index'])->name('admin.departments.index');
     Route::get('/admin/departments/create', [DepartmentController::class, 'create'])->name('admin.departments.create');
     Route::post('/admin/departments/store', [DepartmentController::class, 'store'])->name('admin.departments.store');
@@ -45,7 +47,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin/departments/update/{department}', [DepartmentController::class, 'update'])->name('admin.departments.update');
     Route::delete('/admin/departments/delete/{department}', [DepartmentController::class, 'destroy'])->name('admin.departments.destroy');
 
-    // HoD Routes
+    //HoD routes
     Route::get('/admin/hods', [AdminHoDController::class, 'index'])->name('admin.hods.index');
     Route::get('/admin/hods/create', [AdminHoDController::class, 'create'])->name('admin.hods.create');
     Route::post('/admin/hods/store', [AdminHoDController::class, 'store'])->name('admin.hods.store');
@@ -58,15 +60,25 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/students', [AdminStudentController::class, 'index'])->name('admin.students.index');
     Route::get('/admin/students/edit/{student}', [AdminStudentController::class, 'edit'])->name('admin.students.edit');
     Route::put('/admin/students/update/{student}', [AdminStudentController::class, 'update'])->name('admin.students.update');
-});
 
+    // Thesis Routes
+    Route::get('/admin/thesis/index', [AdminThesisController::class, 'index'])->name('admin.thesis.index');
+    Route::get('/admin/thesis/view-pdf/{file}', [AdminThesisController::class, 'viewPDF'])->name('admin.thesis.view-pdf');
+    Route::get('/admin/thesis/my-theses', [AdminThesisController::class, 'myTheses'])->name('admin.thesis.my-theses');
+
+    // Thesis Requests Routes
+    Route::get('/admin/thesis-requests/index', [AdminThesisRequestsController::class, 'index'])->name('admin.thesis_requests.index');
+    Route::get('/admin/thesis-requests/show/{thesisRequest}', [AdminThesisRequestsController::class, 'show'])->name('admin.thesis_requests.show');
+    Route::get('/admin/thesis-requests/view-pdf/{file}', [AdminThesisRequestsController::class, 'viewRequestPDF'])->name('admin.thesis_requests.view-request-pdf');
+    Route::post('/admin/thesis-requests/approve/{thesisRequest}', [AdminThesisRequestsController::class, 'approveRequest'])->name('admin.thesis_requests.approve');
+    Route::post('/admin/thesis-requests/reject/{thesisRequest}', [AdminThesisRequestsController::class, 'rejectRequest'])->name('admin.thesis_requests.reject');
+});
 /*
 |--------------------------------------------------------------------------
 | HoD Routes
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:hod'])->group(function () {
-
     Route::get('/hod/dashboard', [HoDController::class, 'index'])->name('hod.dashboard');
 
     // Thesis Routes
@@ -88,11 +100,7 @@ Route::middleware(['auth', 'role:hod'])->group(function () {
     Route::post('/hod/thesis-requests/reject/{thesisRequest}', [HoDThesisRequestsController::class, 'rejectRequest'])->name('hod.thesis_requests.reject');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Student Routes
-|--------------------------------------------------------------------------
-*/
+// student routes
 Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/dashboard', [StudentController::class, 'index'])->name('student.dashboard');
 
@@ -105,6 +113,7 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/thesis/edit/{thesis}', [StudentThesisController::class, 'edit'])->name('student.thesis.edit');
     Route::put('/student/thesis/update/{thesis}', [StudentThesisController::class, 'update'])->name('student.thesis.update');
     Route::delete('/student/thesis/destroy/{thesis}', [StudentThesisController::class, 'destroy'])->name('student.thesis.destroy');
+<<<<<<< HEAD
     Route::get('/student/thesis-requests/index', [ThesisRequestsController::class, 'index'])->name('student.thesis_requests.index');
     Route::get('/student/thesis-requests/create', [ThesisRequestsController::class, 'create'])->name('student.thesis_requests.create');
     Route::post('/student/thesis-requests/store', [ThesisRequestsController::class, 'store'])->name('student.thesis_requests.store');
@@ -112,3 +121,15 @@ Route::middleware(['auth', 'role:student'])->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+=======
+
+    // thesis requests routes
+    Route::get('/student/thesis-requests/index', [StudentThesisRequestsController::class, 'index'])->name('student.thesis_requests.index');
+    Route::get('/student/thesis-requests/show/{thesisRequest}', [StudentThesisRequestsController::class, 'show'])->name('student.thesis_requests.show');
+    Route::get('/student/thesis-requests/create', [StudentThesisRequestsController::class, 'create'])->name('student.thesis_requests.create');
+    Route::post('/student/thesis-requests/store', [StudentThesisRequestsController::class, 'store'])->name('student.thesis_requests.store');
+    Route::get('/student/thesis-requests/view-request-pdf/{file}', [StudentThesisRequestsController::class, 'viewRequestPDF'])->name('student.thesis_requests.view-request-pdf');
+});
+
+require __DIR__ . '/auth.php';
+>>>>>>> main
