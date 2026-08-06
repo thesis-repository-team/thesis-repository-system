@@ -2,14 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Thesis extends Model
 {
-<<<<<<< Updated upstream
-    //
-}
-=======
     use HasFactory;
 
     protected $fillable = [
@@ -50,4 +47,3 @@ class Thesis extends Model
         return $this->hasMany(ThesisFile::class);
     }
 }
->>>>>>> Stashed changes
