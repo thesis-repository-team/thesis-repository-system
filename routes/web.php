@@ -113,15 +113,6 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/thesis/edit/{thesis}', [StudentThesisController::class, 'edit'])->name('student.thesis.edit');
     Route::put('/student/thesis/update/{thesis}', [StudentThesisController::class, 'update'])->name('student.thesis.update');
     Route::delete('/student/thesis/destroy/{thesis}', [StudentThesisController::class, 'destroy'])->name('student.thesis.destroy');
-<<<<<<< HEAD
-    Route::get('/student/thesis-requests/index', [ThesisRequestsController::class, 'index'])->name('student.thesis_requests.index');
-    Route::get('/student/thesis-requests/create', [ThesisRequestsController::class, 'create'])->name('student.thesis_requests.create');
-    Route::post('/student/thesis-requests/store', [ThesisRequestsController::class, 'store'])->name('student.thesis_requests.store');
-    Route::get('/student/thesis/search', [StudentThesisController::class, 'search'])->name('student.thesis.search');
-});
-
-require __DIR__ . '/auth.php';
-=======
 
     // thesis requests routes
     Route::get('/student/thesis-requests/index', [StudentThesisRequestsController::class, 'index'])->name('student.thesis_requests.index');
@@ -132,4 +123,3 @@ require __DIR__ . '/auth.php';
 });
 
 require __DIR__ . '/auth.php';
->>>>>>> main
