@@ -7,10 +7,11 @@ use App\Http\Controllers\Admin\StudentController as AdminStudentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HoD\HoDController;
 use App\Http\Controllers\HoD\ThesisController as HoDThesisController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Student\ThesisController as StudentThesisController;
-use App\Http\Controllers\Student\ThesisRequestsController;
+use App\Http\Controllers\Student\ThesisRequestsController as StudentThesisRequestsController;
+
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -51,6 +52,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/hods/edit/{hod}', [AdminHoDController::class, 'edit'])->name('admin.hods.edit');
     Route::put('/admin/hods/update/{hod}', [AdminHoDController::class, 'update'])->name('admin.hods.update');
     Route::delete('/admin/hods/delete/{hod}', [AdminHoDController::class, 'destroy'])->name('admin.hods.destroy');
+    Route::get('/admin/hods/search', [AdminHoDController::class, 'search'])->name('admin.hods.search');
 
     // Student Routes
     Route::get('/admin/students', [AdminStudentController::class, 'index'])->name('admin.students.index');
@@ -76,7 +78,14 @@ Route::middleware(['auth', 'role:hod'])->group(function () {
     Route::get('/hod/thesis/view-pdf/{file}', [HoDThesisController::class, 'viewPDF'])->name('hod.thesis.view-pdf');
     Route::delete('/hod/thesis/destroy/{thesis}', [HoDThesisController::class, 'destroy'])->name('hod.thesis.destroy');
     Route::get('/hod/thesis/my-theses', [HoDThesisController::class, 'myTheses'])->name('hod.thesis.my-theses');
+    Route::get('/hod/thesis/search', [HoDThesisController::class, 'search'])->name('hod.thesis.search');
 
+    // Thesis Requests Routes
+    Route::get('/hod/thesis-requests/index', [HoDThesisRequestsController::class, 'index'])->name('hod.thesis_requests.index');
+    Route::get('/hod/thesis-requests/show/{thesisRequest}', [HoDThesisRequestsController::class, 'show'])->name('hod.thesis_requests.show');
+    Route::get('/hod/thesis-requests/view-pdf/{file}', [HoDThesisRequestsController::class, 'viewRequestPDF'])->name('hod.thesis_requests.view-request-pdf');
+    Route::post('/hod/thesis-requests/approve/{thesisRequest}', [HoDThesisRequestsController::class, 'approveRequest'])->name('hod.thesis_requests.approve');
+    Route::post('/hod/thesis-requests/reject/{thesisRequest}', [HoDThesisRequestsController::class, 'rejectRequest'])->name('hod.thesis_requests.reject');
 });
 
 /*
@@ -86,6 +95,8 @@ Route::middleware(['auth', 'role:hod'])->group(function () {
 */
 Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/dashboard', [StudentController::class, 'index'])->name('student.dashboard');
+
+    // thesis routes
     Route::get('/student/thesis', [StudentThesisController::class, 'index'])->name('student.thesis.index');
     Route::get('/student/thesis/view-pdf/{file}', [StudentThesisController::class, 'viewPDF'])->name('student.thesis.view-pdf');
     Route::get('/student/thesis/my-theses', [StudentThesisController::class, 'myTheses'])->name('student.thesis.my-theses');
@@ -97,6 +108,7 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/thesis-requests/index', [ThesisRequestsController::class, 'index'])->name('student.thesis_requests.index');
     Route::get('/student/thesis-requests/create', [ThesisRequestsController::class, 'create'])->name('student.thesis_requests.create');
     Route::post('/student/thesis-requests/store', [ThesisRequestsController::class, 'store'])->name('student.thesis_requests.store');
+    Route::get('/student/thesis/search', [StudentThesisController::class, 'search'])->name('student.thesis.search');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

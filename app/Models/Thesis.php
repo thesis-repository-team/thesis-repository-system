@@ -46,4 +46,10 @@ class Thesis extends Model
     {
         return $this->hasMany(ThesisFile::class);
     }
+
+    //Update for using query 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

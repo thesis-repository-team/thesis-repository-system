@@ -170,6 +170,27 @@ class ThesisController extends Controller
 
         return view('hod.thesis.my-theses', compact('theses'));
     }
+
+    //Add a search function to search for theses by title, author_name, or department name
+    public function search(Request $request)
+    {
+        $query = $request->search;
+
+        $theses = Thesis::with(['user', 'department'])
+            ->where(function ($q) use ($query) {
+                $q->where('title', 'like', "%{$query}%")
+                    ->orWhere('author_name', 'like', "%{$query}%")
+                    ->orWhereHas('department', function ($department) use ($query) {
+                        $department->where('name', 'like', "%{$query}%");
+                    });
+                    })
+                    ->orWhereHas('department', function ($department) use ($query) {
+                        $department->where('name', 'like', "%{$query}%");
+                    })
+            ->get();
+
+        return view('hod.thesis.table', compact('theses'));
+    }
    
 }
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
-use App\Models\Thesis;
 use App\Models\Department;
+use App\Models\Thesis;
 use App\Models\ThesisFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,12 +15,14 @@ class ThesisController extends Controller
     public function index()
     {
         $theses = Thesis::with('files')->get();
+
         return view('student.thesis.index', compact('theses'));
     }
 
     public function create()
     {
         $departments = Department::all();
+
         return view('student.thesis.create', compact('departments'));
     }
 
@@ -38,7 +40,9 @@ class ThesisController extends Controller
         ]);
 
         DB::transaction(function () use ($request) {
-            $department_id = auth()->user()->hod->department_id;
+
+            // change from hod to student
+            $department_id = auth()->user()->student->department_id;
             $thesis = Thesis::create([
                 'title' => $request->title,
                 'abstract' => $request->abstract,
@@ -160,14 +164,72 @@ class ThesisController extends Controller
     {
         // $department_id = auth()->user()->hod->department_id;
         // $theses = Thesis::where('department_id', $department_id)->with('files')->get();
-        
+
         $department_id = auth()->user()->student->department_id;
-        
+
         $theses = Thesis::where('department_id', $department_id)
-        ->where('published_by', auth()->id())
-        ->with('files')
-        ->get();
+            ->where('published_by', auth()->id())
+            ->with('files')
+            ->get();
 
         return view('student.thesis.my-theses', compact('theses'));
+    }
+
+    // Add a search function to search for theses by title, author_name, or department name
+    // public function search(Request $request)
+    // {
+    //     $query = $request->search;
+    //     $department = $request->department;
+    //     $year = $request->year;
+    //     $status = $request->status;
+
+    //     $theses = Thesis::with(['user', 'department'])
+    //         ->where(function ($q) use ($query) {
+    //             $q->where('title', 'like', "%{$query}%")
+    //                 ->orWhere('author_name', 'like', "%{$query}%")
+    //                 ->orWhereHas('department', function ($department) use ($query) {
+    //                     $department->where('name', 'like', "%{$query}%");
+    //                 });
+    //         })
+    //         ->orWhereHas('department', function ($department) use ($query) {
+    //             $department->where('name', 'like', "%{$query}%");
+    //         })
+    //         ->get();
+
+    //     return view('student.thesis.table', compact('theses'));
+    // }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+
+        $query = Thesis::with(['user', 'department']);
+
+        // Search
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('author_name', 'like', "%{$search}%")
+                    ->orWhereHas('department', function ($d) use ($search) {
+                        $d->where('name', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        // Department filter
+        if ($request->filled('department')) {
+            $query->whereHas('department', function ($q) use ($request) {
+                $q->where('name', $request->department);
+            });
+        }
+
+        // Year filter
+        if ($request->filled('year')) {
+            $query->whereYear('published_at', $request->year);
+        }
+
+        $theses = $query->get();
+
+        return view('student.thesis.table', compact('theses'));
     }
 }

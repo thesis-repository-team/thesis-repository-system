@@ -13,6 +13,7 @@ class HoDController extends Controller
     public function index()
     {
         $hods = HoD::all();
+
         return view('admin.hods.index', compact('hods'));
     }
 
@@ -66,8 +67,8 @@ class HoDController extends Controller
     public function update(Request $request, HoD $hod)
     {
         $request->validate([
-            'email' => 'required|email|unique:users,email,' . $hod->user_id,
-            'username' => 'required|string|max:100|unique:users,username,' . $hod->user_id,
+            'email' => 'required|email|unique:users,email,'.$hod->user_id,
+            'username' => 'required|string|max:100|unique:users,username,'.$hod->user_id,
             'password' => 'nullable|string|min:8',
             'full_name' => 'required|string|max:255',
             'department_id' => 'required|exists:departments,id',
@@ -94,5 +95,43 @@ class HoDController extends Controller
         });
 
         return redirect()->route('admin.hods.index');
+    }
+
+    // Add a method to handle the search functionality for HoDs
+    public function search(Request $request)
+    {
+        $search = $request->search;
+
+        $query = HoD::with(['user', 'department']);
+
+        // Search
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('full_name', 'like', "%{$search}%")
+                    ->orWhereHas('user', function ($user) use ($search) {
+                        $user->where('username', 'like', "%{$search}%")
+                            ->orWhere('email', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('department', function ($department) use ($search) {
+                        $department->where('name', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        // Department filter
+        if ($request->filled('department')) {
+            $query->whereHas('department', function ($q) use ($request) {
+                $q->where('name', $request->department);
+            });
+        }
+
+        // Year filter
+        if ($request->filled('year')) {
+            $query->where('started_year', $request->year);
+        }
+
+        $hods = $query->get();
+
+        return view('admin.hods.table', compact('hods'));
     }
 }
