@@ -1,4 +1,5 @@
 <x-app-layout>
+
     <div class="container mt-4">
         <form action="{{ route('student.thesis.index') }}" method="GET" class="mb-3 d-flex">
             <input type="text" name="search" class="form-control me-2"
@@ -41,45 +42,50 @@
                         </tr>
                     </thead>
 
-                    <tbody>
-                        @forelse($theses as $thesis)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $thesis->title }}</td>
-                                <td>{{ $thesis->author_name }}</td>
-                                <td>{{ $thesis->department->name }}</td>
-                                <td>{{ $thesis->submittedBy->name }}</td>
-                                <td>
-                                    {{ $thesis->publishedBy?->name }}
-                                </td>
-                                <td>
-                                    {{ $thesis->published_at?->format('M d, Y h:i A') ?? 'Not Published' }}
-                                </td>
-
-                                {{-- Update --}}
-                                <td>
-                                    @if ($thesis->files->count())
-                                        @foreach ($thesis->files as $file)
-                                            <a href="{{ route('student.thesis.view-pdf', $file) }}" target="_blank"
-                                                class="btn btn-success btn-sm mb-1">
-                                                View PDF
-                                            </a>
-                                        @endforeach
-                                    @else
-                                        <span class="text-muted">No PDF</span>
-                                    @endif
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="8" class="text-center">
-                                    No Thesis Found.
-                                </td>
-                            </tr>
-                        @endforelse
+                    <tbody id="studentTable">
+                        @include('student.thesis.table')
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            function loadData() {
+
+                let search = document.getElementById('search').value;
+                let department = document.getElementById('departmentFilter').value;
+                let year = document.getElementById('yearFilter').value;
+
+                fetch(
+                        "{{ route('student.thesis.search') }}" +
+                        "?search=" + encodeURIComponent(search) +
+                        "&department=" + encodeURIComponent(department) +
+                        "&year=" + encodeURIComponent(year)
+                    )
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('studentTable').innerHTML = data;
+                    })
+                    .catch(error => console.log(error));
+            }
+
+            document.getElementById('search').addEventListener('input', loadData);
+            document.getElementById('departmentFilter').addEventListener('change', loadData);
+            document.getElementById('yearFilter').addEventListener('change', loadData);
+            document.getElementById('resetFilter').addEventListener('click', function() {
+
+                document.getElementById('search').value = "";
+                document.getElementById('departmentFilter').value = "";
+                document.getElementById('yearFilter').value = "";
+
+                loadData(); 
+            });
+
+        });
+    </script>
+
+
 </x-app-layout>

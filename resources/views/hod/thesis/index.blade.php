@@ -1,7 +1,11 @@
 <x-app-layout>
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Thesis List</h2>
+            {{-- <h2>Thesis List</h2> --}}
+
+            {{-- //What we have update --}}
+            <input type="text" id="search" class="form-control w-25" placeholder="Search name, department, email...">
+
             <a href="{{ route('hod.thesis.create') }}" class="btn btn-primary">
                 + Add Thesis
             </a>
@@ -35,45 +39,26 @@
                         </tr>
                     </thead>
 
-                    <tbody>
-                        @forelse($theses as $thesis)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $thesis->title }}</td>
-                                <td>{{ $thesis->author_name }}</td>
-                                <td>{{ $thesis->department->name }}</td>
-                                <td>{{ $thesis->submittedBy->name }}</td>
-                                <td>
-                                    {{ $thesis->publishedBy?->name }}
-                                </td>
-                                <td>
-                                    {{ $thesis->published_at?->format('M d, Y h:i A') ?? 'Not Published' }}
-                                </td>
-
-                                {{-- Update--}}
-                                <td>
-                                    @if ($thesis->files->count())
-                                        @foreach ($thesis->files as $file)
-                                            <a href="{{ route('hod.thesis.view-pdf', $file) }}" target="_blank"
-                                                class="btn btn-success btn-sm mb-1">
-                                                View PDF
-                                            </a>
-                                        @endforeach
-                                    @else
-                                        <span class="text-muted">No PDF</span>
-                                    @endif
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="8" class="text-center">
-                                    No Thesis Found.
-                                </td>
-                            </tr>
-                        @endforelse
+                    <tbody id="hodTable">
+                        @include('hod.thesis.table')
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
+    {{-- //what we add more --}}
+     <script>
+        document.getElementById('search').addEventListener('input', function() {
+
+            let search = this.value;
+
+            fetch("{{ route('hod.thesis.search') }}?search=" + search)
+
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('hodTable').innerHTML = data;
+                });
+        });
+    </script>
 </x-app-layout>

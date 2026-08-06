@@ -3,11 +3,6 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\HoDController as AdminHoDController;
-<<<<<<< Updated upstream
-use App\Http\Controllers\HoD\HoDController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Student\StudentController;
-=======
 use App\Http\Controllers\Admin\StudentController as AdminStudentController;
 use App\Http\Controllers\Admin\ThesisController as AdminThesisController;
 use App\Http\Controllers\Admin\ThesisRequestsController as AdminThesisRequestsController;
@@ -21,7 +16,6 @@ use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Student\ThesisController as StudentThesisController;
 use App\Http\Controllers\Student\ThesisRequestsController as StudentThesisRequestsController;
 
->>>>>>> Stashed changes
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,13 +54,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/hods/edit/{hod}', [AdminHoDController::class, 'edit'])->name('admin.hods.edit');
     Route::put('/admin/hods/update/{hod}', [AdminHoDController::class, 'update'])->name('admin.hods.update');
     Route::delete('/admin/hods/delete/{hod}', [AdminHoDController::class, 'destroy'])->name('admin.hods.destroy');
+    Route::get('/admin/hods/search', [AdminHoDController::class, 'search'])->name('admin.hods.search');
 
-<<<<<<< Updated upstream
-
-});
-
-// hod routes
-=======
     // Student Routes
     Route::get('/admin/students', [AdminStudentController::class, 'index'])->name('admin.students.index');
     Route::get('/admin/students/edit/{student}', [AdminStudentController::class, 'edit'])->name('admin.students.edit');
@@ -89,11 +78,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 | HoD Routes
 |--------------------------------------------------------------------------
 */
->>>>>>> Stashed changes
 Route::middleware(['auth', 'role:hod'])->group(function () {
     Route::get('/hod/dashboard', [HoDController::class, 'index'])->name('hod.dashboard');
-<<<<<<< Updated upstream
-=======
 
     // Thesis Routes
     Route::get('/hod/thesis', [HoDThesisController::class, 'index'])->name('hod.thesis.index');
@@ -104,6 +90,7 @@ Route::middleware(['auth', 'role:hod'])->group(function () {
     Route::get('/hod/thesis/view-pdf/{file}', [HoDThesisController::class, 'viewPDF'])->name('hod.thesis.view-pdf');
     Route::delete('/hod/thesis/destroy/{thesis}', [HoDThesisController::class, 'destroy'])->name('hod.thesis.destroy');
     Route::get('/hod/thesis/my-theses', [HoDThesisController::class, 'myTheses'])->name('hod.thesis.my-theses');
+    Route::get('/hod/thesis/search', [HoDThesisController::class, 'search'])->name('hod.thesis.search');
 
     // Thesis Requests Routes
     Route::get('/hod/thesis-requests/index', [HoDThesisRequestsController::class, 'index'])->name('hod.thesis_requests.index');
@@ -111,17 +98,11 @@ Route::middleware(['auth', 'role:hod'])->group(function () {
     Route::get('/hod/thesis-requests/view-pdf/{file}', [HoDThesisRequestsController::class, 'viewRequestPDF'])->name('hod.thesis_requests.view-request-pdf');
     Route::post('/hod/thesis-requests/approve/{thesisRequest}', [HoDThesisRequestsController::class, 'approveRequest'])->name('hod.thesis_requests.approve');
     Route::post('/hod/thesis-requests/reject/{thesisRequest}', [HoDThesisRequestsController::class, 'rejectRequest'])->name('hod.thesis_requests.reject');
->>>>>>> Stashed changes
 });
 
 // student routes
 Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/dashboard', [StudentController::class, 'index'])->name('student.dashboard');
-<<<<<<< Updated upstream
-});
-
-
-=======
 
     // thesis routes
     Route::get('/student/thesis', [StudentThesisController::class, 'index'])->name('student.thesis.index');
@@ -141,5 +122,4 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/thesis-requests/view-request-pdf/{file}', [StudentThesisRequestsController::class, 'viewRequestPDF'])->name('student.thesis_requests.view-request-pdf');
 });
 
->>>>>>> Stashed changes
 require __DIR__ . '/auth.php';
