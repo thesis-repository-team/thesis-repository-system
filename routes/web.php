@@ -15,8 +15,6 @@ use App\Http\Controllers\HoD\ThesisRequestsController as HoDThesisRequestsContro
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Student\ThesisController as StudentThesisController;
 use App\Http\Controllers\Student\ThesisRequestsController as StudentThesisRequestsController;
-
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -113,13 +111,12 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/thesis/edit/{thesis}', [StudentThesisController::class, 'edit'])->name('student.thesis.edit');
     Route::put('/student/thesis/update/{thesis}', [StudentThesisController::class, 'update'])->name('student.thesis.update');
     Route::delete('/student/thesis/destroy/{thesis}', [StudentThesisController::class, 'destroy'])->name('student.thesis.destroy');
-
-    // thesis requests routes
+    Route::get('/student/thesis/search', [StudentThesisController::class, 'search'])->name('student.thesis.search');
     Route::get('/student/thesis-requests/index', [StudentThesisRequestsController::class, 'index'])->name('student.thesis_requests.index');
-    Route::get('/student/thesis-requests/show/{thesisRequest}', [StudentThesisRequestsController::class, 'show'])->name('student.thesis_requests.show');
     Route::get('/student/thesis-requests/create', [StudentThesisRequestsController::class, 'create'])->name('student.thesis_requests.create');
     Route::post('/student/thesis-requests/store', [StudentThesisRequestsController::class, 'store'])->name('student.thesis_requests.store');
-    Route::get('/student/thesis-requests/view-request-pdf/{file}', [StudentThesisRequestsController::class, 'viewRequestPDF'])->name('student.thesis_requests.view-request-pdf');
+    Route::get('/student/thesis-requests/show/{thesisRequest}', [StudentThesisRequestsController::class, 'show'])->name('student.thesis_requests.show');
+    Route::get('/student/thesis-requests/view-pdf/{file}', [StudentThesisRequestsController::class, 'viewRequestPDF'])->name('student.thesis_requests.view-request-pdf');
 });
 
 require __DIR__ . '/auth.php';

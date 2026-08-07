@@ -8,10 +8,11 @@
             {{-- Department Filter --}}
             <select class="form-select w-25" id="departmentFilter" name="department">
                 <option value="">All Departments</option>
-                <option value="Information Technology">Information Technology</option>
-                <option value="Software Engineering">Software Engineering</option>
-                <option value="Mathematics">Mathematics</option>
-                <option value="Physics">Physics</option>
+                @foreach ($departments as $department)
+                    <option value="{{ $department->name }}">
+                        {{ $department->name }}
+                    </option>
+                @endforeach
             </select>
 
             {{-- Year Filter --}}
@@ -21,6 +22,15 @@
                 <option value="2025">2025</option>
                 <option value="2024">2024</option>
             </select>
+<<<<<<< Updated upstream
+=======
+            
+            {{-- Reset Button --}}
+            <button type="button" id="resetFilter" class="btn btn-secondary">
+                <i class="bi bi-arrow-counterclockwise me-1"></i>
+                Reset
+            </button>
+>>>>>>> Stashed changes
 
             <a href="{{ route('admin.hods.create') }}" class="btn btn-primary">
                 + Add HoD
@@ -57,6 +67,7 @@
         </div>
     </div>
 
+<<<<<<< Updated upstream
 
     {{-- <script>
         document.getElementById('search').addEventListener('input', function() {
@@ -72,6 +83,8 @@
         });
     </script> --}}
 
+=======
+>>>>>>> Stashed changes
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -103,7 +116,11 @@
                 document.getElementById('departmentFilter').value = "";
                 document.getElementById('yearFilter').value = "";
 
+<<<<<<< Updated upstream
                 loadData(); 
+=======
+                loadData();
+>>>>>>> Stashed changes
             });
 
         });

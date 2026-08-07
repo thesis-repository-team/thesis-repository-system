@@ -4,7 +4,7 @@
             <h2 class="fw-bold text-dark m-0"> Thesis Upload Requests from Students </h2>
         </div>
     </x-slot>
-    <div class="container mt-5">
+    <div class="container mt-6">
         @if (session('error'))
             <div class="alert alert-danger"> {{ session('error') }} </div>
         @endif

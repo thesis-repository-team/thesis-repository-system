@@ -13,8 +13,14 @@ class HoDController extends Controller
     public function index()
     {
         $hods = HoD::all();
+<<<<<<< Updated upstream
 
         return view('admin.hods.index', compact('hods'));
+=======
+        $departments = Department::all();
+
+        return view('admin.hods.index', compact('hods', 'departments'));
+>>>>>>> Stashed changes
     }
 
     public function create()

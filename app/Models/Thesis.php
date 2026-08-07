@@ -53,3 +53,4 @@ class Thesis extends Model
         return $this->belongsTo(User::class);
     }
 }
+
