@@ -1,8 +1,7 @@
 <x-app-layout>
 
-    <div class="container mt-4">
-
-        <form action="{{ route('student.thesis.index') }}" method="GET" class="mb-3 d-flex gap-3">
+    <div class="container mt-3">
+        <form action="{{ route('student.thesis.index') }}" method="GET" class="mb-3 d-flex gap-2">
 
             {{-- Search --}}
             <input type="text" id="search" name="search" class="form-control w-25"
@@ -33,6 +32,11 @@
                 Reset
             </button>
 
+            <div class="d-flex justify-content-between align-items-center mb">
+                @if (auth()->user()->student && auth()->user()->student->upload_permission)
+                    <a href="{{ route('student.thesis.create') }}" class="btn btn-primary"> + Request Upload Thesis </a>
+                @endif
+            </div>
         </form>
 
         <div class="card shadow">
@@ -90,11 +94,7 @@
                 document.getElementById('departmentFilter').value = "";
                 document.getElementById('yearFilter').value = "";
 
-<<<<<<< Updated upstream
                 loadData(); 
-=======
-                loadData();
->>>>>>> Stashed changes
             });
 
         });
