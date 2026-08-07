@@ -15,8 +15,9 @@ class ThesisController extends Controller
     public function index()
     {
         $theses = Thesis::with('files')->get();
+        $departments = Department::all();
 
-        return view('hod.thesis.index', compact('theses'));
+        return view('hod.thesis.index', compact('theses', 'departments'));
     }
 
     public function create()
@@ -170,6 +171,7 @@ class ThesisController extends Controller
 
         return view('hod.thesis.my-theses', compact('theses'));
     }
+<<<<<<< Updated upstream
 
     //Add a search function to search for theses by title, author_name, or department name
     public function search(Request $request)
@@ -193,4 +195,41 @@ class ThesisController extends Controller
     }
    
 }
+=======
+>>>>>>> Stashed changes
 
+    // Add a search function to search for theses by title, author_name, or department name
+    public function search(Request $request)
+    {
+        $search = $request->search;
+
+        $query = Thesis::with(['user', 'department']);
+
+        // Search
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('author_name', 'like', "%{$search}%")
+                    ->orWhereHas('department', function ($d) use ($search) {
+                        $d->where('name', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        // Department filter
+        if ($request->filled('department')) {
+            $query->whereHas('department', function ($q) use ($request) {
+                $q->where('name', $request->department);
+            });
+        }
+
+        // Year filter
+        if ($request->filled('year')) {
+            $query->whereYear('published_at', $request->year);
+        }
+
+        $theses = $query->get();
+
+        return view('hod.thesis.table', compact('theses'));
+    }
+}
