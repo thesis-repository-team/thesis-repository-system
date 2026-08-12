@@ -27,7 +27,8 @@ class ThesisRequestsController extends Controller
 
     public function show(ThesisRequest $thesisRequest)
     {
-        return view('admin.thesis_requests.show', compact('thesisRequest'));
+        $thesis = Thesis::all()->where('id',$thesisRequest->thesis_id)->first();
+        return view('admin.thesis_requests.show', compact('thesisRequest','thesis'));
     }
 
     public function viewRequestPDF(ThesisRequest $file)
