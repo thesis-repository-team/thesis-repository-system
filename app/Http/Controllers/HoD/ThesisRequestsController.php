@@ -25,6 +25,7 @@ class ThesisRequestsController extends Controller
 
     public function show(ThesisRequest $thesisRequest)
     {
+        $thesis = Thesis::all()->where('id',$thesisRequest->thesis_id)->first();
         return view('hod.thesis_requests.show', compact('thesisRequest'));
     }
 
@@ -65,6 +66,9 @@ class ThesisRequestsController extends Controller
         $request->thesis_id = $thesis->id;
         $request->save();
 
+        // Notify the student
+        $student = User::find($request->submitted_by);
+
         session()->flash('request_approved', "Your thesis request '{$request->title}' has been approved!");
 
         return redirect()->route('hod.dashboard')->with('success', 'Request approved and thesis created.');
@@ -76,6 +80,9 @@ class ThesisRequestsController extends Controller
         $request = ThesisRequest::findOrFail($thesisRequest->id);
         $request->status = 'rejected';
         $request->save();
+
+        // Notify the student
+        $student = User::find($request->submitted_by);
 
         return redirect()->route('hod.dashboard')->with('error', 'Request rejected.');
     }

@@ -1,4 +1,4 @@
-<x-app-layout> 
+<x-app-layout>
     <div class="container mt-5">
         @if (session('error'))
             <div class="alert alert-danger"> {{ session('error') }} </div>
@@ -14,7 +14,7 @@
                             </p>
                             <p class="mb-1"><strong>Submitted By:</strong> {{ $thesisRequest->user->username }}</p>
                             <p class="mb-1"><strong>Verified By (HoD):</strong>
-                                {{ $thesisRequest->submittedBy->full_name ?? 'N/A' }}</p>
+                                {{ $thesis->publishedBy->hod->full_name?? 'N/A' }}</p>
                             </p>
                             <p class="mb-1"><strong>Submission Date:</strong> {{ $thesisRequest->submitted_at }}
                             </p> <br>
@@ -40,18 +40,19 @@
         @endif
 
         @if ($thesisRequest && $thesisRequest->status === 'pending')
-        <div class="d-flex gap-2">
-            <form action="{{ route('admin.thesis_requests.approve', $thesisRequest->id) }}" method="POST" class="w-100">
-                @csrf
-                <button class="btn btn-success w-100 btn-sm">Approve</button>
-            </form>
+            <div class="d-flex gap-2">
+                <form action="{{ route('admin.thesis_requests.approve', $thesisRequest->id) }}" method="POST"
+                    class="w-100">
+                    @csrf
+                    <button class="btn btn-success w-100 btn-sm">Approve</button>
+                </form>
 
-            <form action="{{ route('admin.thesis_requests.reject', $thesisRequest->id) }}" method="POST" class="w-100">
-                @csrf
-                <button class="btn btn-danger w-100 btn-sm">Reject</button>
-            </form>
-        </div>
-
+                <form action="{{ route('admin.thesis_requests.reject', $thesisRequest->id) }}" method="POST"
+                    class="w-100">
+                    @csrf
+                    <button class="btn btn-danger w-100 btn-sm">Reject</button>
+                </form>
+            </div>
         @endif
     </div>
     <style>
