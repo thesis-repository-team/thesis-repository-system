@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Thesis;
+use App\Models\User;
 use App\Models\ThesisFile;
 use App\Models\ThesisRequest;
+use App\Notifications\ThesisRequestStatusUpdated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,7 +19,7 @@ class ThesisRequestsController extends Controller
         $thesisRequests = ThesisRequest::with([
             'user',
             'department',
-            'thesis.publishedBy'
+            'thesis.publishedBy',
         ])->latest()->get();
 
         return view('admin.thesis_requests.index', compact('thesisRequests'));
@@ -30,11 +32,11 @@ class ThesisRequestsController extends Controller
 
     public function viewRequestPDF(ThesisRequest $file)
     {
-        if (! \Illuminate\Support\Facades\Storage::disk('public')->exists($file->pdf_file)) {
+        if (! Storage::disk('public')->exists($file->pdf_file)) {
             return redirect()->back()->with('error', 'File not found.');
         }
 
-        return response()->file(storage_path('app/public/' . $file->pdf_file));
+        return response()->file(storage_path('app/public/'.$file->pdf_file));
     }
 
     // approve a request
@@ -65,6 +67,15 @@ class ThesisRequestsController extends Controller
         $request->thesis_id = $thesis->id;
         $request->save();
 
+        // Notify the student
+        $student = User::find($request->submitted_by);
+
+        if ($student) {
+            $student->notify(
+                new ThesisRequestStatusUpdated($request)
+            );
+        }
+
         session()->flash('request_approved', "Your thesis request '{$request->title}' has been approved!");
 
         return redirect()->route('admin.dashboard')->with('success', 'Request approved and thesis created.');
@@ -76,6 +87,15 @@ class ThesisRequestsController extends Controller
         $request = ThesisRequest::findOrFail($thesisRequest->id);
         $request->status = 'rejected';
         $request->save();
+
+        // Notify the student
+        $student = User::find($request->submitted_by);
+
+        if ($student) {
+            $student->notify(
+                new ThesisRequestStatusUpdated($request)
+            );
+        }
 
         return redirect()->route('admin.dashboard')->with('error', 'Request rejected.');
     }

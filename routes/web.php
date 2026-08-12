@@ -6,12 +6,11 @@ use App\Http\Controllers\Admin\HoDController as AdminHoDController;
 use App\Http\Controllers\Admin\StudentController as AdminStudentController;
 use App\Http\Controllers\Admin\ThesisController as AdminThesisController;
 use App\Http\Controllers\Admin\ThesisRequestsController as AdminThesisRequestsController;
-
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HoD\HoDController;
 use App\Http\Controllers\HoD\ThesisController as HoDThesisController;
 use App\Http\Controllers\HoD\ThesisRequestsController as HoDThesisRequestsController;
-
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Student\ThesisController as StudentThesisController;
 use App\Http\Controllers\Student\ThesisRequestsController as StudentThesisRequestsController;
@@ -31,10 +30,84 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/notifications', function () {
+        $user = auth()->user();
+
+        if ($user->role === 'student') {
+            return view('student.notifications.index');
+        }
+
+        if ($user->role === 'hod') {
+            return view('hod.notifications.index');
+        }
+
+        if ($user->role === 'admin') {
+            return view('admin.notifications.index');
+        }
+
+        abort(403);
+
+    })->middleware('auth')->name('notifications.index');
+
+    Route::post('/notifications/{notification}/read', function ($notification) {
+
+        $notification = auth()->user()
+            ->notifications()
+            ->findOrFail($notification);
+
+        $notification->markAsRead();
+
+        return back()->with('success', 'Notification marked as read.');
+
+    })->name('notifications.read');
+
+    Route::post('/notifications/read-all', function () {
+
+        auth()->user()
+            ->unreadNotifications
+            ->markAsRead();
+
+        return back()->with('success', 'All notifications marked as read.');
+
+    })->name('notifications.readAll');
+
+    Route::get('/notifications/{notification}/open', function ($notification) {
+
+        $notification = auth()->user()
+            ->notifications()
+            ->findOrFail($notification);
+
+        // Mark notification as read
+        $notification->markAsRead();
+
+        // Get thesis request ID
+        $requestId = $notification->data['thesis_request_id'];
+
+        // Admin
+        if (auth()->user()->role === 'admin') {
+            return redirect()->route(
+                'admin.thesis_requests.show',
+                $requestId
+            );
+        }
+
+        // HoD
+        if (auth()->user()->role === 'hod') {
+            return redirect()->route(
+                'hod.thesis_requests.show',
+                $requestId
+            );
+        }
+
+        return redirect()->back()
+            ->with('error', 'You are not authorized to view this request.');
+
+    })->middleware('auth')->name('notifications.open');
+
 });
 
-
-///// for /role/dashboard 
+// /// for /role/dashboard
 // admin routes
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -45,7 +118,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin/departments/update/{department}', [DepartmentController::class, 'update'])->name('admin.departments.update');
     Route::delete('/admin/departments/delete/{department}', [DepartmentController::class, 'destroy'])->name('admin.departments.destroy');
 
-    //HoD routes
+    // HoD routes
     Route::get('/admin/hods', [AdminHoDController::class, 'index'])->name('admin.hods.index');
     Route::get('/admin/hods/create', [AdminHoDController::class, 'create'])->name('admin.hods.create');
     Route::post('/admin/hods/store', [AdminHoDController::class, 'store'])->name('admin.hods.store');
@@ -58,11 +131,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/students', [AdminStudentController::class, 'index'])->name('admin.students.index');
     Route::get('/admin/students/edit/{student}', [AdminStudentController::class, 'edit'])->name('admin.students.edit');
     Route::put('/admin/students/update/{student}', [AdminStudentController::class, 'update'])->name('admin.students.update');
+    Route::get('/admin/students/search', [AdminStudentController::class, 'search'])->name('admin.students.search');
 
     // Thesis Routes
     Route::get('/admin/thesis/index', [AdminThesisController::class, 'index'])->name('admin.thesis.index');
     Route::get('/admin/thesis/view-pdf/{file}', [AdminThesisController::class, 'viewPDF'])->name('admin.thesis.view-pdf');
     Route::get('/admin/thesis/my-theses', [AdminThesisController::class, 'myTheses'])->name('admin.thesis.my-theses');
+    Route::get('/admin/thesis/search', [AdminThesisController::class, 'search'])->name('admin.thesis.search');
 
     // Thesis Requests Routes
     Route::get('/admin/thesis-requests/index', [AdminThesisRequestsController::class, 'index'])->name('admin.thesis_requests.index');
@@ -119,4 +194,4 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/thesis-requests/view-pdf/{file}', [StudentThesisRequestsController::class, 'viewRequestPDF'])->name('student.thesis_requests.view-request-pdf');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

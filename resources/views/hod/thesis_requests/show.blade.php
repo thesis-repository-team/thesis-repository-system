@@ -1,9 +1,5 @@
 <x-app-layout> 
-    <x-slot name="header">
-        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-            <h2 class="fw-bold text-dark m-0"> Thesis Upload Requests from Students </h2>
-        </div>
-    </x-slot>
+
     <div class="container mt-6">
         @if (session('error'))
             <div class="alert alert-danger"> {{ session('error') }} </div>
@@ -31,7 +27,6 @@
                                     href="{{ route('hod.thesis_requests.view-request-pdf', $thesisRequest->id) }}"
                                     target="_blank" class="btn btn-sm mb-2 btn-outline-secondary me-2"> View PDF
                                 </a>
-                                <div class="d-flex gap-2"> {{-- <form action="{{ route('hod.requestsApprove', $thesisRequest->id) }}" method="POST" class="w-100"> @csrf <button class="btn btn-success w-100 btn-sm">Approve</button> </form> --}} {{-- <form action="{{ route('hod.requestsReject', $thesisRequest->id) }}" method="POST" class="w-100"> @csrf <button class="btn btn-danger w-100 btn-sm">Reject</button> </form> --}} </div>
                             </div>
                         </div>
                     </div>

@@ -34,10 +34,11 @@
 
             <div class="d-flex justify-content-between align-items-center mb">
                 @if (auth()->user()->student && auth()->user()->student->upload_permission)
-                    <a href="{{ route('student.thesis.create') }}" class="btn btn-primary"> + Request Upload Thesis </a>
+                    <a href="{{ route('student.thesis.create') }}" class="btn btn-primary"> + Request Upload </a>
                 @endif
             </div>
         </form>
+        
 
         <div class="card shadow">
             <div class="card-body table-responsive">

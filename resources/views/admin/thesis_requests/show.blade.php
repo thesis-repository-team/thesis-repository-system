@@ -1,9 +1,4 @@
 <x-app-layout> 
-    <x-slot name="header">
-        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-            <h2 class="fw-bold text-dark m-0"> Thesis Upload Requests from Students </h2>
-        </div>
-    </x-slot>
     <div class="container mt-5">
         @if (session('error'))
             <div class="alert alert-danger"> {{ session('error') }} </div>

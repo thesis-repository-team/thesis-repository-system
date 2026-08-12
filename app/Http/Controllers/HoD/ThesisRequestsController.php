@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\HoD;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\ThesisRequestStatusUpdated;
 use App\Models\Thesis;
 use App\Models\ThesisFile;
 use App\Models\ThesisRequest;

@@ -1,7 +1,7 @@
 <x-app-layout>
-    <div class="container py-4">
+    <div class="container py-3">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
 
             <input type="text" id="search" class="form-control w-25" placeholder="Search name, department, email...">
 
@@ -22,15 +22,12 @@
                 <option value="2025">2025</option>
                 <option value="2024">2024</option>
             </select>
-<<<<<<< Updated upstream
-=======
             
             {{-- Reset Button --}}
             <button type="button" id="resetFilter" class="btn btn-secondary">
                 <i class="bi bi-arrow-counterclockwise me-1"></i>
                 Reset
             </button>
->>>>>>> Stashed changes
 
             <a href="{{ route('admin.hods.create') }}" class="btn btn-primary">
                 + Add HoD
@@ -67,24 +64,6 @@
         </div>
     </div>
 
-<<<<<<< Updated upstream
-
-    {{-- <script>
-        document.getElementById('search').addEventListener('input', function() {
-
-            let search = this.value;
-
-            fetch("{{ route('admin.hods.search') }}?search=" + search)
-
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('hodTable').innerHTML = data;
-                });
-        });
-    </script> --}}
-
-=======
->>>>>>> Stashed changes
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -116,11 +95,7 @@
                 document.getElementById('departmentFilter').value = "";
                 document.getElementById('yearFilter').value = "";
 
-<<<<<<< Updated upstream
-                loadData(); 
-=======
                 loadData();
->>>>>>> Stashed changes
             });
 
         });
