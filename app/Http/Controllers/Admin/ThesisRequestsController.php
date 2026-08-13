@@ -27,8 +27,8 @@ class ThesisRequestsController extends Controller
 
     public function show(ThesisRequest $thesisRequest)
     {
-        $thesis = Thesis::all()->where('id',$thesisRequest->thesis_id)->first();
-        return view('admin.thesis_requests.show', compact('thesisRequest','thesis'));
+        $thesis = Thesis::with(['publishedBy.hod', 'submittedBy.student'])->findOrFail($thesisRequest->thesis_id);
+        return view('admin.thesis_requests.show', compact('thesisRequest', 'thesis'));
     }
 
     public function viewRequestPDF(ThesisRequest $file)
@@ -37,7 +37,7 @@ class ThesisRequestsController extends Controller
             return redirect()->back()->with('error', 'File not found.');
         }
 
-        return response()->file(storage_path('app/public/'.$file->pdf_file));
+        return response()->file(storage_path('app/public/' . $file->pdf_file));
     }
 
     // approve a request

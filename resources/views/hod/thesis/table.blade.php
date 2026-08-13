@@ -12,13 +12,16 @@
             {{ $thesis->published_at?->format('M d, Y h:i A') ?? 'Not Published' }}
         </td>
 
-        {{-- Update --}}
         <td>
             @if ($thesis->files->count())
-                @foreach ($thesis->files as $file)
+            @foreach ($thesis->files as $file)
                     <a href="{{ route('hod.thesis.view-pdf', $file) }}" target="_blank"
                         class="btn btn-success btn-sm mb-1">
                         View PDF
+                    </a>
+
+                    <a href="{{ route('hod.thesis.download', $file) }}" class="btn btn-primary btn-sm mb-1">
+                        Download PDF
                     </a>
                 @endforeach
             @else

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Department;
 use App\Models\Thesis;
 use App\Models\ThesisFile;
+use Illuminate\Support\Facades\Storage;
 
 class ThesisController extends Controller
 {
@@ -15,17 +16,20 @@ class ThesisController extends Controller
     {
         $theses = Thesis::latest()->get();
         $departments = Department::all();
-        
+
         return view('admin.thesis.index', compact('theses', 'departments'));
     }
 
+
     public function viewPDF(ThesisFile $file)
     {
-        if (! \Illuminate\Support\Facades\Storage::disk('public')->exists($file->file_path)) {
+        if (!Storage::disk('public')->exists($file->file_path)) {
             return redirect()->back()->with('error', 'File not found.');
         }
 
-        return response()->file(storage_path('app/public/' . $file->file_path));
+        return response()->file(
+            storage_path('app/public/' . $file->file_path)
+        );
     }
 
     // Add a search function to search for theses by title, author_name, or department name
@@ -61,5 +65,25 @@ class ThesisController extends Controller
         $theses = $query->get();
 
         return view('admin.thesis.table', compact('theses'));
+    }
+
+    public function downloadPDF(ThesisFile $file)
+    {
+        $filePath = storage_path('app/public/' . $file->file_path);
+
+        if (!file_exists($filePath)) {
+            return back()->with('error', 'PDF file not found.');
+        }
+
+        $fileName = preg_replace(
+            '/[\/\\\\:*?"<>|]/',
+            '-',
+            $file->thesis->title
+        ) . '.pdf';
+
+        return response()->download(
+            $filePath,
+            $fileName
+        );
     }
 }

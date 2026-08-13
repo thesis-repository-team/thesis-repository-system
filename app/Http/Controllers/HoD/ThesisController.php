@@ -132,11 +132,13 @@ class ThesisController extends Controller
 
     public function viewPDF(ThesisFile $file)
     {
-        if (! Storage::disk('public')->exists($file->file_path)) {
+        if (!Storage::disk('public')->exists($file->file_path)) {
             return redirect()->back()->with('error', 'File not found.');
         }
 
-        return response()->file(storage_path('app/public/'.$file->file_path));
+        return response()->file(
+            storage_path('app/public/' . $file->file_path)
+        );
     }
 
     public function destroy(Thesis $thesis)
@@ -161,7 +163,6 @@ class ThesisController extends Controller
 
     public function myTheses()
     {
-
         $department_id = auth()->user()->hod->department_id;
 
         $theses = Thesis::where('department_id', $department_id)
@@ -205,5 +206,25 @@ class ThesisController extends Controller
         $theses = $query->get();
 
         return view('hod.thesis.table', compact('theses'));
+    }
+
+    public function downloadPDF(ThesisFile $file)
+    {
+        $filePath = storage_path('app/public/' . $file->file_path);
+
+        if (!file_exists($filePath)) {
+            return back()->with('error', 'PDF file not found.');
+        }
+
+        $fileName = preg_replace(
+            '/[\/\\\\:*?"<>|]/',
+            '-',
+            $file->thesis->title
+        ) . '.pdf';
+
+        return response()->download(
+            $filePath,
+            $fileName
+        );
     }
 }

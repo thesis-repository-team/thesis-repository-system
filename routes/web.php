@@ -47,7 +47,6 @@ Route::middleware('auth')->group(function () {
         }
 
         abort(403);
-
     })->middleware('auth')->name('notifications.index');
 
     Route::post('/notifications/{notification}/read', function ($notification) {
@@ -59,7 +58,6 @@ Route::middleware('auth')->group(function () {
         $notification->markAsRead();
 
         return back()->with('success', 'Notification marked as read.');
-
     })->name('notifications.read');
 
     Route::post('/notifications/read-all', function () {
@@ -69,7 +67,6 @@ Route::middleware('auth')->group(function () {
             ->markAsRead();
 
         return back()->with('success', 'All notifications marked as read.');
-
     })->name('notifications.readAll');
 
     Route::get('/notifications/{notification}/open', function ($notification) {
@@ -102,9 +99,7 @@ Route::middleware('auth')->group(function () {
 
         return redirect()->back()
             ->with('error', 'You are not authorized to view this request.');
-
     })->middleware('auth')->name('notifications.open');
-
 });
 
 // /// for /role/dashboard
@@ -138,6 +133,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/thesis/view-pdf/{file}', [AdminThesisController::class, 'viewPDF'])->name('admin.thesis.view-pdf');
     Route::get('/admin/thesis/my-theses', [AdminThesisController::class, 'myTheses'])->name('admin.thesis.my-theses');
     Route::get('/admin/thesis/search', [AdminThesisController::class, 'search'])->name('admin.thesis.search');
+    Route::get('/admin/thesis/download/{file}', [AdminThesisController::class, 'downloadPDF'])->name('admin.thesis.download');
+
 
     // Thesis Requests Routes
     Route::get('/admin/thesis-requests/index', [AdminThesisRequestsController::class, 'index'])->name('admin.thesis_requests.index');
@@ -164,6 +161,7 @@ Route::middleware(['auth', 'role:hod'])->group(function () {
     Route::delete('/hod/thesis/destroy/{thesis}', [HoDThesisController::class, 'destroy'])->name('hod.thesis.destroy');
     Route::get('/hod/thesis/my-theses', [HoDThesisController::class, 'myTheses'])->name('hod.thesis.my-theses');
     Route::get('/hod/thesis/search', [HoDThesisController::class, 'search'])->name('hod.thesis.search');
+    Route::get('/hod/thesis/download/{file}', [HoDThesisController::class, 'downloadPDF'])->name('hod.thesis.download');
 
     // Thesis Requests Routes
     Route::get('/hod/thesis-requests/index', [HoDThesisRequestsController::class, 'index'])->name('hod.thesis_requests.index');
@@ -181,11 +179,14 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/thesis', [StudentThesisController::class, 'index'])->name('student.thesis.index');
     Route::get('/student/thesis/view-pdf/{file}', [StudentThesisController::class, 'viewPDF'])->name('student.thesis.view-pdf');
     Route::get('/student/thesis/my-theses', [StudentThesisController::class, 'myTheses'])->name('student.thesis.my-theses');
-    Route::get('/student/thesis/create', [StudentThesisController::class, 'create'])->name('student.thesis.create');
-    Route::post('/student/thesis/store', [StudentThesisController::class, 'store'])->name('student.thesis.store');
-    Route::get('/student/thesis/edit/{thesis}', [StudentThesisController::class, 'edit'])->name('student.thesis.edit');
-    Route::put('/student/thesis/update/{thesis}', [StudentThesisController::class, 'update'])->name('student.thesis.update');
-    Route::delete('/student/thesis/destroy/{thesis}', [StudentThesisController::class, 'destroy'])->name('student.thesis.destroy');
+    Route::get('/student/thesis/download/{file}', [StudentThesisController::class, 'downloadPDF'])->name('student.thesis.download');
+    // Route::get('/student/thesis/create', [StudentThesisController::class, 'create'])->name('student.thesis.create');
+    // Route::post('/student/thesis/store', [StudentThesisController::class, 'store'])->name('student.thesis.store');
+    // Route::get('/student/thesis/edit/{thesis}', [StudentThesisController::class, 'edit'])->name('student.thesis.edit');
+    // Route::put('/student/thesis/update/{thesis}', [StudentThesisController::class, 'update'])->name('student.thesis.update');
+    // Route::delete('/student/thesis/destroy/{thesis}', [StudentThesisController::class, 'destroy'])->name('student.thesis.destroy');
+
+    // thesis requests routes
     Route::get('/student/thesis/search', [StudentThesisController::class, 'search'])->name('student.thesis.search');
     Route::get('/student/thesis-requests/index', [StudentThesisRequestsController::class, 'index'])->name('student.thesis_requests.index');
     Route::get('/student/thesis-requests/create', [StudentThesisRequestsController::class, 'create'])->name('student.thesis_requests.create');
@@ -194,4 +195,4 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/thesis-requests/view-pdf/{file}', [StudentThesisRequestsController::class, 'viewRequestPDF'])->name('student.thesis_requests.view-request-pdf');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

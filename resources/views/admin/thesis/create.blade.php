@@ -1,15 +1,14 @@
-{{-- <x-app-layout>
+<x-app-layout>
     <div class="container mt-4">
         <div class="card shadow">
             <div class="card-header bg-primary text-white">
                 <h3 class="mb-0">Add Thesis</h3>
             </div>
             <div class="card-body">
-                <form action="{{ route('student.thesis.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.thesis.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-
                     <div class="mb-3">
-                        <label class="form-label">
+                        <label class="form-label"> 
                             Title <span class="text-danger">*</span>
                         </label>
                         <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
@@ -55,6 +54,24 @@
                         @enderror
                     </div>
 
+                    {{-- Department --}}
+                    <div class="mb-3">
+                        <label class="form-label">Department</label>
+                        <select name="department_id" class="form-select @error('department_id') is-invalid @enderror" required>
+                            <option value="">Select Department</option>
+                            @foreach($departments as $department)
+                                <option value="{{ $department->id }}" {{ old('department_id') == $department->id ? 'selected' : '' }}>
+                                    {{ $department->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('department_id')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
                     <div class="mb-4">
                         <label class="form-label">
                             Thesis File(s)
@@ -82,7 +99,7 @@
                         <button type="submit" class="btn btn-success">
                             Save Thesis
                         </button>
-                        <a href="{{ route('student.thesis.index') }}" class="btn btn-secondary">
+                        <a href="{{ route('admin.thesis.index') }}" class="btn btn-secondary">
                             Cancel
                         </a>
                     </div>
@@ -93,4 +110,3 @@
 </x-app-layout>
 
 
- --}}

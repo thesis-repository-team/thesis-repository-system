@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class ThesisRequestsController extends Controller
 {
     //
-     public function index()
+    public function index()
     {
         $thesisRequests = ThesisRequest::with([
             'user',
@@ -25,8 +25,8 @@ class ThesisRequestsController extends Controller
 
     public function show(ThesisRequest $thesisRequest)
     {
-        $thesis = Thesis::all()->where('id',$thesisRequest->thesis_id)->first();
-        return view('hod.thesis_requests.show', compact('thesisRequest'));
+        $thesis = Thesis::with(['publishedBy.hod', 'submittedBy.student'])->findOrFail($thesisRequest->thesis_id);
+        return view('hod.thesis_requests.show', compact('thesisRequest', 'thesis'));
     }
 
     public function viewRequestPDF(ThesisRequest $file)

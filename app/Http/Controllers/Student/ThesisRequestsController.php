@@ -16,9 +16,9 @@ class ThesisRequestsController extends Controller
 {
     public function index()
     {
-        if (! auth()->user()->student->upload_permission) {
-            return redirect()->route('student.thesis.index')->with('error', 'You do not have permission to upload a thesis request. Please contact your Head of Department.');
-        }
+        // if (! auth()->user()->student->upload_permission) {
+        //     return redirect()->route('student.thesis.index')->with('error', 'You do not have permission to upload a thesis request. Please contact your Head of Department.');
+        // }
         $thesisRequests = ThesisRequest::where('submitted_by', auth()->id())->latest()->get();
 
         return view('student.thesis_requests.index', compact('thesisRequests'));
@@ -29,8 +29,8 @@ class ThesisRequestsController extends Controller
         if (! auth()->user()->student->upload_permission) {
             return redirect()->route('student.thesis.index')->with('error', 'You do not have permission to upload a thesis request. Please contact your Head of Department.');
         }
-
-        return view('student.thesis_requests.show', compact('thesisRequest'));
+        $thesis = Thesis::with(['publishedBy.hod', 'submittedBy.student'])->findOrFail($thesisRequest->thesis_id);
+        return view('student.thesis_requests.show', compact('thesisRequest', 'thesis'));
     }
 
     public function create()
@@ -110,6 +110,6 @@ class ThesisRequestsController extends Controller
             return redirect()->back()->with('error', 'File not found.');
         }
 
-        return response()->file(storage_path('app/public/'.$file->pdf_file));
+        return response()->file(storage_path('app/public/' . $file->pdf_file));
     }
 }
