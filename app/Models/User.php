@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     public function hod()
     {
-        return $this->hasOne(Hod::class);
+        return $this->hasOne(Hod::class,'user_id');
     }
 
     public function getNameAttribute()

@@ -8,6 +8,7 @@ class ThesisRequest extends Model
 {
     protected $fillable = [
         'author_name',
+        'approved_by',
         'submitted_by',
         'department_id',
         'thesis_id',
@@ -33,5 +34,10 @@ class ThesisRequest extends Model
     public function thesis()
     {
         return $this->belongsTo(Thesis::class);
+    }
+
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
     }
 }
