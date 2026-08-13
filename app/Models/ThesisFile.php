@@ -15,13 +15,23 @@ class ThesisFile extends Model
         'uploaded_at',
     ];
 
-    public function files()
-    {
-        return $this->hasMany(ThesisFile::class);
-    }
+
+    protected $casts = [
+        'uploaded_at' => 'datetime',
+    ];
 
     public function thesis()
     {
         return $this->belongsTo(Thesis::class);
     }
+    
+    // public function files()
+    // {
+    //     return $this->hasMany(ThesisFile::class);
+    // }
+
+    // public function thesis()
+    // {
+    //     return $this->belongsTo(Thesis::class);
+    // }
 }

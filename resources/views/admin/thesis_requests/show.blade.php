@@ -14,7 +14,7 @@
                             </p>
                             <p class="mb-1"><strong>Submitted By:</strong> {{ $thesisRequest->user->username }}</p>
                             <p class="mb-1"><strong>Verified By (HoD):</strong>
-                                {{ $thesis->publishedBy->hod->full_name?? 'N/A' }}</p>
+                                {{ $thesis->publishedBy->name?? 'N/A' }}</p>
                             </p>
                             <p class="mb-1"><strong>Submission Date:</strong> {{ $thesisRequest->submitted_at }}
                             </p> <br>

@@ -20,7 +20,6 @@
             {{-- Year Filter --}}
             <select class="form-select w-25" id="yearFilter" name="year">
                 <option value="">All Years</option>
-                {{-- // Year options can be dynamically generated based on the available years in the database need to change --}}
                 <option value="2026">2026</option>
                 <option value="2025">2025</option>
                 <option value="2024">2024</option>
@@ -31,12 +30,6 @@
                 <i class="bi bi-arrow-counterclockwise me-1"></i>
                 Reset
             </button>
-
-            <div class="d-flex justify-content-between align-items-center mb">
-                @if (auth()->user()->student && auth()->user()->student->upload_permission)
-                    <a href="{{ route('student.thesis.create') }}" class="btn btn-primary"> + Request Upload </a>
-                @endif
-            </div>
         </form>
         
 
@@ -97,9 +90,6 @@
 
                 loadData(); 
             });
-
         });
     </script>
-
-
 </x-app-layout>

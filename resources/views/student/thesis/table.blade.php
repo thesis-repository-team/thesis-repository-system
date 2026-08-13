@@ -20,6 +20,10 @@
                         class="btn btn-success btn-sm mb-1">
                         View PDF
                     </a>
+
+                    <a href="{{ route('student.thesis.download', $file) }}" class="btn btn-primary btn-sm mb-1">
+                        Download PDF
+                    </a>
                 @endforeach
             @else
                 <span class="text-muted">No PDF</span>

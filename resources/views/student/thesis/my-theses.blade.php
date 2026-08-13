@@ -3,10 +3,6 @@
 
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>My Theses</h2>
-
-            @if (auth()->user()->student && auth()->user()->student->upload_permission)
-                <a href="{{ route('student.thesis.create') }}" class="btn btn-primary"> Request Upload </a>
-            @endif
         </div>
 
         @if (session('success'))
@@ -31,7 +27,7 @@
                             <th>Author</th>
                             <th>Files</th>
                             <th>Published</th>
-                            <th width="220">Actions</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
 
@@ -72,20 +68,7 @@
                                 </td>
 
                                 <td>
-                                    <a href="{{ route('student.thesis.edit', $thesis) }}"
-                                        class="btn btn-warning btn-sm">
-                                        Edit
-                                    </a>
-
-                                    <form action="{{ route('student.thesis.destroy', $thesis) }}" method="POST"
-                                        class="d-inline" onsubmit="return confirm('Delete this thesis?')">
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button class="btn btn-danger btn-sm">
-                                            Delete
-                                        </button>
-                                    </form>
+                                    
                                 </td>
                             </tr>
                         @endforeach
