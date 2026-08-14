@@ -131,6 +131,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Thesis Routes
     Route::get('/admin/thesis/index', [AdminThesisController::class, 'index'])->name('admin.thesis.index');
     Route::get('/admin/thesis/view-pdf/{file}', [AdminThesisController::class, 'viewPDF'])->name('admin.thesis.view-pdf');
+    Route::get('/admin/thesis/create', [AdminThesisController::class, 'create'])->name('admin.thesis.create');
+    Route::post('/admin/thesis/store', [AdminThesisController::class, 'store'])->name('admin.thesis.store');
+    Route::get('/admin/thesis/edit/{thesis}', [AdminThesisController::class, 'edit'])->name('admin.thesis.edit');
+    Route::put('/admin/thesis/update/{thesis}', [AdminThesisController::class, 'update'])->name('admin.thesis.update');
+    Route::delete('/admin/thesis/destroy/{thesis}', [AdminThesisController::class, 'destroy'])->name('admin.thesis.destroy');
     Route::get('/admin/thesis/my-theses', [AdminThesisController::class, 'myTheses'])->name('admin.thesis.my-theses');
     Route::get('/admin/thesis/search', [AdminThesisController::class, 'search'])->name('admin.thesis.search');
     Route::get('/admin/thesis/download/{file}', [AdminThesisController::class, 'downloadPDF'])->name('admin.thesis.download');
@@ -141,7 +146,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/thesis-requests/show/{thesisRequest}', [AdminThesisRequestsController::class, 'show'])->name('admin.thesis_requests.show');
     Route::get('/admin/thesis-requests/view-pdf/{file}', [AdminThesisRequestsController::class, 'viewRequestPDF'])->name('admin.thesis_requests.view-request-pdf');
     Route::post('/admin/thesis-requests/approve/{thesisRequest}', [AdminThesisRequestsController::class, 'approveRequest'])->name('admin.thesis_requests.approve');
-    Route::post('/admin/thesis-requests/reject/{thesisRequest}', [AdminThesisRequestsController::class, 'rejectRequest'])->name('admin.thesis_requests.reject');
+    // Route::post('/admin/thesis-requests/reject/{thesisRequest}', [AdminThesisRequestsController::class, 'rejectRequest'])->name('admin.thesis_requests.reject');
+    Route::put('/admin/thesis-requests/{thesisRequest}/reject', [AdminThesisRequestsController::class, 'rejectRequest'])->name('admin.thesis_requests.reject');
 });
 /*
 |--------------------------------------------------------------------------
@@ -168,7 +174,8 @@ Route::middleware(['auth', 'role:hod'])->group(function () {
     Route::get('/hod/thesis-requests/show/{thesisRequest}', [HoDThesisRequestsController::class, 'show'])->name('hod.thesis_requests.show');
     Route::get('/hod/thesis-requests/view-pdf/{file}', [HoDThesisRequestsController::class, 'viewRequestPDF'])->name('hod.thesis_requests.view-request-pdf');
     Route::post('/hod/thesis-requests/approve/{thesisRequest}', [HoDThesisRequestsController::class, 'approveRequest'])->name('hod.thesis_requests.approve');
-    Route::post('/hod/thesis-requests/reject/{thesisRequest}', [HoDThesisRequestsController::class, 'rejectRequest'])->name('hod.thesis_requests.reject');
+    // Route::post('/hod/thesis-requests/reject/{thesisRequest}', [HoDThesisRequestsController::class, 'rejectRequest'])->name('hod.thesis_requests.reject');
+    Route::put('/hod/thesis-requests/{thesisRequest}/reject', [HodThesisRequestsController::class, 'rejectRequest'])->name('hod.thesis_requests.reject');
 });
 
 // student routes
@@ -180,6 +187,8 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/student/thesis/view-pdf/{file}', [StudentThesisController::class, 'viewPDF'])->name('student.thesis.view-pdf');
     Route::get('/student/thesis/my-theses', [StudentThesisController::class, 'myTheses'])->name('student.thesis.my-theses');
     Route::get('/student/thesis/download/{file}', [StudentThesisController::class, 'downloadPDF'])->name('student.thesis.download');
+
+
     // Route::get('/student/thesis/create', [StudentThesisController::class, 'create'])->name('student.thesis.create');
     // Route::post('/student/thesis/store', [StudentThesisController::class, 'store'])->name('student.thesis.store');
     // Route::get('/student/thesis/edit/{thesis}', [StudentThesisController::class, 'edit'])->name('student.thesis.edit');

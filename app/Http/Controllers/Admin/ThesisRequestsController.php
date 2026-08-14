@@ -27,10 +27,17 @@ class ThesisRequestsController extends Controller
 
     public function show(ThesisRequest $thesisRequest)
     {
-        $thesis = Thesis::with(['publishedBy.hod', 'submittedBy.student'])->findOrFail($thesisRequest->thesis_id);
+        $thesis = null;
+
+        if ($thesisRequest->thesis_id) {
+            $thesis = Thesis::with([
+                'publishedBy.hod',
+                'submittedBy.student'
+            ])->find($thesisRequest->thesis_id);
+        }
+
         return view('admin.thesis_requests.show', compact('thesisRequest', 'thesis'));
     }
-
     public function viewRequestPDF(ThesisRequest $file)
     {
         if (! Storage::disk('public')->exists($file->pdf_file)) {
@@ -57,8 +64,8 @@ class ThesisRequestsController extends Controller
         ]);
 
         ThesisFile::create([
-            'thesis_id' => $thesis->id, // get the id of the thesis record we just created
-            'file_name' => $request->pdf_file,
+            'thesis_id' => $thesis->id,
+            'file_name' => $thesis->title . '.pdf',
             'file_type' => 'pdf',
             'file_path' => $request->pdf_file,
             'uploaded_at' => now(),
@@ -66,6 +73,8 @@ class ThesisRequestsController extends Controller
 
         $request->status = 'approved';
         $request->thesis_id = $thesis->id;
+        $request->reviewed_by = auth()->id();
+        $request->reviewed_at = now();
         $request->save();
 
         // Notify the student
@@ -82,20 +91,22 @@ class ThesisRequestsController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'Request approved and thesis created.');
     }
 
-    // reject a request
-    public function rejectRequest(ThesisRequest $thesisRequest)
+    public function rejectRequest(Request $request, ThesisRequest $thesisRequest)
     {
-        $request = ThesisRequest::findOrFail($thesisRequest->id);
-        $request->status = 'rejected';
-        $request->save();
+        $request->validate([
+            'remarks' => 'required|string|max:5000',
+        ]);
 
-        // Notify the student
-        $student = User::find($request->submitted_by);
+        $thesisRequest->status = 'rejected';
+        $thesisRequest->remarks = $request->remarks;
+        $thesisRequest->reviewed_by = auth()->id();
+        $thesisRequest->reviewed_at = now();
+        $thesisRequest->save();
+
+        $student = User::find($thesisRequest->submitted_by);
 
         if ($student) {
-            $student->notify(
-                new ThesisRequestStatusUpdated($request)
-            );
+            $student->notify(new ThesisRequestStatusUpdated($thesisRequest));
         }
 
         return redirect()->route('admin.dashboard')->with('error', 'Request rejected.');

@@ -27,9 +27,9 @@
                 Reset
             </button>
 
-                {{-- <a href="{{ route('admin.thesis.create') }}" class="btn btn-primary">
+                <a href="{{ route('admin.thesis.create') }}" class="btn btn-primary">
                     + Add Thesis
-                </a> --}}
+                </a>
         </div>
 
 

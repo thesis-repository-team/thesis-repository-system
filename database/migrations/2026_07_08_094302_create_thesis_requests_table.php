@@ -22,8 +22,10 @@ return new class extends Migration
             $table->text('description');
             $table->string('pdf_file')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->foreignId('reviewed_by')->nullable()->constrained('users')->nullOnDelete();
             $table->text('remarks')->nullable();
             $table->timestamp('submitted_at');
+            $table->timestamp('reviewed_at')->nullable();
             $table->timestamps();
         });
     }

@@ -57,7 +57,7 @@ class ThesisController extends Controller
                 $path = $file->store('thesis_files', 'public');
                 ThesisFile::create([
                     'thesis_id' => $thesis->id,
-                    'file_name' => $file->getClientOriginalName(),
+                    'file_name' => $thesis->title . '.pdf',
                     'file_type' => $file->getClientOriginalExtension(),
                     'file_path' => $path,
                     'uploaded_at' => now(),
@@ -118,7 +118,7 @@ class ThesisController extends Controller
                     $path = $file->store('thesis_files', 'public');
                     ThesisFile::create([
                         'thesis_id' => $thesis->id,
-                        'file_name' => $file->getClientOriginalName(),
+                        'file_name' => $thesis->title . '.pdf',
                         'file_type' => $file->getClientOriginalExtension(),
                         'file_path' => $path,
                         'uploaded_at' => now(),

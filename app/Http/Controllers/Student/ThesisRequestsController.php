@@ -16,9 +16,6 @@ class ThesisRequestsController extends Controller
 {
     public function index()
     {
-        // if (! auth()->user()->student->upload_permission) {
-        //     return redirect()->route('student.thesis.index')->with('error', 'You do not have permission to upload a thesis request. Please contact your Head of Department.');
-        // }
         $thesisRequests = ThesisRequest::where('submitted_by', auth()->id())->latest()->get();
 
         return view('student.thesis_requests.index', compact('thesisRequests'));
@@ -26,18 +23,24 @@ class ThesisRequestsController extends Controller
 
     public function show(ThesisRequest $thesisRequest)
     {
-        if (! auth()->user()->student->upload_permission) {
-            return redirect()->route('student.thesis.index')->with('error', 'You do not have permission to upload a thesis request. Please contact your Head of Department.');
+        // Make sure the logged-in student owns this request
+        if ($thesisRequest->submitted_by !== auth()->id()) {
+            abort(403);
         }
-        $thesis = Thesis::with(['publishedBy.hod', 'submittedBy.student'])->findOrFail($thesisRequest->thesis_id);
+
+        $thesis = null;
+
+        if ($thesisRequest->thesis_id) {
+            $thesis = Thesis::with([
+                'publishedBy.hod',
+                'submittedBy.student'
+            ])->find($thesisRequest->thesis_id);
+        }
+
         return view('student.thesis_requests.show', compact('thesisRequest', 'thesis'));
     }
-
     public function create()
     {
-        // if(ThesisRequest::where('submitted_by', auth()->id())->where('status', 'pending')->exists()) {
-        //     return redirect()->route('student.thesis_requests.index')->with('error', 'You already have a pending thesis request. Please wait for it to be reviewed before submitting a new one.');
-        // }
         if (! auth()->user()->student->upload_permission) {
             return redirect()->route('student.thesis.index')->with('error', 'You do not have permission to upload a thesis request. Please contact your Head of Department.');
         }
