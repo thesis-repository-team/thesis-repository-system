@@ -18,19 +18,19 @@ class UserSeeder extends Seeder
         User::insert([
             [
                 'email' => 'admin@gmail.com',
-                'username' => 'admin',
+                'username' => 'Admin',
                 'password' => Hash::make('12345678'),
                 'role' => 'admin',
             ],
             [
                 'email' => 'hod@gmail.com',
-                'username' => 'hod',
+                'username' => 'Hod',
                 'password' => Hash::make('12345678'),
                 'role' => 'hod',
             ],
             [
                 'email' => 'student@gmail.com',
-                'username' => 'student',
+                'username' => 'Student',
                 'password' => Hash::make('12345678'),
                 'role' => 'student',
             ],

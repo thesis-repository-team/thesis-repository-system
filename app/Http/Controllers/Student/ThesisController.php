@@ -71,7 +71,6 @@ class ThesisController extends Controller
         return view('student.thesis.table', compact('theses'));
     }
 
-
     public function downloadPDF(ThesisFile $file)
     {
         $filePath = storage_path('app/public/' . $file->file_path);

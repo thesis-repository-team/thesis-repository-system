@@ -321,6 +321,8 @@
                                                     </a>
                                                 @endif
                                             </td>
+                                            git status
+                                            
                                             {{-- <td>
                                             <a href="{{ route('thesis-requests.show', $thesisRequest->id) }}"
                                 class="btn btn-info btn-sm">
