@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Student\ThesisController as StudentThesisController;
 use App\Http\Controllers\Student\ThesisRequestsController as StudentThesisRequestsController;
+use Illuminate\Support\Facades\Route;
 
 // student routes
 Route::prefix('student')->name('student.')->middleware(['auth', 'role:student'])->group(function () {
@@ -23,4 +23,9 @@ Route::prefix('student')->name('student.')->middleware(['auth', 'role:student'])
     Route::post('/thesis-requests/store', [StudentThesisRequestsController::class, 'store'])->name('thesis_requests.store');
     Route::get('/thesis-requests/show/{thesisRequest}', [StudentThesisRequestsController::class, 'show'])->name('thesis_requests.show');
     Route::get('/thesis-requests/view-pdf/{file}', [StudentThesisRequestsController::class, 'viewRequestPDF'])->name('thesis_requests.view-request-pdf');
+
+    Route::get('/thesis/{thesisRequest}/rejected', [StudentThesisRequestsController::class, 'rejected'])->name('thesis_requests.rejected');
+
+    Route::put('/thesis/{thesisRequest}/resubmit', [StudentThesisRequestsController::class, 'resubmit'])->name('thesis_requests.resubmit');
+
 });

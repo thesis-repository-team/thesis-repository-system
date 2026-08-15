@@ -320,20 +320,7 @@
                                                         View PDF
                                                     </a>
                                                 @endif
-                                            </td>
-                                            git status
-                                            
-                                            {{-- <td>
-                                            <a href="{{ route('thesis-requests.show', $thesisRequest->id) }}"
-                                class="btn btn-info btn-sm">
-                                View
-                                </a>
-
-                                <a href="{{ route('thesis-requests.edit', $thesisRequest->id) }}"
-                                    class="btn btn-warning btn-sm">
-                                    Edit
-                                </a>
-                                </td> --}}
+                                                </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
