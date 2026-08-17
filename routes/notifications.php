@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
 
         // Get thesis request ID
         $requestId = $notification->data['thesis_request_id'];
-        $status = $notification->data['status'];
+        $status = $notification->data['status'] ?? 'null';
 
         // Admin
         if (auth()->user()->role === 'admin') {
