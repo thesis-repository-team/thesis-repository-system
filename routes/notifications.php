@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 
         // Get thesis request ID
         $requestId = $notification->data['thesis_request_id'];
+        $status = $notification->data['status'];
 
         // Admin
         if (auth()->user()->role === 'admin') {
@@ -56,6 +57,23 @@ Route::middleware('auth')->group(function () {
                 $requestId
             );
         }
+
+         if (auth()->user()->role === 'student') {
+
+            // Rejected → My Theses
+            if ($status === 'rejected') {
+                return redirect()->route('student.thesis.my-theses');
+            }
+
+            // Approved → Thesis Show
+            if ($status === 'approved') {
+                return redirect()->route(
+                    'student.thesis_requests.show',
+                    $requestId
+                );
+            }
+        }
+
 
         return redirect()->back()
             ->with('error', 'You are not authorized to view this request.');
