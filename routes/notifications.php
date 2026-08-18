@@ -62,7 +62,7 @@ Route::middleware('auth')->group(function () {
 
             // Rejected → My Theses
             if ($status === 'rejected') {
-                return redirect()->route('student.thesis.my-theses');
+                return redirect()->route('student.thesis_requests.rejected', $requestId);
             }
 
             // Approved → Thesis Show
@@ -74,8 +74,6 @@ Route::middleware('auth')->group(function () {
             }
         }
 
-
-        return redirect()->back()
-            ->with('error', 'You are not authorized to view this request.');
+        return redirect()->back()->with('error', 'You are not authorized to view this request.');
     })->middleware('auth')->name('notifications.open');
 });
