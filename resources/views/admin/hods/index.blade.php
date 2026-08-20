@@ -16,11 +16,13 @@
             </select>
 
             {{-- Year Filter --}}
-            <select class="form-select w-25" id="yearFilter" name="started_year">
-                <option value="">All Years</option>
-                <option value="2026">2026</option>
-                <option value="2025">2025</option>
-                <option value="2024">2024</option>
+            <select class="form-select w-25" id="yearFilter" name="year">
+                 <option value="">All Years</option>
+                @foreach ($started_year as $year)
+                    <option value="{{ $year }}">
+                        {{ $year }}
+                    </option>
+                @endforeach
             </select>
             
             {{-- Reset Button --}}

@@ -76,12 +76,7 @@
                     Resubmit Thesis
                 </h3>
 
-                <form
-                    action="{{ route(
-                        'student.thesis_requests.resubmit',
-                        $thesisRequest
-                    ) }}"
-                    method="POST"
+                <form action="{{ route('student.thesis_requests.resubmit', $thesisRequest) }}" method="POST"
                     enctype="multipart/form-data">
 
                     @csrf
@@ -93,11 +88,7 @@
                             Thesis Title
                         </label>
 
-                        <input
-                            type="text"
-                            name="title"
-                            value="{{ old('title', $thesisRequest->title) }}"
-                            required
+                        <input type="text" name="title" value="{{ old('title', $thesisRequest->title) }}" required
                             class="w-full border-gray-300 rounded-lg">
 
                         @error('title')
@@ -113,11 +104,8 @@
                             Author Name
                         </label>
 
-                        <input
-                            type="text"
-                            name="author_name"
-                            value="{{ old('author_name', $thesisRequest->author_name) }}"
-                            required
+                        <input type="text" name="author_name"
+                            value="{{ old('author_name', $thesisRequest->author_name) }}" required
                             class="w-full border-gray-300 rounded-lg">
 
                         @error('author_name')
@@ -133,11 +121,7 @@
                             Abstract
                         </label>
 
-                        <textarea
-                            name="abstract"
-                            rows="5"
-                            required
-                            class="w-full border-gray-300 rounded-lg">{{ old('abstract', $thesisRequest->abstract) }}</textarea>
+                        <textarea name="abstract" rows="5" required class="w-full border-gray-300 rounded-lg">{{ old('abstract', $thesisRequest->abstract) }}</textarea>
 
                         @error('abstract')
                             <p class="text-sm text-red-600 mt-1">
@@ -152,11 +136,7 @@
                             Description
                         </label>
 
-                        <textarea
-                            name="description"
-                            rows="5"
-                            required
-                            class="w-full border-gray-300 rounded-lg">{{ old('description', $thesisRequest->description) }}</textarea>
+                        <textarea name="description" rows="5" required class="w-full border-gray-300 rounded-lg">{{ old('description', $thesisRequest->description) }}</textarea>
 
                         @error('description')
                             <p class="text-sm text-red-600 mt-1">
@@ -165,7 +145,7 @@
                         @enderror
                     </div>
 
-                    {{-- PDF --}}
+                    {{-- PDF
                     <div class="mb-6">
                         <label class="block text-sm font-medium mb-2">
                             Corrected Thesis PDF
@@ -187,20 +167,73 @@
                                 {{ $message }}
                             </p>
                         @enderror
+                    </div> --}}
+
+                    {{-- Current Thesis PDF --}}
+                    <div class="mb-4">
+
+                        <label class="block text-sm font-medium mb-2">
+                            Current Thesis PDF
+                        </label>
+
+                        @if ($thesisRequest->pdf_file)
+                            <a href="{{ asset('storage/' . $thesisRequest->pdf_file) }}" target="_blank"
+                                class="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700">
+                                📄 {{ $thesisRequest->thesis_name }}
+                                <i class="fas fa-eye mr-1"></i>
+                                View PDF
+
+                            </a>
+                        @else
+                            <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                                <p class="text-sm text-yellow-700">
+                                    No current thesis PDF was found.
+                                </p>
+
+                            </div>
+                        @endif
+
+                    </div>
+
+
+                    {{-- Replace PDF --}}
+                    <div class="mb-6">
+
+                        <label class="block text-sm font-medium mb-2">
+                            Replace Thesis PDF
+                            <span class="text-gray-500 font-normal">
+                                (Optional)
+                            </span>
+                        </label>
+
+                        <input type="file" name="thesis_file" accept=".pdf"
+                            class="w-full border border-gray-300 rounded-lg p-2">
+
+                        <p class="text-xs text-gray-500 mt-1">
+                            Leave this empty if you want to keep the current PDF.
+                        </p>
+
+                        <p class="text-xs text-gray-500">
+                            Upload a new PDF only if you want to replace the current thesis.
+                        </p>
+
+                        @error('thesis_file')
+                            <p class="text-sm text-red-600 mt-1">
+                                {{ $message }}
+                            </p>
+                        @enderror
+
                     </div>
 
                     {{-- Buttons --}}
                     <div class="flex justify-between">
 
-                        <a
-                            href="{{ route('student.thesis_requests.index') }}"
+                        <a href="{{ route('student.thesis_requests.index') }}"
                             class="px-4 py-2 border rounded-lg text-gray-700">
                             Back
                         </a>
 
-                        <button
-                            type="submit"
-                            class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        <button type="submit" class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                             Resubmit Thesis
                         </button>
 

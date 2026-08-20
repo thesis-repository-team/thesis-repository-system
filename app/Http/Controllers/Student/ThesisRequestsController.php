@@ -194,7 +194,7 @@ class ThesisRequestsController extends Controller
 
             $thesisRequest->pdf_file = $pdfFilePath;
         }
-
+        
         // Change request back to pending
         $thesisRequest->update([
             'status' => 'pending',

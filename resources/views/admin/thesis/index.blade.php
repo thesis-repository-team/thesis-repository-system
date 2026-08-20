@@ -14,12 +14,24 @@
             </select>
 
             {{-- Year Filter --}}
-            <select class="form-select w-25" id="yearFilter" name="started_year">
+            <select class="form-select w-25" id="yearFilter" name="year">
                 <option value="">All Years</option>
-                <option value="2026">2026</option>
-                <option value="2025">2025</option>
-                <option value="2024">2024</option>
+                @foreach ($published_at as $year)
+                    <option value="{{ $year }}">
+                        {{ $year }}
+                    </option>
+                @endforeach
             </select>
+
+            {{-- <select id="keywordFilter" class="form-select" name="keyword_id">
+                <option value="">All Keywords</option>
+                @foreach ($keywords as $keyword)
+                    <option value="{{ $keyword->id }}">
+                        {{ $keyword->keyword_name }}
+                    </option>
+                @endforeach
+            </select> --}}
+
 
             {{-- Reset Button --}}
             <button type="button" id="resetFilter" class="btn btn-secondary">
@@ -27,9 +39,9 @@
                 Reset
             </button>
 
-                <a href="{{ route('admin.thesis.create') }}" class="btn btn-primary">
-                    + Add Thesis
-                </a>
+            <a href="{{ route('admin.thesis.create') }}" class="btn btn-primary">
+                + Add Thesis
+            </a>
         </div>
 
 
@@ -64,12 +76,14 @@
 
                 let search = document.getElementById('search').value;
                 let department = document.getElementById('departmentFilter').value;
+                // let keyword = document.getElementById('keywordFilter').value;
                 let year = document.getElementById('yearFilter').value;
 
                 fetch(
                         "{{ route('admin.thesis.search') }}" +
                         "?search=" + encodeURIComponent(search) +
                         "&department=" + encodeURIComponent(department) +
+                        // "&keyword_id=" + encodeURIComponent(department) +
                         "&year=" + encodeURIComponent(year)
                     )
                     .then(response => response.text())
@@ -82,10 +96,12 @@
             document.getElementById('search').addEventListener('input', loadData);
             document.getElementById('departmentFilter').addEventListener('change', loadData);
             document.getElementById('yearFilter').addEventListener('change', loadData);
+            // document.getElementById('keywordFilter').addEventListener('change', loadData);
             document.getElementById('resetFilter').addEventListener('click', function() {
 
                 document.getElementById('search').value = "";
                 document.getElementById('departmentFilter').value = "";
+                // document.getElementById('keywordFilter').value = "";
                 document.getElementById('yearFilter').value = "";
 
                 loadData();

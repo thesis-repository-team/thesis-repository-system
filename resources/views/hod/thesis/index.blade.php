@@ -20,10 +20,21 @@
             <select class="form-select w-25" id="yearFilter" name="year">
                 <option value="">All Years</option>
                 {{-- // Year options can be dynamically generated based on the available years in the database need to change --}}
-                <option value="2026">2026</option>
-                <option value="2025">2025</option>
-                <option value="2024">2024</option>
+                @foreach ($published_at as $published)
+                    <option value="{{ $published }}">
+                        {{ $published }}
+                    </option>
+                @endforeach
             </select>
+
+            {{-- <select id="keywordFilter" class="form-select" name="keyword_id">
+                <option value="">All Keywords</option>
+                @foreach ($keywords as $keyword)
+                    <option value="{{ $keyword->id }}">
+                        {{ $keyword->keyword_name }}
+                    </option>
+                @endforeach
+            </select> --}}
 
             {{-- Reset Button --}}
             <button type="button" id="resetFilter" class="btn btn-secondary">
@@ -82,12 +93,14 @@
 
                 let search = document.getElementById('search').value;
                 let department = document.getElementById('departmentFilter').value;
+                // let keyword = document.getElementById('keywordFilter').value;
                 let year = document.getElementById('yearFilter').value;
 
                 fetch(
                         "{{ route('hod.thesis.search') }}" +
                         "?search=" + encodeURIComponent(search) +
                         "&department=" + encodeURIComponent(department) +
+                        // "&keyword_id=" + encodeURIComponent(keyword) +
                         "&year=" + encodeURIComponent(year)
                     )
                     .then(response => response.text())
@@ -100,10 +113,12 @@
             document.getElementById('search').addEventListener('input', loadData);
             document.getElementById('departmentFilter').addEventListener('change', loadData);
             document.getElementById('yearFilter').addEventListener('change', loadData);
+            // document.getElementById('keywordFilter').addEventListener('change', loadData);
             document.getElementById('resetFilter').addEventListener('click', function() {
 
                 document.getElementById('search').value = "";
                 document.getElementById('departmentFilter').value = "";
+                document.getElementById('keywordFilter').value = "";
                 document.getElementById('yearFilter').value = "";
 
                 loadData();

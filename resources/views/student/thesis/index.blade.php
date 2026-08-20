@@ -20,9 +20,11 @@
             {{-- Year Filter --}}
             <select class="form-select w-25" id="yearFilter" name="year">
                 <option value="">All Years</option>
-                <option value="2026">2026</option>
-                <option value="2025">2025</option>
-                <option value="2024">2024</option>
+                @foreach ($published_at as $published)
+                    <option value="{{ $published }}">
+                        {{ $published }}
+                    </option>
+                @endforeach
             </select>
 
             {{-- Reset Button --}}
@@ -31,7 +33,7 @@
                 Reset
             </button>
         </form>
-        
+
 
         <div class="card shadow">
             <div class="card-body table-responsive">
@@ -64,6 +66,7 @@
 
                 let search = document.getElementById('search').value;
                 let department = document.getElementById('departmentFilter').value;
+                let keyword = document.getElementById('keywordFilter').value;
                 let year = document.getElementById('yearFilter').value;
 
                 fetch(
@@ -88,7 +91,7 @@
                 document.getElementById('departmentFilter').value = "";
                 document.getElementById('yearFilter').value = "";
 
-                loadData(); 
+                loadData();
             });
         });
     </script>
