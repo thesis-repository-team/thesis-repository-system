@@ -1,76 +1,151 @@
-
 <x-app-layout>
 
-    <div class="container py-4">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
+    <div class="container mt-4">
 
-                <!-- Page Header -->
-                {{-- <div class="d-flex justify-content-between align-items-center mb-4">
-                    <div>
-                        <h2 class="fw-bold text-dark mb-1">📜 Thesis View History</h2>
-                        <p class="text-muted mb-0">Track all the thesis documents you have opened and read.</p>
-                    </div>
-                    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm">
-                        ← Back
-                    </a>
-                </div> --}}
+        <h2 class="mb-4">
+            <i class="fas fa-history"></i>
+            View History
+        </h2>
 
-                <!-- History List Card -->
-                <div class="card shadow-sm border-0">
-                    <div class="card-body p-0">
+        <div class="card shadow">
+            <div class="card-body">
 
-                        @if ($history->isEmpty())
-                            <!-- Empty State -->
-                            <div class="text-center py-5">
-                                <div class="text-muted fs-1 mb-3">📂</div>
-                                <h5 class="text-secondary fw-semibold">No History Found</h5>
-                                <p class="text-muted small px-3">You haven't viewed any thesis documents yet. Start
-                                    searching and reading!</p>
-                            </div>
-                        @else
-                            <!-- History List Table/Group -->
-                            <div class="list-group list-group-flush">
-                                @foreach ($history as $item)
-                                    @if ($item->thesis)
-                                        <div
-                                            class="list-group-item list-group-item-action p-3 d-flex justify-content-between align-items-center">
-                                            <div class="me-3">
-                                                <!-- Thesis Title Link -->
-                                                <h6 class="mb-1 fw-bold text-primary">
-                                                    <a href="{{ route('student.thesis.history', $item->thesis->id) }}"
-                                                        class="text-decoration-none text-primary hover-underline">
-                                                        {{ $item->thesis->title }}
-                                                    </a>
-                                                </h6>
-                                                <!-- Abstract snippet or Author info -->
-                                                <p class="mb-1 text-muted small text-truncate"
-                                                    style="max-width: 600px;">
-                                                    {{ Str::limit($item->thesis->abstract ?? 'No abstract available.', 120) }}
-                                                </p>
-                                            </div>
+                @if ($histories->count())
 
-                                            <!-- Time Badge -->
-                                            <div class="text-end flex-shrink-0">
-                                                <span class="badge bg-light text-dark border p-2">
-                                                    ⏱️
-                                                    {{ $item->viewed_at ? \Carbon\Carbon::parse($item->viewed_at)->diffForHumans() : $item->created_at->diffForHumans() }}
-                                                </span>
-                                                <div class="text-muted extra-small mt-1" style="font-size: 0.75rem;">
-                                                    {{ $item->viewed_at ? \Carbon\Carbon::parse($item->viewed_at)->format('M d, Y h:i A') : $item->created_at->format('M d, Y') }}
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle">
+
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Thesis Title</th>
+                                    <th>Author</th>
+                                    <th>Viewed At</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @foreach ($histories as $history)
+                                    @if ($history->thesis)
+                                        <tr>
+
+                                            {{-- Number --}}
+                                            <td>
+                                                {{ $loop->iteration }}
+                                            </td>
+
+                                            {{-- Thesis --}}
+                                            <td>
+                                                <strong>
+                                                    {{ $history->thesis->title }}
+                                                </strong>
+                                            </td>
+
+                                            {{-- Author --}}
+                                            <td>
+                                                {{ $history->thesis->author_name }}
+                                            </td>
+
+                                            {{-- Viewed At --}}
+                                            <td>
+                                                <small class="text-muted">
+                                                    {{ $history->viewed_at->format('M d, Y h:i A') }}
+                                                </small>
+                                            </td>
+
+                                            {{-- Action --}}
+                                            <td>
+                                                @if ($history->thesis->files->count())
+                                                    @foreach ($history->thesis->files as $file)
+                                                        <a href="{{ route('student.thesis.view-pdf', ['file' => $file->id]) }}"
+                                                            target="_blank" class="btn btn-success btn-sm">
+                                                            <i class="fas fa-file-pdf"></i>
+                                                            View PDF
+                                                        </a>
+
+                                                        <a href="{{ route('student.thesis.download', $file) }}"
+                                                            class="btn btn-primary btn-sm">
+                                                            <i class="fas fa-download"></i>
+                                                            Download
+                                                        </a>
+
+                                                        {{-- Saved Thesis --}}
+                                                        @if (in_array($thesis->id, $savedThesisIds))
+                                                            {{-- Already saved --}}
+                                                            <form
+                                                                action="{{ route('student.saved_thesis.destroy', $thesis->id) }}"
+                                                                method="POST" class="d-inline">
+
+                                                                @csrf
+                                                                @method('DELETE')
+
+                                                                <button type="submit" class="btn btn-primary"
+                                                                    title="Remove saved thesis">
+
+                                                                    <i class="fas fa-bookmark"></i>
+
+                                                                </button>
+
+                                                            </form>
+                                                        @else
+                                                            {{-- Not saved --}}
+                                                            <form
+                                                                action="{{ route('student.saved_thesis.store', $thesis->id) }}"
+                                                                method="POST" class="d-inline">
+
+                                                                @csrf
+
+                                                                <button type="submit" class="btn btn-outline-primary"
+                                                                    title="Save thesis">
+
+                                                                    <i class="far fa-bookmark"></i>
+
+                                                                </button>
+
+                                                            </form>
+                                                        @endif
+                                                    @endforeach
+                                                @else
+                                                    <span class="text-muted">
+                                                        No PDF
+                                                    </span>
+                                                @endif
+                                            </td>
+
+                                        </tr>
                                     @endif
                                 @endforeach
-                            </div>
-                        @endif
+
+                            </tbody>
+
+                        </table>
 
                     </div>
-                </div>
+                @else
+                    <div class="text-center py-5">
+
+                        <i class="fas fa-history fa-3x text-muted mb-3"></i>
+
+                        <h5>No View History</h5>
+
+                        <p class="text-muted">
+                            You have not viewed any thesis yet.
+                        </p>
+
+                        <a href="{{ route('student.thesis.index') }}" class="btn btn-dark">
+                            Browse Theses
+                        </a>
+
+                    </div>
+
+                @endif
 
             </div>
         </div>
+
     </div>
-    {{-- @endsection --}}
+
 </x-app-layout>

@@ -16,7 +16,7 @@
         <td>
             @if ($thesis->files->count())
                 @foreach ($thesis->files as $file)
-                    <a href="{{ route('student.thesis.view-pdf', $file) }}" target="_blank"
+                    <a href="{{ route('student.thesis.view-pdf', ['file' => $file->id]) }}" target="_blank"
                         class="btn btn-success btn-sm mb-1">
                         View PDF
                     </a>
@@ -25,6 +25,36 @@
                         Download PDF
                     </a>
 
+                    @if (in_array($thesis->id, $savedThesisIds ))
+                        {{-- Already saved --}}
+                        <form action="{{ route('student.saved_thesis.destroy', $thesis->id) }}" method="POST"
+                            class="d-inline">
+
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" class="btn btn-primary" title="Remove saved thesis">
+
+                                <i class="fas fa-bookmark"></i>
+
+                            </button>
+
+                        </form>
+                    @else
+                        {{-- Not saved --}}
+                        <form action="{{ route('student.saved_thesis.store', $thesis->id) }}" method="POST"
+                            class="d-inline">
+
+                            @csrf
+
+                            <button type="submit" class="btn btn-outline-primary" title="Save thesis">
+
+                                <i class="far fa-bookmark"></i>
+
+                            </button>
+
+                        </form>
+                    @endif
                 @endforeach
             @else
                 <span class="text-muted">No PDF</span>
