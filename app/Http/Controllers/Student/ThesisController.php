@@ -17,9 +17,6 @@ class ThesisController extends Controller
 {
     public function index()
     {
-        $student = Student::where('user_id', auth()->id())
-        ->firstOrFail();
-
         $theses = Thesis::with(['files'])->get();
         $departments = Department::all();
 
@@ -28,10 +25,9 @@ class ThesisController extends Controller
             ->distinct()
             ->orderBy('year', 'desc')
             ->pluck('year');
-        // $keywords = Keyword::orderBy('keyword_name')->get();
 
         // Get all thesis IDs saved by this student
-        $savedThesisIds = SavedThesis::where('student_id', $student->id)
+        $savedThesisIds = SavedThesis::where('student_id', auth()->user()->student->id)
             ->pluck('thesis_id')
             ->toArray();
 
@@ -76,7 +72,7 @@ class ThesisController extends Controller
     public function search(Request $request)
     {
         $search = $request->search;
-        $query = Thesis::with(['user', 'department', 'keywords']);
+        $query = Thesis::with(['user', 'department', ]);
 
         // Search
         if ($request->filled('search')) {
@@ -86,8 +82,44 @@ class ThesisController extends Controller
                     ->orWhereHas('department', function ($d) use ($search) {
                         $d->where('name', 'like', "%{$search}%");
                     })
+
+                    //Keyword
                     ->orWhereHas('keywords', function ($k) use ($search) {
                         $k->where('keyword_name', 'like', "%{$search}%");
+                    })
+
+                    // Submitted By
+                    ->orWhereHas('submittedBy', function ($u) use ($search) {
+
+                        // Admin username
+                        $u->where('username', 'like', "%{$search}%")
+
+                            // Student full name
+                            ->orWhereHas('student', function ($s) use ($search) {
+                                $s->where('full_name', 'like', "%{$search}%");
+                            })
+
+                            // HoD full name
+                            ->orWhereHas('hod', function ($h) use ($search) {
+                                $h->where('full_name', 'like', "%{$search}%");
+                            });
+                    })
+
+                    // Published By
+                    ->orWhereHas('publishedBy', function ($u) use ($search) {
+
+                        // Admin username
+                        $u->where('username', 'like', "%{$search}%")
+
+                            // Student full name
+                            ->orWhereHas('student', function ($s) use ($search) {
+                                $s->where('full_name', 'like', "%{$search}%");
+                            })
+
+                            // HoD full name
+                            ->orWhereHas('hod', function ($h) use ($search) {
+                                $h->where('full_name', 'like', "%{$search}%");
+                            });
                     });
             });
         }
@@ -106,7 +138,12 @@ class ThesisController extends Controller
 
         $theses = $query->get();
 
-        return view('student.thesis.table', compact('theses'));
+        // Get all thesis IDs saved by this student
+        $savedThesisIds = SavedThesis::where('student_id', auth()->user()->student->id)
+            ->pluck('thesis_id')
+            ->toArray();
+
+        return view('student.thesis.table', compact('theses','savedThesisIds'));
     }
 
     public function downloadPDF(ThesisFile $file)
@@ -139,4 +176,6 @@ class ThesisController extends Controller
 
         return view('student.thesis.view_history', compact('histories'));
     }
+
+    
 }
