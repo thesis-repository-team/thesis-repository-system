@@ -1,0 +1,669 @@
+/* 
+   BLACK & WHITE LOGIN / REGISTER PAGE
+   FONT: INTER
+   FRONTEND ONLY
+*/
+
+.auth-wrapper,
+.auth-card,
+.auth-left,
+.auth-right,
+.form-container,
+.university-name-login,
+.university-name-register,
+.paragrah,
+.form-title,
+.form-subtitle,
+.form-label,
+.form-control,
+#department_id,
+#department_id option,
+.btn-auth,
+.switch-text,
+.switch-btn,
+.forgot-password,
+.alert-danger {
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    padding: 30px 15px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 1000px;
+    background: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.auth-left {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f4f8ff;
+    text-align: center;
+    padding: 40px 30px;
+}
+
+.auth-brand-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(40px);
+}
+
+.university-logo {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 18px;
+}
+
+.university-name-login {
+    margin: 0;
+    max-width: 320px;
+    color: #003399;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+}
+
+.university-logo-register {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 0;
+    transform: translateY(-100px);
+}
+
+.university-name-register {
+    margin: -80px 0 0;
+    max-width: 320px;
+    color: #003399;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+}
+
+.paragrah {
+    margin: 14px 0 0;
+    max-width: 320px;
+    color: #111111;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.auth-left h1 {
+    margin-bottom: 15px;
+    color: #000000;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -1px;
+}
+
+.auth-left > p {
+    max-width: 390px;
+    margin-bottom: 35px;
+    color: #555555;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    color: #000000;
+    font-size: 15px;
+}
+
+.feature-icon {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #000000;
+    border: 1px solid #000000;
+    border-radius: 10px;
+}
+
+.auth-right {
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: #ffffff;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 430px;
+}
+
+.form-title {
+    margin-bottom: 8px;
+    color: #000000;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+}
+
+.form-subtitle {
+    margin-bottom: 30px;
+    color: #666666;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #111111;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.input-group-custom {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group-custom input.form-control {
+    width: 100%;
+    height: 52px;
+    padding-left: 48px;
+    color: #000000;
+    background: #ffffff;
+    border: 1px solid #cfcfcf;
+    border-radius: 20px;
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.input-group-custom .form-control::placeholder {
+    color: #999999;
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    font-weight: 400;
+    opacity: 1;
+}
+
+.input-group-custom .form-control:focus {
+    color: #000000;
+    border-color: #d1d1d1;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+}
+
+.input-icon {
+    position: absolute;
+    left: 17px;
+    top: 50%;
+    z-index: 5;
+    transform: translateY(-50%);
+    color: #000000;
+    font-size: 17px;
+}
+
+#department_id,
+.department-select {
+    width: 100%;
+    height: 52px;
+
+    padding: 0 45px 0 18px;
+
+    color: #222222;
+    background-color: #ffffff;
+
+    border: 1px solid #d1d1d1;
+    border-radius: 20px;
+
+    outline: none;
+    cursor: pointer;
+
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    /* Down arrow */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' stroke='%23000000' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+
+    background-repeat: no-repeat;
+    background-position: right 17px center;
+    background-size: 17px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+/* Hover */
+#department_id:hover,
+.department-select:hover {
+    border-color: #999999;
+}
+
+/* Open / Focus - Up arrow */
+#department_id:focus,
+.department-select:focus {
+    color: #000000;
+
+    border-color: #d1d1d1;
+
+    outline: none;
+
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' stroke='%23000000' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m6 15 6-6 6 6'/%3E%3C/svg%3E");
+}
+
+/* Placeholder */
+#department_id:invalid,
+.department-select:invalid {
+    color: #999999;
+    font-weight: 400;
+}
+
+/* Dropdown choices */
+#department_id option,
+.department-select option {
+    color: #222222;
+    background-color: #ffffff;
+
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* Selected choice */
+#department_id option:checked,
+.department-select option:checked {
+    color: #000000;
+    background-color: #f1f1f1;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    z-index: 5;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000000;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: color 0.2s ease;
+}
+
+
+.password-toggle:hover {
+    color: #555555;
+}
+
+.remember-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    margin-top: 3px;
+    margin-bottom: 25px;
+}
+
+
+
+.forgot-password {
+    color: #000000;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+
+
+.forgot-password:hover {
+    color: #555555;
+
+    text-decoration: underline;
+}
+
+.btn-auth {
+    width: 100%;
+    height: 52px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    color: #ffffff !important;
+
+    background: #000000 !important;
+
+    border: 1px solid #000000 !important;
+
+    border-radius: 10px;
+
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    line-height: 1;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.btn-auth:hover {
+    color: #000000 !important;
+
+    background: #ffffff !important;
+
+    border-color: #000000 !important;
+
+    transform: translateY(-1px);
+}
+
+.btn-auth:focus,
+.btn-auth:focus-visible {
+    color: #ffffff !important;
+
+    background: #000000 !important;
+
+    border-color: #000000 !important;
+
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12) !important;
+
+    outline: none;
+}
+
+.switch-text {
+    margin-top: 25px;
+
+    color: #666666;
+
+    font-size: 14px;
+    font-weight: 400;
+
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+.switch-btn {
+    margin-left: 4px;
+
+    color: #000000;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.switch-btn:hover {
+    color: #555555;
+
+    text-decoration: underline;
+}
+
+.alert-danger {
+    margin-bottom: 25px;
+
+    padding: 12px 15px;
+
+    color: #000000 !important;
+
+    background: #f5f5f5 !important;
+
+    border: 1px solid #000000 !important;
+
+    border-radius: 10px;
+
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+
+    font-size: 14px;
+    font-weight: 400;
+
+    line-height: 1.5;
+}
+
+.alert-danger ul {
+    margin: 0;
+
+    padding-left: 20px;
+}
+
+@media (max-width: 767px) {
+    .auth-wrapper {
+        padding: 15px;
+    }
+
+    .auth-card {
+        border-radius: 14px;
+    }
+
+    /* LEFT */
+
+    .auth-left {
+        min-height: auto;
+
+        padding: 40px 30px;
+    }
+
+    .university-logo {
+        width: 150px;
+        height: 150px;
+    }
+
+    .university-name-login,
+    .university-name-register {
+        max-width: 300px;
+
+        font-size: 20px;
+    }
+
+    .auth-left h1 {
+        font-size: 30px;
+    }
+
+    .auth-left > p {
+        margin-bottom: 25px;
+    }
+
+    /* RIGHT */
+
+    .auth-right {
+        min-height: auto;
+
+        padding: 40px 30px;
+    }
+
+    .form-title {
+        font-size: 30px;
+    }
+
+    .form-subtitle {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-wrapper {
+        padding: 10px;
+    }
+
+    .auth-card {
+        border-radius: 12px;
+    }
+
+    .auth-left {
+        padding: 35px 25px;
+    }
+
+    .auth-right {
+        padding: 35px 25px;
+    }
+
+    .university-logo {
+        width: 130px;
+        height: 130px;
+
+        margin-bottom: 15px;
+    }
+
+    .university-logo-register {
+        width: 150px;
+        height: 150px;
+    }
+
+    .university-name-login,
+    .university-name-register {
+        max-width: 280px;
+
+        font-size: 18px;
+
+        line-height: 1.35;
+    }
+
+    .auth-left h1 {
+        font-size: 27px;
+    }
+
+    .form-title {
+        font-size: 27px;
+    }
+
+    .form-subtitle {
+        font-size: 14px;
+
+        margin-bottom: 25px;
+    }
+
+    .form-label {
+        font-size: 13px;
+    }
+
+    .input-group-custom input.form-control {
+        height: 50px;
+
+        font-size: 14px;
+
+        border-radius: 18px;
+    }
+
+    #department_id {
+        height: 50px;
+
+        font-size: 14px;
+
+        border-radius: 18px;
+    }
+
+    .btn-auth {
+        height: 50px;
+
+        font-size: 14px;
+    }
+
+    .forgot-password,
+    .switch-text,
+    .switch-btn {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 380px) {
+    .auth-wrapper {
+        padding: 8px;
+    }
+
+    .auth-left {
+        padding: 30px 20px;
+    }
+
+    .auth-right {
+        padding: 30px 20px;
+    }
+
+    .university-logo {
+        width: 115px;
+        height: 115px;
+    }
+
+    .university-name-login,
+    .university-name-register {
+        font-size: 17px;
+    }
+
+    .form-title {
+        font-size: 25px;
+    }
+
+    .input-group-custom input.form-control {
+        padding-left: 44px;
+        padding-right: 44px;
+    }
+
+    .input-icon {
+        left: 15px;
+
+        font-size: 16px;
+    }
+
+    .password-toggle {
+        right: 11px;
+
+        font-size: 17px;
+    }
+}

@@ -1,151 +1,485 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-        <!--  Full Name -->
-        <div>
-            <x-input-label for="full_name" value="Full Name" />
-            <x-text-input id="full_name" class="block mt-1 w-full" type="text" name="full_name" required />
+
+    <div class="auth-wrapper">
+
+        <div class="auth-card">
+
+            <div class="row g-0">
+
+
+                <!-- =================================================
+                     LEFT BRANDING
+                     ================================================= -->
+
+                <div class="col-md-5">
+
+                    <div class="auth-left">
+
+                        <img src="{{ asset('image/Small LU Logo.png') }}" alt="Life University Logo"
+                            class="university-logo-register">
+
+                        <div class="auth-brand-content">
+
+                            <h2 class="university-name-register">
+                                A Digital Thesis Repository Platform in Life University
+                            </h2>
+
+                            <h3 class="paragrah">
+                                A thesis repository that store thesis in life university
+                                <br> A thesis repository that easy manage for admin and hod <br> It is easy for student
+                                to search
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     RIGHT REGISTER FORM
+                     ================================================= -->
+
+                <div class="col-md-7">
+
+                    <div class="auth-right">
+
+                        <div class="form-container">
+
+                            <h2 class="form-title">
+                                Create Account
+                            </h2>
+
+                            <p class="form-subtitle">
+                                Please fill in your information to register.
+                            </p>
+
+
+                            <!-- =================================================
+                                 SUCCESS MESSAGE
+                                 ================================================= -->
+
+                            @if (session('success'))
+                                <div class="alert alert-success">
+
+                                    {{ session('success') }}
+
+                                </div>
+                            @endif
+
+
+                            <!-- =================================================
+                                 ERROR MESSAGE
+                                 ================================================= -->
+
+                            @if ($errors->any())
+
+                                <div class="alert alert-danger alert-message">
+
+                                    <ul class="mb-0">
+
+                                        @foreach ($errors->all() as $error)
+                                            <li>
+                                                {{ $error }}
+                                            </li>
+                                        @endforeach
+
+                                    </ul>
+
+                                </div>
+
+                            @endif
+
+
+                            <!-- =================================================
+                                 REGISTER FORM
+                                 ================================================= -->
+
+                            <form method="POST" action="{{ route('register') }}">
+
+                                @csrf
+                                <div class="row g-3">
+                                    <!-- =================================================
+                                         FULL NAME
+                                         ================================================= -->
+                                    <div class="col-md-6">
+                                        <label for="full_name" class="form-label">
+                                            Full Name
+                                        </label>
+                                        <div class="input-group-custom">
+
+                                            <i class="bi bi-person input-icon"></i>
+
+                                            <input type="text" class="form-control" id="full_name" name="full_name"
+                                                value="{{ old('full_name') }}" placeholder="Enter your full name"
+                                                required autofocus>
+                                        </div>
+
+                                        @error('full_name')
+                                            <div class="text-danger small mb-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    <!-- =================================================
+                                         USERNAME
+                                         ================================================= -->
+
+                                    <div class="col-md-6">
+                                        <label for="username" class="form-label">
+                                            Username
+                                        </label>
+
+                                        <div class="input-group-custom">
+
+                                            <i class="bi bi-person-badge input-icon"></i>
+
+                                            <input type="text" class="form-control" id="username" name="username"
+                                                value="{{ old('username') }}" placeholder="Enter your username"
+                                                required>
+
+                                        </div>
+
+                                        @error('username')
+                                            <div class="text-danger small mb-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <!-- =================================================
+                                     EMAIL
+                                     ================================================= -->
+
+                                <label for="email" class="form-label">
+                                    Email Address
+                                </label>
+
+                                <div class="input-group-custom">
+
+                                    <i class="bi bi-envelope input-icon"></i>
+
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        value="{{ old('email') }}" placeholder="Enter your email" required
+                                        autocomplete="username">
+
+                                </div>
+
+                                @error('email')
+                                    <div class="text-danger small mb-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+
+
+                                <!-- =================================================
+                                     PASSWORD
+                                     ================================================= -->
+                                <label for="password" class="form-label">
+                                    Password
+                                </label>
+
+                                <div class="input-group-custom">
+
+                                    <i class="bi bi-lock input-icon"></i>
+
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="Create a password" required autocomplete="new-password">
+
+                                    <button type="button" class="password-toggle" id="togglePassword"
+                                        aria-label="Show password">
+
+                                        <i class="bi bi-eye" id="passwordIcon"></i>
+
+                                    </button>
+
+                                </div>
+
+                                @error('password')
+                                    <div class="text-danger small mb-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+
+                                <!-- =================================================
+                                     CONFIRM PASSWORD
+                                     ================================================= -->
+
+                                <label for="password_confirmation" class="form-label">
+                                    Confirm Password
+                                </label>
+
+                                <div class="input-group-custom">
+
+                                    <i class="bi bi-lock-fill input-icon"></i>
+
+                                    <input type="password" class="form-control" id="password_confirmation"
+                                        name="password_confirmation" placeholder="Confirm your password" required
+                                        autocomplete="new-password">
+
+                                    <button type="button" class="password-toggle" id="toggleConfirmPassword"
+                                        aria-label="Show password">
+
+                                        <i class="bi bi-eye" id="confirmPasswordIcon"></i>
+
+                                    </button>
+
+                                </div>
+
+                                @error('password_confirmation')
+                                    <div class="text-danger small mb-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <!-- =================================================
+                                     DEPARTMENT
+                                     ================================================= -->
+
+                                        <label for="department_id" class="form-label">
+                                            Department
+                                        </label>
+
+                                        <div class="input-group-custom">
+
+                                            <select id="department_id" name="department_id" class="department-select" required>
+
+                                                <option value="">
+                                                    Select Department
+                                                </option>
+
+                                                @foreach ($departments as $department)
+                                                    <option value="{{ $department->id }}"
+                                                        {{ old('department_id') == $department->id ? 'selected' : '' }}>
+                                                        {{ $department->name }}
+                                                    </option>
+                                                @endforeach
+
+                                            </select>
+
+                                        </div>
+
+                                        @error('department_id')
+                                            <div class="text-danger small mb-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <!-- =================================================
+                                     START YEAR
+                                     ================================================= -->
+
+                                        <label for="started_year" class="form-label">
+                                            Start Year
+                                        </label>
+
+                                        <div class="input-group-custom">
+
+                                            <i class="bi bi-calendar input-icon"></i>
+
+                                            <input type="number" class="form-control" id="started_year"
+                                                name="started_year" value="{{ old('started_year') }}"
+                                                placeholder="Enter Start Year" min="1900" max="2200"
+                                                required>
+
+                                        </div>
+
+                                        @error('started_year')
+                                            <div class="text-danger small mb-2">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+
+                                    </div>
+                                </div>
+
+                                <!-- =================================================
+                                     REGISTER BUTTON
+                                     ================================================= -->
+
+                                <button type="submit" class="btn btn-primary btn-auth mt-2">
+
+                                    <i class="bi bi-person-plus me-1"></i>
+
+                                    Create Account
+
+                                </button>
+
+                            </form>
+
+
+                            <!-- =================================================
+                                 LOGIN LINK
+                                 ================================================= -->
+
+                            <div class="switch-text">
+
+                                Already have an account?
+
+                                <a href="{{ route('login') }}" class="switch-btn">
+                                    Login
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <!-- Username -->
-        <div>
-            <x-input-label for="username" value="Username" />
-            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" required />
-        </div>
+    </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+    <!-- =========================================================
+         PASSWORD SHOW / HIDE
+         ========================================================= -->
 
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                autocomplete="new-password" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            /* =====================================================
+               PASSWORD
+               ===================================================== */
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                name="password_confirmation" required autocomplete="new-password" />
+            const passwordInput =
+                document.getElementById('password');
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+            const togglePassword =
+                document.getElementById('togglePassword');
 
-        <!-- Department -->
-        <div class="mt-4">
-            <x-input-label for="department_id" :value="__('Department')" />
-            <select id="department_id" name="department_id"
-                class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                required>
-                <option value="">{{ __('Select Department') }}</option>
-                @foreach ($departments as $department)
-                    <option value="{{ $department->id }}"
-                        {{ old('department_id') == $department->id ? 'selected' : '' }}>
-                        {{ $department->name }}
-                    </option>
-                @endforeach
-            </select>
-            <x-input-error :messages="$errors->get('department_id')" class="mt-2" />
-        </div>
+            const passwordIcon =
+                document.getElementById('passwordIcon');
 
-        <!-- Year -->        
-        <div class="mt-4">
-            <x-input-label for="started_year" :value="__('Year')" />
 
-            <x-text-input id="started_year" class="block mt-1 w-full" type="number" name="started_year"
-                :value="old('started_year')" min="1900" max="2200" required />
+            if (
+                togglePassword &&
+                passwordInput &&
+                passwordIcon
+            ) {
 
-            <x-input-error :messages="$errors->get('started_year')" class="mt-2" />
-        </div> 
+                togglePassword.addEventListener(
+                    'click',
+                    function() {
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+                        if (
+                            passwordInput.type === 'password'
+                        ) {
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
+                            passwordInput.type = 'text';
+
+                            passwordIcon.classList.replace(
+                                'bi-eye',
+                                'bi-eye-slash'
+                            );
+
+                            togglePassword.setAttribute(
+                                'aria-label',
+                                'Hide password'
+                            );
+
+                        } else {
+
+                            passwordInput.type = 'password';
+
+                            passwordIcon.classList.replace(
+                                'bi-eye-slash',
+                                'bi-eye'
+                            );
+
+                            togglePassword.setAttribute(
+                                'aria-label',
+                                'Show password'
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            /* =====================================================
+               CONFIRM PASSWORD
+               ===================================================== */
+
+            const confirmPasswordInput =
+                document.getElementById(
+                    'password_confirmation'
+                );
+
+            const toggleConfirmPassword =
+                document.getElementById(
+                    'toggleConfirmPassword'
+                );
+
+            const confirmPasswordIcon =
+                document.getElementById(
+                    'confirmPasswordIcon'
+                );
+
+
+            if (
+                toggleConfirmPassword &&
+                confirmPasswordInput &&
+                confirmPasswordIcon
+            ) {
+
+                toggleConfirmPassword.addEventListener(
+                    'click',
+                    function() {
+
+                        if (
+                            confirmPasswordInput.type === 'password'
+                        ) {
+
+                            confirmPasswordInput.type = 'text';
+
+                            confirmPasswordIcon.classList.replace(
+                                'bi-eye',
+                                'bi-eye-slash'
+                            );
+
+                            toggleConfirmPassword.setAttribute(
+                                'aria-label',
+                                'Hide password'
+                            );
+
+                        } else {
+
+                            confirmPasswordInput.type = 'password';
+
+                            confirmPasswordIcon.classList.replace(
+                                'bi-eye-slash',
+                                'bi-eye'
+                            );
+
+                            toggleConfirmPassword.setAttribute(
+                                'aria-label',
+                                'Show password'
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+
+        });
+    </script>
+
 </x-guest-layout>
-
-
-
-{{-- 
-        <!--  Name -->
-        <div>
-            <x-input-label for="name" value="Name" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" required />
-        </div>
-
-        <!-- Username -->
-        <div>
-            <x-input-label for="username" value="Username" />
-            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" required />
-        </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <!-- Department -->
-        <div class="mt-4">
-            <x-input-label for="dept_id" :value="__('Department')" />
-            <select id="dept_id" name="dept_id"
-                class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                required>
-                <option value="">{{ __('Select Department') }}</option>
-                @foreach ($departments as $department)
-                    <option value="{{ $department->id }}" {{ old('dept_id') == $department->id ? 'selected' : '' }}>
-                        {{ $department->dept_name }}
-                    </option>
-                @endforeach
-            </select>
-            <x-input-error :messages="$errors->get('dept_id')" class="mt-2" />
-        </div>
-
-        <!-- Year-->
-        <div class="mt-4">
-            <x-input-label for="year" :value="__('Year')" />
-
-            <x-text-input id="year" class="block mt-1 w-full" type="number" name="year" :value="old('year')"
-                min="0" max="255" required />
-
-            <x-input-error :messages="$errors->get('year')" class="mt-2" />
-        </div> --}}
