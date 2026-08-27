@@ -52,5 +52,10 @@ class Thesis extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // Connects a Thesis to many Keywords
+    public function keywords(){
+        return $this->belongsToMany(Keyword::class);
+    }
 }
 

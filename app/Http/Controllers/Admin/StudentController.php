@@ -13,7 +13,12 @@ class StudentController extends Controller
     {
         $students = Student::with('department', 'user')->get();
         $departments = Department::all();
-        return view('admin.students.index', compact('students', 'departments'));
+        $started_year = Student::whereNotNull('started_year')
+            ->select('started_year')
+            ->distinct()
+            ->orderBy('started_year', 'desc')
+            ->pluck('started_year');
+        return view('admin.students.index', compact('students', 'departments','started_year'));
     }
 
     public function edit(Student $student)

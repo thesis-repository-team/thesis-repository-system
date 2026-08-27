@@ -4,6 +4,7 @@ namespace App\Http\Controllers\HoD;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\Keyword;
 use App\Models\Thesis;
 use App\Models\ThesisFile;
 use Illuminate\Http\Request;
@@ -17,14 +18,23 @@ class ThesisController extends Controller
         $theses = Thesis::with('files')->get();
         $departments = Department::all();
 
-        return view('hod.thesis.index', compact('theses', 'departments'));
+        $published_at = Thesis::whereNotNull('published_at')
+            ->selectRaw('YEAR(published_at) as year')
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->pluck('year');
+        // $keywords = Keyword::orderBy('keyword_name')->get();
+
+        return view('hod.thesis.index', compact('theses', 'departments', 'published_at'));
     }
 
     public function create()
     {
         $departments = Department::all();
 
-        return view('hod.thesis.create', compact('departments'));
+        $keywords = Keyword::orderBy('keyword_name')->get();
+
+        return view('hod.thesis.create', compact('departments', 'keywords'));
     }
 
     public function store(Request $request)
@@ -53,11 +63,13 @@ class ThesisController extends Controller
                 'published_at' => now(),
             ]);
 
+            // $thesis->keywords()->sync($request->keyword_ids ?? []);
+
             foreach ($request->file('files') as $file) {
                 $path = $file->store('thesis_files', 'public');
                 ThesisFile::create([
                     'thesis_id' => $thesis->id,
-                    'file_name' => $thesis->title . '.pdf',
+                    'file_name' => $thesis->title.'.pdf',
                     'file_type' => $file->getClientOriginalExtension(),
                     'file_path' => $path,
                     'uploaded_at' => now(),
@@ -76,6 +88,9 @@ class ThesisController extends Controller
             return redirect()->route('hod.thesis.index')->with('error', 'You are not allowed to edit theses from another department.');
         }
 
+        // $keywords = Keyword::orderBy('keyword_name')->get();
+        // $thesis->load('keywords');
+
         return view('hod.thesis.edit', compact('thesis', 'departments'));
     }
 
@@ -92,6 +107,9 @@ class ThesisController extends Controller
             'description' => 'nullable|string',
             'author_name' => 'required|string|max:255',
 
+            // 'keyword_ids' => 'nullable|array',
+            // 'keyword_ids.*' => 'exists:keywords,id',
+
             'files' => 'nullable|array',
             'files.*' => 'nullable|file|mimes:pdf|max:20480',
         ]);
@@ -104,6 +122,8 @@ class ThesisController extends Controller
                 'description' => $request->description,
                 'author_name' => $request->author_name,
             ]);
+
+            // $thesis->keywords()->sync($request->keyword_ids ?? []);
 
             // replace old files if new ones are uploaded
             if ($request->hasFile('files')) {
@@ -118,7 +138,7 @@ class ThesisController extends Controller
                     $path = $file->store('thesis_files', 'public');
                     ThesisFile::create([
                         'thesis_id' => $thesis->id,
-                        'file_name' => $thesis->title . '.pdf',
+                        'file_name' => $thesis->title.'.pdf',
                         'file_type' => $file->getClientOriginalExtension(),
                         'file_path' => $path,
                         'uploaded_at' => now(),
@@ -132,12 +152,12 @@ class ThesisController extends Controller
 
     public function viewPDF(ThesisFile $file)
     {
-        if (!Storage::disk('public')->exists($file->file_path)) {
+        if (! Storage::disk('public')->exists($file->file_path)) {
             return redirect()->back()->with('error', 'File not found.');
         }
 
         return response()->file(
-            storage_path('app/public/' . $file->file_path)
+            storage_path('app/public/'.$file->file_path)
         );
     }
 
@@ -178,15 +198,53 @@ class ThesisController extends Controller
     {
         $search = $request->search;
 
-        $query = Thesis::with(['user', 'department']);
+        $query = Thesis::with(['user', 'department', 'keywords']);
 
         // Search
         if ($request->filled('search')) {
+
             $query->where(function ($q) use ($search) {
+
                 $q->where('title', 'like', "%{$search}%")
+
                     ->orWhere('author_name', 'like', "%{$search}%")
+
                     ->orWhereHas('department', function ($d) use ($search) {
                         $d->where('name', 'like', "%{$search}%");
+                    })
+
+                    // Submitted By
+                    ->orWhereHas('submittedBy', function ($u) use ($search) {
+
+                        // Admin username
+                        $u->where('username', 'like', "%{$search}%")
+
+                            // Student full name
+                            ->orWhereHas('student', function ($s) use ($search) {
+                                $s->where('full_name', 'like', "%{$search}%");
+                            })
+
+                            // HoD full name
+                            ->orWhereHas('hod', function ($h) use ($search) {
+                                $h->where('full_name', 'like', "%{$search}%");
+                            });
+                    })
+
+                    // Published By
+                    ->orWhereHas('publishedBy', function ($u) use ($search) {
+
+                        // Admin username
+                        $u->where('username', 'like', "%{$search}%")
+
+                            // Student full name
+                            ->orWhereHas('student', function ($s) use ($search) {
+                                $s->where('full_name', 'like', "%{$search}%");
+                            })
+
+                            // HoD full name
+                            ->orWhereHas('hod', function ($h) use ($search) {
+                                $h->where('full_name', 'like', "%{$search}%");
+                            });
                     });
             });
         }
@@ -210,9 +268,9 @@ class ThesisController extends Controller
 
     public function downloadPDF(ThesisFile $file)
     {
-        $filePath = storage_path('app/public/' . $file->file_path);
+        $filePath = storage_path('app/public/'.$file->file_path);
 
-        if (!file_exists($filePath)) {
+        if (! file_exists($filePath)) {
             return back()->with('error', 'PDF file not found.');
         }
 
@@ -220,7 +278,7 @@ class ThesisController extends Controller
             '/[\/\\\\:*?"<>|]/',
             '-',
             $file->thesis->title
-        ) . '.pdf';
+        ).'.pdf';
 
         return response()->download(
             $filePath,

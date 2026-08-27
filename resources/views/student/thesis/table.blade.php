@@ -25,7 +25,7 @@
                         Download PDF
                     </a>
 
-                    @if (in_array($thesis->id, $savedThesisIds ))
+                    @if (in_array($thesis->id, $savedThesisIds))
                         {{-- Already saved --}}
                         <form action="{{ route('student.saved_thesis.destroy', $thesis->id) }}" method="POST"
                             class="d-inline">

@@ -1,105 +1,916 @@
 <x-app-layout>
-    <div class="container mt-5">
-        <div class="card shadow">
-            <div class="card-header bg-primary text-white">
-                <h3 class="mb-0">Add Head of Department</h3>
-            </div>
 
-            <div class="card-body">
-                <form action="{{ route('admin.hods.store') }}" method="POST">
+    <div class="dashboard-content">
+
+        {{-- <div class="hod-create-wrapper"> --}}
+
+            <div class="hod-create-card">
+
+
+                {{-- =================================================
+                    FORM HEADER
+                ================================================== --}}
+
+                <div class="hod-create-header">
+
+                    <div>
+
+                        <span class="hod-create-overline">
+                            MANAGEMENT
+                        </span>
+
+                        <h2 class="hod-create-title">
+                            Add Head of Department
+                        </h2>
+
+                        <p class="hod-create-description">
+                            Create a new Head of Department account.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                {{-- =================================================
+                    FORM
+                ================================================== --}}
+
+                <form
+                    action="{{ route('admin.hods.store') }}"
+                    method="POST"
+                    class="hod-create-form">
+
                     @csrf
-                    {{-- Full Name --}}
-                    <div class="mb-3">
-                        <label class="form-label">Full Name</label>
-                        <input type="text" name="full_name" class="form-control @error('full_name') is-invalid @enderror" value="{{ old('full_name') }}" required>
+
+
+                    {{-- FULL NAME --}}
+
+                    <div class="hod-form-group">
+
+                        <label
+                            for="full_name"
+                            class="hod-form-label">
+
+                            Full Name
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="full_name"
+                            name="full_name"
+                            value="{{ old('full_name') }}"
+                            class="hod-form-control @error('full_name') is-invalid @enderror"
+                            placeholder="Enter full name"
+                            required>
+
                         @error('full_name')
-                            <div class="invalid-feedback">
+
+                            <div class="hod-error">
                                 {{ $message }}
                             </div>
+
                         @enderror
+
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
+
+                    {{-- EMAIL --}}
+
+                    <div class="hod-form-group">
+
+                        <label
+                            for="email"
+                            class="hod-form-label">
+
+                            Email
+
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value="{{ old('email') }}"
+                            class="hod-form-control @error('email') is-invalid @enderror"
+                            placeholder="Enter email address"
+                            required>
+
                         @error('email')
-                            <div class="invalid-feedback">
+
+                            <div class="hod-error">
                                 {{ $message }}
                             </div>
+
                         @enderror
+
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Username</label>
-                        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" required>
-                        @error('username    ')
-                            <div class="invalid-feedback">
+
+                    {{-- USERNAME --}}
+
+                    <div class="hod-form-group">
+
+                        <label
+                            for="username"
+                            class="hod-form-label">
+
+                            Username
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            value="{{ old('username') }}"
+                            class="hod-form-control @error('username') is-invalid @enderror"
+                            placeholder="Enter username"
+                            required>
+
+                        @error('username')
+
+                            <div class="hod-error">
                                 {{ $message }}
                             </div>
+
                         @enderror
+
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"  required>
+
+                    {{-- PASSWORD --}}
+
+                    <div class="hod-form-group">
+
+                        <label
+                            for="password"
+                            class="hod-form-label">
+
+                            Password
+
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="hod-form-control @error('password') is-invalid @enderror"
+                            placeholder="Enter password"
+                            required>
+
                         @error('password')
-                            <div class="invalid-feedback">
+
+                            <div class="hod-error">
                                 {{ $message }}
                             </div>
-                        @enderror
-                    </div>  
-              
 
-                    {{-- Department --}}
-                    <div class="mb-3">
-                        <label class="form-label">Department</label>
-                        <select name="department_id" class="form-select @error('department_id') is-invalid @enderror" required>
-                            <option value="">Select Department</option>
+                        @enderror
+
+                    </div>
+
+
+                    {{-- DEPARTMENT --}}
+
+                    <div class="hod-form-group">
+
+                        <label
+                            for="department_id"
+                            class="hod-form-label">
+
+                            Department
+
+                        </label>
+
+                        <select
+                            id="department_id"
+                            name="department_id"
+                            class="hod-form-control hod-form-select @error('department_id') is-invalid @enderror"
+                            required>
+
+                            <option value="">
+                                Select Department
+                            </option>
+
                             @foreach($departments as $department)
-                                <option value="{{ $department->id }}" {{ old('department_id') == $department->id ? 'selected' : '' }}>
+
+                                <option
+                                    value="{{ $department->id }}"
+                                    {{ old('department_id') == $department->id ? 'selected' : '' }}>
+
                                     {{ $department->name }}
+
                                 </option>
+
                             @endforeach
+
                         </select>
+
                         @error('department_id')
-                            <div class="invalid-feedback">
+
+                            <div class="hod-error">
                                 {{ $message }}
                             </div>
+
                         @enderror
+
                     </div>
 
-                    {{-- Started Year --}}
-                    <div class="mb-3">
-                        <label class="form-label">Started Year</label>
-                        <input type="number" name="started_year" class="form-control @error('started_year') is-invalid @enderror" value="{{ old('started_year') }}" placeholder="2025" required>
+
+                    {{-- STARTED YEAR --}}
+
+                    <div class="hod-form-group">
+
+                        <label
+                            for="started_year"
+                            class="hod-form-label">
+
+                            Started Year
+
+                        </label>
+
+                        <input
+                            type="number"
+                            id="started_year"
+                            name="started_year"
+                            value="{{ old('started_year') }}"
+                            class="hod-form-control @error('started_year') is-invalid @enderror"
+                            placeholder="2025"
+                            min="1900"
+                            max="2100"
+                            required>
+
                         @error('started_year')
-                            <div class="invalid-feedback">
+
+                            <div class="hod-error">
                                 {{ $message }}
                             </div>
+
                         @enderror
+
                     </div>
 
-                    {{-- Status --}}
-                    <div class="mb-4">
-                        <label class="form-label">Status</label>
-                        <select name="is_active" class="form-select">
-                            <option value="1">Active</option>
-                            <option value="0">Inactive</option>
+
+                    {{-- STATUS --}}
+
+                    <div class="hod-form-group">
+
+                        <label
+                            for="is_active"
+                            class="hod-form-label">
+
+                            Status
+
+                        </label>
+
+                        <select
+                            id="is_active"
+                            name="is_active"
+                            class="hod-form-control hod-form-select">
+
+                            <option
+                                value="1"
+                                {{ old('is_active', '1') == '1' ? 'selected' : '' }}>
+
+                                Active
+
+                            </option>
+
+                            <option
+                                value="0"
+                                {{ old('is_active') === '0' ? 'selected' : '' }}>
+
+                                Inactive
+
+                            </option>
+
                         </select>
+
                     </div>
 
-                    <div class="d-flex justify-content-end">
-                        <a href="{{ route('admin.hods.index') }}" class="btn btn-secondary me-2">
+
+                    {{-- =================================================
+                        ACTIONS
+                    ================================================== --}}
+
+                    <div class="hod-form-actions">
+
+                        <a
+                            href="{{ route('admin.hods.index') }}"
+                            class="hod-cancel-button">
+
                             Cancel
+
                         </a>
 
-                        <button type="submit" class="btn btn-primary">
-                            Save HoD
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
 
+                        <button
+                            type="submit"
+                            class="hod-save-button">
+
+                            <i class="bi bi-check-lg"></i>
+
+                            Save HoD
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    {{-- =========================================================
+        CSS
+    ========================================================== --}}
+
+    <style>
+
+        :root {
+
+            --hod-black: #000000;
+            --hod-white: #ffffff;
+
+            --hod-text: #000000;
+            --hod-text-secondary: #333333;
+            --hod-text-muted: #777777;
+
+            --hod-border: #dddddd;
+
+            --hod-input-bg: #fafafa;
+
+        }
+
+
+        /* =========================================================
+           PAGE
+        ========================================================== */
+
+        .dashboard-content {
+
+            width: 100%;
+
+            color: var(--hod-text);
+
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================== */
+
+        .hod-page-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 1rem;
+
+            padding: 15px;
+
+            background: #ffffff;
+
+        }
+
+
+        .hod-header-content {
+
+            min-width: 0;
+
+        }
+
+
+        .hod-overline {
+
+            display: block;
+
+            margin-bottom: 4px;
+
+            color: #777777;
+
+            font-size: .75rem;
+
+            font-weight: 800;
+
+            letter-spacing: .12em;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .hod-title {
+
+            margin: 0;
+
+            color: #000000;
+
+            font-size: 1.8rem;
+
+            font-weight: 800;
+
+            letter-spacing: -.035em;
+
+            line-height: 1.2;
+
+        }
+
+
+        .hod-header-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: .5rem;
+
+        }
+
+
+        /* =========================================================
+           BACK BUTTON
+        ========================================================== */
+
+        .hod-back-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: .5rem;
+
+            min-height: 44px;
+
+            padding: .7rem 1rem;
+
+            color: #000000;
+
+            background: #ffffff;
+
+            border: 1px solid #dddddd;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-size: .72rem;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            transition: .2s ease;
+
+        }
+
+
+        .hod-back-button:hover {
+
+            color: #ffffff;
+
+            background: #000000;
+
+            border-color: #000000;
+
+        }
+
+
+        /* =========================================================
+           CREATE WRAPPER
+        ========================================================== */
+
+        .hod-create-wrapper {
+
+            padding: 0 15px 30px;
+
+        }
+
+
+        /* =========================================================
+           CREATE CARD
+        ========================================================== */
+
+        .hod-create-card {
+
+            width: 100%;
+
+            background: #ffffff;
+
+            border: 1px solid #dddddd;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 18px rgba(0, 0, 0, .06);
+
+            overflow: hidden;
+
+        }
+
+
+        /* =========================================================
+           CREATE HEADER
+        ========================================================== */
+
+        .hod-create-header {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            padding: 1.4rem 1.5rem;
+
+            border-bottom: 1px solid #dddddd;
+
+        }
+
+
+        .hod-create-overline {
+
+            display: block;
+
+            margin-bottom: .25rem;
+
+            color: #777777;
+
+            font-size: .65rem;
+
+            font-weight: 800;
+
+            letter-spacing: .1em;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .hod-create-title {
+
+            margin: 0;
+
+            color: #000000;
+
+            font-size: 1.25rem;
+
+            font-weight: 800;
+
+        }
+
+
+        .hod-create-description {
+
+            margin: .35rem 0 0;
+
+            color: #777777;
+
+            font-size: .78rem;
+
+        }
+
+
+        /* =========================================================
+           FORM
+        ========================================================== */
+
+        .hod-create-form {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 1.15rem 1.25rem;
+
+            padding: 1.5rem;
+
+        }
+
+
+        .hod-form-group {
+
+            min-width: 0;
+
+        }
+
+
+        .hod-form-label {
+
+            display: block;
+
+            margin-bottom: .45rem;
+
+            color: #333333;
+
+            font-size: .68rem;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: .05em;
+
+        }
+
+
+        .hod-form-control {
+
+            width: 100%;
+
+            height: 45px;
+
+            padding: .55rem .85rem;
+
+            color: #000000;
+
+            background: #fafafa;
+
+            border: 1px solid #dddddd;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            font-size: .82rem;
+
+            box-sizing: border-box;
+
+            transition: .2s ease;
+
+        }
+
+
+        .hod-form-control:focus {
+
+            background: #ffffff;
+
+            border-color: #000000;
+
+            box-shadow:
+                0 0 0 3px rgba(0, 0, 0, .08);
+
+        }
+
+
+        .hod-form-control.is-invalid {
+
+            border-color: #000000;
+
+        }
+
+
+        .hod-form-select {
+
+            cursor: pointer;
+
+        }
+
+
+        .hod-form-select option {
+
+            color: #000000;
+
+            background: #ffffff;
+
+        }
+
+
+        /* =========================================================
+           ERROR
+        ========================================================== */
+
+        .hod-error {
+
+            margin-top: .35rem;
+
+            color: #000000;
+
+            font-size: .7rem;
+
+            font-weight: 600;
+
+        }
+
+
+        /* =========================================================
+           FORM ACTIONS
+        ========================================================== */
+
+        .hod-form-actions {
+
+            grid-column: 1 / -1;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            gap: .6rem;
+
+            padding-top: 1rem;
+
+            border-top: 1px solid #eeeeee;
+
+        }
+
+
+        .hod-cancel-button,
+        .hod-save-button {
+
+            min-height: 42px;
+
+            padding: .65rem 1rem;
+
+            border-radius: 8px;
+
+            font-size: .7rem;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            transition: .2s ease;
+
+        }
+
+
+        /* CANCEL */
+
+        .hod-cancel-button {
+
+            color: #000000;
+
+            background: #ffffff;
+
+            border: 1px solid #dddddd;
+
+        }
+
+
+        .hod-cancel-button:hover {
+
+            color: #ffffff;
+
+            background: #000000;
+
+            border-color: #000000;
+
+        }
+
+
+        /* SAVE */
+
+        .hod-save-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: .4rem;
+
+            color: #ffffff;
+
+            background: #000000;
+
+            border: 1px solid #000000;
+
+        }
+
+
+        .hod-save-button:hover {
+
+            color: #ffffff;
+
+            background: #222222;
+
+            border-color: #222222;
+
+            transform: translateY(-1px);
+
+        }
+
+
+        /* =========================================================
+           MOBILE
+        ========================================================== */
+
+        @media (max-width: 767.98px) {
+
+            .hod-page-header {
+
+                padding: 1rem;
+
+            }
+
+
+            .hod-title {
+
+                font-size: 1.3rem;
+
+            }
+
+
+            .hod-create-wrapper {
+
+                padding: 0 10px 20px;
+
+            }
+
+
+            .hod-create-form {
+
+                grid-template-columns: 1fr;
+
+                padding: 1rem;
+
+            }
+
+
+            .hod-create-header {
+
+                padding: 1rem;
+
+            }
+
+
+            .hod-form-actions {
+
+                flex-direction: column-reverse;
+
+                align-items: stretch;
+
+            }
+
+
+            .hod-cancel-button,
+            .hod-save-button {
+
+                width: 100%;
+
+                text-align: center;
+
+            }
+
+        }
+
+
+        @media (max-width: 575.98px) {
+
+            .hod-page-header {
+
+                padding: .85rem;
+
+            }
+
+
+            .hod-title {
+
+                font-size: 1.1rem;
+
+            }
+
+
+            .hod-create-title {
+
+                font-size: 1.05rem;
+
+            }
+
+
+            .hod-create-description {
+
+                font-size: .72rem;
+
+            }
+
+
+            .hod-back-button span {
+
+                display: none;
+
+            }
+
+        }
+
+    </style>
+
+</x-app-layout>

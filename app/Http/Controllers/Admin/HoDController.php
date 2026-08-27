@@ -14,8 +14,13 @@ class HoDController extends Controller
     {
         $hods = HoD::all();
         $departments = Department::all();
+        $started_year = HoD::whereNotNull('started_year')
+            ->select('started_year')
+            ->distinct()
+            ->orderBy('started_year', 'desc')
+            ->pluck('started_year');
 
-        return view('admin.hods.index', compact('hods', 'departments'));
+        return view('admin.hods.index', compact('hods', 'departments','started_year'));
     }
 
     public function create()

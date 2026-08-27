@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
-    //
     public function index()
     {
         $departments = Department::all();
@@ -24,7 +23,7 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:100|unique:departments,name',
         ]);
         Department::create([
             'name' => $request->name,
