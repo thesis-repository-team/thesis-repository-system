@@ -72,7 +72,7 @@ class ThesisController extends Controller
     public function search(Request $request)
     {
         $search = $request->search;
-        $query = Thesis::with(['user', 'department', ]);
+        $query = Thesis::with(['user', 'department']);
 
         // Search
         if ($request->filled('search')) {
@@ -81,11 +81,6 @@ class ThesisController extends Controller
                     ->orWhere('author_name', 'like', "%{$search}%")
                     ->orWhereHas('department', function ($d) use ($search) {
                         $d->where('name', 'like', "%{$search}%");
-                    })
-
-                    //Keyword
-                    ->orWhereHas('keywords', function ($k) use ($search) {
-                        $k->where('keyword_name', 'like', "%{$search}%");
                     })
 
                     // Submitted By

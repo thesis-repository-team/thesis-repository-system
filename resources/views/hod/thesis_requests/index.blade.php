@@ -1,5 +1,6 @@
 <x-app-layout>
 
+
     <div class="dashboard-content thesis-requests-page">
 
         {{-- =========================================================
@@ -8,7 +9,7 @@
 
         <div class="request-page-header">
 
-            <div>
+            <div class="request-header-content">
 
                 <span class="request-overline">
                     MANAGEMENT
@@ -24,34 +25,62 @@
 
             </div>
 
+            <div class="request-header-icon">
+                <i class="bi bi-journal-check"></i>
+            </div>
+
         </div>
 
 
         {{-- =========================================================
-        ALERT
+        ERROR ALERT
     ========================================================== --}}
 
         @if (session('error'))
             <div class="request-alert">
 
-                <i class="bi bi-exclamation-circle"></i>
+                <div class="alert-icon">
+                    <i class="bi bi-exclamation-circle-fill"></i>
+                </div>
 
-                <span>
-                    {{ session('error') }}
-                </span>
+                <div class="alert-content">
+
+                    <strong>
+                        Action Failed
+                    </strong>
+
+                    <span>
+                        {{ session('error') }}
+                    </span>
+
+                </div>
 
             </div>
         @endif
 
 
+        {{-- =========================================================
+        SUCCESS ALERT
+    ========================================================== --}}
+
         @if (session('success'))
             <div class="request-success">
 
-                <i class="bi bi-check-circle"></i>
+                <div class="alert-icon">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
 
-                <span>
-                    {{ session('success') }}
-                </span>
+                <div class="alert-content">
+
+                    <strong>
+                        Success
+                    </strong>
+
+                    <span>
+                        {{ session('success') }}
+                    </span>
+
+                </div>
 
             </div>
         @endif
@@ -67,301 +96,287 @@
                 <article class="request-card">
 
                     {{-- =================================================
-                    CARD CONTENT
+                    CARD HEADER
                 ================================================== --}}
 
-                    <div class="request-card-content">
+                    <div class="request-card-top">
 
+                        <div class="request-title-area">
 
-                        {{-- =================================================
-                        TITLE + STATUS
-                    ================================================== --}}
+                            <span class="request-label">
+                                <i class="bi bi-journal-text"></i>
+                                THESIS TITLE
+                            </span>
 
-                        <div class="request-title-row">
+                            <h3 class="request-title" title="{{ $thesisRequest->title }}">
 
-                            <div class="request-title-area">
+                                {{ $thesisRequest->title }}
 
-                                <span class="request-label">
-
-                                    <i class="bi bi-journal-text"></i>
-
-                                    Thesis Title
-
-                                </span>
-
-                                <h3 class="request-title" title="{{ $thesisRequest->title }}">
-
-                                    {{ $thesisRequest->title }}
-
-                                </h3>
-
-                            </div>
-
-
-                            {{-- STATUS --}}
-
-                            @if ($thesisRequest->status === 'pending')
-                                <span class="request-status pending">
-
-                                    <i class="bi bi-clock"></i>
-
-                                    Pending
-
-                                </span>
-                            @elseif ($thesisRequest->status === 'approved')
-                                <span class="request-status approved">
-
-                                    <i class="bi bi-check-circle"></i>
-
-                                    Approved
-
-                                </span>
-                            @elseif ($thesisRequest->status === 'rejected')
-                                <span class="request-status rejected">
-
-                                    <i class="bi bi-x-circle"></i>
-
-                                    Rejected
-
-                                </span>
-                            @else
-                                <span class="request-status">
-
-                                    <i class="bi bi-question-circle"></i>
-
-                                    {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
-
-                                </span>
-                            @endif
+                            </h3>
 
                         </div>
 
 
                         {{-- =================================================
-                        BASIC INFORMATION
+                        STATUS
                     ================================================== --}}
 
-                        <div class="request-information">
+                        @if ($thesisRequest->status === 'pending')
+                            <span class="request-status pending">
 
+                                <i class="bi bi-clock"></i>
 
-                            {{-- DEPARTMENT --}}
+                                Pending
 
-                            <div class="request-info">
+                            </span>
+                        @elseif ($thesisRequest->status === 'approved')
+                            <span class="request-status approved">
 
-                                <div class="request-info-icon">
+                                <i class="bi bi-check-circle"></i>
 
-                                    <i class="bi bi-building"></i>
+                                Approved
 
-                                </div>
+                            </span>
+                        @elseif ($thesisRequest->status === 'rejected')
+                            <span class="request-status rejected">
 
-                                <div class="request-info-content">
+                                <i class="bi bi-x-circle"></i>
 
-                                    <span>
-                                        Department
-                                    </span>
+                                Rejected
 
-                                    <strong>
-                                        {{ $thesisRequest->department->name ?? 'N/A' }}
-                                    </strong>
+                            </span>
+                        @else
+                            <span class="request-status">
 
-                                </div>
+                                <i class="bi bi-question-circle"></i>
 
-                            </div>
+                                {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
 
-
-                            {{-- AUTHOR --}}
-
-                            <div class="request-info">
-
-                                <div class="request-info-icon">
-
-                                    <i class="bi bi-person"></i>
-
-                                </div>
-
-                                <div class="request-info-content">
-
-                                    <span>
-                                        Author
-                                    </span>
-
-                                    <strong>
-                                        {{ $thesisRequest->author_name ?? 'N/A' }}
-                                    </strong>
-
-                                </div>
-
-                            </div>
-
-
-                            {{-- SUBMITTED BY --}}
-
-                            <div class="request-info">
-
-                                <div class="request-info-icon">
-
-                                    <i class="bi bi-person-up"></i>
-
-                                </div>
-
-                                <div class="request-info-content">
-
-                                    <span>
-                                        Submitted By
-                                    </span>
-
-                                    <strong>
-                                        {{ $thesisRequest->user->username ?? 'N/A' }}
-                                    </strong>
-
-                                </div>
-
-                            </div>
-
-
-                            {{-- SUBMITTED AT --}}
-
-                            <div class="request-info">
-
-                                <div class="request-info-icon">
-
-                                    <i class="bi bi-calendar3"></i>
-
-                                </div>
-
-                                <div class="request-info-content">
-
-                                    <span>
-                                        Submitted At
-                                    </span>
-
-                                    <strong>
-
-                                        {{ $thesisRequest->submitted_at ? \Carbon\Carbon::parse($thesisRequest->submitted_at)->format('d M Y') : 'N/A' }}
-
-                                    </strong>
-
-                                </div>
-
-                            </div>
-
-
-                            {{-- PUBLISHED BY --}}
-
-                            @if ($thesisRequest->thesis)
-                                <div class="request-info">
-
-                                    <div class="request-info-icon">
-
-                                        <i class="bi bi-person-check"></i>
-
-                                    </div>
-
-                                    <div class="request-info-content">
-
-                                        <span>
-                                            Published By
-                                        </span>
-
-                                        <strong>
-
-                                            {{ $thesisRequest->thesis?->publishedBy?->full_name ??
-                                                ($thesisRequest->thesis?->publishedBy?->username ?? 'N/A') }}
-
-                                        </strong>
-
-                                    </div>
-
-                                </div>
-                            @endif
-
-                        </div>
-
-
-                        {{-- =================================================
-                        ABSTRACT
-                    ================================================== --}}
-
-                        <div class="request-section">
-
-                            <div class="request-section-title">
-
-                                <i class="bi bi-file-text"></i>
-
-                                Abstract
-
-                            </div>
-
-                            <p class="request-text" title="{{ $thesisRequest->abstract ?? '' }}">
-
-                                {{ $thesisRequest->abstract ?? 'No abstract provided.' }}
-
-                            </p>
-
-                        </div>
-
-
-                        {{-- =================================================
-                        DESCRIPTION
-                    ================================================== --}}
-
-                        <div class="request-section">
-
-                            <div class="request-section-title">
-
-                                <i class="bi bi-card-text"></i>
-
-                                Description
-
-                            </div>
-
-                            <p class="request-text" title="{{ $thesisRequest->description ?? '' }}">
-
-                                {{ $thesisRequest->description ?? 'No description provided.' }}
-
-                            </p>
-
-                        </div>
+                            </span>
+                        @endif
 
                     </div>
 
 
                     {{-- =================================================
-                    CARD ACTIONS
+                    INFORMATION
+                ================================================== --}}
+
+                    <div class="request-information">
+
+                        {{-- DEPARTMENT --}}
+
+                        <div class="request-info">
+
+                            <div class="request-info-icon">
+                                <i class="bi bi-building"></i>
+                            </div>
+
+                            <div class="request-info-content">
+
+                                <span>
+                                    Department
+                                </span>
+
+                                <strong>
+                                    {{ $thesisRequest->department->name ?? 'N/A' }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- AUTHOR --}}
+
+                        <div class="request-info">
+
+                            <div class="request-info-icon">
+                                <i class="bi bi-person"></i>
+                            </div>
+
+                            <div class="request-info-content">
+
+                                <span>
+                                    Author
+                                </span>
+
+                                <strong>
+                                    {{ $thesisRequest->author_name ?? 'N/A' }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- SUBMITTED BY --}}
+
+                        <div class="request-info">
+
+                            <div class="request-info-icon">
+                                <i class="bi bi-person-up"></i>
+                            </div>
+
+                            <div class="request-info-content">
+
+                                <span>
+                                    Submitted By
+                                </span>
+
+                                <strong>
+                                    {{ $thesisRequest->user->username ?? 'N/A' }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- SUBMITTED AT --}}
+
+                        <div class="request-info">
+
+                            <div class="request-info-icon">
+                                <i class="bi bi-calendar3"></i>
+                            </div>
+
+                            <div class="request-info-content">
+
+                                <span>
+                                    Submitted At
+                                </span>
+
+                                <strong>
+
+                                    {{ $thesisRequest->submitted_at ? \Carbon\Carbon::parse($thesisRequest->submitted_at)->format('d M Y') : 'N/A' }}
+
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- PUBLISHED BY --}}
+
+                        @if ($thesisRequest->thesis)
+                            <div class="request-info">
+
+                                <div class="request-info-icon">
+                                    <i class="bi bi-person-check"></i>
+                                </div>
+
+                                <div class="request-info-content">
+
+                                    <span>
+                                        Published By
+                                    </span>
+
+                                    <strong>
+
+                                        {{ $thesisRequest->thesis?->publishedBy?->full_name ??
+                                            ($thesisRequest->thesis?->publishedBy?->username ?? 'N/A') }}
+
+                                    </strong>
+
+                                </div>
+
+                            </div>
+                        @endif
+
+                    </div>
+
+
+                    {{-- =================================================
+                    ABSTRACT
+                ================================================== --}}
+
+                    <div class="request-section">
+
+                        <div class="request-section-title">
+
+                            <span class="section-icon">
+                                <i class="bi bi-file-text"></i>
+                            </span>
+
+                            <span>
+                                Abstract
+                            </span>
+
+                        </div>
+
+                        <p class="request-text" title="{{ $thesisRequest->abstract ?? '' }}">
+
+                            {{ $thesisRequest->abstract ?? 'No abstract provided.' }}
+
+                        </p>
+
+                    </div>
+
+
+                    {{-- =================================================
+                    DESCRIPTION
+                ================================================== --}}
+
+                    <div class="request-section">
+
+                        <div class="request-section-title">
+
+                            <span class="section-icon">
+                                <i class="bi bi-card-text"></i>
+                            </span>
+
+                            <span>
+                                Description
+                            </span>
+
+                        </div>
+
+                        <p class="request-text" title="{{ $thesisRequest->description ?? '' }}">
+
+                            {{ $thesisRequest->description ?? 'No description provided.' }}
+
+                        </p>
+
+                    </div>
+
+
+                    {{-- =================================================
+                    ACTIONS
                 ================================================== --}}
 
                     <div class="request-actions">
 
+                        {{-- DETAILS --}}
 
-                        {{-- VIEW DETAILS --}}
-
-                        <a href="{{ route('admin.thesis_requests.show', $thesisRequest->id) }}"
+                        <a href="{{ route('hod.thesis_requests.show', $thesisRequest->id) }}"
                             class="request-action request-action-primary">
 
                             <i class="bi bi-eye"></i>
 
                             <span>
-                                View Details
+                                Details
                             </span>
 
                         </a>
 
 
-                        {{-- VIEW PDF --}}
+                        {{-- PDF --}}
 
                         @if ($thesisRequest->thesis)
-                            <a href="{{ route('admin.thesis.view-pdf', $thesisRequest->thesis->id) }}" target="_blank"
+                            <a href="{{ route('hod.thesis.view-pdf', $thesisRequest->thesis->id) }}" target="_blank"
                                 class="request-action request-action-secondary">
 
                                 <i class="bi bi-file-earmark-pdf"></i>
 
                                 <span>
-                                    View PDF
+                                    PDF
                                 </span>
 
                             </a>
                         @else
-                            <span class="request-action request-action-secondary request-action-disabled">
+                            <span class="request-action request-action-disabled">
 
                                 <i class="bi bi-file-earmark-x"></i>
 
@@ -377,12 +392,10 @@
 
                         @if ($thesisRequest->thesis && $thesisRequest->thesis->files && $thesisRequest->thesis->files->count())
                             @php
-
                                 $file = $thesisRequest->thesis->files->first();
-
                             @endphp
 
-                            <a href="{{ route('admin.thesis.download', $file->id) }}"
+                            <a href="{{ route('hod.thesis.download', $file->id) }}"
                                 class="request-action request-action-download">
 
                                 <i class="bi bi-download"></i>
@@ -393,7 +406,7 @@
 
                             </a>
                         @else
-                            <span class="request-action request-action-download request-action-disabled">
+                            <span class="request-action request-action-disabled">
 
                                 <i class="bi bi-file-earmark-x"></i>
 
@@ -411,10 +424,9 @@
 
             @empty
 
-
-                {{-- =====================================================
+                {{-- =================================================
                 EMPTY STATE
-            ====================================================== --}}
+            ================================================== --}}
 
                 <div class="request-empty">
 
@@ -446,17 +458,44 @@
 
     <style>
         /* =========================================================
-       PAGE
+       ROOT
     ========================================================== */
 
         .thesis-requests-page {
 
             --request-black: #111111;
-            --request-text: #222222;
-            --request-muted: #777777;
+            --request-dark: #222222;
+            --request-text: #333333;
 
-            --request-background: #ffffff;
-            --request-soft: #f7f7f7;
+            --request-muted: #777777;
+            --request-light-text: #999999;
+
+            --request-card-bg: #ffffff;
+            --request-soft-bg: #fafafa;
+
+            --request-grey: #666666;
+            --request-light-grey: #f1f1f1;
+
+            --request-shadow:
+                0 4px 18px rgba(0, 0, 0, .055);
+
+            --request-shadow-hover:
+                0 12px 30px rgba(0, 0, 0, .10);
+
+        }
+
+
+        /* =========================================================
+       MAIN CONTAINER
+    ========================================================== */
+
+        .requests-container {
+
+            width: 100%;
+
+            padding: 18px;
+
+            box-sizing: border-box;
 
         }
 
@@ -468,13 +507,29 @@
         .request-page-header {
 
             display: flex;
-            align-items: flex-start;
+
+            align-items: center;
+
             justify-content: space-between;
 
-            margin-bottom: 1.25rem;
+            gap: 20px;
 
-            padding: 0 15px;
+            margin-bottom: 20px;
 
+            padding: 18px 20px;
+
+            background: #ffffff;
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 2px 10px rgba(0, 0, 0, .025);
+
+        }
+
+
+        .request-header-content {
+            min-width: 0;
         }
 
 
@@ -482,15 +537,15 @@
 
             display: block;
 
-            margin-bottom: .2rem;
+            margin-bottom: 5px;
 
-            color: #777777;
+            color: #666666;
 
-            font-size: .65rem;
+            font-size: .63rem;
 
             font-weight: 800;
 
-            letter-spacing: .13em;
+            letter-spacing: .14em;
 
             text-transform: uppercase;
 
@@ -501,9 +556,9 @@
 
             margin: 0;
 
-            color: #111111;
+            color: var(--request-black);
 
-            font-size: 1.8rem;
+            font-size: 1.65rem;
 
             font-weight: 800;
 
@@ -516,17 +571,48 @@
 
         .request-page-description {
 
-            margin: .4rem 0 0;
+            margin: 5px 0 0;
 
-            color: #888888;
+            color: var(--request-muted);
 
             font-size: .72rem;
+
+            line-height: 1.5;
 
         }
 
 
         /* =========================================================
-       ALERT
+       HEADER ICON
+    ========================================================== */
+
+        .request-header-icon {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 48px;
+
+            height: 48px;
+
+            flex-shrink: 0;
+
+            color: #222222;
+
+            background: #eeeeee;
+
+            border-radius: 12px;
+
+            font-size: 1.2rem;
+
+        }
+
+
+        /* =========================================================
+       ALERTS
     ========================================================== */
 
         .request-alert,
@@ -536,41 +622,81 @@
 
             align-items: center;
 
-            gap: .6rem;
+            gap: 12px;
 
-            margin: 0 15px 1.25rem;
+            margin-bottom: 18px;
 
-            padding: .8rem 1rem;
+            padding: 11px 14px;
 
             border-radius: 10px;
-
-            font-size: .75rem;
-
-            font-weight: 600;
 
         }
 
 
         .request-alert {
 
-            color: #b42318;
+            color: #555555;
 
-            background: #fff5f5;
+            background: #f1f1f1;
 
         }
 
 
         .request-success {
 
-            color: #176b3a;
+            color: #333333;
 
-            background: #f0fff5;
+            background: #eeeeee;
+
+        }
+
+
+        .alert-icon {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            font-size: .95rem;
+
+        }
+
+
+        .alert-content {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 1px;
+
+        }
+
+
+        .alert-content strong {
+
+            font-size: .68rem;
+
+            font-weight: 800;
+
+        }
+
+
+        .alert-content span {
+
+            font-size: .65rem;
+
+            font-weight: 500;
 
         }
 
 
         /* =========================================================
-       GRID
+       REQUEST GRID
     ========================================================== */
 
         .request-grid {
@@ -580,13 +706,9 @@
             grid-template-columns:
                 repeat(3, minmax(0, 1fr));
 
-            gap: 1.2rem;
+            gap: 16px;
 
             width: 100%;
-
-            padding: 0 15px 1.5rem;
-
-            box-sizing: border-box;
 
         }
 
@@ -605,18 +727,17 @@
 
             overflow: hidden;
 
-            background: #ffffff;
+            background: var(--request-card-bg);
 
             border: none;
 
             border-radius: 14px;
 
-            box-shadow:
-                0 4px 18px rgba(0, 0, 0, .06);
+            box-shadow: var(--request-shadow);
 
             transition:
-                transform .2s ease,
-                box-shadow .2s ease;
+                transform .22s ease,
+                box-shadow .22s ease;
 
         }
 
@@ -625,44 +746,26 @@
 
             transform: translateY(-3px);
 
-            box-shadow:
-                0 10px 28px rgba(0, 0, 0, .09);
+            box-shadow: var(--request-shadow-hover);
 
         }
 
 
         /* =========================================================
-       CARD CONTENT
+       CARD TOP
     ========================================================== */
 
-        .request-card-content {
+        .request-card-top {
 
             display: flex;
 
-            flex-direction: column;
-
-            flex: 1;
-
-            padding: 1rem;
-
-        }
-
-
-        /* =========================================================
-       TITLE + STATUS
-    ========================================================== */
-
-        .request-title-row {
-
-            display: flex;
-
-            align-items: center;
+            align-items: flex-start;
 
             justify-content: space-between;
 
-            gap: .75rem;
+            gap: 12px;
 
-            margin-bottom: 1rem;
+            padding: 17px;
 
         }
 
@@ -682,17 +785,17 @@
 
             align-items: center;
 
-            gap: .35rem;
+            gap: 5px;
 
-            margin-bottom: .4rem;
+            margin-bottom: 6px;
 
-            color: #999999;
+            color: #666666;
 
-            font-size: .57rem;
+            font-size: .54rem;
 
             font-weight: 800;
 
-            letter-spacing: .07em;
+            letter-spacing: .1em;
 
             text-transform: uppercase;
 
@@ -701,9 +804,7 @@
 
         .request-label i {
 
-            color: #111111;
-
-            font-size: .7rem;
+            font-size: .66rem;
 
         }
 
@@ -716,17 +817,17 @@
 
             overflow: hidden;
 
-            color: #222222;
+            color: var(--request-black);
 
-            font-size: .98rem;
+            font-size: .92rem;
 
-            font-weight: 800;
+            font-weight: 750;
 
             line-height: 1.4;
 
-            letter-spacing: -.015em;
+            letter-spacing: -.012em;
 
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 2;
 
             -webkit-box-orient: vertical;
 
@@ -745,79 +846,111 @@
 
             justify-content: center;
 
+            gap: 4px;
+
             flex-shrink: 0;
 
-            gap: .3rem;
-
-            padding: .4rem .65rem;
+            padding: 5px 9px;
 
             border-radius: 999px;
 
-            font-size: .6rem;
+            font-size: .55rem;
 
-            font-weight: 700;
+            font-weight: 800;
 
             white-space: nowrap;
 
         }
 
 
-        .request-status.pending {
+        .request-status i {
 
-            color: #8a6500;
-
-            background: #fff8df;
-
-        }
-
-
-        .request-status.approved {
-
-            color: #176b3a;
-
-            background: #eaf8ef;
-
-        }
-
-
-        .request-status.rejected {
-
-            color: #a52a35;
-
-            background: #fff0f1;
-
-        }
-
-
-        .request-status:not(.pending):not(.approved):not(.rejected) {
-
-            color: #555555;
-
-            background: #f2f2f2;
+            font-size: .62rem;
 
         }
 
 
         /* =========================================================
-       INFORMATION
+       PENDING - YELLOW
+    ========================================================== */
+
+        .request-status.pending {
+
+            color: #8a6500;
+
+            background: #fff3bf;
+
+        }
+
+
+        /* =========================================================
+       APPROVED - GREEN
+    ========================================================== */
+
+        .request-status.approved {
+
+            color: #187a3d;
+
+            background: #dcf7e5;
+
+        }
+
+
+        /* =========================================================
+       REJECTED - RED
+    ========================================================== */
+
+        .request-status.rejected {
+
+            color: #c62835;
+
+            background: #fde1e4;
+
+        }
+
+
+        /* =========================================================
+       UNKNOWN - GREY
+    ========================================================== */
+
+        .request-status:not(.pending):not(.approved):not(.rejected) {
+
+            color: #666666;
+
+            background: #eeeeee;
+
+        }
+
+
+        /* =========================================================
+       INFORMATION BOX
     ========================================================== */
 
         .request-information {
 
-            display: flex;
+            display: grid;
 
-            flex-direction: column;
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
 
-            margin-bottom: 1rem;
+            gap: 1px;
 
-            padding: .7rem .75rem;
+            margin: 0 17px 16px;
 
-            background: #f8f8f8;
+            overflow: hidden;
+
+            background: #eeeeee;
+
+            border: none;
 
             border-radius: 10px;
 
         }
 
+
+        /* =========================================================
+       INFORMATION ITEM
+    ========================================================== */
 
         .request-info {
 
@@ -825,11 +958,13 @@
 
             align-items: center;
 
-            gap: .6rem;
+            gap: 8px;
 
             min-width: 0;
 
-            padding: .42rem 0;
+            padding: 9px;
+
+            background: #fafafa;
 
         }
 
@@ -842,19 +977,19 @@
 
             justify-content: center;
 
-            width: 28px;
+            width: 27px;
 
-            height: 28px;
+            height: 27px;
 
             flex-shrink: 0;
 
-            color: #555555;
+            color: #444444;
 
-            background: #ffffff;
+            background: #e9e9e9;
 
             border-radius: 7px;
 
-            font-size: .68rem;
+            font-size: .65rem;
 
         }
 
@@ -872,15 +1007,15 @@
 
         .request-info-content span {
 
-            margin-bottom: .08rem;
+            margin-bottom: 2px;
 
-            color: #999999;
+            color: var(--request-light-text);
 
-            font-size: .52rem;
+            font-size: .48rem;
 
             font-weight: 800;
 
-            letter-spacing: .04em;
+            letter-spacing: .055em;
 
             text-transform: uppercase;
 
@@ -891,11 +1026,13 @@
 
             overflow: hidden;
 
-            color: #222222;
+            color: var(--request-text);
 
-            font-size: .68rem;
+            font-size: .61rem;
 
-            font-weight: 600;
+            font-weight: 650;
+
+            line-height: 1.3;
 
             text-overflow: ellipsis;
 
@@ -905,12 +1042,12 @@
 
 
         /* =========================================================
-       ABSTRACT / DESCRIPTION
+       SECTION
     ========================================================== */
 
         .request-section {
 
-            margin-bottom: .85rem;
+            margin: 0 17px 13px;
 
         }
 
@@ -921,39 +1058,61 @@
 
             align-items: center;
 
-            gap: .35rem;
+            gap: 6px;
 
-            margin-bottom: .35rem;
+            margin-bottom: 6px;
 
-            color: #222222;
+            color: var(--request-black);
 
-            font-size: .68rem;
+            font-size: .65rem;
 
             font-weight: 800;
 
         }
 
 
-        .request-section-title i {
+        .section-icon {
 
-            color: #777777;
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 20px;
+
+            height: 20px;
+
+            color: #444444;
+
+            background: #e9e9e9;
+
+            border-radius: 5px;
+
+            font-size: .58rem;
 
         }
 
+
+        /* =========================================================
+       TEXT
+    ========================================================== */
 
         .request-text {
 
             display: -webkit-box;
 
+            min-height: 48px;
+
+            max-height: 62px;
+
             margin: 0;
 
-            min-height: 55px;
-
-            padding: .65rem .7rem;
+            padding: 8px 9px;
 
             overflow: hidden;
 
-            color: #777777;
+            color: #707070;
 
             background: #fafafa;
 
@@ -961,7 +1120,7 @@
 
             border-radius: 8px;
 
-            font-size: .67rem;
+            font-size: .61rem;
 
             line-height: 1.55;
 
@@ -978,16 +1137,25 @@
 
         .request-actions {
 
-            display: flex;
+            display: grid;
 
-            gap: .45rem;
+            grid-template-columns:
+                1.2fr 1fr 1fr;
 
-            padding: .75rem;
+            gap: 6px;
+
+            margin-top: auto;
+
+            padding: 11px;
 
             background: #fafafa;
 
         }
 
+
+        /* =========================================================
+       ACTION BUTTON
+    ========================================================== */
 
         .request-action {
 
@@ -997,15 +1165,13 @@
 
             justify-content: center;
 
-            gap: .35rem;
-
-            flex: 1;
+            gap: 5px;
 
             min-width: 0;
 
-            min-height: 36px;
+            min-height: 32px;
 
-            padding: .4rem .5rem;
+            padding: 6px 7px;
 
             border: none;
 
@@ -1013,19 +1179,27 @@
 
             text-decoration: none;
 
-            font-size: .58rem;
+            font-size: .56rem;
 
             font-weight: 800;
 
             white-space: nowrap;
 
-            transition: .2s ease;
+            transition:
+                all .2s ease;
+
+        }
+
+
+        .request-action i {
+
+            font-size: .65rem;
 
         }
 
 
         /* =========================================================
-       VIEW DETAILS
+       DETAILS
     ========================================================== */
 
         .request-action-primary {
@@ -1043,27 +1217,31 @@
 
             background: #333333;
 
+            transform: translateY(-1px);
+
         }
 
 
         /* =========================================================
-       VIEW PDF
+       PDF
     ========================================================== */
 
         .request-action-secondary {
 
-            color: #111111;
+            color: #222222;
 
-            background: #ffffff;
+            background: #eeeeee;
 
         }
 
 
         .request-action-secondary:hover {
 
-            color: #ffffff;
+            color: #111111;
 
-            background: #111111;
+            background: #dddddd;
+
+            transform: translateY(-1px);
 
         }
 
@@ -1074,9 +1252,9 @@
 
         .request-action-download {
 
-            color: #ffffff;
+            color: #222222;
 
-            background: #111111;
+            background: #e5e5e5;
 
         }
 
@@ -1085,7 +1263,9 @@
 
             color: #ffffff;
 
-            background: #333333;
+            background: #222222;
+
+            transform: translateY(-1px);
 
         }
 
@@ -1096,7 +1276,9 @@
 
         .request-action-disabled {
 
-            opacity: .45;
+            color: #aaaaaa;
+
+            background: #eeeeee;
 
             cursor: not-allowed;
 
@@ -1121,9 +1303,9 @@
 
             justify-content: center;
 
-            min-height: 280px;
+            min-height: 300px;
 
-            padding: 2rem;
+            padding: 30px;
 
             text-align: center;
 
@@ -1133,8 +1315,7 @@
 
             border-radius: 14px;
 
-            box-shadow:
-                0 4px 18px rgba(0, 0, 0, .06);
+            box-shadow: var(--request-shadow);
 
         }
 
@@ -1147,28 +1328,28 @@
 
             justify-content: center;
 
-            width: 52px;
+            width: 58px;
 
-            height: 52px;
+            height: 58px;
 
-            margin-bottom: .8rem;
+            margin-bottom: 12px;
 
-            color: #ffffff;
+            color: #333333;
 
-            background: #111111;
+            background: #eeeeee;
 
-            border-radius: 12px;
+            border-radius: 14px;
 
-            font-size: 1.2rem;
+            font-size: 1.3rem;
 
         }
 
 
         .request-empty h3 {
 
-            margin: 0 0 .3rem;
+            margin: 0 0 5px;
 
-            color: #111111;
+            color: var(--request-black);
 
             font-size: .95rem;
 
@@ -1181,18 +1362,18 @@
 
             margin: 0;
 
-            color: #888888;
+            color: var(--request-muted);
 
-            font-size: .7rem;
+            font-size: .68rem;
 
         }
 
 
         /* =========================================================
-       TABLET
+       LARGE TABLET
     ========================================================== */
 
-        @media (max-width: 1199.98px) {
+        @media (max-width: 1200px) {
 
             .request-grid {
 
@@ -1205,57 +1386,105 @@
 
 
         /* =========================================================
+       TABLET
+    ========================================================== */
+
+        @media (max-width: 850px) {
+
+            .requests-container {
+
+                padding: 14px;
+
+            }
+
+            .request-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        /* =========================================================
        MOBILE
     ========================================================== */
 
-        @media (max-width: 767.98px) {
+        @media (max-width: 600px) {
+
+            .requests-container {
+
+                padding: 10px;
+
+            }
+
 
             .request-page-header {
 
-                padding: 0 1rem;
+                padding: 15px;
+
+            }
+
+
+            .request-header-icon {
+
+                width: 40px;
+
+                height: 40px;
+
+                font-size: 1rem;
 
             }
 
 
             .request-page-title {
 
-                font-size: 1.4rem;
+                font-size: 1.35rem;
 
             }
 
 
             .request-page-description {
 
-                font-size: .68rem;
+                font-size: .65rem;
 
             }
 
 
-            .request-grid {
+            .request-card-top {
+
+                padding: 14px;
+
+            }
+
+
+            .request-information {
+
+                margin:
+                    0 14px 14px;
+
+            }
+
+
+            .request-section {
+
+                margin-left: 14px;
+
+                margin-right: 14px;
+
+            }
+
+
+            .request-actions {
 
                 grid-template-columns: 1fr;
 
-                gap: 1rem;
-
-                padding:
-                    0 .75rem 1rem;
-
             }
 
 
-            .request-alert,
-            .request-success {
+            .request-action {
 
-                margin-left: .75rem;
-
-                margin-right: .75rem;
-
-            }
-
-
-            .request-title-row {
-
-                align-items: flex-start;
+                min-height: 35px;
 
             }
 
@@ -1266,50 +1495,25 @@
        SMALL MOBILE
     ========================================================== */
 
-        @media (max-width: 480px) {
+        @media (max-width: 420px) {
 
-            .request-card {
+            .request-information {
 
-                border-radius: 12px;
-
-            }
-
-
-            .request-card-content {
-
-                padding: .85rem;
+                grid-template-columns: 1fr;
 
             }
 
 
-            .request-title-row {
-
-                gap: .5rem;
-
-            }
-
-
-            .request-status {
-
-                padding: .35rem .5rem;
-
-                font-size: .55rem;
-
-            }
-
-
-            .request-actions {
+            .request-card-top {
 
                 flex-direction: column;
 
             }
 
 
-            .request-action {
+            .request-status {
 
-                width: 100%;
-
-                min-height: 36px;
+                align-self: flex-start;
 
             }
 

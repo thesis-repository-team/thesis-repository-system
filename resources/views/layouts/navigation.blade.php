@@ -102,7 +102,7 @@
             @elseif (Auth::user()->role === 'hod')
 
                 <div class="sidebar-section-title">
-                    THESIS
+                    MANAGEMENT
                 </div>
 
 
@@ -116,7 +116,7 @@
                 </a>
 
                 <a href="{{ route('hod.thesis.index') }}"
-                   class="sidebar-link {{ request()->routeIs('hod.thesis.*') ? 'active' : '' }}">
+                   class="sidebar-link {{ request()->routeIs('hod.thesis.index') ? 'active' : '' }}">
 
                     <i class="bi bi-journal-bookmark"></i>
                     <span>Theses</span>
@@ -148,12 +148,12 @@
             @elseif (Auth::user()->role === 'student')
 
                 <div class="sidebar-section-title">
-                    THESIS
+                    MANAGEMENT
                 </div>
 
 
                 <a href="{{ route('student.thesis.index') }}"
-                   class="sidebar-link {{ request()->routeIs('student.thesis.*') ? 'active' : '' }}">
+                   class="sidebar-link {{ request()->routeIs('student.thesis.index') ? 'active' : '' }}">
 
                     <i class="bi bi-journal-bookmark"></i>
                     <span>Theses</span>
@@ -417,6 +417,15 @@
                 </a>
 
             @elseif (Auth::user()->role === 'hod')
+
+                {{-- STUDENTS --}}
+                <a href="{{ route('hod.students.index') }}"
+                   class="mobile-nav-link {{ request()->routeIs('hod.students.*') ? 'active' : '' }}">
+
+                    <i class="bi bi-people"></i>
+                    <span>Students</span>
+
+                </a>
 
                 <a href="{{ route('hod.thesis.index') }}"
                    class="mobile-nav-link {{ request()->routeIs('hod.thesis.*') ? 'active' : '' }}">

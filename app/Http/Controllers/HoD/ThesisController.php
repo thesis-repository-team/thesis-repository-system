@@ -32,8 +32,6 @@ class ThesisController extends Controller
     {
         $departments = Department::all();
 
-        // $keywords = Keyword::orderBy('keyword_name')->get();
-
         return view('hod.thesis.create', compact('departments'));
     }
 
@@ -62,8 +60,6 @@ class ThesisController extends Controller
                 'published_by' => auth()->id(),
                 'published_at' => now(),
             ]);
-
-            // $thesis->keywords()->sync($request->keyword_ids ?? []);
 
             foreach ($request->file('files') as $file) {
                 $path = $file->store('thesis_files', 'public');
@@ -198,7 +194,7 @@ class ThesisController extends Controller
     {
         $search = $request->search;
 
-        $query = Thesis::with(['user', 'department', 'keywords']);
+        $query = Thesis::with(['user', 'department']);
 
         // Search
         if ($request->filled('search')) {

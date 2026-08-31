@@ -366,7 +366,7 @@
 
             border-radius: 12px;
 
-            border: 1px solid #ded8e9;
+            /* border: px solid #ded8e9; */
 
             background: var(--dept-white);
 

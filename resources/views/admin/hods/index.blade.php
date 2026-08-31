@@ -783,6 +783,7 @@
             margin-bottom: 1.75rem;
             padding-bottom: 1.25rem;
             border-bottom: 1px solid var(--hods-border);
+            border-radius:
         }
 
         .hods-header-content {

@@ -87,6 +87,7 @@
 
                     <div class="card thesis-card h-100">
 
+
                         {{-- =================================================
                             CARD HEADER
                         ================================================== --}}
@@ -94,7 +95,9 @@
                         <div class="card-header thesis-card-header">
 
                             <span class="thesis-badge thesis-badge-number">
+
                                 #{{ $loop->iteration }}
+
                             </span>
 
 
@@ -102,7 +105,7 @@
 
                                 <span class="thesis-badge thesis-badge-published">
 
-                                    <i class="bi bi-check-circle-fill me-1"></i>
+                                    <i class="bi bi-check-circle-fill"></i>
 
                                     Published
 
@@ -112,7 +115,7 @@
 
                                 <span class="thesis-badge thesis-badge-unpublished">
 
-                                    <i class="bi bi-clock-history me-1"></i>
+                                    <i class="bi bi-clock-history"></i>
 
                                     Not Published
 
@@ -134,13 +137,23 @@
                                 TITLE
                             ================================================== --}}
 
-                            <h5
-                                class="thesis-card-title"
-                                title="{{ $thesis->title }}">
+                            <div class="thesis-title-section">
 
-                                {{ $thesis->title }}
+                                <div class="thesis-title-icon">
 
-                            </h5>
+                                    <i class="bi bi-journal-text"></i>
+
+                                </div>
+
+                                <h5
+                                    class="thesis-card-title"
+                                    title="{{ $thesis->title }}">
+
+                                    {{ $thesis->title }}
+
+                                </h5>
+
+                            </div>
 
 
                             {{-- =================================================
@@ -151,27 +164,55 @@
 
                                 <div class="thesis-author-icon">
 
-                                    <i class="bi bi-person-fill"></i>
+                                    <i class="bi bi-person"></i>
 
                                 </div>
 
 
                                 <div class="thesis-author-info">
 
-                                    <div class="thesis-author-name text-truncate">
+                                    <span class="thesis-author-label">
+                                        Author
+                                    </span>
+
+                                    <div
+                                        class="thesis-author-name"
+                                        title="{{ $thesis->author_name }}">
 
                                         {{ $thesis->author_name }}
 
                                     </div>
 
+                                </div>
 
-                                    <div class="thesis-department text-truncate">
+                            </div>
 
-                                        <i class="bi bi-building me-1"></i>
 
-                                        {{ $thesis->department->name ?? 'N/A' }}
+                            {{-- =================================================
+                                DEPARTMENT
+                            ================================================== --}}
 
-                                    </div>
+                            <div class="thesis-department-box">
+
+                                <div class="thesis-department-icon">
+
+                                    <i class="bi bi-building"></i>
+
+                                </div>
+
+                                <div class="thesis-department-info">
+
+                                    <span class="thesis-department-label">
+                                        Department
+                                    </span>
+
+                                    <span
+                                        class="thesis-department-name"
+                                        title="{{ $thesis->department?->name ?? 'N/A' }}">
+
+                                        {{ $thesis->department?->name ?? 'N/A' }}
+
+                                    </span>
 
                                 </div>
 
@@ -189,20 +230,21 @@
 
                                 <div class="thesis-meta-row">
 
-                                    <span class="thesis-meta-label">
+                                    <div class="thesis-meta-left">
 
-                                        <i class="bi bi-person-up thesis-icon-blue me-1"></i>
+                                        <i class="bi bi-person-check"></i>
 
-                                        Submitted By
+                                        <span>
+                                            Submitted By
+                                        </span>
 
-                                    </span>
-
+                                    </div>
 
                                     <span
                                         class="thesis-meta-value"
-                                        title="{{ $thesis->submittedBy->name ?? 'N/A' }}">
+                                        title="{{ $thesis->submittedBy?->name ?? 'N/A' }}">
 
-                                        {{ $thesis->submittedBy->name ?? 'N/A' }}
+                                        {{ $thesis->submittedBy?->name ?? 'N/A' }}
 
                                     </span>
 
@@ -213,14 +255,15 @@
 
                                 <div class="thesis-meta-row">
 
-                                    <span class="thesis-meta-label">
+                                    <div class="thesis-meta-left">
 
-                                        <i class="bi bi-person-check-fill thesis-icon-green me-1"></i>
+                                        <i class="bi bi-person-badge"></i>
 
-                                        Published By
+                                        <span>
+                                            Published By
+                                        </span>
 
-                                    </span>
-
+                                    </div>
 
                                     <span
                                         class="thesis-meta-value"
@@ -237,14 +280,15 @@
 
                                 <div class="thesis-meta-row">
 
-                                    <span class="thesis-meta-label">
+                                    <div class="thesis-meta-left">
 
-                                        <i class="bi bi-calendar3 thesis-icon-orange me-1"></i>
+                                        <i class="bi bi-calendar3"></i>
 
-                                        Published At
+                                        <span>
+                                            Published At
+                                        </span>
 
-                                    </span>
-
+                                    </div>
 
                                     <span class="thesis-meta-value">
 
@@ -267,13 +311,11 @@
                             <div class="thesis-attachments">
 
 
-                                {{-- ACTION HEADER --}}
-
                                 <div class="thesis-attachments-header">
 
                                     <span class="thesis-attachments-title">
 
-                                        <i class="bi bi-gear-fill thesis-icon-red me-1"></i>
+                                        <i class="bi bi-gear"></i>
 
                                         Actions
 
@@ -281,10 +323,6 @@
 
                                 </div>
 
-
-                                {{-- =================================================
-                                    EDIT + DELETE
-                                ================================================== --}}
 
                                 <div class="thesis-file-buttons">
 
@@ -315,7 +353,6 @@
                                         @csrf
 
                                         @method('DELETE')
-
 
                                         <button
                                             type="submit"
@@ -361,19 +398,13 @@
 
                             </div>
 
-
                             <h5 class="thesis-empty-title">
-
                                 No Thesis Found
-
                             </h5>
 
-
                             <p class="thesis-empty-text">
-
                                 No theses have been uploaded to your
                                 department repository yet.
-
                             </p>
 
                         </div>
@@ -389,7 +420,6 @@
     </div>
 
 
-
     {{-- =============================================================
         JAVASCRIPT
     ============================================================= --}}
@@ -397,11 +427,6 @@
     <script>
 
         document.addEventListener('DOMContentLoaded', function () {
-
-
-            /* =====================================================
-               VARIABLES
-            ===================================================== */
 
             let searchTimeout = null;
 
@@ -466,13 +491,7 @@
                 );
 
 
-
-            /* =====================================================
-               LOAD DATA
-            ===================================================== */
-
             function loadData() {
-
 
                 if (currentController) {
 
@@ -485,29 +504,21 @@
                     new AbortController();
 
 
-
                 if (spinner) {
 
-                    spinner.classList.remove(
-                        'd-none'
-                    );
+                    spinner.classList.remove('d-none');
 
                 }
-
 
 
                 if (thesisCards) {
 
-                    thesisCards.classList.add(
-                        'is-loading'
-                    );
+                    thesisCards.classList.add('is-loading');
 
                 }
 
 
-
                 let currentSearch = '';
-
 
 
                 if (window.innerWidth <= 767.98) {
@@ -527,7 +538,6 @@
                 }
 
 
-
                 const query =
                     new URLSearchParams({
 
@@ -544,7 +554,6 @@
                                 : ''
 
                     });
-
 
 
                 fetch(
@@ -571,9 +580,7 @@
 
                 )
 
-
                 .then(response => {
-
 
                     if (!response.ok) {
 
@@ -583,27 +590,21 @@
 
                     }
 
-
                     return response.text();
 
                 })
 
-
                 .then(html => {
-
 
                     if (thesisCards) {
 
-                        thesisCards.innerHTML =
-                            html;
+                        thesisCards.innerHTML = html;
 
                     }
 
                 })
 
-
                 .catch(error => {
-
 
                     if (
                         error.name !==
@@ -619,24 +620,17 @@
 
                 })
 
-
                 .finally(() => {
-
 
                     if (spinner) {
 
-                        spinner.classList.add(
-                            'd-none'
-                        );
+                        spinner.classList.add('d-none');
 
                     }
 
-
                     if (thesisCards) {
 
-                        thesisCards.classList.remove(
-                            'is-loading'
-                        );
+                        thesisCards.classList.remove('is-loading');
 
                     }
 
@@ -645,22 +639,13 @@
             }
 
 
-
-            /* =====================================================
-               DESKTOP SEARCH
-            ===================================================== */
-
             if (searchInput) {
 
                 searchInput.addEventListener(
                     'input',
                     function () {
 
-
-                        clearTimeout(
-                            searchTimeout
-                        );
-
+                        clearTimeout(searchTimeout);
 
                         searchTimeout =
                             setTimeout(
@@ -673,11 +658,6 @@
 
             }
 
-
-
-            /* =====================================================
-               MOBILE SEARCH
-            ===================================================== */
 
             if (mobileSearchInput) {
 
@@ -685,11 +665,7 @@
                     'input',
                     function () {
 
-
-                        clearTimeout(
-                            searchTimeout
-                        );
-
+                        clearTimeout(searchTimeout);
 
                         searchTimeout =
                             setTimeout(
@@ -702,11 +678,6 @@
 
             }
 
-
-
-            /* =====================================================
-               DEPARTMENT FILTER
-            ===================================================== */
 
             if (departmentFilter) {
 
@@ -718,11 +689,6 @@
             }
 
 
-
-            /* =====================================================
-               YEAR FILTER
-            ===================================================== */
-
             if (yearFilter) {
 
                 yearFilter.addEventListener(
@@ -733,13 +699,7 @@
             }
 
 
-
-            /* =====================================================
-               RESET FILTERS
-            ===================================================== */
-
             function resetFilters() {
-
 
                 if (searchInput) {
 
@@ -774,7 +734,6 @@
             }
 
 
-
             if (resetButton) {
 
                 resetButton.addEventListener(
@@ -783,7 +742,6 @@
                 );
 
             }
-
 
 
             if (mobileResetButton) {
@@ -796,17 +754,11 @@
             }
 
 
-
-            /* =====================================================
-               MOBILE SEARCH TOGGLE
-            ===================================================== */
-
             if (mobileSearchToggle) {
 
                 mobileSearchToggle.addEventListener(
                     'click',
                     function () {
-
 
                         if (!mobileSearchPanel) {
 
@@ -815,24 +767,17 @@
                         }
 
 
-
                         const isOpen =
                             mobileSearchPanel
                                 .classList
-                                .contains(
-                                    'is-open'
-                                );
-
+                                .contains('is-open');
 
 
                         if (isOpen) {
 
-
                             mobileSearchPanel
                                 .classList
-                                .remove(
-                                    'is-open'
-                                );
+                                .remove('is-open');
 
 
                             mobileSearchToggle
@@ -841,15 +786,11 @@
                                     'false'
                                 );
 
-
                         } else {
-
 
                             mobileSearchPanel
                                 .classList
-                                .add(
-                                    'is-open'
-                                );
+                                .add('is-open');
 
 
                             mobileSearchToggle
@@ -859,17 +800,14 @@
                                 );
 
 
-
                             setTimeout(
                                 function () {
-
 
                                     if (
                                         mobileSearchInput
                                     ) {
 
-                                        mobileSearchInput
-                                            .focus();
+                                        mobileSearchInput.focus();
 
                                     }
 
@@ -885,15 +823,9 @@
             }
 
 
-
-            /* =====================================================
-               ESCAPE
-            ===================================================== */
-
             document.addEventListener(
                 'keydown',
                 function (event) {
-
 
                     if (
 
@@ -903,19 +835,13 @@
 
                         mobileSearchPanel
                             .classList
-                            .contains(
-                                'is-open'
-                            )
+                            .contains('is-open')
 
                     ) {
 
-
                         mobileSearchPanel
                             .classList
-                            .remove(
-                                'is-open'
-                            );
-
+                            .remove('is-open');
 
 
                         if (mobileSearchToggle) {
@@ -934,32 +860,22 @@
             );
 
 
-
-            /* =====================================================
-               RESIZE
-            ===================================================== */
-
             window.addEventListener(
                 'resize',
                 function () {
-
 
                     if (
                         window.innerWidth >
                         767.98
                     ) {
 
-
                         if (mobileSearchPanel) {
 
                             mobileSearchPanel
                                 .classList
-                                .remove(
-                                    'is-open'
-                                );
+                                .remove('is-open');
 
                         }
-
 
 
                         if (mobileSearchToggle) {
@@ -982,11 +898,10 @@
     </script>
 
 
-
     <style>
 
         /* =========================================================
-           ROOT VARIABLES
+           ROOT
         ========================================================== */
 
         :root {
@@ -1009,29 +924,10 @@
 
             --thesis-muted: #666666;
 
-
-            --color-blue: #0d6efd;
-
-            --color-blue-dark: #0a58ca;
-
-            --color-green: #198754;
-
-            --color-green-dark: #146c43;
-
-            --color-red: #dc3545;
-
-            --color-red-dark: #bb2d3b;
-
-            --color-orange: #fd7e14;
-
-            --color-gray: #6c757d;
-
-
             --thesis-shadow:
                 0 4px 16px rgba(0, 0, 0, .06);
 
         }
-
 
 
         /* =========================================================
@@ -1124,43 +1020,29 @@
         }
 
 
-
         /* =========================================================
            THESIS CARD
+           SAME BLACK / WHITE / GREY STYLE AS TABLE
         ========================================================== */
 
         .thesis-card {
-
-            --card-bg: #ffffff;
-
-            --card-surface: #f7f7f7;
-
-            --card-border: #d6d6d6;
-
-            --card-border-strong: #b5b5b5;
-
-            --card-text: #111111;
-
-            --card-muted: #666666;
-
 
             width: 100%;
 
             height: 100%;
 
-            background: var(--card-bg);
+            background: #ffffff;
 
-            color: var(--card-text);
+            color: #111111;
 
-            border: 1px solid var(--card-border);
+            border: 1px solid #d6d6d6;
 
-            border-radius: 18px;
+            border-radius: 12px;
 
             box-shadow:
                 0 4px 16px rgba(0, 0, 0, .06);
 
             overflow: hidden;
-
 
             transition:
                 border-color .2s ease,
@@ -1172,17 +1054,14 @@
 
         .thesis-card:hover {
 
-            border-color:
-                var(--card-border-strong);
+            border-color: #b5b5b5;
 
             box-shadow:
                 0 8px 24px rgba(0, 0, 0, .10);
 
-            transform:
-                translateY(-2px);
+            transform: translateY(-2px);
 
         }
-
 
 
         /* =========================================================
@@ -1191,11 +1070,11 @@
 
         .thesis-card-header {
 
-            background: transparent;
+            background: #ffffff;
 
             border: 0;
 
-            padding: 20px 20px 0;
+            padding: 18px 18px 0;
 
             display: flex;
 
@@ -1206,7 +1085,6 @@
             gap: 10px;
 
         }
-
 
 
         /* =========================================================
@@ -1221,13 +1099,13 @@
 
             justify-content: center;
 
-            min-height: 32px;
+            min-height: 30px;
 
-            padding: 6px 12px;
+            padding: 6px 11px;
 
             border-radius: 999px;
 
-            font-size: .78rem;
+            font-size: .75rem;
 
             font-weight: 600;
 
@@ -1240,45 +1118,44 @@
 
         .thesis-badge-number {
 
-            background:
-                var(--card-surface);
+            background: #f7f7f7;
 
-            color:
-                var(--card-text);
+            color: #111111;
 
-            border:
-                1px solid var(--card-border);
+            border: 1px solid #d6d6d6;
 
         }
 
 
         .thesis-badge-published {
 
-            background:
-                rgba(25, 135, 84, .12);
+            background: #111111;
 
-            color:
-                var(--color-green);
+            color: #ffffff;
 
-            border:
-                1px solid rgba(25, 135, 84, .30);
+            border: 1px solid #111111;
 
         }
 
 
         .thesis-badge-unpublished {
 
-            background:
-                rgba(108, 117, 125, .12);
+            background: #eeeeee;
 
-            color:
-                var(--color-gray);
+            color: #555555;
 
-            border:
-                1px solid rgba(108, 117, 125, .30);
+            border: 1px solid #d0d0d0;
 
         }
 
+
+        .thesis-badge i {
+
+            margin-right: 5px;
+
+            font-size: .72rem;
+
+        }
 
 
         /* =========================================================
@@ -1287,7 +1164,7 @@
 
         .thesis-card-body {
 
-            padding: 20px;
+            padding: 18px;
 
             display: flex;
 
@@ -1295,57 +1172,86 @@
 
             min-width: 0;
 
-            height:
-                calc(100% - 52px);
+            height: calc(100% - 48px);
 
             box-sizing: border-box;
 
         }
 
 
-
         /* =========================================================
-           TITLE
+           TITLE SECTION
         ========================================================== */
 
-        .thesis-card-title {
+        .thesis-title-section {
 
-            margin:
-                0 0 18px;
+            display: flex;
 
-            color:
-                var(--card-text);
+            align-items: flex-start;
 
-            font-size:
-                1.05rem;
+            gap: 10px;
 
-            font-weight:
-                700;
+            margin-bottom: 16px;
 
-            line-height:
-                1.45;
-
-
-            display:
-                -webkit-box;
-
-            -webkit-box-orient:
-                vertical;
-
-            -webkit-line-clamp:
-                2;
-
-            overflow:
-                hidden;
-
-
-            min-height:
-                calc(
-                    1.05rem * 1.45 * 2
-                );
+            min-width: 0;
 
         }
 
+
+        .thesis-title-icon {
+
+            width: 36px;
+
+            height: 36px;
+
+            flex: 0 0 36px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #f1f1f1;
+
+            color: #111111;
+
+            border: 1px solid #d6d6d6;
+
+            border-radius: 8px;
+
+            font-size: .95rem;
+
+        }
+
+
+        .thesis-card-title {
+
+            margin: 0;
+
+            padding-top: 2px;
+
+            color: #111111;
+
+            font-size: 1rem;
+
+            font-weight: 700;
+
+            line-height: 1.45;
+
+            min-width: 0;
+
+            display: -webkit-box;
+
+            -webkit-box-orient: vertical;
+
+            -webkit-line-clamp: 2;
+
+            overflow: hidden;
+
+            word-break: break-word;
+
+        }
 
 
         /* =========================================================
@@ -1358,18 +1264,15 @@
 
             align-items: center;
 
-            padding: 12px;
+            padding: 11px;
 
-            margin-bottom: 18px;
+            margin-bottom: 10px;
 
-            background:
-                var(--card-surface);
+            background: #f7f7f7;
 
-            border:
-                1px solid var(--card-border);
+            border: 1px solid #d6d6d6;
 
-            border-radius:
-                12px;
+            border-radius: 9px;
 
             min-width: 0;
 
@@ -1378,12 +1281,11 @@
 
         .thesis-author-icon {
 
-            width: 42px;
+            width: 38px;
 
-            height: 42px;
+            height: 38px;
 
-            flex:
-                0 0 42px;
+            flex: 0 0 38px;
 
             display: flex;
 
@@ -1391,19 +1293,15 @@
 
             justify-content: center;
 
+            background: #ffffff;
+
+            color: #111111;
+
+            border: 1px solid #d0d0d0;
+
             border-radius: 50%;
 
-            background:
-                rgba(13, 110, 253, .12);
-
-            color:
-                var(--color-blue);
-
-            border:
-                1px solid rgba(13, 110, 253, .25);
-
-            font-size:
-                1.05rem;
+            font-size: .95rem;
 
         }
 
@@ -1412,42 +1310,148 @@
 
             min-width: 0;
 
-            margin-left: 12px;
+            margin-left: 10px;
+
+        }
+
+
+        .thesis-author-label {
+
+            display: block;
+
+            margin-bottom: 2px;
+
+            color: #777777;
+
+            font-size: .68rem;
+
+            font-weight: 600;
+
+            text-transform: uppercase;
+
+            letter-spacing: .05em;
 
         }
 
 
         .thesis-author-name {
 
-            color:
-                var(--card-text);
+            color: #111111;
 
-            font-weight:
-                600;
+            font-size: .85rem;
 
-            font-size:
-                .92rem;
+            font-weight: 600;
 
-        }
+            overflow: hidden;
 
+            text-overflow: ellipsis;
 
-        .thesis-department {
-
-            color:
-                var(--card-muted);
-
-            font-size:
-                .78rem;
-
-            margin-top:
-                2px;
+            white-space: nowrap;
 
         }
-
 
 
         /* =========================================================
-           META INFORMATION
+           DEPARTMENT
+        ========================================================== */
+
+        .thesis-department-box {
+
+            display: flex;
+
+            align-items: center;
+
+            padding: 10px 11px;
+
+            margin-bottom: 16px;
+
+            background: #ffffff;
+
+            border: 1px solid #d6d6d6;
+
+            border-radius: 9px;
+
+            min-width: 0;
+
+        }
+
+
+        .thesis-department-icon {
+
+            width: 34px;
+
+            height: 34px;
+
+            flex: 0 0 34px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #f1f1f1;
+
+            color: #333333;
+
+            border: 1px solid #d6d6d6;
+
+            border-radius: 8px;
+
+            font-size: .85rem;
+
+        }
+
+
+        .thesis-department-info {
+
+            min-width: 0;
+
+            margin-left: 10px;
+
+        }
+
+
+        .thesis-department-label {
+
+            display: block;
+
+            margin-bottom: 2px;
+
+            color: #777777;
+
+            font-size: .68rem;
+
+            font-weight: 600;
+
+            text-transform: uppercase;
+
+            letter-spacing: .05em;
+
+        }
+
+
+        .thesis-department-name {
+
+            display: block;
+
+            color: #111111;
+
+            font-size: .82rem;
+
+            font-weight: 600;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+        }
+
+
+        /* =========================================================
+           META
         ========================================================== */
 
         .thesis-meta {
@@ -1456,9 +1460,13 @@
 
             flex-direction: column;
 
-            gap: 10px;
+            gap: 0;
 
-            margin-bottom: 18px;
+            margin-bottom: 16px;
+
+            border-top: 1px solid #d6d6d6;
+
+            border-bottom: 1px solid #d6d6d6;
 
         }
 
@@ -1473,91 +1481,65 @@
 
             gap: 12px;
 
-            color:
-                var(--card-muted);
+            padding: 9px 0;
 
-            font-size:
-                .80rem;
+            color: #666666;
 
-            line-height:
-                1.4;
+            font-size: .76rem;
+
+            line-height: 1.4;
 
         }
 
 
-        .thesis-meta-label {
+        .thesis-meta-row + .thesis-meta-row {
+
+            border-top: 1px solid #eeeeee;
+
+        }
+
+
+        .thesis-meta-left {
 
             display: inline-flex;
 
             align-items: center;
 
+            gap: 7px;
+
             min-width: 0;
+
+            color: #666666;
+
+        }
+
+
+        .thesis-meta-left i {
+
+            color: #444444;
+
+            font-size: .78rem;
 
         }
 
 
         .thesis-meta-value {
 
-            color:
-                var(--card-text);
+            color: #111111;
 
-            font-weight:
-                600;
+            font-weight: 600;
 
-            text-align:
-                right;
+            text-align: right;
 
-            max-width:
-                55%;
+            max-width: 55%;
 
-            overflow:
-                hidden;
+            overflow: hidden;
 
-            text-overflow:
-                ellipsis;
+            text-overflow: ellipsis;
 
-            white-space:
-                nowrap;
+            white-space: nowrap;
 
         }
-
-
-
-        /* =========================================================
-           ICON COLORS
-        ========================================================== */
-
-        .thesis-icon-blue {
-
-            color:
-                var(--color-blue);
-
-        }
-
-
-        .thesis-icon-green {
-
-            color:
-                var(--color-green);
-
-        }
-
-
-        .thesis-icon-orange {
-
-            color:
-                var(--color-orange);
-
-        }
-
-
-        .thesis-icon-red {
-
-            color:
-                var(--color-red);
-
-        }
-
 
 
         /* =========================================================
@@ -1566,14 +1548,11 @@
 
         .thesis-attachments {
 
-            margin-top:
-                auto;
+            margin-top: auto;
 
-            padding-top:
-                16px;
+            padding-top: 14px;
 
-            border-top:
-                1px solid var(--card-border);
+            border-top: 1px solid #d6d6d6;
 
         }
 
@@ -1586,41 +1565,40 @@
 
             justify-content: space-between;
 
-            gap: 10px;
-
-            margin-bottom:
-                10px;
+            margin-bottom: 9px;
 
         }
 
 
         .thesis-attachments-title {
 
-            color:
-                var(--card-text);
+            color: #111111;
 
-            font-size:
-                .82rem;
+            font-size: .78rem;
 
-            font-weight:
-                600;
+            font-weight: 700;
+
+        }
+
+
+        .thesis-attachments-title i {
+
+            margin-right: 5px;
+
+            color: #555555;
 
         }
 
 
         .thesis-file-buttons {
 
-            width:
-                100%;
+            width: 100%;
 
-            display:
-                flex;
+            display: flex;
 
-            gap:
-                8px;
+            gap: 8px;
 
         }
-
 
 
         /* =========================================================
@@ -1629,42 +1607,29 @@
 
         .thesis-btn {
 
-            flex:
-                1;
+            flex: 1;
 
-            display:
-                inline-flex;
+            display: inline-flex;
 
-            align-items:
-                center;
+            align-items: center;
 
-            justify-content:
-                center;
+            justify-content: center;
 
-            gap:
-                6px;
+            gap: 6px;
 
-            min-height:
-                36px;
+            min-height: 35px;
 
-            padding:
-                8px 12px;
+            padding: 8px 11px;
 
-            border-radius:
-                6px;
+            border-radius: 6px;
 
-            text-decoration:
-                none;
+            text-decoration: none;
 
-            font-size:
-                .78rem;
+            font-size: .76rem;
 
-            font-weight:
-                600;
+            font-weight: 600;
 
-            cursor:
-                pointer;
-
+            cursor: pointer;
 
             transition:
                 background-color .2s ease,
@@ -1675,77 +1640,60 @@
         }
 
 
-
         /* =========================================================
-           EDIT BUTTON
+           EDIT
         ========================================================== */
 
         .thesis-btn-edit {
 
-            background:
-                #000;
+            background: #000000;
 
-            color:
-                #fff;
+            color: #ffffff;
 
-            border:
-                1px solid #000;
+            border: 1px solid #000000;
 
         }
 
 
         .thesis-btn-edit:hover {
 
-            background:
-                #333;
+            background: #333333;
 
-            color:
-                #fff;
+            color: #ffffff;
 
-            border-color:
-                #333;
+            border-color: #333333;
 
-            transform:
-                translateY(-1px);
+            transform: translateY(-1px);
 
         }
 
 
-
         /* =========================================================
-           DELETE BUTTON
+           DELETE
         ========================================================== */
 
         .thesis-btn-delete {
 
-            background:
-                #fff;
+            background: #ffffff;
 
-            color:
-                #000;
+            color: #000000;
 
-            border:
-                1px solid #000;
+            border: 1px solid #000000;
 
         }
 
 
         .thesis-btn-delete:hover {
 
-            background:
-                #000;
+            background: #000000;
 
-            color:
-                #fff;
+            color: #ffffff;
 
-            border-color:
-                #000;
+            border-color: #000000;
 
-            transform:
-                translateY(-1px);
+            transform: translateY(-1px);
 
         }
-
 
 
         /* =========================================================
@@ -1754,28 +1702,22 @@
 
         .thesis-delete-form {
 
-            flex:
-                1;
+            flex: 1;
 
-            margin:
-                0;
+            margin: 0;
 
-            padding:
-                0;
+            padding: 0;
 
-            display:
-                flex;
+            display: flex;
 
         }
 
 
         .thesis-delete-form .thesis-btn {
 
-            width:
-                100%;
+            width: 100%;
 
         }
-
 
 
         /* =========================================================
@@ -1784,14 +1726,11 @@
 
         .thesis-empty-card {
 
-            background:
-                #fff;
+            background: #ffffff;
 
-            border:
-                1px solid #d6d6d6;
+            border: 1px solid #d6d6d6;
 
-            border-radius:
-                18px;
+            border-radius: 12px;
 
             box-shadow:
                 0 4px 16px rgba(0, 0, 0, .06);
@@ -1801,59 +1740,46 @@
 
         .thesis-empty-body {
 
-            padding:
-                55px 20px;
+            padding: 55px 20px;
 
-            text-align:
-                center;
+            text-align: center;
 
         }
 
 
         .thesis-empty-icon {
 
-            margin-bottom:
-                15px;
+            margin-bottom: 15px;
 
-            color:
-                #777;
+            color: #777777;
 
-            font-size:
-                3.5rem;
+            font-size: 3.5rem;
 
-            line-height:
-                1;
+            line-height: 1;
 
         }
 
 
         .thesis-empty-title {
 
-            margin-bottom:
-                5px;
+            margin-bottom: 5px;
 
-            color:
-                #111;
+            color: #111111;
 
-            font-weight:
-                700;
+            font-weight: 700;
 
         }
 
 
         .thesis-empty-text {
 
-            margin:
-                0;
+            margin: 0;
 
-            color:
-                #777;
+            color: #777777;
 
-            font-size:
-                .82rem;
+            font-size: .82rem;
 
         }
-
 
 
         /* =========================================================
@@ -1862,189 +1788,156 @@
 
         #hodThesisCards.is-loading {
 
-            opacity:
-                .45;
+            opacity: .45;
 
-            pointer-events:
-                none;
+            pointer-events: none;
 
-            transition:
-                opacity .2s ease;
+            transition: opacity .2s ease;
 
         }
 
 
-
         /* =========================================================
-           MOBILE SEARCH PANEL
+           MOBILE SEARCH
         ========================================================== */
 
         .thesis-mobile-search-panel {
 
-            display:
-                none;
+            display: none;
 
-            margin:
-                0 15px 1rem;
+            margin: 0 15px 1rem;
 
-            overflow:
-                hidden;
+            overflow: hidden;
 
-            background:
-                #fff;
+            background: #ffffff;
 
-            border:
-                1px solid #ddd;
+            border: 1px solid #d6d6d6;
 
-            border-radius:
-                8px;
+            border-radius: 8px;
 
-            opacity:
-                0;
+            opacity: 0;
 
-            transform:
-                translateY(-6px);
+            transform: translateY(-6px);
 
-            transition:
-                .2s ease;
+            transition: .2s ease;
 
         }
 
 
         .thesis-mobile-search-panel.is-open {
 
-            opacity:
-                1;
+            opacity: 1;
 
-            transform:
-                translateY(0);
+            transform: translateY(0);
 
         }
 
 
         .thesis-mobile-search-content {
 
-            display:
-                flex;
+            display: flex;
 
-            align-items:
-                center;
+            align-items: center;
 
-            gap:
-                .5rem;
+            gap: .5rem;
 
-            padding:
-                .65rem;
+            padding: .65rem;
 
         }
 
 
         .thesis-mobile-search-input {
 
-            position:
-                relative;
+            position: relative;
 
-            flex:
-                1;
+            flex: 1;
 
         }
 
 
         .thesis-mobile-search-input i {
 
-            position:
-                absolute;
+            position: absolute;
 
-            left:
-                .85rem;
+            left: .85rem;
 
-            top:
-                50%;
+            top: 50%;
 
-            transform:
-                translateY(-50%);
+            transform: translateY(-50%);
 
-            color:
-                #777;
+            color: #777777;
 
-            pointer-events:
-                none;
+            pointer-events: none;
 
         }
 
 
         .thesis-mobile-search-input input {
 
-            width:
-                100%;
+            width: 100%;
 
-            height:
-                44px;
+            height: 44px;
 
-            padding:
-                .5rem .75rem .5rem 2.5rem;
+            padding: .5rem .75rem .5rem 2.5rem;
 
-            color:
-                #000;
+            color: #000000;
 
-            background:
-                #fafafa;
+            background: #fafafa;
 
-            border:
-                1px solid #ddd;
+            border: 1px solid #d6d6d6;
 
-            border-radius:
-                8px;
+            border-radius: 8px;
 
-            outline:
-                none;
+            outline: none;
 
-            font-size:
-                .8rem;
+            font-size: .8rem;
 
-            box-sizing:
-                border-box;
+            box-sizing: border-box;
+
+        }
+
+
+        .thesis-mobile-search-input input:focus {
+
+            border-color: #999999;
+
+            background: #ffffff;
 
         }
 
 
         .thesis-mobile-reset-button {
 
-            display:
-                flex;
+            display: flex;
 
-            align-items:
-                center;
+            align-items: center;
 
-            justify-content:
-                center;
+            justify-content: center;
 
-            width:
-                44px;
+            width: 44px;
 
-            height:
-                44px;
+            height: 44px;
 
-            flex-shrink:
-                0;
+            flex-shrink: 0;
 
-            color:
-                #000;
+            color: #000000;
 
-            background:
-                #fff;
+            background: #ffffff;
 
-            border:
-                1px solid #ddd;
+            border: 1px solid #d6d6d6;
 
-            border-radius:
-                8px;
+            border-radius: 8px;
 
-            cursor:
-                pointer;
+            cursor: pointer;
 
         }
 
+
+        .thesis-mobile-reset-button:hover {
+
+            background: #f1f1f1;
+
+        }
 
 
         /* =========================================================
@@ -2055,21 +1948,18 @@
 
             .thesis-card-body {
 
-                padding:
-                    18px;
+                padding: 17px;
 
             }
 
 
             .thesis-card-header {
 
-                padding:
-                    18px 18px 0;
+                padding: 17px 17px 0;
 
             }
 
         }
-
 
 
         /* =========================================================
@@ -2080,69 +1970,60 @@
 
             .thesis-page-header {
 
-                padding:
-                    1rem;
+                padding: 1rem;
 
             }
 
 
             .thesis-title {
 
-                font-size:
-                    1.25rem;
+                font-size: 1.25rem;
 
             }
 
 
             .thesis-overline {
 
-                font-size:
-                    .8rem;
+                font-size: .8rem;
 
             }
 
 
             .thesis-description {
 
-                font-size:
-                    .75rem;
+                font-size: .75rem;
 
             }
 
 
             .thesis-mobile-search-panel {
 
-                display:
-                    block;
+                display: block;
 
             }
 
 
             .thesis-card {
 
-                border-radius:
-                    14px;
+                border-radius: 10px;
 
             }
 
 
             .thesis-card-header {
 
-                padding:
-                    16px 16px 0;
+                padding: 15px 15px 0;
 
             }
 
 
             .thesis-card-body {
 
-                padding:
-                    16px;
+                padding: 15px;
 
             }
 
         }
-
 
 
         /* =========================================================
@@ -2153,108 +2034,87 @@
 
             .thesis-page-header {
 
-                padding:
-                    .85rem;
+                padding: .85rem;
 
             }
 
 
             .thesis-title {
 
-                font-size:
-                    1.05rem;
+                font-size: 1.05rem;
 
             }
 
 
             .thesis-overline {
 
-                font-size:
-                    .75rem;
+                font-size: .75rem;
 
             }
 
 
             .thesis-description {
 
-                font-size:
-                    .7rem;
+                font-size: .7rem;
 
             }
 
 
             .thesis-card-title {
 
-                font-size:
-                    .98rem;
-
-                margin-bottom:
-                    15px;
+                font-size: .95rem;
 
             }
 
 
             .thesis-author-box {
 
-                padding:
-                    10px;
-
-                margin-bottom:
-                    15px;
+                padding: 9px;
 
             }
 
 
             .thesis-author-icon {
 
-                width:
-                    38px;
+                width: 36px;
 
-                height:
-                    38px;
+                height: 36px;
 
-                flex-basis:
-                    38px;
+                flex-basis: 36px;
 
             }
 
 
             .thesis-author-info {
 
-                margin-left:
-                    10px;
+                margin-left: 9px;
 
             }
 
 
             .thesis-meta-row {
 
-                font-size:
-                    .75rem;
+                font-size: .73rem;
 
             }
 
 
             .thesis-meta-value {
 
-                max-width:
-                    48%;
+                max-width: 48%;
 
             }
 
 
             .thesis-btn {
 
-                min-height:
-                    34px;
+                min-height: 34px;
 
-                font-size:
-                    .74rem;
+                font-size: .73rem;
 
             }
 
         }
-
 
 
         /* =========================================================
@@ -2265,43 +2125,37 @@
 
             .thesis-badge {
 
-                padding:
-                    5px 8px;
+                padding: 5px 8px;
 
-                font-size:
-                    .68rem;
+                font-size: .68rem;
 
             }
 
 
             .thesis-meta-row {
 
-                align-items:
-                    flex-start;
+                align-items: flex-start;
 
             }
 
 
             .thesis-meta-value {
 
-                max-width:
-                    45%;
+                max-width: 45%;
 
             }
 
 
             .thesis-btn span {
 
-                display:
-                    none;
+                display: none;
 
             }
 
 
             .thesis-btn {
 
-                font-size:
-                    .95rem;
+                font-size: .95rem;
 
             }
 

@@ -237,7 +237,7 @@
                     {{-- VIEW PDF --}}
 
                     <a
-                        href="{{ route('hod.thesis.view-pdf', $file) }}"
+                        href="{{ route('student.thesis.view-pdf', $file) }}"
                         target="_blank"
                         class="admin-thesis-action admin-thesis-view">
 
@@ -253,7 +253,7 @@
                     {{-- DOWNLOAD PDF --}}
 
                     <a
-                        href="{{ route('hod.thesis.download', $file) }}"
+                        href="{{ route('student.thesis.download', $file) }}"
                         class="admin-thesis-action admin-thesis-download">
 
                         <i class="bi bi-download"></i>

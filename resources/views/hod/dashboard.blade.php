@@ -16,7 +16,7 @@
                     </span>
 
                     <h1 class="hod-hero-title">
-                        {{ $departmentName ?? 'Your Department' }}
+                        {{ $department->name ?? 'Your Department' }}
                     </h1>
 
                     <p class="hod-hero-description">

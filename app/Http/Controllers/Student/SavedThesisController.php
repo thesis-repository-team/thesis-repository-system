@@ -50,4 +50,82 @@ class SavedThesisController extends Controller
 
         return back()->with('success', 'Thesis removed from saved theses.');
     }
+
+    // add search function to search for theses by title, author_name, or department name
+//     public function search(Request $request)
+//     {
+//         $search = $request->search;
+//         $query = Thesis::with(['user', 'department']);
+
+//         // Search
+//         if ($request->filled('search')) {
+//             $query->where(function ($q) use ($search) {
+//                 $q->where('title', 'like', "%{$search}%")
+//                     ->orWhere('author_name', 'like', "%{$search}%")
+//                     ->orWhereHas('department', function ($d) use ($search) {
+//                         $d->where('name', 'like', "%{$search}%");
+//                     })
+
+//                     //Keyword
+//                     ->orWhereHas('keywords', function ($k) use ($search) {
+//                         $k->where('keyword_name', 'like', "%{$search}%");
+//                     })
+
+//                     // Submitted By
+//                     ->orWhereHas('submittedBy', function ($u) use ($search) {
+
+//                         // Admin username
+//                         $u->where('username', 'like', "%{$search}%")
+
+//                             // Student full name
+//                             ->orWhereHas('student', function ($s) use ($search) {
+//                                 $s->where('full_name', 'like', "%{$search}%");
+//                             })
+
+//                             // HoD full name
+//                             ->orWhereHas('hod', function ($h) use ($search) {
+//                                 $h->where('full_name', 'like', "%{$search}%");
+//                             });
+//                     })
+
+//                     // Published By
+//                     ->orWhereHas('publishedBy', function ($u) use ($search) {
+
+//                         // Admin username
+//                         $u->where('username', 'like', "%{$search}%")
+
+//                             // Student full name
+//                             ->orWhereHas('student', function ($s) use ($search) {
+//                                 $s->where('full_name', 'like', "%{$search}%");
+//                             })
+
+//                             // HoD full name
+//                             ->orWhereHas('hod', function ($h) use ($search) {
+//                                 $h->where('full_name', 'like', "%{$search}%");
+//                             });
+//                     });
+//             });
+//         }
+
+//         // department filter
+//         if ($request->filled('department')) {
+//             $query->whereHas('department', function ($q) use ($request) {
+//                 $q->where('name', $request->department);
+//             });
+//         }
+
+//         // year filter
+//         if ($request->filled('year')) {
+//             $query->whereYear('published_at', $request->year);
+//         }
+
+//         $theses = $query->get();
+
+//         // Get all thesis IDs saved by this student
+//         $savedThesisIds = SavedThesis::where('student_id', auth()->user()->student->id)
+//             ->pluck('thesis_id')
+//             ->toArray();
+
+//         return view('student.thesis.table', compact('theses','savedThesisIds'));
+//     }
 }
