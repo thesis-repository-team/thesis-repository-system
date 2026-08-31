@@ -7,7 +7,7 @@
             {{-- =================================================
                  HERO
             ================================================== --}}
-            <section class="dashboard-hero">
+            {{-- <section class="dashboard-hero">
 
                 <div class="hero-content">
 
@@ -35,7 +35,7 @@
 
                 </div>
 
-            </section>
+            </section> --}}
 
 
             {{-- =================================================
@@ -523,7 +523,7 @@
 
 
                     {{-- CALENDAR --}}
-                    <div class="dashboard-card calendar-card">
+                    {{-- <div class="dashboard-card calendar-card">
 
                         <div class="calendar-header">
 
@@ -606,11 +606,11 @@
 
                         </div>
 
-                    </div>
+                    </div> --}}
 
 
                     {{-- SCHEDULE --}}
-                    <div class="dashboard-card schedule-card">
+                    {{-- <div class="dashboard-card schedule-card">
 
                         <h3>
                             Today's Schedule
@@ -679,7 +679,7 @@
 
                         </div>
 
-                    </div>
+                    </div> --}}
 
 
                     {{-- RECENT HODS --}}

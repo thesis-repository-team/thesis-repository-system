@@ -9,7 +9,7 @@
         <div class="sidebar-brand">
 
             <div class="sidebar-logo">
-                <img src="{{ asset('/') }}"
+                <img src="{{ asset('image/Small LU Logo.png') }}"
                      alt="Life University Logo">
             </div>
 
@@ -105,6 +105,15 @@
                     THESIS
                 </div>
 
+
+                {{-- STUDENTS --}}
+                <a href="{{ route('hod.students.index') }}"
+                   class="sidebar-link {{ request()->routeIs('hod.students.*') ? 'active' : '' }}">
+
+                    <i class="bi bi-people"></i>
+                    <span>Students</span>
+
+                </a>
 
                 <a href="{{ route('hod.thesis.index') }}"
                    class="sidebar-link {{ request()->routeIs('hod.thesis.*') ? 'active' : '' }}">

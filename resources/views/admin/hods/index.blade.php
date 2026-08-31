@@ -2,10 +2,6 @@
 
     <div class="dashboard-content">
 
-        {{-- =========================================================
-            PAGE HEADER
-        ========================================================== --}}
-
         <div class="hod-page-header">
 
             <div class="hod-header-content">
@@ -87,7 +83,6 @@
             DESKTOP FILTER CARD
         ========================================================== --}}
 
-        {{-- <div class="hod-filter-card"> --}}
 
             {{-- FILTER BODY --}}
 
@@ -772,11 +767,6 @@
 
         }
 
-
-        /* =========================================================
-           PAGE
-        ========================================================== */
-
         .dashboard-page {
             color: var(--hod-text);
             transition:
@@ -785,10 +775,6 @@
 
         }
 
-
-        /* =========================================================
-           HEADER
-        ========================================================== */
         .hods-header {
             display: flex;
             align-items: flex-end;
@@ -824,160 +810,83 @@
         }
 
         .hod-page-header {
-
-            /* margin-bottom: 20px; */
             padding: 15px;
-            /* border-radius: 12px; */
-            /* border: 1px solid #ece6fc; */
             background: white;
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
+            border-radius: 12px;
             overflow: hidden;
             box-sizing: border-box;
-            /* display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--dept-border); */
         }
 
 
         .hod-header-content {
-
             min-width: 0;
-
         }
 
 
         .hod-page-title {
-
             margin: 0 0 .4rem;
-
-            color:
-                var(--hod-text);
-
+            color: var(--hod-text);
             font-size: 1.7rem;
-
             font-weight: 800;
-
             letter-spacing: -.035em;
-
             line-height: 1.2;
-
         }
 
 
         .hod-page-description {
-
             margin: 0;
-
-            color:
-                var(--hod-text-secondary);
-
+            color: var(--hod-text-secondary);
             font-size: .86rem;
-
             line-height: 1.6;
-
         }
 
 
         .hod-page-description strong {
-
-            color:
-                var(--hod-text);
-
+            color: var(--hod-text);
             font-weight: 800;
-
         }
-
-
-        /* =========================================================
-           HEADER ACTIONS
-        ========================================================== */
 
         .hod-header-actions {
-
             display: flex;
-
             align-items: center;
-
             gap: .5rem;
-
             flex-shrink: 0;
-
         }
 
-
-        /* =========================================================
-           ADD BUTTON
-        ========================================================== */
-
         .hod-add-button {
-
             position: relative;
-
             display: inline-flex;
-
             align-items: center;
-
             justify-content: center;
-
             gap: .55rem;
-
             min-height: 44px;
-
             padding: .7rem 1rem;
-
-            color:
-                var(--hod-white);
-
-            background:
-                var(--hod-black);
-
-            border:
-                1px solid var(--hod-black);
-
+            color: var(--hod-white);
+            background: var(--hod-black);
+            border: 1px solid var(--hod-black);
             border-radius: 8px;
-
             text-decoration: none;
-
             font-size: .72rem;
-
             font-weight: 800;
-
             text-transform: uppercase;
-
             letter-spacing: .03em;
-
-            transition:
-                .2s ease;
-
+            transition:.2s ease;
         }
 
 
         [data-bs-theme="dark"] .hod-add-button {
-
-            color:
-                var(--hod-black);
-
-            background:
-                var(--hod-white);
-
-            border-color:
-                var(--hod-white);
-
+            color: var(--hod-black);
+            background: var(--hod-white);
+            border-color: var(--hod-white);
         }
 
 
         .hod-add-button:hover {
-
-            color:
-                var(--hod-white);
-
-            background:
-                #222222;
+            color: var(--hod-white);
+            background: #222222;
 
             border-color:
                 #222222;
@@ -1075,28 +984,11 @@
            DESKTOP FILTER
         ========================================================== */
 
-        .hod-filter-card {
-
-            margin-bottom: 1.5rem;
-
-            overflow: hidden;
-
-            background:
-                var(--hod-card-bg);
-
-            border:
-                1px solid var(--hod-border-soft);
-
-            border-radius: 12px;
-
-            box-shadow:
-                var(--hod-shadow);
-
-        }
+        
 
 
         .hod-filter-header {
-
+            overflow: hidden;
             padding:
                 1rem 1.25rem;
 
@@ -1188,6 +1080,7 @@
 
         .hod-filter-body {
 
+            overflow: hidden;
             padding:
                 1.2rem 1.25rem;
 

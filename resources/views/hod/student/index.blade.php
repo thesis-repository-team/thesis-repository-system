@@ -235,7 +235,7 @@
 
                 <div id="adminStudentTable" class="row g-4">
 
-                    @include('admin.students.table')
+                    @include('hod.student.table')
 
                 </div>
             @else
@@ -448,7 +448,7 @@
                     */
 
                     fetch(
-                            "{{ route('admin.students.search') }}?" +
+                            "{{ route('hod.students.search') }}?" +
                             query.toString(), {
                                 signal: currentController.signal
                             }
@@ -959,6 +959,7 @@
             justify-content: space-between;
             overflow: hidden;
             box-sizing: border-box;
+            border-radius: 12px;
         }
 
 
@@ -1094,6 +1095,7 @@
 
         .student-filter-body {
 
+            border-radius: 12px;
             overflow: hidden;
             padding:
                 1.2rem 1.25rem;
@@ -1715,7 +1717,8 @@
         }
 
         #adminStudentTable {
-            margin-top: 0;
+            margin-top: 0.005rem;
+            /* padding: 30px; */
             transition:
                 opacity .2s ease;
 

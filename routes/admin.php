@@ -42,7 +42,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/thesis/edit/{thesis}', [AdminThesisController::class, 'edit'])->name('thesis.edit');
     Route::put('/thesis/update/{thesis}', [AdminThesisController::class, 'update'])->name('thesis.update');
     Route::delete('/thesis/destroy/{thesis}', [AdminThesisController::class, 'destroy'])->name('thesis.destroy');
-    Route::get('/thesis/my-theses', [AdminThesisController::class, 'myTheses'])->name('thesis.my-theses');
+    Route::get('/thesis/my-upload', [AdminThesisController::class, 'myUpload'])->name('thesis.my-upload');
     Route::get('/thesis/search', [AdminThesisController::class, 'search'])->name('thesis.search');
     Route::get('/thesis/download/{file}', [AdminThesisController::class, 'downloadPDF'])->name('thesis.download');
 

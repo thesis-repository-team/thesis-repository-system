@@ -38,6 +38,7 @@ class ThesisRequestsController extends Controller
 
         return view('admin.thesis_requests.show', compact('thesisRequest', 'thesis'));
     }
+    
     public function viewRequestPDF(ThesisRequest $file)
     {
         if (! Storage::disk('public')->exists($file->pdf_file)) {

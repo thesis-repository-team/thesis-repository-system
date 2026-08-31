@@ -88,9 +88,9 @@ class ThesisController extends Controller
     {
         $departments = Department::all();
 
-        if (auth()->user()->hod->department_id !== $thesis->department_id) {
-            return redirect()->route('admin.thesis.index')->with('error', 'You are not allowed to edit theses from another department.');
-        }
+        // if (auth()->user()->hod->department_id !== $thesis->department_id) {
+        //     return redirect()->route('admin.thesis.index')->with('error', 'You are not allowed to edit theses from another department.');
+        // }
 
         return view('admin.thesis.edit', compact('thesis', 'departments'));
     }
@@ -144,6 +144,38 @@ class ThesisController extends Controller
         });
 
         return redirect()->route('admin.thesis.index')->with('success', 'Thesis updated successfully.');
+    }
+
+    public function destroy(Thesis $thesis)
+    {
+        // if (auth()->user()->hod->department_id !== $thesis->department_id) {
+        //     return redirect()
+        //         ->route('hod.thesis.index')->with('error', 'You are not allowed to delete theses from another department.');
+        // }
+
+        DB::transaction(function () use ($thesis) {
+            // delete associated files from storage and database
+            foreach ($thesis->files as $file) {
+                Storage::disk('public')->delete($file->file_path);
+                $file->delete();
+            }
+
+            $thesis->delete();
+        });
+
+        return redirect()->route('admin.thesis.index')->with('success', 'Thesis deleted successfully.');
+    }
+
+
+    public function myUpload()
+    {
+    
+        $theses = Thesis::where('published_by', auth()->id())
+            ->with('files','department')
+            ->latest()
+            ->get();
+
+        return view('admin.thesis.my-upload', compact('theses'));
     }
 
     // Add a search function to search for theses by title, author_name, or department name
@@ -213,13 +245,6 @@ class ThesisController extends Controller
         if ($request->filled('year')) {
             $query->whereYear('published_at', $request->year);
         }
-
-        // // Keyword
-        // if ($request->filled('keyword_id')) {
-        //     $query->whereHas('keywords', function ($q) use ($request) {
-        //         $q->where('keyword_id', $request->keyword_id);
-        //     });
-        // }
 
         $theses = $query->get();
 

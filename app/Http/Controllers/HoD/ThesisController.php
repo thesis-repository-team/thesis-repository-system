@@ -32,9 +32,9 @@ class ThesisController extends Controller
     {
         $departments = Department::all();
 
-        $keywords = Keyword::orderBy('keyword_name')->get();
+        // $keywords = Keyword::orderBy('keyword_name')->get();
 
-        return view('hod.thesis.create', compact('departments', 'keywords'));
+        return view('hod.thesis.create', compact('departments'));
     }
 
     public function store(Request $request)
