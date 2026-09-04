@@ -4,10 +4,7 @@
 
         <div class="hod-create-card">
 
-            {{-- =================================================
-                FORM HEADER
-            ================================================== --}}
-
+            {{-- Header --}}
             <div class="hod-create-header">
 
                 <div>
@@ -29,102 +26,118 @@
             </div>
 
 
-            {{-- =================================================
-                FORM
-            ================================================== --}}
-
+            {{-- Form --}}
             <form
-                action="{{ route('admin.hods.store') }}"
+                action="{{ route('admin.hods.update', $hod) }}"
                 method="POST"
                 class="hod-create-form">
 
                 @csrf
+                @method('PUT')
 
 
-                {{-- FULL NAME --}}
-
+                {{-- Full Name --}}
                 <div class="hod-form-group">
 
-                    <label for="full_name" class="hod-form-label">
+                    <label
+                        for="full_name"
+                        class="hod-form-label">
+
                         Full Name
+
                     </label>
 
                     <input
                         type="text"
                         id="full_name"
                         name="full_name"
-                        value="{{ old('full_name') }}"
+                        value="{{ old('full_name', $hod->full_name) }}"
                         class="hod-form-control @error('full_name') is-invalid @enderror"
                         placeholder="Enter full name"
                         required>
 
                     @error('full_name')
+
                         <div class="hod-error">
                             {{ $message }}
                         </div>
+
                     @enderror
 
                 </div>
 
 
-                {{-- EMAIL --}}
-
+                {{-- Email --}}
                 <div class="hod-form-group">
 
-                    <label for="email" class="hod-form-label">
+                    <label
+                        for="email"
+                        class="hod-form-label">
+
                         Email
+
                     </label>
 
                     <input
                         type="email"
                         id="email"
                         name="email"
-                        value="{{ old('email') }}"
+                        value="{{ old('email', $hod->user->email ?? '') }}"
                         class="hod-form-control @error('email') is-invalid @enderror"
                         placeholder="Enter email address"
                         required>
 
                     @error('email')
+
                         <div class="hod-error">
                             {{ $message }}
                         </div>
+
                     @enderror
 
                 </div>
 
 
-                {{-- USERNAME --}}
-
+                {{-- Username --}}
                 <div class="hod-form-group">
 
-                    <label for="username" class="hod-form-label">
+                    <label
+                        for="username"
+                        class="hod-form-label">
+
                         Username
+
                     </label>
 
                     <input
                         type="text"
                         id="username"
                         name="username"
-                        value="{{ old('username') }}"
+                        value="{{ old('username', $hod->user->username ?? '') }}"
                         class="hod-form-control @error('username') is-invalid @enderror"
                         placeholder="Enter username"
                         required>
 
                     @error('username')
+
                         <div class="hod-error">
                             {{ $message }}
                         </div>
+
                     @enderror
 
                 </div>
 
 
-                {{-- PASSWORD --}}
-
+                {{-- Password --}}
                 <div class="hod-form-group">
 
-                    <label for="password" class="hod-form-label">
+                    <label
+                        for="password"
+                        class="hod-form-label">
+
                         Password
+
                     </label>
 
                     <input
@@ -132,24 +145,28 @@
                         id="password"
                         name="password"
                         class="hod-form-control @error('password') is-invalid @enderror"
-                        placeholder="Enter password"
-                        required>
+                        placeholder="Leave blank to keep current password">
 
                     @error('password')
+
                         <div class="hod-error">
                             {{ $message }}
                         </div>
+
                     @enderror
 
                 </div>
 
 
-                {{-- DEPARTMENT --}}
-
+                {{-- Department --}}
                 <div class="hod-form-group">
 
-                    <label for="department_id" class="hod-form-label">
+                    <label
+                        for="department_id"
+                        class="hod-form-label">
+
                         Department
+
                     </label>
 
                     <select
@@ -166,7 +183,7 @@
 
                             <option
                                 value="{{ $department->id }}"
-                                {{ old('department_id') == $department->id ? 'selected' : '' }}>
+                                {{ old('department_id', $hod->department_id) == $department->id ? 'selected' : '' }}>
 
                                 {{ $department->name }}
 
@@ -177,27 +194,32 @@
                     </select>
 
                     @error('department_id')
+
                         <div class="hod-error">
                             {{ $message }}
                         </div>
+
                     @enderror
 
                 </div>
 
 
-                {{-- STARTED YEAR --}}
-
+                {{-- Started Year --}}
                 <div class="hod-form-group">
 
-                    <label for="started_year" class="hod-form-label">
+                    <label
+                        for="started_year"
+                        class="hod-form-label">
+
                         Started Year
+
                     </label>
 
                     <input
                         type="number"
                         id="started_year"
                         name="started_year"
-                        value="{{ old('started_year') }}"
+                        value="{{ old('started_year', $hod->started_year) }}"
                         class="hod-form-control @error('started_year') is-invalid @enderror"
                         placeholder="2025"
                         min="1900"
@@ -205,57 +227,74 @@
                         required>
 
                     @error('started_year')
+
                         <div class="hod-error">
                             {{ $message }}
                         </div>
+
                     @enderror
 
                 </div>
 
 
-                {{-- STATUS --}}
-
+                {{-- Status --}}
                 <div class="hod-form-group">
 
-                    <label for="is_active" class="hod-form-label">
+                    <label
+                        for="is_active"
+                        class="hod-form-label">
+
                         Status
+
                     </label>
 
                     <select
                         id="is_active"
                         name="is_active"
-                        class="hod-form-control hod-form-select">
+                        class="hod-form-control hod-form-select @error('is_active') is-invalid @enderror">
 
                         <option
                             value="1"
-                            {{ old('is_active', '1') == '1' ? 'selected' : '' }}>
+                            {{ old('is_active', $hod->is_active) == '1' ? 'selected' : '' }}>
+
                             Active
+
                         </option>
 
                         <option
                             value="0"
-                            {{ old('is_active') === '0' ? 'selected' : '' }}>
+                            {{ old('is_active', $hod->is_active) == '0' ? 'selected' : '' }}>
+
                             Inactive
+
                         </option>
 
                     </select>
 
+                    @error('is_active')
+
+                        <div class="hod-error">
+                            {{ $message }}
+                        </div>
+
+                    @enderror
+
                 </div>
 
 
-                {{-- =================================================
-                    ACTIONS
-                ================================================== --}}
-
+                {{-- Actions --}}
                 <div class="hod-form-actions">
 
                     <a
                         href="{{ route('admin.hods.index') }}"
                         class="hod-cancel-button">
 
+                        <i class="bi bi-x-lg"></i>
+
                         Cancel
 
                     </a>
+
 
                     <button
                         type="submit"
@@ -263,7 +302,7 @@
 
                         <i class="bi bi-check-lg"></i>
 
-                        Save HoD
+                        Save Changes
 
                     </button>
 
@@ -280,28 +319,64 @@
 
         :root {
 
+            --hod-blue: #2563eb;
+            --hod-blue-hover: #1d4ed8;
+
+            --hod-red: #dc2626;
+            --hod-red-hover: #b91c1c;
+
             --hod-black: #000000;
             --hod-white: #ffffff;
 
-            --hod-text: #000000;
-            --hod-text-secondary: #333333;
-            --hod-text-muted: #777777;
-
-            --hod-border: #dddddd;
+            --hod-page-bg: #ffffff;
+            --hod-card-bg: #ffffff;
 
             --hod-input-bg: #fafafa;
 
+            --hod-text: #000000;
+            --hod-text-secondary: #000000;
+            --hod-text-muted: #000000;
+
+            --hod-border: #dddddd;
+            --hod-border-soft: #eeeeee;
+
+            --hod-placeholder: #999999;
+
+            --hod-shadow:
+                0 4px 18px rgba(0, 0, 0, .06);
         }
 
 
-        /* =========================================================
-           PAGE
-        ========================================================== */
+        /* Dark Mode */
+
+        [data-bs-theme="dark"] {
+
+            --hod-page-bg: #000000;
+            --hod-card-bg: #000000;
+
+            --hod-input-bg: #0d0d0d;
+
+            --hod-text: #ffffff;
+            --hod-text-secondary: #ffffff;
+            --hod-text-muted: #ffffff;
+
+            --hod-border: #333333;
+            --hod-border-soft: #333333;
+
+            --hod-placeholder: #777777;
+
+            --hod-shadow:
+                0 4px 18px rgba(255, 255, 255, .04);
+        }
+
+
+        /* Page */
 
         .hod-create-wrapper {
 
             margin-left: 250px;
-            width: 86%;
+
+            width: calc(100% - 250px);
 
             padding-top: 118px;
             padding-left: 20px;
@@ -314,12 +389,15 @@
 
             color: var(--hod-text);
 
+            /* background: var(--hod-page-bg); */
+
+            transition:
+                background-color .25s ease,
+                color .25s ease;
         }
 
 
-        /* =========================================================
-           FULL SCREEN CARD
-        ========================================================== */
+        /* Card */
 
         .hod-create-card {
 
@@ -329,23 +407,30 @@
 
             margin: 0;
 
-            background: #ffffff;
+            background: var(--hod-card-bg);
+
+            color: var(--hod-text);
+
+            border:
+                1px solid var(--hod-border-soft);
 
             border-radius: 12px;
 
-            box-shadow:
-                0 4px 18px rgba(0, 0, 0, .06);
+            box-shadow: var(--hod-shadow);
 
             overflow: hidden;
 
             box-sizing: border-box;
 
+            transition:
+                background-color .25s ease,
+                color .25s ease,
+                border-color .25s ease,
+                box-shadow .25s ease;
         }
 
 
-        /* =========================================================
-           FORM HEADER
-        ========================================================== */
+        /* Header */
 
         .hod-create-header {
 
@@ -359,8 +444,9 @@
 
             padding: 1.4rem 1.5rem;
 
-            box-sizing: border-box;
+            background: var(--hod-card-bg);
 
+            box-sizing: border-box;
         }
 
 
@@ -370,7 +456,7 @@
 
             margin-bottom: .25rem;
 
-            color: #777777;
+            color: var(--hod-text);
 
             font-size: .65rem;
 
@@ -379,7 +465,6 @@
             letter-spacing: .1em;
 
             text-transform: uppercase;
-
         }
 
 
@@ -387,14 +472,13 @@
 
             margin: 0;
 
-            color: #000000;
+            color: var(--hod-text);
 
             font-size: 1.25rem;
 
             font-weight: 800;
 
             line-height: 1.3;
-
         }
 
 
@@ -402,18 +486,15 @@
 
             margin: .35rem 0 0;
 
-            color: #777777;
+            color: var(--hod-text-secondary);
 
             font-size: .78rem;
 
             line-height: 1.5;
-
         }
 
 
-        /* =========================================================
-           FORM
-        ========================================================== */
+        /* Form */
 
         .hod-create-form {
 
@@ -428,14 +509,11 @@
 
             padding: 1.5rem;
 
-            box-sizing: border-box;
+            background: var(--hod-card-bg);
 
+            box-sizing: border-box;
         }
 
-
-        /* =========================================================
-           FORM GROUP
-        ========================================================== */
 
         .hod-form-group {
 
@@ -444,13 +522,10 @@
             width: 100%;
 
             box-sizing: border-box;
-
         }
 
 
-        /* =========================================================
-           LABEL
-        ========================================================== */
+        /* Labels */
 
         .hod-form-label {
 
@@ -458,7 +533,7 @@
 
             margin-bottom: .45rem;
 
-            color: #333333;
+            color: var(--hod-text-secondary);
 
             font-size: .68rem;
 
@@ -467,13 +542,10 @@
             text-transform: uppercase;
 
             letter-spacing: .05em;
-
         }
 
 
-        /* =========================================================
-           INPUT / SELECT
-        ========================================================== */
+        /* Inputs */
 
         .hod-form-control {
 
@@ -489,11 +561,12 @@
 
             padding: .55rem .85rem;
 
-            color: #000000;
+            color: var(--hod-text);
 
-            background: #fafafa;
+            background: var(--hod-input-bg);
 
-            border: 1px solid #dddddd;
+            border:
+                1px solid var(--hod-border-soft);
 
             border-radius: 8px;
 
@@ -505,38 +578,84 @@
 
             box-sizing: border-box;
 
-            transition: .2s ease;
+            transition:
+                background-color .2s ease,
+                color .2s ease,
+                border-color .2s ease,
+                box-shadow .2s ease;
+        }
 
+
+        .hod-form-control::placeholder {
+
+            color: var(--hod-placeholder);
+
+            opacity: 1;
         }
 
 
         .hod-form-control:focus {
 
-            background: #ffffff;
+            color: var(--hod-text);
 
-            border-color: #000000;
+            background: var(--hod-input-bg);
+
+            border-color: var(--hod-blue);
 
             box-shadow:
-                0 0 0 3px rgba(0, 0, 0, .08);
-
+                0 0 0 3px
+                rgba(37, 99, 235, .10);
         }
 
+
+        /* Dark Inputs */
+
+        [data-bs-theme="dark"] .hod-form-control {
+
+            color: #ffffff;
+
+            background: #0d0d0d;
+
+            border-color: #333333;
+        }
+
+
+        [data-bs-theme="dark"] .hod-form-control:focus {
+
+            color: #ffffff;
+
+            background: #0d0d0d;
+
+            border-color: var(--hod-blue);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(37, 99, 235, .18);
+        }
+
+
+        [data-bs-theme="dark"]
+        .hod-form-control::placeholder {
+
+            color: #777777;
+        }
+
+
+        /* Invalid */
 
         .hod-form-control.is-invalid {
 
-            border-color: #000000;
+            border-color: var(--hod-red);
 
+            box-shadow: none;
         }
 
 
-        /* =========================================================
-           SELECT
-        ========================================================== */
+        /* Select */
 
         .hod-form-select {
 
             cursor: pointer;
-
         }
 
 
@@ -545,32 +664,35 @@
             color: #000000;
 
             background: #ffffff;
-
         }
 
 
-        /* =========================================================
-           ERROR
-        ========================================================== */
+        [data-bs-theme="dark"]
+        .hod-form-select option {
+
+            color: #ffffff;
+
+            background: #000000;
+        }
+
+
+        /* Errors */
 
         .hod-error {
 
             margin-top: .35rem;
 
-            color: #000000;
+            color: var(--hod-red) !important;
 
             font-size: .7rem;
 
             font-weight: 600;
 
             line-height: 1.4;
-
         }
 
 
-        /* =========================================================
-           ACTIONS
-        ========================================================== */
+        /* Actions */
 
         .hod-form-actions {
 
@@ -588,19 +710,22 @@
 
             padding-top: 1rem;
 
-            border-top: 1px solid #eeeeee;
-
             box-sizing: border-box;
-
         }
 
 
-        /* =========================================================
-           BUTTONS
-        ========================================================== */
+        /* Buttons */
 
         .hod-cancel-button,
         .hod-save-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: .4rem;
 
             min-height: 42px;
 
@@ -620,99 +745,99 @@
 
             box-sizing: border-box;
 
-            transition: .2s ease;
-
+            transition:
+                background-color .2s ease,
+                color .2s ease,
+                border-color .2s ease,
+                transform .2s ease;
         }
 
 
-        /* =========================================================
-           CANCEL
-        ========================================================== */
+        /* Cancel */
 
         .hod-cancel-button {
 
-            color: #000000;
+            color: #ffffff !important;
 
-            background: #ffffff;
+            background: var(--hod-red);
 
-            border: 1px solid #dddddd;
-
+            border:
+                1px solid var(--hod-red);
         }
 
 
         .hod-cancel-button:hover {
 
-            color: #ffffff;
+            color: #ffffff !important;
 
-            background: #000000;
+            background: var(--hod-red-hover);
 
-            border-color: #000000;
+            border-color: var(--hod-red-hover);
 
+            transform: translateY(-1px);
         }
 
 
-        /* =========================================================
-           SAVE
-        ========================================================== */
+        /* Save */
 
         .hod-save-button {
 
-            display: inline-flex;
+            color: #ffffff !important;
 
-            align-items: center;
+            background: var(--hod-blue);
 
-            justify-content: center;
-
-            gap: .4rem;
-
-            color: #ffffff;
-
-            background: #000000;
-
-            border: 1px solid #000000;
-
+            border:
+                1px solid var(--hod-blue);
         }
 
 
         .hod-save-button:hover {
 
-            color: #ffffff;
+            color: #ffffff !important;
 
-            background: #222222;
+            background: var(--hod-blue-hover);
 
-            border-color: #222222;
+            border-color: var(--hod-blue-hover);
 
             transform: translateY(-1px);
-
         }
 
 
-        /* =========================================================
-           TABLET
-        ========================================================== */
+        .hod-save-button i,
+        .hod-cancel-button i {
+
+            color: #ffffff !important;
+
+            font-size: .85rem;
+        }
+
+
+        /* Tablet */
 
         @media (max-width: 1000px) {
 
             .hod-create-wrapper {
 
+                margin-left: 250px;
+
+                width: calc(100% - 250px);
+
                 padding-left: 15px;
 
                 padding-right: 15px;
-
             }
-
         }
 
 
-        /* =========================================================
-           MOBILE
-        ========================================================== */
+        /* Mobile */
 
         @media (max-width: 767.98px) {
 
             .hod-create-wrapper {
 
                 width: 100%;
+
+                margin-left: 0;
 
                 padding-top: 90px;
 
@@ -723,7 +848,6 @@
                 padding-bottom: 20px;
 
                 overflow-x: hidden;
-
             }
 
 
@@ -734,28 +858,24 @@
                 max-width: 100%;
 
                 margin: 0;
-
             }
 
 
             .hod-create-header {
 
                 padding: 1rem;
-
             }
 
 
             .hod-create-title {
 
                 font-size: 1.1rem;
-
             }
 
 
             .hod-create-description {
 
                 font-size: .72rem;
-
             }
 
 
@@ -766,7 +886,6 @@
                 gap: 1rem;
 
                 padding: 1rem;
-
             }
 
 
@@ -775,7 +894,6 @@
                 flex-direction: column-reverse;
 
                 align-items: stretch;
-
             }
 
 
@@ -785,15 +903,11 @@
                 width: 100%;
 
                 text-align: center;
-
             }
-
         }
 
 
-        /* =========================================================
-           SMALL MOBILE
-        ========================================================== */
+        /* Small Mobile */
 
         @media (max-width: 575.98px) {
 
@@ -804,35 +918,30 @@
                 padding-left: 8px;
 
                 padding-right: 8px;
-
             }
 
 
             .hod-create-header {
 
                 padding: .9rem;
-
             }
 
 
             .hod-create-form {
 
                 padding: .9rem;
-
             }
 
 
             .hod-create-title {
 
                 font-size: 1.05rem;
-
             }
 
 
             .hod-create-description {
 
                 font-size: .7rem;
-
             }
 
 
@@ -841,9 +950,22 @@
                 height: 44px;
 
                 font-size: .8rem;
-
             }
+        }
 
+
+        /* Reduced Motion */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .hod-create-wrapper *,
+            .hod-create-wrapper *::before,
+            .hod-create-wrapper *::after {
+
+                transition: none !important;
+
+                animation: none !important;
+            }
         }
 
     </style>

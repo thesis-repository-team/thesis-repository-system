@@ -1,60 +1,46 @@
-
 <x-app-layout>
+
 
     <div class="dashboard-content">
 
         {{-- =========================================================
-             PAGE HEADER
-        ========================================================== --}}
+        PAGE HEADER
+    ========================================================== --}}
 
         <div class="departments-header">
 
             <div class="departments-header-content">
 
-                <div class="departments-title-row">
+                <span class="departments-overline">
+                    MANAGEMENT
+                </span>
 
-                    <div>
-                        <span class="departments-overline">
-                            MANAGEMENT
-                        </span>
-
-                        <h1 class="departments-title">
-                            Departments
-                        </h1>
-                    </div>
-
-                </div>
+                <h1 class="departments-title">
+                    Departments
+                </h1>
 
             </div>
 
 
-            {{-- ADD BUTTON --}}
+            {{-- ADD DEPARTMENT --}}
 
-            <button
-                type="button"
-                onclick="openCreateModal()"
-                class="departments-add-btn">
-
+            <button type="button" class="departments-add-btn" onclick="openCreateModal()">
                 <i class="bi bi-plus-lg"></i>
 
                 <span>
                     Add Department
                 </span>
-
             </button>
 
         </div>
 
 
         {{-- =========================================================
-             SUCCESS MESSAGE
-        ========================================================== --}}
+        SUCCESS ALERT
+    ========================================================== --}}
 
         @if (session('success'))
-
-            <div
-                class="department-alert"
-                role="alert">
+            <div class="department-alert" role="alert">
 
                 <div class="department-alert-content">
 
@@ -66,144 +52,129 @@
 
                 </div>
 
-                <button
-                    type="button"
-                    class="department-alert-close"
-                    onclick="this.parentElement.remove()"
+
+                <button type="button" class="department-alert-close" onclick="this.parentElement.remove()"
                     aria-label="Close alert">
-
                     <i class="bi bi-x-lg"></i>
-
                 </button>
 
             </div>
-
         @endif
 
 
         {{-- =========================================================
-             DEPARTMENT GRID
-        ========================================================== --}}
+        DEPARTMENT LIST
+    ========================================================== --}}
 
         @if ($departments->count() > 0)
 
             <div class="departments-grid">
 
                 @foreach ($departments as $department)
+                    <div class="department-card">
 
-                    <div class="department-card-wrapper">
+                        {{-- =================================================
+                        DEPARTMENT INFORMATION
+                    ================================================== --}}
 
-                        <div class="department-card">
+                        <div class="department-information">
 
-                            {{-- =================================================
-                                 INFORMATION
-                            ================================================== --}}
+                            <h3 class="department-name" title="{{ $department->name }}">
+                                {{ $department->name }}
+                            </h3>
 
-                            <div class="department-information">
 
-                                <div class="department-name-row">
+                            <span class="department-subtitle">
+                                Thesis Repository
+                            </span>
 
-                                    <h3
-                                        class="department-name"
-                                        title="{{ $department->name }}">
+                        </div>
 
-                                        {{ $department->name }}
 
-                                    </h3>
+                        {{-- =================================================
+                        ACTIONS
+                    ================================================== --}}
 
-                                </div>
+                        <div class="department-actions">
 
-                                <span class="department-subtitle">
-                                    Thesis Repository
+                            {{-- VIEW THESIS --}}
+
+                            <a href="{{ route('admin.departments.thesis', ['department' => $department->id]) }}"
+                                class="department-view-btn">
+                                <i class="bi bi-journal-text"></i>
+
+                                <span>
+                                    View Thesis
                                 </span>
-
-                            </div>
-
-
-                            {{-- =================================================
-                                 ACTIONS
-                            ================================================== --}}
-
-                            <div class="department-actions">
-
-                                {{-- EDIT --}}
-
-                                <button
-                                    type="button"
-                                    onclick="openEditModal(
-                                        {{ $department->id }},
-                                        @js($department->name)
-                                    )"
-                                    class="department-edit-btn">
-
-                                    <i class="bi bi-pencil"></i>
-
-                                    <span>
-                                        Edit
-                                    </span>
-
-                                </button>
+                            </a>
 
 
-                                {{-- DELETE --}}
+                            {{-- EDIT --}}
 
-                                <button
-                                    type="button"
-                                    onclick="openDeleteModal(
-                                        {{ $department->id }},
-                                        @js($department->name)
-                                    )"
-                                    class="department-delete-btn">
+                            <button type="button" class="department-edit-btn"
+                                onclick="openEditModal(
+                                {{ $department->id }},
+                                @js($department->name)
+                            )">
+                                <i class="bi bi-pencil"></i>
 
-                                    <i class="bi bi-trash"></i>
+                                <span>
+                                    Edit
+                                </span>
+                            </button>
 
-                                    <span>
-                                        Delete
-                                    </span>
 
-                                </button>
+                            {{-- DELETE --}}
 
-                            </div>
+                            <button type="button" class="department-delete-btn"
+                                onclick="openDeleteModal(
+                                {{ $department->id }},
+                                @js($department->name)
+                            )">
+                                <i class="bi bi-trash"></i>
+
+                                <span>
+                                    Delete
+                                </span>
+                            </button>
 
                         </div>
 
                     </div>
-
                 @endforeach
 
             </div>
-
         @else
-
             {{-- =========================================================
-                 EMPTY STATE
-            ========================================================== --}}
+            EMPTY STATE
+        ========================================================== --}}
 
             <div class="department-empty-state">
 
                 <div class="department-empty-icon">
+
                     <i class="bi bi-building"></i>
+
                 </div>
+
 
                 <h2>
                     No Departments Found
                 </h2>
 
+
                 <p>
-                    There are currently no departments created in the system.
+                    There are currently no departments created
+                    in the system.
                 </p>
 
-                <button
-                    type="button"
-                    onclick="openCreateModal()"
-                    class="departments-add-btn">
 
+                <button type="button" class="departments-add-btn" onclick="openCreateModal()">
                     <i class="bi bi-plus-lg"></i>
 
                     <span>
                         Add Department
                     </span>
-
                 </button>
 
             </div>
@@ -213,172 +184,133 @@
     </div>
 
 
-    {{-- =========================================================
-         MODALS
-    ========================================================== --}}
+    {{-- =============================================================
+    MODALS
+============================================================== --}}
 
     @include('admin.departments.create')
+
     @include('admin.departments.edit')
+
     @include('admin.departments.delete')
 
 
     <style>
-
         /* =========================================================
-           DEPARTMENT THEME
-           WHITE / BLACK / DARK PURPLE
-        ========================================================== */
+       VARIABLES
+    ========================================================== */
 
         :root {
 
-            /* =====================================================
-               MAIN COLORS
-            ====================================================== */
+            --department-black: #000000;
+            --department-white: #ffffff;
 
-            --dept-black: #111111;
-            --dept-black-dark: #080808;
-            --dept-white: #ffffff;
+            --department-page-bg: #ffffff;
+            --department-card-bg: #ffffff;
+            --department-input-bg: #fafafa;
 
-            --dept-purple: #3b236f;
-            --dept-purple-dark: #2b1855;
-            --dept-purple-light: #f1edf8;
+            --department-text: #000000;
+            --department-text-secondary: #333333;
+            --department-text-muted: #777777;
 
+            --department-border: #000000;
+            --department-border-soft: #dddddd;
 
-            /* =====================================================
-               TEXT
-            ====================================================== */
+            --department-primary: #000000;
 
-            --dept-text-main: #111111;
-            --dept-text-sub: #666666;
-            --dept-text-muted: #888888;
+            --department-blue: #2563eb;
+            --department-red: #dc2626;
 
+            --department-shadow:
+                0 4px 18px rgba(0, 0, 0, .07);
 
-            /* =====================================================
-               BACKGROUND
-            ====================================================== */
-
-            --dept-bg-page: #f7f6f9;
-            --dept-bg-card: #ffffff;
-            --dept-bg-hover: #faf9fc;
-
-
-            /* =====================================================
-               BORDER
-            ====================================================== */
-
-            --dept-border: #dedede;
-            --dept-border-hover: #3b236f;
-
-
-            /* =====================================================
-               SHADOW
-            ====================================================== */
-
-            --dept-shadow:
-                0 2px 8px rgba(0, 0, 0, 0.06);
-
-            --dept-shadow-hover:
-                0 8px 20px rgba(59, 35, 111, 0.13);
-
-
-            /* =====================================================
-               ADD BUTTON - BLACK / WHITE
-            ====================================================== */
-
-            --dept-btn-bg: #000000;
-            --dept-btn-text: #ffffff;
-            --dept-btn-border: #000000;
-
-
-            /* =====================================================
-               ALERT
-            ====================================================== */
-
-            --dept-alert-bg: #f1edf8;
-            --dept-alert-border: #d8cee9;
-            --dept-alert-text: #2b1855;
-
-
-            /* =====================================================
-               EDIT BUTTON - BLUE
-            ====================================================== */
-
-            --dept-edit-bg: #ffffff;
-            --dept-edit-text: #2563eb;
-            --dept-edit-border: #2563eb;
-
-            --dept-edit-hover-bg: #2563eb;
-            --dept-edit-hover-text: #ffffff;
-
-
-            /* =====================================================
-               DELETE BUTTON - RED
-            ====================================================== */
-
-            --dept-delete-bg: #ffffff;
-            --dept-delete-text: #dc2626;
-            --dept-delete-border: #dc2626;
-
-            --dept-delete-hover-bg: #dc2626;
-            --dept-delete-hover-text: #ffffff;
+            --department-card-shadow:
+                0 2px 10px rgba(0, 0, 0, .05);
         }
 
 
         /* =========================================================
-           MODAL
-        ========================================================== */
+       DARK MODE
+    ========================================================== */
 
-        .modal-backdrop-custom.hidden,
-        .modal.hidden {
-            display: none !important;
+        [data-bs-theme="dark"] {
+
+            --department-black: #000000;
+            --department-white: #ffffff;
+
+            --department-page-bg: #000000;
+            --department-card-bg: #000000;
+            --department-input-bg: #0d0d0d;
+
+            --department-text: #ffffff;
+            --department-text-secondary: #dddddd;
+            --department-text-muted: #999999;
+
+            --department-border: #ffffff;
+            --department-border-soft: #333333;
+
+            --department-primary: #ffffff;
+
+            --department-shadow:
+                0 4px 18px rgba(0, 0, 0, .35);
+
+            --department-card-shadow:
+                0 2px 10px rgba(0, 0, 0, .35);
         }
 
 
-        .modal-backdrop-custom {
+        /* =========================================================
+       MAIN CONTENT
+    ========================================================== */
 
-            position: fixed;
+        .dashboard-content {
 
-            inset: 0;
+            color:
+                var(--department-text);
 
-            z-index: 5000;
+            transition:
+                color .25s ease,
+                background-color .25s ease;
+        }
 
-            background: rgba(17, 17, 17, 0.72);
 
-            backdrop-filter: blur(4px);
+        /* =========================================================
+       HEADER
+    ========================================================== */
+
+        .departments-header {
 
             display: flex;
 
             align-items: center;
 
-            justify-content: center;
-        }
+            justify-content: space-between;
 
-
-        /* =========================================================
-           HEADER
-        ========================================================== */
-
-        .departments-header {
+            gap: 1rem;
 
             margin-bottom: 24px;
 
             padding: 15px;
 
+            border:
+                1px solid var(--department-border-soft);
+
             border-radius: 12px;
 
-            /* border: px solid #ded8e9; */
+            background:
+                var(--department-card-bg);
 
-            background: var(--dept-white);
+            box-shadow:
+                var(--department-card-shadow);
 
-            display: flex;
-
-            align-items: flex-start;
-
-            justify-content: space-between;
+            box-sizing: border-box;
 
             overflow: hidden;
 
-            box-sizing: border-box;
+            transition:
+                background-color .25s ease,
+                border-color .25s ease,
+                box-shadow .25s ease;
         }
 
 
@@ -390,89 +322,71 @@
         }
 
 
-        .departments-title-row {
-
-            display: flex;
-
-            align-items: flex-start;
-
-            justify-content: space-between;
-
-            gap: 1rem;
-        }
-
-
-        /* =========================================================
-           OVERLINE
-        ========================================================== */
-
         .departments-overline {
 
             display: block;
 
-            margin-bottom: 0.5rem;
+            margin-bottom: .5rem;
 
-            color: var(--dept-purple);
+            color:
+                var(--department-text-muted);
 
-            font-size: 0.75rem;
+            font-size: .7rem;
 
             font-weight: 700;
 
-            letter-spacing: 0.14em;
+            letter-spacing: .14em;
 
             text-transform: uppercase;
         }
 
 
-        /* =========================================================
-           TITLE
-        ========================================================== */
-
         .departments-title {
 
             margin: 0;
 
-            color: var(--dept-black);
+            color:
+                var(--department-text);
 
             font-size: 1.8rem;
 
             font-weight: 800;
 
-            letter-spacing: -0.035em;
+            letter-spacing: -.035em;
 
             line-height: 1.2;
         }
 
 
         /* =========================================================
-           ADD BUTTON - BLACK / WHITE
-        ========================================================== */
+       ADD BUTTON
+    ========================================================== */
 
         .departments-add-btn {
 
             display: inline-flex;
 
-            margin: 10px;
-
             align-items: center;
 
             justify-content: center;
 
-            gap: 0.5rem;
+            gap: .5rem;
 
             min-height: 40px;
 
-            padding: 0.55rem 1rem;
+            margin: 10px;
 
-            border: 1px solid var(--dept-btn-border);
+            padding: .55rem 1rem;
 
-            border-radius: 10px;
+            border: 1px solid #000000;
 
-            background: var(--dept-btn-bg);
+            border-radius: 8px;
 
-            color: var(--dept-btn-text);
+            background: #000000;
 
-            font-size: 0.8rem;
+            color: #ffffff;
+
+            font-size: .8rem;
 
             font-weight: 600;
 
@@ -482,18 +396,21 @@
 
             flex-shrink: 0;
 
+            text-decoration: none;
+
             transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease,
-                background 0.2s ease,
-                color 0.2s ease,
-                border-color 0.2s ease;
+                transform .2s ease,
+                box-shadow .2s ease,
+                background-color .2s ease,
+                color .2s ease,
+                border-color .2s ease;
         }
 
 
         .departments-add-btn:hover {
 
-            transform: translateY(-2px);
+            transform:
+                translateY(-1px);
 
             background: #ffffff;
 
@@ -502,32 +419,57 @@
             border-color: #000000;
 
             box-shadow:
-                0 6px 15px rgba(0, 0, 0, 0.12);
+                0 5px 14px rgba(0, 0, 0, .12);
+        }
+
+
+        [data-bs-theme="dark"] .departments-add-btn {
+
+            background: #000000;
+
+            color: #ffffff;
+
+            border-color: #ffffff;
+        }
+
+
+        [data-bs-theme="dark"] .departments-add-btn:hover {
+
+            background: #ffffff;
+
+            color: #000000;
+
+            border-color: #ffffff;
+
+            box-shadow:
+                0 5px 14px rgba(255, 255, 255, .12);
         }
 
 
         .departments-add-btn:active {
 
-            transform: translateY(0);
+            transform:
+                translateY(0);
         }
 
 
         .departments-add-btn i {
 
             transition:
-                transform 0.2s ease;
+                transform .2s ease;
         }
 
 
         .departments-add-btn:hover i {
 
-            transform: rotate(90deg);
+            transform:
+                rotate(90deg);
         }
 
 
         /* =========================================================
-           SUCCESS ALERT
-        ========================================================== */
+       SUCCESS ALERT
+    ========================================================== */
 
         .department-alert {
 
@@ -541,15 +483,26 @@
 
             margin-bottom: 1.5rem;
 
-            padding: 0.8rem 1rem;
+            padding: .8rem 1rem;
 
-            border: 1px solid var(--dept-alert-border);
+            border:
+                1px solid var(--department-border-soft);
 
             border-radius: 8px;
 
-            background: var(--dept-alert-bg);
+            background:
+                var(--department-card-bg);
 
-            color: var(--dept-alert-text);
+            color:
+                var(--department-text);
+
+            box-shadow:
+                var(--department-card-shadow);
+
+            transition:
+                background-color .25s ease,
+                color .25s ease,
+                border-color .25s ease;
         }
 
 
@@ -559,9 +512,9 @@
 
             align-items: center;
 
-            gap: 0.6rem;
+            gap: .6rem;
 
-            font-size: 0.82rem;
+            font-size: .82rem;
 
             font-weight: 600;
         }
@@ -569,7 +522,8 @@
 
         .department-alert-content i {
 
-            color: var(--dept-purple);
+            color:
+                var(--department-text);
 
             font-size: 1rem;
         }
@@ -591,28 +545,30 @@
 
             border: 0;
 
+            border-radius: 5px;
+
             background: transparent;
 
-            color: var(--dept-purple-dark);
+            color:
+                var(--department-text);
 
             cursor: pointer;
 
-            border-radius: 5px;
-
             transition:
-                background 0.2s ease;
+                background-color .2s ease;
         }
 
 
         .department-alert-close:hover {
 
-            background: #ded6eb;
+            background:
+                var(--department-input-bg);
         }
 
 
         /* =========================================================
-           GRID
-        ========================================================== */
+       GRID
+    ========================================================== */
 
         .departments-grid {
 
@@ -627,23 +583,11 @@
         }
 
 
-        .department-card-wrapper {
-
-            min-width: 0;
-        }
-
-
         /* =========================================================
-           DEPARTMENT CARD
-        ========================================================== */
+       CARD
+    ========================================================== */
 
         .department-card {
-
-            background: var(--dept-bg-card);
-
-            color: var(--dept-text-main);
-
-            border: 1px solid var(--dept-border);
 
             display: flex;
 
@@ -653,37 +597,48 @@
 
             gap: 1rem;
 
-            border-radius: 11px;
+            min-height: 86px;
 
             padding: 1rem;
 
-            min-height: 86px;
+            border:
+                1px solid var(--department-border-soft);
 
-            box-shadow: var(--dept-shadow);
+            border-radius: 10px;
+
+            background:
+                var(--department-card-bg);
+
+            color:
+                var(--department-text);
+
+            box-shadow:
+                var(--department-card-shadow);
 
             transition:
-                transform 0.2s ease,
-                border-color 0.2s ease,
-                box-shadow 0.2s ease,
-                background 0.2s ease;
+                transform .2s ease,
+                border-color .2s ease,
+                box-shadow .2s ease,
+                background-color .2s ease;
         }
 
 
         .department-card:hover {
 
-            transform: translateY(-2px);
+            transform:
+                translateY(-2px);
 
-            background: var(--dept-bg-hover);
+            border-color:
+                var(--department-text);
 
-            border-color: var(--dept-purple);
-
-            box-shadow: var(--dept-shadow-hover);
+            box-shadow:
+                var(--department-shadow);
         }
 
 
         /* =========================================================
-           INFORMATION
-        ========================================================== */
+       INFORMATION
+    ========================================================== */
 
         .department-information {
 
@@ -693,29 +648,14 @@
         }
 
 
-        .department-name-row {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 0.45rem;
-
-            min-width: 0;
-        }
-
-
-        /* =========================================================
-           DEPARTMENT NAME
-        ========================================================== */
-
         .department-name {
 
             margin: 0;
 
-            color: var(--dept-black);
+            color:
+                var(--department-text);
 
-            font-size: 0.95rem;
+            font-size: .95rem;
 
             font-weight: 700;
 
@@ -729,46 +669,45 @@
         }
 
 
-        /* =========================================================
-           SUBTITLE
-        ========================================================== */
-
         .department-subtitle {
 
             display: block;
 
-            margin-top: 0.25rem;
+            margin-top: .25rem;
 
-            color: var(--dept-text-sub);
+            color:
+                var(--department-text-muted);
 
-            font-size: 0.7rem;
+            font-size: .7rem;
         }
 
 
         /* =========================================================
-           ACTIONS
-        ========================================================== */
+       ACTIONS
+    ========================================================== */
 
         .department-actions {
 
             display: flex;
 
-            border-top: 1px solid #eeeeF4;
-
-            padding-top: 1rem;
-
             align-items: center;
 
-            gap: 1rem;
+            gap: .45rem;
 
-            flex-shrink: 0;
+            width: 100%;
+
+            padding-top: .8rem;
+
+            border-top:
+                1px solid var(--department-border-soft);
         }
 
 
         /* =========================================================
-           ACTION BUTTONS
-        ========================================================== */
+       ACTION BUTTONS
+    ========================================================== */
 
+        .department-view-btn,
         .department-edit-btn,
         .department-delete-btn {
 
@@ -778,109 +717,126 @@
 
             justify-content: center;
 
-            gap: 0.35rem;
+            gap: .35rem;
 
             min-height: 31px;
 
-            padding: 0.35rem 0.7rem;
+            padding: .35rem .65rem;
 
             border-radius: 6px;
 
-            font-size: 0.7rem;
+            background:
+                var(--department-card-bg);
+
+            font-size: .7rem;
 
             font-weight: 600;
 
             cursor: pointer;
 
+            text-decoration: none;
+
+            white-space: nowrap;
+
             transition:
-                background 0.2s ease,
-                color 0.2s ease,
-                border-color 0.2s ease,
-                transform 0.2s ease;
+                background-color .2s ease,
+                color .2s ease,
+                border-color .2s ease,
+                transform .2s ease;
         }
 
 
         /* =========================================================
-           EDIT BUTTON - BLUE
-        ========================================================== */
+       VIEW THESIS
+    ========================================================== */
+
+        .department-view-btn {
+
+            border:
+                1px solid var(--department-text);
+
+            color:
+                var(--department-text);
+        }
+
+
+        .department-view-btn:hover {
+
+            transform:
+                translateY(-1px);
+
+            background:
+                var(--department-text);
+
+            color:
+                var(--department-card-bg);
+
+            border-color:
+                var(--department-text);
+        }
+
+
+        /* =========================================================
+       EDIT
+    ========================================================== */
 
         .department-edit-btn {
 
-            background: var(--dept-edit-bg);
+            border:
+                1px solid var(--department-blue);
 
-            color: var(--dept-edit-text);
-
-            border: 1px solid var(--dept-edit-border);
+            color:
+                var(--department-blue);
         }
 
 
         .department-edit-btn:hover {
 
-            background: var(--dept-edit-hover-bg);
+            transform:
+                translateY(-1px);
 
-            color: var(--dept-edit-hover-text);
+            background:
+                var(--department-blue);
 
-            border-color: var(--dept-edit-hover-bg);
+            color: #ffffff;
 
-            transform: translateY(-1px);
-        }
-
-
-        .department-edit-btn i {
-
-            transition:
-                transform 0.2s ease;
-        }
-
-
-        .department-edit-btn:hover i {
-
-            transform: rotate(-8deg);
+            border-color:
+                var(--department-blue);
         }
 
 
         /* =========================================================
-           DELETE BUTTON - RED
-        ========================================================== */
+       DELETE
+    ========================================================== */
 
         .department-delete-btn {
 
-            background: var(--dept-delete-bg);
+            border:
+                1px solid var(--department-red);
 
-            color: var(--dept-delete-text);
-
-            border: 1px solid var(--dept-delete-border);
+            color:
+                var(--department-red);
         }
 
 
         .department-delete-btn:hover {
 
-            background: var(--dept-delete-hover-bg);
+            transform:
+                translateY(-1px);
 
-            color: var(--dept-delete-hover-text);
+            background:
+                var(--department-red);
 
-            border-color: var(--dept-delete-hover-bg);
+            color: #ffffff;
 
-            transform: translateY(-1px);
-        }
-
-
-        .department-delete-btn i {
-
-            transition:
-                transform 0.2s ease;
-        }
-
-
-        .department-delete-btn:hover i {
-
-            transform: scale(1.1);
+            border-color:
+                var(--department-red);
         }
 
 
         /* =========================================================
-           EMPTY STATE
-        ========================================================== */
+       EMPTY STATE
+    ========================================================== */
 
         .department-empty-state {
 
@@ -896,15 +852,18 @@
 
             padding: 3rem 1.5rem;
 
-            text-align: center;
-
-            background: var(--dept-bg-card);
-
-            border: 1px solid var(--dept-border);
+            border:
+                1px solid var(--department-border-soft);
 
             border-radius: 10px;
 
-            box-shadow: var(--dept-shadow);
+            background:
+                var(--department-card-bg);
+
+            text-align: center;
+
+            box-shadow:
+                var(--department-card-shadow);
         }
 
 
@@ -922,13 +881,16 @@
 
             margin-bottom: 1rem;
 
+            border:
+                1px solid var(--department-border-soft);
+
             border-radius: 50%;
 
-            background: var(--dept-purple-light);
+            background:
+                var(--department-input-bg);
 
-            color: var(--dept-purple);
-
-            border: 1px solid #d8cee9;
+            color:
+                var(--department-text);
 
             font-size: 1.5rem;
         }
@@ -936,9 +898,11 @@
 
         .department-empty-state h2 {
 
-            margin: 0 0 0.4rem;
+            margin:
+                0 0 .4rem;
 
-            color: var(--dept-black);
+            color:
+                var(--department-text);
 
             font-size: 1.05rem;
 
@@ -950,17 +914,75 @@
 
             max-width: 400px;
 
-            margin: 0 0 1.25rem;
+            margin:
+                0 0 1.25rem;
 
-            color: var(--dept-text-sub);
+            color:
+                var(--department-text-muted);
 
-            font-size: 0.8rem;
+            font-size: .8rem;
         }
 
 
         /* =========================================================
-           RESPONSIVE
-        ========================================================== */
+       MODAL
+    ========================================================== */
+
+        .modal-backdrop-custom {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 5000;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(0, 0, 0, .72);
+
+            backdrop-filter:
+                blur(4px);
+        }
+
+
+        .modal-backdrop-custom.hidden,
+        .modal.hidden {
+
+            display:
+                none !important;
+        }
+
+
+        /* =========================================================
+       RESPONSIVE
+    ========================================================== */
+
+        @media (max-width: 1200px) {
+
+            .departments-grid {
+
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+            }
+
+        }
+
+
+        @media (max-width: 992px) {
+
+            .departments-grid {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+        }
+
 
         @media (max-width: 768px) {
 
@@ -974,14 +996,6 @@
             }
 
 
-            .departments-title-row {
-
-                flex-direction: column;
-
-                gap: 0.5rem;
-            }
-
-
             .departments-title {
 
                 font-size: 1.5rem;
@@ -990,7 +1004,10 @@
 
             .departments-add-btn {
 
-                width: 100%;
+                width:
+                    calc(100% - 20px);
+
+                margin: 10px;
             }
 
 
@@ -1002,101 +1019,91 @@
 
             .department-card {
 
-                align-items: flex-start;
-
-                flex-direction: column;
-
-                padding: 0.9rem;
-            }
-
-
-            .department-information {
-
-                width: 100%;
+                padding: .9rem;
             }
 
 
             .department-actions {
 
+                flex-wrap: wrap;
+
                 width: 100%;
 
-                margin-top: 0.5rem;
-
-                padding-top: 0.5rem;
-
-                border-top: 1px dashed var(--dept-border);
+                margin-top: .5rem;
             }
 
 
+            .department-view-btn,
             .department-edit-btn,
             .department-delete-btn {
 
                 flex: 1;
+
+                min-width: 0;
             }
 
         }
 
-
-        /* =========================================================
-           SMALL MOBILE
-        ========================================================== */
 
         @media (max-width: 480px) {
 
             .department-name {
 
-                font-size: 0.85rem;
+                font-size: .85rem;
             }
 
 
             .department-subtitle {
 
-                font-size: 0.65rem;
+                font-size: .65rem;
+            }
+
+
+            .department-actions {
+
+                gap: .35rem;
+            }
+
+
+            .department-view-btn,
+            .department-edit-btn,
+            .department-delete-btn {
+
+                padding:
+                    .35rem .45rem;
+
+                font-size: .62rem;
             }
 
         }
-
     </style>
 
 
-    {{-- =========================================================
-         JAVASCRIPT
-    ========================================================== --}}
-
     <script>
-
         /* =========================================================
-           MODAL TOGGLING
+           MODAL HELPER
         ========================================================== */
 
         function toggleModal(modalId, show) {
-
             const modal =
                 document.getElementById(modalId);
+
 
             if (!modal) {
                 return;
             }
 
 
-            if (show) {
+            modal.classList.toggle(
+                'hidden',
+                !show
+            );
 
-                modal.classList.remove('hidden');
 
-                document.body.classList.add(
-                    'overflow-hidden'
-                );
-
-            } else {
-
-                modal.classList.add('hidden');
-
-                document.body.classList.remove(
-                    'overflow-hidden'
-                );
-
-            }
-
+            document.body.classList.toggle(
+                'overflow-hidden',
+                show
+            );
         }
 
 
@@ -1105,7 +1112,6 @@
         ========================================================== */
 
         function openCreateModal() {
-
             toggleModal(
                 'createModal',
                 true
@@ -1120,24 +1126,20 @@
 
             if (input) {
 
-                setTimeout(function() {
-
-                    input.focus();
-
-                }, 100);
+                setTimeout(
+                    () => input.focus(),
+                    100
+                );
 
             }
-
         }
 
 
         function closeCreateModal() {
-
             toggleModal(
                 'createModal',
                 false
             );
-
         }
 
 
@@ -1146,30 +1148,16 @@
         ========================================================== */
 
         function openEditModal(id, name) {
-
             toggleModal(
                 'editModal',
                 true
             );
 
 
-            const nameInput =
+            const input =
                 document.getElementById(
                     'editDepartmentName'
                 );
-
-
-            if (nameInput) {
-
-                nameInput.value = name;
-
-                setTimeout(function() {
-
-                    nameInput.focus();
-
-                }, 100);
-
-            }
 
 
             const form =
@@ -1178,23 +1166,33 @@
                 );
 
 
+            if (input) {
+
+                input.value = name;
+
+
+                setTimeout(
+                    () => input.focus(),
+                    100
+                );
+
+            }
+
+
             if (form) {
 
                 form.action =
                     '/admin/departments/update/' + id;
 
             }
-
         }
 
 
         function closeEditModal() {
-
             toggleModal(
                 'editModal',
                 false
             );
-
         }
 
 
@@ -1203,7 +1201,6 @@
         ========================================================== */
 
         function openDeleteModal(id, name) {
-
             toggleModal(
                 'deleteModal',
                 true
@@ -1216,92 +1213,82 @@
                 );
 
 
-            if (nameElement) {
-
-                nameElement.textContent = name;
-
-            }
-
-
             const form =
                 document.getElementById(
                     'deleteDepartmentForm'
                 );
 
 
+            if (nameElement) {
+
+                nameElement.textContent =
+                    name;
+            }
+
+
             if (form) {
 
                 form.action =
                     '/admin/departments/delete/' + id;
-
             }
-
         }
 
 
         function closeDeleteModal() {
-
             toggleModal(
                 'deleteModal',
                 false
             );
-
         }
 
 
         /* =========================================================
-           CLOSE MODAL WHEN CLICKING BACKDROP
+           CLOSE MODAL ON BACKDROP CLICK
         ========================================================== */
 
         document.addEventListener(
             'click',
-            function(event) {
+            event => {
 
-                const modalIds = [
+                [
                     'createModal',
                     'editModal',
                     'deleteModal'
-                ];
+                ].forEach(id => {
+
+                    const modal =
+                        document.getElementById(id);
 
 
-                modalIds.forEach(
-                    function(id) {
+                    if (
+                        modal &&
+                        event.target === modal
+                    ) {
 
-                        const modal =
-                            document.getElementById(id);
-
-
-                        if (
-                            modal &&
-                            event.target === modal
-                        ) {
-
-                            modal.classList.add(
-                                'hidden'
-                            );
-
-                            document.body.classList.remove(
-                                'overflow-hidden'
-                            );
-
-                        }
+                        toggleModal(
+                            id,
+                            false
+                        );
 
                     }
-                );
+
+                });
 
             }
         );
 
 
         /* =========================================================
-           ESC KEY
+           ESCAPE KEY
         ========================================================== */
 
         document.addEventListener(
             'keydown',
-            function(event) {
+            event => {
 
-                if (event.key === 'Escape') {
+                if (
+                    event.key === 'Escape'
+                ) {
 
                     closeCreateModal();
 
@@ -1316,12 +1303,12 @@
 
 
         /* =========================================================
-           SUCCESS ALERT AUTO REMOVE
+           AUTO DISMISS SUCCESS ALERT
         ========================================================== */
 
         document.addEventListener(
             'DOMContentLoaded',
-            function() {
+            () => {
 
                 const alert =
                     document.querySelector(
@@ -1329,35 +1316,32 @@
                     );
 
 
-                if (alert) {
-
-                    setTimeout(
-                        function() {
-
-                            alert.style.opacity = '0';
-
-                            alert.style.transition =
-                                'opacity 0.3s ease';
-
-
-                            setTimeout(
-                                function() {
-
-                                    alert.remove();
-
-                                },
-                                300
-                            );
-
-                        },
-                        4000
-                    );
-
+                if (!alert) {
+                    return;
                 }
+
+
+                setTimeout(
+                    () => {
+
+                        alert.style.opacity =
+                            '0';
+
+                        alert.style.transition =
+                            'opacity .3s ease';
+
+
+                        setTimeout(
+                            () => alert.remove(),
+                            300
+                        );
+
+                    },
+                    4000
+                );
 
             }
         );
-
     </script>
 
 </x-app-layout>

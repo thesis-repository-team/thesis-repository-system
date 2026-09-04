@@ -775,22 +775,6 @@
 
         }
 
-        .hods-header {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 1.5rem;
-            margin-bottom: 1.75rem;
-            padding-bottom: 1.25rem;
-            border-bottom: 1px solid var(--hods-border);
-            border-radius:
-        }
-
-        .hods-header-content {
-            min-width: 0;
-            flex: 1;
-        }
-
         .hod-title{
             margin: 0;
             color: var(--hod-text-main);
@@ -812,11 +796,10 @@
 
         .hod-page-header {
             padding: 15px;
-            background: white;
+            background: var(--hod-card-bg);
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
-            border-radius: 12px;
             overflow: hidden;
             box-sizing: border-box;
         }

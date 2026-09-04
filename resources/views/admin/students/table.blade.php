@@ -1,104 +1,44 @@
 @forelse ($students as $student)
-    <div class="col-12 col-md-6 col-xl-4">
 
-        {{-- =====================================================
-            STUDENT CARD
-        ====================================================== --}}
+    {{-- =====================================================
+        STUDENT CARD
+    ====================================================== --}}
 
-        <div class="student-item-card">
+    <div class="admin-student-card">
+
+        {{-- =================================================
+            CARD BODY
+        ================================================== --}}
+
+        <div class="admin-student-card-body">
 
             {{-- =================================================
-                CARD BODY
+                TOP SECTION
             ================================================== --}}
 
-            <div class="student-item-card-body">
+            <div class="admin-student-card-top">
 
-                {{-- =================================================
-                    TOP SECTION
-                ================================================== --}}
+                {{-- STUDENT INFORMATION --}}
 
-                <div class="student-item-top">
+                <div class="admin-student-profile">
 
-                    {{-- STUDENT INFORMATION --}}
-                    <div class="student-profile">
+                    {{-- AVATAR --}}
 
-                        {{-- AVATAR --}}
-                        <div class="student-avatar">
-                            <i class="bi bi-person"></i>
-                        </div>
-
-                        {{-- NAME + ID --}}
-                        <div class="student-profile-info">
-
-                            <h5 class="student-name">
-                                {{ $student->full_name }}
-                            </h5>
-
-                            <span class="student-id">
-                                Student #{{ $loop->iteration }}
-                            </span>
-
-                        </div>
-
+                    <div class="admin-student-icon">
+                        <i class="bi bi-person"></i>
                     </div>
 
 
-                    {{-- =================================================
-                        UPLOAD PERMISSION
-                    ================================================== --}}
+                    {{-- NAME + ID --}}
 
-                    @if ($student->upload_permission)
-                        {{-- ALLOWED --}}
-                        <span class="student-permission student-permission-allowed" title="Upload Allowed">
+                    <div class="admin-student-profile-info">
 
-                            <i class="bi bi-check-circle-fill"></i>
+                        <h3 class="admin-student-card-title">
+                            {{ $student->full_name }}
+                        </h3>
 
-                            <span>
-                                Allowed
-                            </span>
-
-                        </span>
-                    @else
-                        {{-- NOT ALLOWED --}}
-                        <span class="student-permission student-permission-denied" title="Upload Not Allowed">
-
-                            <i class="bi bi-x-circle-fill"></i>
-
-                            <span>
-                                Not Allowed
-                            </span>
-
-                        </span>
-                    @endif
-
-                </div>
-
-
-                {{-- =================================================
-                    DIVIDER
-                ================================================== --}}
-
-                <div class="student-card-divider"></div>
-
-
-                {{-- =================================================
-                    EMAIL
-                ================================================== --}}
-
-                <div class="student-info-row">
-
-                    <div class="student-info-icon">
-                        <i class="bi bi-envelope"></i>
-                    </div>
-
-                    <div class="student-info-content">
-
-                        <span class="student-info-label">
-                            Email
-                        </span>
-
-                        <span class="student-info-value student-email" title="{{ $student->user->email ?? 'N/A' }}">
-                            {{ $student->user->email ?? 'N/A' }}
+                        <span class="admin-student-id">
+                            Student #{{ $loop->iteration }}
                         </span>
 
                     </div>
@@ -107,73 +47,151 @@
 
 
                 {{-- =================================================
-                    DEPARTMENT
+                    UPLOAD PERMISSION
                 ================================================== --}}
 
-                <div class="student-info-row">
+                @if ($student->upload_permission)
 
-                    <div class="student-info-icon">
-                        <i class="bi bi-building"></i>
-                    </div>
+                    {{-- ALLOWED --}}
 
-                    <div class="student-info-content">
+                    <span
+                        class="admin-student-permission admin-student-permission-allowed"
+                        title="Upload Allowed">
 
-                        <span class="student-info-label">
-                            Department
-                        </span>
-
-                        <span class="student-info-value">
-                            {{ $student->department->name ?? 'N/A' }}
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                {{-- =================================================
-                    STARTED YEAR
-                ================================================== --}}
-
-                <div class="student-info-row student-year-row">
-
-                    <div class="student-info-icon">
-                        <i class="bi bi-calendar3"></i>
-                    </div>
-
-                    <div class="student-info-content">
-
-                        <span class="student-info-label">
-                            Started Year
-                        </span>
-
-                        <span class="student-year-badge">
-                            {{ $student->started_year ?? 'N/A' }}
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                {{-- =================================================
-                    CARD ACTION
-                ================================================== --}}
-
-                <div class="student-card-action">
-
-                    <a href="{{ route('admin.students.edit', $student->id) }}" class="student-edit-button"
-                        data-tooltip="Edit Student" aria-label="Edit Student">
-
-                        <i class="bi bi-pencil-square"></i>
+                        <i class="bi bi-check-circle-fill"></i>
 
                         <span>
-                            Edit
+                            Allowed
                         </span>
 
-                    </a>
+                    </span>
+
+                @else
+
+                    {{-- NOT ALLOWED --}}
+
+                    <span
+                        class="admin-student-permission admin-student-permission-denied"
+                        title="Upload Not Allowed">
+
+                        <i class="bi bi-x-circle-fill"></i>
+
+                        <span>
+                            Not Allowed
+                        </span>
+
+                    </span>
+
+                @endif
+
+            </div>
+
+
+            {{-- =================================================
+                DIVIDER
+            ================================================== --}}
+
+            <div class="admin-student-card-divider"></div>
+
+
+            {{-- =================================================
+                EMAIL
+            ================================================== --}}
+
+            <div class="admin-student-info-row">
+
+                <div class="admin-student-info-icon">
+                    <i class="bi bi-envelope"></i>
+                </div>
+
+                <div class="admin-student-info-content">
+
+                    <span class="admin-student-info-label">
+                        Email
+                    </span>
+
+                    <span
+                        class="admin-student-info-value admin-student-email"
+                        title="{{ $student->user->email ?? 'N/A' }}">
+
+                        {{ $student->user->email ?? 'N/A' }}
+
+                    </span>
 
                 </div>
+
+            </div>
+
+
+            {{-- =================================================
+                DEPARTMENT
+            ================================================== --}}
+
+            <div class="admin-student-info-row">
+
+                <div class="admin-student-info-icon">
+                    <i class="bi bi-building"></i>
+                </div>
+
+                <div class="admin-student-info-content">
+
+                    <span class="admin-student-info-label">
+                        Department
+                    </span>
+
+                    <span class="admin-student-info-value">
+                        {{ $student->department->name ?? 'N/A' }}
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            {{-- =================================================
+                STARTED YEAR
+            ================================================== --}}
+
+            <div class="admin-student-info-row admin-student-year-row">
+
+                <div class="admin-student-info-icon">
+                    <i class="bi bi-calendar3"></i>
+                </div>
+
+                <div class="admin-student-info-content">
+
+                    <span class="admin-student-info-label">
+                        Started Year
+                    </span>
+
+                    <span class="admin-student-year-badge">
+                        {{ $student->started_year ?? 'N/A' }}
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            {{-- =================================================
+                CARD ACTION
+            ================================================== --}}
+
+            <div class="admin-student-card-action">
+
+                <a
+                    href="{{ route('admin.students.edit', $student->id) }}"
+                    class="admin-student-edit-button"
+                    data-tooltip="Edit Student"
+                    aria-label="Edit Student">
+
+                    <i class="bi bi-pencil-square"></i>
+
+                    <span>
+                        Edit
+                    </span>
+
+                </a>
 
             </div>
 
@@ -188,43 +206,35 @@
         EMPTY RESULT
     ========================================================== --}}
 
-    <div class="col-12">
+    <div class="admin-student-empty-result">
 
-        <div class="student-empty-result">
+        <div class="admin-student-empty-result-icon">
 
-            <div class="student-empty-result-icon">
-                <i class="bi bi-people"></i>
-            </div>
-
-            <h5>
-                No Students Found
-            </h5>
-
-            <p>
-                No students match your current search or filter.
-            </p>
+            <i class="bi bi-people"></i>
 
         </div>
 
+        <h5>
+            No Students Found
+        </h5>
+
+        <p>
+            No students match your current search or filter.
+        </p>
+
     </div>
+
 @endforelse
 
 
-{{-- =============================================================
-    STUDENT CARD CSS
-    BLACK + WHITE DESIGN
-    GREEN = ALLOWED
-    RED = NOT ALLOWED
-    LIGHT + DARK MODE
-============================================================= --}}
-
 <style>
+
     /* =========================================================
        VARIABLES
     ========================================================== */
 
-    .student-item-card,
-    .student-empty-result {
+    .admin-student-card,
+    .admin-student-empty-result {
 
         --student-black: #000000;
         --student-white: #ffffff;
@@ -270,10 +280,10 @@
        DARK MODE
     ========================================================== */
 
-    [data-bs-theme="dark"] .student-item-card,
-    [data-bs-theme="dark"] .student-empty-result,
-    .dark .student-item-card,
-    .dark .student-empty-result {
+    [data-bs-theme="dark"] .admin-student-card,
+    [data-bs-theme="dark"] .admin-student-empty-result,
+    .dark .admin-student-card,
+    .dark .admin-student-empty-result {
 
         --student-black: #000000;
         --student-white: #ffffff;
@@ -319,7 +329,7 @@
        CARD
     ========================================================== */
 
-    .student-item-card {
+    .admin-student-card {
 
         position: relative;
 
@@ -345,7 +355,7 @@
     }
 
 
-    .student-item-card:hover {
+    .admin-student-card:hover {
 
         transform: translateY(-3px);
 
@@ -359,7 +369,7 @@
        CARD BODY
     ========================================================== */
 
-    .student-item-card-body {
+    .admin-student-card-body {
 
         display: flex;
 
@@ -375,7 +385,7 @@
        TOP SECTION
     ========================================================== */
 
-    .student-item-top {
+    .admin-student-card-top {
 
         display: flex;
 
@@ -391,7 +401,7 @@
        PROFILE
     ========================================================== */
 
-    .student-profile {
+    .admin-student-profile {
 
         display: flex;
 
@@ -407,7 +417,7 @@
        AVATAR
     ========================================================== */
 
-    .student-avatar {
+    .admin-student-icon {
 
         display: flex;
 
@@ -436,7 +446,7 @@
     }
 
 
-    .student-item-card:hover .student-avatar {
+    .admin-student-card:hover .admin-student-icon {
 
         color: var(--student-white);
 
@@ -446,8 +456,8 @@
     }
 
 
-    [data-bs-theme="dark"] .student-item-card:hover .student-avatar,
-    .dark .student-item-card:hover .student-avatar {
+    [data-bs-theme="dark"] .admin-student-card:hover .admin-student-icon,
+    .dark .admin-student-card:hover .admin-student-icon {
 
         color: var(--student-black);
 
@@ -457,7 +467,7 @@
     }
 
 
-    .student-avatar i {
+    .admin-student-icon i {
 
         font-size: 1.2rem;
     }
@@ -467,13 +477,17 @@
        PROFILE INFO
     ========================================================== */
 
-    .student-profile-info {
+    .admin-student-profile-info {
 
         min-width: 0;
     }
 
 
-    .student-name {
+    /* =========================================================
+       STUDENT NAME
+    ========================================================== */
+
+    .admin-student-card-title {
 
         margin: 0 0 .2rem;
 
@@ -495,7 +509,11 @@
     }
 
 
-    .student-id {
+    /* =========================================================
+       STUDENT ID
+    ========================================================== */
+
+    .admin-student-id {
 
         display: block;
 
@@ -510,10 +528,10 @@
 
 
     /* =========================================================
-       PERMISSION BADGE - BASE
+       PERMISSION BADGE
     ========================================================== */
 
-    .student-permission {
+    .admin-student-permission {
 
         display: inline-flex;
 
@@ -553,7 +571,7 @@
     }
 
 
-    .student-permission i {
+    .admin-student-permission i {
 
         font-size: .72rem;
     }
@@ -563,7 +581,7 @@
        ALLOWED = GREEN
     ========================================================== */
 
-    .student-permission-allowed {
+    .admin-student-permission-allowed {
 
         color: var(--student-success);
 
@@ -576,7 +594,7 @@
     }
 
 
-    .student-permission-allowed i {
+    .admin-student-permission-allowed i {
 
         color: var(--student-success);
     }
@@ -586,7 +604,7 @@
        NOT ALLOWED = RED
     ========================================================== */
 
-    .student-permission-denied {
+    .admin-student-permission-denied {
 
         color: var(--student-danger);
 
@@ -599,7 +617,7 @@
     }
 
 
-    .student-permission-denied i {
+    .admin-student-permission-denied i {
 
         color: var(--student-danger);
     }
@@ -609,39 +627,35 @@
        PERMISSION HOVER
     ========================================================== */
 
-    .student-permission-allowed:hover {
+    .admin-student-permission-allowed:hover {
 
         background: var(--student-success);
 
         color: #ffffff;
 
         border-color: var(--student-success);
-
     }
 
 
-    .student-permission-allowed:hover i {
+    .admin-student-permission-allowed:hover i {
 
         color: #ffffff;
-
     }
 
 
-    .student-permission-denied:hover {
+    .admin-student-permission-denied:hover {
 
         background: var(--student-danger);
 
         color: #ffffff;
 
         border-color: var(--student-danger);
-
     }
 
 
-    .student-permission-denied:hover i {
+    .admin-student-permission-denied:hover i {
 
         color: #ffffff;
-
     }
 
 
@@ -649,7 +663,7 @@
        DIVIDER
     ========================================================== */
 
-    .student-card-divider {
+    .admin-student-card-divider {
 
         width: 100%;
 
@@ -665,7 +679,7 @@
        INFORMATION ROW
     ========================================================== */
 
-    .student-info-row {
+    .admin-student-info-row {
 
         display: flex;
 
@@ -679,7 +693,7 @@
     }
 
 
-    .student-year-row {
+    .admin-student-year-row {
 
         margin-bottom: 1.25rem;
     }
@@ -689,7 +703,7 @@
        INFORMATION ICON
     ========================================================== */
 
-    .student-info-icon {
+    .admin-student-info-icon {
 
         display: flex;
 
@@ -713,7 +727,7 @@
     }
 
 
-    .student-info-icon i {
+    .admin-student-info-icon i {
 
         font-size: .88rem;
     }
@@ -723,7 +737,7 @@
        INFORMATION CONTENT
     ========================================================== */
 
-    .student-info-content {
+    .admin-student-info-content {
 
         display: flex;
 
@@ -735,7 +749,7 @@
     }
 
 
-    .student-info-label {
+    .admin-student-info-label {
 
         color: var(--student-muted);
 
@@ -751,7 +765,7 @@
     }
 
 
-    .student-info-value {
+    .admin-student-info-value {
 
         display: block;
 
@@ -771,7 +785,11 @@
     }
 
 
-    .student-email {
+    /* =========================================================
+       EMAIL
+    ========================================================== */
+
+    .admin-student-email {
 
         max-width: 220px;
     }
@@ -781,7 +799,7 @@
        YEAR BADGE
     ========================================================== */
 
-    .student-year-badge {
+    .admin-student-year-badge {
 
         display: inline-flex;
 
@@ -813,7 +831,7 @@
        ACTION AREA
     ========================================================== */
 
-    .student-card-action {
+    .admin-student-card-action {
 
         position: relative;
 
@@ -833,7 +851,7 @@
        EDIT BUTTON
     ========================================================== */
 
-    .student-edit-button {
+    .admin-student-edit-button {
 
         display: inline-flex;
 
@@ -876,10 +894,12 @@
     }
 
 
-    /* DARK MODE */
+    /* =========================================================
+       DARK MODE BUTTON
+    ========================================================== */
 
-    [data-bs-theme="dark"] .student-edit-button,
-    .dark .student-edit-button {
+    [data-bs-theme="dark"] .admin-student-edit-button,
+    .dark .admin-student-edit-button {
 
         color: var(--student-black);
 
@@ -889,7 +909,7 @@
     }
 
 
-    .student-edit-button i {
+    .admin-student-edit-button i {
 
         font-size: .75rem;
     }
@@ -899,7 +919,7 @@
        BUTTON HOVER - LIGHT
     ========================================================== */
 
-    .student-edit-button:hover {
+    .admin-student-edit-button:hover {
 
         color: var(--student-black);
 
@@ -918,8 +938,8 @@
        BUTTON HOVER - DARK
     ========================================================== */
 
-    [data-bs-theme="dark"] .student-edit-button:hover,
-    .dark .student-edit-button:hover {
+    [data-bs-theme="dark"] .admin-student-edit-button:hover,
+    .dark .admin-student-edit-button:hover {
 
         color: var(--student-white);
 
@@ -936,7 +956,7 @@
        EMPTY RESULT
     ========================================================== */
 
-    .student-empty-result {
+    .admin-student-empty-result {
 
         display: flex;
 
@@ -964,7 +984,7 @@
     }
 
 
-    .student-empty-result-icon {
+    .admin-student-empty-result-icon {
 
         display: flex;
 
@@ -988,13 +1008,13 @@
     }
 
 
-    .student-empty-result-icon i {
+    .admin-student-empty-result-icon i {
 
         font-size: 1.5rem;
     }
 
 
-    .student-empty-result h5 {
+    .admin-student-empty-result h5 {
 
         margin: 0 0 .4rem;
 
@@ -1008,7 +1028,7 @@
     }
 
 
-    .student-empty-result p {
+    .admin-student-empty-result p {
 
         margin: 0;
 
@@ -1024,19 +1044,19 @@
 
     @media (max-width: 991.98px) {
 
-        .student-item-card-body {
+        .admin-student-card-body {
 
             padding: 1.1rem;
         }
 
 
-        .student-name {
+        .admin-student-card-title {
 
             font-size: .82rem;
         }
 
 
-        .student-permission {
+        .admin-student-permission {
 
             padding: .28rem .45rem;
 
@@ -1052,25 +1072,25 @@
 
     @media (max-width: 767.98px) {
 
-        .student-item-card {
+        .admin-student-card {
 
             border-radius: 7px;
         }
 
 
-        .student-item-card-body {
+        .admin-student-card-body {
 
             padding: 1rem;
         }
 
 
-        .student-name {
+        .admin-student-card-title {
 
             font-size: .84rem;
         }
 
 
-        .student-avatar {
+        .admin-student-icon {
 
             width: 44px;
 
@@ -1080,7 +1100,7 @@
         }
 
 
-        .student-permission {
+        .admin-student-permission {
 
             min-height: 25px;
 
@@ -1090,13 +1110,13 @@
         }
 
 
-        .student-info-value {
+        .admin-student-info-value {
 
             font-size: .74rem;
         }
 
 
-        .student-email {
+        .admin-student-email {
 
             max-width: calc(100vw - 120px);
         }
@@ -1110,25 +1130,25 @@
 
     @media (max-width: 575.98px) {
 
-        .student-item-card-body {
+        .admin-student-card-body {
 
             padding: .9rem;
         }
 
 
-        .student-item-top {
+        .admin-student-card-top {
 
             gap: .5rem;
         }
 
 
-        .student-profile {
+        .admin-student-profile {
 
             gap: .6rem;
         }
 
 
-        .student-avatar {
+        .admin-student-icon {
 
             width: 42px;
 
@@ -1138,13 +1158,13 @@
         }
 
 
-        .student-avatar i {
+        .admin-student-icon i {
 
             font-size: 1.05rem;
         }
 
 
-        .student-name {
+        .admin-student-card-title {
 
             max-width: 170px;
 
@@ -1152,7 +1172,7 @@
         }
 
 
-        .student-id {
+        .admin-student-id {
 
             font-size: .62rem;
         }
@@ -1162,7 +1182,7 @@
            PERMISSION BADGE = ICON ONLY
         ====================================================== */
 
-        .student-permission {
+        .admin-student-permission {
 
             width: 30px;
 
@@ -1176,13 +1196,13 @@
         }
 
 
-        .student-permission span {
+        .admin-student-permission span {
 
             display: none;
         }
 
 
-        .student-permission i {
+        .admin-student-permission i {
 
             margin: 0;
 
@@ -1194,7 +1214,7 @@
            INFORMATION
         ====================================================== */
 
-        .student-info-row {
+        .admin-student-info-row {
 
             gap: .65rem;
 
@@ -1202,7 +1222,7 @@
         }
 
 
-        .student-info-icon {
+        .admin-student-info-icon {
 
             width: 34px;
 
@@ -1212,25 +1232,25 @@
         }
 
 
-        .student-info-label {
+        .admin-student-info-label {
 
             font-size: .58rem;
         }
 
 
-        .student-info-value {
+        .admin-student-info-value {
 
             font-size: .7rem;
         }
 
 
-        .student-email {
+        .admin-student-email {
 
             max-width: calc(100vw - 115px);
         }
 
 
-        .student-year-row {
+        .admin-student-year-row {
 
             margin-bottom: 1rem;
         }
@@ -1240,7 +1260,7 @@
            ACTION
         ====================================================== */
 
-        .student-card-action {
+        .admin-student-card-action {
 
             padding-top: .8rem;
         }
@@ -1250,7 +1270,7 @@
            EDIT BUTTON = ICON ONLY
         ====================================================== */
 
-        .student-edit-button {
+        .admin-student-edit-button {
 
             width: 38px;
 
@@ -1264,13 +1284,13 @@
         }
 
 
-        .student-edit-button span {
+        .admin-student-edit-button span {
 
             display: none;
         }
 
 
-        .student-edit-button i {
+        .admin-student-edit-button i {
 
             margin: 0;
 
@@ -1282,7 +1302,7 @@
            MOBILE TOOLTIP
         ====================================================== */
 
-        .student-edit-button[data-tooltip]::after {
+        .admin-student-edit-button[data-tooltip]::after {
 
             content: attr(data-tooltip);
 
@@ -1320,7 +1340,7 @@
         }
 
 
-        .student-edit-button[data-tooltip]:hover::after {
+        .admin-student-edit-button[data-tooltip]:hover::after {
 
             opacity: 1;
 
@@ -1328,7 +1348,7 @@
         }
 
 
-        .student-empty-result {
+        .admin-student-empty-result {
 
             min-height: 230px;
 
@@ -1344,13 +1364,13 @@
 
     @media (max-width: 380px) {
 
-        .student-name {
+        .admin-student-card-title {
 
             max-width: 135px;
         }
 
 
-        .student-permission {
+        .admin-student-permission {
 
             width: 28px;
 
@@ -1360,7 +1380,7 @@
         }
 
 
-        .student-info-value {
+        .admin-student-info-value {
 
             max-width: 190px;
         }
@@ -1374,13 +1394,15 @@
 
     @media (prefers-reduced-motion: reduce) {
 
-        .student-item-card,
-        .student-avatar,
-        .student-edit-button,
-        .student-permission {
+        .admin-student-card,
+        .admin-student-icon,
+        .admin-student-edit-button,
+        .admin-student-permission {
 
             transition: none !important;
         }
 
     }
+
 </style>
+

@@ -1,6 +1,10 @@
 <x-app-layout>
 
-    <div class="dashboard-content">
+    <div class="dashboard-content student-page">
+
+        {{-- =========================================================
+            PAGE HEADER
+        ========================================================== --}}
 
         <div class="student-page-header">
 
@@ -9,6 +13,7 @@
                 <div class="student-title-row">
 
                     <div>
+
                         <span class="student-overline">
                             MANAGEMENT
                         </span>
@@ -29,9 +34,16 @@
             <div class="student-header-actions">
 
                 {{-- MOBILE SEARCH TOGGLE --}}
-                <button type="button" id="mobileSearchToggle" class="student-mobile-search-button"
-                    aria-label="Open Search" aria-expanded="false" data-tooltip="Search">
+                <button
+                    type="button"
+                    id="mobileSearchToggle"
+                    class="student-mobile-search-button"
+                    aria-label="Open Search"
+                    aria-expanded="false"
+                    data-tooltip="Search">
+
                     <i class="bi bi-search"></i>
+
                 </button>
 
             </div>
@@ -43,7 +55,9 @@
             MOBILE SEARCH PANEL
         ========================================================== --}}
 
-        <div id="mobileSearchPanel" class="student-mobile-search-panel">
+        <div
+            id="mobileSearchPanel"
+            class="student-mobile-search-panel">
 
             <div class="student-mobile-search-content">
 
@@ -51,16 +65,21 @@
 
                     <i class="bi bi-search"></i>
 
-                    <input type="text" id="mobileSearchInput" placeholder="Search name, department, email..."
+                    <input
+                        type="text"
+                        id="mobileSearchInput"
+                        placeholder="Search name, department, email..."
                         autocomplete="off">
 
                 </div>
 
 
-                {{-- MOBILE RESET --}}
-
-                <button type="button" id="mobileResetFilter" class="student-mobile-reset-button"
-                    aria-label="Reset Search" data-tooltip="Reset">
+                <button
+                    type="button"
+                    id="mobileResetFilter"
+                    class="student-mobile-reset-button"
+                    aria-label="Reset Search"
+                    data-tooltip="Reset">
 
                     <i class="bi bi-arrow-counterclockwise"></i>
 
@@ -86,15 +105,22 @@
 
                     <div class="col-12 col-lg-5">
 
-                        <label for="search" class="student-input-label">
+                        <label
+                            for="search"
+                            class="student-input-label">
+
                             Search
+
                         </label>
 
                         <div class="student-search">
 
                             <i class="bi bi-search"></i>
 
-                            <input type="text" id="search" placeholder="Search name, department, email..."
+                            <input
+                                type="text"
+                                id="search"
+                                placeholder="Search name, department, email..."
                                 autocomplete="off">
 
                         </div>
@@ -106,20 +132,29 @@
 
                     <div class="col-12 col-md-4 col-lg-2">
 
-                        <label for="departmentFilter" class="student-input-label">
+                        <label
+                            for="departmentFilter"
+                            class="student-input-label">
+
                             Department
+
                         </label>
 
-                        <select class="student-filter-select" id="departmentFilter" name="department">
+                        <select
+                            class="student-filter-select"
+                            id="departmentFilter"
+                            name="department">
 
                             <option value="">
                                 All Departments
                             </option>
 
                             @foreach ($departments as $department)
+
                                 <option value="{{ $department->name }}">
                                     {{ $department->name }}
                                 </option>
+
                             @endforeach
 
                         </select>
@@ -131,11 +166,18 @@
 
                     <div class="col-12 col-md-4 col-lg-2">
 
-                        <label for="yearFilter" class="student-input-label">
+                        <label
+                            for="yearFilter"
+                            class="student-input-label">
+
                             Started Year
+
                         </label>
 
-                        <select class="student-filter-select student-year-select" id="yearFilter" name="started_year">
+                        <select
+                            class="student-filter-select student-year-select"
+                            id="yearFilter"
+                            name="started_year">
 
                             <option value="">
                                 All Years
@@ -162,8 +204,12 @@
 
                     <div class="col-12 col-md-4 col-lg-3">
 
-                        <button type="button" id="resetFilter" class="student-reset-button"
-                            data-tooltip="Reset Filters" aria-label="Reset Filters">
+                        <button
+                            type="button"
+                            id="resetFilter"
+                            class="student-reset-button"
+                            data-tooltip="Reset Filters"
+                            aria-label="Reset Filters">
 
                             <i class="bi bi-arrow-counterclockwise"></i>
 
@@ -187,7 +233,10 @@
         ========================================================== --}}
 
         @if (session('success'))
-            <div class="student-success-alert" role="alert">
+
+            <div
+                class="student-success-alert"
+                role="alert">
 
                 <div class="student-alert-content">
 
@@ -200,27 +249,34 @@
                 </div>
 
 
-                <button type="button" class="student-alert-close" data-bs-dismiss="alert" aria-label="Close">
+                <button
+                    type="button"
+                    class="student-alert-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close">
 
                     <i class="bi bi-x-lg"></i>
 
                 </button>
 
             </div>
+
         @endif
 
 
         {{-- =========================================================
-            STUDENTS CARD
+            STUDENT RESULTS
         ========================================================== --}}
 
-        <div class="student-card">
-
+        <div class="student-results-wrapper">
 
             @if ($students->count())
+
                 {{-- LOADING --}}
 
-                <div id="studentSearchSpinner" class="student-loading d-none">
+                <div
+                    id="studentSearchSpinner"
+                    class="student-loading d-none">
 
                     <div class="student-spinner"></div>
 
@@ -231,14 +287,20 @@
                 </div>
 
 
-                {{-- CARD GRID --}}
+                {{-- =================================================
+                    SAME GRID AS THESIS PAGE
+                ================================================== --}}
 
-                <div id="adminStudentTable" class="row g-4">
+                <div
+                    id="adminStudentTable"
+                    class="thesis-card-grid">
 
                     @include('admin.students.table')
 
                 </div>
+
             @else
+
                 {{-- EMPTY STATE --}}
 
                 <div class="student-empty-state">
@@ -258,79 +320,66 @@
                     </p>
 
                 </div>
-            @endif
 
+            @endif
 
         </div>
 
     </div>
 
+
+    {{-- =============================================================
+        JAVASCRIPT
+    ============================================================== --}}
+
     <script>
+
         document.addEventListener(
             'DOMContentLoaded',
-            function() {
+            function () {
 
                 let searchTimeout = null;
-
                 let currentController = null;
 
 
                 /* =====================================================
                    ELEMENTS
-                ===================================================== */
+                ====================================================== */
 
                 const searchInput =
                     document.getElementById('search');
 
                 const mobileSearchInput =
-                    document.getElementById(
-                        'mobileSearchInput'
-                    );
+                    document.getElementById('mobileSearchInput');
 
                 const departmentFilter =
-                    document.getElementById(
-                        'departmentFilter'
-                    );
+                    document.getElementById('departmentFilter');
 
                 const yearFilter =
-                    document.getElementById(
-                        'yearFilter'
-                    );
+                    document.getElementById('yearFilter');
 
                 const resetButton =
-                    document.getElementById(
-                        'resetFilter'
-                    );
+                    document.getElementById('resetFilter');
 
                 const mobileResetButton =
-                    document.getElementById(
-                        'mobileResetFilter'
-                    );
+                    document.getElementById('mobileResetFilter');
 
                 const mobileSearchToggle =
-                    document.getElementById(
-                        'mobileSearchToggle'
-                    );
+                    document.getElementById('mobileSearchToggle');
 
                 const mobileSearchPanel =
-                    document.getElementById(
-                        'mobileSearchPanel'
-                    );
+                    document.getElementById('mobileSearchPanel');
 
                 const studentGrid =
-                    document.getElementById(
-                        'adminStudentTable'
-                    );
+                    document.getElementById('adminStudentTable');
 
                 const spinner =
-                    document.getElementById(
-                        'studentSearchSpinner'
-                    );
+                    document.getElementById('studentSearchSpinner');
 
 
                 /* =====================================================
                    LOAD DATA
-                ===================================================== */
+                ====================================================== */
 
                 function loadData() {
 
@@ -341,9 +390,7 @@
                     */
 
                     if (currentController) {
-
                         currentController.abort();
-
                     }
 
                     currentController =
@@ -381,20 +428,19 @@
 
                     let search = '';
 
-
                     if (window.innerWidth <= 767.98) {
 
                         search =
-                            mobileSearchInput ?
-                            mobileSearchInput.value :
-                            '';
+                            mobileSearchInput
+                                ? mobileSearchInput.value
+                                : '';
 
                     } else {
 
                         search =
-                            searchInput ?
-                            searchInput.value :
-                            '';
+                            searchInput
+                                ? searchInput.value
+                                : '';
 
                     }
 
@@ -405,10 +451,10 @@
                     |--------------------------------------------------------------------------
                     */
 
-                    let department =
-                        departmentFilter ?
-                        departmentFilter.value :
-                        '';
+                    const department =
+                        departmentFilter
+                            ? departmentFilter.value
+                            : '';
 
 
                     /*
@@ -417,15 +463,15 @@
                     |--------------------------------------------------------------------------
                     */
 
-                    let year =
-                        yearFilter ?
-                        yearFilter.value :
-                        '';
+                    const year =
+                        yearFilter
+                            ? yearFilter.value
+                            : '';
 
 
                     /*
                     |--------------------------------------------------------------------------
-                    | Build URL
+                    | Build Query
                     |--------------------------------------------------------------------------
                     */
 
@@ -433,9 +479,7 @@
                         new URLSearchParams({
 
                             search: search,
-
                             department: department,
-
                             year: year
 
                         });
@@ -443,90 +487,92 @@
 
                     /*
                     |--------------------------------------------------------------------------
-                    | AJAX
+                    | AJAX Request
                     |--------------------------------------------------------------------------
                     */
 
                     fetch(
-                            "{{ route('admin.students.search') }}?" +
-                            query.toString(), {
-                                signal: currentController.signal
-                            }
-                        )
+                        "{{ route('admin.students.search') }}?" +
+                        query.toString(),
+                        {
+                            signal:
+                                currentController.signal
+                        }
+                    )
 
-                        .then(response => {
+                    .then(response => {
 
-                            if (!response.ok) {
+                        if (!response.ok) {
 
-                                throw new Error(
-                                    'Network response failed'
-                                );
+                            throw new Error(
+                                'Network response failed'
+                            );
 
-                            }
+                        }
 
-                            return response.text();
+                        return response.text();
 
-                        })
+                    })
 
-                        .then(data => {
+                    .then(data => {
 
-                            if (studentGrid) {
+                        if (studentGrid) {
 
-                                studentGrid.innerHTML =
-                                    data;
+                            studentGrid.innerHTML =
+                                data;
 
-                            }
+                        }
 
-                        })
+                    })
 
-                        .catch(error => {
+                    .catch(error => {
 
-                            if (
-                                error.name !==
-                                'AbortError'
-                            ) {
+                        if (
+                            error.name !==
+                            'AbortError'
+                        ) {
 
-                                console.error(
-                                    'Error loading students:',
-                                    error
-                                );
+                            console.error(
+                                'Error loading students:',
+                                error
+                            );
 
-                            }
+                        }
 
-                        })
+                    })
 
-                        .finally(() => {
+                    .finally(() => {
 
-                            if (spinner) {
+                        if (spinner) {
 
-                                spinner.classList.add(
-                                    'd-none'
-                                );
+                            spinner.classList.add(
+                                'd-none'
+                            );
 
-                            }
+                        }
 
-                            if (studentGrid) {
+                        if (studentGrid) {
 
-                                studentGrid.classList.remove(
-                                    'is-loading'
-                                );
+                            studentGrid.classList.remove(
+                                'is-loading'
+                            );
 
-                            }
+                        }
 
-                        });
+                    });
 
                 }
 
 
                 /* =====================================================
                    DESKTOP SEARCH
-                ===================================================== */
+                ====================================================== */
 
                 if (searchInput) {
 
                     searchInput.addEventListener(
                         'input',
-                        function() {
+                        function () {
 
                             clearTimeout(
                                 searchTimeout
@@ -546,13 +592,13 @@
 
                 /* =====================================================
                    MOBILE SEARCH
-                ===================================================== */
+                ====================================================== */
 
                 if (mobileSearchInput) {
 
                     mobileSearchInput.addEventListener(
                         'input',
-                        function() {
+                        function () {
 
                             clearTimeout(
                                 searchTimeout
@@ -571,8 +617,8 @@
 
 
                 /* =====================================================
-                   DEPARTMENT
-                ===================================================== */
+                   DEPARTMENT FILTER
+                ====================================================== */
 
                 if (departmentFilter) {
 
@@ -585,8 +631,8 @@
 
 
                 /* =====================================================
-                   YEAR
-                ===================================================== */
+                   YEAR FILTER
+                ====================================================== */
 
                 if (yearFilter) {
 
@@ -600,40 +646,28 @@
 
                 /* =====================================================
                    DESKTOP RESET
-                ===================================================== */
+                ====================================================== */
 
                 if (resetButton) {
 
                     resetButton.addEventListener(
                         'click',
-                        function() {
+                        function () {
 
                             if (searchInput) {
-
-                                searchInput.value =
-                                    '';
-
+                                searchInput.value = '';
                             }
 
                             if (mobileSearchInput) {
-
-                                mobileSearchInput.value =
-                                    '';
-
+                                mobileSearchInput.value = '';
                             }
 
                             if (departmentFilter) {
-
-                                departmentFilter.value =
-                                    '';
-
+                                departmentFilter.value = '';
                             }
 
                             if (yearFilter) {
-
-                                yearFilter.value =
-                                    '';
-
+                                yearFilter.value = '';
                             }
 
                             loadData();
@@ -646,29 +680,28 @@
 
                 /* =====================================================
                    MOBILE SEARCH TOGGLE
-                ===================================================== */
+                ====================================================== */
 
-                if (mobileSearchToggle) {
+                if (
+                    mobileSearchToggle &&
+                    mobileSearchPanel
+                ) {
 
                     mobileSearchToggle.addEventListener(
                         'click',
-                        function() {
+                        function () {
 
                             const isOpen =
                                 mobileSearchPanel
-                                .classList
-                                .contains(
-                                    'is-open'
-                                );
+                                    .classList
+                                    .contains('is-open');
 
 
                             if (isOpen) {
 
                                 mobileSearchPanel
                                     .classList
-                                    .remove(
-                                        'is-open'
-                                    );
+                                    .remove('is-open');
 
                                 mobileSearchToggle
                                     .setAttribute(
@@ -678,17 +711,13 @@
 
                                 mobileSearchToggle
                                     .classList
-                                    .remove(
-                                        'is-active'
-                                    );
+                                    .remove('is-active');
 
                             } else {
 
                                 mobileSearchPanel
                                     .classList
-                                    .add(
-                                        'is-open'
-                                    );
+                                    .add('is-open');
 
                                 mobileSearchToggle
                                     .setAttribute(
@@ -698,13 +727,11 @@
 
                                 mobileSearchToggle
                                     .classList
-                                    .add(
-                                        'is-active'
-                                    );
+                                    .add('is-active');
 
 
                                 setTimeout(
-                                    function() {
+                                    function () {
 
                                         if (
                                             mobileSearchInput
@@ -728,40 +755,28 @@
 
                 /* =====================================================
                    MOBILE RESET
-                ===================================================== */
+                ====================================================== */
 
                 if (mobileResetButton) {
 
                     mobileResetButton.addEventListener(
                         'click',
-                        function() {
+                        function () {
 
                             if (mobileSearchInput) {
-
-                                mobileSearchInput.value =
-                                    '';
-
+                                mobileSearchInput.value = '';
                             }
 
                             if (searchInput) {
-
-                                searchInput.value =
-                                    '';
-
+                                searchInput.value = '';
                             }
 
                             if (departmentFilter) {
-
-                                departmentFilter.value =
-                                    '';
-
+                                departmentFilter.value = '';
                             }
 
                             if (yearFilter) {
-
-                                yearFilter.value =
-                                    '';
-
+                                yearFilter.value = '';
                             }
 
                             loadData();
@@ -773,38 +788,39 @@
 
 
                 /* =====================================================
-                   ESCAPE
-                ===================================================== */
+                   ESCAPE KEY
+                ====================================================== */
 
                 document.addEventListener(
                     'keydown',
-                    function(event) {
+                    function (event) {
 
                         if (
                             event.key === 'Escape' &&
                             mobileSearchPanel &&
                             mobileSearchPanel
-                            .classList
-                            .contains('is-open')
+                                .classList
+                                .contains('is-open')
                         ) {
 
                             mobileSearchPanel
                                 .classList
-                                .remove(
-                                    'is-open'
-                                );
+                                .remove('is-open');
 
-                            mobileSearchToggle
-                                .setAttribute(
-                                    'aria-expanded',
-                                    'false'
-                                );
 
-                            mobileSearchToggle
-                                .classList
-                                .remove(
-                                    'is-active'
-                                );
+                            if (mobileSearchToggle) {
+
+                                mobileSearchToggle
+                                    .setAttribute(
+                                        'aria-expanded',
+                                        'false'
+                                    );
+
+                                mobileSearchToggle
+                                    .classList
+                                    .remove('is-active');
+
+                            }
 
                         }
 
@@ -814,11 +830,11 @@
 
                 /* =====================================================
                    RESIZE
-                ===================================================== */
+                ====================================================== */
 
                 window.addEventListener(
                     'resize',
-                    function() {
+                    function () {
 
                         if (
                             window.innerWidth >
@@ -829,9 +845,7 @@
 
                                 mobileSearchPanel
                                     .classList
-                                    .remove(
-                                        'is-open'
-                                    );
+                                    .remove('is-open');
 
                             }
 
@@ -845,9 +859,7 @@
 
                                 mobileSearchToggle
                                     .classList
-                                    .remove(
-                                        'is-active'
-                                    );
+                                    .remove('is-active');
 
                             }
 
@@ -858,9 +870,20 @@
 
             }
         );
+
     </script>
 
+
+    {{-- =============================================================
+        CSS
+    ============================================================== --}}
+
     <style>
+
+        /* =========================================================
+           VARIABLES
+        ========================================================== */
+
         :root {
 
             --student-black: #000000;
@@ -887,6 +910,10 @@
 
         }
 
+
+        /* =========================================================
+           DARK MODE
+        ========================================================== */
 
         [data-bs-theme="dark"] {
 
@@ -915,7 +942,12 @@
         }
 
 
-        .dashboard-page {
+        /* =========================================================
+           PAGE
+        ========================================================== */
+
+        .student-page {
+
             color:
                 var(--student-text);
 
@@ -926,81 +958,90 @@
         }
 
 
-        .student-header-content {
-            min-width: 0;
-            flex: 1;
-        }
-
-        .student-title {
-            margin: 0;
-            color: var(--student-text-main);
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: -0.035em;
-            line-height: 1.2;
-        }
-
-        .student-overline {
-            display: block;
-            margin-bottom: 0.25rem;
-            color: var(--student-text-sub);
-            font-size: 0.95rem;
-            font-weight: 800;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
+        /* =========================================================
+           HEADER
+        ========================================================== */
 
         .student-page-header {
-            padding: 15px;
-            background: white;
+
             display: flex;
+
             align-items: flex-start;
+
             justify-content: space-between;
-            overflow: hidden;
+
+            gap: 1rem;
+
+            padding: 15px;
+
+            background:
+                var(--student-page-bg);
+
             box-sizing: border-box;
+
         }
 
 
         .student-header-content {
+
             min-width: 0;
+
+            flex: 1;
+
         }
 
 
+        .student-title-row {
+
+            display: flex;
+
+            align-items: center;
+
+        }
 
 
-        /* .student-page-title {
+        .student-overline {
 
-            margin: 0 0 .4rem;
+            display: block;
+
+            margin-bottom: .2rem;
+
+            color:
+                var(--student-text-muted);
+
+            font-size: .7rem;
+
+            font-weight: 800;
+
+            letter-spacing: .13em;
+
+            line-height: 1.2;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .student-title {
+
+            margin: 0;
 
             color:
                 var(--student-text);
 
-            font-size: 1.7rem;
+            font-size: 1.8rem;
 
-            font-weight: 800;
-
-            letter-spacing: -.035em;
+            font-weight: 600;
 
             line-height: 1.2;
 
-        } */
-
-
-        .student-page-description {
-
-            margin: 0;
-
-            color:
-                var(--student-text-secondary);
-
-            font-size: .86rem;
+            letter-spacing: -.035em;
 
         }
 
 
         /* =========================================================
-           HEADER ACTION
+           HEADER ACTIONS
         ========================================================== */
 
         .student-header-actions {
@@ -1070,8 +1111,11 @@
         }
 
 
-        [data-bs-theme="dark"] .student-mobile-search-button:hover,
-        [data-bs-theme="dark"] .student-mobile-search-button.is-active {
+        [data-bs-theme="dark"]
+        .student-mobile-search-button:hover,
+
+        [data-bs-theme="dark"]
+        .student-mobile-search-button.is-active {
 
             color:
                 var(--student-black);
@@ -1089,14 +1133,25 @@
            FILTER CARD
         ========================================================== */
 
+        .student-filter-card {
 
+            width: 100%;
+
+            background:
+                var(--student-card-bg);
+
+            box-sizing: border-box;
+
+        }
 
 
         .student-filter-body {
 
             overflow: hidden;
+
             padding:
                 1.2rem 1.25rem;
+
             background:
                 var(--student-card-bg);
 
@@ -1104,7 +1159,7 @@
 
 
         /* =========================================================
-           LABEL
+           FILTER LABEL
         ========================================================== */
 
         .student-input-label {
@@ -1120,9 +1175,9 @@
 
             font-weight: 800;
 
-            text-transform: uppercase;
-
             letter-spacing: .05em;
+
+            text-transform: uppercase;
 
         }
 
@@ -1142,9 +1197,9 @@
 
             position: absolute;
 
-            left: 1rem;
-
             top: 50%;
+
+            left: 1rem;
 
             z-index: 2;
 
@@ -1183,6 +1238,8 @@
 
             font-size: .82rem;
 
+            box-sizing: border-box;
+
             transition:
                 .2s ease;
 
@@ -1209,8 +1266,11 @@
         }
 
 
-        [data-bs-theme="dark"] .student-search input:focus,
-        [data-bs-theme="dark"] .student-filter-select:focus {
+        [data-bs-theme="dark"]
+        .student-search input:focus,
+
+        [data-bs-theme="dark"]
+        .student-filter-select:focus {
 
             box-shadow:
                 0 0 0 3px rgba(255, 255, 255, .10);
@@ -1248,6 +1308,8 @@
 
             cursor: pointer;
 
+            box-sizing: border-box;
+
             transition:
                 .2s ease;
 
@@ -1263,7 +1325,8 @@
         }
 
 
-        [data-bs-theme="dark"] .student-filter-select option {
+        [data-bs-theme="dark"]
+        .student-filter-select option {
 
             color: #ffffff;
 
@@ -1281,7 +1344,7 @@
 
 
         /* =========================================================
-           RESET
+           RESET BUTTON
         ========================================================== */
 
         .student-reset-button {
@@ -1339,7 +1402,8 @@
         }
 
 
-        [data-bs-theme="dark"] .student-reset-button:hover {
+        [data-bs-theme="dark"]
+        .student-reset-button:hover {
 
             color:
                 var(--student-black);
@@ -1367,9 +1431,11 @@
 
             gap: 1rem;
 
-            margin-bottom: 1.5rem;
+            margin:
+                0 1.25rem 1rem;
 
-            padding: .9rem 1rem;
+            padding:
+                .9rem 1rem;
 
             color:
                 var(--student-text);
@@ -1387,6 +1453,8 @@
 
             box-shadow:
                 var(--student-card-shadow);
+
+            box-sizing: border-box;
 
         }
 
@@ -1452,14 +1520,135 @@
         }
 
 
+        /* =========================================================
+           RESULTS
+        ========================================================== */
 
-        .student-card {
+        .student-results-wrapper {
 
             position: relative;
-            overflow: hidden;
 
-        } 
+            width: 100%;
 
+            box-sizing: border-box;
+
+        }
+
+
+        /* =========================================================
+           THESIS GRID
+           SAME GRID AS ADMIN THESIS PAGE
+        ========================================================== */
+
+        .thesis-card-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 1.25rem;
+
+            width: 100%;
+
+            margin-top: 1rem;
+
+            box-sizing: border-box;
+
+            transition:
+                opacity .2s ease;
+
+        }
+
+
+        .thesis-card-grid.is-loading {
+
+            opacity: .45;
+
+            pointer-events: none;
+
+        }
+
+
+        /* =========================================================
+           LOADING
+        ========================================================== */
+
+        .student-loading {
+
+            position: absolute;
+
+            top: 1rem;
+
+            left: 50%;
+
+            z-index: 50;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: .6rem;
+
+            padding:
+                .65rem .9rem;
+
+            transform:
+                translateX(-50%);
+
+            color:
+                var(--student-text);
+
+            background:
+                var(--student-card-bg);
+
+            border:
+                1px solid var(--student-border-soft);
+
+            border-radius: 8px;
+
+            box-shadow:
+                var(--student-shadow);
+
+            font-size: .7rem;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+        }
+
+
+        .student-spinner {
+
+            width: 17px;
+
+            height: 17px;
+
+            border:
+                2px solid var(--student-border-soft);
+
+            border-top-color:
+                var(--student-primary);
+
+            border-radius: 50%;
+
+            animation:
+                studentSpin .7s linear infinite;
+
+        }
+
+
+        @keyframes studentSpin {
+
+            to {
+
+                transform:
+                    rotate(360deg);
+
+            }
+
+        }
 
 
         /* =========================================================
@@ -1530,9 +1719,9 @@
 
             position: absolute;
 
-            left: .85rem;
-
             top: 50%;
+
+            left: .85rem;
 
             transform:
                 translateY(-50%);
@@ -1569,6 +1758,8 @@
 
             font-size: .8rem;
 
+            box-sizing: border-box;
+
         }
 
 
@@ -1583,7 +1774,8 @@
         }
 
 
-        [data-bs-theme="dark"] .student-mobile-search-input input:focus {
+        [data-bs-theme="dark"]
+        .student-mobile-search-input input:focus {
 
             box-shadow:
                 0 0 0 3px rgba(255, 255, 255, .10);
@@ -1644,7 +1836,8 @@
         }
 
 
-        [data-bs-theme="dark"] .student-mobile-reset-button:hover {
+        [data-bs-theme="dark"]
+        .student-mobile-reset-button:hover {
 
             color:
                 var(--student-black);
@@ -1659,111 +1852,6 @@
 
 
         /* =========================================================
-           LOADING
-        ========================================================== */
-
-        .student-loading {
-
-            position: absolute;
-
-            top: 1rem;
-
-            left: 50%;
-
-            z-index: 50;
-
-            display: flex;
-
-            align-items: center;
-
-            gap: .6rem;
-
-            padding:
-                .65rem .9rem;
-
-            transform:
-                translateX(-50%);
-
-            color:
-                var(--student-text);
-
-            background:
-                var(--student-card-bg);
-
-            border:
-                1px solid var(--student-border-soft);
-
-            border-radius: 8px;
-
-            box-shadow:
-                var(--student-shadow);
-
-            font-size: .7rem;
-
-            font-weight: 700;
-
-        }
-
-        .student-overline {
-            display: block;
-            margin-bottom: 0.25rem;
-            color: var(--dept-text-sub);
-            font-size: 0.95rem;
-            font-weight: 800;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
-        #adminStudentTable {
-            margin-top: 0;
-            transition:
-                opacity .2s ease;
-
-        }
-
-
-        #adminStudentTable.is-loading {
-
-            opacity: .45;
-
-            pointer-events: none;
-
-        }
-
-
-        .student-spinner {
-
-            width: 17px;
-
-            height: 17px;
-
-            border:
-                2px solid var(--student-border-soft);
-
-            border-top-color:
-                var(--student-primary);
-
-            border-radius: 50%;
-
-            animation:
-                studentSpin .7s linear infinite;
-
-        }
-
-
-        @keyframes studentSpin {
-
-            to {
-
-                transform:
-                    rotate(360deg);
-
-            }
-
-        }
-
-
-        /* =========================================================
            EMPTY STATE
         ========================================================== */
 
@@ -1773,6 +1861,9 @@
                 4rem 1rem;
 
             text-align: center;
+
+            color:
+                var(--student-text);
 
         }
 
@@ -1807,7 +1898,9 @@
 
 
         .student-empty-icon i {
+
             font-size: 1.8rem;
+
         }
 
 
@@ -1853,18 +1946,15 @@
 
             position: absolute;
 
-            left: 50%;
-
             top:
                 calc(100% + 8px);
+
+            left: 50%;
 
             z-index: 100;
 
             padding:
                 .4rem .6rem;
-
-            transform:
-                translateX(-50%) translateY(-3px);
 
             color:
                 var(--student-white);
@@ -1881,7 +1971,12 @@
             white-space: nowrap;
 
             opacity: 0;
+
             pointer-events: none;
+
+            transform:
+                translateX(-50%) translateY(-3px);
+
             transition:
                 opacity .15s ease,
                 transform .15s ease;
@@ -1892,9 +1987,27 @@
         .student-mobile-search-button[data-tooltip]:hover::after,
         .student-mobile-reset-button[data-tooltip]:hover::after,
         .student-reset-button[data-tooltip]:hover::after {
+
             opacity: 1;
+
             transform:
                 translateX(-50%) translateY(0);
+
+        }
+
+
+        /* =========================================================
+           TABLET
+        ========================================================== */
+
+        @media (max-width: 1199.98px) {
+
+            .thesis-card-grid {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+            }
 
         }
 
@@ -1905,24 +2018,27 @@
 
         @media (max-width: 767.98px) {
 
-            /* HEADER */
-
             .student-page-header {
+
                 margin-bottom: 1rem;
+
                 padding: 1rem;
+
                 gap: 1rem;
-            }
-
-            .student-page-title {
-
-                font-size: 1.25rem;
 
             }
 
 
-            .student-page-description {
+            .student-title {
 
-                font-size: .76rem;
+                font-size: 1.35rem;
+
+            }
+
+
+            .student-overline {
+
+                font-size: .65rem;
 
             }
 
@@ -1954,11 +2070,26 @@
             }
 
 
-            /* STUDENT CARD */
+            /* THESIS GRID */
 
-            .student-card-body {
+            .thesis-card-grid {
 
-                padding: 1rem;
+                grid-template-columns: 1fr;
+
+                gap: 1rem;
+
+                padding:
+                    0 .75rem 1rem;
+
+            }
+
+
+            /* ALERT */
+
+            .student-success-alert {
+
+                margin:
+                    0 .75rem 1rem;
 
             }
 
@@ -1986,21 +2117,12 @@
 
                 padding: .85rem;
 
-                border-radius: 9px;
-
             }
 
 
-            .student-page-title {
+            .student-title {
 
-                font-size: 1.05rem;
-
-            }
-
-
-            .student-page-description {
-
-                display: none;
+                font-size: 1.15rem;
 
             }
 
@@ -2031,9 +2153,20 @@
             }
 
 
-            .student-card-body {
+            .thesis-card-grid {
 
-                padding: .75rem;
+                gap: .85rem;
+
+                padding:
+                    0 .65rem 1rem;
+
+            }
+
+
+            .student-success-alert {
+
+                margin:
+                    0 .65rem .85rem;
 
             }
 
@@ -2054,9 +2187,9 @@
 
         @media (prefers-reduced-motion: reduce) {
 
-            .dashboard-page *,
-            .dashboard-page *::before,
-            .dashboard-page *::after {
+            .student-page *,
+            .student-page *::before,
+            .student-page *::after {
 
                 animation-duration:
                     .01ms !important;
@@ -2070,6 +2203,7 @@
             }
 
         }
+
     </style>
 
 </x-app-layout>

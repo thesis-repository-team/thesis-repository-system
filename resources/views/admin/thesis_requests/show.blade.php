@@ -1,1635 +1,1846 @@
 <x-app-layout>
 
-<div class="dashboard-content">
+    <div class="dashboard-content thesis-request-page">
 
-    {{-- =========================================================
-        ALERTS
-    ========================================================== --}}
+        {{-- =========================================================
+            ALERTS
+        ========================================================== --}}
 
-    @if (session('success'))
-        <div class="request-alert request-alert-success">
-            <i class="bi bi-check-circle-fill"></i>
-            <span>{{ session('success') }}</span>
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="request-alert request-alert-danger">
-            <i class="bi bi-exclamation-triangle-fill"></i>
-            <span>{{ session('error') }}</span>
-        </div>
-    @endif
-
-
-    @if ($thesisRequest)
-
-        {{-- =====================================================
-            PAGE HEADER
-        ====================================================== --}}
-
-        <div class="request-header">
-
-            <div class="request-header-content">
-
-                <span class="request-overline">
-                    THESIS REQUEST
-                </span>
-
-                <h1 class="request-title">
-                    {{ $thesisRequest->title }}
-                </h1>
-
-                <span class="request-id">
-                    Request #{{ $thesisRequest->id }}
-                </span>
-
+        @if (session('success'))
+            <div class="request-alert request-alert-success">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>{{ session('success') }}</span>
             </div>
-
-
-            {{-- STATUS --}}
-
-            <div class="request-status-wrapper">
-
-                @if ($thesisRequest->status === 'approved')
-
-                    <span class="request-status status-approved">
-                        <i class="bi bi-check-circle-fill"></i>
-                        Approved
-                    </span>
-
-                @elseif ($thesisRequest->status === 'pending')
-
-                    <span class="request-status status-pending">
-                        <i class="bi bi-clock-fill"></i>
-                        Pending
-                    </span>
-
-                @elseif ($thesisRequest->status === 'rejected')
-
-                    <span class="request-status status-rejected">
-                        <i class="bi bi-x-circle-fill"></i>
-                        Rejected
-                    </span>
-
-                @else
-
-                    <span class="request-status status-default">
-                        <i class="bi bi-question-circle-fill"></i>
-                        {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
-                    </span>
-
-                @endif
-
-            </div>
-
-        </div>
-
-
-        {{-- =====================================================
-            REQUEST INFORMATION
-        ====================================================== --}}
-
-        <section class="request-section">
-
-            <div class="section-heading">
-
-                <div class="section-heading-icon">
-                    <i class="bi bi-info-circle-fill"></i>
-                </div>
-
-                <div>
-                    <h2>Request Information</h2>
-                    <p>Details about this thesis submission.</p>
-                </div>
-
-            </div>
-
-
-            {{-- VERTICAL INFORMATION LIST --}}
-
-            <div class="information-list">
-
-
-                {{-- AUTHOR --}}
-
-                <div class="information-row">
-
-                    <div class="information-label">
-
-                        <i class="bi bi-person-fill"></i>
-
-                        <span>
-                            Author
-                        </span>
-
-                    </div>
-
-                    <div class="information-value">
-                        {{ $thesisRequest->author_name ?? 'N/A' }}
-                    </div>
-
-                </div>
-
-
-                {{-- DEPARTMENT --}}
-
-                <div class="information-row">
-
-                    <div class="information-label">
-
-                        <i class="bi bi-building-fill"></i>
-
-                        <span>
-                            Department
-                        </span>
-
-                    </div>
-
-                    <div class="information-value">
-                        {{ $thesisRequest->department?->name ?? 'N/A' }}
-                    </div>
-
-                </div>
-
-
-                {{-- SUBMITTED BY --}}
-
-                <div class="information-row">
-
-                    <div class="information-label">
-
-                        <i class="bi bi-person-up"></i>
-
-                        <span>
-                            Submitted By
-                        </span>
-
-                    </div>
-
-                    <div class="information-value">
-                        {{ $thesisRequest->user?->name
-                            ?? $thesisRequest->user?->username
-                            ?? 'N/A' }}
-                    </div>
-
-                </div>
-
-
-                {{-- SUBMITTED AT --}}
-
-                <div class="information-row">
-
-                    <div class="information-label">
-
-                        <i class="bi bi-calendar3"></i>
-
-                        <span>
-                            Submitted At
-                        </span>
-
-                    </div>
-
-                    <div class="information-value">
-
-                        {{ $thesisRequest->submitted_at
-                            ? \Carbon\Carbon::parse($thesisRequest->submitted_at)->format('d M Y, h:i A')
-                            : 'N/A' }}
-
-                    </div>
-
-                </div>
-
-
-                {{-- REVIEWED BY --}}
-
-                <div class="information-row">
-
-                    <div class="information-label">
-
-                        <i class="bi bi-person-check-fill"></i>
-
-                        <span>
-                            Reviewed By
-                        </span>
-
-                    </div>
-
-                    <div class="information-value">
-
-                        {{ $thesisRequest->reviewer?->name
-                            ?? $thesisRequest->reviewer?->username
-                            ?? 'Not reviewed' }}
-
-                    </div>
-
-                </div>
-
-
-                {{-- REVIEWED AT --}}
-
-                <div class="information-row">
-
-                    <div class="information-label">
-
-                        <i class="bi bi-calendar-check-fill"></i>
-
-                        <span>
-                            Reviewed At
-                        </span>
-
-                    </div>
-
-                    <div class="information-value">
-
-                        {{ $thesisRequest->reviewed_at
-                            ? \Carbon\Carbon::parse($thesisRequest->reviewed_at)->format('d M Y, h:i A')
-                            : 'Not reviewed' }}
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-        </section>
-
-
-        {{-- =====================================================
-            ABSTRACT
-        ====================================================== --}}
-
-        <section class="request-section">
-
-            <div class="section-heading">
-
-                <div class="section-heading-icon">
-                    <i class="bi bi-file-text-fill"></i>
-                </div>
-
-                <div>
-                    <h2>Abstract</h2>
-                    <p>Abstract submitted with the thesis request.</p>
-                </div>
-
-            </div>
-
-
-            <div class="text-content">
-
-                {{ $thesisRequest->abstract ?? 'No abstract provided.' }}
-
-            </div>
-
-        </section>
-
-
-        {{-- =====================================================
-            DESCRIPTION
-        ====================================================== --}}
-
-        <section class="request-section">
-
-            <div class="section-heading">
-
-                <div class="section-heading-icon">
-                    <i class="bi bi-card-text"></i>
-                </div>
-
-                <div>
-                    <h2>Description</h2>
-                    <p>Description of the thesis project.</p>
-                </div>
-
-            </div>
-
-
-            <div class="text-content">
-
-                {{ $thesisRequest->description ?? 'No description provided.' }}
-
-            </div>
-
-        </section>
-
-
-        {{-- =====================================================
-            THESIS DOCUMENT
-        ====================================================== --}}
-
-        <section class="request-section">
-
-            <div class="section-heading">
-
-                <div class="section-heading-icon document-icon">
-                    <i class="bi bi-file-earmark-pdf-fill"></i>
-                </div>
-
-                <div>
-                    <h2>Thesis Document</h2>
-                    <p>Submitted thesis document.</p>
-                </div>
-
-            </div>
-
-
-            <div class="document-box">
-
-                <div class="document-left">
-
-                    <div class="document-file-icon">
-                        <i class="bi bi-file-earmark-pdf-fill"></i>
-                    </div>
-
-                    <div class="document-details">
-
-                        <strong>
-                            Submitted Thesis PDF
-                        </strong>
-
-                        <span>
-                            Complete submitted document
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <a
-                    href="{{ route('admin.thesis_requests.view-request-pdf', $thesisRequest) }}"
-                    target="_blank"
-                    class="view-pdf-button">
-
-                    <i class="bi bi-eye-fill"></i>
-
-                    View PDF
-
-                </a>
-
-            </div>
-
-        </section>
-
-
-        {{-- =====================================================
-            REJECTION DETAILS
-        ====================================================== --}}
-
-        @if ($thesisRequest->status === 'rejected')
-
-            <section class="request-section rejection-section">
-
-                <div class="section-heading">
-
-                    <div class="section-heading-icon rejection-icon">
-                        <i class="bi bi-exclamation-triangle-fill"></i>
-                    </div>
-
-                    <div>
-                        <h2>Rejection Details</h2>
-                        <p>Information about why this request was rejected.</p>
-                    </div>
-
-                </div>
-
-
-                <div class="information-list">
-
-
-                    {{-- REJECTED BY --}}
-
-                    <div class="information-row">
-
-                        <div class="information-label">
-
-                            <i class="bi bi-person-x-fill"></i>
-
-                            <span>
-                                Rejected By
-                            </span>
-
-                        </div>
-
-                        <div class="information-value">
-                            {{ $thesisRequest->reviewer?->name
-                                ?? $thesisRequest->reviewer?->username
-                                ?? 'Unknown' }}
-                        </div>
-
-                    </div>
-
-
-                    {{-- REJECTION REASON --}}
-
-                    <div class="information-row information-row-reason">
-
-                        <div class="information-label">
-
-                            <i class="bi bi-chat-left-text-fill"></i>
-
-                            <span>
-                                Rejection Reason
-                            </span>
-
-                        </div>
-
-                        <div class="information-value reason-value">
-
-                            {{ $thesisRequest->remarks
-                                ?? 'No rejection reason provided.' }}
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
         @endif
 
 
-        {{-- =====================================================
-            REVIEW DECISION
-        ====================================================== --}}
+        @if (session('error'))
+            <div class="request-alert request-alert-danger">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                <span>{{ session('error') }}</span>
+            </div>
+        @endif
 
-        @if ($thesisRequest->status === 'pending')
 
-            <section class="request-section review-section">
+        @if ($thesisRequest)
 
-                <div class="section-heading">
+            {{-- =====================================================
+                MAIN CARD
+            ====================================================== --}}
 
-                    <div class="section-heading-icon">
-                        <i class="bi bi-clipboard-check-fill"></i>
+            <div class="request-form-card">
+
+
+                <div class="request-header">
+
+                    <div class="request-header-content">
+
+                        <span class="request-overline">
+                            REQUEST #{{ $thesisRequest->id }}
+                        </span>
+
+                        <div class="request-title-row">
+
+                            <i class="bi bi-journal-text"></i>
+
+                            <h1 class="request-title">
+                                {{ $thesisRequest->title }}
+                            </h1>
+
+                        </div>
+
                     </div>
 
-                    <div>
-                        <h2>Review Decision</h2>
-                        <p>Choose whether to approve or reject this thesis request.</p>
+
+                    {{-- STATUS --}}
+
+                    <div class="request-status-wrapper">
+
+                        @if ($thesisRequest->status === 'approved')
+                            <span class="request-status status-approved">
+                                <i class="bi bi-check-circle-fill"></i>
+                                Approved
+                            </span>
+                        @elseif ($thesisRequest->status === 'pending')
+                            <span class="request-status status-pending">
+                                <i class="bi bi-clock-fill"></i>
+                                Pending
+                            </span>
+                        @elseif ($thesisRequest->status === 'rejected')
+                            <span class="request-status status-rejected">
+                                <i class="bi bi-x-circle-fill"></i>
+                                Rejected
+                            </span>
+                        @else
+                            <span class="request-status status-default">
+                                <i class="bi bi-question-circle-fill"></i>
+                                {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
+                            </span>
+                        @endif
+
                     </div>
 
                 </div>
 
+                {{-- =================================================
+                    REQUEST INFORMATION
+                ================================================== --}}
 
-                {{-- APPROVE --}}
+                <div class="request-content-section">
 
-                <form
-                    action="{{ route('admin.thesis_requests.approve', $thesisRequest) }}"
-                    method="POST"
-                    class="approve-form">
+                    <div class="section-heading">
 
-                    @csrf
+                        <div class="section-heading-icon">
+                            <i class="bi bi-info-circle-fill"></i>
+                        </div>
 
-                    <button
-                        type="submit"
-                        class="action-button approve-button">
+                        <div>
+                            <h2>Request Information</h2>
 
-                        <i class="bi bi-check-circle-fill"></i>
+                            <p>
+                                Details about this thesis submission.
+                            </p>
+                        </div>
 
-                        Approve Request
-
-                    </button>
-
-                </form>
-
-
-                {{-- REJECT --}}
-
-                <form
-                    action="{{ route('admin.thesis_requests.reject', $thesisRequest) }}"
-                    method="POST">
-
-                    @csrf
-                    @method('PUT')
+                    </div>
 
 
-                    <div class="reject-area">
+                    {{-- =================================================
+                        TWO UNEQUAL COLUMNS
+                    ================================================== --}}
 
-                        <label
-                            for="remarks"
-                            class="review-label">
-
-                            <i class="bi bi-chat-left-text-fill"></i>
-
-                            Rejection Reason
-
-                        </label>
+                    <div class="request-information-form">
 
 
-                        <textarea
-                            name="remarks"
-                            id="remarks"
-                            class="review-textarea"
-                            rows="5"
-                            placeholder="Please explain why this thesis request is rejected..."
-                            required>{{ old('remarks') }}</textarea>
+                        {{-- AUTHOR --}}
+
+                        <div class="request-form-group">
+
+                            <span class="request-form-label">
+                                Author
+                            </span>
+
+                            <div class="request-form-control">
+                                {{ $thesisRequest->author_name ?? 'N/A' }}
+                            </div>
+
+                        </div>
 
 
-                        @error('remarks')
+                        {{-- DEPARTMENT --}}
 
-                            <div class="review-error">
+                        <div class="request-form-group">
 
-                                <i class="bi bi-exclamation-circle-fill"></i>
+                            <span class="request-form-label">
+                                Department
+                            </span>
 
-                                {{ $message }}
+                            <div class="request-form-control">
+                                {{ $thesisRequest->department?->name ?? 'N/A' }}
+                            </div>
+
+                        </div>
+
+
+                        {{-- SUBMITTED BY --}}
+
+                        <div class="request-form-group">
+
+                            <span class="request-form-label">
+                                Submitted By
+                            </span>
+
+                            <div class="request-form-control">
+                                {{ $thesisRequest->user?->name ?? ($thesisRequest->user?->username ?? 'N/A') }}
+                            </div>
+
+                        </div>
+
+
+                        {{-- SUBMITTED AT --}}
+
+                        <div class="request-form-group">
+
+                            <span class="request-form-label">
+                                Submitted At
+                            </span>
+
+                            <div class="request-form-control">
+
+                                {{ $thesisRequest->submitted_at
+                                    ? \Carbon\Carbon::parse($thesisRequest->submitted_at)->format('d M Y, h:i A')
+                                    : 'N/A' }}
 
                             </div>
 
-                        @enderror
+                        </div>
 
 
-                        <button
-                            type="submit"
-                            class="action-button reject-button">
+                        {{-- REVIEWED BY --}}
 
-                            <i class="bi bi-x-circle-fill"></i>
+                        <div class="request-form-group">
 
-                            Reject Request
+                            <span class="request-form-label">
+                                Reviewed By
+                            </span>
 
-                        </button>
+                            <div class="request-form-control">
+
+                                {{ $thesisRequest->reviewer?->name ?? ($thesisRequest->reviewer?->username ?? 'Not reviewed') }}
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- REVIEWED AT --}}
+
+                        <div class="request-form-group">
+
+                            <span class="request-form-label">
+                                Reviewed At
+                            </span>
+
+                            <div class="request-form-control">
+
+                                {{ $thesisRequest->reviewed_at
+                                    ? \Carbon\Carbon::parse($thesisRequest->reviewed_at)->format('d M Y, h:i A')
+                                    : 'Not reviewed' }}
+
+                            </div>
+
+                        </div>
 
                     </div>
 
-                </form>
-
-            </section>
-
-        @endif
+                </div>
 
 
-    @else
+                {{-- =================================================
+                    ABSTRACT
+                ================================================== --}}
 
-        {{-- =====================================================
-            EMPTY STATE
-        ====================================================== --}}
+                <div class="request-content-section">
 
-        <div class="empty-request">
+                    <div class="section-heading">
 
-            <div class="empty-icon">
+                        <div class="section-heading-icon">
+                            <i class="bi bi-file-text-fill"></i>
+                        </div>
 
-                <i class="bi bi-journal-x"></i>
+                        <div>
+
+                            <h2>
+                                Abstract
+                            </h2>
+
+                            <p>
+                                Abstract submitted with the thesis request.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="text-content">
+
+                        {{ $thesisRequest->abstract ?? 'No abstract provided.' }}
+
+                    </div>
+
+                </div>
+
+
+                {{-- =================================================
+                    DESCRIPTION
+                ================================================== --}}
+
+                <div class="request-content-section">
+
+                    <div class="section-heading">
+
+                        <div class="section-heading-icon">
+                            <i class="bi bi-card-text"></i>
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Description
+                            </h2>
+
+                            <p>
+                                Description of the thesis project.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="text-content">
+
+                        {{ $thesisRequest->description ?? 'No description provided.' }}
+
+                    </div>
+
+                </div>
+
+
+                {{-- =================================================
+                    THESIS DOCUMENT
+                ================================================== --}}
+
+                <div class="request-content-section">
+
+                    <div class="section-heading">
+
+                        <div class="section-heading-icon document-icon">
+                            <i class="bi bi-file-earmark-pdf-fill"></i>
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Thesis Document
+                            </h2>
+
+                            <p>
+                                Submitted thesis document.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="document-box">
+
+                        <div class="document-left">
+
+                            <div class="document-file-icon">
+                                <i class="bi bi-file-earmark-pdf-fill"></i>
+                            </div>
+
+                            <div class="document-details">
+
+                                <strong>
+                                    Submitted Thesis PDF
+                                </strong>
+
+                                <span>
+                                    Complete submitted document
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <a href="{{ route('admin.thesis_requests.view-request-pdf', $thesisRequest) }}" target="_blank"
+                            class="view-pdf-button">
+
+                            <i class="bi bi-eye-fill"></i>
+
+                            View PDF
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                {{-- =================================================
+                    REJECTION DETAILS
+                ================================================== --}}
+
+                @if ($thesisRequest->status === 'rejected')
+                    <div class="request-content-section">
+
+                        <div class="section-heading">
+
+                            <div class="section-heading-icon rejection-icon">
+
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Rejection Details
+                                </h2>
+
+                                <p>
+                                    Information about why this request was rejected.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="request-information-form">
+
+
+                            {{-- REJECTED BY --}}
+
+                            <div class="request-form-group">
+
+                                <span class="request-form-label">
+                                    Rejected By
+                                </span>
+
+                                <div class="request-form-control">
+
+                                    {{ $thesisRequest->reviewer?->name ?? ($thesisRequest->reviewer?->username ?? 'Unknown') }}
+
+                                </div>
+
+                            </div>
+
+
+                            {{-- REJECTION REASON --}}
+
+                            <div class="request-form-group">
+
+                                <span class="request-form-label">
+                                    Reason
+                                </span>
+
+                                <div class="request-form-control reason-value">
+
+                                    {{ $thesisRequest->remarks ?? 'No rejection reason provided.' }}
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                @endif
+
+
+                {{-- =================================================
+                    REVIEW DECISION
+                ================================================== --}}
+
+                @if ($thesisRequest->status === 'pending')
+                    <div class="request-content-section review-section">
+
+                        <div class="section-heading">
+
+                            <div class="section-heading-icon">
+
+                                <i class="bi bi-clipboard-check-fill"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Review Decision
+                                </h2>
+
+                                <p>
+                                    Choose whether to approve or reject this thesis request.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- APPROVE FORM --}}
+
+                        <form action="{{ route('admin.thesis_requests.approve', $thesisRequest) }}" method="POST"
+                            class="approve-form">
+
+                            @csrf
+
+                            <button type="submit" class="action-button approve-button">
+
+                                <i class="bi bi-check-circle-fill"></i>
+
+                                Approve Request
+
+                            </button>
+
+                        </form>
+
+
+                        {{-- REJECT FORM --}}
+
+                        <form action="{{ route('admin.thesis_requests.reject', $thesisRequest) }}" method="POST">
+
+                            @csrf
+
+                            @method('PUT')
+
+
+                            <div class="reject-area">
+
+                                <label for="remarks" class="review-label">
+
+                                    <i class="bi bi-chat-left-text-fill"></i>
+
+                                    Rejection Reason
+
+                                </label>
+
+
+                                <textarea name="remarks" id="remarks" class="review-textarea" rows="5"
+                                    placeholder="Please explain why this thesis request is rejected..." required>{{ old('remarks') }}</textarea>
+
+
+                                @error('remarks')
+                                    <div class="review-error">
+
+                                        <i class="bi bi-exclamation-circle-fill"></i>
+
+                                        {{ $message }}
+
+                                    </div>
+                                @enderror
+
+
+                                <button type="submit" class="action-button reject-button">
+
+                                    <i class="bi bi-x-circle-fill"></i>
+
+                                    Reject Request
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                @endif
+
+            </div>
+        @else
+            {{-- =====================================================
+                EMPTY STATE
+            ====================================================== --}}
+
+            <div class="empty-request">
+
+                <div class="empty-icon">
+                    <i class="bi bi-journal-x"></i>
+                </div>
+
+                <h2>
+                    No Requests Found
+                </h2>
+
+                <p>
+                    There are currently no thesis upload requests.
+                </p>
 
             </div>
 
-            <h2>
-                No Requests Found
-            </h2>
+        @endif
 
-            <p>
-                There are currently no thesis upload requests.
-            </p>
+    </div>
 
-        </div>
 
-    @endif
+    <style>
+        /* =========================================================
+           VARIABLES
+        ========================================================== */
 
-</div>
+        .thesis-request-page {
 
+            --request-black: #111111;
+            --request-text: #222222;
+            --request-muted: #777777;
 
-<style>
+            --request-card: #ffffff;
+            --request-soft: #f8f8f8;
+            --request-soft-blue: #f1f5ff;
 
-/* =========================================================
-   PAGE
-========================================================= */
+            --request-blue: #0d6efd;
+            --request-green: #198754;
+            --request-red: #dc3545;
+            --request-yellow: #997404;
 
-.thesis-request-page {
+            --request-shadow:
+                0 4px 18px rgba(0, 0, 0, .055);
 
-    --request-black: #111111;
-    --request-text: #222222;
-    --request-muted: #777777;
-    --request-light: #f7f7f7;
-    --request-border: #e5e5e5;
+            color: var(--request-text);
+        }
 
-    --request-blue: #0d6efd;
-    --request-green: #198754;
-    --request-red: #dc3545;
-    --request-yellow: #997404;
 
-    color: var(--request-text);
+        /* =========================================================
+           ALERTS
+        ========================================================== */
 
-}
+        .request-alert {
 
+            display: flex;
 
-/* =========================================================
-   ALERT
-========================================================= */
+            align-items: center;
 
-.request-alert {
+            gap: 8px;
 
-    display: flex;
-    align-items: center;
+            margin-bottom: 16px;
 
-    gap: 9px;
+            padding: 10px 13px;
 
-    margin-bottom: 20px;
+            border: none !important;
 
-    padding: 11px 14px;
+            border-radius: 8px;
 
-    border-radius: 8px;
+            font-size: .72rem;
 
-    font-size: .78rem;
-    font-weight: 600;
+            font-weight: 600;
+        }
 
-}
 
-.request-alert-success {
+        .request-alert-success {
 
-    color: #176b3a;
+            color: #176b3a;
 
-    background: #eefaf3;
+            background: #eefaf3;
+        }
 
-}
 
-.request-alert-danger {
+        .request-alert-danger {
 
-    color: #b42318;
+            color: #b42318;
 
-    background: #fff1f1;
+            background: #fff1f1;
+        }
 
-}
 
+        /* =========================================================
+           MAIN CARD
+        ========================================================== */
 
-/* =========================================================
-   HEADER
-========================================================= */
+        .request-form-card {
 
-.request-header {
+            width: 100%;
 
-    display: flex;
+            padding: 22px;
 
-    align-items: flex-start;
+            background: var(--request-card);
 
-    justify-content: space-between;
+            border: none !important;
 
-    gap: 25px;
+            border-radius: 14px;
 
-    margin-bottom: 40px;
+            box-shadow: var(--request-shadow);
 
-    padding-bottom: 22px;
+            box-sizing: border-box;
+        }
 
-    border-bottom: 1px solid var(--request-border);
 
-}
+        /* =========================================================
+           HEADER
+        ========================================================== */
 
+        .request-header {
 
-.request-header-content {
+            display: flex;
 
-    min-width: 0;
+            align-items: flex-start;
 
-}
+            justify-content: space-between;
 
+            gap: 20px;
 
-.request-overline {
+            margin-bottom: 25px;
 
-    display: block;
+            padding-bottom: 18px;
 
-    margin-bottom: 7px;
+            border: none !important;
+        }
 
-    color: #888888;
 
-    font-size: .63rem;
+        .request-header-content {
 
-    font-weight: 800;
+            min-width: 0;
 
-    letter-spacing: .13em;
+            flex: 1;
+        }
 
-}
 
+        .request-overline {
 
-.request-title {
+            display: block;
 
-    margin: 0 0 7px;
+            margin-bottom: 5px;
 
-    color: var(--request-black);
+            color: var(--request-muted);
 
-    font-size: 1.55rem;
+            font-size: .61rem;
 
-    font-weight: 800;
+            font-weight: 800;
 
-    line-height: 1.35;
+            letter-spacing: .13em;
 
-    letter-spacing: -.025em;
+            text-transform: uppercase;
+        }
 
-    overflow-wrap: anywhere;
 
-}
+        .request-title-row {
 
+            display: flex;
 
-.request-id {
+            align-items: center;
 
-    color: var(--request-muted);
+            gap: 9px;
 
-    font-size: .72rem;
+            min-width: 0;
+        }
 
-}
 
+        .request-title-row>i {
 
-/* =========================================================
-   STATUS
-========================================================= */
+            flex-shrink: 0;
 
-.request-status-wrapper {
+            color: var(--request-black);
 
-    flex-shrink: 0;
+            font-size: 1.15rem;
 
-}
+            line-height: 1;
+        }
 
 
-.request-status {
+        .request-title {
 
-    display: inline-flex;
+            margin: 0;
 
-    align-items: center;
+            min-width: 0;
 
-    gap: 6px;
+            color: var(--request-black);
 
-    padding: 7px 13px;
+            font-size: 1.4rem;
 
-    border-radius: 999px;
+            font-weight: 800;
 
-    font-size: .68rem;
+            line-height: 1.35;
 
-    font-weight: 700;
+            letter-spacing: -.025em;
 
-    white-space: nowrap;
+            overflow-wrap: anywhere;
+        }
 
-}
 
+        .request-id {
 
-.status-approved {
+            display: block;
 
-    color: var(--request-green);
+            margin-top: 5px;
 
-    background: #eaf7ef;
+            color: var(--request-muted);
 
-}
+            font-size: .67rem;
+        }
 
 
-.status-pending {
+        /* =========================================================
+           STATUS
+        ========================================================== */
 
-    color: var(--request-yellow);
+        .request-status-wrapper {
 
-    background: #fff8df;
+            flex-shrink: 0;
 
-}
+            padding-top: 13px;
+        }
 
 
-.status-rejected {
+        .request-status {
 
-    color: var(--request-red);
+            display: inline-flex;
 
-    background: #fff0f1;
+            align-items: center;
 
-}
+            gap: 5px;
 
+            padding: 6px 11px;
 
-.status-default {
+            border: none !important;
 
-    color: #555555;
+            border-radius: 999px;
 
-    background: #f1f1f1;
+            font-size: .62rem;
 
-}
+            font-weight: 700;
 
+            white-space: nowrap;
+        }
 
-/* =========================================================
-   SECTION
-========================================================= */
 
-.request-section {
+        .status-approved {
 
-    margin-bottom: 40px;
+            color: var(--request-green);
 
-}
+            background: #eaf7ef;
+        }
 
 
-.section-heading {
+        .status-pending {
 
-    display: flex;
+            color: var(--request-yellow);
 
-    align-items: center;
+            background: #fff8df;
+        }
 
-    gap: 11px;
 
-    margin-bottom: 18px;
+        .status-rejected {
 
-}
+            color: var(--request-red);
 
+            background: #fff0f1;
+        }
 
-.section-heading-icon {
 
-    display: flex;
+        .status-default {
 
-    align-items: center;
+            color: #555555;
 
-    justify-content: center;
+            background: #f1f1f1;
+        }
 
-    width: 34px;
 
-    height: 34px;
+        /* =========================================================
+           CONTENT SECTIONS
+        ========================================================== */
 
-    flex-shrink: 0;
+        .request-content-section {
 
-    color: var(--request-blue);
+            margin-bottom: 25px;
 
-    background: #f1f5ff;
+            padding-bottom: 23px;
 
-    border-radius: 9px;
+            border: none !important;
+        }
 
-    font-size: .78rem;
 
-}
+        .request-content-section:last-child {
 
+            margin-bottom: 0;
 
-.section-heading h2 {
+            padding-bottom: 0;
 
-    margin: 0;
+            border-bottom: none !important;
+        }
 
-    color: var(--request-black);
 
-    font-size: .92rem;
+        /* =========================================================
+           SECTION HEADING
+        ========================================================== */
 
-    font-weight: 800;
+        .section-heading {
 
-}
+            display: flex;
 
+            align-items: center;
 
-.section-heading p {
+            gap: 9px;
 
-    margin: 3px 0 0;
+            margin-bottom: 13px;
+        }
 
-    color: var(--request-muted);
 
-    font-size: .67rem;
+        .section-heading-icon {
 
-}
+            display: flex;
 
+            align-items: center;
 
-/* =========================================================
-   REQUEST INFORMATION
-========================================================= */
+            justify-content: center;
 
-.information-list {
+            width: 32px;
 
-    display: flex;
+            height: 32px;
 
-    flex-direction: column;
+            flex-shrink: 0;
 
-    width: 100%;
+            color: var(--request-blue);
 
-}
+            background: var(--request-soft-blue);
 
+            border: none !important;
 
-/*
-|--------------------------------------------------------------------------
-| THIS IS THE MAIN STRUCTURE YOU REQUESTED
-|--------------------------------------------------------------------------
-|
-| Author             John Doe
-| Department         Information Technology
-| Submitted By       john123
-| Submitted At       29 Aug 2026
-| Reviewed By        Not reviewed
-| Reviewed At        Not reviewed
-|
-*/
+            border-radius: 8px;
 
-.information-row {
+            font-size: .75rem;
+        }
 
-    display: grid;
 
-    grid-template-columns: 180px minmax(0, 1fr);
+        .section-heading h2 {
 
-    align-items: center;
+            margin: 0;
 
-    gap: 20px;
+            color: var(--request-black);
 
-    min-height: 48px;
+            font-size: .83rem;
 
-    padding: 8px 0;
+            font-weight: 800;
+        }
 
-    border-bottom: 1px solid #eeeeee;
 
-}
+        .section-heading p {
 
+            margin: 2px 0 0;
 
-.information-row:last-child {
+            color: var(--request-muted);
 
-    border-bottom: none;
+            font-size: .62rem;
+        }
 
-}
 
+        /* =========================================================
+           REQUEST INFORMATION
+           UNEQUAL 2 COLUMNS
+        ========================================================== */
 
-.information-label {
+        .request-information-form {
 
-    display: flex;
+            display: grid;
 
-    align-items: center;
+            /*
+             * Left column is slightly wider
+             * than the right column.
+             */
+            grid-template-columns:
+                1.2fr 1fr;
 
-    gap: 9px;
+            gap: 12px 28px;
 
-    color: var(--request-muted);
+            width: 100%;
 
-    font-size: .75rem;
+            box-sizing: border-box;
+        }
 
-    font-weight: 600;
 
-}
+        /* =========================================================
+           FORM GROUP
+           LABEL + VALUE SAME ROW
+        ========================================================== */
 
+        .request-form-group {
 
-.information-label i {
+            display: grid;
 
-    width: 18px;
+            grid-template-columns:
+                105px minmax(0, 1fr);
 
-    color: #888888;
+            align-items: center;
 
-    font-size: .78rem;
+            gap: 10px;
 
-    text-align: center;
+            width: 100%;
 
-}
+            min-width: 0;
 
+            box-sizing: border-box;
+        }
 
-.information-value {
 
-    min-width: 0;
+        /* =========================================================
+           LABEL
+        ========================================================== */
 
-    color: var(--request-text);
+        .request-form-label {
 
-    font-size: .78rem;
+            display: block;
 
-    font-weight: 600;
+            margin: 0;
 
-    overflow-wrap: anywhere;
+            color: var(--request-text);
 
-}
+            font-size: .63rem;
 
+            font-weight: 800;
 
-/* =========================================================
-   ABSTRACT / DESCRIPTION
-========================================================= */
+            letter-spacing: .04em;
 
-.text-content {
+            text-transform: uppercase;
 
-    padding: 15px 0;
+            white-space: nowrap;
+        }
 
-    color: #444444;
 
-    font-size: .8rem;
+        /* =========================================================
+           VALUE
+        ========================================================== */
 
-    line-height: 1.8;
+        .request-form-control {
 
-    white-space: pre-line;
+            display: flex;
 
-    text-align: justify;
+            align-items: center;
 
-}
+            width: 90%;
 
+            min-height: 42px;
 
-/* =========================================================
-   DOCUMENT
-========================================================= */
+            padding: .55rem .75rem;
 
-.document-box {
+            box-sizing: border-box;
 
-    display: flex;
+            color: var(--request-text);
 
-    align-items: center;
+            background: var(--request-soft);
 
-    justify-content: space-between;
+            border: none !important;
 
-    gap: 20px;
+            border-radius: 8px;
 
-    padding: 15px;
+            outline: none;
 
-    background: #f8f8f8;
+            font-family: inherit;
 
-    border-radius: 10px;
+            font-size: .69rem;
 
-}
+            font-weight: 600;
 
+            line-height: 1.45;
 
-.document-left {
+            overflow-wrap: anywhere;
 
-    display: flex;
+            transition:
+                background-color .2s ease,
+                color .2s ease;
+        }
 
-    align-items: center;
 
-    gap: 12px;
+        .request-form-control:hover {
 
-    min-width: 0;
+            background: #f3f3f3;
+        }
 
-}
 
+        /* =========================================================
+           REJECTION REASON
+        ========================================================== */
 
-.document-file-icon {
+        .reason-value {
 
-    display: flex;
+            color: var(--request-red);
 
-    align-items: center;
+            line-height: 1.6;
+        }
 
-    justify-content: center;
 
-    width: 38px;
+        /* =========================================================
+           ABSTRACT / DESCRIPTION
+        ========================================================== */
 
-    height: 38px;
+        .text-content {
 
-    flex-shrink: 0;
+            padding: 12px;
 
-    color: var(--request-red);
+            color: #555555;
 
-    background: #fff0f1;
+            background: var(--request-soft);
 
-    border-radius: 9px;
+            border: none !important;
 
-    font-size: .95rem;
+            border-radius: 9px;
 
-}
+            font-size: .7rem;
 
+            line-height: 1.7;
 
-.document-details {
+            white-space: pre-line;
 
-    display: flex;
+            text-align: justify;
+        }
 
-    flex-direction: column;
 
-    gap: 3px;
+        /* =========================================================
+           DOCUMENT
+        ========================================================== */
 
-}
+        .document-box {
 
+            display: flex;
 
-.document-details strong {
+            align-items: center;
 
-    color: var(--request-text);
+            justify-content: space-between;
 
-    font-size: .78rem;
+            gap: 15px;
 
-    font-weight: 700;
+            padding: 11px 12px;
 
-}
+            background: var(--request-soft);
 
+            border: none !important;
 
-.document-details span {
+            border-radius: 9px;
+        }
 
-    color: var(--request-muted);
 
-    font-size: .66rem;
+        .document-left {
 
-}
+            display: flex;
 
+            align-items: center;
 
-.view-pdf-button {
+            gap: 10px;
 
-    display: inline-flex;
+            min-width: 0;
+        }
 
-    align-items: center;
 
-    justify-content: center;
+        .document-file-icon {
 
-    gap: 6px;
+            display: flex;
 
-    padding: 8px 14px;
+            align-items: center;
 
-    color: #ffffff;
+            justify-content: center;
 
-    background: var(--request-red);
+            width: 36px;
 
-    border-radius: 7px;
+            height: 36px;
 
-    text-decoration: none;
+            flex-shrink: 0;
 
-    font-size: .68rem;
+            color: var(--request-red);
 
-    font-weight: 700;
+            background: #fff0f1;
 
-    white-space: nowrap;
+            border: none !important;
 
-    transition: .2s ease;
+            border-radius: 8px;
 
-}
+            font-size: .85rem;
+        }
 
 
-.view-pdf-button:hover {
+        .document-details {
 
-    color: #ffffff;
+            display: flex;
 
-    background: #bb2d3b;
+            flex-direction: column;
 
-    transform: translateY(-1px);
+            gap: 2px;
 
-}
+            min-width: 0;
+        }
 
 
-/* =========================================================
-   REJECTION
-========================================================= */
+        .document-details strong {
 
-.rejection-section {
+            color: var(--request-text);
 
-    padding-top: 5px;
+            font-size: .7rem;
 
-}
+            font-weight: 700;
+        }
 
 
-.rejection-icon {
+        .document-details span {
 
-    color: var(--request-red);
+            color: var(--request-muted);
 
-    background: #fff0f1;
+            font-size: .59rem;
+        }
 
-}
 
+        /* =========================================================
+           VIEW PDF
+        ========================================================== */
 
-.rejection-section .section-heading h2 {
+        .view-pdf-button {
 
-    color: var(--request-red);
+            display: inline-flex;
 
-}
+            align-items: center;
 
+            justify-content: center;
 
-.reason-value {
+            gap: 5px;
 
-    color: var(--request-red);
+            flex-shrink: 0;
 
-    font-weight: 500;
+            padding: 7px 12px;
 
-    line-height: 1.6;
+            color: #ffffff !important;
 
-}
+            background: var(--request-red);
 
+            border: none !important;
 
-/* =========================================================
-   REVIEW DECISION
-========================================================= */
+            border-radius: 7px;
 
-.review-section {
+            text-decoration: none;
 
-    padding-top: 5px;
+            font-size: .61rem;
 
-}
+            font-weight: 700;
 
+            white-space: nowrap;
 
-.approve-form {
+            transition: .2s ease;
+        }
 
-    margin-bottom: 18px;
 
-}
+        .view-pdf-button:hover {
 
+            color: #ffffff !important;
 
-.action-button {
+            background: #bb2d3b;
 
-    display: flex;
+            transform: translateY(-1px);
+        }
 
-    align-items: center;
 
-    justify-content: center;
+        /* =========================================================
+           REJECTION
+        ========================================================== */
 
-    gap: 7px;
+        .rejection-icon {
 
-    width: 100%;
+            color: var(--request-red);
 
-    min-height: 42px;
+            background: #fff0f1;
+        }
 
-    padding: 10px 15px;
 
-    border: none;
+        /* =========================================================
+           REVIEW
+        ========================================================== */
 
-    border-radius: 8px;
+        .review-section {
 
-    color: #ffffff;
+            border: none !important;
 
-    font-size: .75rem;
+            margin-bottom: 0;
 
-    font-weight: 700;
+            padding-bottom: 0;
+        }
 
-    cursor: pointer;
 
-    transition: .2s ease;
+        .approve-form {
 
-}
+            margin: 0 0 10px;
+        }
 
 
-.action-button:hover {
+        .action-button {
 
-    transform: translateY(-1px);
+            display: flex;
 
-}
+            align-items: center;
 
+            justify-content: center;
 
-.approve-button {
+            gap: 6px;
 
-    background: var(--request-green);
+            width: 100%;
 
-}
+            min-height: 39px;
 
+            padding: 9px 14px;
 
-.approve-button:hover {
+            color: #ffffff !important;
 
-    background: #157347;
+            border: none !important;
 
-}
+            border-radius: 7px;
 
+            font-size: .65rem;
 
-.reject-area {
+            font-weight: 700;
 
-    margin-top: 5px;
+            cursor: pointer;
 
-}
+            transition: .2s ease;
+        }
 
 
-.review-label {
+        .action-button:hover {
 
-    display: flex;
+            color: #ffffff !important;
 
-    align-items: center;
+            transform: translateY(-1px);
+        }
 
-    gap: 6px;
 
-    margin-bottom: 8px;
+        .approve-button {
 
-    color: var(--request-text);
+            background: var(--request-green);
+        }
 
-    font-size: .75rem;
 
-    font-weight: 700;
+        .approve-button:hover {
 
-}
+            background: #157347;
+        }
 
 
-.review-label i {
+        .reject-area {
 
-    color: var(--request-red);
+            margin-top: 8px;
+        }
 
-}
 
+        .review-label {
 
-.review-textarea {
+            display: flex;
 
-    display: block;
+            align-items: center;
 
-    width: 100%;
+            gap: 5px;
 
-    min-height: 110px;
+            margin-bottom: 6px;
 
-    padding: 12px;
+            color: var(--request-text);
 
-    color: var(--request-text);
+            font-size: .68rem;
 
-    background: #ffffff;
+            font-weight: 700;
+        }
 
-    border: 1px solid #dddddd;
 
-    border-radius: 8px;
+        .review-label i {
 
-    outline: none;
+            color: var(--request-red);
+        }
 
-    resize: vertical;
 
-    font-family: inherit;
+        .review-textarea {
 
-    font-size: .76rem;
+            display: block;
 
-    line-height: 1.6;
+            width: 100%;
 
-    box-sizing: border-box;
+            min-height: 100px;
 
-    transition: border-color .2s ease;
+            padding: 10px 11px;
 
-}
+            box-sizing: border-box;
 
+            color: var(--request-text);
 
-.review-textarea:focus {
+            background: var(--request-soft);
 
-    border-color: var(--request-red);
+            border: none !important;
 
-    box-shadow: 0 0 0 3px rgba(220, 53, 69, .08);
+            border-radius: 8px;
 
-}
+            outline: none;
 
+            resize: vertical;
 
-.review-textarea::placeholder {
+            font-family: inherit;
 
-    color: #999999;
+            font-size: .68rem;
 
-}
+            line-height: 1.55;
+        }
 
 
-.reject-button {
+        .review-textarea:focus {
 
-    margin-top: 12px;
+            border: none !important;
 
-    background: var(--request-red);
+            outline: none;
 
-}
+            box-shadow:
+                0 0 0 2px rgba(220, 53, 69, .12);
+        }
 
 
-.reject-button:hover {
+        .review-textarea::placeholder {
 
-    background: #bb2d3b;
+            color: #999999;
+        }
 
-}
 
+        .reject-button {
 
-.review-error {
+            margin-top: 8px;
 
-    margin-top: 6px;
+            background: var(--request-red);
+        }
 
-    color: var(--request-red);
 
-    font-size: .7rem;
+        .reject-button:hover {
 
-}
+            background: #bb2d3b;
+        }
 
 
-/* =========================================================
-   EMPTY
-========================================================= */
+        .review-error {
 
-.empty-request {
+            display: flex;
 
-    display: flex;
+            align-items: center;
 
-    flex-direction: column;
+            gap: 5px;
 
-    align-items: center;
+            margin-top: 5px;
 
-    justify-content: center;
+            color: var(--request-red);
 
-    min-height: 350px;
+            font-size: .61rem;
+        }
 
-    text-align: center;
 
-}
+        /* =========================================================
+           EMPTY STATE
+        ========================================================== */
 
+        .empty-request {
 
-.empty-icon {
+            display: flex;
 
-    display: flex;
+            flex-direction: column;
 
-    align-items: center;
+            align-items: center;
 
-    justify-content: center;
+            justify-content: center;
 
-    width: 58px;
+            min-height: 320px;
 
-    height: 58px;
+            padding: 30px;
 
-    margin-bottom: 14px;
+            background: var(--request-card);
 
-    color: #ffffff;
+            border: none !important;
 
-    background: #111111;
+            border-radius: 14px;
 
-    border-radius: 12px;
+            box-shadow: var(--request-shadow);
 
-    font-size: 1.3rem;
+            text-align: center;
+        }
 
-}
 
+        .empty-icon {
 
-.empty-request h2 {
+            display: flex;
 
-    margin: 0 0 5px;
+            align-items: center;
 
-    color: var(--request-black);
+            justify-content: center;
 
-    font-size: 1rem;
+            width: 54px;
 
-    font-weight: 800;
+            height: 54px;
 
-}
+            margin-bottom: 12px;
 
+            color: #ffffff;
 
-.empty-request p {
+            background: #111111;
 
-    margin: 0;
+            border: none !important;
 
-    color: var(--request-muted);
+            border-radius: 11px;
 
-    font-size: .72rem;
+            font-size: 1.2rem;
+        }
 
-}
 
+        .empty-request h2 {
 
-/* =========================================================
-   DARK MODE
-========================================================= */
+            margin: 0 0 5px;
 
-[data-bs-theme="dark"] .thesis-request-page {
+            color: var(--request-black);
 
-    --request-black: #f5f5f5;
+            font-size: .95rem;
 
-    --request-text: #eeeeee;
+            font-weight: 800;
+        }
 
-    --request-muted: #999999;
 
-    --request-light: #1f1f1f;
+        .empty-request p {
 
-    --request-border: #333333;
+            margin: 0;
 
-}
+            color: var(--request-muted);
 
+            font-size: .68rem;
+        }
 
-[data-bs-theme="dark"] .information-row {
 
-    border-bottom-color: #333333;
+        /* =========================================================
+           DARK MODE
+        ========================================================== */
 
-}
+        [data-bs-theme="dark"] .thesis-request-page {
 
+            --request-black: #ffffff;
+            --request-text: #eeeeee;
+            --request-muted: #999999;
 
-[data-bs-theme="dark"] .information-value {
+            --request-card: #000000;
+            --request-soft: #0d0d0d;
+            --request-soft-blue: #101820;
 
-    color: #eeeeee;
+            --request-shadow:
+                0 4px 18px rgba(0, 0, 0, .4);
+        }
 
-}
 
+        [data-bs-theme="dark"] .request-form-card {
 
-[data-bs-theme="dark"] .text-content {
+            background: #000000;
 
-    color: #cccccc;
+            border: none !important;
+        }
 
-}
 
+        [data-bs-theme="dark"] .request-form-control {
 
-[data-bs-theme="dark"] .document-box {
+            color: #ffffff;
 
-    background: #1f1f1f;
+            background: #0d0d0d;
 
-}
+            border: none !important;
+        }
 
 
-[data-bs-theme="dark"] .review-textarea {
+        [data-bs-theme="dark"] .request-form-control:hover {
 
-    color: #eeeeee;
+            background: #151515;
+        }
 
-    background: #1f1f1f;
 
-    border-color: #444444;
+        [data-bs-theme="dark"] .text-content {
 
-}
+            color: #cccccc;
 
+            background: #0d0d0d;
+        }
 
-/* =========================================================
-   TABLET
-========================================================= */
 
-@media (max-width: 767.98px) {
+        [data-bs-theme="dark"] .document-box {
 
-    .request-header {
+            background: #0d0d0d;
+        }
 
-        flex-direction: column;
 
-        gap: 15px;
+        [data-bs-theme="dark"] .document-file-icon,
 
-        margin-bottom: 30px;
+        [data-bs-theme="dark"] .rejection-icon {
 
-    }
+            background: #281316;
+        }
 
 
-    .request-title {
+        [data-bs-theme="dark"] .review-textarea {
 
-        font-size: 1.3rem;
+            color: #eeeeee;
 
-    }
+            background: #0d0d0d;
 
+            border: none !important;
+        }
 
-    .information-row {
 
-        grid-template-columns: 145px minmax(0, 1fr);
+        [data-bs-theme="dark"] .request-title-row>i {
 
-        gap: 15px;
+            color: #ffffff;
+        }
 
-    }
 
+        [data-bs-theme="dark"] .empty-icon {
 
-    .information-label {
+            color: #000000;
 
-        font-size: .7rem;
+            background: #ffffff;
+        }
 
-    }
 
+        /* =========================================================
+           TABLET
+        ========================================================== */
 
-    .information-value {
+        @media (max-width: 900px) {
 
-        font-size: .74rem;
+            .request-information-form {
 
-    }
+                grid-template-columns: 1fr;
 
+                gap: 12px;
+            }
 
-    .document-box {
+        }
 
-        align-items: flex-start;
 
-        flex-direction: column;
+        /* =========================================================
+           MOBILE
+        ========================================================== */
 
-    }
+        @media (max-width: 767.98px) {
 
+            .request-form-card {
 
-    .view-pdf-button {
+                padding: 17px;
+            }
 
-        width: 100%;
 
-    }
+            .request-header {
 
-}
+                flex-direction: column;
 
+                gap: 12px;
 
-/* =========================================================
-   MOBILE
-========================================================= */
+                margin-bottom: 20px;
+            }
 
-@media (max-width: 480px) {
 
-    .request-title {
+            .request-status-wrapper {
 
-        font-size: 1.15rem;
+                padding-top: 0;
+            }
 
-    }
 
+            .request-title {
 
-    .section-heading {
+                font-size: 1.2rem;
+            }
 
-        gap: 8px;
 
-    }
+            /*
+             * Keep label and value
+             * on the same row.
+             */
 
+            .request-form-group {
 
-    .section-heading-icon {
+                grid-template-columns:
+                    105px minmax(0, 1fr);
 
-        width: 30px;
+                gap: 9px;
+            }
 
-        height: 30px;
 
-    }
+            .document-box {
 
+                align-items: flex-start;
 
-    .section-heading h2 {
+                flex-direction: column;
+            }
 
-        font-size: .85rem;
 
-    }
+            .view-pdf-button {
 
+                width: 100%;
+            }
 
-    .section-heading p {
+        }
 
-        font-size: .62rem;
 
-    }
+        /* =========================================================
+           SMALL MOBILE
+        ========================================================== */
 
+        @media (max-width: 480px) {
 
-    /*
-    |--------------------------------------------------------------------------
-    | Still ONE COLUMN STRUCTURE
-    |--------------------------------------------------------------------------
-    */
+            .request-form-card {
 
-    .information-row {
+                padding: 14px;
 
-        grid-template-columns: 1fr;
+                border-radius: 11px;
+            }
 
-        gap: 4px;
 
-        padding: 11px 0;
+            .request-title-row {
 
-    }
+                align-items: center;
 
+                gap: 7px;
+            }
 
-    .information-label {
 
-        gap: 7px;
+            .request-title-row>i {
 
-        font-size: .68rem;
+                font-size: 1rem;
+            }
 
-    }
 
+            .request-title {
 
-    .information-value {
+                font-size: 1.05rem;
+            }
 
-        padding-left: 25px;
 
-        font-size: .74rem;
+            .request-id {
 
-    }
+                font-size: .62rem;
+            }
 
 
-    .text-content {
+            .section-heading {
 
-        font-size: .76rem;
+                gap: 7px;
 
-        text-align: left;
+                margin-bottom: 10px;
+            }
 
-    }
 
+            .section-heading-icon {
 
-    .document-box {
+                width: 29px;
 
-        padding: 12px;
+                height: 29px;
 
-    }
+                font-size: .67rem;
+            }
 
-}
 
-</style>
+            .section-heading h2 {
+
+                font-size: .76rem;
+            }
+
+
+            .section-heading p {
+
+                font-size: .56rem;
+            }
+
+
+            .request-content-section {
+
+                margin-bottom: 20px;
+
+                padding-bottom: 18px;
+            }
+
+
+            .request-information-form {
+
+                gap: 10px;
+            }
+
+
+            .request-form-group {
+
+                grid-template-columns:
+                    90px minmax(0, 1fr);
+
+                gap: 8px;
+            }
+
+
+            .request-form-label {
+
+                font-size: .59rem;
+
+                letter-spacing: .025em;
+            }
+
+
+            .request-form-control {
+
+                min-height: 40px;
+
+                padding: .5rem .65rem;
+
+                font-size: .63rem;
+            }
+
+
+            .text-content {
+
+                padding: 9px;
+
+                font-size: .65rem;
+
+                line-height: 1.6;
+
+                text-align: left;
+            }
+
+
+            .document-box {
+
+                padding: 9px;
+            }
+
+
+            .document-file-icon {
+
+                width: 33px;
+
+                height: 33px;
+            }
+
+
+            .document-details strong {
+
+                font-size: .66rem;
+            }
+
+
+            .document-details span {
+
+                font-size: .56rem;
+            }
+
+        }
+
+
+        /* =========================================================
+           VERY SMALL SCREENS
+        ========================================================== */
+
+        @media (max-width: 360px) {
+
+            .request-form-group {
+
+                grid-template-columns:
+                    80px minmax(0, 1fr);
+
+                gap: 7px;
+            }
+
+
+            .request-form-label {
+
+                font-size: .56rem;
+            }
+
+
+            .request-form-control {
+
+                font-size: .6rem;
+
+                padding-left: .55rem;
+
+                padding-right: .55rem;
+            }
+
+        }
+
+
+        /* =========================================================
+           REDUCED MOTION
+        ========================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .thesis-request-page *,
+
+            .thesis-request-page *::before,
+
+            .thesis-request-page *::after {
+
+                transition: none !important;
+
+                animation: none !important;
+            }
+
+        }
+    </style>
 
 </x-app-layout>

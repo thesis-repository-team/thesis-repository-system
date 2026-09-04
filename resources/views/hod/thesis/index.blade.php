@@ -1,4 +1,3 @@
-
 <x-app-layout>
 
     <div class="dashboard-content thesis-page">
@@ -38,12 +37,8 @@
 
                 {{-- MOBILE SEARCH --}}
 
-                <button
-                    type="button"
-                    id="mobileThesisSearchToggle"
-                    class="thesis-mobile-search-button"
-                    aria-label="Open Search"
-                    aria-expanded="false">
+                <button type="button" id="mobileThesisSearchToggle" class="thesis-mobile-search-button"
+                    aria-label="Open Search" aria-expanded="false">
 
                     <i class="bi bi-search"></i>
 
@@ -52,9 +47,7 @@
 
                 {{-- ADD THESIS --}}
 
-                <a
-                    href="{{ route('hod.thesis.create') }}"
-                    class="thesis-add-button">
+                <a href="{{ route('hod.thesis.create') }}" class="thesis-add-button">
 
                     <i class="bi bi-plus-lg"></i>
 
@@ -73,9 +66,7 @@
             MOBILE SEARCH
         ========================================================== --}}
 
-        <div
-            id="mobileThesisSearchPanel"
-            class="thesis-mobile-search-panel">
+        <div id="mobileThesisSearchPanel" class="thesis-mobile-search-panel">
 
             <div class="thesis-mobile-search-content">
 
@@ -83,19 +74,13 @@
 
                     <i class="bi bi-search"></i>
 
-                    <input
-                        type="text"
-                        id="mobileThesisSearchInput"
-                        placeholder="Search title, author, or department..."
-                        autocomplete="off">
+                    <input type="text" id="mobileThesisSearchInput"
+                        placeholder="Search title, author, or department..." autocomplete="off">
 
                 </div>
 
 
-                <button
-                    type="button"
-                    id="mobileThesisResetFilter"
-                    class="thesis-mobile-reset-button">
+                <button type="button" id="mobileThesisResetFilter" class="thesis-mobile-reset-button">
 
                     <i class="bi bi-arrow-counterclockwise"></i>
 
@@ -111,20 +96,16 @@
         ========================================================== --}}
 
         @if (session('success'))
-
             <div class="alert alert-success mx-3">
                 {{ session('success') }}
             </div>
-
         @endif
 
 
         @if (session('error'))
-
             <div class="alert alert-danger mx-3">
                 {{ session('error') }}
             </div>
-
         @endif
 
 
@@ -140,9 +121,7 @@
 
                 <div class="col-12 col-lg-5">
 
-                    <label
-                        for="search"
-                        class="thesis-input-label">
+                    <label for="search" class="thesis-input-label">
 
                         Search
 
@@ -152,10 +131,7 @@
 
                         <i class="bi bi-search"></i>
 
-                        <input
-                            type="text"
-                            id="search"
-                            placeholder="Search title, author, or department..."
+                        <input type="text" id="search" placeholder="Search title, author, or department..."
                             autocomplete="off">
 
                     </div>
@@ -167,28 +143,22 @@
 
                 <div class="col-12 col-md-6 col-lg-3">
 
-                    <label
-                        for="departmentFilter"
-                        class="thesis-input-label">
+                    <label for="departmentFilter" class="thesis-input-label">
 
                         Department
 
                     </label>
 
-                    <select
-                        class="thesis-filter-select"
-                        id="departmentFilter">
+                    <select class="thesis-filter-select" id="departmentFilter">
 
                         <option value="">
                             All Departments
                         </option>
 
                         @foreach ($departments as $department)
-
                             <option value="{{ $department->name }}">
                                 {{ $department->name }}
                             </option>
-
                         @endforeach
 
                     </select>
@@ -200,28 +170,22 @@
 
                 <div class="col-12 col-md-6 col-lg-2">
 
-                    <label
-                        for="yearFilter"
-                        class="thesis-input-label">
+                    <label for="yearFilter" class="thesis-input-label">
 
                         Academic Year
 
                     </label>
 
-                    <select
-                        class="thesis-filter-select"
-                        id="yearFilter">
+                    <select class="thesis-filter-select" id="yearFilter">
 
                         <option value="">
                             All Years
                         </option>
 
                         @foreach ($published_at as $published)
-
                             <option value="{{ $published }}">
                                 {{ $published }}
                             </option>
-
                         @endforeach
 
                     </select>
@@ -233,10 +197,7 @@
 
                 <div class="col-12 col-lg-2">
 
-                    <button
-                        type="button"
-                        id="resetFilter"
-                        class="thesis-reset-button">
+                    <button type="button" id="resetFilter" class="thesis-reset-button">
 
                         <i class="bi bi-arrow-counterclockwise"></i>
 
@@ -261,9 +222,7 @@
 
             {{-- LOADING --}}
 
-            <div
-                id="thesisSearchSpinner"
-                class="thesis-loading d-none">
+            <div id="thesisSearchSpinner" class="thesis-loading d-none">
 
                 <div class="thesis-spinner"></div>
 
@@ -276,9 +235,7 @@
 
             {{-- THESIS CARDS --}}
 
-            <div
-                id="hodThesisCards"
-                class="thesis-card-grid">
+            <div id="hodThesisCards" class="thesis-card-grid">
 
                 @include('hod.thesis.table')
 
@@ -294,8 +251,7 @@
     ============================================================== --}}
 
     <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
             let searchTimeout = null;
 
@@ -392,16 +348,16 @@
                 if (window.innerWidth <= 767.98) {
 
                     currentSearch =
-                        mobileSearchInput
-                            ? mobileSearchInput.value.trim()
-                            : '';
+                        mobileSearchInput ?
+                        mobileSearchInput.value.trim() :
+                        '';
 
                 } else {
 
                     currentSearch =
-                        searchInput
-                            ? searchInput.value.trim()
-                            : '';
+                        searchInput ?
+                        searchInput.value.trim() :
+                        '';
 
                 }
 
@@ -411,97 +367,94 @@
 
                         search: currentSearch,
 
-                        department: departmentFilter
-                            ? departmentFilter.value
-                            : '',
+                        department: departmentFilter ?
+                            departmentFilter.value :
+                            '',
 
-                        year: yearFilter
-                            ? yearFilter.value
-                            : ''
+                        year: yearFilter ?
+                            yearFilter.value :
+                            ''
 
                     });
 
 
                 fetch(
-                    "{{ route('hod.thesis.search') }}?" +
-                    query.toString(),
-                    {
-                        signal: currentController.signal,
+                        "{{ route('hod.thesis.search') }}?" +
+                        query.toString(), {
+                            signal: currentController.signal,
 
-                        headers: {
+                            headers: {
 
-                            'X-Requested-With':
-                                'XMLHttpRequest',
+                                'X-Requested-With': 'XMLHttpRequest',
 
-                            'Accept':
-                                'text/html'
+                                'Accept': 'text/html'
+
+                            }
+
+                        }
+                    )
+
+                    .then(function(response) {
+
+                        if (!response.ok) {
+
+                            throw new Error(
+                                'Network response failed'
+                            );
 
                         }
 
-                    }
-                )
+                        return response.text();
 
-                .then(function (response) {
+                    })
 
-                    if (!response.ok) {
+                    .then(function(html) {
 
-                        throw new Error(
-                            'Network response failed'
-                        );
+                        if (thesisGrid) {
 
-                    }
+                            thesisGrid.innerHTML =
+                                html;
 
-                    return response.text();
+                        }
 
-                })
+                    })
 
-                .then(function (html) {
+                    .catch(function(error) {
 
-                    if (thesisGrid) {
+                        if (
+                            error.name !==
+                            'AbortError'
+                        ) {
 
-                        thesisGrid.innerHTML =
-                            html;
+                            console.error(
+                                'Error loading thesis records:',
+                                error
+                            );
 
-                    }
+                        }
 
-                })
+                    })
 
-                .catch(function (error) {
+                    .finally(function() {
 
-                    if (
-                        error.name !==
-                        'AbortError'
-                    ) {
+                        if (spinner) {
 
-                        console.error(
-                            'Error loading thesis records:',
-                            error
-                        );
+                            spinner.classList.add(
+                                'd-none'
+                            );
 
-                    }
-
-                })
-
-                .finally(function () {
-
-                    if (spinner) {
-
-                        spinner.classList.add(
-                            'd-none'
-                        );
-
-                    }
+                        }
 
 
-                    if (thesisGrid) {
+                        if (thesisGrid) {
 
-                        thesisGrid.classList.remove(
-                            'is-loading'
-                        );
+                            thesisGrid.classList.remove(
+                                'is-loading'
+                            );
 
-                    }
+                        }
 
-                });
+                    });
 
             }
 
@@ -514,7 +467,7 @@
 
                 searchInput.addEventListener(
                     'input',
-                    function () {
+                    function() {
 
                         clearTimeout(
                             searchTimeout
@@ -541,7 +494,7 @@
 
                 mobileSearchInput.addEventListener(
                     'input',
-                    function () {
+                    function() {
 
                         clearTimeout(
                             searchTimeout
@@ -655,7 +608,7 @@
 
                 mobileSearchToggle.addEventListener(
                     'click',
-                    function () {
+                    function() {
 
                         if (!mobileSearchPanel) {
                             return;
@@ -664,10 +617,10 @@
 
                         const isOpen =
                             mobileSearchPanel
-                                .classList
-                                .contains(
-                                    'is-open'
-                                );
+                            .classList
+                            .contains(
+                                'is-open'
+                            );
 
 
                         if (isOpen) {
@@ -716,7 +669,7 @@
 
 
                             setTimeout(
-                                function () {
+                                function() {
 
                                     if (
                                         mobileSearchInput
@@ -745,14 +698,14 @@
 
             document.addEventListener(
                 'keydown',
-                function (event) {
+                function(event) {
 
                     if (
                         event.key === 'Escape' &&
                         mobileSearchPanel &&
                         mobileSearchPanel
-                            .classList
-                            .contains('is-open')
+                        .classList
+                        .contains('is-open')
                     ) {
 
                         mobileSearchPanel
@@ -791,7 +744,7 @@
 
             window.addEventListener(
                 'resize',
-                function () {
+                function() {
 
                     if (
                         window.innerWidth >
@@ -832,7 +785,6 @@
             );
 
         });
-
     </script>
 
 
@@ -841,7 +793,6 @@
     ============================================================== --}}
 
     <style>
-
         :root {
 
             --thesis-black: #000000;
@@ -887,7 +838,7 @@
             background: #ffffff;
 
             box-sizing: border-box;
-            border-radius: 12px;
+            /* border-radius: 12px; */
 
         }
 
@@ -1010,7 +961,7 @@
 
         .thesis-filter-body {
 
-            border-radius: 12px;
+            /* border-radius: 12px; */
             padding: 1.2rem 1.25rem;
 
             background: #ffffff;
@@ -2223,8 +2174,6 @@
             }
 
         }
-
     </style>
 
 </x-app-layout>
-

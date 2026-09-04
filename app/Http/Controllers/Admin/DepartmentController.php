@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\Thesis;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -11,12 +12,14 @@ class DepartmentController extends Controller
     public function index()
     {
         $departments = Department::all();
+
         return view('admin.departments.index', compact('departments'));
     }
 
     public function create()
     {
         $departments = Department::all();
+
         return view('admin.departments.create', compact('departments'));
     }
 
@@ -31,7 +34,6 @@ class DepartmentController extends Controller
 
         return redirect()->route('admin.departments.index');
     }
-
 
     public function edit(Department $department)
     {
@@ -48,10 +50,29 @@ class DepartmentController extends Controller
 
         return redirect()->route('admin.departments.index');
     }
+
     public function destroy(Department $department)
     {
         $department->delete();
 
         return redirect()->route('admin.departments.index');
+    }
+
+    public function thesis(Department $department)
+    {
+        $theses = Thesis::with([
+            'publishedBy',
+            'submittedBy',
+            'department',
+            'files',
+        ])
+            ->where('department_id', $department->id)
+            ->latest()
+            ->get();
+
+        return view(
+            'admin.departments.thesis',
+            compact('department', 'theses')
+        );
     }
 }

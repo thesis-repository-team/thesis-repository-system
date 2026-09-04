@@ -1,52 +1,12 @@
 <x-app-layout>
 
-    <div class="dashboard-content">
+    <div class="dashboard-page">
 
-        <main class="dashboard-main">
+        <div class="dashboard-content">
 
-            {{-- =================================================
-                 HERO
-            ================================================== --}}
-            {{-- <section class="dashboard-hero">
-
-                <div class="hero-content">
-
-                    <h1>
-                        Dashboard Overview
-                    </h1>
-
-                    <p>
-                        Here's what's happening with your repository
-                    </p>
-
-                    <a href="{{ route('admin.thesis.index') }}"
-                       class="hero-button">
-
-                        View Analytics
-
-                    </a>
-
-                </div>
-
-
-                <div class="hero-image">
-
-                    <i class="bi bi-mortarboard-fill"></i>
-
-                </div>
-
-            </section> --}}
-
-
-            {{-- =================================================
-                 STATISTICS
-            ================================================== --}}
             <section class="dashboard-grid">
 
-
-                {{-- DEPARTMENTS --}}
                 <div class="stat-card">
-
                     <div class="stat-card-top">
 
                         <div class="stat-icon purple">
@@ -54,15 +14,13 @@
                         </div>
 
                         <div>
-
                             <div class="stat-card-title">
                                 Departments
                             </div>
 
                             <div class="stat-number">
-                                {{ $departmentsCount ?? 6 }}
+                                {{ $departmentsCount ?? 0 }}
                             </div>
-
                         </div>
 
                     </div>
@@ -70,13 +28,10 @@
                     <div class="stat-footer">
                         Total Departments
                     </div>
-
                 </div>
 
 
-                {{-- HODS --}}
                 <div class="stat-card">
-
                     <div class="stat-card-top">
 
                         <div class="stat-icon blue">
@@ -84,15 +39,13 @@
                         </div>
 
                         <div>
-
                             <div class="stat-card-title">
                                 HoDs
                             </div>
 
                             <div class="stat-number">
-                                {{ $hodsCount ?? 12 }}
+                                {{ $hodsCount ?? 0 }}
                             </div>
-
                         </div>
 
                     </div>
@@ -100,13 +53,10 @@
                     <div class="stat-footer">
                         Active HoDs
                     </div>
-
                 </div>
 
 
-                {{-- STUDENTS --}}
                 <div class="stat-card">
-
                     <div class="stat-card-top">
 
                         <div class="stat-icon green">
@@ -114,15 +64,13 @@
                         </div>
 
                         <div>
-
                             <div class="stat-card-title">
                                 Students
                             </div>
 
                             <div class="stat-number">
-                                {{ $studentsCount ?? 245 }}
+                                {{ $studentsCount ?? 0 }}
                             </div>
-
                         </div>
 
                     </div>
@@ -130,13 +78,10 @@
                     <div class="stat-footer">
                         Total Students
                     </div>
-
                 </div>
 
 
-                {{-- THESES --}}
                 <div class="stat-card">
-
                     <div class="stat-card-top">
 
                         <div class="stat-icon orange">
@@ -144,15 +89,13 @@
                         </div>
 
                         <div>
-
                             <div class="stat-card-title">
                                 Theses
                             </div>
 
                             <div class="stat-number">
-                                {{ $thesesCount ?? 156 }}
+                                {{ $thesesCount ?? 0 }}
                             </div>
-
                         </div>
 
                     </div>
@@ -160,354 +103,177 @@
                     <div class="stat-footer">
                         Total Theses
                     </div>
-
                 </div>
 
             </section>
 
 
-            {{-- =================================================
-                 LOWER CONTENT
-            ================================================== --}}
             <section class="dashboard-lower-grid">
 
+                <div class="dashboard-lower-main">
 
-                {{-- =================================================
-                     LEFT
-                ================================================== --}}
-                <div>
-
-                    {{-- THESIS REQUEST CHART --}}
-                    <div class="dashboard-card">
+                    <div class="dashboard-card dashboard-large-card">
 
                         <div class="dashboard-card-header">
 
-                            <h3>
-                                Thesis Requests Overview
-                            </h3>
+                            <div>
+                                <span class="dashboard-section-label">
+                                    THESIS REPOSITORY
+                                </span>
 
-                            <select class="dashboard-select">
-                                <option>
-                                    This Month
-                                </option>
+                                <h3>
+                                    Recent Theses
+                                </h3>
+                            </div>
 
-                                <option>
-                                    This Year
-                                </option>
-                            </select>
+                            <a
+                                href="{{ route('admin.thesis.index') }}"
+                                class="view-all"
+                            >
+                                <span>View all</span>
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
 
                         </div>
 
 
-                        <div class="chart-container">
+                        <div class="thesis-list">
 
-                            <div class="chart">
+                            @forelse($recentTheses ?? [] as $thesis)
 
-                                <svg viewBox="0 0 700 250"
-                                     preserveAspectRatio="none">
+                                <div class="thesis-item">
 
-                                    {{-- GRID --}}
-                                    <line x1="50"
-                                          y1="30"
-                                          x2="680"
-                                          y2="30"
-                                          stroke="#eeeeF4"/>
+                                    <div class="thesis-avatar">
+                                        <i class="bi bi-journal-text"></i>
+                                    </div>
 
-                                    <line x1="50"
-                                          y1="80"
-                                          x2="680"
-                                          y2="80"
-                                          stroke="#eeeeF4"/>
+                                    <div class="thesis-info">
 
-                                    <line x1="50"
-                                          y1="130"
-                                          x2="680"
-                                          y2="130"
-                                          stroke="#eeeeF4"/>
+                                        <strong>
+                                            {{ $thesis->title ?? 'Untitled Thesis' }}
+                                        </strong>
 
-                                    <line x1="50"
-                                          y1="180"
-                                          x2="680"
-                                          y2="180"
-                                          stroke="#eeeeF4"/>
+                                        <span>
+                                            {{ $thesis->publishedBy?->username
+                                                ?? $thesis->publishedBy?->full_name
+                                                ?? 'Unknown Publisher' }}
+                                        </span>
 
+                                    </div>
 
-                                    {{-- AREA --}}
-                                    <path
-                                        d="
-                                        M50 175
-                                        L200 130
-                                        L350 90
-                                        L500 65
-                                        L680 115
-                                        L680 210
-                                        L50 210
-                                        Z
-                                        "
-                                        fill="#eee8ff"
-                                        opacity="0.8"
-                                    />
-
-
-                                    {{-- LINE --}}
-                                    <polyline
-                                        points="
-                                        50,175
-                                        200,130
-                                        350,90
-                                        500,65
-                                        680,115
-                                        "
-                                        fill="none"
-                                        stroke="#6538d9"
-                                        stroke-width="4"
-                                    />
-
-
-                                    {{-- POINTS --}}
-                                    <circle
-                                        cx="50"
-                                        cy="175"
-                                        r="6"
-                                        fill="#6538d9"
-                                    />
-
-                                    <circle
-                                        cx="200"
-                                        cy="130"
-                                        r="6"
-                                        fill="#6538d9"
-                                    />
-
-                                    <circle
-                                        cx="350"
-                                        cy="90"
-                                        r="6"
-                                        fill="#6538d9"
-                                    />
-
-                                    <circle
-                                        cx="500"
-                                        cy="65"
-                                        r="6"
-                                        fill="#6538d9"
-                                    />
-
-                                    <circle
-                                        cx="680"
-                                        cy="115"
-                                        r="6"
-                                        fill="#6538d9"
-                                    />
-
-                                </svg>
-
-                            </div>
-
-
-                            {{-- CHART STATS --}}
-                            <div class="chart-bottom">
-
-                                <div>
-                                    <span class="chart-stat-number">
-                                        32
+                                    <span class="status-badge status-published">
+                                        Published
                                     </span>
 
-                                    <span class="chart-stat-label pending">
-                                        Pending
-                                    </span>
                                 </div>
 
+                            @empty
 
-                                <div>
-                                    <span class="chart-stat-number">
-                                        18
-                                    </span>
-
-                                    <span class="chart-stat-label approved">
-                                        Approved
-                                    </span>
+                                <div class="dashboard-empty">
+                                    No recent theses.
                                 </div>
 
-
-                                <div>
-                                    <span class="chart-stat-number">
-                                        7
-                                    </span>
-
-                                    <span class="chart-stat-label rejected">
-                                        Rejected
-                                    </span>
-                                </div>
-
-
-                                <div>
-                                    <span class="chart-stat-number">
-                                        57
-                                    </span>
-
-                                    <span class="chart-stat-label">
-                                        Total
-                                    </span>
-                                </div>
-
-                            </div>
+                            @endforelse
 
                         </div>
 
                     </div>
 
 
-                    {{-- RECENT REQUESTS --}}
-                    <div class="dashboard-card"
-                         style="margin-top: 16px;">
+                    <div class="dashboard-card dashboard-large-card">
 
                         <div class="dashboard-card-header">
 
-                            <h3>
-                                Recent Thesis Requests
-                            </h3>
+                            <div>
+                                <span class="dashboard-section-label">
+                                    MANAGEMENT
+                                </span>
+
+                                <h3>
+                                    Recent Thesis Requests
+                                </h3>
+                            </div>
+
+                            <a
+                                href="{{ route('admin.thesis_requests.index') }}"
+                                class="view-all"
+                            >
+                                <span>View all</span>
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
 
                         </div>
 
 
                         <div class="request-list">
 
-                            <div class="request-item">
+                            @forelse($recentThesisRequests ?? [] as $request)
 
-                                <div class="request-avatar">
-                                    JS
-                                </div>
+                                <div class="request-item">
 
-                                <div class="request-info">
+                                    <div class="request-avatar">
 
-                                    <span class="request-title">
-                                        E-Learning Platform
-                                    </span>
+                                        @if ($request->user)
 
-                                    <span class="request-name">
-                                        John Smith
-                                    </span>
+                                            {{ strtoupper(
+                                                substr(
+                                                    $request->user->username ?? 'U',
+                                                    0,
+                                                    2
+                                                )
+                                            ) }}
 
-                                </div>
+                                        @else
 
-                                <span class="status-badge status-pending">
-                                    Pending
-                                </span>
+                                            TR
 
-                            </div>
+                                        @endif
 
-
-                            <div class="request-item">
-
-                                <div class="request-avatar">
-                                    MC
-                                </div>
-
-                                <div class="request-info">
-
-                                    <span class="request-title">
-                                        AI Chatbot System
-                                    </span>
-
-                                    <span class="request-name">
-                                        Maria Clara
-                                    </span>
-
-                                </div>
-
-                                <span class="status-badge status-approved">
-                                    Approved
-                                </span>
-
-                            </div>
+                                    </div>
 
 
-                            <div class="request-item">
+                                    <div class="request-info">
 
-                                <div class="request-avatar">
-                                    DB
-                                </div>
+                                        <strong class="request-title">
+                                            {{ $request->thesis?->title ?? 'Thesis Request' }}
+                                        </strong>
 
-                                <div class="request-info">
+                                        <span class="request-name">
+                                            {{ $request->user?->username ?? 'Unknown User' }}
+                                        </span>
 
-                                    <span class="request-title">
-                                        Library Management
-                                    </span>
+                                    </div>
 
-                                    <span class="request-name">
-                                        David Brown
-                                    </span>
+
+                                    @if ($request->is_approved === 1)
+
+                                        <span class="status-badge status-approved">
+                                            Approved
+                                        </span>
+
+                                    @elseif ($request->is_approved === 0)
+
+                                        <span class="status-badge status-rejected">
+                                            Rejected
+                                        </span>
+
+                                    @else
+
+                                        <span class="status-badge status-pending">
+                                            Pending
+                                        </span>
+
+                                    @endif
 
                                 </div>
 
-                                <span class="status-badge status-pending">
-                                    Pending
-                                </span>
+                            @empty
 
-                            </div>
-
-
-                            <div class="request-item">
-
-                                <div class="request-avatar">
-                                    LW
+                                <div class="dashboard-empty">
+                                    No recent thesis requests.
                                 </div>
 
-                                <div class="request-info">
-
-                                    <span class="request-title">
-                                        Web Analytics Dashboard
-                                    </span>
-
-                                    <span class="request-name">
-                                        Linda White
-                                    </span>
-
-                                </div>
-
-                                <span class="status-badge status-rejected">
-                                    Rejected
-                                </span>
-
-                            </div>
-
-
-                            <div class="request-item">
-
-                                <div class="request-avatar">
-                                    RK
-                                </div>
-
-                                <div class="request-info">
-
-                                    <span class="request-title">
-                                        Mobile Banking App
-                                    </span>
-
-                                    <span class="request-name">
-                                        Robert Kim
-                                    </span>
-
-                                </div>
-
-                                <span class="status-badge status-approved">
-                                    Approved
-                                </span>
-
-                            </div>
-
-
-                            <a href="{{ route('admin.thesis_requests.index') }}"
-                               class="view-all">
-
-                                <span>
-                                    View all requests
-                                </span>
-
-                                <i class="bi bi-chevron-right"></i>
-
-                            </a>
+                            @endforelse
 
                         </div>
 
@@ -516,265 +282,140 @@
                 </div>
 
 
-                {{-- =================================================
-                     RIGHT COLUMN
-                ================================================== --}}
-                <div class="dashboard-right-column">
+                <div class="dashboard-lower-side">
 
+                    <div class="dashboard-card dashboard-small-card">
 
-                    {{-- CALENDAR --}}
-                    {{-- <div class="dashboard-card calendar-card">
+                        <div class="dashboard-card-header">
 
-                        <div class="calendar-header">
-
-                            <h3>
-                                Calendar
-                            </h3>
-
-                        </div>
-
-
-                        <div class="calendar-month">
-
-                            <i class="bi bi-chevron-left"></i>
-
-                            <strong>
-                                May 2024
-                            </strong>
-
-                            <i class="bi bi-chevron-right"></i>
-
-                        </div>
-
-
-                        <div class="calendar-grid">
-
-                            <span class="calendar-day-name">Mon</span>
-                            <span class="calendar-day-name">Tue</span>
-                            <span class="calendar-day-name">Wed</span>
-                            <span class="calendar-day-name">Thu</span>
-                            <span class="calendar-day-name">Fri</span>
-                            <span class="calendar-day-name">Sat</span>
-                            <span class="calendar-day-name">Sun</span>
-
-
-                            <span class="calendar-day muted">29</span>
-                            <span class="calendar-day muted">30</span>
-
-                            <span class="calendar-day">1</span>
-                            <span class="calendar-day">2</span>
-                            <span class="calendar-day">3</span>
-                            <span class="calendar-day">4</span>
-                            <span class="calendar-day">5</span>
-
-                            <span class="calendar-day">6</span>
-                            <span class="calendar-day">7</span>
-                            <span class="calendar-day">8</span>
-                            <span class="calendar-day">9</span>
-                            <span class="calendar-day">10</span>
-                            <span class="calendar-day">11</span>
-                            <span class="calendar-day">12</span>
-
-                            <span class="calendar-day">13</span>
-                            <span class="calendar-day">14</span>
-
-                            <span class="calendar-day today">
-                                15
-                            </span>
-
-                            <span class="calendar-day">16</span>
-                            <span class="calendar-day">17</span>
-                            <span class="calendar-day">18</span>
-                            <span class="calendar-day">19</span>
-
-                            <span class="calendar-day">20</span>
-                            <span class="calendar-day">21</span>
-                            <span class="calendar-day">22</span>
-                            <span class="calendar-day">23</span>
-                            <span class="calendar-day">24</span>
-                            <span class="calendar-day">25</span>
-                            <span class="calendar-day">26</span>
-
-                            <span class="calendar-day">27</span>
-                            <span class="calendar-day">28</span>
-                            <span class="calendar-day">29</span>
-                            <span class="calendar-day">30</span>
-                            <span class="calendar-day">31</span>
-
-                            <span class="calendar-day muted">1</span>
-                            <span class="calendar-day muted">2</span>
-
-                        </div>
-
-                    </div> --}}
-
-
-                    {{-- SCHEDULE --}}
-                    {{-- <div class="dashboard-card schedule-card">
-
-                        <h3>
-                            Today's Schedule
-                        </h3>
-
-
-                        <div class="schedule-item">
-
-                            <div class="schedule-time">
-                                09:00
-                            </div>
-
-                            <div class="schedule-info">
-
-                                <strong>
-                                    HoD Meeting
-                                </strong>
-
-                                <span>
-                                    Conference Room
+                            <div>
+                                <span class="dashboard-section-label">
+                                    STUDENTS
                                 </span>
 
+                                <h3>
+                                    Recent Students
+                                </h3>
                             </div>
+
+                            <a
+                                href="{{ route('admin.students.index') }}"
+                                class="view-all"
+                            >
+                                <span>View all</span>
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
 
                         </div>
 
 
-                        <div class="schedule-item">
+                        <div class="student-list">
 
-                            <div class="schedule-time">
-                                11:00
-                            </div>
+                            @forelse($recentStudents ?? [] as $student)
 
-                            <div class="schedule-info">
+                                <div class="student-item">
 
-                                <strong>
-                                    Thesis Review
-                                </strong>
+                                    <div class="student-avatar">
+                                        {{ strtoupper(
+                                            substr(
+                                                $student->full_name ?? 'S',
+                                                0,
+                                                2
+                                            )
+                                        ) }}
+                                    </div>
 
-                                <span>
-                                    Review Room 1
+                                    <div class="student-info">
+
+                                        <strong>
+                                            {{ $student->full_name ?? 'Unknown Student' }}
+                                        </strong>
+
+                                        <span>
+                                            {{ $student->user?->email ?? 'Student' }}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            @empty
+
+                                <div class="dashboard-empty">
+                                    No recent students.
+                                </div>
+
+                            @endforelse
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="dashboard-card dashboard-small-card">
+
+                        <div class="dashboard-card-header">
+
+                            <div>
+                                <span class="dashboard-section-label">
+                                    HEADS OF DEPARTMENT
                                 </span>
 
+                                <h3>
+                                    Recent HoDs
+                                </h3>
                             </div>
+
+                            <a
+                                href="{{ route('admin.hods.index') }}"
+                                class="view-all"
+                            >
+                                <span>View all</span>
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
 
                         </div>
 
 
-                        <div class="schedule-item">
+                        <div class="hod-list">
 
-                            <div class="schedule-time">
-                                14:00
-                            </div>
+                            @forelse($recentHods ?? [] as $hod)
 
-                            <div class="schedule-info">
+                                <div class="hod-item">
 
-                                <strong>
-                                    Student Consultation
-                                </strong>
+                                    <div class="hod-avatar">
+                                        {{ strtoupper(
+                                            substr(
+                                                $hod->full_name ?? 'H',
+                                                0,
+                                                2
+                                            )
+                                        ) }}
+                                    </div>
 
-                                <span>
-                                    Office 3
-                                </span>
+                                    <div class="hod-info">
 
-                            </div>
+                                        <strong>
+                                            {{ $hod->full_name ?? 'Unknown HoD' }}
+                                        </strong>
 
-                        </div>
+                                        <span>
+                                            {{ $hod->department?->department_name ?? 'No Department' }}
+                                        </span>
 
-                    </div> --}}
+                                    </div>
 
+                                </div>
 
-                    {{-- RECENT HODS --}}
-                    <div class="dashboard-card hod-card">
+                            @empty
 
-                        <h3>
-                            Recent Registered HoDs
-                        </h3>
+                                <div class="dashboard-empty">
+                                    No recent HoDs.
+                                </div>
 
-
-                        <div class="hod-item">
-
-                            <div class="hod-avatar">
-                                SJ
-                            </div>
-
-                            <div class="hod-info">
-
-                                <strong>
-                                    Dr. Sarah Johnson
-                                </strong>
-
-                                <span>
-                                    Computer Science
-                                </span>
-
-                            </div>
-
-                            <div class="hod-time">
-                                2 days ago
-                            </div>
+                            @endforelse
 
                         </div>
-
-
-                        <div class="hod-item">
-
-                            <div class="hod-avatar">
-                                MC
-                            </div>
-
-                            <div class="hod-info">
-
-                                <strong>
-                                    Dr. Michael Chen
-                                </strong>
-
-                                <span>
-                                    Information Technology
-                                </span>
-
-                            </div>
-
-                            <div class="hod-time">
-                                3 days ago
-                            </div>
-
-                        </div>
-
-
-                        <div class="hod-item">
-
-                            <div class="hod-avatar">
-                                ED
-                            </div>
-
-                            <div class="hod-info">
-
-                                <strong>
-                                    Dr. Emily Davis
-                                </strong>
-
-                                <span>
-                                    Software Engineering
-                                </span>
-
-                            </div>
-
-                            <div class="hod-time">
-                                5 days ago
-                            </div>
-
-                        </div>
-
-
-                        <a href="{{ route('admin.hods.index') }}"
-                           class="view-all">
-
-                            <span>
-                                View all HoDs
-                            </span>
-
-                            <i class="bi bi-chevron-right"></i>
-
-                        </a>
 
                     </div>
 
@@ -782,8 +423,946 @@
 
             </section>
 
-        </main>
+        </div>
 
     </div>
+
+
+    <style>
+
+        :root {
+
+            --dashboard-black: #000000;
+            --dashboard-white: #ffffff;
+
+            --dashboard-page-bg: #ffffff;
+            --dashboard-card-bg: #ffffff;
+            --dashboard-input-bg: #fafafa;
+
+            --dashboard-text: #000000;
+            --dashboard-text-secondary: #333333;
+            --dashboard-text-muted: #777777;
+
+            --dashboard-border: #000000;
+            --dashboard-border-soft: #dddddd;
+
+            --dashboard-shadow:
+                0 4px 18px rgba(0, 0, 0, .07);
+
+            --dashboard-card-shadow:
+                0 2px 10px rgba(0, 0, 0, .05);
+
+            --dashboard-primary: #000000;
+
+            --dashboard-soft: #f7f7f7;
+
+            --dashboard-hover: #252525;
+
+            --dashboard-divider: #eeeeee;
+        }
+
+
+        [data-bs-theme="dark"] {
+
+            --dashboard-black: #000000;
+            --dashboard-white: #ffffff;
+
+            --dashboard-page-bg: #000000;
+            --dashboard-card-bg: #000000;
+            --dashboard-input-bg: #0d0d0d;
+
+            --dashboard-text: #ffffff;
+            --dashboard-text-secondary: #dddddd;
+            --dashboard-text-muted: #999999;
+
+            --dashboard-border: #ffffff;
+            --dashboard-border-soft: #333333;
+
+            --dashboard-primary: #ffffff;
+
+            --dashboard-soft: #111111;
+
+            --dashboard-hover: #dddddd;
+
+            --dashboard-divider: #333333;
+
+            --dashboard-shadow:
+                0 4px 18px rgba(0, 0, 0, .35);
+
+            --dashboard-card-shadow:
+                0 2px 10px rgba(0, 0, 0, .35);
+        }
+
+
+        /* =========================================================
+           PAGE
+        ========================================================== */
+
+        .dashboard-page {
+
+            color: var(--dashboard-text);
+
+            transition:
+                color .25s ease,
+                background-color .25s ease;
+        }
+
+
+        .dashboard-content {
+
+            color: var(--dashboard-text);
+        }
+
+
+        /* =========================================================
+           STAT CARDS
+        ========================================================== */
+
+        .stat-card {
+
+            background: var(--dashboard-card-bg);
+
+            color: var(--dashboard-text);
+
+            border-radius: 12px;
+
+            box-shadow:
+                var(--dashboard-card-shadow);
+
+            transition:
+                background-color .25s ease,
+                color .25s ease,
+                box-shadow .25s ease;
+        }
+
+
+        .stat-card-title {
+
+            color: var(--dashboard-text-secondary);
+
+            font-size: 14px;
+
+            line-height: 1.35;
+
+            font-weight: 600;
+        }
+
+
+        .stat-number {
+
+            color: var(--dashboard-text);
+
+            font-size: 28px;
+
+            line-height: 1.2;
+
+            font-weight: 700;
+        }
+
+
+        .stat-footer {
+
+            color: var(--dashboard-text-muted);
+
+            font-size: 12px;
+
+            line-height: 1.4;
+
+            font-weight: 500;
+        }
+
+
+        /* =========================================================
+           LOWER GRID
+        ========================================================== */
+
+        .dashboard-lower-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.65fr)
+                minmax(280px, 0.75fr);
+
+            gap: 20px;
+
+            width: 100%;
+
+            align-items: stretch;
+        }
+
+
+        .dashboard-lower-main,
+        .dashboard-lower-side {
+
+            min-width: 0;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 20px;
+        }
+
+
+        /* =========================================================
+           DASHBOARD CARDS
+        ========================================================== */
+
+        .dashboard-card {
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            background: var(--dashboard-card-bg);
+
+            color: var(--dashboard-text);
+
+            border-radius: 12px;
+
+            padding: 22px;
+
+            box-shadow:
+                var(--dashboard-card-shadow);
+
+            transition:
+                background-color .25s ease,
+                color .25s ease,
+                box-shadow .25s ease;
+        }
+
+
+        .dashboard-large-card,
+        .dashboard-small-card {
+
+            min-height: 270px;
+        }
+
+
+        /* =========================================================
+           CARD HEADER
+        ========================================================== */
+
+        .dashboard-card-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 14px;
+
+            min-height: 44px;
+
+            margin-bottom: 16px;
+            /* padding: 22px; */
+        }
+
+
+        .dashboard-section-label {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: var(--dashboard-text-muted);
+
+            font-size: 10px;
+
+            line-height: 1.2;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+        }
+
+
+        .dashboard-card-header h3 {
+
+            margin: 0;
+
+            color: var(--dashboard-text);
+
+            font-size: 18px;
+
+            line-height: 1.35;
+
+            font-weight: 700;
+        }
+
+
+        .view-all {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            flex-shrink: 0;
+
+            color: var(--dashboard-text-muted);
+
+            font-size: 12px;
+
+            line-height: 1.3;
+
+            font-weight: 500;
+
+            text-decoration: none;
+
+            transition: color .2s ease;
+        }
+
+
+        .view-all:hover {
+
+            color: var(--dashboard-text);
+        }
+
+
+        .view-all i {
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================================
+           THESIS
+        ========================================================== */
+
+        .thesis-list {
+
+            width: 100%;
+        }
+
+
+        .thesis-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            min-height: 58px;
+
+            padding-left: 9px;
+        }
+
+
+        .thesis-item + .thesis-item {
+
+            border-top:
+                1px solid var(--dashboard-divider);
+        }
+
+
+        .thesis-avatar {
+
+            width: 38px;
+
+            height: 38px;
+
+            min-width: 38px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 9px;
+
+            background: #f1edff;
+
+            color: #6538d9;
+
+            font-size: 15px;
+        }
+
+
+        .thesis-info {
+
+            min-width: 0;
+
+            flex: 1;
+        }
+
+
+        .thesis-info strong {
+
+            display: block;
+
+            overflow: hidden;
+
+            margin-bottom: 4px;
+
+            color: var(--dashboard-text);
+
+            font-size: 14px;
+
+            line-height: 1.4;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+
+            text-overflow: ellipsis;
+        }
+
+
+        .thesis-info span {
+
+            display: block;
+
+            overflow: hidden;
+
+            color: var(--dashboard-text-muted);
+
+            font-size: 12px;
+
+            line-height: 1.4;
+
+            white-space: nowrap;
+
+            text-overflow: ellipsis;
+        }
+
+
+        /* =========================================================
+           THESIS REQUESTS
+        ========================================================== */
+
+        .request-list {
+
+            width: 100%;
+        }
+
+
+        .request-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            min-height: 58px;
+
+            padding: 9px 0;
+        }
+
+
+        .request-item + .request-item {
+
+            border-top:
+                1px solid var(--dashboard-divider);
+        }
+
+
+        .request-avatar {
+
+            width: 38px;
+
+            height: 38px;
+
+            min-width: 38px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #2563eb;
+
+            color: #ffffff;
+
+            font-size: 11px;
+
+            font-weight: 700;
+        }
+
+
+        .request-info {
+
+            min-width: 0;
+
+            flex: 1;
+        }
+
+
+        .request-title {
+
+            display: block;
+
+            overflow: hidden;
+
+            margin-bottom: 4px;
+
+            color: var(--dashboard-text);
+
+            font-size: 14px;
+
+            line-height: 1.4;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+
+            text-overflow: ellipsis;
+        }
+
+
+        .request-name {
+
+            display: block;
+
+            overflow: hidden;
+
+            color: var(--dashboard-text-muted);
+
+            font-size: 12px;
+
+            line-height: 1.4;
+
+            white-space: nowrap;
+
+            text-overflow: ellipsis;
+        }
+
+
+        /* =========================================================
+           STATUS
+        ========================================================== */
+
+        .status-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            min-width: 64px;
+
+            padding: 7px 10px;
+
+            border-radius: 6px;
+
+            font-size: 10px;
+
+            line-height: 1;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+        }
+
+
+        .status-published,
+        .status-approved {
+
+            background: #ecfdf3;
+
+            color: #15803d;
+        }
+
+
+        .status-pending {
+
+            background: #eff6ff;
+
+            color: #2563eb;
+        }
+
+
+        .status-rejected {
+
+            background: #fef2f2;
+
+            color: #dc2626;
+        }
+
+
+        /* =========================================================
+           STUDENTS
+        ========================================================== */
+
+        .student-list {
+
+            width: 100%;
+        }
+
+
+        .student-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            min-height: 53px;
+
+            padding-left: 9px;
+        }
+
+
+        .student-item + .student-item {
+
+            border-top:
+                1px solid var(--dashboard-divider);
+        }
+
+
+        .student-avatar {
+
+            width: 36px;
+
+            height: 36px;
+
+            min-width: 36px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #2563eb;
+
+            color: #ffffff;
+
+            font-size: 10px;
+
+            font-weight: 700;
+        }
+
+
+        .student-info {
+
+            min-width: 0;
+
+            flex: 1;
+        }
+
+
+        .student-info strong {
+
+            display: block;
+
+            overflow: hidden;
+
+            margin-bottom: 3px;
+
+            color: var(--dashboard-text);
+
+            font-size: 13px;
+
+            line-height: 1.4;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+
+            text-overflow: ellipsis;
+        }
+
+
+        .student-info span {
+
+            display: block;
+
+            overflow: hidden;
+
+            color: var(--dashboard-text-muted);
+
+            font-size: 11px;
+
+            line-height: 1.4;
+
+            white-space: nowrap;
+
+            text-overflow: ellipsis;
+        }
+
+
+        /* =========================================================
+           HODS
+        ========================================================== */
+
+        .hod-list {
+
+            width: 100%;
+        }
+
+
+        .hod-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            min-height: 53px;
+
+            padding: 10px;
+        }
+
+
+        .hod-item + .hod-item {
+
+            border-top:
+                1px solid var(--dashboard-divider);
+        }
+
+
+        .hod-avatar {
+
+            width: 36px;
+
+            height: 36px;
+
+            min-width: 36px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #dc2626;
+
+            color: #ffffff;
+
+            font-size: 10px;
+
+            font-weight: 700;
+        }
+
+
+        .hod-info {
+
+            min-width: 0;
+
+            flex: 1;
+        }
+
+
+        .hod-info strong {
+
+            display: block;
+
+            overflow: hidden;
+
+            margin-bottom: 3px;
+
+            color: var(--dashboard-text);
+
+            font-size: 13px;
+
+            line-height: 1.4;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+
+            text-overflow: ellipsis;
+        }
+
+
+        .hod-info span {
+
+            display: block;
+
+            overflow: hidden;
+
+            color: var(--dashboard-text-muted);
+
+            font-size: 11px;
+
+            line-height: 1.4;
+
+            white-space: nowrap;
+
+            text-overflow: ellipsis;
+        }
+
+
+        /* =========================================================
+           EMPTY
+        ========================================================== */
+
+        .dashboard-empty {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-height: 140px;
+
+            padding: 15px;
+
+            text-align: center;
+
+            color: var(--dashboard-text-muted);
+
+            font-size: 12px;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================== */
+
+        @media (max-width: 1000px) {
+
+            .dashboard-lower-grid {
+
+                grid-template-columns:
+                    minmax(0, 1.5fr)
+                    minmax(260px, 0.8fr);
+
+                gap: 16px;
+            }
+
+
+            .dashboard-lower-main,
+            .dashboard-lower-side {
+
+                gap: 16px;
+            }
+
+
+            .dashboard-card {
+
+                padding: 20px;
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .dashboard-lower-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .dashboard-lower-side {
+
+                display: grid;
+
+                grid-template-columns: 1fr 1fr;
+
+                gap: 16px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .dashboard-lower-side {
+
+                display: flex;
+
+                flex-direction: column;
+            }
+
+
+            .dashboard-card {
+
+                padding: 17px;
+
+                min-height: auto;
+            }
+
+
+            .dashboard-card-header {
+
+                margin-bottom: 14px;
+            }
+
+
+            .dashboard-card-header h3 {
+
+                font-size: 16px;
+            }
+
+
+            .dashboard-section-label {
+
+                font-size: 9px;
+            }
+
+
+            .view-all span {
+
+                display: none;
+            }
+
+
+            .status-badge {
+
+                display: none;
+            }
+
+
+            .thesis-item,
+            .request-item {
+
+                min-height: 52px;
+            }
+
+
+            .thesis-info strong,
+            .request-title {
+
+                font-size: 12px;
+            }
+
+
+            .thesis-info span,
+            .request-name {
+
+                font-size: 10px;
+            }
+
+
+            .student-info strong,
+            .hod-info strong {
+
+                font-size: 11px;
+            }
+
+
+            .student-info span,
+            .hod-info span {
+
+                font-size: 10px;
+            }
+
+        }
+
+    </style>
 
 </x-app-layout>

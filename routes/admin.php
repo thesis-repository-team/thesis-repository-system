@@ -1,23 +1,27 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\HoDController as AdminHoDController;
 use App\Http\Controllers\Admin\StudentController as AdminStudentController;
 use App\Http\Controllers\Admin\ThesisController as AdminThesisController;
 use App\Http\Controllers\Admin\ThesisRequestsController as AdminThesisRequestsController;
+use Illuminate\Support\Facades\Route;
 
 // admin routes
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
 
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::get('/departments', [DepartmentController::class, 'index'])->name('departments.index');
     Route::get('/departments/create', [DepartmentController::class, 'create'])->name('departments.create');
     Route::post('/departments/store', [DepartmentController::class, 'store'])->name('departments.store');
     Route::get('/departments/edit/{department}', [DepartmentController::class, 'edit'])->name('departments.edit');
     Route::put('/departments/update/{department}', [DepartmentController::class, 'update'])->name('departments.update');
     Route::delete('/departments/delete/{department}', [DepartmentController::class, 'destroy'])->name('departments.destroy');
+    Route::get(
+        '/admin/departments/{department}/thesis',
+        [DepartmentController::class, 'thesis']
+    )->name('departments.thesis');
 
     // HoD routes
     Route::get('/hods', [AdminHoDController::class, 'index'])->name('hods.index');
@@ -45,7 +49,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/thesis/my-upload', [AdminThesisController::class, 'myUpload'])->name('thesis.my-upload');
     Route::get('/thesis/search', [AdminThesisController::class, 'search'])->name('thesis.search');
     Route::get('/thesis/download/{file}', [AdminThesisController::class, 'downloadPDF'])->name('thesis.download');
-
 
     // Thesis Requests Routes
     Route::get('/thesis-requests/index', [AdminThesisRequestsController::class, 'index'])->name('thesis_requests.index');
