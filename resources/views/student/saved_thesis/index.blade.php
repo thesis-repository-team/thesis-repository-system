@@ -2,10 +2,10 @@
 
     <style>
         /* =========================================================
-           SAVED THESES PAGE
-           COMPACT CARD GRID
-           LIGHT + DARK MODE
-        ========================================================= */
+       SAVED THESES PAGE
+       CARD + TABLE VIEW
+       LIGHT + DARK MODE
+    ========================================================= */
 
         .saved-theses-page {
             --st-purple: #6538d9;
@@ -31,8 +31,8 @@
         }
 
         /* =========================================================
-           CONTAINER
-        ========================================================= */
+       CONTAINER
+    ========================================================= */
 
         .saved-theses-container {
             width: 100%;
@@ -43,8 +43,8 @@
         }
 
         /* =========================================================
-           PAGE HEADER
-        ========================================================= */
+       PAGE HEADER
+    ========================================================= */
 
         .saved-page-header {
             display: flex;
@@ -68,8 +68,8 @@
         }
 
         /* =========================================================
-           BACK BUTTON
-        ========================================================= */
+       BACK BUTTON
+    ========================================================= */
 
         .saved-back-button {
             display: inline-flex;
@@ -101,8 +101,8 @@
         }
 
         /* =========================================================
-           ALERTS
-        ========================================================= */
+       ALERTS
+    ========================================================= */
 
         .saved-alert {
             border: 0;
@@ -126,8 +126,8 @@
         }
 
         /* =========================================================
-           MAIN CARD
-        ========================================================= */
+       MAIN CARD
+    ========================================================= */
 
         .saved-theses-card {
             background: var(--st-card);
@@ -138,8 +138,8 @@
         }
 
         /* =========================================================
-           CARD HEADER
-        ========================================================= */
+       CARD HEADER
+    ========================================================= */
 
         .saved-card-header {
             min-height: 52px;
@@ -166,16 +166,96 @@
         }
 
         /* =========================================================
-           CARD BODY
-        ========================================================= */
+       CARD BODY
+    ========================================================= */
 
         .saved-card-body {
             padding: 15px;
         }
 
         /* =========================================================
-           THESIS GRID
-        ========================================================= */
+       VIEW SWITCHER
+    ========================================================= */
+
+        .saved-view-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+
+        .saved-view-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+
+            padding: 4px;
+
+            background: var(--st-card);
+            border: 1px solid var(--st-border);
+            border-radius: 9px;
+
+            box-shadow: 0 3px 10px rgba(30, 25, 70, 0.05);
+        }
+
+        .saved-view-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+
+            min-height: 34px;
+            padding: 0 12px;
+
+            border: 0;
+            border-radius: 6px;
+
+            background: transparent;
+            color: var(--st-muted);
+
+            font-size: 11px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .saved-view-button i {
+            font-size: 11px;
+        }
+
+        .saved-view-button:hover {
+            background: var(--st-purple-light);
+            color: var(--st-purple);
+        }
+
+        .saved-view-button.active {
+            background: var(--st-purple);
+            color: #ffffff;
+            box-shadow: 0 3px 8px rgba(101, 56, 217, 0.25);
+        }
+
+        .saved-view-button.active:hover {
+            background: var(--st-purple-dark);
+            color: #ffffff;
+        }
+
+        /* =========================================================
+       HIDDEN VIEW
+    ========================================================= */
+
+        .saved-card-view[hidden],
+        .saved-table-view[hidden] {
+            display: none !important;
+        }
+
+        /* =========================================================
+       THESIS GRID
+    ========================================================= */
 
         .saved-theses-grid {
             display: grid;
@@ -184,8 +264,8 @@
         }
 
         /* =========================================================
-           THESIS ITEM
-        ========================================================= */
+       THESIS ITEM
+    ========================================================= */
 
         .saved-thesis-item {
             min-width: 0;
@@ -209,8 +289,8 @@
         }
 
         /* =========================================================
-           THESIS CONTENT
-        ========================================================= */
+       THESIS CONTENT
+    ========================================================= */
 
         .saved-thesis-content {
             display: flex;
@@ -224,8 +304,8 @@
         }
 
         /* =========================================================
-           THESIS TITLE
-        ========================================================= */
+       THESIS TITLE
+    ========================================================= */
 
         .saved-thesis-title {
             margin: 0 0 10px;
@@ -244,8 +324,8 @@
         }
 
         /* =========================================================
-           INFORMATION
-        ========================================================= */
+       INFORMATION
+    ========================================================= */
 
         .saved-info-row {
             margin-bottom: 5px;
@@ -269,8 +349,8 @@
         }
 
         /* =========================================================
-           SAVED DATE
-        ========================================================= */
+       SAVED DATE
+    ========================================================= */
 
         .saved-date {
             margin-top: 8px;
@@ -286,8 +366,8 @@
         }
 
         /* =========================================================
-           ACTIONS
-        ========================================================= */
+       ACTIONS
+    ========================================================= */
 
         .saved-actions {
             display: flex;
@@ -358,8 +438,154 @@
         }
 
         /* =========================================================
-           EMPTY STATE
-        ========================================================= */
+       TABLE VIEW
+    ========================================================= */
+
+        .saved-table-view {
+            width: 100%;
+        }
+
+        .saved-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+
+            background: var(--st-card);
+
+            border: 1px solid var(--st-border);
+            border-radius: 9px;
+
+            box-shadow: 0 3px 12px rgba(30, 25, 70, 0.04);
+        }
+
+        .saved-theses-table {
+            width: 100%;
+            min-width: 900px;
+
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .saved-theses-table th {
+            padding: 12px 13px;
+
+            background: #faf9fe;
+
+            border-bottom: 1px solid var(--st-border);
+
+            color: var(--st-muted);
+
+            font-size: 10px;
+            font-weight: 700;
+
+            text-align: left;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+
+            white-space: nowrap;
+        }
+
+        .saved-theses-table td {
+            padding: 13px;
+
+            border-bottom: 1px solid var(--st-border);
+
+            color: var(--st-text);
+
+            font-size: 11.5px;
+            line-height: 1.45;
+
+            vertical-align: middle;
+        }
+
+        .saved-theses-table tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .saved-theses-table tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        .saved-theses-table tbody tr:hover {
+            background: #faf8ff;
+        }
+
+        .saved-table-number {
+            width: 45px;
+
+            color: var(--st-muted) !important;
+            font-weight: 700;
+
+            text-align: center;
+        }
+
+        .saved-table-title {
+            min-width: 250px;
+            max-width: 380px;
+
+            color: var(--st-text);
+            font-weight: 700;
+
+            word-break: break-word;
+        }
+
+        .saved-table-author {
+            min-width: 150px;
+            color: var(--st-muted);
+        }
+
+        .saved-table-department {
+            min-width: 130px;
+            color: var(--st-muted);
+        }
+
+        .saved-table-date {
+            min-width: 145px;
+            color: var(--st-muted);
+            white-space: nowrap;
+        }
+
+        .saved-table-action-cell {
+            width: 1%;
+            min-width: 155px;
+            white-space: nowrap;
+        }
+
+        /* =========================================================
+       TABLE ACTION BUTTONS
+    ========================================================= */
+
+        .saved-table-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            gap: 6px;
+
+            flex-wrap: nowrap;
+            white-space: nowrap;
+        }
+
+        .saved-table-actions .saved-action-button {
+            flex: 0 0 auto;
+
+            min-height: 30px;
+            padding: 0 9px;
+
+            font-size: 10.5px;
+        }
+
+        .saved-table-actions form {
+            flex: 0 0 auto;
+            margin: 0;
+        }
+
+        .saved-table-actions form button {
+            width: auto;
+        }
+
+        /* =========================================================
+       EMPTY STATE
+    ========================================================= */
 
         .saved-empty-state {
             padding: 55px 20px;
@@ -399,8 +625,8 @@
         }
 
         /* =========================================================
-           DARK MODE
-        ========================================================= */
+       DARK MODE
+    ========================================================= */
 
         [data-bs-theme="dark"] .saved-theses-page {
             --st-bg: #101426;
@@ -464,9 +690,43 @@
             color: #bdaeff;
         }
 
+        [data-bs-theme="dark"] .saved-view-toggle {
+            background: #181d33;
+            border-color: #292e45;
+        }
+
+        [data-bs-theme="dark"] .saved-view-button:hover {
+            background: #25203f;
+            color: #bdaeff;
+        }
+
+        [data-bs-theme="dark"] .saved-view-button.active {
+            background: var(--st-purple);
+            color: #ffffff;
+        }
+
+        [data-bs-theme="dark"] .saved-table-wrapper {
+            background: #181d33;
+            border-color: #292e45;
+        }
+
+        [data-bs-theme="dark"] .saved-theses-table th {
+            background: #20253a;
+            border-color: #292e45;
+            color: #999fb9;
+        }
+
+        [data-bs-theme="dark"] .saved-theses-table td {
+            border-color: #292e45;
+        }
+
+        [data-bs-theme="dark"] .saved-theses-table tbody tr:hover {
+            background: #20253a;
+        }
+
         /* =========================================================
-           LARGE DESKTOP
-        ========================================================= */
+       LARGE DESKTOP
+    ========================================================= */
 
         @media (min-width: 1200px) {
 
@@ -480,19 +740,24 @@
         }
 
         /* =========================================================
-           TABLET
-        ========================================================= */
+       TABLET
+    ========================================================= */
 
         @media (max-width: 900px) {
 
             .saved-theses-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
+
+            .saved-table-wrapper {
+                border-radius: 8px;
+            }
         }
 
         /* =========================================================
-           MOBILE
-        ========================================================= */
+       MOBILE
+       CARD ONLY
+    ========================================================= */
 
         @media (max-width: 768px) {
 
@@ -533,6 +798,20 @@
                 padding: 12px;
             }
 
+            /* Hide Card/Table switcher on mobile */
+            .saved-view-toolbar {
+                display: none;
+            }
+
+            /* Always use cards on mobile */
+            .saved-card-view {
+                display: block !important;
+            }
+
+            .saved-table-view {
+                display: none !important;
+            }
+
             .saved-theses-grid {
                 grid-template-columns: 1fr;
                 gap: 10px;
@@ -561,8 +840,8 @@
         }
 
         /* =========================================================
-           SMALL MOBILE
-        ========================================================= */
+       SMALL MOBILE
+    ========================================================= */
 
         @media (max-width: 480px) {
 
@@ -631,8 +910,8 @@
         <div class="saved-theses-container">
 
             {{-- =====================================================
-                 PAGE HEADER
-            ====================================================== --}}
+             PAGE HEADER
+        ====================================================== --}}
 
             <div class="saved-page-header">
 
@@ -652,8 +931,8 @@
 
 
             {{-- =====================================================
-                 SUCCESS MESSAGE
-            ====================================================== --}}
+             SUCCESS MESSAGE
+        ====================================================== --}}
 
             @if (session('success'))
                 <div class="saved-alert saved-alert-success">
@@ -667,8 +946,8 @@
 
 
             {{-- =====================================================
-                 INFO MESSAGE
-            ====================================================== --}}
+             INFO MESSAGE
+        ====================================================== --}}
 
             @if (session('info'))
                 <div class="saved-alert saved-alert-info">
@@ -682,15 +961,15 @@
 
 
             {{-- =====================================================
-                 MAIN CARD
-            ====================================================== --}}
+             MAIN CARD
+        ====================================================== --}}
 
             <div class="saved-theses-card">
 
 
                 {{-- =================================================
-                     CARD HEADER
-                ================================================== --}}
+                 CARD HEADER
+            ================================================== --}}
 
                 <div class="saved-card-header">
 
@@ -706,146 +985,358 @@
 
 
                 {{-- =================================================
-                     CARD BODY
-                ================================================== --}}
+                 CARD BODY
+            ================================================== --}}
 
                 <div class="saved-card-body">
 
 
                     @if ($savedTheses->count() > 0)
 
-                        <div class="saved-theses-grid">
 
-                            @foreach ($savedTheses as $saved)
-                                @if ($saved->thesis)
-                                    {{-- =====================================
+                        {{-- =============================================
+                         CARD / TABLE VIEW BUTTONS
+                    ============================================== --}}
+
+                        <div class="saved-view-toolbar">
+
+                            <div class="saved-view-toggle" role="group" aria-label="Choose saved theses view">
+
+                                <button type="button" class="saved-view-button active" data-saved-view="card"
+                                    aria-pressed="true">
+
+                                    <i class="fas fa-th-large"></i>
+
+                                    Card
+
+                                </button>
+
+                                <button type="button" class="saved-view-button" data-saved-view="table"
+                                    aria-pressed="false">
+
+                                    <i class="fas fa-table"></i>
+
+                                    Table
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- =============================================
+                         CARD VIEW
+                    ============================================== --}}
+
+                        <div class="saved-card-view">
+
+
+                            <div class="saved-theses-grid">
+
+                                @foreach ($savedTheses as $saved)
+                                    @if ($saved->thesis)
+                                        {{-- =================================
                                          THESIS CARD
-                                    ====================================== --}}
+                                    ================================== --}}
 
-                                    <div class="saved-thesis-item">
+                                        <div class="saved-thesis-item">
 
-                                        <div class="saved-thesis-content">
+                                            <div class="saved-thesis-content">
 
 
-                                            {{-- ==============================
+                                                {{-- ==========================
                                                  THESIS INFORMATION
-                                            =============================== --}}
+                                            =========================== --}}
 
-                                            <div class="saved-thesis-info">
-
-
-                                                {{-- Thesis Title --}}
-
-                                                <h5 class="saved-thesis-title">
-
-                                                    {{ $saved->thesis->title }}
-
-                                                </h5>
+                                                <div class="saved-thesis-info">
 
 
-                                                {{-- Author --}}
+                                                    {{-- Thesis Title --}}
 
-                                                @if ($saved->thesis->author_name)
-                                                    <div class="saved-info-row">
+                                                    <h5 class="saved-thesis-title">
 
-                                                        <strong>
-                                                            Author:
-                                                        </strong>
+                                                        {{ $saved->thesis->title }}
 
-                                                        {{ $saved->thesis->author_name }}
+                                                    </h5>
+
+
+                                                    {{-- Author --}}
+
+                                                    @if ($saved->thesis->author_name)
+                                                        <div class="saved-info-row">
+
+                                                            <strong>
+                                                                Author:
+                                                            </strong>
+
+                                                            {{ $saved->thesis->author_name }}
+
+                                                        </div>
+                                                    @endif
+
+
+                                                    {{-- Department --}}
+
+                                                    @if ($saved->thesis->department)
+                                                        <div class="saved-info-row">
+
+                                                            <strong>
+                                                                Department:
+                                                            </strong>
+
+                                                            {{ $saved->thesis->department->dept_name }}
+
+                                                        </div>
+                                                    @endif
+
+
+                                                    {{-- Saved Date --}}
+
+                                                    <div class="saved-date">
+
+                                                        <i class="fas fa-clock"></i>
+
+                                                        Saved:
+
+                                                        {{ $saved->saved_at ? $saved->saved_at->format('d M Y, h:i A') : $saved->created_at->format('d M Y, h:i A') }}
 
                                                     </div>
-                                                @endif
 
 
-                                                {{-- Department --}}
-
-                                                @if ($saved->thesis->department)
-                                                    <div class="saved-info-row">
-
-                                                        <strong>
-                                                            Department:
-                                                        </strong>
-
-                                                        {{ $saved->thesis->department->dept_name }}
-
-                                                    </div>
-                                                @endif
+                                                </div>
 
 
-                                                {{-- Saved Date --}}
+                                                {{-- ==========================
+                                                 ACTION BUTTONS
+                                            =========================== --}}
 
-                                                <div class="saved-date">
+                                                <div class="saved-actions">
 
-                                                    <i class="fas fa-clock"></i>
 
-                                                    Saved:
+                                                    {{-- View --}}
 
-                                                    {{ $saved->saved_at ? $saved->saved_at->format('d M Y, h:i A') : $saved->created_at->format('d M Y, h:i A') }}
+                                                    <a href="{{ route('student.thesis.show', $saved->thesis->id) }}"
+                                                        class="saved-action-button saved-action-view">
+
+                                                        <i class="fas fa-eye"></i>
+
+                                                        View
+
+                                                    </a>
+
+
+                                                    {{-- Remove --}}
+
+                                                    <form
+                                                        action="{{ route('student.saved_thesis.destroy', $saved->thesis->id) }}"
+                                                        method="POST"
+                                                        onsubmit="return confirm('Are you sure you want to remove this thesis from your saved theses?');">
+
+                                                        @csrf
+
+                                                        @method('DELETE')
+
+
+                                                        <button type="submit"
+                                                            class="saved-action-button saved-action-remove">
+
+                                                            <i class="fas fa-trash"></i>
+
+                                                            Remove
+
+                                                        </button>
+
+                                                    </form>
+
 
                                                 </div>
 
 
                                             </div>
 
-
-                                            {{-- ==============================
-                                                 ACTION BUTTONS
-                                            =============================== --}}
-
-                                            <div class="saved-actions">
-
-
-                                                {{-- View --}}
-
-                                                <a href="{{ route('student.thesis.show', $saved->thesis->id) }}"
-                                                    class="saved-action-button saved-action-view">
-
-                                                    <i class="fas fa-eye"></i>
-
-                                                    View
-
-                                                </a>
-
-
-                                                {{-- Remove --}}
-
-                                                <form
-                                                    action="{{ route('student.saved_thesis.destroy', $saved->thesis->id) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to remove this thesis from your saved theses?');">
-
-                                                    @csrf
-
-                                                    @method('DELETE')
-
-
-                                                    <button type="submit"
-                                                        class="saved-action-button saved-action-remove">
-
-                                                        <i class="fas fa-trash"></i>
-
-                                                        Remove
-
-                                                    </button>
-
-                                                </form>
-
-
-                                            </div>
-
-
                                         </div>
+                                    @endif
+                                @endforeach
 
-                                    </div>
-                                @endif
-                            @endforeach
+                            </div>
+
+                        </div>
+
+
+                        {{-- =============================================
+                         TABLE VIEW
+                    ============================================== --}}
+
+                        <div class="saved-table-view" hidden>
+
+
+                            <div class="saved-table-wrapper">
+
+                                <table class="saved-theses-table">
+
+                                    <thead>
+
+                                        <tr>
+
+                                            <th class="saved-table-number">
+                                                #
+                                            </th>
+
+                                            <th>
+                                                Title
+                                            </th>
+
+                                            <th>
+                                                Author
+                                            </th>
+
+                                            <th>
+                                                Department
+                                            </th>
+
+                                            <th>
+                                                Saved Date
+                                            </th>
+
+                                            <th>
+                                                Action
+                                            </th>
+
+                                        </tr>
+
+                                    </thead>
+
+
+                                    <tbody>
+
+                                        @php
+                                            $tableNumber = 1;
+                                        @endphp
+
+
+                                        @foreach ($savedTheses as $saved)
+                                            @if ($saved->thesis)
+                                                <tr>
+
+                                                    {{-- Number --}}
+
+                                                    <td class="saved-table-number">
+
+                                                        {{ $tableNumber++ }}
+
+                                                    </td>
+
+
+                                                    {{-- Title --}}
+
+                                                    <td class="saved-table-title">
+
+                                                        {{ $saved->thesis->title }}
+
+                                                    </td>
+
+
+                                                    {{-- Author --}}
+
+                                                    <td class="saved-table-author">
+
+                                                        @if ($saved->thesis->author_name)
+                                                            {{ $saved->thesis->author_name }}
+                                                        @else
+                                                            <span>—</span>
+                                                        @endif
+
+                                                    </td>
+
+
+                                                    {{-- Department --}}
+
+                                                    <td class="saved-table-department">
+
+                                                        @if ($saved->thesis->department)
+                                                            {{ $saved->thesis->department->dept_name }}
+                                                        @else
+                                                            <span>—</span>
+                                                        @endif
+
+                                                    </td>
+
+
+                                                    {{-- Saved Date --}}
+
+                                                    <td class="saved-table-date">
+
+                                                        <i class="fas fa-clock"
+                                                            style="color: var(--st-purple); margin-right: 4px;"></i>
+
+                                                        {{ $saved->saved_at ? $saved->saved_at->format('d M Y, h:i A') : $saved->created_at->format('d M Y, h:i A') }}
+
+                                                    </td>
+
+
+                                                    {{-- Actions --}}
+
+                                                    <td class="saved-table-action-cell">
+
+                                                        <div class="saved-table-actions">
+
+
+                                                            {{-- View --}}
+
+                                                            <a href="{{ route('student.thesis.show', $saved->thesis->id) }}"
+                                                                class="saved-action-button saved-action-view">
+
+                                                                <i class="fas fa-eye"></i>
+
+                                                                View
+
+                                                            </a>
+
+
+                                                            {{-- Remove --}}
+
+                                                            <form
+                                                                action="{{ route('student.saved_thesis.destroy', $saved->thesis->id) }}"
+                                                                method="POST"
+                                                                onsubmit="return confirm('Are you sure you want to remove this thesis from your saved theses?');">
+
+                                                                @csrf
+
+                                                                @method('DELETE')
+
+
+                                                                <button type="submit"
+                                                                    class="saved-action-button saved-action-remove">
+
+                                                                    <i class="fas fa-trash"></i>
+
+                                                                    Remove
+
+                                                                </button>
+
+                                                            </form>
+
+
+                                                        </div>
+
+                                                    </td>
+
+                                                </tr>
+                                            @endif
+                                        @endforeach
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
 
                         </div>
                     @else
                         {{-- =============================================
-                             EMPTY STATE
-                        ============================================== --}}
+                         EMPTY STATE
+                    ============================================== --}}
 
                         <div class="saved-empty-state">
 
@@ -875,5 +1366,227 @@
         </div>
 
     </div>
+
+
+    {{-- =============================================================
+     CARD / TABLE VIEW JAVASCRIPT
+============================================================= --}}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const page = document.querySelector('.saved-theses-page');
+
+            if (!page) {
+                return;
+            }
+
+
+            const viewButtons =
+                page.querySelectorAll('[data-saved-view]');
+
+            const cardView =
+                page.querySelector('.saved-card-view');
+
+            const tableView =
+                page.querySelector('.saved-table-view');
+
+
+            if (!viewButtons.length || !cardView || !tableView) {
+                return;
+            }
+
+
+            const storageKey = 'savedThesesView';
+
+
+            /* =========================================================
+               CHECK MOBILE
+            ========================================================= */
+
+            function isMobile() {
+
+                return window.innerWidth <= 768;
+
+            }
+
+
+            /* =========================================================
+               SET VIEW
+            ========================================================= */
+
+            function setView(view, savePreference = true) {
+
+                /*
+                 * Mobile always uses Card view.
+                 */
+
+                if (isMobile()) {
+
+                    view = 'card';
+
+                }
+
+
+                const showCard = view === 'card';
+
+
+                /* Card */
+
+                cardView.hidden = !showCard;
+
+
+                /* Table */
+
+                tableView.hidden = showCard;
+
+
+                /* Buttons */
+
+                viewButtons.forEach(function(button) {
+
+                    const buttonView =
+                        button.getAttribute('data-saved-view');
+
+                    const isActive =
+                        buttonView === view;
+
+
+                    button.classList.toggle(
+                        'active',
+                        isActive
+                    );
+
+
+                    button.setAttribute(
+                        'aria-pressed',
+                        isActive ? 'true' : 'false'
+                    );
+
+                });
+
+
+                /*
+                 * Save only desktop preference.
+                 */
+
+                if (savePreference && !isMobile()) {
+
+                    localStorage.setItem(
+                        storageKey,
+                        view
+                    );
+
+                }
+
+            }
+
+
+            /* =========================================================
+               LOAD SAVED VIEW
+            ========================================================= */
+
+            let savedView =
+                localStorage.getItem(storageKey);
+
+
+            if (
+                savedView !== 'card' &&
+                savedView !== 'table'
+            ) {
+
+                savedView = 'card';
+
+            }
+
+
+            setView(savedView, false);
+
+
+            /* =========================================================
+               BUTTON CLICK
+            ========================================================= */
+
+            viewButtons.forEach(function(button) {
+
+                button.addEventListener(
+                    'click',
+                    function() {
+
+                        const selectedView =
+                            button.getAttribute(
+                                'data-saved-view'
+                            );
+
+
+                        setView(
+                            selectedView,
+                            true
+                        );
+
+                    }
+                );
+
+            });
+
+
+            /* =========================================================
+               WINDOW RESIZE
+            ========================================================= */
+
+            let resizeTimer;
+
+
+            window.addEventListener(
+                'resize',
+                function() {
+
+                    clearTimeout(resizeTimer);
+
+
+                    resizeTimer = setTimeout(
+                        function() {
+
+                            /*
+                             * Mobile = Card only
+                             */
+
+                            if (isMobile()) {
+
+                                setView(
+                                    'card',
+                                    false
+                                );
+
+                                return;
+
+                            }
+
+
+                            /*
+                             * Desktop = restore selected
+                             * desktop preference
+                             */
+
+                            const currentView =
+                                localStorage.getItem(
+                                    storageKey
+                                ) || 'card';
+
+
+                            setView(
+                                currentView,
+                                false
+                            );
+
+                        },
+                        100
+                    );
+
+                }
+            );
+
+        });
+    </script>
 
 </x-app-layout>

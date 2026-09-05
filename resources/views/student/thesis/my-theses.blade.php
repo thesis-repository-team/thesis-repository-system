@@ -1,6 +1,7 @@
 <x-app-layout>
 
     <div class="dashboard-content my-theses-page">
+
         <div class="dashboard-main mt-4">
 
             {{-- PAGE HEADER --}}
@@ -9,66 +10,120 @@
                     <div class="page-title-icon">
                         <i class="bi bi-journal-bookmark-fill"></i>
                     </div>
+
                     <div>
                         <h2 class="page-title">My Theses</h2>
                         <p class="page-subtitle">Theses available from your department.</p>
                     </div>
+                </div>
+
+                {{-- VIEW TOGGLE --}}
+                <div class="view-toggle" role="group" aria-label="Thesis view">
+
+                    <button type="button" class="view-toggle-button active" id="tableViewBtn"
+                        onclick="setThesisView('table')" aria-label="Table view">
+                        <i class="bi bi-list-ul"></i>
+                        <span>Table</span>
+                    </button>
+
+                    <button type="button" class="view-toggle-button" id="cardViewBtn" onclick="setThesisView('card')"
+                        aria-label="Card view">
+                        <i class="bi bi-grid-3x3-gap-fill"></i>
+                        <span>Card</span>
+                    </button>
+
                 </div>
             </div>
 
             {{-- SUCCESS MESSAGE --}}
             @if (session('success'))
                 <div class="custom-alert alert-success alert-dismissible fade show" role="alert">
-                    <div class="alert-icon"><i class="bi bi-check-lg"></i></div>
+
+                    <div class="alert-icon">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
+
                     <div class="alert-content">
                         <strong>Success</strong>
                         <span>{{ session('success') }}</span>
                     </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    </button>
+
                 </div>
             @endif
 
             {{-- ERROR MESSAGE --}}
             @if (session('error'))
                 <div class="custom-alert alert-danger alert-dismissible fade show" role="alert">
-                    <div class="alert-icon"><i class="bi bi-exclamation-lg"></i></div>
+
+                    <div class="alert-icon">
+                        <i class="bi bi-exclamation-lg"></i>
+                    </div>
+
                     <div class="alert-content">
                         <strong>Error</strong>
                         <span>{{ session('error') }}</span>
                     </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    </button>
+
                 </div>
             @endif
 
-            {{-- THESES LIST --}}
+
+            {{-- =========================================================
+            THESES LIST
+        ========================================================== --}}
+
             @if ($theses->count())
-                <div class="thesis-list">
+
+                <div class="thesis-list" id="thesisList">
+
                     @foreach ($theses as $thesis)
-                        <div class="thesis-row">
+                        {{-- =================================================
+                        TABLE / ROW VIEW
+                    ================================================== --}}
+                        <div class="thesis-row thesis-view-table">
 
                             {{-- NUMBER --}}
-                            <div class="thesis-number">{{ $loop->iteration }}</div>
+                            <div class="thesis-number">
+                                {{ $loop->iteration }}
+                            </div>
 
                             {{-- TITLE + META --}}
                             <div class="thesis-main">
+
                                 <span class="thesis-title" title="{{ $thesis->title }}">
                                     {{ $thesis->title }}
                                 </span>
 
                                 <span class="thesis-meta">
-                                    <i class="bi bi-person-fill"></i>
-                                    {{ $thesis->author_name }}
+
+                                    <span class="meta-item">
+                                        <i class="bi bi-person-fill"></i>
+                                        {{ $thesis->author_name }}
+                                    </span>
 
                                     <span class="dot">&bull;</span>
 
-                                    <i class="bi bi-calendar3"></i>
-                                    {{ optional($thesis->published_at)->format('d M Y') ?? 'Not published' }}
+                                    <span class="meta-item">
+                                        <i class="bi bi-calendar3"></i>
+                                        {{ optional($thesis->published_at)->format('d M Y') ?? 'Not published' }}
+                                    </span>
 
                                     <span class="dot">&bull;</span>
 
-                                    <i class="bi bi-file-earmark-pdf-fill"></i>
-                                    {{ $thesis->files->count() }} {{ Str::plural('file', $thesis->files->count()) }}
+                                    <span class="meta-item">
+                                        <i class="bi bi-file-earmark-pdf-fill"></i>
+                                        {{ $thesis->files->count() }}
+                                        {{ Str::plural('file', $thesis->files->count()) }}
+                                    </span>
+
                                 </span>
+
                             </div>
 
                             {{-- STATUS --}}
@@ -86,48 +141,177 @@
 
                             {{-- FILE ACTIONS --}}
                             <div class="thesis-actions">
+
                                 @forelse ($thesis->files as $file)
                                     <a href="{{ route('student.thesis.view-pdf', $file) }}" target="_blank"
                                         rel="noopener" class="view-file-button" title="{{ $file->file_name }}"
                                         aria-label="View {{ $file->file_name }}">
                                         <i class="bi bi-eye-fill"></i>
                                     </a>
+
                                 @empty
+
                                     <span class="no-file-badge" title="No file available">
                                         <i class="bi bi-file-earmark-x"></i>
                                     </span>
                                 @endforelse
+
                             </div>
 
                         </div>
+
+
+                        {{-- =================================================
+                        CARD VIEW
+                    ================================================== --}}
+                        <article class="thesis-card thesis-view-card">
+
+                            {{-- CARD TOP --}}
+                            <div class="card-top">
+
+                                <div class="card-number">
+                                    {{ $loop->iteration }}
+                                </div>
+
+                                @if ($thesis->published_at)
+                                    <span class="status-badge status-published">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        Published
+                                    </span>
+                                @else
+                                    <span class="status-badge status-unpublished">
+                                        <i class="bi bi-clock-fill"></i>
+                                        Not published
+                                    </span>
+                                @endif
+
+                            </div>
+
+                            {{-- CARD TITLE --}}
+                            <div class="card-title-area">
+
+                                <h3 class="card-thesis-title" title="{{ $thesis->title }}">
+                                    {{ $thesis->title }}
+                                </h3>
+
+                            </div>
+
+                            {{-- CARD INFORMATION --}}
+                            <div class="card-info">
+
+                                <div class="card-info-item">
+                                    <div class="card-info-icon">
+                                        <i class="bi bi-person-fill"></i>
+                                    </div>
+
+                                    <div class="card-info-content">
+                                        <span class="card-info-label">Author</span>
+                                        <span class="card-info-value">
+                                            {{ $thesis->author_name }}
+                                        </span>
+                                    </div>
+                                </div>
+
+
+                                <div class="card-info-item">
+                                    <div class="card-info-icon">
+                                        <i class="bi bi-calendar3"></i>
+                                    </div>
+
+                                    <div class="card-info-content">
+                                        <span class="card-info-label">Published</span>
+                                        <span class="card-info-value">
+                                            {{ optional($thesis->published_at)->format('d M Y') ?? 'Not published' }}
+                                        </span>
+                                    </div>
+                                </div>
+
+
+                                <div class="card-info-item">
+                                    <div class="card-info-icon">
+                                        <i class="bi bi-file-earmark-pdf-fill"></i>
+                                    </div>
+
+                                    <div class="card-info-content">
+                                        <span class="card-info-label">Files</span>
+                                        <span class="card-info-value">
+                                            {{ $thesis->files->count() }}
+                                            {{ Str::plural('file', $thesis->files->count()) }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {{-- CARD FILE ACTIONS --}}
+                            <div class="card-actions">
+
+                                @forelse ($thesis->files as $file)
+                                    <a href="{{ route('student.thesis.view-pdf', $file) }}" target="_blank"
+                                        rel="noopener" class="card-view-file-button">
+
+                                        <i class="bi bi-eye-fill"></i>
+
+                                        <span>View PDF</span>
+
+                                    </a>
+
+                                @empty
+
+                                    <span class="card-no-file">
+                                        <i class="bi bi-file-earmark-x"></i>
+                                        No file available
+                                    </span>
+                                @endforelse
+
+                            </div>
+
+                        </article>
                     @endforeach
+
                 </div>
             @else
                 {{-- EMPTY STATE --}}
                 <div class="empty-thesis-state">
+
                     <div class="empty-icon">
                         <i class="bi bi-journal-x"></i>
                     </div>
+
                     <h3>No theses found</h3>
-                    <p>There are currently no theses available for your department.</p>
+
+                    <p>
+                        There are currently no theses available for your department.
+                    </p>
+
                 </div>
+
             @endif
 
         </div>
+
     </div>
+
 
     <style>
         /* =========================================================
-           MY THESES PAGE
-           Compact single-line rows, matches dashboard design
-        ========================================================= */
+       MY THESES PAGE
+    ========================================================= */
 
         .my-theses-page {
             min-height: 100vh;
         }
 
-        /* ==================== PAGE HEADER ==================== */
+
+        /* =========================================================
+       PAGE HEADER
+    ========================================================= */
+
         .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
             margin-bottom: 22px;
         }
 
@@ -135,6 +319,7 @@
             display: flex;
             align-items: center;
             gap: 14px;
+            min-width: 0;
         }
 
         .page-title-icon {
@@ -164,7 +349,62 @@
             font-size: 14px;
         }
 
-        /* ==================== ALERT ==================== */
+
+        /* =========================================================
+       VIEW TOGGLE BUTTONS
+    ========================================================= */
+
+        .view-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px;
+            flex-shrink: 0;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .view-toggle-button {
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 0 13px;
+            border: 0;
+            border-radius: 7px;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                transform 0.15s ease;
+        }
+
+        .view-toggle-button:hover {
+            color: var(--text-dark);
+        }
+
+        .view-toggle-button.active {
+            background: var(--dashboard-purple);
+            color: #ffffff;
+            box-shadow: 0 3px 9px rgba(101, 56, 217, 0.22);
+        }
+
+        .view-toggle-button i {
+            font-size: 14px;
+        }
+
+
+        /* =========================================================
+       ALERT
+    ========================================================= */
+
         .custom-alert {
             position: relative;
             display: flex;
@@ -223,14 +463,22 @@
             margin: 0;
         }
 
-        /* ==================== THESIS LIST ==================== */
+
+        /* =========================================================
+       LIST
+    ========================================================= */
+
         .thesis-list {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
 
-        /* ==================== THESIS ROW (single line) ==================== */
+
+        /* =========================================================
+       TABLE VIEW
+    ========================================================= */
+
         .thesis-row {
             display: flex;
             align-items: center;
@@ -241,7 +489,9 @@
             border: 1px solid var(--border-color);
             border-radius: 11px;
             box-shadow: var(--shadow);
-            transition: border-color 0.2s ease, transform 0.2s ease;
+            transition:
+                border-color 0.2s ease,
+                transform 0.2s ease;
         }
 
         .thesis-row:hover {
@@ -291,6 +541,13 @@
             white-space: nowrap;
         }
 
+        .meta-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            min-width: 0;
+        }
+
         .thesis-meta i {
             font-size: 11px;
         }
@@ -300,7 +557,11 @@
             color: var(--border-color);
         }
 
-        /* ==================== STATUS BADGE ==================== */
+
+        /* =========================================================
+       STATUS BADGE
+    ========================================================= */
+
         .status-badge {
             flex-shrink: 0;
             display: inline-flex;
@@ -323,7 +584,11 @@
             color: #ed8c16;
         }
 
-        /* ==================== FILE ACTIONS ==================== */
+
+        /* =========================================================
+       TABLE FILE ACTIONS
+    ========================================================= */
+
         .thesis-actions {
             flex-shrink: 0;
             display: flex;
@@ -344,7 +609,9 @@
             color: white;
             font-size: 13px;
             text-decoration: none;
-            transition: background 0.2s ease, transform 0.15s ease;
+            transition:
+                background 0.2s ease,
+                transform 0.15s ease;
         }
 
         .view-file-button:hover {
@@ -366,7 +633,196 @@
             font-size: 13px;
         }
 
-        /* ==================== EMPTY STATE ==================== */
+
+        /* =========================================================
+       CARD VIEW
+    ========================================================= */
+
+        .thesis-view-card {
+            display: none;
+        }
+
+        .thesis-card {
+            position: relative;
+            min-width: 0;
+            padding: 18px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            transition:
+                border-color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .thesis-card:hover {
+            border-color: #d9caf9;
+            transform: translateY(-2px);
+        }
+
+        .card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .card-number {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border-radius: 9px;
+            background: var(--dashboard-purple);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .card-title-area {
+            min-width: 0;
+            margin-bottom: 18px;
+        }
+
+        .card-thesis-title {
+            display: -webkit-box;
+            overflow: hidden;
+            margin: 0;
+            color: var(--text-dark);
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1.45;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .card-info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .card-info-icon {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(101, 56, 217, 0.09);
+            color: var(--dashboard-purple);
+            font-size: 13px;
+        }
+
+        .card-info-content {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .card-info-label {
+            color: var(--text-muted);
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .card-info-value {
+            overflow: hidden;
+            color: var(--text-dark);
+            font-size: 12px;
+            font-weight: 600;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 7px;
+            margin-top: 17px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .card-view-file-button {
+            min-height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 7px 12px;
+            border-radius: 8px;
+            background: var(--dashboard-purple);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+            transition:
+                background 0.2s ease,
+                transform 0.15s ease;
+        }
+
+        .card-view-file-button:hover {
+            background: var(--dashboard-purple-dark);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .card-no-file {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            min-height: 34px;
+            padding: 7px 12px;
+            border-radius: 8px;
+            background: #ffe9e9;
+            color: #d83232;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
+       CARD VIEW MODE
+    ========================================================= */
+
+        .my-theses-page.card-mode .thesis-view-table {
+            display: none;
+        }
+
+        .my-theses-page.card-mode .thesis-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .my-theses-page.card-mode .thesis-view-card {
+            display: block;
+        }
+
+
+        /* =========================================================
+       EMPTY STATE
+    ========================================================= */
+
         .empty-thesis-state {
             display: flex;
             flex-direction: column;
@@ -408,10 +864,16 @@
             line-height: 1.6;
         }
 
-        /* ==================== DARK MODE ==================== */
+
+        /* =========================================================
+       DARK MODE
+    ========================================================= */
+
         [data-bs-theme="dark"] .thesis-row,
+        [data-bs-theme="dark"] .thesis-card,
         [data-bs-theme="dark"] .custom-alert,
-        [data-bs-theme="dark"] .empty-thesis-state {
+        [data-bs-theme="dark"] .empty-thesis-state,
+        [data-bs-theme="dark"] .view-toggle {
             background: #181d33;
             border-color: #292e45;
         }
@@ -420,18 +882,22 @@
             background: #20253a;
         }
 
-        [data-bs-theme="dark"] .thesis-row:hover {
+        [data-bs-theme="dark"] .thesis-row:hover,
+        [data-bs-theme="dark"] .thesis-card:hover {
             border-color: #3a3060;
         }
 
         [data-bs-theme="dark"] .page-title,
         [data-bs-theme="dark"] .thesis-title,
+        [data-bs-theme="dark"] .card-thesis-title,
+        [data-bs-theme="dark"] .card-info-value,
         [data-bs-theme="dark"] .empty-thesis-state h3 {
-            color: white;
+            color: #ffffff;
         }
 
         [data-bs-theme="dark"] .page-subtitle,
         [data-bs-theme="dark"] .thesis-meta,
+        [data-bs-theme="dark"] .card-info-label,
         [data-bs-theme="dark"] .empty-thesis-state p {
             color: #999fb9;
         }
@@ -440,8 +906,58 @@
             color: #33394d;
         }
 
-        /* ==================== RESPONSIVE ==================== */
+        [data-bs-theme="dark"] .card-info,
+        [data-bs-theme="dark"] .card-actions {
+            border-color: #292e45;
+        }
+
+        [data-bs-theme="dark"] .view-toggle-button:hover {
+            color: #ffffff;
+        }
+
+        [data-bs-theme="dark"] .card-info-icon {
+            background: rgba(150, 120, 255, 0.12);
+        }
+
+
+        /* =========================================================
+       TABLET
+    ========================================================= */
+
+        @media (max-width: 900px) {
+
+            .my-theses-page.card-mode .thesis-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .thesis-row {
+                gap: 10px;
+                padding: 10px 12px;
+            }
+
+            .status-badge {
+                padding: 5px 9px;
+            }
+
+        }
+
+
+        /* =========================================================
+       MOBILE
+       MOBILE ALWAYS USES CARD VIEW
+    ========================================================= */
+
         @media (max-width: 768px) {
+
+            .page-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .page-heading {
+                width: 100%;
+            }
+
             .page-title-icon {
                 width: 44px;
                 height: 44px;
@@ -456,71 +972,296 @@
                 font-size: 13px;
             }
 
-            .thesis-row {
-                flex-wrap: wrap;
-                gap: 8px 10px;
-                padding: 10px 12px;
-            }
-
-            .thesis-main {
-                min-width: 0;
-                flex-basis: 100%;
-                order: 1;
-            }
-
-            .thesis-number {
-                order: 0;
-            }
-
-            .status-badge {
-                order: 2;
-            }
-
-            .thesis-actions {
-                order: 3;
-                margin-left: auto;
-            }
-
-            .thesis-title {
-                font-size: 13px;
-                white-space: normal;
-            }
-
-            .thesis-meta {
-                white-space: normal;
-                flex-wrap: wrap;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .thesis-meta .dot {
+            /*
+         * Hide view buttons on mobile because
+         * mobile always uses card view.
+         */
+            .view-toggle {
                 display: none;
             }
 
-            .thesis-meta {
-                gap: 3px 8px;
+            /*
+         * Hide table rows on mobile.
+         */
+            .thesis-view-table {
+                display: none !important;
             }
 
-            .view-file-button,
-            .no-file-badge {
-                width: 28px;
-                height: 28px;
+            /*
+         * Show cards on mobile.
+         */
+            .thesis-view-card {
+                display: block !important;
+            }
+
+            .thesis-list,
+            .my-theses-page.card-mode .thesis-list {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .thesis-card {
+                padding: 16px;
+                border-radius: 13px;
+            }
+
+            .card-thesis-title {
+                font-size: 15px;
+            }
+
+        }
+
+
+        /* =========================================================
+       SMALL MOBILE
+    ========================================================= */
+
+        @media (max-width: 480px) {
+
+            .page-heading {
+                gap: 10px;
+            }
+
+            .page-title-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 9px;
+                font-size: 16px;
+            }
+
+            .page-title {
+                font-size: 18px;
+            }
+
+            .page-subtitle {
+                margin-top: 3px;
                 font-size: 12px;
             }
+
+            .custom-alert {
+                padding: 12px;
+            }
+
+            .alert-icon {
+                width: 31px;
+                height: 31px;
+            }
+
+            .thesis-card {
+                padding: 14px;
+            }
+
+            .card-top {
+                margin-bottom: 13px;
+            }
+
+            .card-number {
+                width: 31px;
+                height: 31px;
+            }
+
+            .card-title-area {
+                margin-bottom: 14px;
+            }
+
+            .card-thesis-title {
+                font-size: 14px;
+            }
+
+            .card-info {
+                gap: 9px;
+                padding-top: 12px;
+            }
+
+            .card-info-icon {
+                width: 30px;
+                height: 30px;
+            }
+
+            .card-actions {
+                margin-top: 14px;
+                padding-top: 12px;
+            }
+
+            .card-view-file-button {
+                width: 100%;
+            }
+
         }
+
+
+        /* =========================================================
+       VERY SMALL MOBILE
+    ========================================================= */
+
+        @media (max-width: 380px) {
+
+            .thesis-card {
+                padding: 13px;
+            }
+
+            .status-badge {
+                font-size: 10px;
+                padding: 5px 8px;
+            }
+
+            .card-info-value {
+                font-size: 11px;
+            }
+
+        }
+
+
+        /* =========================================================
+       REDUCED MOTION
+    ========================================================= */
 
         @media (prefers-reduced-motion: reduce) {
 
             .thesis-row,
-            .view-file-button {
+            .thesis-card,
+            .view-toggle-button,
+            .view-file-button,
+            .card-view-file-button {
                 transition: none;
             }
 
             .thesis-row:hover,
-            .view-file-button:hover {
+            .thesis-card:hover,
+            .view-file-button:hover,
+            .card-view-file-button:hover {
                 transform: none;
             }
+
         }
     </style>
+
+
+    {{-- =============================================================
+     VIEW SWITCH JAVASCRIPT
+============================================================= --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const page = document.querySelector('.my-theses-page');
+
+            if (!page) {
+                return;
+            }
+
+            /*
+             * Mobile should ALWAYS use card view.
+             */
+            if (window.innerWidth <= 768) {
+                setThesisView('card', false);
+                return;
+            }
+
+            /*
+             * Restore the user's previous desktop view.
+             * Default = table.
+             */
+            const savedView = localStorage.getItem('myThesesView') || 'table';
+
+            setThesisView(savedView, false);
+
+        });
+
+
+        /*
+         * Change between Card and Table.
+         */
+        function setThesisView(view, save = true) {
+
+            const page = document.querySelector('.my-theses-page');
+            const tableButton = document.getElementById('tableViewBtn');
+            const cardButton = document.getElementById('cardViewBtn');
+
+            if (!page) {
+                return;
+            }
+
+            /*
+             * Mobile always stays in Card view.
+             */
+            if (window.innerWidth <= 768) {
+                view = 'card';
+            }
+
+            /*
+             * Remove previous mode.
+             */
+            page.classList.remove('card-mode');
+
+            /*
+             * Reset button states.
+             */
+            if (tableButton) {
+                tableButton.classList.remove('active');
+            }
+
+            if (cardButton) {
+                cardButton.classList.remove('active');
+            }
+
+            /*
+             * Apply selected view.
+             */
+            if (view === 'card') {
+
+                page.classList.add('card-mode');
+
+                if (cardButton) {
+                    cardButton.classList.add('active');
+                }
+
+            } else {
+
+                if (tableButton) {
+                    tableButton.classList.add('active');
+                }
+
+            }
+
+            /*
+             * Save only on desktop.
+             */
+            if (save && window.innerWidth > 768) {
+                localStorage.setItem('myThesesView', view);
+            }
+
+        }
+
+
+        /*
+         * If browser is resized:
+         *
+         * Desktop  -> restore selected view
+         * Mobile   -> force Card view
+         */
+        window.addEventListener('resize', function() {
+
+            const page = document.querySelector('.my-theses-page');
+
+            if (!page) {
+                return;
+            }
+
+            if (window.innerWidth <= 768) {
+
+                setThesisView('card', false);
+
+            } else {
+
+                const savedView =
+                    localStorage.getItem('myThesesView') || 'table';
+
+                setThesisView(savedView, false);
+
+            }
+
+        });
+    </script>
 
 </x-app-layout>

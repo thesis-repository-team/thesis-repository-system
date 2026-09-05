@@ -5,13 +5,11 @@
         <div class="container-fluid px-3 px-md-4 py-3 py-md-4">
 
             {{-- =====================================================
-                 PAGE HEADER
-            ====================================================== --}}
-
+             PAGE HEADER
+        ====================================================== --}}
             <div class="page-header mb-4">
 
                 <div class="page-heading-content">
-
                     <h2 class="page-title">
                         <i class="bi bi-clock-history me-2"></i>
                         Thesis Requests
@@ -20,28 +18,43 @@
                     <p class="page-subtitle mb-0">
                         Submit and track your thesis requests.
                     </p>
-
                 </div>
 
-                @if (auth()->user()->student->upload_permission)
-                    <a href="{{ route('student.thesis_requests.create') }}" class="create-request-btn">
+                <div class="page-header-actions">
 
-                        <i class="bi bi-plus-lg"></i>
+                    {{-- CARD / TABLE VIEW SWITCH --}}
+                    @if (auth()->user()->student->upload_permission && $thesisRequests->count())
+                        <div class="view-switch" role="group" aria-label="Change request view">
 
-                        <span>
-                            New Request
-                        </span>
+                            <button type="button" class="view-switch-btn active" id="cardViewBtn" data-view="card"
+                                title="Card view">
+                                <i class="bi bi-grid-3x3-gap-fill"></i>
+                                <span>Card</span>
+                            </button>
 
-                    </a>
-                @endif
+                            <button type="button" class="view-switch-btn" id="tableViewBtn" data-view="table"
+                                title="Table view">
+                                <i class="bi bi-table"></i>
+                                <span>Table</span>
+                            </button>
 
+                        </div>
+                    @endif
+
+                    @if (auth()->user()->student->upload_permission)
+                        <a href="{{ route('student.thesis_requests.create') }}" class="create-request-btn">
+                            <i class="bi bi-plus-lg"></i>
+                            <span>New Request</span>
+                        </a>
+                    @endif
+
+                </div>
             </div>
 
 
             {{-- =====================================================
-                 SUCCESS MESSAGE
-            ====================================================== --}}
-
+             SUCCESS MESSAGE
+        ====================================================== --}}
             @if (session('success'))
                 <div class="alert custom-alert alert-success alert-dismissible fade show" role="alert">
 
@@ -59,9 +72,8 @@
 
 
             {{-- =====================================================
-                 ERROR MESSAGE
-            ====================================================== --}}
-
+             ERROR MESSAGE
+        ====================================================== --}}
             @if (session('error'))
                 <div class="alert custom-alert alert-danger alert-dismissible fade show" role="alert">
 
@@ -79,9 +91,8 @@
 
 
             {{-- =====================================================
-                 UPLOAD PERMISSION CHECK
-            ====================================================== --}}
-
+             UPLOAD PERMISSION CHECK
+        ====================================================== --}}
             @if (!auth()->user()->student->upload_permission)
 
                 <div class="permission-card">
@@ -89,7 +100,6 @@
                     <div class="permission-card-body">
 
                         {{-- HEADER --}}
-
                         <div class="permission-header">
 
                             <div class="permission-icon">
@@ -112,7 +122,6 @@
 
 
                         {{-- WHY --}}
-
                         <div class="information-section">
 
                             <h4>
@@ -130,7 +139,6 @@
 
 
                         {{-- HOW TO GET PERMISSION --}}
-
                         <div class="permission-information">
 
                             <h4>
@@ -149,7 +157,6 @@
                             <div class="information-grid">
 
                                 {{-- ACCOUNT --}}
-
                                 <div class="information-item">
 
                                     <div class="information-item-icon">
@@ -157,7 +164,6 @@
                                     </div>
 
                                     <div>
-
                                         <strong>
                                             Account Name
                                         </strong>
@@ -165,14 +171,12 @@
                                         <small>
                                             Your student account full name and username
                                         </small>
-
                                     </div>
 
                                 </div>
 
 
                                 {{-- EMAIL --}}
-
                                 <div class="information-item">
 
                                     <div class="information-item-icon">
@@ -180,7 +184,6 @@
                                     </div>
 
                                     <div>
-
                                         <strong>
                                             Email Address
                                         </strong>
@@ -188,14 +191,12 @@
                                         <small>
                                             The email registered in your account
                                         </small>
-
                                     </div>
 
                                 </div>
 
 
                                 {{-- DEPARTMENT --}}
-
                                 <div class="information-item">
 
                                     <div class="information-item-icon">
@@ -203,7 +204,6 @@
                                     </div>
 
                                     <div>
-
                                         <strong>
                                             Department
                                         </strong>
@@ -211,7 +211,6 @@
                                         <small>
                                             Your current academic department
                                         </small>
-
                                     </div>
 
                                 </div>
@@ -228,7 +227,6 @@
 
 
                         {{-- WHEN TO SUBMIT --}}
-
                         <div class="information-section">
 
                             <h4>
@@ -253,7 +251,6 @@
 
 
                         {{-- PROCESS --}}
-
                         <div class="information-section">
 
                             <h4>
@@ -262,7 +259,6 @@
 
 
                             {{-- STEP 1 --}}
-
                             <div class="process-step">
 
                                 <div class="step-number">
@@ -287,7 +283,6 @@
 
 
                             {{-- STEP 2 --}}
-
                             <div class="process-step">
 
                                 <div class="step-number">
@@ -311,7 +306,6 @@
 
 
                             {{-- STEP 3 --}}
-
                             <div class="process-step">
 
                                 <div class="step-number">
@@ -336,7 +330,6 @@
 
 
                             {{-- STEP 4 --}}
-
                             <div class="process-step">
 
                                 <div class="step-number">
@@ -363,7 +356,6 @@
 
 
                         {{-- REJECTION --}}
-
                         <div class="rejection-notice">
 
                             <div class="rejection-icon">
@@ -392,26 +384,24 @@
                 </div>
             @else
                 {{-- =====================================================
-                     REQUEST LIST
-                ====================================================== --}}
-
+                 REQUEST LIST
+            ====================================================== --}}
                 @if ($thesisRequests->count())
 
-                    <div class="request-list">
+                    {{-- =================================================
+                     CARD VIEW
+                ================================================== --}}
+                    <div class="request-list" id="cardView">
 
                         @foreach ($thesisRequests as $thesisRequest)
                             <article class="request-card">
 
-                                {{-- =================================================
-                                     CARD HEADER
-                                ================================================== --}}
-
+                                {{-- CARD HEADER --}}
                                 <div class="request-card-header">
 
                                     <div class="request-number">
                                         {{ $loop->iteration }}
                                     </div>
-
 
                                     <div class="request-title-wrapper">
 
@@ -420,43 +410,30 @@
                                         </h3>
 
                                         <p class="request-author">
-
                                             <i class="bi bi-people"></i>
-
                                             {{ $thesisRequest->author_name }}
-
                                         </p>
 
                                     </div>
 
 
                                     {{-- STATUS --}}
-
                                     <div class="request-status">
 
                                         @if ($thesisRequest->status === 'pending')
                                             <span class="status-badge status-pending">
-
                                                 <i class="bi bi-clock"></i>
-
                                                 Pending
-
                                             </span>
                                         @elseif ($thesisRequest->status === 'approved')
                                             <span class="status-badge status-approved">
-
                                                 <i class="bi bi-check-circle-fill"></i>
-
                                                 Approved
-
                                             </span>
                                         @else
                                             <span class="status-badge status-rejected">
-
                                                 <i class="bi bi-x-circle-fill"></i>
-
                                                 Rejected
-
                                             </span>
                                         @endif
 
@@ -465,10 +442,7 @@
                                 </div>
 
 
-                                {{-- =================================================
-                                     CARD INFORMATION
-                                ================================================== --}}
-
+                                {{-- CARD BODY --}}
                                 <div class="request-card-body">
 
                                     <div class="request-info">
@@ -512,18 +486,12 @@
                                 </div>
 
 
-                                {{-- =================================================
-                                     CARD FOOTER
-                                ================================================== --}}
-
+                                {{-- CARD FOOTER --}}
                                 <div class="request-card-footer">
 
                                     <span class="request-id">
-
                                         <i class="bi bi-journal-text"></i>
-
                                         Request #{{ $loop->iteration }}
-
                                     </span>
 
 
@@ -562,11 +530,204 @@
                         @endforeach
 
                     </div>
-                @else
-                    {{-- =====================================================
-                         EMPTY STATE
-                    ====================================================== --}}
 
+
+                    {{-- =================================================
+                     TABLE VIEW
+                ================================================== --}}
+                    <div class="request-table-wrapper" id="tableView">
+
+                        <div class="request-table-scroll">
+
+                            <table class="request-table">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th class="table-number">
+                                            #
+                                        </th>
+
+                                        <th class="table-title">
+                                            Thesis Title
+                                        </th>
+
+                                        <th>
+                                            Author
+                                        </th>
+
+                                        <th>
+                                            Submitted By
+                                        </th>
+
+                                        <th>
+                                            Department
+                                        </th>
+
+                                        <th>
+                                            Submitted At
+                                        </th>
+
+                                        <th>
+                                            Status
+                                        </th>
+
+                                        <th class="table-action">
+                                            Action
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+                                    @foreach ($thesisRequests as $thesisRequest)
+                                        <tr>
+
+                                            {{-- NUMBER --}}
+                                            <td class="table-number">
+
+                                                <span class="table-number-badge">
+                                                    {{ $loop->iteration }}
+                                                </span>
+
+                                            </td>
+
+
+                                            {{-- TITLE --}}
+                                            <td class="table-title">
+
+                                                <div class="table-title-content">
+
+                                                    <strong>
+                                                        {{ $thesisRequest->title }}
+                                                    </strong>
+
+                                                </div>
+
+                                            </td>
+
+
+                                            {{-- AUTHOR --}}
+                                            <td>
+
+                                                <div class="table-author">
+
+                                                    <i class="bi bi-people"></i>
+
+                                                    <span>
+                                                        {{ $thesisRequest->author_name }}
+                                                    </span>
+
+                                                </div>
+
+                                            </td>
+
+
+                                            {{-- SUBMITTED BY --}}
+                                            <td>
+
+                                                <span class="table-text">
+                                                    {{ $thesisRequest->user->name ?? 'N/A' }}
+                                                </span>
+
+                                            </td>
+
+
+                                            {{-- DEPARTMENT --}}
+                                            <td>
+
+                                                <span class="table-text">
+                                                    {{ $thesisRequest->department->name ?? 'N/A' }}
+                                                </span>
+
+                                            </td>
+
+
+                                            {{-- SUBMITTED AT --}}
+                                            <td>
+
+                                                <span class="table-text table-date">
+                                                    {{ $thesisRequest->submitted_at }}
+                                                </span>
+
+                                            </td>
+
+
+                                            {{-- STATUS --}}
+                                            <td>
+
+                                                @if ($thesisRequest->status === 'pending')
+                                                    <span class="status-badge status-pending">
+                                                        <i class="bi bi-clock"></i>
+                                                        Pending
+                                                    </span>
+                                                @elseif ($thesisRequest->status === 'approved')
+                                                    <span class="status-badge status-approved">
+                                                        <i class="bi bi-check-circle-fill"></i>
+                                                        Approved
+                                                    </span>
+                                                @else
+                                                    <span class="status-badge status-rejected">
+                                                        <i class="bi bi-x-circle-fill"></i>
+                                                        Rejected
+                                                    </span>
+                                                @endif
+
+                                            </td>
+
+
+                                            {{-- ACTION --}}
+                                            <td class="table-action">
+
+                                                <div class="table-actions">
+
+                                                    <a href="{{ route('student.thesis_requests.show', $thesisRequest) }}"
+                                                        target="_blank" class="action-btn action-view">
+
+                                                        <i class="bi bi-eye"></i>
+
+                                                        <span>
+                                                            View Details
+                                                        </span>
+
+                                                    </a>
+
+
+                                                    @if ($thesisRequest->pdf_file)
+                                                        <a href="{{ route('student.thesis_requests.view-request-pdf', $thesisRequest) }}"
+                                                            target="_blank" class="action-btn action-pdf">
+
+                                                            <i class="bi bi-file-earmark-pdf"></i>
+
+                                                            <span>
+                                                                View PDF
+                                                            </span>
+
+                                                        </a>
+                                                    @endif
+
+                                                </div>
+
+                                            </td>
+
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+                @else
+                    {{-- =================================================
+                     EMPTY STATE
+                ================================================== --}}
                     <div class="empty-request-state">
 
                         <div class="empty-request-icon">
@@ -601,13 +762,12 @@
 
 
     {{-- =============================================================
-         PAGE CSS
-    ============================================================= --}}
-
+     PAGE CSS
+============================================================= --}}
     <style>
         /* =========================================================
-           THEME VARIABLES
-        ========================================================= */
+       THEME VARIABLES
+    ========================================================= */
 
         .thesis-request-page {
 
@@ -618,7 +778,6 @@
             --request-bg: #f8f8fc;
             --request-card: #ffffff;
             --request-border: #e8e8f0;
-
             --request-text: #151a3b;
             --request-muted: #6d7392;
 
@@ -633,13 +792,12 @@
             min-height: calc(100vh - 80px);
 
             color: var(--request-text);
-
         }
 
 
         /* =========================================================
-           PAGE HEADER
-        ========================================================= */
+       PAGE HEADER
+    ========================================================= */
 
         .thesis-request-page .page-header {
 
@@ -648,14 +806,11 @@
             justify-content: space-between;
 
             gap: 20px;
-
         }
 
 
         .thesis-request-page .page-heading-content {
-
             min-width: 0;
-
         }
 
 
@@ -671,14 +826,11 @@
             line-height: 1.3;
 
             letter-spacing: -0.025em;
-
         }
 
 
         .thesis-request-page .page-title i {
-
             color: var(--dashboard-purple);
-
         }
 
 
@@ -691,13 +843,116 @@
             font-size: 0.9rem;
 
             line-height: 1.5;
-
         }
 
 
         /* =========================================================
-           CREATE BUTTON
-        ========================================================= */
+       PAGE HEADER ACTIONS
+    ========================================================= */
+
+        .thesis-request-page .page-header-actions {
+
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            flex: 0 0 auto;
+        }
+
+
+        /* =========================================================
+       CARD / TABLE SWITCH
+    ========================================================= */
+
+        .thesis-request-page .view-switch {
+
+            display: inline-flex;
+            align-items: center;
+
+            padding: 3px;
+
+            gap: 2px;
+
+            background: var(--request-card);
+
+            border: 1px solid var(--request-border);
+
+            border-radius: 9px;
+
+            box-shadow: 0 2px 8px rgba(30, 25, 70, 0.05);
+        }
+
+
+        .thesis-request-page .view-switch-btn {
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 6px;
+
+            min-height: 36px;
+
+            padding: 7px 11px;
+
+            border: 0;
+
+            border-radius: 7px;
+
+            background: transparent;
+
+            color: var(--request-muted);
+
+            font-size: 0.76rem;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+
+        .thesis-request-page .view-switch-btn i {
+            font-size: 0.82rem;
+        }
+
+
+        .thesis-request-page .view-switch-btn:hover {
+
+            background: var(--dashboard-purple-light);
+
+            color: var(--dashboard-purple);
+
+        }
+
+
+        .thesis-request-page .view-switch-btn.active {
+
+            background: var(--dashboard-purple);
+
+            color: #ffffff;
+
+            box-shadow:
+                0 4px 10px rgba(101, 56, 217, 0.20);
+        }
+
+
+        .thesis-request-page .view-switch-btn.active:hover {
+
+            background: var(--dashboard-purple-dark);
+
+            color: #ffffff;
+        }
+
+
+        /* =========================================================
+       CREATE BUTTON
+    ========================================================= */
 
         .thesis-request-page .create-request-btn,
         .thesis-request-page .empty-create-btn {
@@ -723,7 +978,6 @@
                 transform 0.2s ease,
                 box-shadow 0.2s ease,
                 background 0.2s ease;
-
         }
 
 
@@ -738,7 +992,6 @@
             font-size: 0.88rem;
 
             white-space: nowrap;
-
         }
 
 
@@ -753,7 +1006,6 @@
 
             box-shadow:
                 0 7px 18px rgba(101, 56, 217, 0.25);
-
         }
 
 
@@ -761,18 +1013,16 @@
         .thesis-request-page .empty-create-btn:active {
 
             transform: translateY(0);
-
         }
 
 
         /* =========================================================
-           ALERTS
-        ========================================================= */
+       ALERTS
+    ========================================================= */
 
         .thesis-request-page .custom-alert {
 
             display: flex;
-
             align-items: center;
 
             gap: 9px;
@@ -784,18 +1034,13 @@
             margin-bottom: 20px;
 
             font-size: 0.86rem;
-
         }
 
 
         .thesis-request-page .custom-alert .btn-close {
-
             margin-left: auto;
-
         }
 
-
-        /* SUCCESS */
 
         .thesis-request-page .alert-success {
 
@@ -804,18 +1049,13 @@
             border: 1px solid #c9ead7;
 
             color: #188650;
-
         }
 
 
         .thesis-request-page .alert-success .bi {
-
             color: #20955b;
-
         }
 
-
-        /* ERROR */
 
         .thesis-request-page .alert-danger {
 
@@ -824,20 +1064,17 @@
             border: 1px solid #f5cccc;
 
             color: #d83232;
-
         }
 
 
         .thesis-request-page .alert-danger .bi {
-
             color: #e24242;
-
         }
 
 
         /* =========================================================
-           PERMISSION CARD
-        ========================================================= */
+       PERMISSION CARD
+    ========================================================= */
 
         .thesis-request-page .permission-card {
 
@@ -852,25 +1089,20 @@
             border-radius: var(--request-radius);
 
             box-shadow: var(--request-shadow);
-
         }
 
 
         .thesis-request-page .permission-card-body {
-
             padding: 36px;
-
         }
 
 
         /* =========================================================
-           PERMISSION HEADER
-        ========================================================= */
+       PERMISSION HEADER
+    ========================================================= */
 
         .thesis-request-page .permission-header {
-
             text-align: center;
-
         }
 
 
@@ -893,7 +1125,6 @@
             color: #ed8c16;
 
             font-size: 1.65rem;
-
         }
 
 
@@ -906,7 +1137,6 @@
             font-size: 1.3rem;
 
             font-weight: 700;
-
         }
 
 
@@ -921,7 +1151,6 @@
             font-size: 0.9rem;
 
             line-height: 1.6;
-
         }
 
 
@@ -932,25 +1161,20 @@
             margin: 28px 0;
 
             background: var(--request-border);
-
         }
 
 
         /* =========================================================
-           INFORMATION
-        ========================================================= */
+       INFORMATION
+    ========================================================= */
 
         .thesis-request-page .information-section {
-
             margin-bottom: 30px;
-
         }
 
 
         .thesis-request-page .information-section:last-child {
-
             margin-bottom: 0;
-
         }
 
 
@@ -964,7 +1188,6 @@
             font-size: 1.02rem;
 
             font-weight: 700;
-
         }
 
 
@@ -978,7 +1201,6 @@
             font-size: 0.88rem;
 
             line-height: 1.75;
-
         }
 
 
@@ -986,13 +1208,12 @@
         .thesis-request-page .permission-information strong {
 
             color: var(--request-text);
-
         }
 
 
         /* =========================================================
-           PERMISSION INFORMATION
-        ========================================================= */
+       PERMISSION INFORMATION
+    ========================================================= */
 
         .thesis-request-page .permission-information {
 
@@ -1005,7 +1226,6 @@
             border: 1px solid #ece6fc;
 
             border-radius: 11px;
-
         }
 
 
@@ -1019,7 +1239,6 @@
             gap: 13px;
 
             margin: 18px 0;
-
         }
 
 
@@ -1045,7 +1264,6 @@
                 border-color 0.2s ease,
                 transform 0.2s ease,
                 box-shadow 0.2s ease;
-
         }
 
 
@@ -1057,7 +1275,6 @@
 
             box-shadow:
                 0 5px 15px rgba(101, 56, 217, 0.07);
-
         }
 
 
@@ -1078,14 +1295,11 @@
             background: #e9ddff;
 
             color: #6435d5;
-
         }
 
 
         .thesis-request-page .information-item div:last-child {
-
             min-width: 0;
-
         }
 
 
@@ -1096,7 +1310,6 @@
             margin-bottom: 4px;
 
             font-size: 0.84rem;
-
         }
 
 
@@ -1109,20 +1322,17 @@
             font-size: 0.74rem;
 
             line-height: 1.5;
-
         }
 
 
         .thesis-request-page .permission-note {
-
             margin-bottom: 0 !important;
-
         }
 
 
         /* =========================================================
-           PROCESS
-        ========================================================= */
+       PROCESS
+    ========================================================= */
 
         .thesis-request-page .process-step {
 
@@ -1133,14 +1343,11 @@
             gap: 13px;
 
             margin-bottom: 18px;
-
         }
 
 
         .thesis-request-page .process-step:last-child {
-
             margin-bottom: 0;
-
         }
 
 
@@ -1168,14 +1375,11 @@
 
             box-shadow:
                 0 4px 10px rgba(101, 56, 217, 0.18);
-
         }
 
 
         .thesis-request-page .step-content {
-
             min-width: 0;
-
         }
 
 
@@ -1188,7 +1392,6 @@
             color: var(--request-text);
 
             font-size: 0.88rem;
-
         }
 
 
@@ -1201,13 +1404,12 @@
             font-size: 0.8rem;
 
             line-height: 1.6;
-
         }
 
 
         /* =========================================================
-           REJECTION
-        ========================================================= */
+       REJECTION
+    ========================================================= */
 
         .thesis-request-page .rejection-notice {
 
@@ -1226,7 +1428,6 @@
             border-radius: 10px;
 
             color: #d83232;
-
         }
 
 
@@ -1237,7 +1438,6 @@
             color: #e24242;
 
             font-size: 1.2rem;
-
         }
 
 
@@ -1250,7 +1450,6 @@
             color: #c92d2d;
 
             font-size: 0.86rem;
-
         }
 
 
@@ -1263,23 +1462,12 @@
             font-size: 0.78rem;
 
             line-height: 1.6;
-
         }
 
 
         /* =========================================================
-           REQUEST LIST
-           
-           IMPORTANT:
-           Changed from flex column to GRID.
-           
-           This makes the cards appear as:
-           
-           CARD 1        CARD 2
-           CARD 3        CARD 4
-           CARD 5        CARD 6
-           
-        ========================================================= */
+       CARD REQUEST LIST
+    ========================================================= */
 
         .thesis-request-page .request-list {
 
@@ -1291,13 +1479,12 @@
             gap: 18px;
 
             width: 100%;
-
         }
 
 
         /* =========================================================
-           REQUEST CARD
-        ========================================================= */
+       REQUEST CARD
+    ========================================================= */
 
         .thesis-request-page .request-card {
 
@@ -1321,7 +1508,6 @@
                 transform 0.2s ease,
                 box-shadow 0.2s ease,
                 border-color 0.2s ease;
-
         }
 
 
@@ -1332,13 +1518,12 @@
             box-shadow: var(--request-shadow-hover);
 
             border-color: #ddd8ed;
-
         }
 
 
         /* =========================================================
-           REQUEST HEADER
-        ========================================================= */
+       REQUEST HEADER
+    ========================================================= */
 
         .thesis-request-page .request-card-header {
 
@@ -1355,11 +1540,8 @@
             background: var(--request-card);
 
             border-bottom: 1px solid var(--request-border);
-
         }
 
-
-        /* NUMBER */
 
         .thesis-request-page .request-number {
 
@@ -1388,18 +1570,14 @@
 
             box-shadow:
                 0 5px 12px rgba(101, 56, 217, 0.18);
-
         }
 
-
-        /* TITLE */
 
         .thesis-request-page .request-title-wrapper {
 
             flex: 1;
 
             min-width: 0;
-
         }
 
 
@@ -1424,7 +1602,6 @@
             font-weight: 700;
 
             line-height: 1.4;
-
         }
 
 
@@ -1449,7 +1626,6 @@
             white-space: nowrap;
 
             text-overflow: ellipsis;
-
         }
 
 
@@ -1458,29 +1634,23 @@
             flex: 0 0 auto;
 
             color: #6435d5;
-
         }
 
 
-        /* STATUS */
-
         .thesis-request-page .request-status {
-
             flex: 0 0 auto;
-
         }
 
 
         /* =========================================================
-           STATUS
-        ========================================================= */
+       STATUS
+    ========================================================= */
 
         .thesis-request-page .status-badge {
 
             display: inline-flex;
 
             align-items: center;
-
             justify-content: center;
 
             gap: 4px;
@@ -1496,11 +1666,8 @@
             font-size: 0.67rem;
 
             font-weight: 600;
-
         }
 
-
-        /* PENDING */
 
         .thesis-request-page .status-pending {
 
@@ -1509,11 +1676,8 @@
             border-color: #dfd4ff;
 
             color: #6435d5;
-
         }
 
-
-        /* APPROVED */
 
         .thesis-request-page .status-approved {
 
@@ -1522,11 +1686,8 @@
             border-color: #ccebd9;
 
             color: #188650;
-
         }
 
-
-        /* REJECTED */
 
         .thesis-request-page .status-rejected {
 
@@ -1535,13 +1696,12 @@
             border-color: #f5cccc;
 
             color: #d83232;
-
         }
 
 
         /* =========================================================
-           REQUEST BODY
-        ========================================================= */
+       REQUEST BODY
+    ========================================================= */
 
         .thesis-request-page .request-card-body {
 
@@ -1559,7 +1719,6 @@
             border-bottom: 1px solid var(--request-border);
 
             flex: 1;
-
         }
 
 
@@ -1572,7 +1731,6 @@
             gap: 4px;
 
             min-width: 0;
-
         }
 
 
@@ -1587,7 +1745,6 @@
             text-transform: uppercase;
 
             letter-spacing: 0.04em;
-
         }
 
 
@@ -1606,13 +1763,12 @@
             text-overflow: ellipsis;
 
             white-space: nowrap;
-
         }
 
 
         /* =========================================================
-           REQUEST FOOTER
-        ========================================================= */
+       REQUEST FOOTER
+    ========================================================= */
 
         .thesis-request-page .request-card-footer {
 
@@ -1627,7 +1783,6 @@
             padding: 11px 16px;
 
             background: var(--request-card);
-
         }
 
 
@@ -1644,14 +1799,11 @@
             font-size: 0.68rem;
 
             white-space: nowrap;
-
         }
 
 
         .thesis-request-page .request-id i {
-
             color: var(--dashboard-purple);
-
         }
 
 
@@ -1662,20 +1814,18 @@
             align-items: center;
 
             gap: 6px;
-
         }
 
 
         /* =========================================================
-           ACTION BUTTONS
-        ========================================================= */
+       ACTION BUTTONS
+    ========================================================= */
 
         .thesis-request-page .action-btn {
 
             display: inline-flex;
 
             align-items: center;
-
             justify-content: center;
 
             gap: 5px;
@@ -1698,18 +1848,14 @@
                 transform 0.2s ease,
                 box-shadow 0.2s ease,
                 background 0.2s ease;
-
         }
 
-
-        /* VIEW */
 
         .thesis-request-page .action-view {
 
             background: var(--dashboard-purple);
 
             color: #ffffff;
-
         }
 
 
@@ -1723,18 +1869,14 @@
 
             box-shadow:
                 0 5px 13px rgba(101, 56, 217, 0.2);
-
         }
 
-
-        /* PDF */
 
         .thesis-request-page .action-pdf {
 
             background: #e24444;
 
             color: #ffffff;
-
         }
 
 
@@ -1748,13 +1890,260 @@
 
             box-shadow:
                 0 5px 13px rgba(226, 68, 68, 0.2);
-
         }
 
 
         /* =========================================================
-           EMPTY STATE
-        ========================================================= */
+       TABLE VIEW
+    ========================================================= */
+
+        .thesis-request-page .request-table-wrapper {
+
+            display: none;
+
+            width: 100%;
+
+            overflow: hidden;
+
+            background: var(--request-card);
+
+            border: 1px solid var(--request-border);
+
+            border-radius: var(--request-radius);
+
+            box-shadow: var(--request-shadow);
+        }
+
+
+        .thesis-request-page .request-table-scroll {
+
+            width: 100%;
+
+            overflow-x: auto;
+
+            scrollbar-width: thin;
+        }
+
+
+        .thesis-request-page .request-table {
+
+            width: 100%;
+
+            min-width: 1050px;
+
+            margin: 0;
+
+            border-collapse: separate;
+
+            border-spacing: 0;
+
+            background: var(--request-card);
+
+            color: var(--request-text);
+        }
+
+
+        .thesis-request-page .request-table thead th {
+
+            padding: 13px 14px;
+
+            background: #faf8ff;
+
+            border-bottom: 1px solid var(--request-border);
+
+            color: var(--request-muted);
+
+            font-size: 0.67rem;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.035em;
+
+            text-align: left;
+
+            white-space: nowrap;
+        }
+
+
+        .thesis-request-page .request-table tbody td {
+
+            padding: 13px 14px;
+
+            border-bottom: 1px solid var(--request-border);
+
+            vertical-align: middle;
+
+            font-size: 0.76rem;
+        }
+
+
+        .thesis-request-page .request-table tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+
+        .thesis-request-page .request-table tbody tr {
+
+            transition:
+                background 0.15s ease;
+        }
+
+
+        .thesis-request-page .request-table tbody tr:hover {
+
+            background: #faf9ff;
+        }
+
+
+        .thesis-request-page .request-table .table-number {
+
+            width: 58px;
+
+            text-align: center;
+        }
+
+
+        .thesis-request-page .table-number-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            width: 30px;
+            height: 30px;
+
+            border-radius: 8px;
+
+            background: #eee8ff;
+
+            color: var(--dashboard-purple);
+
+            font-size: 0.72rem;
+
+            font-weight: 700;
+        }
+
+
+        .thesis-request-page .request-table .table-title {
+
+            width: 24%;
+
+            min-width: 230px;
+        }
+
+
+        .thesis-request-page .table-title-content {
+
+            min-width: 0;
+
+            max-width: 330px;
+        }
+
+
+        .thesis-request-page .table-title-content strong {
+
+            display: -webkit-box;
+
+            overflow: hidden;
+
+            color: var(--request-text);
+
+            font-size: 0.78rem;
+
+            font-weight: 700;
+
+            line-height: 1.45;
+
+            -webkit-box-orient: vertical;
+
+            -webkit-line-clamp: 2;
+        }
+
+
+        .thesis-request-page .table-author {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            min-width: 130px;
+
+            color: var(--request-muted);
+
+            white-space: nowrap;
+        }
+
+
+        .thesis-request-page .table-author i {
+
+            flex: 0 0 auto;
+
+            color: var(--dashboard-purple);
+
+        }
+
+
+        .thesis-request-page .table-text {
+
+            display: block;
+
+            max-width: 160px;
+
+            overflow: hidden;
+
+            color: var(--request-text);
+
+            font-size: 0.75rem;
+
+            font-weight: 600;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+        }
+
+
+        .thesis-request-page .table-date {
+
+            color: var(--request-muted);
+
+            font-weight: 500;
+
+        }
+
+
+        .thesis-request-page .request-table .table-action {
+
+            min-width: 205px;
+
+            text-align: right;
+
+            white-space: nowrap;
+        }
+
+
+        .thesis-request-page .table-actions {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            gap: 6px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================================================
+       EMPTY STATE
+    ========================================================= */
 
         .thesis-request-page .empty-request-state {
 
@@ -1779,7 +2168,6 @@
             border-radius: var(--request-radius);
 
             box-shadow: var(--request-shadow);
-
         }
 
 
@@ -1802,7 +2190,6 @@
             color: #6435d5;
 
             font-size: 1.7rem;
-
         }
 
 
@@ -1815,7 +2202,6 @@
             font-size: 1.04rem;
 
             font-weight: 700;
-
         }
 
 
@@ -1826,7 +2212,6 @@
             color: var(--request-muted);
 
             font-size: 0.84rem;
-
         }
 
 
@@ -1837,13 +2222,12 @@
             border-radius: 9px;
 
             font-size: 0.81rem;
-
         }
 
 
         /* =========================================================
-           DARK MODE
-        ========================================================= */
+       DARK MODE
+    ========================================================= */
 
         [data-bs-theme="dark"] .thesis-request-page {
 
@@ -1864,24 +2248,43 @@
                 0 10px 30px rgba(0, 0, 0, 0.32);
 
             color: var(--request-text);
-
         }
 
 
-        /* DARK CARDS */
-
         [data-bs-theme="dark"] .thesis-request-page .permission-card,
         [data-bs-theme="dark"] .thesis-request-page .request-card,
+        [data-bs-theme="dark"] .thesis-request-page .request-table-wrapper,
         [data-bs-theme="dark"] .thesis-request-page .empty-request-state {
 
             background: #181d33;
 
             border-color: #292e45;
-
         }
 
 
-        /* DARK TITLE */
+        [data-bs-theme="dark"] .thesis-request-page .view-switch {
+
+            background: #181d33;
+
+            border-color: #343a52;
+        }
+
+
+        [data-bs-theme="dark"] .thesis-request-page .view-switch-btn:hover {
+
+            background: #25203f;
+
+            color: #a58be9;
+        }
+
+
+        [data-bs-theme="dark"] .thesis-request-page .view-switch-btn.active {
+
+            background: var(--dashboard-purple);
+
+            color: #ffffff;
+        }
+
 
         [data-bs-theme="dark"] .thesis-request-page .page-title,
         [data-bs-theme="dark"] .thesis-request-page .permission-header h3,
@@ -1892,14 +2295,13 @@
         [data-bs-theme="dark"] .thesis-request-page .information-item strong,
         [data-bs-theme="dark"] .thesis-request-page .request-title,
         [data-bs-theme="dark"] .thesis-request-page .request-info strong,
-        [data-bs-theme="dark"] .thesis-request-page .empty-request-state h3 {
+        [data-bs-theme="dark"] .thesis-request-page .empty-request-state h3,
+        [data-bs-theme="dark"] .thesis-request-page .table-title-content strong,
+        [data-bs-theme="dark"] .thesis-request-page .table-text {
 
             color: #ffffff;
-
         }
 
-
-        /* DARK MUTED */
 
         [data-bs-theme="dark"] .thesis-request-page .page-subtitle,
         [data-bs-theme="dark"] .thesis-request-page .permission-header p,
@@ -1910,14 +2312,14 @@
         [data-bs-theme="dark"] .thesis-request-page .request-author,
         [data-bs-theme="dark"] .thesis-request-page .request-info-label,
         [data-bs-theme="dark"] .thesis-request-page .request-id,
-        [data-bs-theme="dark"] .thesis-request-page .empty-request-state p {
+        [data-bs-theme="dark"] .thesis-request-page .empty-request-state p,
+        [data-bs-theme="dark"] .thesis-request-page .table-author,
+        [data-bs-theme="dark"] .thesis-request-page .table-date,
+        [data-bs-theme="dark"] .thesis-request-page .request-table thead th {
 
             color: #999fb9;
-
         }
 
-
-        /* DARK HEADER */
 
         [data-bs-theme="dark"] .thesis-request-page .request-card-header,
         [data-bs-theme="dark"] .thesis-request-page .request-card-footer {
@@ -1925,73 +2327,90 @@
             background: #181d33;
 
             border-color: #292e45;
-
         }
 
-
-        /* DARK BODY */
 
         [data-bs-theme="dark"] .thesis-request-page .request-card-body {
 
             background: #20253a;
 
             border-color: #292e45;
-
         }
 
 
-        /* DARK PERMISSION INFORMATION */
+        [data-bs-theme="dark"] .thesis-request-page .request-table {
+
+            background: #181d33;
+
+            color: #f4f4fa;
+        }
+
+
+        [data-bs-theme="dark"] .thesis-request-page .request-table thead th {
+
+            background: #20253a;
+
+            border-color: #292e45;
+        }
+
+
+        [data-bs-theme="dark"] .thesis-request-page .request-table tbody td {
+
+            border-color: #292e45;
+        }
+
+
+        [data-bs-theme="dark"] .thesis-request-page .request-table tbody tr:hover {
+
+            background: #20253a;
+        }
+
+
+        [data-bs-theme="dark"] .thesis-request-page .table-number-badge {
+
+            background: #25203f;
+
+            color: #a58be9;
+        }
+
 
         [data-bs-theme="dark"] .thesis-request-page .permission-information {
 
             background: #20253a;
 
             border-color: #343a52;
-
         }
 
-
-        /* DARK INFORMATION ITEMS */
 
         [data-bs-theme="dark"] .thesis-request-page .information-item {
 
             background: #181d33;
 
             border-color: #343a52;
-
         }
 
 
         [data-bs-theme="dark"] .thesis-request-page .information-item:hover {
 
             border-color: #4d3a8e;
-
         }
 
-
-        /* DARK EMPTY ICON */
 
         [data-bs-theme="dark"] .thesis-request-page .empty-request-icon {
 
             background: #25203f;
 
             color: #8c6ce8;
-
         }
 
-
-        /* DARK PERMISSION ICON */
 
         [data-bs-theme="dark"] .thesis-request-page .permission-icon {
 
             background: #3a2d19;
 
             color: #f0a23a;
-
         }
 
-
-        /* DARK PENDING */
 
         [data-bs-theme="dark"] .thesis-request-page .status-pending {
 
@@ -2000,11 +2419,8 @@
             border-color: #453775;
 
             color: #a58be9;
-
         }
 
-
-        /* DARK APPROVED */
 
         [data-bs-theme="dark"] .thesis-request-page .status-approved {
 
@@ -2013,11 +2429,8 @@
             border-color: #285b43;
 
             color: #61c990;
-
         }
 
-
-        /* DARK REJECTED */
 
         [data-bs-theme="dark"] .thesis-request-page .status-rejected {
 
@@ -2026,11 +2439,8 @@
             border-color: #65343a;
 
             color: #f08080;
-
         }
 
-
-        /* DARK REJECTION */
 
         [data-bs-theme="dark"] .thesis-request-page .rejection-notice {
 
@@ -2039,14 +2449,12 @@
             border-color: #65343a;
 
             color: #f08080;
-
         }
 
 
         [data-bs-theme="dark"] .thesis-request-page .rejection-icon {
 
             color: #f08080;
-
         }
 
 
@@ -2054,13 +2462,25 @@
         [data-bs-theme="dark"] .thesis-request-page .rejection-notice p {
 
             color: #f08080;
+        }
+
+
+        /* =========================================================
+       DESKTOP TABLE BUTTONS
+    ========================================================= */
+
+        @media (min-width: 993px) {
+
+            .thesis-request-page .request-table-wrapper {
+                display: none;
+            }
 
         }
 
 
         /* =========================================================
-           LARGE DESKTOP
-        ========================================================= */
+       LARGE DESKTOP
+    ========================================================= */
 
         @media (min-width: 1400px) {
 
@@ -2070,22 +2490,20 @@
                     repeat(2, minmax(0, 1fr));
 
                 gap: 20px;
-
             }
 
         }
 
 
         /* =========================================================
-           TABLET
-        ========================================================= */
+       TABLET
+    ========================================================= */
 
         @media (max-width: 992px) {
 
             .thesis-request-page .information-grid {
 
                 grid-template-columns: 1fr;
-
             }
 
 
@@ -2095,14 +2513,12 @@
                     repeat(2, minmax(0, 1fr));
 
                 gap: 15px;
-
             }
 
 
             .thesis-request-page .request-card-header {
 
                 min-height: 90px;
-
             }
 
 
@@ -2110,43 +2526,38 @@
 
                 grid-template-columns:
                     1fr 1fr;
-
             }
 
 
             .thesis-request-page .request-info:last-child {
 
                 grid-column: 1 / -1;
-
             }
 
         }
 
 
         /* =========================================================
-           MOBILE TABLET
-        ========================================================= */
+       MOBILE TABLET
+    ========================================================= */
 
         @media (max-width: 768px) {
 
             .thesis-request-page .page-title {
 
                 font-size: 1.45rem;
-
             }
 
 
             .thesis-request-page .page-subtitle {
 
                 font-size: 0.84rem;
-
             }
 
 
             .thesis-request-page .permission-card-body {
 
                 padding: 28px 22px;
-
             }
 
 
@@ -2155,7 +2566,6 @@
                 grid-template-columns: 1fr;
 
                 gap: 14px;
-
             }
 
 
@@ -2163,22 +2573,47 @@
 
                 grid-template-columns:
                     repeat(3, minmax(0, 1fr));
-
             }
 
 
             .thesis-request-page .request-info:last-child {
 
                 grid-column: auto;
-
             }
 
         }
 
 
         /* =========================================================
-           MOBILE
-        ========================================================= */
+       MOBILE
+       
+       IMPORTANT:
+       Mobile shows CARD ONLY.
+       Table and view buttons are hidden.
+    ========================================================= */
+
+        @media (max-width: 767px) {
+
+            .thesis-request-page .view-switch {
+                display: none !important;
+            }
+
+
+            .thesis-request-page .request-table-wrapper {
+                display: none !important;
+            }
+
+
+            .thesis-request-page .request-list {
+                display: grid !important;
+            }
+
+        }
+
+
+        /* =========================================================
+       MOBILE
+    ========================================================= */
 
         @media (max-width: 576px) {
 
@@ -2187,7 +2622,6 @@
                 padding-left: 12px !important;
 
                 padding-right: 12px !important;
-
             }
 
 
@@ -2198,21 +2632,24 @@
                 gap: 12px;
 
                 margin-bottom: 18px !important;
+            }
 
+
+            .thesis-request-page .page-header-actions {
+
+                gap: 7px;
             }
 
 
             .thesis-request-page .page-title {
 
                 font-size: 1.22rem;
-
             }
 
 
             .thesis-request-page .page-title i {
 
                 margin-right: 4px !important;
-
             }
 
 
@@ -2221,7 +2658,6 @@
                 margin-top: 4px;
 
                 font-size: 0.77rem;
-
             }
 
 
@@ -2234,32 +2670,26 @@
                 border-radius: 8px;
 
                 font-size: 0.74rem;
-
             }
 
 
             .thesis-request-page .create-request-btn i {
 
                 font-size: 0.83rem;
-
             }
 
 
-            /* =====================================================
-               PERMISSION
-            ===================================================== */
+            /* PERMISSION */
 
             .thesis-request-page .permission-card {
 
                 border-radius: 12px;
-
             }
 
 
             .thesis-request-page .permission-card-body {
 
                 padding: 22px 15px;
-
             }
 
 
@@ -2271,28 +2701,24 @@
                 margin-bottom: 15px;
 
                 font-size: 1.4rem;
-
             }
 
 
             .thesis-request-page .permission-header h3 {
 
                 font-size: 1.05rem;
-
             }
 
 
             .thesis-request-page .permission-header p {
 
                 font-size: 0.79rem;
-
             }
 
 
             .thesis-request-page .permission-divider {
 
                 margin: 22px 0;
-
             }
 
 
@@ -2300,7 +2726,6 @@
             .thesis-request-page .permission-information h4 {
 
                 font-size: 0.94rem;
-
             }
 
 
@@ -2310,21 +2735,18 @@
                 font-size: 0.79rem;
 
                 line-height: 1.65;
-
             }
 
 
             .thesis-request-page .permission-information {
 
                 padding: 15px;
-
             }
 
 
             .thesis-request-page .information-item {
 
                 padding: 12px;
-
             }
 
 
@@ -2334,25 +2756,20 @@
 
                 width: 34px;
                 height: 34px;
-
             }
 
 
             .thesis-request-page .rejection-notice {
 
                 padding: 13px;
-
             }
 
 
-            /* =====================================================
-               REQUEST CARD
-            ===================================================== */
+            /* REQUEST CARD */
 
             .thesis-request-page .request-card {
 
                 border-radius: 11px;
-
             }
 
 
@@ -2363,7 +2780,6 @@
                 padding: 14px;
 
                 gap: 9px;
-
             }
 
 
@@ -2377,21 +2793,18 @@
                 border-radius: 8px;
 
                 font-size: 0.72rem;
-
             }
 
 
             .thesis-request-page .request-title {
 
                 font-size: 0.87rem;
-
             }
 
 
             .thesis-request-page .request-author {
 
                 font-size: 0.7rem;
-
             }
 
 
@@ -2400,7 +2813,6 @@
                 padding: 5px 7px;
 
                 font-size: 0.61rem;
-
             }
 
 
@@ -2411,28 +2823,24 @@
                 gap: 10px;
 
                 padding: 13px 14px;
-
             }
 
 
             .thesis-request-page .request-info:last-child {
 
                 grid-column: auto;
-
             }
 
 
             .thesis-request-page .request-info-label {
 
                 font-size: 0.62rem;
-
             }
 
 
             .thesis-request-page .request-info strong {
 
                 font-size: 0.76rem;
-
             }
 
 
@@ -2445,21 +2853,18 @@
                 padding: 12px 14px;
 
                 gap: 9px;
-
             }
 
 
             .thesis-request-page .request-id {
 
                 font-size: 0.67rem;
-
             }
 
 
             .thesis-request-page .request-actions {
 
                 width: 100%;
-
             }
 
 
@@ -2470,13 +2875,10 @@
                 padding: 8px 7px;
 
                 font-size: 0.69rem;
-
             }
 
 
-            /* =====================================================
-               EMPTY
-            ===================================================== */
+            /* EMPTY */
 
             .thesis-request-page .empty-request-state {
 
@@ -2485,7 +2887,6 @@
                 padding: 30px 15px;
 
                 border-radius: 12px;
-
             }
 
 
@@ -2495,15 +2896,14 @@
                 height: 60px;
 
                 font-size: 1.45rem;
-
             }
 
         }
 
 
         /* =========================================================
-           VERY SMALL MOBILE
-        ========================================================= */
+       VERY SMALL MOBILE
+    ========================================================= */
 
         @media (max-width: 380px) {
 
@@ -2512,50 +2912,50 @@
                 flex-direction: column;
 
                 gap: 10px;
+            }
 
+
+            .thesis-request-page .page-header-actions {
+
+                width: 100%;
             }
 
 
             .thesis-request-page .create-request-btn {
 
                 width: 100%;
-
             }
 
 
             .thesis-request-page .request-card-header {
 
                 flex-wrap: wrap;
-
             }
 
 
             .thesis-request-page .request-status {
 
                 margin-left: 43px;
-
             }
 
 
             .thesis-request-page .request-actions {
 
                 flex-direction: column;
-
             }
 
 
             .thesis-request-page .action-btn {
 
                 width: 100%;
-
             }
 
         }
 
 
         /* =========================================================
-           REDUCE MOTION
-        ========================================================= */
+       REDUCE MOTION
+    ========================================================= */
 
         @media (prefers-reduced-motion: reduce) {
 
@@ -2564,10 +2964,166 @@
             .thesis-request-page *::after {
 
                 transition: none !important;
-
             }
 
         }
     </style>
+
+
+    {{-- =============================================================
+     CARD / TABLE VIEW JAVASCRIPT
+============================================================= --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const cardView = document.getElementById('cardView');
+            const tableView = document.getElementById('tableView');
+
+            const cardViewBtn = document.getElementById('cardViewBtn');
+            const tableViewBtn = document.getElementById('tableViewBtn');
+
+            if (!cardView || !tableView || !cardViewBtn || !tableViewBtn) {
+                return;
+            }
+
+
+            /*
+             * =========================================================
+             * VIEW CHANGE FUNCTION
+             * =========================================================
+             */
+            function setRequestView(view, savePreference = true) {
+
+                /*
+                 * MOBILE:
+                 * Always force CARD view.
+                 */
+                if (window.innerWidth <= 767) {
+
+                    view = 'card';
+                }
+
+
+                if (view === 'table') {
+
+                    cardView.style.display = 'none';
+
+                    tableView.style.display = 'block';
+
+                    cardViewBtn.classList.remove('active');
+
+                    tableViewBtn.classList.add('active');
+
+                } else {
+
+                    cardView.style.display = 'grid';
+
+                    tableView.style.display = 'none';
+
+                    cardViewBtn.classList.add('active');
+
+                    tableViewBtn.classList.remove('active');
+                }
+
+
+                /*
+                 * Save selected view.
+                 */
+                if (savePreference && window.innerWidth > 767) {
+
+                    localStorage.setItem(
+                        'thesisRequestView',
+                        view
+                    );
+                }
+
+            }
+
+
+            /*
+             * =========================================================
+             * CARD BUTTON
+             * =========================================================
+             */
+            cardViewBtn.addEventListener('click', function() {
+
+                setRequestView('card');
+
+            });
+
+
+            /*
+             * =========================================================
+             * TABLE BUTTON
+             * =========================================================
+             */
+            tableViewBtn.addEventListener('click', function() {
+
+                setRequestView('table');
+
+            });
+
+
+            /*
+             * =========================================================
+             * LOAD SAVED VIEW
+             * =========================================================
+             */
+            const savedView =
+                localStorage.getItem('thesisRequestView') || 'card';
+
+
+            if (window.innerWidth <= 767) {
+
+                setRequestView('card', false);
+
+            } else {
+
+                setRequestView(savedView, false);
+
+            }
+
+
+            /*
+             * =========================================================
+             * RESPONSIVE RESIZE
+             * =========================================================
+             */
+            let lastMobileState =
+                window.innerWidth <= 767;
+
+
+            window.addEventListener('resize', function() {
+
+                const isMobile =
+                    window.innerWidth <= 767;
+
+
+                /*
+                 * Only react when crossing the mobile breakpoint.
+                 */
+                if (isMobile !== lastMobileState) {
+
+                    if (isMobile) {
+
+                        setRequestView('card', false);
+
+                    } else {
+
+                        const saved =
+                            localStorage.getItem('thesisRequestView') || 'card';
+
+                        setRequestView(saved, false);
+
+                    }
+
+
+                    lastMobileState = isMobile;
+                }
+
+            });
+
+        });
+    </script>
 
 </x-app-layout>
