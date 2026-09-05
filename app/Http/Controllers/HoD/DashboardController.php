@@ -13,33 +13,85 @@ class DashboardController extends Controller
 {
     public function index()
     {
+
         $user = Auth::user();
 
         $hod = $user->hod;
 
         if (!$hod) {
-            abort(403);
+            abort(403, 'HoD profile not found.');
         }
 
+        // HoD department
         $departmentId = $hod->department_id;
+
+        if (!$departmentId) {
+            abort(403, 'HoD department is not assigned.');
+        }
 
         $department = Department::find($departmentId);
 
-        $studentsCount = Student::where('department_id', $departmentId)->count();
+        if (!$department) {
+            abort(403, 'Department not found.');
+        }
 
-        $thesesCount = Thesis::where('department_id', $departmentId)->count();
+        $studentsCount = Student::where(
+            'department_id',
+            $departmentId
+        )->count();
 
-        $pendingRequestsCount = ThesisRequest::where('department_id', $departmentId)
+
+        $thesesCount = Thesis::where(
+            'department_id',
+            $departmentId
+        )->count();
+
+
+        $pendingRequestsCount = ThesisRequest::where(
+            'department_id',
+            $departmentId
+        )
             ->whereNull('is_approved')
             ->count();
 
-        $recentStudents = Student::where('department_id', $departmentId)
+
+        $approvedThesisCount = ThesisRequest::where(
+            'department_id',
+            $departmentId
+        )
+            ->where('is_approved', 1)
+            ->count();
+
+
+        $rejectedRequestsCount = ThesisRequest::where(
+            'department_id',
+            $departmentId
+        )
+            ->where('is_approved', 0)
+            ->count();
+
+
+        $publishedThesisCount = Thesis::where(
+            'department_id',
+            $departmentId
+        )
+            ->where('is_approved', 1)
+            ->count();
+
+        $recentStudents = Student::where(
+            'department_id',
+            $departmentId
+        )
             ->with('user')
             ->latest()
             ->take(5)
             ->get();
 
-        $recentThesisRequests = ThesisRequest::where('department_id', $departmentId)
+
+        $recentRequests = ThesisRequest::where(
+            'department_id',
+            $departmentId
+        )
             ->with([
                 'user',
                 'thesis'
@@ -48,7 +100,11 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        $recentTheses = Thesis::where('department_id', $departmentId)
+
+        $recentTheses = Thesis::where(
+            'department_id',
+            $departmentId
+        )
             ->latest()
             ->take(5)
             ->get();
@@ -58,8 +114,11 @@ class DashboardController extends Controller
             'studentsCount',
             'thesesCount',
             'pendingRequestsCount',
+            'approvedThesisCount',
+            'rejectedRequestsCount',
+            'publishedThesisCount',
             'recentStudents',
-            'recentThesisRequests',
+            'recentRequests',
             'recentTheses'
         ));
     }

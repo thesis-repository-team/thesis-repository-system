@@ -913,6 +913,7 @@
 
         /* =========================================================
            DARK MODE
+           SAME PALETTE AS ADMIN DASHBOARD
         ========================================================== */
 
         [data-bs-theme="dark"] {
@@ -920,16 +921,16 @@
             --student-black: #000000;
             --student-white: #ffffff;
 
-            --student-page-bg: #000000;
-            --student-card-bg: #000000;
-            --student-input-bg: #0d0d0d;
+            --student-page-bg: #101426;
+            --student-card-bg: #181d33;
+            --student-input-bg: #20253a;
 
-            --student-text: #ffffff;
-            --student-text-secondary: #dddddd;
-            --student-text-muted: #999999;
+            --student-text: #eeeef8;
+            --student-text-secondary: #d5d8e8;
+            --student-text-muted: #999fb9;
 
             --student-border: #ffffff;
-            --student-border-soft: #333333;
+            --student-border-soft: #292e45;
 
             --student-primary: #ffffff;
 
@@ -937,7 +938,33 @@
                 0 4px 18px rgba(0, 0, 0, .35);
 
             --student-card-shadow:
-                0 2px 10px rgba(0, 0, 0, .35);
+                0 2px 10px rgba(0, 0, 0, .30);
+
+        }
+
+
+        /* =========================================================
+           DARK MODE - BODY
+        ========================================================== */
+
+        [data-bs-theme="dark"] body {
+
+            background: #101426;
+
+            color: #eeeef8;
+
+        }
+
+
+        /* =========================================================
+           DARK MODE - PAGE
+        ========================================================== */
+
+        [data-bs-theme="dark"] .student-page {
+
+            background: #101426;
+
+            color: #eeeef8;
 
         }
 
@@ -978,6 +1005,18 @@
                 var(--student-page-bg);
 
             box-sizing: border-box;
+
+        }
+
+
+        /* DARK HEADER */
+
+        [data-bs-theme="dark"]
+        .student-page-header {
+
+            background: #171b30;
+
+            border-color: #282d43;
 
         }
 
@@ -1036,6 +1075,24 @@
             line-height: 1.2;
 
             letter-spacing: -.035em;
+
+        }
+
+
+        /* DARK TITLE */
+
+        [data-bs-theme="dark"]
+        .student-title {
+
+            color: #ffffff;
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-overline {
+
+            color: #999fb9;
 
         }
 
@@ -1111,20 +1168,31 @@
         }
 
 
+        /* DARK MOBILE SEARCH BUTTON */
+
+        [data-bs-theme="dark"]
+        .student-mobile-search-button {
+
+            color: #ffffff;
+
+            background: #181d33;
+
+            border-color: #292e45;
+
+        }
+
+
         [data-bs-theme="dark"]
         .student-mobile-search-button:hover,
 
         [data-bs-theme="dark"]
         .student-mobile-search-button.is-active {
 
-            color:
-                var(--student-black);
+            color: #000000;
 
-            background:
-                var(--student-white);
+            background: #ffffff;
 
-            border-color:
-                var(--student-white);
+            border-color: #ffffff;
 
         }
 
@@ -1158,6 +1226,21 @@
         }
 
 
+        /* DARK FILTER */
+
+        [data-bs-theme="dark"]
+        .student-filter-card,
+
+        [data-bs-theme="dark"]
+        .student-filter-body {
+
+            background: #181d33;
+
+            border-color: #292e45;
+
+        }
+
+
         /* =========================================================
            FILTER LABEL
         ========================================================== */
@@ -1178,6 +1261,14 @@
             letter-spacing: .05em;
 
             text-transform: uppercase;
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-input-label {
+
+            color: #d5d8e8;
 
         }
 
@@ -1266,11 +1357,40 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .student-search input:focus,
+        /* DARK SEARCH */
 
         [data-bs-theme="dark"]
-        .student-filter-select:focus {
+        .student-search input {
+
+            color: #ffffff;
+
+            background: #20253a;
+
+            border-color: #343a52;
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-search input::placeholder {
+
+            color: #777f9c;
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-search i {
+
+            color: #999fb9;
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-search input:focus {
+
+            border-color: #ffffff;
 
             box-shadow:
                 0 0 0 3px rgba(255, 255, 255, .10);
@@ -1325,12 +1445,37 @@
         }
 
 
+        /* DARK SELECT */
+
+        [data-bs-theme="dark"]
+        .student-filter-select {
+
+            color: #ffffff;
+
+            background: #20253a;
+
+            border-color: #343a52;
+
+        }
+
+
         [data-bs-theme="dark"]
         .student-filter-select option {
 
             color: #ffffff;
 
-            background: #000000;
+            background: #20253a;
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-filter-select:focus {
+
+            border-color: #ffffff;
+
+            box-shadow:
+                0 0 0 3px rgba(255, 255, 255, .10);
 
         }
 
@@ -1402,17 +1547,28 @@
         }
 
 
+        /* DARK RESET */
+
+        [data-bs-theme="dark"]
+        .student-reset-button {
+
+            color: #ffffff;
+
+            background: #20253a;
+
+            border-color: #343a52;
+
+        }
+
+
         [data-bs-theme="dark"]
         .student-reset-button:hover {
 
-            color:
-                var(--student-black);
+            color: #000000;
 
-            background:
-                var(--student-white);
+            background: #ffffff;
 
-            border-color:
-                var(--student-white);
+            border-color: #ffffff;
 
         }
 
@@ -1455,6 +1611,23 @@
                 var(--student-card-shadow);
 
             box-sizing: border-box;
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-success-alert {
+
+            color: #eeeef8;
+
+            background: #181d33;
+
+            border-color: #292e45;
+
+            border-left-color: #ffffff;
+
+            box-shadow:
+                0 2px 10px rgba(0, 0, 0, .30);
 
         }
 
@@ -1520,6 +1693,14 @@
         }
 
 
+        [data-bs-theme="dark"]
+        .student-alert-close {
+
+            color: #ffffff;
+
+        }
+
+
         /* =========================================================
            RESULTS
         ========================================================== */
@@ -1566,6 +1747,155 @@
             opacity: .45;
 
             pointer-events: none;
+
+        }
+
+
+        /* =========================================================
+           DARK STUDENT CARD SUPPORT
+        ========================================================== */
+
+        [data-bs-theme="dark"]
+        .thesis-card-grid > * {
+
+            color: #eeeef8;
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-card,
+
+        [data-bs-theme="dark"]
+        .student-item,
+
+        [data-bs-theme="dark"]
+        .student-list-item,
+
+        [data-bs-theme="dark"]
+        .student-result-card,
+
+        [data-bs-theme="dark"]
+        .admin-student-card,
+
+        [data-bs-theme="dark"]
+        .admin-student-item {
+
+            background: #181d33;
+
+            color: #eeeef8;
+
+            border-color: #292e45;
+
+            box-shadow:
+                0 2px 10px rgba(0, 0, 0, .30);
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-card:hover,
+
+        [data-bs-theme="dark"]
+        .student-item:hover,
+
+        [data-bs-theme="dark"]
+        .student-list-item:hover,
+
+        [data-bs-theme="dark"]
+        .student-result-card:hover,
+
+        [data-bs-theme="dark"]
+        .admin-student-card:hover,
+
+        [data-bs-theme="dark"]
+        .admin-student-item:hover {
+
+            background: #1b2038;
+
+            border-color: #343a52;
+
+            box-shadow:
+                0 4px 18px rgba(0, 0, 0, .35);
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-card h1,
+
+        [data-bs-theme="dark"]
+        .student-card h2,
+
+        [data-bs-theme="dark"]
+        .student-card h3,
+
+        [data-bs-theme="dark"]
+        .student-card h4,
+
+        [data-bs-theme="dark"]
+        .student-card h5,
+
+        [data-bs-theme="dark"]
+        .student-card h6,
+
+        [data-bs-theme="dark"]
+        .student-item h1,
+
+        [data-bs-theme="dark"]
+        .student-item h2,
+
+        [data-bs-theme="dark"]
+        .student-item h3,
+
+        [data-bs-theme="dark"]
+        .student-item h4,
+
+        [data-bs-theme="dark"]
+        .student-item h5,
+
+        [data-bs-theme="dark"]
+        .student-item h6,
+
+        [data-bs-theme="dark"]
+        .student-card-title,
+
+        [data-bs-theme="dark"]
+        .student-name {
+
+            color: #ffffff;
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-card p,
+
+        [data-bs-theme="dark"]
+        .student-card span,
+
+        [data-bs-theme="dark"]
+        .student-item p,
+
+        [data-bs-theme="dark"]
+        .student-item span,
+
+        [data-bs-theme="dark"]
+        .student-email,
+
+        [data-bs-theme="dark"]
+        .student-department,
+
+        [data-bs-theme="dark"]
+        .student-year,
+
+        [data-bs-theme="dark"]
+        .student-info,
+
+        [data-bs-theme="dark"]
+        .student-info span {
+
+            color: #999fb9;
 
         }
 
@@ -1619,6 +1949,21 @@
         }
 
 
+        [data-bs-theme="dark"]
+        .student-loading {
+
+            color: #ffffff;
+
+            background: #181d33;
+
+            border-color: #292e45;
+
+            box-shadow:
+                0 4px 18px rgba(0, 0, 0, .35);
+
+        }
+
+
         .student-spinner {
 
             width: 17px;
@@ -1635,6 +1980,16 @@
 
             animation:
                 studentSpin .7s linear infinite;
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-spinner {
+
+            border-color: #343a52;
+
+            border-top-color: #ffffff;
 
         }
 
@@ -1689,6 +2044,16 @@
 
             transform:
                 translateY(0);
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-mobile-search-panel {
+
+            background: #181d33;
+
+            border-color: #292e45;
 
         }
 
@@ -1763,6 +2128,34 @@
         }
 
 
+        [data-bs-theme="dark"]
+        .student-mobile-search-input input {
+
+            color: #ffffff;
+
+            background: #20253a;
+
+            border-color: #343a52;
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-mobile-search-input input::placeholder {
+
+            color: #777f9c;
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-mobile-search-input i {
+
+            color: #999fb9;
+
+        }
+
+
         .student-mobile-search-input input:focus {
 
             border-color:
@@ -1776,6 +2169,8 @@
 
         [data-bs-theme="dark"]
         .student-mobile-search-input input:focus {
+
+            border-color: #ffffff;
 
             box-shadow:
                 0 0 0 3px rgba(255, 255, 255, .10);
@@ -1837,16 +2232,25 @@
 
 
         [data-bs-theme="dark"]
+        .student-mobile-reset-button {
+
+            color: #ffffff;
+
+            background: #20253a;
+
+            border-color: #343a52;
+
+        }
+
+
+        [data-bs-theme="dark"]
         .student-mobile-reset-button:hover {
 
-            color:
-                var(--student-black);
+            color: #000000;
 
-            background:
-                var(--student-white);
+            background: #ffffff;
 
-            border-color:
-                var(--student-white);
+            border-color: #ffffff;
 
         }
 
@@ -1864,6 +2268,14 @@
 
             color:
                 var(--student-text);
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-empty-state {
+
+            color: #eeeef8;
 
         }
 
@@ -1897,6 +2309,18 @@
         }
 
 
+        [data-bs-theme="dark"]
+        .student-empty-icon {
+
+            color: #ffffff;
+
+            background: #20253a;
+
+            border-color: #292e45;
+
+        }
+
+
         .student-empty-icon i {
 
             font-size: 1.8rem;
@@ -1921,6 +2345,14 @@
         }
 
 
+        [data-bs-theme="dark"]
+        .student-empty-state h5 {
+
+            color: #ffffff;
+
+        }
+
+
         .student-empty-state p {
 
             margin: 0;
@@ -1929,6 +2361,14 @@
                 var(--student-text-muted);
 
             font-size: .78rem;
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-empty-state p {
+
+            color: #999fb9;
 
         }
 
@@ -1992,6 +2432,22 @@
 
             transform:
                 translateX(-50%) translateY(0);
+
+        }
+
+
+        [data-bs-theme="dark"]
+        .student-mobile-search-button[data-tooltip]::after,
+
+        [data-bs-theme="dark"]
+        .student-mobile-reset-button[data-tooltip]::after,
+
+        [data-bs-theme="dark"]
+        .student-reset-button[data-tooltip]::after {
+
+            color: #000000;
+
+            background: #ffffff;
 
         }
 

@@ -19,12 +19,12 @@ class StudentController extends Controller
             ->orderBy('started_year', 'desc')
             ->pluck('started_year');
         $totalStudent = Student::count();
-        return view('hod.student.index', compact('students', 'departments','started_year', 'totalStudent'));
+        return view('hod.students.index', compact('students', 'departments','started_year', 'totalStudent'));
     }
 
     public function edit(Student $student)
     {
-        return view('hod.student.edit', compact('student'));
+        return view('hod.students.edit', compact('student'));
     }
 
     public function update(Request $request, Student $student)
@@ -33,7 +33,7 @@ class StudentController extends Controller
             'upload_permission' => $request->upload_permission,
         ]);
 
-        return redirect()->route('hod.student.index')->with('success', 'Student updated successfully.');
+        return redirect()->route('hod.students.index')->with('success', 'Student updated successfully.');
     }
 
     // Add a method to handle the search functionality for HoDs
@@ -71,7 +71,7 @@ class StudentController extends Controller
 
         $students = $query->get();
 
-        return view('hod.student.table', compact('students'));
+        return view('hod.students.table', compact('students'));
     }
 
 }

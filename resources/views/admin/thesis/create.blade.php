@@ -5,8 +5,8 @@
         <div class="thesis-create-card">
 
             {{-- =========================================================
-                HEADER
-            ========================================================== --}}
+            HEADER
+        ========================================================== --}}
 
             <div class="thesis-create-header">
 
@@ -30,40 +30,30 @@
 
 
             {{-- =========================================================
-                FORM
-            ========================================================== --}}
+            FORM
+        ========================================================== --}}
 
-            <form
-                action="{{ route('admin.thesis.store') }}"
-                method="POST"
-                enctype="multipart/form-data"
+            <form action="{{ route('admin.thesis.store') }}" method="POST" enctype="multipart/form-data"
                 class="thesis-create-form">
 
                 @csrf
 
 
                 {{-- =====================================================
-                    TITLE
-                ====================================================== --}}
+                TITLE
+            ====================================================== --}}
 
                 <div class="thesis-form-group">
 
-                    <label
-                        for="title"
-                        class="thesis-form-label">
+                    <label for="title" class="thesis-form-label">
 
                         Title
 
                     </label>
 
-                    <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        value="{{ old('title') }}"
+                    <input type="text" id="title" name="title" value="{{ old('title') }}"
                         class="thesis-form-control @error('title') is-invalid @enderror"
-                        placeholder="Enter thesis title"
-                        required>
+                        placeholder="Enter thesis title" required>
 
                     @error('title')
                         <div class="thesis-error">
@@ -75,27 +65,20 @@
 
 
                 {{-- =====================================================
-                    AUTHOR
-                ====================================================== --}}
+                AUTHOR
+            ====================================================== --}}
 
                 <div class="thesis-form-group">
 
-                    <label
-                        for="author_name"
-                        class="thesis-form-label">
+                    <label for="author_name" class="thesis-form-label">
 
                         Author Name
 
                     </label>
 
-                    <input
-                        type="text"
-                        id="author_name"
-                        name="author_name"
-                        value="{{ old('author_name') }}"
+                    <input type="text" id="author_name" name="author_name" value="{{ old('author_name') }}"
                         class="thesis-form-control @error('author_name') is-invalid @enderror"
-                        placeholder="Enter author name"
-                        required>
+                        placeholder="Enter author name" required>
 
                     @error('author_name')
                         <div class="thesis-error">
@@ -107,22 +90,18 @@
 
 
                 {{-- =====================================================
-                    DEPARTMENT
-                ====================================================== --}}
+                DEPARTMENT
+            ====================================================== --}}
 
                 <div class="thesis-form-group">
 
-                    <label
-                        for="department_id"
-                        class="thesis-form-label">
+                    <label for="department_id" class="thesis-form-label">
 
                         Department
 
                     </label>
 
-                    <select
-                        id="department_id"
-                        name="department_id"
+                    <select id="department_id" name="department_id"
                         class="thesis-form-control thesis-form-select @error('department_id') is-invalid @enderror"
                         required>
 
@@ -131,15 +110,12 @@
                         </option>
 
                         @foreach ($departments as $department)
-
-                            <option
-                                value="{{ $department->id }}"
+                            <option value="{{ $department->id }}"
                                 {{ old('department_id') == $department->id ? 'selected' : '' }}>
 
                                 {{ $department->name }}
 
                             </option>
-
                         @endforeach
 
                     </select>
@@ -154,27 +130,20 @@
 
 
                 {{-- =====================================================
-                    FILE
-                ====================================================== --}}
+                FILE
+            ====================================================== --}}
 
                 <div class="thesis-form-group">
 
-                    <label
-                        for="files"
-                        class="thesis-form-label">
+                    <label for="files" class="thesis-form-label">
 
                         Thesis File(s)
 
                     </label>
 
-                    <input
-                        type="file"
-                        id="files"
-                        name="files[]"
+                    <input type="file" id="files" name="files[]"
                         class="thesis-form-control thesis-file-input @error('files') is-invalid @enderror"
-                        accept=".pdf"
-                        multiple
-                        required>
+                        accept=".pdf" multiple required>
 
                     <small class="thesis-file-help">
                         PDF only. You may upload one or more files.
@@ -196,24 +165,19 @@
 
 
                 {{-- =====================================================
-                    ABSTRACT
-                ====================================================== --}}
+                ABSTRACT
+            ====================================================== --}}
 
                 <div class="thesis-form-group thesis-full-width">
 
-                    <label
-                        for="abstract"
-                        class="thesis-form-label">
+                    <label for="abstract" class="thesis-form-label">
 
                         Abstract
 
                     </label>
 
-                    <textarea
-                        id="abstract"
-                        name="abstract"
-                        class="thesis-form-control thesis-textarea @error('abstract') is-invalid @enderror"
-                        rows="5"
+                    <textarea id="abstract" name="abstract"
+                        class="thesis-form-control thesis-textarea @error('abstract') is-invalid @enderror" rows="5"
                         placeholder="Enter thesis abstract">{{ old('abstract') }}</textarea>
 
                     @error('abstract')
@@ -226,24 +190,19 @@
 
 
                 {{-- =====================================================
-                    DESCRIPTION
-                ====================================================== --}}
+                DESCRIPTION
+            ====================================================== --}}
 
                 <div class="thesis-form-group thesis-full-width">
 
-                    <label
-                        for="description"
-                        class="thesis-form-label">
+                    <label for="description" class="thesis-form-label">
 
                         Description
 
                     </label>
 
-                    <textarea
-                        id="description"
-                        name="description"
-                        class="thesis-form-control thesis-textarea @error('description') is-invalid @enderror"
-                        rows="5"
+                    <textarea id="description" name="description"
+                        class="thesis-form-control thesis-textarea @error('description') is-invalid @enderror" rows="5"
                         placeholder="Enter thesis description">{{ old('description') }}</textarea>
 
                     @error('description')
@@ -256,14 +215,12 @@
 
 
                 {{-- =====================================================
-                    ACTIONS
-                ====================================================== --}}
+                ACTIONS
+            ====================================================== --}}
 
                 <div class="thesis-form-actions">
 
-                    <a
-                        href="{{ route('admin.thesis.index') }}"
-                        class="thesis-cancel-button">
+                    <a href="{{ route('admin.thesis.index') }}" class="thesis-cancel-button">
 
                         <i class="bi bi-x-lg"></i>
 
@@ -271,9 +228,7 @@
 
                     </a>
 
-                    <button
-                        type="submit"
-                        class="thesis-save-button">
+                    <button type="submit" class="thesis-save-button">
 
                         <i class="bi bi-check-lg"></i>
 
@@ -291,10 +246,9 @@
 
 
     <style>
-
         /* =========================================================
-           VARIABLES
-        ========================================================== */
+       VARIABLES
+    ========================================================== */
 
         :root {
 
@@ -327,33 +281,38 @@
 
 
         /* =========================================================
-           DARK MODE
-        ========================================================== */
+       DARK MODE
+    ========================================================== */
 
         [data-bs-theme="dark"] {
 
-            --thesis-page-bg: #000000;
-            --thesis-card-bg: #000000;
-            --thesis-input-bg: #0d0d0d;
+            --thesis-page-bg: #101426;
+
+            --thesis-card-bg: #181d33;
+
+            --thesis-input-bg: #20253a;
 
             --thesis-text: #ffffff;
-            --thesis-text-secondary: #ffffff;
-            --thesis-text-muted: #ffffff;
 
-            --thesis-border: #333333;
-            --thesis-border-soft: #333333;
+            --thesis-text-secondary: #eeeef8;
 
-            --thesis-placeholder: #777777;
+            --thesis-text-muted: #999fb9;
+
+            --thesis-border: #343a52;
+
+            --thesis-border-soft: #292e45;
+
+            --thesis-placeholder: #777f9c;
 
             --thesis-shadow:
-                0 4px 18px rgba(255, 255, 255, .04);
+                0 4px 18px rgba(0, 0, 0, .30);
 
         }
 
 
         /* =========================================================
-           PAGE
-        ========================================================== */
+       PAGE
+    ========================================================== */
 
         .thesis-create-wrapper {
 
@@ -372,6 +331,8 @@
 
             color: var(--thesis-text);
 
+            background: var(--thesis-page-bg);
+
             transition:
                 background-color .25s ease,
                 color .25s ease;
@@ -380,20 +341,23 @@
 
 
         /* =========================================================
-           CARD
-        ========================================================== */
+       CARD
+    ========================================================== */
 
         .thesis-create-card {
 
             width: 100%;
+
             max-width: none;
 
             margin: 0;
 
             background: var(--thesis-card-bg);
+
             color: var(--thesis-text);
 
-            border: 1px solid var(--thesis-border-soft);
+            border:
+                1px solid var(--thesis-border-soft);
 
             border-radius: 12px;
 
@@ -413,14 +377,15 @@
 
 
         /* =========================================================
-           HEADER
-        ========================================================== */
+       HEADER
+    ========================================================== */
 
         .thesis-create-header {
 
             display: flex;
 
             align-items: flex-start;
+
             justify-content: space-between;
 
             width: 100%;
@@ -428,6 +393,9 @@
             padding: 1.4rem 1.5rem;
 
             background: var(--thesis-card-bg);
+
+            border-bottom:
+                1px solid var(--thesis-border-soft);
 
             box-sizing: border-box;
 
@@ -472,7 +440,7 @@
 
             margin: .35rem 0 0;
 
-            color: var(--thesis-text-secondary);
+            color: var(--thesis-text-muted);
 
             font-size: .78rem;
 
@@ -482,8 +450,8 @@
 
 
         /* =========================================================
-           FORM
-        ========================================================== */
+       FORM
+    ========================================================== */
 
         .thesis-create-form {
 
@@ -524,8 +492,8 @@
 
 
         /* =========================================================
-           LABEL
-        ========================================================== */
+       LABEL
+    ========================================================== */
 
         .thesis-form-label {
 
@@ -547,8 +515,8 @@
 
 
         /* =========================================================
-           INPUT / SELECT / TEXTAREA
-        ========================================================== */
+       INPUT / SELECT / TEXTAREA
+    ========================================================== */
 
         .thesis-form-control {
 
@@ -568,7 +536,8 @@
 
             background: var(--thesis-input-bg);
 
-            border: 1px solid var(--thesis-border-soft);
+            border:
+                1px solid var(--thesis-border-soft);
 
             border-radius: 8px;
 
@@ -620,52 +589,8 @@
 
 
         /* =========================================================
-           DARK INPUT
-        ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-form-control {
-
-            color: #ffffff;
-
-            background: #0d0d0d;
-
-            border-color: #333333;
-
-        }
-
-
-        [data-bs-theme="dark"] .thesis-form-control:hover {
-
-            border-color: #555555;
-
-        }
-
-
-        [data-bs-theme="dark"] .thesis-form-control:focus {
-
-            color: #ffffff;
-
-            background: #0d0d0d;
-
-            border-color: var(--thesis-blue);
-
-            box-shadow:
-                0 0 0 3px rgba(37, 99, 235, .18);
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .thesis-form-control::placeholder {
-
-            color: #777777;
-
-        }
-
-
-        /* =========================================================
-           INVALID
-        ========================================================== */
+       INVALID
+    ========================================================== */
 
         .thesis-form-control.is-invalid {
 
@@ -677,8 +602,8 @@
 
 
         /* =========================================================
-           SELECT
-        ========================================================== */
+       SELECT
+    ========================================================== */
 
         .thesis-form-select {
 
@@ -696,19 +621,18 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .thesis-form-select option {
+        [data-bs-theme="dark"] .thesis-form-select option {
 
             color: #ffffff;
 
-            background: #000000;
+            background: #181d33;
 
         }
 
 
         /* =========================================================
-           TEXTAREA
-        ========================================================== */
+       TEXTAREA
+    ========================================================== */
 
         .thesis-textarea {
 
@@ -724,8 +648,8 @@
 
 
         /* =========================================================
-           FILE INPUT
-        ========================================================== */
+       FILE INPUT
+    ========================================================== */
 
         .thesis-file-input {
 
@@ -770,8 +694,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .thesis-file-input::file-selector-button {
+        [data-bs-theme="dark"] .thesis-file-input::file-selector-button {
 
             color: #000000;
 
@@ -780,8 +703,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .thesis-file-input::file-selector-button:hover {
+        [data-bs-theme="dark"] .thesis-file-input::file-selector-button:hover {
 
             background: #dddddd;
 
@@ -794,7 +716,7 @@
 
             margin-top: .4rem;
 
-            color: var(--thesis-text-secondary);
+            color: var(--thesis-text-muted);
 
             font-size: .68rem;
 
@@ -802,8 +724,8 @@
 
 
         /* =========================================================
-           ERROR
-        ========================================================== */
+       ERROR
+    ========================================================== */
 
         .thesis-error {
 
@@ -821,8 +743,8 @@
 
 
         /* =========================================================
-           ACTIONS
-        ========================================================== */
+       ACTIONS
+    ========================================================== */
 
         .thesis-form-actions {
 
@@ -840,14 +762,17 @@
 
             padding-top: 1rem;
 
+            border-top:
+                1px solid var(--thesis-border-soft);
+
             box-sizing: border-box;
 
         }
 
 
         /* =========================================================
-           BUTTONS
-        ========================================================== */
+       BUTTONS
+    ========================================================== */
 
         .thesis-cancel-button,
         .thesis-save-button {
@@ -888,8 +813,8 @@
 
 
         /* =========================================================
-           CANCEL BUTTON
-        ========================================================== */
+       CANCEL BUTTON
+    ========================================================== */
 
         .thesis-cancel-button {
 
@@ -897,7 +822,8 @@
 
             background: var(--thesis-red);
 
-            border: 1px solid var(--thesis-red);
+            border:
+                1px solid var(--thesis-red);
 
         }
 
@@ -910,14 +836,15 @@
 
             border-color: var(--thesis-red-hover);
 
-            transform: translateY(-1px);
+            transform:
+                translateY(-1px);
 
         }
 
 
         /* =========================================================
-           SAVE BUTTON
-        ========================================================== */
+       SAVE BUTTON
+    ========================================================== */
 
         .thesis-save-button {
 
@@ -925,7 +852,8 @@
 
             background: var(--thesis-blue);
 
-            border: 1px solid var(--thesis-blue);
+            border:
+                1px solid var(--thesis-blue);
 
         }
 
@@ -938,7 +866,8 @@
 
             border-color: var(--thesis-blue-hover);
 
-            transform: translateY(-1px);
+            transform:
+                translateY(-1px);
 
         }
 
@@ -954,8 +883,8 @@
 
 
         /* =========================================================
-           TABLET
-        ========================================================== */
+       TABLET
+    ========================================================== */
 
         @media (max-width: 1000px) {
 
@@ -975,8 +904,8 @@
 
 
         /* =========================================================
-           MOBILE
-        ========================================================== */
+       MOBILE
+    ========================================================== */
 
         @media (max-width: 767.98px) {
 
@@ -1071,8 +1000,8 @@
 
 
         /* =========================================================
-           SMALL MOBILE
-        ========================================================== */
+       SMALL MOBILE
+    ========================================================== */
 
         @media (max-width: 575.98px) {
 
@@ -1134,8 +1063,8 @@
 
 
         /* =========================================================
-           REDUCED MOTION
-        ========================================================== */
+       REDUCED MOTION
+    ========================================================== */
 
         @media (prefers-reduced-motion: reduce) {
 
@@ -1150,7 +1079,7 @@
             }
 
         }
-
     </style>
+
 
 </x-app-layout>

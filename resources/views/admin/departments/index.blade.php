@@ -1,11 +1,10 @@
 <x-app-layout>
 
-
     <div class="dashboard-content">
 
         {{-- =========================================================
         PAGE HEADER
-    ========================================================== --}}
+        ========================================================== --}}
 
         <div class="departments-header">
 
@@ -24,7 +23,11 @@
 
             {{-- ADD DEPARTMENT --}}
 
-            <button type="button" class="departments-add-btn" onclick="openCreateModal()">
+            <button
+                type="button"
+                class="departments-add-btn"
+                onclick="openCreateModal()"
+            >
                 <i class="bi bi-plus-lg"></i>
 
                 <span>
@@ -37,9 +40,10 @@
 
         {{-- =========================================================
         SUCCESS ALERT
-    ========================================================== --}}
+        ========================================================== --}}
 
         @if (session('success'))
+
             <div class="department-alert" role="alert">
 
                 <div class="department-alert-content">
@@ -53,33 +57,42 @@
                 </div>
 
 
-                <button type="button" class="department-alert-close" onclick="this.parentElement.remove()"
-                    aria-label="Close alert">
+                <button
+                    type="button"
+                    class="department-alert-close"
+                    onclick="this.parentElement.remove()"
+                    aria-label="Close alert"
+                >
                     <i class="bi bi-x-lg"></i>
                 </button>
 
             </div>
+
         @endif
 
 
         {{-- =========================================================
         DEPARTMENT LIST
-    ========================================================== --}}
+        ========================================================== --}}
 
         @if ($departments->count() > 0)
 
             <div class="departments-grid">
 
                 @foreach ($departments as $department)
+
                     <div class="department-card">
 
                         {{-- =================================================
                         DEPARTMENT INFORMATION
-                    ================================================== --}}
+                        ================================================== --}}
 
                         <div class="department-information">
 
-                            <h3 class="department-name" title="{{ $department->name }}">
+                            <h3
+                                class="department-name"
+                                title="{{ $department->name }}"
+                            >
                                 {{ $department->name }}
                             </h3>
 
@@ -93,14 +106,16 @@
 
                         {{-- =================================================
                         ACTIONS
-                    ================================================== --}}
+                        ================================================== --}}
 
                         <div class="department-actions">
 
                             {{-- VIEW THESIS --}}
 
-                            <a href="{{ route('admin.departments.thesis', ['department' => $department->id]) }}"
-                                class="department-view-btn">
+                            <a
+                                href="{{ route('admin.departments.thesis', ['department' => $department->id]) }}"
+                                class="department-view-btn"
+                            >
                                 <i class="bi bi-journal-text"></i>
 
                                 <span>
@@ -111,11 +126,14 @@
 
                             {{-- EDIT --}}
 
-                            <button type="button" class="department-edit-btn"
+                            <button
+                                type="button"
+                                class="department-edit-btn"
                                 onclick="openEditModal(
-                                {{ $department->id }},
-                                @js($department->name)
-                            )">
+                                    {{ $department->id }},
+                                    @js($department->name)
+                                )"
+                            >
                                 <i class="bi bi-pencil"></i>
 
                                 <span>
@@ -126,11 +144,14 @@
 
                             {{-- DELETE --}}
 
-                            <button type="button" class="department-delete-btn"
+                            <button
+                                type="button"
+                                class="department-delete-btn"
                                 onclick="openDeleteModal(
-                                {{ $department->id }},
-                                @js($department->name)
-                            )">
+                                    {{ $department->id }},
+                                    @js($department->name)
+                                )"
+                            >
                                 <i class="bi bi-trash"></i>
 
                                 <span>
@@ -141,13 +162,16 @@
                         </div>
 
                     </div>
+
                 @endforeach
 
             </div>
+
         @else
+
             {{-- =========================================================
             EMPTY STATE
-        ========================================================== --}}
+            ========================================================== --}}
 
             <div class="department-empty-state">
 
@@ -169,7 +193,11 @@
                 </p>
 
 
-                <button type="button" class="departments-add-btn" onclick="openCreateModal()">
+                <button
+                    type="button"
+                    class="departments-add-btn"
+                    onclick="openCreateModal()"
+                >
                     <i class="bi bi-plus-lg"></i>
 
                     <span>
@@ -186,7 +214,7 @@
 
     {{-- =============================================================
     MODALS
-============================================================== --}}
+    ============================================================== --}}
 
     @include('admin.departments.create')
 
@@ -196,14 +224,17 @@
 
 
     <style>
+
         /* =========================================================
-       VARIABLES
-    ========================================================== */
+           VARIABLES
+        ========================================================== */
 
         :root {
 
             --department-black: #000000;
             --department-white: #ffffff;
+
+            /* LIGHT MODE */
 
             --department-page-bg: #ffffff;
             --department-card-bg: #ffffff;
@@ -230,43 +261,66 @@
 
 
         /* =========================================================
-       DARK MODE
-    ========================================================== */
+           DARK MODE
+           SAME STYLE AS DASHBOARD
+        ========================================================== */
 
         [data-bs-theme="dark"] {
 
             --department-black: #000000;
             --department-white: #ffffff;
 
-            --department-page-bg: #000000;
-            --department-card-bg: #000000;
-            --department-input-bg: #0d0d0d;
+            /* PAGE */
 
-            --department-text: #ffffff;
-            --department-text-secondary: #dddddd;
-            --department-text-muted: #999999;
+            --department-page-bg: #101426;
+
+            /* HEADER / CARDS */
+
+            --department-card-bg: #181d33;
+
+            /* INPUT / SOFT AREAS */
+
+            --department-input-bg: #20253a;
+
+            /* TEXT */
+
+            --department-text: #eeeef8;
+            --department-text-secondary: #d5d8e8;
+            --department-text-muted: #999fb9;
+
+            /* BORDERS */
 
             --department-border: #ffffff;
-            --department-border-soft: #333333;
+            --department-border-soft: #292e45;
 
             --department-primary: #ffffff;
+
+            /* COLORS */
+
+            --department-blue: #2563eb;
+            --department-red: #dc2626;
+
+            /* SHADOWS */
 
             --department-shadow:
                 0 4px 18px rgba(0, 0, 0, .35);
 
             --department-card-shadow:
-                0 2px 10px rgba(0, 0, 0, .35);
+                0 2px 10px rgba(0, 0, 0, .30);
         }
 
 
         /* =========================================================
-       MAIN CONTENT
-    ========================================================== */
+           PAGE
+        ========================================================== */
 
         .dashboard-content {
 
             color:
                 var(--department-text);
+
+            /* background:
+                var(--department-page-bg); */
 
             transition:
                 color .25s ease,
@@ -275,8 +329,22 @@
 
 
         /* =========================================================
-       HEADER
-    ========================================================== */
+           BODY DARK MODE
+        ========================================================== */
+
+        [data-bs-theme="dark"] body {
+
+            background:
+                #101426;
+
+            color:
+                #eeeef8;
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================== */
 
         .departments-header {
 
@@ -311,6 +379,18 @@
                 background-color .25s ease,
                 border-color .25s ease,
                 box-shadow .25s ease;
+        }
+
+
+        /* DARK HEADER */
+
+        [data-bs-theme="dark"] .departments-header {
+
+            background:
+                #171b30;
+
+            border-color:
+                #282d43;
         }
 
 
@@ -358,9 +438,18 @@
         }
 
 
+        /* DARK TITLE */
+
+        [data-bs-theme="dark"] .departments-title {
+
+            color:
+                #ffffff;
+        }
+
+
         /* =========================================================
-       ADD BUTTON
-    ========================================================== */
+           ADD BUTTON
+        ========================================================== */
 
         .departments-add-btn {
 
@@ -378,13 +467,16 @@
 
             padding: .55rem 1rem;
 
-            border: 1px solid #000000;
+            border:
+                1px solid #000000;
 
             border-radius: 8px;
 
-            background: #000000;
+            background:
+                #000000;
 
-            color: #ffffff;
+            color:
+                #ffffff;
 
             font-size: .8rem;
 
@@ -412,34 +504,45 @@
             transform:
                 translateY(-1px);
 
-            background: #ffffff;
+            background:
+                #ffffff;
 
-            color: #000000;
+            color:
+                #000000;
 
-            border-color: #000000;
+            border-color:
+                #000000;
 
             box-shadow:
                 0 5px 14px rgba(0, 0, 0, .12);
         }
 
 
+        /* DARK ADD BUTTON */
+
         [data-bs-theme="dark"] .departments-add-btn {
 
-            background: #000000;
+            background:
+                #000000;
 
-            color: #ffffff;
+            color:
+                #ffffff;
 
-            border-color: #ffffff;
+            border-color:
+                #ffffff;
         }
 
 
         [data-bs-theme="dark"] .departments-add-btn:hover {
 
-            background: #ffffff;
+            background:
+                #ffffff;
 
-            color: #000000;
+            color:
+                #000000;
 
-            border-color: #ffffff;
+            border-color:
+                #ffffff;
 
             box-shadow:
                 0 5px 14px rgba(255, 255, 255, .12);
@@ -468,8 +571,8 @@
 
 
         /* =========================================================
-       SUCCESS ALERT
-    ========================================================== */
+           SUCCESS ALERT
+        ========================================================== */
 
         .department-alert {
 
@@ -503,6 +606,21 @@
                 background-color .25s ease,
                 color .25s ease,
                 border-color .25s ease;
+        }
+
+
+        /* DARK ALERT */
+
+        [data-bs-theme="dark"] .department-alert {
+
+            background:
+                #181d33;
+
+            border-color:
+                #292e45;
+
+            color:
+                #eeeef8;
         }
 
 
@@ -547,7 +665,8 @@
 
             border-radius: 5px;
 
-            background: transparent;
+            background:
+                transparent;
 
             color:
                 var(--department-text);
@@ -567,8 +686,8 @@
 
 
         /* =========================================================
-       GRID
-    ========================================================== */
+           GRID
+        ========================================================== */
 
         .departments-grid {
 
@@ -584,8 +703,8 @@
 
 
         /* =========================================================
-       CARD
-    ========================================================== */
+           CARD
+        ========================================================== */
 
         .department-card {
 
@@ -623,6 +742,24 @@
         }
 
 
+        /* DARK CARD */
+
+        [data-bs-theme="dark"] .department-card {
+
+            background:
+                #181d33;
+
+            border-color:
+                #292e45;
+
+            color:
+                #eeeef8;
+
+            box-shadow:
+                0 2px 10px rgba(0, 0, 0, .30);
+        }
+
+
         .department-card:hover {
 
             transform:
@@ -636,9 +773,21 @@
         }
 
 
+        /* DARK CARD HOVER */
+
+        [data-bs-theme="dark"] .department-card:hover {
+
+            border-color:
+                #555c78;
+
+            box-shadow:
+                0 4px 18px rgba(0, 0, 0, .35);
+        }
+
+
         /* =========================================================
-       INFORMATION
-    ========================================================== */
+           INFORMATION
+        ========================================================== */
 
         .department-information {
 
@@ -669,6 +818,13 @@
         }
 
 
+        [data-bs-theme="dark"] .department-name {
+
+            color:
+                #ffffff;
+        }
+
+
         .department-subtitle {
 
             display: block;
@@ -682,9 +838,16 @@
         }
 
 
+        [data-bs-theme="dark"] .department-subtitle {
+
+            color:
+                #999fb9;
+        }
+
+
         /* =========================================================
-       ACTIONS
-    ========================================================== */
+           ACTIONS
+        ========================================================== */
 
         .department-actions {
 
@@ -703,9 +866,16 @@
         }
 
 
+        [data-bs-theme="dark"] .department-actions {
+
+            border-color:
+                #292e45;
+        }
+
+
         /* =========================================================
-       ACTION BUTTONS
-    ========================================================== */
+           ACTION BUTTONS
+        ========================================================== */
 
         .department-view-btn,
         .department-edit-btn,
@@ -747,8 +917,8 @@
 
 
         /* =========================================================
-       VIEW THESIS
-    ========================================================== */
+           VIEW THESIS
+        ========================================================== */
 
         .department-view-btn {
 
@@ -757,6 +927,19 @@
 
             color:
                 var(--department-text);
+        }
+
+
+        [data-bs-theme="dark"] .department-view-btn {
+
+            background:
+                #181d33;
+
+            color:
+                #ffffff;
+
+            border-color:
+                #ffffff;
         }
 
 
@@ -776,9 +959,22 @@
         }
 
 
+        [data-bs-theme="dark"] .department-view-btn:hover {
+
+            background:
+                #ffffff;
+
+            color:
+                #181d33;
+
+            border-color:
+                #ffffff;
+        }
+
+
         /* =========================================================
-       EDIT
-    ========================================================== */
+           EDIT
+        ========================================================== */
 
         .department-edit-btn {
 
@@ -790,6 +986,19 @@
         }
 
 
+        [data-bs-theme="dark"] .department-edit-btn {
+
+            background:
+                transparent;
+
+            color:
+                #5b8def;
+
+            border-color:
+                #5b8def;
+        }
+
+
         .department-edit-btn:hover {
 
             transform:
@@ -798,7 +1007,8 @@
             background:
                 var(--department-blue);
 
-            color: #ffffff;
+            color:
+                #ffffff;
 
             border-color:
                 var(--department-blue);
@@ -806,8 +1016,8 @@
 
 
         /* =========================================================
-       DELETE
-    ========================================================== */
+           DELETE
+        ========================================================== */
 
         .department-delete-btn {
 
@@ -819,6 +1029,19 @@
         }
 
 
+        [data-bs-theme="dark"] .department-delete-btn {
+
+            background:
+                transparent;
+
+            color:
+                #f05252;
+
+            border-color:
+                #f05252;
+        }
+
+
         .department-delete-btn:hover {
 
             transform:
@@ -827,7 +1050,8 @@
             background:
                 var(--department-red);
 
-            color: #ffffff;
+            color:
+                #ffffff;
 
             border-color:
                 var(--department-red);
@@ -835,8 +1059,8 @@
 
 
         /* =========================================================
-       EMPTY STATE
-    ========================================================== */
+           EMPTY STATE
+        ========================================================== */
 
         .department-empty-state {
 
@@ -864,6 +1088,22 @@
 
             box-shadow:
                 var(--department-card-shadow);
+
+            color:
+                var(--department-text);
+        }
+
+
+        [data-bs-theme="dark"] .department-empty-state {
+
+            background:
+                #181d33;
+
+            border-color:
+                #292e45;
+
+            color:
+                #eeeef8;
         }
 
 
@@ -896,6 +1136,19 @@
         }
 
 
+        [data-bs-theme="dark"] .department-empty-icon {
+
+            background:
+                #20253a;
+
+            border-color:
+                #343a52;
+
+            color:
+                #ffffff;
+        }
+
+
         .department-empty-state h2 {
 
             margin:
@@ -907,6 +1160,13 @@
             font-size: 1.05rem;
 
             font-weight: 700;
+        }
+
+
+        [data-bs-theme="dark"] .department-empty-state h2 {
+
+            color:
+                #ffffff;
         }
 
 
@@ -924,9 +1184,16 @@
         }
 
 
+        [data-bs-theme="dark"] .department-empty-state p {
+
+            color:
+                #999fb9;
+        }
+
+
         /* =========================================================
-       MODAL
-    ========================================================== */
+           MODAL BACKDROP
+        ========================================================== */
 
         .modal-backdrop-custom {
 
@@ -959,8 +1226,8 @@
 
 
         /* =========================================================
-       RESPONSIVE
-    ========================================================== */
+           RESPONSIVE
+        ========================================================== */
 
         @media (max-width: 1200px) {
 
@@ -1013,7 +1280,8 @@
 
             .departments-grid {
 
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
             }
 
 
@@ -1076,15 +1344,18 @@
             }
 
         }
+
     </style>
 
 
     <script>
+
         /* =========================================================
            MODAL HELPER
         ========================================================== */
 
         function toggleModal(modalId, show) {
+
             const modal =
                 document.getElementById(modalId);
 
@@ -1112,6 +1383,7 @@
         ========================================================== */
 
         function openCreateModal() {
+
             toggleModal(
                 'createModal',
                 true
@@ -1136,6 +1408,7 @@
 
 
         function closeCreateModal() {
+
             toggleModal(
                 'createModal',
                 false
@@ -1148,6 +1421,7 @@
         ========================================================== */
 
         function openEditModal(id, name) {
+
             toggleModal(
                 'editModal',
                 true
@@ -1189,6 +1463,7 @@
 
 
         function closeEditModal() {
+
             toggleModal(
                 'editModal',
                 false
@@ -1201,6 +1476,7 @@
         ========================================================== */
 
         function openDeleteModal(id, name) {
+
             toggleModal(
                 'deleteModal',
                 true
@@ -1235,6 +1511,7 @@
 
 
         function closeDeleteModal() {
+
             toggleModal(
                 'deleteModal',
                 false
@@ -1342,6 +1619,7 @@
 
             }
         );
+
     </script>
 
 </x-app-layout>

@@ -1,3 +1,4 @@
+```blade
 <x-app-layout>
 
     <div class="hod-create-wrapper">
@@ -291,38 +292,29 @@
 
         :root {
 
-            /* BLUE */
             --hod-blue: #2563eb;
             --hod-blue-hover: #1d4ed8;
 
-            /* RED */
             --hod-red: #dc2626;
             --hod-red-hover: #b91c1c;
 
-            /* BASIC */
             --hod-black: #000000;
             --hod-white: #ffffff;
 
-            /* PAGE */
             --hod-page-bg: #ffffff;
             --hod-card-bg: #ffffff;
 
-            /* INPUT */
             --hod-input-bg: #fafafa;
 
-            /* TEXT */
             --hod-text: #000000;
             --hod-text-secondary: #000000;
             --hod-text-muted: #000000;
 
-            /* BORDER */
             --hod-border: #dddddd;
             --hod-border-soft: #eeeeee;
 
-            /* PLACEHOLDER */
             --hod-placeholder: #999999;
 
-            /* SHADOW */
             --hod-shadow:
                 0 4px 18px rgba(0, 0, 0, .06);
         }
@@ -330,38 +322,46 @@
 
         /* =========================================================
            DARK MODE VARIABLES
-
-           BACKGROUND = BLACK
-           TEXT = WHITE
+           
+           SAME DASHBOARD / DEPARTMENT CARD DESIGN
         ========================================================== */
 
         [data-bs-theme="dark"] {
 
-            --hod-black: #000000;
+            --hod-black: #111111;
             --hod-white: #ffffff;
 
             /* PAGE */
-            --hod-page-bg: #000000;
-            --hod-card-bg: #000000;
+
+            --hod-page-bg: #101426;
+
+            /* CARD */
+
+            --hod-card-bg: #181d33;
 
             /* INPUT */
-            --hod-input-bg: #0d0d0d;
 
-            /* TEXT = WHITE */
+            --hod-input-bg: #20253a;
+
+            /* TEXT */
+
             --hod-text: #ffffff;
-            --hod-text-secondary: #ffffff;
-            --hod-text-muted: #ffffff;
+            --hod-text-secondary: #eeeef8;
+            --hod-text-muted: #999fb9;
 
             /* BORDER */
-            --hod-border: #333333;
-            --hod-border-soft: #333333;
+
+            --hod-border: #343a52;
+            --hod-border-soft: #292e45;
 
             /* PLACEHOLDER */
-            --hod-placeholder: #777777;
+
+            --hod-placeholder: #777f9c;
 
             /* SHADOW */
+
             --hod-shadow:
-                0 4px 18px rgba(255, 255, 255, .04);
+                0 4px 18px rgba(0, 0, 0, .30);
         }
 
 
@@ -386,7 +386,7 @@
 
             color: var(--hod-text);
 
-            /* background: var(--hod-page-bg); */
+            background: var(--hod-page-bg);
 
             transition:
                 background-color .25s ease,
@@ -448,14 +448,14 @@
             background: var(--hod-card-bg);
 
             box-sizing: border-box;
+
+            border-bottom:
+                1px solid var(--hod-border-soft);
         }
 
 
         /* =========================================================
            OVERLINE
-
-           LIGHT = BLACK
-           DARK = WHITE
         ========================================================== */
 
         .hod-create-overline {
@@ -478,9 +478,6 @@
 
         /* =========================================================
            TITLE
-
-           LIGHT = BLACK
-           DARK = WHITE
         ========================================================== */
 
         .hod-create-title {
@@ -499,16 +496,13 @@
 
         /* =========================================================
            DESCRIPTION
-
-           LIGHT = BLACK
-           DARK = WHITE
         ========================================================== */
 
         .hod-create-description {
 
             margin: .35rem 0 0;
 
-            color: var(--hod-text-secondary);
+            color: var(--hod-text-muted);
 
             font-size: .78rem;
 
@@ -555,9 +549,6 @@
 
         /* =========================================================
            LABEL
-
-           LIGHT = BLACK
-           DARK = WHITE
         ========================================================== */
 
         .hod-form-label {
@@ -634,6 +625,16 @@
 
 
         /* =========================================================
+           HOVER
+        ========================================================== */
+
+        .hod-form-control:hover {
+
+            border-color: var(--hod-border);
+        }
+
+
+        /* =========================================================
            FOCUS
         ========================================================== */
 
@@ -653,17 +654,25 @@
 
         /* =========================================================
            DARK MODE INPUT
-           
-           TEXT = WHITE
         ========================================================== */
 
         [data-bs-theme="dark"] .hod-form-control {
 
             color: #ffffff;
 
-            background: #0d0d0d;
+            background: #20253a;
 
-            border-color: #333333;
+            border-color: #292e45;
+        }
+
+
+        [data-bs-theme="dark"] .hod-form-control:hover {
+
+            color: #ffffff;
+
+            background: #20253a;
+
+            border-color: #343a52;
         }
 
 
@@ -671,13 +680,13 @@
 
             color: #ffffff;
 
-            background: #0d0d0d;
+            background: #20253a;
 
-            border-color: var(--hod-blue);
+            border-color: #ffffff;
 
             box-shadow:
                 0 0 0 3px
-                rgba(37, 99, 235, .18);
+                rgba(255, 255, 255, .10);
         }
 
 
@@ -703,7 +712,9 @@
         }
 
 
-        /* LIGHT SELECT OPTIONS */
+        /* =========================================================
+           LIGHT SELECT OPTIONS
+        ========================================================== */
 
         .hod-form-select option {
 
@@ -713,20 +724,20 @@
         }
 
 
-        /* DARK SELECT OPTIONS */
+        /* =========================================================
+           DARK SELECT OPTIONS
+        ========================================================== */
 
         [data-bs-theme="dark"] .hod-form-select option {
 
             color: #ffffff;
 
-            background: #000000;
+            background: #181d33;
         }
 
 
         /* =========================================================
            ERROR
-           
-           ALWAYS RED
         ========================================================== */
 
         .hod-error {
@@ -764,6 +775,9 @@
             padding-top: 1rem;
 
             box-sizing: border-box;
+
+            border-top:
+                1px solid var(--hod-border-soft);
         }
 
 
@@ -810,9 +824,6 @@
 
         /* =========================================================
            SAVE HOD
-           
-           BLUE IN BOTH MODES
-           WHITE TEXT
         ========================================================== */
 
         .hod-save-button {
@@ -840,9 +851,6 @@
 
         /* =========================================================
            CANCEL
-           
-           RED IN BOTH MODES
-           WHITE TEXT
         ========================================================== */
 
         .hod-cancel-button {
@@ -1048,3 +1056,4 @@
     </style>
 
 </x-app-layout>
+```

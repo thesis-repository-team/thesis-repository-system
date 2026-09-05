@@ -1,63 +1,121 @@
-@forelse($hods as $hod)
-    <div class="col-12 col-md-6 col-xl-4">
+@forelse ($hods as $hod)
 
-        <div class="hod-card">
+    {{-- =====================================================
+        HOD CARD
+    ====================================================== --}}
 
-            {{-- =========================================================
-                CARD HEADER
-            ========================================================== --}}
-            <div class="hod-card-top">
+    <div class="admin-student-card">
 
-                {{-- NUMBER --}}
-                <span class="hod-number">
-                    <i class="bi bi-hash"></i>
-                    {{ $loop->iteration }}
-                </span>
+        {{-- =================================================
+            CARD BODY
+        ================================================== --}}
+
+        <div class="admin-student-card-body">
+
+            {{-- =================================================
+                TOP SECTION
+            ================================================== --}}
+
+            <div class="admin-student-card-top">
+
+                {{-- HOD INFORMATION --}}
+
+                <div class="admin-student-profile">
+
+                    {{-- AVATAR --}}
+
+                    <div class="admin-student-icon">
+                        <i class="bi bi-person-badge"></i>
+                    </div>
 
 
-                {{-- =====================================================
-                    STATUS
-                ====================================================== --}}
+                    {{-- NAME + ID --}}
+
+                    <div class="admin-student-profile-info">
+
+                        <h3 class="admin-student-card-title">
+                            {{ $hod->full_name }}
+                        </h3>
+
+                        <span class="admin-student-id">
+                            HoD #{{ $loop->iteration }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                {{-- =================================================
+                    HOD STATUS
+                ================================================== --}}
 
                 @if ($hod->is_active)
-                    {{-- ACTIVE = GREEN --}}
-                    <span class="hod-status hod-status-active" title="HoD is Active">
-                        <span class="hod-status-dot"></span>
+
+                    {{-- ACTIVE --}}
+
+                    <span
+                        class="admin-student-permission admin-student-permission-allowed"
+                        title="HoD is Active">
+
+                        <i class="bi bi-check-circle-fill"></i>
 
                         <span>
                             Active
                         </span>
+
                     </span>
+
                 @else
-                    {{-- INACTIVE = RED --}}
-                    <span class="hod-status hod-status-inactive" title="HoD is Inactive">
-                        <span class="hod-status-dot"></span>
+
+                    {{-- INACTIVE --}}
+
+                    <span
+                        class="admin-student-permission admin-student-permission-denied"
+                        title="HoD is Inactive">
+
+                        <i class="bi bi-x-circle-fill"></i>
 
                         <span>
                             Inactive
                         </span>
+
                     </span>
+
                 @endif
 
             </div>
 
 
-            {{-- =========================================================
-                PROFILE
-            ========================================================== --}}
-            <div class="hod-profile">
+            {{-- =================================================
+                DIVIDER
+            ================================================== --}}
 
-                <h5 class="hod-name">
-                    {{ $hod->full_name }}
-                </h5>
+            <div class="admin-student-card-divider"></div>
 
 
-                <div class="hod-email">
+            {{-- =================================================
+                EMAIL
+            ================================================== --}}
 
-                    <i class="bi bi-envelope-fill"></i>
+            <div class="admin-student-info-row">
 
-                    <span>
+                <div class="admin-student-info-icon">
+                    <i class="bi bi-envelope"></i>
+                </div>
+
+                <div class="admin-student-info-content">
+
+                    <span class="admin-student-info-label">
+                        Email
+                    </span>
+
+                    <span
+                        class="admin-student-info-value admin-student-email"
+                        title="{{ $hod->user->email ?? 'N/A' }}">
+
                         {{ $hod->user->email ?? 'N/A' }}
+
                     </span>
 
                 </div>
@@ -65,23 +123,23 @@
             </div>
 
 
-            {{-- =========================================================
-                INFORMATION
-            ========================================================== --}}
-            <div class="hod-info-box">
+            {{-- =================================================
+                DEPARTMENT
+            ================================================== --}}
 
-                {{-- DEPARTMENT --}}
-                <div class="hod-info-item hod-info-department">
+            <div class="admin-student-info-row">
 
-                    <span class="hod-info-label">
+                <div class="admin-student-info-icon">
+                    <i class="bi bi-building"></i>
+                </div>
 
-                        <i class="bi bi-building"></i>
+                <div class="admin-student-info-content">
 
+                    <span class="admin-student-info-label">
                         Department
-
                     </span>
 
-                    <span class="hod-info-value">
+                    <span class="admin-student-info-value">
 
                         {{ $hod->department->name ?? 'N/A' }}
 
@@ -89,19 +147,26 @@
 
                 </div>
 
+            </div>
 
-                {{-- STARTED YEAR --}}
-                <div class="hod-info-item hod-info-year">
 
-                    <span class="hod-info-label">
+            {{-- =================================================
+                STARTED YEAR
+            ================================================== --}}
 
-                        <i class="bi bi-calendar3"></i>
+            <div class="admin-student-info-row admin-student-year-row">
 
+                <div class="admin-student-info-icon">
+                    <i class="bi bi-calendar3"></i>
+                </div>
+
+                <div class="admin-student-info-content">
+
+                    <span class="admin-student-info-label">
                         Started Year
-
                     </span>
 
-                    <span class="hod-info-value hod-year">
+                    <span class="admin-student-year-badge">
 
                         {{ $hod->started_year ?? 'N/A' }}
 
@@ -112,28 +177,22 @@
             </div>
 
 
-            {{-- =========================================================
-                ACTION
-            ========================================================== --}}
-            <div class="hod-card-action">
+            {{-- =================================================
+                CARD ACTION
+            ================================================== --}}
 
-                <a href="{{ route('admin.hods.edit', $hod->id) }}" class="hod-edit-button"
-                    data-tooltip="Edit HoD Profile" aria-label="Edit HoD Profile">
+            <div class="admin-student-card-action">
 
-                    <span class="hod-edit-icon">
+                <a
+                    href="{{ route('admin.hods.edit', $hod->id) }}"
+                    class="admin-student-edit-button"
+                    data-tooltip="Edit HoD"
+                    aria-label="Edit HoD">
 
-                        <i class="bi bi-pencil-square"></i>
+                    <i class="bi bi-pencil-square"></i>
 
-                    </span>
-
-                    <span class="hod-edit-text">
-                        Edit HoD Profile
-                    </span>
-
-                    <span class="hod-arrow">
-
-                        <i class="bi bi-arrow-right"></i>
-
+                    <span>
+                        Edit
                     </span>
 
                 </a>
@@ -147,255 +206,629 @@
 
 @empty
 
-    {{-- =============================================================
-        EMPTY STATE
-    ============================================================= --}}
-    <div class="col-12">
+    {{-- =========================================================
+        EMPTY RESULT
+    ========================================================== --}}
 
-        <div class="hod-empty-state">
+    <div class="admin-student-empty-result">
 
-            <div class="hod-empty-icon">
+        <div class="admin-student-empty-result-icon">
 
-                <i class="bi bi-people"></i>
-
-            </div>
-
-            <h6>
-                No HoD Records Found
-            </h6>
-
-            <p>
-                There are no department leaders matching your filter criteria.
-            </p>
+            <i class="bi bi-people"></i>
 
         </div>
 
+        <h5>
+            No HoD Records Found
+        </h5>
+
+        <p>
+            There are no department leaders matching your filter criteria.
+        </p>
+
     </div>
+
 @endforelse
 
 
 <style>
-    /* ================================================================
+
+    /* =========================================================
        HOD CARD
-       MONOCHROME DESIGN
-       ACTIVE = GREEN
-       INACTIVE = RED
+       SAME STRUCTURE AS STUDENT CARD
        LIGHT + DARK MODE
-    ================================================================= */
+    ========================================================== */
 
-    .hod-card {
+    .admin-student-card,
+    .admin-student-empty-result {
 
-        /* ============================================================
-           BASE COLORS
-        ============================================================= */
+        --student-black: #000000;
+        --student-white: #ffffff;
 
-        --hod-card-bg: #ffffff;
-        --hod-card-bg-soft: #f7f7f7;
+        /* LIGHT MODE */
+        --student-card-bg: #ffffff;
+        --student-soft-bg: #f7f7f7;
 
-        --hod-border: #d8d8d8;
-        --hod-border-strong: #000000;
+        --student-text: #000000;
+        --student-secondary: #333333;
+        --student-muted: #777777;
 
-        --hod-text: #111111;
-        --hod-text-secondary: #555555;
-        --hod-text-muted: #888888;
+        --student-border: #dddddd;
+        --student-border-strong: #000000;
 
-        --hod-primary: #111111;
+        /* ACTIVE */
+        --student-success: #15803d;
+        --student-success-bg: #f0fdf4;
+        --student-success-border: #22c55e;
 
+        /* INACTIVE */
+        --student-danger: #dc2626;
+        --student-danger-bg: #fef2f2;
+        --student-danger-border: #ef4444;
 
-        /* ============================================================
-           ACTIVE = GREEN
-        ============================================================= */
+        --student-shadow:
+            0 3px 12px rgba(0, 0, 0, .06);
 
-        --hod-active: #15803d;
-        --hod-active-bg: #f0fdf4;
-        --hod-active-border: #22c55e;
-
-
-        /* ============================================================
-           INACTIVE = RED
-        ============================================================= */
-
-        --hod-inactive: #dc2626;
-        --hod-inactive-bg: #fef2f2;
-        --hod-inactive-border: #ef4444;
+        --student-shadow-hover:
+            0 8px 24px rgba(0, 0, 0, .10);
+    }
 
 
-        /* ============================================================
-           YEAR
-        ============================================================= */
+    /* =========================================================
+       DARK MODE
+       SAME NAVY THEME AS STUDENT PAGE
+    ========================================================== */
 
-        --hod-year: #111111;
-        --hod-year-bg: #f3f3f3;
+    [data-bs-theme="dark"] .admin-student-card,
+    [data-bs-theme="dark"] .admin-student-empty-result,
+    .dark .admin-student-card,
+    .dark .admin-student-empty-result {
+
+        --student-black: #000000;
+        --student-white: #ffffff;
+
+        /* DARK CARD */
+        --student-card-bg: #181d33;
+        --student-soft-bg: #20253a;
+
+        /* DARK TEXT */
+        --student-text: #eeeef8;
+        --student-secondary: #d5d8e8;
+        --student-muted: #999fb9;
+
+        /* DARK BORDER */
+        --student-border: #292e45;
+        --student-border-strong: #ffffff;
+
+        /* ACTIVE */
+        --student-success: #4ade80;
+        --student-success-bg: #07140b;
+        --student-success-border: #22c55e;
+
+        /* INACTIVE */
+        --student-danger: #f87171;
+        --student-danger-bg: #1a0808;
+        --student-danger-border: #ef4444;
+
+        --student-shadow:
+            0 3px 12px rgba(0, 0, 0, .40);
+
+        --student-shadow-hover:
+            0 8px 24px rgba(0, 0, 0, .60);
+    }
 
 
-        /* ============================================================
-           BUTTON
-        ============================================================= */
+    /* =========================================================
+       CARD
+    ========================================================== */
 
-        --hod-button-bg: #111111;
-        --hod-button-text: #ffffff;
-
-        --hod-button-hover-bg: #ffffff;
-        --hod-button-hover-text: #111111;
-
-
-        /* ============================================================
-           SHADOW
-        ============================================================= */
-
-        --hod-shadow:
-            0 5px 18px rgba(0, 0, 0, .06);
-
-        --hod-hover-shadow:
-            0 12px 30px rgba(0, 0, 0, .12);
-
-
-        /* ============================================================
-           CARD
-        ============================================================= */
+    .admin-student-card {
 
         position: relative;
 
         height: 100%;
 
+        overflow: hidden;
+
+        color: var(--student-text);
+
+        background: var(--student-card-bg);
+
+        border: 2px solid var(--student-border);
+
+        border-radius: 8px;
+
+        box-shadow: var(--student-shadow);
+
+        transition:
+            transform .2s ease,
+            box-shadow .2s ease,
+            border-color .2s ease,
+            background-color .2s ease,
+            color .2s ease;
+    }
+
+
+    .admin-student-card:hover {
+
+        transform: translateY(-3px);
+
+        border-color: var(--student-border-strong);
+
+        box-shadow: var(--student-shadow-hover);
+    }
+
+
+    /* =========================================================
+       CARD BODY
+    ========================================================== */
+
+    .admin-student-card-body {
+
         display: flex;
 
         flex-direction: column;
 
+        min-height: 100%;
+
         padding: 1.25rem;
 
-        color: var(--hod-text);
-
-        background: var(--hod-card-bg);
-
-        border: 2px solid var(--hod-border);
-
-        border-radius: 10px;
-
-        box-shadow: var(--hod-shadow);
-
-        overflow: hidden;
-
-        transition:
-            transform .2s ease,
-            border-color .2s ease,
-            box-shadow .2s ease,
-            background-color .2s ease;
+        color: var(--student-text);
     }
 
 
-    /* ================================================================
-       DARK MODE
-    ================================================================= */
+    /* =========================================================
+       TOP SECTION
+    ========================================================== */
 
-    [data-bs-theme="dark"] .hod-card,
-    .dark .hod-card {
+    .admin-student-card-top {
 
-        --hod-card-bg: #000000;
-        --hod-card-bg-soft: #111111;
+        display: flex;
 
-        --hod-border: #333333;
-        --hod-border-strong: #ffffff;
+        align-items: flex-start;
 
-        --hod-text: #ffffff;
-        --hod-text-secondary: #cccccc;
-        --hod-text-muted: #888888;
+        justify-content: space-between;
 
-
-        /* ============================================================
-           ACTIVE = GREEN
-        ============================================================= */
-
-        --hod-active: #4ade80;
-        --hod-active-bg: #07140b;
-        --hod-active-border: #22c55e;
-
-
-        /* ============================================================
-           INACTIVE = RED
-        ============================================================= */
-
-        --hod-inactive: #f87171;
-        --hod-inactive-bg: #1a0808;
-        --hod-inactive-border: #ef4444;
-
-
-        --hod-year: #ffffff;
-        --hod-year-bg: #111111;
-
-
-        --hod-button-bg: #ffffff;
-        --hod-button-text: #000000;
-
-        --hod-button-hover-bg: #000000;
-        --hod-button-hover-text: #ffffff;
-
-
-        --hod-shadow:
-            0 8px 25px rgba(0, 0, 0, .4);
-
-        --hod-hover-shadow:
-            0 15px 35px rgba(0, 0, 0, .6);
+        gap: .75rem;
     }
 
 
-    /* ================================================================
-       CARD HOVER
-    ================================================================= */
+    /* =========================================================
+       PROFILE
+    ========================================================== */
 
-    .hod-card:hover {
-
-        transform: translateY(-3px);
-
-        border-color: var(--hod-border-strong);
-
-        box-shadow: var(--hod-hover-shadow);
-    }
-
-
-    /* ================================================================
-       CARD TOP
-    ================================================================= */
-
-    .hod-card-top {
+    .admin-student-profile {
 
         display: flex;
 
         align-items: center;
 
-        justify-content: space-between;
+        min-width: 0;
 
         gap: .75rem;
-
-        margin-bottom: 1.25rem;
     }
 
 
-    /* ================================================================
-       NUMBER
-    ================================================================= */
+    /* =========================================================
+       AVATAR
+    ========================================================== */
 
-    .hod-number {
+    .admin-student-icon {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        width: 48px;
+
+        height: 48px;
+
+        flex: 0 0 48px;
+
+        color: var(--student-text);
+
+        background: var(--student-soft-bg);
+
+        border: 1px solid var(--student-border);
+
+        border-radius: 50%;
+
+        transition:
+            background-color .2s ease,
+            color .2s ease,
+            border-color .2s ease;
+    }
+
+
+    .admin-student-icon i {
+
+        font-size: 1.2rem;
+    }
+
+
+    /* =========================================================
+       AVATAR HOVER - LIGHT
+    ========================================================== */
+
+    .admin-student-card:hover .admin-student-icon {
+
+        color: var(--student-white);
+
+        background: var(--student-black);
+
+        border-color: var(--student-black);
+    }
+
+
+    /* =========================================================
+       AVATAR HOVER - DARK
+    ========================================================== */
+
+    [data-bs-theme="dark"] .admin-student-card:hover .admin-student-icon,
+    .dark .admin-student-card:hover .admin-student-icon {
+
+        color: var(--student-black);
+
+        background: var(--student-white);
+
+        border-color: var(--student-white);
+    }
+
+
+    /* =========================================================
+       PROFILE INFO
+    ========================================================== */
+
+    .admin-student-profile-info {
+
+        min-width: 0;
+    }
+
+
+    /* =========================================================
+       NAME
+    ========================================================== */
+
+    .admin-student-card-title {
+
+        margin: 0 0 .2rem;
+
+        overflow: hidden;
+
+        color: var(--student-text);
+
+        font-size: .88rem;
+
+        font-weight: 800;
+
+        line-height: 1.3;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+
+        text-transform: uppercase;
+    }
+
+
+    /* =========================================================
+       HOD ID
+    ========================================================== */
+
+    .admin-student-id {
+
+        display: block;
+
+        color: var(--student-muted);
+
+        font-family: monospace;
+
+        font-size: .68rem;
+
+        letter-spacing: .02em;
+    }
+
+
+    /* =========================================================
+       STATUS BADGE
+    ========================================================== */
+
+    .admin-student-permission {
 
         display: inline-flex;
 
         align-items: center;
 
-        gap: .15rem;
+        justify-content: center;
+
+        flex-shrink: 0;
+
+        gap: .35rem;
+
+        min-height: 28px;
 
         padding: .35rem .6rem;
 
-        color: var(--hod-text-secondary);
-
-        background: var(--hod-card-bg-soft);
-
-        border: 1px solid var(--hod-border);
+        border: 1px solid;
 
         border-radius: 6px;
 
         font-family: monospace;
 
-        font-size: .68rem;
+        font-size: .61rem;
+
+        font-weight: 800;
+
+        line-height: 1;
+
+        text-transform: uppercase;
+
+        white-space: nowrap;
+
+        transition:
+            color .2s ease,
+            background-color .2s ease,
+            border-color .2s ease,
+            box-shadow .2s ease;
+    }
+
+
+    .admin-student-permission i {
+
+        font-size: .72rem;
+    }
+
+
+    /* =========================================================
+       ACTIVE
+    ========================================================== */
+
+    .admin-student-permission-allowed {
+
+        color: var(--student-success);
+
+        background: var(--student-success-bg);
+
+        border-color: var(--student-success-border);
+
+        box-shadow:
+            inset 0 0 0 1px rgba(34, 197, 94, .05);
+    }
+
+
+    .admin-student-permission-allowed i {
+
+        color: var(--student-success);
+    }
+
+
+    /* =========================================================
+       INACTIVE
+    ========================================================== */
+
+    .admin-student-permission-denied {
+
+        color: var(--student-danger);
+
+        background: var(--student-danger-bg);
+
+        border-color: var(--student-danger-border);
+
+        box-shadow:
+            inset 0 0 0 1px rgba(239, 68, 68, .05);
+    }
+
+
+    .admin-student-permission-denied i {
+
+        color: var(--student-danger);
+    }
+
+
+    /* =========================================================
+       STATUS HOVER
+    ========================================================== */
+
+    .admin-student-permission-allowed:hover {
+
+        color: #ffffff;
+
+        background: var(--student-success);
+
+        border-color: var(--student-success);
+    }
+
+
+    .admin-student-permission-allowed:hover i {
+
+        color: #ffffff;
+    }
+
+
+    .admin-student-permission-denied:hover {
+
+        color: #ffffff;
+
+        background: var(--student-danger);
+
+        border-color: var(--student-danger);
+    }
+
+
+    .admin-student-permission-denied:hover i {
+
+        color: #ffffff;
+    }
+
+
+    /* =========================================================
+       DIVIDER
+    ========================================================== */
+
+    .admin-student-card-divider {
+
+        width: 100%;
+
+        height: 1px;
+
+        margin: 1rem 0;
+
+        background: var(--student-border);
+    }
+
+
+    /* =========================================================
+       INFORMATION ROW
+    ========================================================== */
+
+    .admin-student-info-row {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: .8rem;
+
+        min-width: 0;
+
+        margin-bottom: 1rem;
+    }
+
+
+    .admin-student-year-row {
+
+        margin-bottom: 1.25rem;
+    }
+
+
+    /* =========================================================
+       INFORMATION ICON
+    ========================================================== */
+
+    .admin-student-info-icon {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        width: 36px;
+
+        height: 36px;
+
+        flex: 0 0 36px;
+
+        color: var(--student-text);
+
+        background: var(--student-soft-bg);
+
+        border: 1px solid var(--student-border);
+
+        border-radius: 7px;
+
+        transition:
+            background-color .2s ease,
+            color .2s ease,
+            border-color .2s ease;
+    }
+
+
+    .admin-student-info-icon i {
+
+        font-size: .88rem;
+    }
+
+
+    /* =========================================================
+       INFORMATION CONTENT
+    ========================================================== */
+
+    .admin-student-info-content {
+
+        display: flex;
+
+        flex-direction: column;
+
+        min-width: 0;
+
+        gap: .18rem;
+    }
+
+
+    .admin-student-info-label {
+
+        color: var(--student-muted);
+
+        font-size: .61rem;
+
+        font-weight: 800;
+
+        letter-spacing: .06em;
+
+        line-height: 1.2;
+
+        text-transform: uppercase;
+    }
+
+
+    .admin-student-info-value {
+
+        display: block;
+
+        overflow: hidden;
+
+        color: var(--student-text);
+
+        font-size: .76rem;
+
+        font-weight: 600;
+
+        line-height: 1.4;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+    }
+
+
+    /* =========================================================
+       EMAIL
+    ========================================================== */
+
+    .admin-student-email {
+
+        max-width: 220px;
+    }
+
+
+    /* =========================================================
+       YEAR BADGE
+    ========================================================== */
+
+    .admin-student-year-badge {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        width: fit-content;
+
+        padding: .3rem .55rem;
+
+        color: var(--student-text);
+
+        background: var(--student-soft-bg);
+
+        border: 1px solid var(--student-border);
+
+        border-radius: 5px;
+
+        font-family: monospace;
+
+        font-size: .7rem;
 
         font-weight: 700;
 
@@ -403,19 +836,31 @@
     }
 
 
-    .hod-number i {
+    /* =========================================================
+       ACTION AREA
+    ========================================================== */
 
-        color: var(--hod-text-muted);
+    .admin-student-card-action {
 
-        font-size: .65rem;
+        position: relative;
+
+        display: flex;
+
+        justify-content: flex-end;
+
+        margin-top: auto;
+
+        padding-top: 1rem;
+
+        border-top: 1px solid var(--student-border);
     }
 
 
-    /* ================================================================
-       STATUS BASE
-    ================================================================= */
+    /* =========================================================
+       EDIT BUTTON
+    ========================================================== */
 
-    .hod-status {
+    .admin-student-edit-button {
 
         display: inline-flex;
 
@@ -425,514 +870,130 @@
 
         gap: .4rem;
 
-        min-height: 28px;
+        min-width: 86px;
 
-        padding: .35rem .7rem;
+        min-height: 36px;
 
-        border: 1px solid;
+        padding: .45rem .8rem;
 
-        border-radius: 999px;
+        color: var(--student-white);
 
-        font-size: .61rem;
+        background: var(--student-black);
+
+        border: 1px solid var(--student-black);
+
+        border-radius: 6px;
+
+        font-size: .68rem;
 
         font-weight: 800;
 
+        line-height: 1;
+
+        text-decoration: none;
+
         text-transform: uppercase;
-
-        letter-spacing: .04em;
-
-        white-space: nowrap;
 
         transition:
             background-color .2s ease,
             color .2s ease,
             border-color .2s ease,
+            transform .2s ease,
             box-shadow .2s ease;
     }
 
 
-    /* ================================================================
-       STATUS DOT
-    ================================================================= */
+    /* =========================================================
+       DARK MODE EDIT BUTTON
+    ========================================================== */
 
-    .hod-status-dot {
+    [data-bs-theme="dark"] .admin-student-edit-button,
+    .dark .admin-student-edit-button {
 
-        width: 7px;
-
-        height: 7px;
-
-        flex-shrink: 0;
-
-        border-radius: 50%;
-
-        background: currentColor;
-    }
-
-
-    /* ================================================================
-       ACTIVE = GREEN
-    ================================================================= */
-
-    .hod-status-active {
-
-        color: var(--hod-active);
-
-        background: var(--hod-active-bg);
-
-        border-color: var(--hod-active-border);
-
-        box-shadow:
-            0 0 0 1px rgba(34, 197, 94, .05);
-    }
-
-
-    .hod-status-active .hod-status-dot {
-
-        background: var(--hod-active);
-
-        box-shadow:
-            0 0 0 3px rgba(34, 197, 94, .12);
-    }
-
-
-    /* ================================================================
-       INACTIVE = RED
-    ================================================================= */
-
-    .hod-status-inactive {
-
-        color: var(--hod-inactive);
-
-        background: var(--hod-inactive-bg);
-
-        border-color: var(--hod-inactive-border);
-
-        box-shadow:
-            0 0 0 1px rgba(239, 68, 68, .05);
-    }
-
-
-    .hod-status-inactive .hod-status-dot {
-
-        background: var(--hod-inactive);
-
-        box-shadow:
-            0 0 0 3px rgba(239, 68, 68, .12);
-    }
-
-
-    /* ================================================================
-       STATUS HOVER
-    ================================================================= */
-
-    .hod-status-active:hover {
-
-        color: #ffffff;
-
-        background: var(--hod-active);
-
-        border-color: var(--hod-active);
-    }
-
-
-    .hod-status-active:hover .hod-status-dot {
+        color: #000000;
 
         background: #ffffff;
 
+        border-color: #ffffff;
     }
 
 
-    .hod-status-inactive:hover {
-
-        color: #ffffff;
-
-        background: var(--hod-inactive);
-
-        border-color: var(--hod-inactive);
-    }
-
-
-    .hod-status-inactive:hover .hod-status-dot {
-
-        background: #ffffff;
-
-    }
-
-
-    /* ================================================================
-       PROFILE
-    ================================================================= */
-
-    .hod-profile {
-
-        min-height: 78px;
-
-        margin-bottom: 1.2rem;
-    }
-
-
-    .hod-name {
-
-        margin: 0 0 .55rem;
-
-        color: var(--hod-text);
-
-        font-size: 1rem;
-
-        font-weight: 800;
-
-        line-height: 1.35;
-
-        word-break: break-word;
-
-        overflow-wrap: anywhere;
-    }
-
-
-    .hod-email {
-
-        display: flex;
-
-        align-items: flex-start;
-
-        gap: .45rem;
-
-        color: var(--hod-text-secondary);
-
-        font-size: .76rem;
-
-        line-height: 1.5;
-
-        word-break: break-word;
-
-        overflow-wrap: anywhere;
-    }
-
-
-    .hod-email i {
-
-        flex-shrink: 0;
-
-        margin-top: .15rem;
-
-        color: var(--hod-text);
+    .admin-student-edit-button i {
 
         font-size: .75rem;
     }
 
 
-    /* ================================================================
-       INFORMATION BOX
-    ================================================================= */
+    /* =========================================================
+       LIGHT HOVER
+    ========================================================== */
 
-    .hod-info-box {
+    .admin-student-edit-button:hover {
 
-        display: grid;
+        color: #000000;
 
-        grid-template-columns:
-            minmax(0, 1.5fr) minmax(90px, 1fr);
+        background: #ffffff;
 
-        margin-bottom: 1.25rem;
-
-        background: var(--hod-card-bg-soft);
-
-        border: 1px solid var(--hod-border);
-
-        border-radius: 8px;
-
-        overflow: hidden;
-    }
-
-
-    .hod-info-item {
-
-        min-width: 0;
-
-        padding: .85rem;
-    }
-
-
-    /* ================================================================
-       DEPARTMENT
-    ================================================================= */
-
-    .hod-info-department {
-
-        background: var(--hod-card-bg-soft);
-    }
-
-
-    /* ================================================================
-       YEAR
-    ================================================================= */
-
-    .hod-info-year {
-
-        background: var(--hod-year-bg);
-
-        border-left: 1px solid var(--hod-border);
-    }
-
-
-    /* ================================================================
-       INFORMATION LABEL
-    ================================================================= */
-
-    .hod-info-label {
-
-        display: flex;
-
-        align-items: center;
-
-        gap: .35rem;
-
-        margin-bottom: .35rem;
-
-        color: var(--hod-text-muted);
-
-        font-size: .6rem;
-
-        font-weight: 800;
-
-        text-transform: uppercase;
-
-        letter-spacing: .06em;
-    }
-
-
-    .hod-info-label i {
-
-        color: var(--hod-text);
-
-        font-size: .65rem;
-    }
-
-
-    /* ================================================================
-       INFORMATION VALUE
-    ================================================================= */
-
-    .hod-info-value {
-
-        display: block;
-
-        color: var(--hod-text);
-
-        font-size: .78rem;
-
-        font-weight: 700;
-
-        line-height: 1.4;
-
-        word-break: break-word;
-
-        overflow-wrap: anywhere;
-    }
-
-
-    .hod-year {
-
-        color: var(--hod-year);
-
-        font-family: monospace;
-
-        font-size: .82rem;
-    }
-
-
-    /* ================================================================
-       ACTION
-    ================================================================= */
-
-    .hod-card-action {
-
-        position: relative;
-
-        margin-top: auto;
-
-        padding-top: 1rem;
-
-        border-top: 1px solid var(--hod-border);
-    }
-
-
-    /* ================================================================
-       EDIT BUTTON
-    ================================================================= */
-
-    .hod-edit-button {
-
-        position: relative;
-
-        min-height: 43px;
-
-        display: flex;
-
-        align-items: center;
-
-        width: 100%;
-
-        padding: .45rem .5rem;
-
-        color: var(--hod-button-text);
-
-        background: var(--hod-button-bg);
-
-        border: 1px solid var(--hod-button-bg);
-
-        border-radius: 7px;
-
-        text-decoration: none;
-
-        font-size: .7rem;
-
-        font-weight: 800;
-
-        text-transform: uppercase;
-
-        letter-spacing: .03em;
-
-        transition:
-            background-color .2s ease,
-            color .2s ease,
-            border-color .2s ease,
-            box-shadow .2s ease,
-            transform .2s ease;
-    }
-
-
-    .hod-edit-button:hover {
-
-        color: var(--hod-button-hover-text);
-
-        background: var(--hod-button-hover-bg);
-
-        border-color: var(--hod-button-hover-text);
-
-        box-shadow:
-            0 6px 16px rgba(0, 0, 0, .12);
+        border-color: #000000;
 
         transform: translateY(-1px);
+
+        box-shadow:
+            0 5px 14px rgba(0, 0, 0, .12);
     }
 
 
-    .hod-edit-button:focus-visible {
+    /* =========================================================
+       DARK HOVER
+    ========================================================== */
 
-        outline: 2px solid var(--hod-text);
+    [data-bs-theme="dark"] .admin-student-edit-button:hover,
+    .dark .admin-student-edit-button:hover {
 
-        outline-offset: 3px;
+        color: #ffffff;
+
+        background: #000000;
+
+        border-color: #ffffff;
+
+        box-shadow:
+            0 5px 14px rgba(255, 255, 255, .08);
     }
 
 
-    /* ================================================================
-       EDIT ICON
-    ================================================================= */
+    /* =========================================================
+       EMPTY RESULT
+    ========================================================== */
 
-    .hod-edit-icon {
-
-        width: 33px;
-
-        height: 33px;
-
-        flex-shrink: 0;
+    .admin-student-empty-result {
 
         display: flex;
+
+        flex-direction: column;
 
         align-items: center;
 
         justify-content: center;
 
-        margin-right: .5rem;
+        min-height: 280px;
 
-        background: rgba(128, 128, 128, .18);
-
-        border-radius: 6px;
-    }
-
-
-    .hod-edit-icon i {
-
-        font-size: .9rem;
-    }
-
-
-    /* ================================================================
-       EDIT TEXT
-    ================================================================= */
-
-    .hod-edit-text {
-
-        flex: 1;
-
-        min-width: 0;
-
-        padding-left: .2rem;
-
-        text-align: left;
-
-        white-space: nowrap;
-
-        overflow: hidden;
-
-        text-overflow: ellipsis;
-    }
-
-
-    /* ================================================================
-       ARROW
-    ================================================================= */
-
-    .hod-arrow {
-
-        width: 30px;
-
-        height: 30px;
-
-        flex-shrink: 0;
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
-
-        transition: transform .2s ease;
-    }
-
-
-    .hod-edit-button:hover .hod-arrow {
-
-        transform: translateX(4px);
-    }
-
-
-    /* ================================================================
-       EMPTY STATE
-    ================================================================= */
-
-    .hod-empty-state {
-
-        padding: 4rem 1.5rem;
+        padding: 2.5rem 1rem;
 
         text-align: center;
 
-        color: var(--hod-text);
+        color: var(--student-text);
 
-        background: var(--hod-card-bg);
+        background: var(--student-card-bg);
 
-        border: 2px solid var(--hod-border);
+        border: 2px solid var(--student-border);
 
-        border-radius: 10px;
+        border-radius: 8px;
 
-        box-shadow: var(--hod-shadow);
+        box-shadow: var(--student-shadow);
     }
 
 
-    .hod-empty-icon {
-
-        width: 65px;
-
-        height: 65px;
+    .admin-student-empty-result-icon {
 
         display: flex;
 
@@ -940,25 +1001,33 @@
 
         justify-content: center;
 
-        margin: 0 auto 1rem;
+        width: 64px;
 
-        color: var(--hod-text);
+        height: 64px;
 
-        background: var(--hod-card-bg-soft);
+        margin-bottom: 1rem;
 
-        border: 1px solid var(--hod-border);
+        color: var(--student-text);
 
-        border-radius: 10px;
+        background: var(--student-soft-bg);
+
+        border: 1px solid var(--student-border);
+
+        border-radius: 50%;
+    }
+
+
+    .admin-student-empty-result-icon i {
 
         font-size: 1.5rem;
     }
 
 
-    .hod-empty-state h6 {
+    .admin-student-empty-result h5 {
 
-        margin-bottom: .4rem;
+        margin: 0 0 .4rem;
 
-        color: var(--hod-text);
+        color: var(--student-text);
 
         font-size: .85rem;
 
@@ -968,141 +1037,283 @@
     }
 
 
-    .hod-empty-state p {
+    .admin-student-empty-result p {
 
-        max-width: 500px;
+        margin: 0;
 
-        margin: 0 auto;
+        color: var(--student-muted);
 
-        color: var(--hod-text-secondary);
-
-        font-size: .78rem;
-
-        line-height: 1.6;
+        font-size: .74rem;
     }
 
 
-    /* ================================================================
+    /* =========================================================
        TABLET
-    ================================================================= */
+    ========================================================== */
 
     @media (max-width: 991.98px) {
 
-        .hod-card {
+        .admin-student-card-body {
 
             padding: 1.1rem;
         }
 
 
-        .hod-name {
+        .admin-student-card-title {
 
-            font-size: .95rem;
+            font-size: .82rem;
         }
 
 
-        .hod-status {
+        .admin-student-permission {
 
-            padding: .32rem .6rem;
+            padding: .28rem .45rem;
 
             font-size: .58rem;
         }
-
     }
 
 
-    /* ================================================================
+    /* =========================================================
        MOBILE
-    ================================================================= */
+    ========================================================== */
 
     @media (max-width: 767.98px) {
 
-        .hod-card {
-
-            padding: 1rem;
-
-            border-radius: 8px;
-        }
-
-
-        .hod-card:hover {
-
-            transform: translateY(-2px);
-        }
-
-
-        /* ============================================================
-           ICON ONLY EDIT BUTTON
-        ============================================================ */
-
-        .hod-edit-button {
-
-            width: 44px;
-
-            height: 44px;
-
-            min-height: 44px;
-
-            margin-left: auto;
-
-            padding: 0;
-
-            justify-content: center;
+        .admin-student-card {
 
             border-radius: 7px;
         }
 
 
-        .hod-edit-text,
-        .hod-arrow {
+        .admin-student-card-body {
+
+            padding: 1rem;
+        }
+
+
+        .admin-student-card-title {
+
+            font-size: .84rem;
+        }
+
+
+        .admin-student-icon {
+
+            width: 44px;
+
+            height: 44px;
+
+            flex-basis: 44px;
+        }
+
+
+        .admin-student-permission {
+
+            min-height: 25px;
+
+            padding: .25rem .45rem;
+
+            font-size: .56rem;
+        }
+
+
+        .admin-student-info-value {
+
+            font-size: .74rem;
+        }
+
+
+        .admin-student-email {
+
+            max-width: calc(100vw - 120px);
+        }
+    }
+
+
+    /* =========================================================
+       SMALL MOBILE
+    ========================================================== */
+
+    @media (max-width: 575.98px) {
+
+        .admin-student-card-body {
+
+            padding: .9rem;
+        }
+
+
+        .admin-student-card-top {
+
+            gap: .5rem;
+        }
+
+
+        .admin-student-profile {
+
+            gap: .6rem;
+        }
+
+
+        .admin-student-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            flex-basis: 42px;
+        }
+
+
+        .admin-student-icon i {
+
+            font-size: 1.05rem;
+        }
+
+
+        .admin-student-card-title {
+
+            max-width: 170px;
+
+            font-size: .78rem;
+        }
+
+
+        .admin-student-id {
+
+            font-size: .62rem;
+        }
+
+
+        /* STATUS ICON ONLY */
+
+        .admin-student-permission {
+
+            width: 30px;
+
+            height: 30px;
+
+            min-height: 30px;
+
+            padding: 0;
+
+            border-radius: 50%;
+        }
+
+
+        .admin-student-permission span {
 
             display: none;
         }
 
 
-        .hod-edit-icon {
-
-            width: 100%;
-
-            height: 100%;
+        .admin-student-permission i {
 
             margin: 0;
 
-            background: transparent;
-
-            border-radius: 0;
+            font-size: .75rem;
         }
 
 
-        .hod-edit-icon i {
+        /* INFORMATION */
 
-            font-size: 1rem;
+        .admin-student-info-row {
+
+            gap: .65rem;
+
+            margin-bottom: .85rem;
         }
 
 
-        /* ============================================================
-           MOBILE TOOLTIP
-        ============================================================ */
+        .admin-student-info-icon {
 
-        .hod-edit-button[data-tooltip]::after {
+            width: 34px;
+
+            height: 34px;
+
+            flex-basis: 34px;
+        }
+
+
+        .admin-student-info-label {
+
+            font-size: .58rem;
+        }
+
+
+        .admin-student-info-value {
+
+            font-size: .7rem;
+        }
+
+
+        .admin-student-email {
+
+            max-width: calc(100vw - 115px);
+        }
+
+
+        .admin-student-year-row {
+
+            margin-bottom: 1rem;
+        }
+
+
+        /* ACTION */
+
+        .admin-student-card-action {
+
+            padding-top: .8rem;
+        }
+
+
+        /* EDIT ICON ONLY */
+
+        .admin-student-edit-button {
+
+            width: 38px;
+
+            min-width: 38px;
+
+            height: 36px;
+
+            min-height: 36px;
+
+            padding: 0;
+        }
+
+
+        .admin-student-edit-button span {
+
+            display: none;
+        }
+
+
+        .admin-student-edit-button i {
+
+            margin: 0;
+
+            font-size: .8rem;
+        }
+
+
+        /* TOOLTIP */
+
+        .admin-student-edit-button[data-tooltip]::after {
 
             content: attr(data-tooltip);
 
             position: absolute;
 
-            left: 50%;
+            right: 0;
 
-            top: calc(100% + 8px);
-
-            transform:
-                translateX(-50%) translateY(-3px);
+            bottom: calc(100% + 8px);
 
             padding: .4rem .6rem;
 
             color: #ffffff;
 
-            background: #111111;
-
-            border: 1px solid #333333;
+            background: #000000;
 
             border-radius: 5px;
 
@@ -1116,6 +1327,8 @@
 
             pointer-events: none;
 
+            transform: translateY(3px);
+
             transition:
                 opacity .15s ease,
                 transform .15s ease;
@@ -1124,143 +1337,78 @@
         }
 
 
-        [data-bs-theme="dark"] .hod-edit-button[data-tooltip]::after,
-        .dark .hod-edit-button[data-tooltip]::after {
+        [data-bs-theme="dark"] .admin-student-edit-button[data-tooltip]::after,
+        .dark .admin-student-edit-button[data-tooltip]::after {
 
             color: #000000;
 
             background: #ffffff;
 
-            border-color: #ffffff;
+            border: 1px solid #ffffff;
         }
 
 
-        .hod-edit-button[data-tooltip]:hover::after {
+        .admin-student-edit-button[data-tooltip]:hover::after {
 
             opacity: 1;
 
-            transform:
-                translateX(-50%) translateY(0);
+            transform: translateY(0);
         }
 
+
+        /* EMPTY */
+
+        .admin-student-empty-result {
+
+            min-height: 230px;
+
+            padding: 2rem 1rem;
+        }
     }
 
 
-    /* ================================================================
-       SMALL MOBILE
-    ================================================================= */
-
-    @media (max-width: 575.98px) {
-
-        .hod-card {
-
-            padding: .95rem;
-        }
-
-
-        .hod-card-top {
-
-            margin-bottom: 1rem;
-        }
-
-
-        .hod-info-box {
-
-            grid-template-columns: 1fr;
-        }
-
-
-        .hod-info-year {
-
-            border-left: 0;
-
-            border-top: 1px solid var(--hod-border);
-        }
-
-
-        .hod-name {
-
-            font-size: .95rem;
-        }
-
-
-        .hod-email {
-
-            font-size: .73rem;
-        }
-
-
-        .hod-status {
-
-            min-height: 27px;
-
-            padding: .3rem .55rem;
-
-            font-size: .57rem;
-        }
-
-
-        .hod-info-item {
-
-            padding: .75rem;
-        }
-
-
-        .hod-empty-state {
-
-            padding: 3rem 1rem;
-        }
-
-    }
-
-
-    /* ================================================================
+    /* =========================================================
        VERY SMALL MOBILE
-    ================================================================= */
+    ========================================================== */
 
     @media (max-width: 380px) {
 
-        .hod-card-top {
+        .admin-student-card-title {
 
-            align-items: flex-start;
+            max-width: 135px;
         }
 
 
-        .hod-status {
+        .admin-student-permission {
 
-            font-size: .54rem;
+            width: 28px;
 
-            padding: .28rem .5rem;
+            height: 28px;
+
+            min-height: 28px;
         }
 
 
-        .hod-number {
+        .admin-student-info-value {
 
-            font-size: .62rem;
+            max-width: 190px;
         }
-
-
-        .hod-name {
-
-            font-size: .9rem;
-        }
-
     }
 
 
-    /* ================================================================
+    /* =========================================================
        REDUCED MOTION
-    ================================================================= */
+    ========================================================== */
 
     @media (prefers-reduced-motion: reduce) {
 
-        .hod-card,
-        .hod-edit-button,
-        .hod-arrow,
-        .hod-status {
+        .admin-student-card,
+        .admin-student-icon,
+        .admin-student-edit-button,
+        .admin-student-permission {
 
             transition: none !important;
         }
-
     }
+
 </style>

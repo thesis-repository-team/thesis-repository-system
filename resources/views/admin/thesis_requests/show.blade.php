@@ -550,1297 +550,1578 @@
     </div>
 
 
-    <style>
-        /* =========================================================
-           VARIABLES
-        ========================================================== */
+    ```html
+<style>
+    /* =========================================================
+       VARIABLES
+    ========================================================== */
 
-        .thesis-request-page {
+    .thesis-request-page {
 
-            --request-black: #111111;
-            --request-text: #222222;
-            --request-muted: #777777;
+        --request-black: #111111;
+        --request-text: #222222;
+        --request-muted: #777777;
 
-            --request-card: #ffffff;
-            --request-soft: #f8f8f8;
-            --request-soft-blue: #f1f5ff;
+        --request-card: #ffffff;
+        --request-soft: #f8f8f8;
+        --request-soft-blue: #f1f5ff;
 
-            --request-blue: #0d6efd;
-            --request-green: #198754;
-            --request-red: #dc3545;
-            --request-yellow: #997404;
+        --request-blue: #0d6efd;
+        --request-green: #198754;
+        --request-red: #dc3545;
+        --request-yellow: #997404;
 
-            --request-shadow:
-                0 4px 18px rgba(0, 0, 0, .055);
+        --request-shadow:
+            0 4px 18px rgba(0, 0, 0, .055);
 
-            color: var(--request-text);
+        color: var(--request-text);
+    }
+
+
+    /* =========================================================
+       GLOBAL PAGE
+    ========================================================== */
+
+    .thesis-request-page {
+        /* background: #ffffff; */
+        color: var(--request-text);
+
+        transition:
+            /* background-color .25s ease, */
+            color .25s ease;
+    }
+
+
+    /* =========================================================
+       ALERTS
+    ========================================================== */
+
+    .request-alert {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        margin-bottom: 16px;
+
+        padding: 10px 13px;
+
+        border: none !important;
+
+        border-radius: 8px;
+
+        font-size: .72rem;
+
+        font-weight: 600;
+    }
+
+
+    .request-alert-success {
+
+        color: #176b3a;
+
+        background: #eefaf3;
+    }
+
+
+    .request-alert-danger {
+
+        color: #b42318;
+
+        background: #fff1f1;
+    }
+
+
+    /* =========================================================
+       MAIN CARD
+    ========================================================== */
+
+    .request-form-card {
+
+        width: 100%;
+
+        padding: 22px;
+
+        background: var(--request-card);
+
+        border: none !important;
+
+        border-radius: 14px;
+
+        box-shadow: var(--request-shadow);
+
+        box-sizing: border-box;
+
+        transition:
+            background-color .25s ease,
+            box-shadow .25s ease;
+    }
+
+
+    /* =========================================================
+       HEADER
+    ========================================================== */
+
+    .request-header {
+
+        display: flex;
+
+        align-items: flex-start;
+
+        justify-content: space-between;
+
+        gap: 20px;
+
+        margin-bottom: 25px;
+
+        padding-bottom: 18px;
+
+        border: none !important;
+    }
+
+
+    .request-header-content {
+
+        min-width: 0;
+
+        flex: 1;
+    }
+
+
+    .request-overline {
+
+        display: block;
+
+        margin-bottom: 5px;
+
+        color: var(--request-muted);
+
+        font-size: .61rem;
+
+        font-weight: 800;
+
+        letter-spacing: .13em;
+
+        text-transform: uppercase;
+    }
+
+
+    .request-title-row {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 9px;
+
+        min-width: 0;
+    }
+
+
+    .request-title-row > i {
+
+        flex-shrink: 0;
+
+        color: var(--request-black);
+
+        font-size: 1.15rem;
+
+        line-height: 1;
+    }
+
+
+    .request-title {
+
+        margin: 0;
+
+        min-width: 0;
+
+        color: var(--request-black);
+
+        font-size: 1.4rem;
+
+        font-weight: 800;
+
+        line-height: 1.35;
+
+        letter-spacing: -.025em;
+
+        overflow-wrap: anywhere;
+    }
+
+
+    .request-id {
+
+        display: block;
+
+        margin-top: 5px;
+
+        color: var(--request-muted);
+
+        font-size: .67rem;
+    }
+
+
+    /* =========================================================
+       STATUS
+    ========================================================== */
+
+    .request-status-wrapper {
+
+        flex-shrink: 0;
+
+        padding-top: 13px;
+    }
+
+
+    .request-status {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 5px;
+
+        padding: 6px 11px;
+
+        border: none !important;
+
+        border-radius: 999px;
+
+        font-size: .62rem;
+
+        font-weight: 700;
+
+        white-space: nowrap;
+    }
+
+
+    .status-approved {
+
+        color: var(--request-green);
+
+        background: #eaf7ef;
+    }
+
+
+    .status-pending {
+
+        color: var(--request-yellow);
+
+        background: #fff8df;
+    }
+
+
+    .status-rejected {
+
+        color: var(--request-red);
+
+        background: #fff0f1;
+    }
+
+
+    .status-default {
+
+        color: #555555;
+
+        background: #f1f1f1;
+    }
+
+
+    /* =========================================================
+       CONTENT SECTIONS
+    ========================================================== */
+
+    .request-content-section {
+
+        margin-bottom: 25px;
+
+        padding-bottom: 23px;
+
+        border: none !important;
+    }
+
+
+    .request-content-section:last-child {
+
+        margin-bottom: 0;
+
+        padding-bottom: 0;
+
+        border-bottom: none !important;
+    }
+
+
+    /* =========================================================
+       SECTION HEADING
+    ========================================================== */
+
+    .section-heading {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 9px;
+
+        margin-bottom: 13px;
+    }
+
+
+    .section-heading-icon {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        width: 32px;
+
+        height: 32px;
+
+        flex-shrink: 0;
+
+        color: var(--request-blue);
+
+        background: var(--request-soft-blue);
+
+        border: none !important;
+
+        border-radius: 8px;
+
+        font-size: .75rem;
+    }
+
+
+    .section-heading h2 {
+
+        margin: 0;
+
+        color: var(--request-black);
+
+        font-size: .83rem;
+
+        font-weight: 800;
+    }
+
+
+    .section-heading p {
+
+        margin: 2px 0 0;
+
+        color: var(--request-muted);
+
+        font-size: .62rem;
+    }
+
+
+    /* =========================================================
+       INFORMATION
+    ========================================================== */
+
+    .request-information-form {
+
+        display: grid;
+
+        grid-template-columns:
+            1.2fr 1fr;
+
+        gap: 12px 28px;
+
+        width: 100%;
+
+        box-sizing: border-box;
+    }
+
+
+    /* =========================================================
+       FORM GROUP
+    ========================================================== */
+
+    .request-form-group {
+
+        display: grid;
+
+        grid-template-columns:
+            105px minmax(0, 1fr);
+
+        align-items: center;
+
+        gap: 10px;
+
+        width: 100%;
+
+        min-width: 0;
+
+        box-sizing: border-box;
+    }
+
+
+    /* =========================================================
+       LABEL
+    ========================================================== */
+
+    .request-form-label {
+
+        display: block;
+
+        margin: 0;
+
+        color: var(--request-text);
+
+        font-size: .63rem;
+
+        font-weight: 800;
+
+        letter-spacing: .04em;
+
+        text-transform: uppercase;
+
+        white-space: nowrap;
+    }
+
+
+    /* =========================================================
+       VALUE
+    ========================================================== */
+
+    .request-form-control {
+
+        display: flex;
+
+        align-items: center;
+
+        width: 90%;
+
+        min-height: 42px;
+
+        padding: .55rem .75rem;
+
+        box-sizing: border-box;
+
+        color: var(--request-text);
+
+        background: var(--request-soft);
+
+        border: none !important;
+
+        border-radius: 8px;
+
+        outline: none;
+
+        font-family: inherit;
+
+        font-size: .69rem;
+
+        font-weight: 600;
+
+        line-height: 1.45;
+
+        overflow-wrap: anywhere;
+
+        transition:
+            background-color .2s ease,
+            color .2s ease;
+    }
+
+
+    .request-form-control:hover {
+
+        background: #f3f3f3;
+    }
+
+
+    /* =========================================================
+       REJECTION REASON
+    ========================================================== */
+
+    .reason-value {
+
+        color: var(--request-red);
+
+        line-height: 1.6;
+    }
+
+
+    /* =========================================================
+       ABSTRACT / DESCRIPTION
+    ========================================================== */
+
+    .text-content {
+
+        padding: 12px;
+
+        color: #555555;
+
+        background: var(--request-soft);
+
+        border: none !important;
+
+        border-radius: 9px;
+
+        font-size: .7rem;
+
+        line-height: 1.7;
+
+        white-space: pre-line;
+
+        text-align: justify;
+    }
+
+
+    /* =========================================================
+       DOCUMENT
+    ========================================================== */
+
+    .document-box {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 15px;
+
+        padding: 11px 12px;
+
+        background: var(--request-soft);
+
+        border: none !important;
+
+        border-radius: 9px;
+    }
+
+
+    .document-left {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        min-width: 0;
+    }
+
+
+    .document-file-icon {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        width: 36px;
+
+        height: 36px;
+
+        flex-shrink: 0;
+
+        color: var(--request-red);
+
+        background: #fff0f1;
+
+        border: none !important;
+
+        border-radius: 8px;
+
+        font-size: .85rem;
+    }
+
+
+    .document-details {
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 2px;
+
+        min-width: 0;
+    }
+
+
+    .document-details strong {
+
+        color: var(--request-text);
+
+        font-size: .7rem;
+
+        font-weight: 700;
+    }
+
+
+    .document-details span {
+
+        color: var(--request-muted);
+
+        font-size: .59rem;
+    }
+
+
+    /* =========================================================
+       VIEW PDF
+    ========================================================== */
+
+    .view-pdf-button {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 5px;
+
+        flex-shrink: 0;
+
+        padding: 7px 12px;
+
+        color: #ffffff !important;
+
+        background: var(--request-red);
+
+        border: none !important;
+
+        border-radius: 7px;
+
+        text-decoration: none;
+
+        font-size: .61rem;
+
+        font-weight: 700;
+
+        white-space: nowrap;
+
+        transition: .2s ease;
+    }
+
+
+    .view-pdf-button:hover {
+
+        color: #ffffff !important;
+
+        background: #bb2d3b;
+
+        transform: translateY(-1px);
+    }
+
+
+    /* =========================================================
+       REJECTION
+    ========================================================== */
+
+    .rejection-icon {
+
+        color: var(--request-red);
+
+        background: #fff0f1;
+    }
+
+
+    /* =========================================================
+       REVIEW
+    ========================================================== */
+
+    .review-section {
+
+        border: none !important;
+
+        margin-bottom: 0;
+
+        padding-bottom: 0;
+    }
+
+
+    .approve-form {
+
+        margin: 0 0 10px;
+    }
+
+
+    .action-button {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 6px;
+
+        width: 100%;
+
+        min-height: 39px;
+
+        padding: 9px 14px;
+
+        color: #ffffff !important;
+
+        border: none !important;
+
+        border-radius: 7px;
+
+        font-size: .65rem;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition: .2s ease;
+    }
+
+
+    .action-button:hover {
+
+        color: #ffffff !important;
+
+        transform: translateY(-1px);
+    }
+
+
+    .approve-button {
+
+        background: var(--request-green);
+    }
+
+
+    .approve-button:hover {
+
+        background: #157347;
+    }
+
+
+    .reject-area {
+
+        margin-top: 8px;
+    }
+
+
+    .review-label {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 5px;
+
+        margin-bottom: 6px;
+
+        color: var(--request-text);
+
+        font-size: .68rem;
+
+        font-weight: 700;
+    }
+
+
+    .review-label i {
+
+        color: var(--request-red);
+    }
+
+
+    .review-textarea {
+
+        display: block;
+
+        width: 100%;
+
+        min-height: 100px;
+
+        padding: 10px 11px;
+
+        box-sizing: border-box;
+
+        color: var(--request-text);
+
+        background: var(--request-soft);
+
+        border: none !important;
+
+        border-radius: 8px;
+
+        outline: none;
+
+        resize: vertical;
+
+        font-family: inherit;
+
+        font-size: .68rem;
+
+        line-height: 1.55;
+    }
+
+
+    .review-textarea:focus {
+
+        border: none !important;
+
+        outline: none;
+
+        box-shadow:
+            0 0 0 2px rgba(220, 53, 69, .12);
+    }
+
+
+    .review-textarea::placeholder {
+
+        color: #999999;
+    }
+
+
+    .reject-button {
+
+        margin-top: 8px;
+
+        background: var(--request-red);
+    }
+
+
+    .reject-button:hover {
+
+        background: #bb2d3b;
+    }
+
+
+    .review-error {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 5px;
+
+        margin-top: 5px;
+
+        color: var(--request-red);
+
+        font-size: .61rem;
+    }
+
+
+    /* =========================================================
+       EMPTY STATE
+    ========================================================== */
+
+    .empty-request {
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        min-height: 320px;
+
+        padding: 30px;
+
+        background: var(--request-card);
+
+        border: none !important;
+
+        border-radius: 14px;
+
+        box-shadow: var(--request-shadow);
+
+        text-align: center;
+    }
+
+
+    .empty-icon {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        width: 54px;
+
+        height: 54px;
+
+        margin-bottom: 12px;
+
+        color: #ffffff;
+
+        background: #111111;
+
+        border: none !important;
+
+        border-radius: 11px;
+
+        font-size: 1.2rem;
+    }
+
+
+    .empty-request h2 {
+
+        margin: 0 0 5px;
+
+        color: var(--request-black);
+
+        font-size: .95rem;
+
+        font-weight: 800;
+    }
+
+
+    .empty-request p {
+
+        margin: 0;
+
+        color: var(--request-muted);
+
+        font-size: .68rem;
+    }
+
+
+    /* =========================================================
+       DARK MODE
+       SAME AS ADMIN DASHBOARD
+    ========================================================== */
+
+    [data-bs-theme="dark"] .thesis-request-page {
+
+        --request-black: #ffffff;
+        --request-text: #eeeef8;
+        --request-muted: #999fb9;
+
+        --request-card: #181d33;
+        --request-soft: #20253a;
+        --request-soft-blue: #252b42;
+
+        --request-blue: #ffffff;
+        --request-green: #198754;
+        --request-red: #dc3545;
+        --request-yellow: #ffc107;
+
+        --request-shadow:
+            0 4px 18px rgba(0, 0, 0, .35);
+
+        background: #101426;
+        color: #eeeef8;
+    }
+
+
+    /* =========================================================
+       DARK PAGE
+    ========================================================== */
+
+    [data-bs-theme="dark"] body {
+
+        background: #101426;
+
+        color: #eeeef8;
+    }
+
+
+    [data-bs-theme="dark"] .dashboard-content {
+
+        background: #101426;
+
+        color: #eeeef8;
+    }
+
+
+    /* =========================================================
+       DARK MAIN CARD
+    ========================================================== */
+
+    [data-bs-theme="dark"] .request-form-card {
+
+        background: #181d33;
+
+        border: none !important;
+
+        box-shadow:
+            0 4px 18px rgba(0, 0, 0, .35);
+    }
+
+
+    /* =========================================================
+       DARK HEADER
+    ========================================================== */
+
+    [data-bs-theme="dark"] .request-header {
+
+        background: #171b30;
+
+        margin:
+            -22px -22px 25px;
+
+        padding:
+            18px 22px;
+
+        border-radius:
+            14px 14px 0 0;
+    }
+
+
+    [data-bs-theme="dark"] .request-overline {
+
+        color: #999fb9;
+    }
+
+
+    [data-bs-theme="dark"] .request-title-row > i {
+
+        color: #ffffff;
+    }
+
+
+    [data-bs-theme="dark"] .request-title {
+
+        color: #ffffff;
+    }
+
+
+    /* =========================================================
+       DARK STATUS
+    ========================================================== */
+
+    [data-bs-theme="dark"] .status-approved {
+
+        color: #9de2bb;
+
+        background: #19352a;
+    }
+
+
+    [data-bs-theme="dark"] .status-pending {
+
+        color: #f5d36b;
+
+        background: #3a321b;
+    }
+
+
+    [data-bs-theme="dark"] .status-rejected {
+
+        color: #ff9da5;
+
+        background: #3a2028;
+    }
+
+
+    [data-bs-theme="dark"] .status-default {
+
+        color: #d5d8e8;
+
+        background: #20253a;
+    }
+
+
+    /* =========================================================
+       DARK SECTION HEADINGS
+    ========================================================== */
+
+    [data-bs-theme="dark"] .section-heading-icon {
+
+        color: #ffffff;
+
+        background: #20253a;
+    }
+
+
+    [data-bs-theme="dark"] .section-heading h2 {
+
+        color: #ffffff;
+    }
+
+
+    [data-bs-theme="dark"] .section-heading p {
+
+        color: #999fb9;
+    }
+
+
+    /* =========================================================
+       DARK FORM LABELS
+    ========================================================== */
+
+    [data-bs-theme="dark"] .request-form-label {
+
+        color: #d5d8e8;
+    }
+
+
+    /* =========================================================
+       DARK FORM VALUES
+    ========================================================== */
+
+    [data-bs-theme="dark"] .request-form-control {
+
+        color: #ffffff;
+
+        background: #20253a;
+
+        border: none !important;
+    }
+
+
+    [data-bs-theme="dark"] .request-form-control:hover {
+
+        background: #252b42;
+    }
+
+
+    /* =========================================================
+       DARK ABSTRACT / DESCRIPTION
+    ========================================================== */
+
+    [data-bs-theme="dark"] .text-content {
+
+        color: #d5d8e8;
+
+        background: #20253a;
+    }
+
+
+    /* =========================================================
+       DARK DOCUMENT
+    ========================================================== */
+
+    [data-bs-theme="dark"] .document-box {
+
+        background: #20253a;
+    }
+
+
+    [data-bs-theme="dark"] .document-file-icon {
+
+        color: #ff9da5;
+
+        background: #3a2028;
+    }
+
+
+    [data-bs-theme="dark"] .document-details strong {
+
+        color: #ffffff;
+    }
+
+
+    [data-bs-theme="dark"] .document-details span {
+
+        color: #999fb9;
+    }
+
+
+    /* =========================================================
+       DARK REJECTION ICON
+    ========================================================== */
+
+    [data-bs-theme="dark"] .rejection-icon {
+
+        color: #ff9da5;
+
+        background: #3a2028;
+    }
+
+
+    /* =========================================================
+       DARK REVIEW LABEL
+    ========================================================== */
+
+    [data-bs-theme="dark"] .review-label {
+
+        color: #d5d8e8;
+    }
+
+
+    /* =========================================================
+       DARK TEXTAREA
+    ========================================================== */
+
+    [data-bs-theme="dark"] .review-textarea {
+
+        color: #ffffff;
+
+        background: #20253a;
+
+        border: none !important;
+    }
+
+
+    [data-bs-theme="dark"] .review-textarea:focus {
+
+        background: #252b42;
+
+        box-shadow:
+            0 0 0 2px rgba(255, 255, 255, .10);
+    }
+
+
+    [data-bs-theme="dark"] .review-textarea::placeholder {
+
+        color: #777f9c;
+    }
+
+
+    /* =========================================================
+       DARK ALERTS
+    ========================================================== */
+
+    [data-bs-theme="dark"] .request-alert-success {
+
+        color: #9de2bb;
+
+        background: #19352a;
+    }
+
+
+    [data-bs-theme="dark"] .request-alert-danger {
+
+        color: #ffb4b4;
+
+        background: #3a2028;
+    }
+
+
+    /* =========================================================
+       DARK EMPTY STATE
+    ========================================================== */
+
+    [data-bs-theme="dark"] .empty-request {
+
+        background: #181d33;
+
+        box-shadow:
+            0 4px 18px rgba(0, 0, 0, .35);
+    }
+
+
+    [data-bs-theme="dark"] .empty-icon {
+
+        color: #000000;
+
+        background: #ffffff;
+    }
+
+
+    [data-bs-theme="dark"] .empty-request h2 {
+
+        color: #ffffff;
+    }
+
+
+    [data-bs-theme="dark"] .empty-request p {
+
+        color: #999fb9;
+    }
+
+
+    /* =========================================================
+       TABLET
+    ========================================================== */
+
+    @media (max-width: 900px) {
+
+        .request-information-form {
+
+            grid-template-columns: 1fr;
+
+            gap: 12px;
         }
 
-
-        /* =========================================================
-           ALERTS
-        ========================================================== */
-
-        .request-alert {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            margin-bottom: 16px;
-
-            padding: 10px 13px;
-
-            border: none !important;
-
-            border-radius: 8px;
-
-            font-size: .72rem;
-
-            font-weight: 600;
-        }
+    }
 
 
-        .request-alert-success {
+    /* =========================================================
+       MOBILE
+    ========================================================== */
 
-            color: #176b3a;
-
-            background: #eefaf3;
-        }
-
-
-        .request-alert-danger {
-
-            color: #b42318;
-
-            background: #fff1f1;
-        }
-
-
-        /* =========================================================
-           MAIN CARD
-        ========================================================== */
+    @media (max-width: 767.98px) {
 
         .request-form-card {
 
-            width: 100%;
-
-            padding: 22px;
-
-            background: var(--request-card);
-
-            border: none !important;
-
-            border-radius: 14px;
-
-            box-shadow: var(--request-shadow);
-
-            box-sizing: border-box;
+            padding: 17px;
         }
 
 
-        /* =========================================================
-           HEADER
-        ========================================================== */
+        [data-bs-theme="dark"] .request-header {
+
+            margin:
+                -17px -17px 20px;
+
+            padding:
+                16px 17px;
+
+            border-radius:
+                14px 14px 0 0;
+        }
+
 
         .request-header {
 
-            display: flex;
+            flex-direction: column;
 
-            align-items: flex-start;
+            gap: 12px;
 
-            justify-content: space-between;
-
-            gap: 20px;
-
-            margin-bottom: 25px;
-
-            padding-bottom: 18px;
-
-            border: none !important;
+            margin-bottom: 20px;
         }
 
 
-        .request-header-content {
+        .request-status-wrapper {
 
-            min-width: 0;
-
-            flex: 1;
-        }
-
-
-        .request-overline {
-
-            display: block;
-
-            margin-bottom: 5px;
-
-            color: var(--request-muted);
-
-            font-size: .61rem;
-
-            font-weight: 800;
-
-            letter-spacing: .13em;
-
-            text-transform: uppercase;
-        }
-
-
-        .request-title-row {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 9px;
-
-            min-width: 0;
-        }
-
-
-        .request-title-row>i {
-
-            flex-shrink: 0;
-
-            color: var(--request-black);
-
-            font-size: 1.15rem;
-
-            line-height: 1;
+            padding-top: 0;
         }
 
 
         .request-title {
 
-            margin: 0;
+            font-size: 1.2rem;
+        }
 
-            min-width: 0;
 
-            color: var(--request-black);
+        .request-form-group {
 
-            font-size: 1.4rem;
+            grid-template-columns:
+                105px minmax(0, 1fr);
 
-            font-weight: 800;
+            gap: 9px;
+        }
 
-            line-height: 1.35;
 
-            letter-spacing: -.025em;
+        .document-box {
 
-            overflow-wrap: anywhere;
+            align-items: flex-start;
+
+            flex-direction: column;
+        }
+
+
+        .view-pdf-button {
+
+            width: 100%;
+        }
+
+    }
+
+
+    /* =========================================================
+       SMALL MOBILE
+    ========================================================== */
+
+    @media (max-width: 480px) {
+
+        .request-form-card {
+
+            padding: 14px;
+
+            border-radius: 11px;
+        }
+
+
+        [data-bs-theme="dark"] .request-header {
+
+            margin:
+                -14px -14px 20px;
+
+            padding:
+                14px;
+
+            border-radius:
+                11px 11px 0 0;
+        }
+
+
+        .request-title-row {
+
+            align-items: center;
+
+            gap: 7px;
+        }
+
+
+        .request-title-row > i {
+
+            font-size: 1rem;
+        }
+
+
+        .request-title {
+
+            font-size: 1.05rem;
         }
 
 
         .request-id {
 
-            display: block;
-
-            margin-top: 5px;
-
-            color: var(--request-muted);
-
-            font-size: .67rem;
-        }
-
-
-        /* =========================================================
-           STATUS
-        ========================================================== */
-
-        .request-status-wrapper {
-
-            flex-shrink: 0;
-
-            padding-top: 13px;
-        }
-
-
-        .request-status {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 5px;
-
-            padding: 6px 11px;
-
-            border: none !important;
-
-            border-radius: 999px;
-
             font-size: .62rem;
-
-            font-weight: 700;
-
-            white-space: nowrap;
         }
 
-
-        .status-approved {
-
-            color: var(--request-green);
-
-            background: #eaf7ef;
-        }
-
-
-        .status-pending {
-
-            color: var(--request-yellow);
-
-            background: #fff8df;
-        }
-
-
-        .status-rejected {
-
-            color: var(--request-red);
-
-            background: #fff0f1;
-        }
-
-
-        .status-default {
-
-            color: #555555;
-
-            background: #f1f1f1;
-        }
-
-
-        /* =========================================================
-           CONTENT SECTIONS
-        ========================================================== */
-
-        .request-content-section {
-
-            margin-bottom: 25px;
-
-            padding-bottom: 23px;
-
-            border: none !important;
-        }
-
-
-        .request-content-section:last-child {
-
-            margin-bottom: 0;
-
-            padding-bottom: 0;
-
-            border-bottom: none !important;
-        }
-
-
-        /* =========================================================
-           SECTION HEADING
-        ========================================================== */
 
         .section-heading {
 
-            display: flex;
+            gap: 7px;
 
-            align-items: center;
-
-            gap: 9px;
-
-            margin-bottom: 13px;
+            margin-bottom: 10px;
         }
 
 
         .section-heading-icon {
 
-            display: flex;
+            width: 29px;
 
-            align-items: center;
+            height: 29px;
 
-            justify-content: center;
-
-            width: 32px;
-
-            height: 32px;
-
-            flex-shrink: 0;
-
-            color: var(--request-blue);
-
-            background: var(--request-soft-blue);
-
-            border: none !important;
-
-            border-radius: 8px;
-
-            font-size: .75rem;
+            font-size: .67rem;
         }
 
 
         .section-heading h2 {
 
-            margin: 0;
-
-            color: var(--request-black);
-
-            font-size: .83rem;
-
-            font-weight: 800;
+            font-size: .76rem;
         }
 
 
         .section-heading p {
 
-            margin: 2px 0 0;
-
-            color: var(--request-muted);
-
-            font-size: .62rem;
+            font-size: .56rem;
         }
 
 
-        /* =========================================================
-           REQUEST INFORMATION
-           UNEQUAL 2 COLUMNS
-        ========================================================== */
+        .request-content-section {
+
+            margin-bottom: 20px;
+
+            padding-bottom: 18px;
+        }
+
 
         .request-information-form {
 
-            display: grid;
-
-            /*
-             * Left column is slightly wider
-             * than the right column.
-             */
-            grid-template-columns:
-                1.2fr 1fr;
-
-            gap: 12px 28px;
-
-            width: 100%;
-
-            box-sizing: border-box;
+            gap: 10px;
         }
 
-
-        /* =========================================================
-           FORM GROUP
-           LABEL + VALUE SAME ROW
-        ========================================================== */
 
         .request-form-group {
 
-            display: grid;
-
             grid-template-columns:
-                105px minmax(0, 1fr);
+                90px minmax(0, 1fr);
 
-            align-items: center;
-
-            gap: 10px;
-
-            width: 100%;
-
-            min-width: 0;
-
-            box-sizing: border-box;
+            gap: 8px;
         }
 
-
-        /* =========================================================
-           LABEL
-        ========================================================== */
 
         .request-form-label {
 
-            display: block;
+            font-size: .59rem;
 
-            margin: 0;
-
-            color: var(--request-text);
-
-            font-size: .63rem;
-
-            font-weight: 800;
-
-            letter-spacing: .04em;
-
-            text-transform: uppercase;
-
-            white-space: nowrap;
+            letter-spacing: .025em;
         }
 
-
-        /* =========================================================
-           VALUE
-        ========================================================== */
 
         .request-form-control {
 
-            display: flex;
+            min-height: 40px;
 
-            align-items: center;
+            padding: .5rem .65rem;
 
-            width: 90%;
-
-            min-height: 42px;
-
-            padding: .55rem .75rem;
-
-            box-sizing: border-box;
-
-            color: var(--request-text);
-
-            background: var(--request-soft);
-
-            border: none !important;
-
-            border-radius: 8px;
-
-            outline: none;
-
-            font-family: inherit;
-
-            font-size: .69rem;
-
-            font-weight: 600;
-
-            line-height: 1.45;
-
-            overflow-wrap: anywhere;
-
-            transition:
-                background-color .2s ease,
-                color .2s ease;
+            font-size: .63rem;
         }
 
-
-        .request-form-control:hover {
-
-            background: #f3f3f3;
-        }
-
-
-        /* =========================================================
-           REJECTION REASON
-        ========================================================== */
-
-        .reason-value {
-
-            color: var(--request-red);
-
-            line-height: 1.6;
-        }
-
-
-        /* =========================================================
-           ABSTRACT / DESCRIPTION
-        ========================================================== */
 
         .text-content {
 
-            padding: 12px;
+            padding: 9px;
 
-            color: #555555;
+            font-size: .65rem;
 
-            background: var(--request-soft);
+            line-height: 1.6;
 
-            border: none !important;
-
-            border-radius: 9px;
-
-            font-size: .7rem;
-
-            line-height: 1.7;
-
-            white-space: pre-line;
-
-            text-align: justify;
+            text-align: left;
         }
 
-
-        /* =========================================================
-           DOCUMENT
-        ========================================================== */
 
         .document-box {
 
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 15px;
-
-            padding: 11px 12px;
-
-            background: var(--request-soft);
-
-            border: none !important;
-
-            border-radius: 9px;
-        }
-
-
-        .document-left {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 10px;
-
-            min-width: 0;
+            padding: 9px;
         }
 
 
         .document-file-icon {
 
-            display: flex;
+            width: 33px;
 
-            align-items: center;
-
-            justify-content: center;
-
-            width: 36px;
-
-            height: 36px;
-
-            flex-shrink: 0;
-
-            color: var(--request-red);
-
-            background: #fff0f1;
-
-            border: none !important;
-
-            border-radius: 8px;
-
-            font-size: .85rem;
-        }
-
-
-        .document-details {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 2px;
-
-            min-width: 0;
+            height: 33px;
         }
 
 
         .document-details strong {
 
-            color: var(--request-text);
-
-            font-size: .7rem;
-
-            font-weight: 700;
+            font-size: .66rem;
         }
 
 
         .document-details span {
 
-            color: var(--request-muted);
+            font-size: .56rem;
+        }
 
-            font-size: .59rem;
+    }
+
+
+    /* =========================================================
+       VERY SMALL SCREENS
+    ========================================================== */
+
+    @media (max-width: 360px) {
+
+        .request-form-group {
+
+            grid-template-columns:
+                80px minmax(0, 1fr);
+
+            gap: 7px;
         }
 
 
-        /* =========================================================
-           VIEW PDF
-        ========================================================== */
+        .request-form-label {
 
-        .view-pdf-button {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 5px;
-
-            flex-shrink: 0;
-
-            padding: 7px 12px;
-
-            color: #ffffff !important;
-
-            background: var(--request-red);
-
-            border: none !important;
-
-            border-radius: 7px;
-
-            text-decoration: none;
-
-            font-size: .61rem;
-
-            font-weight: 700;
-
-            white-space: nowrap;
-
-            transition: .2s ease;
+            font-size: .56rem;
         }
 
 
-        .view-pdf-button:hover {
+        .request-form-control {
 
-            color: #ffffff !important;
+            font-size: .6rem;
 
-            background: #bb2d3b;
+            padding-left: .55rem;
 
-            transform: translateY(-1px);
+            padding-right: .55rem;
         }
 
+    }
 
-        /* =========================================================
-           REJECTION
-        ========================================================== */
 
-        .rejection-icon {
+    /* =========================================================
+       REDUCED MOTION
+    ========================================================== */
 
-            color: var(--request-red);
+    @media (prefers-reduced-motion: reduce) {
 
-            background: #fff0f1;
+        .thesis-request-page *,
+        .thesis-request-page *::before,
+        .thesis-request-page *::after {
+
+            transition: none !important;
+
+            animation: none !important;
         }
 
+    }
+</style>
 
-        /* =========================================================
-           REVIEW
-        ========================================================== */
 
-        .review-section {
-
-            border: none !important;
-
-            margin-bottom: 0;
-
-            padding-bottom: 0;
-        }
-
-
-        .approve-form {
-
-            margin: 0 0 10px;
-        }
-
-
-        .action-button {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 6px;
-
-            width: 100%;
-
-            min-height: 39px;
-
-            padding: 9px 14px;
-
-            color: #ffffff !important;
-
-            border: none !important;
-
-            border-radius: 7px;
-
-            font-size: .65rem;
-
-            font-weight: 700;
-
-            cursor: pointer;
-
-            transition: .2s ease;
-        }
-
-
-        .action-button:hover {
-
-            color: #ffffff !important;
-
-            transform: translateY(-1px);
-        }
-
-
-        .approve-button {
-
-            background: var(--request-green);
-        }
-
-
-        .approve-button:hover {
-
-            background: #157347;
-        }
-
-
-        .reject-area {
-
-            margin-top: 8px;
-        }
-
-
-        .review-label {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 5px;
-
-            margin-bottom: 6px;
-
-            color: var(--request-text);
-
-            font-size: .68rem;
-
-            font-weight: 700;
-        }
-
-
-        .review-label i {
-
-            color: var(--request-red);
-        }
-
-
-        .review-textarea {
-
-            display: block;
-
-            width: 100%;
-
-            min-height: 100px;
-
-            padding: 10px 11px;
-
-            box-sizing: border-box;
-
-            color: var(--request-text);
-
-            background: var(--request-soft);
-
-            border: none !important;
-
-            border-radius: 8px;
-
-            outline: none;
-
-            resize: vertical;
-
-            font-family: inherit;
-
-            font-size: .68rem;
-
-            line-height: 1.55;
-        }
-
-
-        .review-textarea:focus {
-
-            border: none !important;
-
-            outline: none;
-
-            box-shadow:
-                0 0 0 2px rgba(220, 53, 69, .12);
-        }
-
-
-        .review-textarea::placeholder {
-
-            color: #999999;
-        }
-
-
-        .reject-button {
-
-            margin-top: 8px;
-
-            background: var(--request-red);
-        }
-
-
-        .reject-button:hover {
-
-            background: #bb2d3b;
-        }
-
-
-        .review-error {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 5px;
-
-            margin-top: 5px;
-
-            color: var(--request-red);
-
-            font-size: .61rem;
-        }
-
-
-        /* =========================================================
-           EMPTY STATE
-        ========================================================== */
-
-        .empty-request {
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-
-            justify-content: center;
-
-            min-height: 320px;
-
-            padding: 30px;
-
-            background: var(--request-card);
-
-            border: none !important;
-
-            border-radius: 14px;
-
-            box-shadow: var(--request-shadow);
-
-            text-align: center;
-        }
-
-
-        .empty-icon {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            width: 54px;
-
-            height: 54px;
-
-            margin-bottom: 12px;
-
-            color: #ffffff;
-
-            background: #111111;
-
-            border: none !important;
-
-            border-radius: 11px;
-
-            font-size: 1.2rem;
-        }
-
-
-        .empty-request h2 {
-
-            margin: 0 0 5px;
-
-            color: var(--request-black);
-
-            font-size: .95rem;
-
-            font-weight: 800;
-        }
-
-
-        .empty-request p {
-
-            margin: 0;
-
-            color: var(--request-muted);
-
-            font-size: .68rem;
-        }
-
-
-        /* =========================================================
-           DARK MODE
-        ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-request-page {
-
-            --request-black: #ffffff;
-            --request-text: #eeeeee;
-            --request-muted: #999999;
-
-            --request-card: #000000;
-            --request-soft: #0d0d0d;
-            --request-soft-blue: #101820;
-
-            --request-shadow:
-                0 4px 18px rgba(0, 0, 0, .4);
-        }
-
-
-        [data-bs-theme="dark"] .request-form-card {
-
-            background: #000000;
-
-            border: none !important;
-        }
-
-
-        [data-bs-theme="dark"] .request-form-control {
-
-            color: #ffffff;
-
-            background: #0d0d0d;
-
-            border: none !important;
-        }
-
-
-        [data-bs-theme="dark"] .request-form-control:hover {
-
-            background: #151515;
-        }
-
-
-        [data-bs-theme="dark"] .text-content {
-
-            color: #cccccc;
-
-            background: #0d0d0d;
-        }
-
-
-        [data-bs-theme="dark"] .document-box {
-
-            background: #0d0d0d;
-        }
-
-
-        [data-bs-theme="dark"] .document-file-icon,
-
-        [data-bs-theme="dark"] .rejection-icon {
-
-            background: #281316;
-        }
-
-
-        [data-bs-theme="dark"] .review-textarea {
-
-            color: #eeeeee;
-
-            background: #0d0d0d;
-
-            border: none !important;
-        }
-
-
-        [data-bs-theme="dark"] .request-title-row>i {
-
-            color: #ffffff;
-        }
-
-
-        [data-bs-theme="dark"] .empty-icon {
-
-            color: #000000;
-
-            background: #ffffff;
-        }
-
-
-        /* =========================================================
-           TABLET
-        ========================================================== */
-
-        @media (max-width: 900px) {
-
-            .request-information-form {
-
-                grid-template-columns: 1fr;
-
-                gap: 12px;
-            }
-
-        }
-
-
-        /* =========================================================
-           MOBILE
-        ========================================================== */
-
-        @media (max-width: 767.98px) {
-
-            .request-form-card {
-
-                padding: 17px;
-            }
-
-
-            .request-header {
-
-                flex-direction: column;
-
-                gap: 12px;
-
-                margin-bottom: 20px;
-            }
-
-
-            .request-status-wrapper {
-
-                padding-top: 0;
-            }
-
-
-            .request-title {
-
-                font-size: 1.2rem;
-            }
-
-
-            /*
-             * Keep label and value
-             * on the same row.
-             */
-
-            .request-form-group {
-
-                grid-template-columns:
-                    105px minmax(0, 1fr);
-
-                gap: 9px;
-            }
-
-
-            .document-box {
-
-                align-items: flex-start;
-
-                flex-direction: column;
-            }
-
-
-            .view-pdf-button {
-
-                width: 100%;
-            }
-
-        }
-
-
-        /* =========================================================
-           SMALL MOBILE
-        ========================================================== */
-
-        @media (max-width: 480px) {
-
-            .request-form-card {
-
-                padding: 14px;
-
-                border-radius: 11px;
-            }
-
-
-            .request-title-row {
-
-                align-items: center;
-
-                gap: 7px;
-            }
-
-
-            .request-title-row>i {
-
-                font-size: 1rem;
-            }
-
-
-            .request-title {
-
-                font-size: 1.05rem;
-            }
-
-
-            .request-id {
-
-                font-size: .62rem;
-            }
-
-
-            .section-heading {
-
-                gap: 7px;
-
-                margin-bottom: 10px;
-            }
-
-
-            .section-heading-icon {
-
-                width: 29px;
-
-                height: 29px;
-
-                font-size: .67rem;
-            }
-
-
-            .section-heading h2 {
-
-                font-size: .76rem;
-            }
-
-
-            .section-heading p {
-
-                font-size: .56rem;
-            }
-
-
-            .request-content-section {
-
-                margin-bottom: 20px;
-
-                padding-bottom: 18px;
-            }
-
-
-            .request-information-form {
-
-                gap: 10px;
-            }
-
-
-            .request-form-group {
-
-                grid-template-columns:
-                    90px minmax(0, 1fr);
-
-                gap: 8px;
-            }
-
-
-            .request-form-label {
-
-                font-size: .59rem;
-
-                letter-spacing: .025em;
-            }
-
-
-            .request-form-control {
-
-                min-height: 40px;
-
-                padding: .5rem .65rem;
-
-                font-size: .63rem;
-            }
-
-
-            .text-content {
-
-                padding: 9px;
-
-                font-size: .65rem;
-
-                line-height: 1.6;
-
-                text-align: left;
-            }
-
-
-            .document-box {
-
-                padding: 9px;
-            }
-
-
-            .document-file-icon {
-
-                width: 33px;
-
-                height: 33px;
-            }
-
-
-            .document-details strong {
-
-                font-size: .66rem;
-            }
-
-
-            .document-details span {
-
-                font-size: .56rem;
-            }
-
-        }
-
-
-        /* =========================================================
-           VERY SMALL SCREENS
-        ========================================================== */
-
-        @media (max-width: 360px) {
-
-            .request-form-group {
-
-                grid-template-columns:
-                    80px minmax(0, 1fr);
-
-                gap: 7px;
-            }
-
-
-            .request-form-label {
-
-                font-size: .56rem;
-            }
-
-
-            .request-form-control {
-
-                font-size: .6rem;
-
-                padding-left: .55rem;
-
-                padding-right: .55rem;
-            }
-
-        }
-
-
-        /* =========================================================
-           REDUCED MOTION
-        ========================================================== */
-
-        @media (prefers-reduced-motion: reduce) {
-
-            .thesis-request-page *,
-
-            .thesis-request-page *::before,
-
-            .thesis-request-page *::after {
-
-                transition: none !important;
-
-                animation: none !important;
-            }
-
-        }
-    </style>
 
 </x-app-layout>

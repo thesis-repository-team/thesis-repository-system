@@ -1,12 +1,19 @@
+
 <x-app-layout>
 
     <div class="dashboard-page">
 
         <div class="dashboard-content">
 
+            {{-- =========================================================
+                STATISTICS
+            ========================================================== --}}
+
             <section class="dashboard-grid">
 
+                {{-- Departments --}}
                 <div class="stat-card">
+
                     <div class="stat-card-top">
 
                         <div class="stat-icon purple">
@@ -14,6 +21,7 @@
                         </div>
 
                         <div>
+
                             <div class="stat-card-title">
                                 Departments
                             </div>
@@ -21,6 +29,7 @@
                             <div class="stat-number">
                                 {{ $departmentsCount ?? 0 }}
                             </div>
+
                         </div>
 
                     </div>
@@ -28,10 +37,13 @@
                     <div class="stat-footer">
                         Total Departments
                     </div>
+
                 </div>
 
 
+                {{-- HoDs --}}
                 <div class="stat-card">
+
                     <div class="stat-card-top">
 
                         <div class="stat-icon blue">
@@ -39,6 +51,7 @@
                         </div>
 
                         <div>
+
                             <div class="stat-card-title">
                                 HoDs
                             </div>
@@ -46,6 +59,7 @@
                             <div class="stat-number">
                                 {{ $hodsCount ?? 0 }}
                             </div>
+
                         </div>
 
                     </div>
@@ -53,10 +67,13 @@
                     <div class="stat-footer">
                         Active HoDs
                     </div>
+
                 </div>
 
 
+                {{-- Students --}}
                 <div class="stat-card">
+
                     <div class="stat-card-top">
 
                         <div class="stat-icon green">
@@ -64,6 +81,7 @@
                         </div>
 
                         <div>
+
                             <div class="stat-card-title">
                                 Students
                             </div>
@@ -71,6 +89,7 @@
                             <div class="stat-number">
                                 {{ $studentsCount ?? 0 }}
                             </div>
+
                         </div>
 
                     </div>
@@ -78,10 +97,13 @@
                     <div class="stat-footer">
                         Total Students
                     </div>
+
                 </div>
 
 
+                {{-- Theses --}}
                 <div class="stat-card">
+
                     <div class="stat-card-top">
 
                         <div class="stat-icon orange">
@@ -89,6 +111,7 @@
                         </div>
 
                         <div>
+
                             <div class="stat-card-title">
                                 Theses
                             </div>
@@ -96,6 +119,7 @@
                             <div class="stat-number">
                                 {{ $thesesCount ?? 0 }}
                             </div>
+
                         </div>
 
                     </div>
@@ -103,20 +127,36 @@
                     <div class="stat-footer">
                         Total Theses
                     </div>
+
                 </div>
 
             </section>
 
 
+            {{-- =========================================================
+                LOWER DASHBOARD
+            ========================================================== --}}
+
             <section class="dashboard-lower-grid">
 
+
+                {{-- =====================================================
+                    LEFT / MAIN COLUMN
+                ====================================================== --}}
+
                 <div class="dashboard-lower-main">
+
+
+                    {{-- =================================================
+                        RECENT THESES
+                    ================================================== --}}
 
                     <div class="dashboard-card dashboard-large-card">
 
                         <div class="dashboard-card-header">
 
                             <div>
+
                                 <span class="dashboard-section-label">
                                     THESIS REPOSITORY
                                 </span>
@@ -124,6 +164,7 @@
                                 <h3>
                                     Recent Theses
                                 </h3>
+
                             </div>
 
                             <a
@@ -147,6 +188,7 @@
                                         <i class="bi bi-journal-text"></i>
                                     </div>
 
+
                                     <div class="thesis-info">
 
                                         <strong>
@@ -160,6 +202,7 @@
                                         </span>
 
                                     </div>
+
 
                                     <span class="status-badge status-published">
                                         Published
@@ -180,11 +223,16 @@
                     </div>
 
 
+                    {{-- =================================================
+                        RECENT THESIS REQUESTS
+                    ================================================== --}}
+
                     <div class="dashboard-card dashboard-large-card">
 
                         <div class="dashboard-card-header">
 
                             <div>
+
                                 <span class="dashboard-section-label">
                                     MANAGEMENT
                                 </span>
@@ -192,6 +240,7 @@
                                 <h3>
                                     Recent Thesis Requests
                                 </h3>
+
                             </div>
 
                             <a
@@ -210,6 +259,7 @@
                             @forelse($recentThesisRequests ?? [] as $request)
 
                                 <div class="request-item">
+
 
                                     <div class="request-avatar">
 
@@ -282,13 +332,23 @@
                 </div>
 
 
+                {{-- =====================================================
+                    RIGHT / SIDE COLUMN
+                ====================================================== --}}
+
                 <div class="dashboard-lower-side">
+
+
+                    {{-- =================================================
+                        RECENT STUDENTS
+                    ================================================== --}}
 
                     <div class="dashboard-card dashboard-small-card">
 
                         <div class="dashboard-card-header">
 
                             <div>
+
                                 <span class="dashboard-section-label">
                                     STUDENTS
                                 </span>
@@ -296,6 +356,7 @@
                                 <h3>
                                     Recent Students
                                 </h3>
+
                             </div>
 
                             <a
@@ -316,6 +377,7 @@
                                 <div class="student-item">
 
                                     <div class="student-avatar">
+
                                         {{ strtoupper(
                                             substr(
                                                 $student->full_name ?? 'S',
@@ -323,7 +385,9 @@
                                                 2
                                             )
                                         ) }}
+
                                     </div>
+
 
                                     <div class="student-info">
 
@@ -352,11 +416,16 @@
                     </div>
 
 
+                    {{-- =================================================
+                        RECENT HODS
+                    ================================================== --}}
+
                     <div class="dashboard-card dashboard-small-card">
 
                         <div class="dashboard-card-header">
 
                             <div>
+
                                 <span class="dashboard-section-label">
                                     HEADS OF DEPARTMENT
                                 </span>
@@ -364,6 +433,7 @@
                                 <h3>
                                     Recent HoDs
                                 </h3>
+
                             </div>
 
                             <a
@@ -384,6 +454,7 @@
                                 <div class="hod-item">
 
                                     <div class="hod-avatar">
+
                                         {{ strtoupper(
                                             substr(
                                                 $hod->full_name ?? 'H',
@@ -391,7 +462,9 @@
                                                 2
                                             )
                                         ) }}
+
                                     </div>
+
 
                                     <div class="hod-info">
 
@@ -419,6 +492,94 @@
 
                     </div>
 
+
+                    {{-- =================================================
+                        CALENDAR
+                    ================================================== --}}
+
+                    <div class="dashboard-card dashboard-small-card calendar-card">
+
+                        <div class="dashboard-card-header">
+
+                            <div>
+
+                                <span class="dashboard-section-label">
+                                    SCHEDULE
+                                </span>
+
+                                <h3>
+                                    Calendar
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="calendar-wrapper">
+
+
+                            {{-- Calendar navigation --}}
+
+                            <div class="calendar-header">
+
+                                <button
+                                    type="button"
+                                    class="calendar-nav"
+                                    id="calendarPrev"
+                                    aria-label="Previous month"
+                                >
+                                    <i class="bi bi-chevron-left"></i>
+                                </button>
+
+
+                                <div
+                                    class="calendar-month"
+                                    id="calendarMonth"
+                                >
+                                    September 2026
+                                </div>
+
+
+                                <button
+                                    type="button"
+                                    class="calendar-nav"
+                                    id="calendarNext"
+                                    aria-label="Next month"
+                                >
+                                    <i class="bi bi-chevron-right"></i>
+                                </button>
+
+                            </div>
+
+
+                            {{-- Weekdays --}}
+
+                            <div class="calendar-weekdays">
+
+                                <span>Sun</span>
+                                <span>Mon</span>
+                                <span>Tue</span>
+                                <span>Wed</span>
+                                <span>Thu</span>
+                                <span>Fri</span>
+                                <span>Sat</span>
+
+                            </div>
+
+
+                            {{-- Days --}}
+
+                            <div
+                                class="calendar-days"
+                                id="calendarDays"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
                 </div>
 
             </section>
@@ -429,6 +590,10 @@
 
 
     <style>
+
+        /* =========================================================
+           THEME VARIABLES
+        ========================================================== */
 
         :root {
 
@@ -640,6 +805,14 @@
         }
 
 
+        /* Calendar should fit its content */
+
+        .calendar-card {
+
+            min-height: auto;
+        }
+
+
         /* =========================================================
            CARD HEADER
         ========================================================== */
@@ -657,7 +830,6 @@
             min-height: 44px;
 
             margin-bottom: 16px;
-            /* padding: 22px; */
         }
 
 
@@ -1205,6 +1377,186 @@
 
 
         /* =========================================================
+           CALENDAR
+        ========================================================== */
+
+        .calendar-wrapper {
+
+            width: 100%;
+        }
+
+
+        .calendar-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 10px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .calendar-month {
+
+            flex: 1;
+
+            color: var(--dashboard-text);
+
+            font-size: 14px;
+
+            line-height: 1.3;
+
+            font-weight: 700;
+
+            text-align: center;
+        }
+
+
+        .calendar-nav {
+
+            width: 30px;
+
+            height: 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 0;
+
+            border: 1px solid var(--dashboard-border-soft);
+
+            border-radius: 7px;
+
+            background: var(--dashboard-card-bg);
+
+            color: var(--dashboard-text);
+
+            cursor: pointer;
+
+            transition:
+                background-color .2s ease,
+                color .2s ease,
+                border-color .2s ease;
+        }
+
+
+        .calendar-nav:hover {
+
+            background: var(--dashboard-text);
+
+            color: var(--dashboard-card-bg);
+
+            border-color: var(--dashboard-text);
+        }
+
+
+        .calendar-nav i {
+
+            font-size: 10px;
+        }
+
+
+        /* =========================================================
+           CALENDAR WEEKDAYS
+        ========================================================== */
+
+        .calendar-weekdays {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(7, 1fr);
+
+            margin-bottom: 7px;
+        }
+
+
+        .calendar-weekdays span {
+
+            color: var(--dashboard-text-muted);
+
+            font-size: 9px;
+
+            line-height: 1.2;
+
+            font-weight: 700;
+
+            text-align: center;
+        }
+
+
+        /* =========================================================
+           CALENDAR DAYS
+        ========================================================== */
+
+        .calendar-days {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(7, 1fr);
+
+            gap: 4px;
+        }
+
+
+        .calendar-day {
+
+            aspect-ratio: 1 / 1;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 7px;
+
+            color: var(--dashboard-text-secondary);
+
+            font-size: 11px;
+
+            line-height: 1;
+
+            font-weight: 500;
+
+            transition:
+                background-color .2s ease,
+                color .2s ease;
+        }
+
+
+        .calendar-day.empty {
+
+            visibility: hidden;
+        }
+
+
+        .calendar-day.today {
+
+            background: var(--dashboard-text);
+
+            color: var(--dashboard-card-bg);
+
+            font-weight: 700;
+        }
+
+
+        .calendar-day:not(.empty):not(.today):hover {
+
+            background: var(--dashboard-soft);
+
+        }
+
+
+        /* =========================================================
            EMPTY
         ========================================================== */
 
@@ -1361,8 +1713,256 @@
                 font-size: 10px;
             }
 
+
+            .calendar-month {
+
+                font-size: 13px;
+            }
+
+
+            .calendar-day {
+
+                font-size: 10px;
+            }
+
+
+            .calendar-weekdays span {
+
+                font-size: 8px;
+            }
+
         }
 
     </style>
 
+
+    {{-- =============================================================
+        CALENDAR JAVASCRIPT
+    ============================================================= --}}
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const calendarMonth =
+                document.getElementById('calendarMonth');
+
+            const calendarDays =
+                document.getElementById('calendarDays');
+
+            const calendarPrev =
+                document.getElementById('calendarPrev');
+
+            const calendarNext =
+                document.getElementById('calendarNext');
+
+
+            if (
+                !calendarMonth ||
+                !calendarDays ||
+                !calendarPrev ||
+                !calendarNext
+            ) {
+                return;
+            }
+
+
+            /*
+             * Start with the current month.
+             */
+            let currentDate = new Date();
+
+
+            /*
+             * Render calendar.
+             */
+            function renderCalendar() {
+
+                const year =
+                    currentDate.getFullYear();
+
+                const month =
+                    currentDate.getMonth();
+
+
+                /*
+                 * Month name.
+                 */
+                const monthName =
+                    currentDate.toLocaleString(
+                        'default',
+                        {
+                            month: 'long'
+                        }
+                    );
+
+
+                calendarMonth.textContent =
+                    `${monthName} ${year}`;
+
+
+                /*
+                 * Clear previous days.
+                 */
+                calendarDays.innerHTML = '';
+
+
+                /*
+                 * First day of current month.
+                 *
+                 * 0 = Sunday
+                 * 1 = Monday
+                 * ...
+                 * 6 = Saturday
+                 */
+                const firstDay =
+                    new Date(
+                        year,
+                        month,
+                        1
+                    ).getDay();
+
+
+                /*
+                 * Number of days in current month.
+                 */
+                const daysInMonth =
+                    new Date(
+                        year,
+                        month + 1,
+                        0
+                    ).getDate();
+
+
+                /*
+                 * Today's date.
+                 */
+                const today =
+                    new Date();
+
+
+                const todayYear =
+                    today.getFullYear();
+
+                const todayMonth =
+                    today.getMonth();
+
+                const todayDate =
+                    today.getDate();
+
+
+                /*
+                 * Empty cells before day 1.
+                 */
+                for (
+                    let i = 0;
+                    i < firstDay;
+                    i++
+                ) {
+
+                    const emptyDay =
+                        document.createElement('div');
+
+                    emptyDay.classList.add(
+                        'calendar-day',
+                        'empty'
+                    );
+
+                    calendarDays.appendChild(
+                        emptyDay
+                    );
+                }
+
+
+                /*
+                 * Create every day.
+                 */
+                for (
+                    let day = 1;
+                    day <= daysInMonth;
+                    day++
+                ) {
+
+                    const dayElement =
+                        document.createElement('div');
+
+
+                    dayElement.classList.add(
+                        'calendar-day'
+                    );
+
+
+                    dayElement.textContent =
+                        day;
+
+
+                    /*
+                     * Highlight today's date.
+                     */
+                    if (
+                        year === todayYear &&
+                        month === todayMonth &&
+                        day === todayDate
+                    ) {
+
+                        dayElement.classList.add(
+                            'today'
+                        );
+
+                    }
+
+
+                    calendarDays.appendChild(
+                        dayElement
+                    );
+
+                }
+
+            }
+
+
+            /*
+             * Previous month.
+             */
+            calendarPrev.addEventListener(
+                'click',
+                function () {
+
+                    currentDate.setMonth(
+                        currentDate.getMonth() - 1
+                    );
+
+                    renderCalendar();
+
+                }
+            );
+
+
+            /*
+             * Next month.
+             */
+            calendarNext.addEventListener(
+                'click',
+                function () {
+
+                    currentDate.setMonth(
+                        currentDate.getMonth() + 1
+                    );
+
+                    renderCalendar();
+
+                }
+            );
+
+
+            /*
+             * Initial calendar render.
+             */
+            renderCalendar();
+
+        });
+
+    </script>
+
 </x-app-layout>
+

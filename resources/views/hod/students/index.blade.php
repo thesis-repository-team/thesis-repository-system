@@ -1,6 +1,10 @@
 <x-app-layout>
 
-    <div class="dashboard-content">
+    <div class="dashboard-content student-page">
+
+        {{-- =========================================================
+            PAGE HEADER
+        ========================================================== --}}
 
         <div class="student-page-header">
 
@@ -9,6 +13,7 @@
                 <div class="student-title-row">
 
                     <div>
+
                         <span class="student-overline">
                             MANAGEMENT
                         </span>
@@ -31,7 +36,9 @@
                 {{-- MOBILE SEARCH TOGGLE --}}
                 <button type="button" id="mobileSearchToggle" class="student-mobile-search-button"
                     aria-label="Open Search" aria-expanded="false" data-tooltip="Search">
+
                     <i class="bi bi-search"></i>
+
                 </button>
 
             </div>
@@ -56,8 +63,6 @@
 
                 </div>
 
-
-                {{-- MOBILE RESET --}}
 
                 <button type="button" id="mobileResetFilter" class="student-mobile-reset-button"
                     aria-label="Reset Search" data-tooltip="Reset">
@@ -87,7 +92,9 @@
                     <div class="col-12 col-lg-5">
 
                         <label for="search" class="student-input-label">
+
                             Search
+
                         </label>
 
                         <div class="student-search">
@@ -107,7 +114,9 @@
                     <div class="col-12 col-md-4 col-lg-2">
 
                         <label for="departmentFilter" class="student-input-label">
+
                             Department
+
                         </label>
 
                         <select class="student-filter-select" id="departmentFilter" name="department">
@@ -132,7 +141,9 @@
                     <div class="col-12 col-md-4 col-lg-2">
 
                         <label for="yearFilter" class="student-input-label">
+
                             Started Year
+
                         </label>
 
                         <select class="student-filter-select student-year-select" id="yearFilter" name="started_year">
@@ -211,11 +222,10 @@
 
 
         {{-- =========================================================
-            STUDENTS CARD
+            STUDENT RESULTS
         ========================================================== --}}
 
-        <div class="student-card">
-
+        <div class="student-results-wrapper">
 
             @if ($students->count())
                 {{-- LOADING --}}
@@ -231,11 +241,13 @@
                 </div>
 
 
-                {{-- CARD GRID --}}
+                {{-- =================================================
+                    SAME GRID AS THESIS PAGE
+                ================================================== --}}
 
-                <div id="adminStudentTable" class="row g-4">
+                <div id="adminStudentTable" class="thesis-card-grid">
 
-                    @include('hod.student.table')
+                    @include('hod.students.table')
 
                 </div>
             @else
@@ -260,10 +272,11 @@
                 </div>
             @endif
 
-
         </div>
 
     </div>
+
+
 
     <script>
         document.addEventListener(
@@ -271,66 +284,47 @@
             function() {
 
                 let searchTimeout = null;
-
                 let currentController = null;
 
 
                 /* =====================================================
                    ELEMENTS
-                ===================================================== */
+                ====================================================== */
 
                 const searchInput =
                     document.getElementById('search');
 
                 const mobileSearchInput =
-                    document.getElementById(
-                        'mobileSearchInput'
-                    );
+                    document.getElementById('mobileSearchInput');
 
                 const departmentFilter =
-                    document.getElementById(
-                        'departmentFilter'
-                    );
+                    document.getElementById('departmentFilter');
 
                 const yearFilter =
-                    document.getElementById(
-                        'yearFilter'
-                    );
+                    document.getElementById('yearFilter');
 
                 const resetButton =
-                    document.getElementById(
-                        'resetFilter'
-                    );
+                    document.getElementById('resetFilter');
 
                 const mobileResetButton =
-                    document.getElementById(
-                        'mobileResetFilter'
-                    );
+                    document.getElementById('mobileResetFilter');
 
                 const mobileSearchToggle =
-                    document.getElementById(
-                        'mobileSearchToggle'
-                    );
+                    document.getElementById('mobileSearchToggle');
 
                 const mobileSearchPanel =
-                    document.getElementById(
-                        'mobileSearchPanel'
-                    );
+                    document.getElementById('mobileSearchPanel');
 
                 const studentGrid =
-                    document.getElementById(
-                        'adminStudentTable'
-                    );
+                    document.getElementById('adminStudentTable');
 
                 const spinner =
-                    document.getElementById(
-                        'studentSearchSpinner'
-                    );
+                    document.getElementById('studentSearchSpinner');
 
 
                 /* =====================================================
                    LOAD DATA
-                ===================================================== */
+                ====================================================== */
 
                 function loadData() {
 
@@ -341,9 +335,7 @@
                     */
 
                     if (currentController) {
-
                         currentController.abort();
-
                     }
 
                     currentController =
@@ -381,7 +373,6 @@
 
                     let search = '';
 
-
                     if (window.innerWidth <= 767.98) {
 
                         search =
@@ -405,7 +396,7 @@
                     |--------------------------------------------------------------------------
                     */
 
-                    let department =
+                    const department =
                         departmentFilter ?
                         departmentFilter.value :
                         '';
@@ -417,7 +408,7 @@
                     |--------------------------------------------------------------------------
                     */
 
-                    let year =
+                    const year =
                         yearFilter ?
                         yearFilter.value :
                         '';
@@ -425,7 +416,7 @@
 
                     /*
                     |--------------------------------------------------------------------------
-                    | Build URL
+                    | Build Query
                     |--------------------------------------------------------------------------
                     */
 
@@ -433,9 +424,7 @@
                         new URLSearchParams({
 
                             search: search,
-
                             department: department,
-
                             year: year
 
                         });
@@ -443,12 +432,12 @@
 
                     /*
                     |--------------------------------------------------------------------------
-                    | AJAX
+                    | AJAX Request
                     |--------------------------------------------------------------------------
                     */
 
                     fetch(
-                            "{{ route('hod.students.search') }}?" +
+                            "{{ route('admin.students.search') }}?" +
                             query.toString(), {
                                 signal: currentController.signal
                             }
@@ -520,7 +509,7 @@
 
                 /* =====================================================
                    DESKTOP SEARCH
-                ===================================================== */
+                ====================================================== */
 
                 if (searchInput) {
 
@@ -546,7 +535,7 @@
 
                 /* =====================================================
                    MOBILE SEARCH
-                ===================================================== */
+                ====================================================== */
 
                 if (mobileSearchInput) {
 
@@ -571,8 +560,8 @@
 
 
                 /* =====================================================
-                   DEPARTMENT
-                ===================================================== */
+                   DEPARTMENT FILTER
+                ====================================================== */
 
                 if (departmentFilter) {
 
@@ -585,8 +574,8 @@
 
 
                 /* =====================================================
-                   YEAR
-                ===================================================== */
+                   YEAR FILTER
+                ====================================================== */
 
                 if (yearFilter) {
 
@@ -600,7 +589,7 @@
 
                 /* =====================================================
                    DESKTOP RESET
-                ===================================================== */
+                ====================================================== */
 
                 if (resetButton) {
 
@@ -609,31 +598,19 @@
                         function() {
 
                             if (searchInput) {
-
-                                searchInput.value =
-                                    '';
-
+                                searchInput.value = '';
                             }
 
                             if (mobileSearchInput) {
-
-                                mobileSearchInput.value =
-                                    '';
-
+                                mobileSearchInput.value = '';
                             }
 
                             if (departmentFilter) {
-
-                                departmentFilter.value =
-                                    '';
-
+                                departmentFilter.value = '';
                             }
 
                             if (yearFilter) {
-
-                                yearFilter.value =
-                                    '';
-
+                                yearFilter.value = '';
                             }
 
                             loadData();
@@ -646,9 +623,12 @@
 
                 /* =====================================================
                    MOBILE SEARCH TOGGLE
-                ===================================================== */
+                ====================================================== */
 
-                if (mobileSearchToggle) {
+                if (
+                    mobileSearchToggle &&
+                    mobileSearchPanel
+                ) {
 
                     mobileSearchToggle.addEventListener(
                         'click',
@@ -657,18 +637,14 @@
                             const isOpen =
                                 mobileSearchPanel
                                 .classList
-                                .contains(
-                                    'is-open'
-                                );
+                                .contains('is-open');
 
 
                             if (isOpen) {
 
                                 mobileSearchPanel
                                     .classList
-                                    .remove(
-                                        'is-open'
-                                    );
+                                    .remove('is-open');
 
                                 mobileSearchToggle
                                     .setAttribute(
@@ -678,17 +654,13 @@
 
                                 mobileSearchToggle
                                     .classList
-                                    .remove(
-                                        'is-active'
-                                    );
+                                    .remove('is-active');
 
                             } else {
 
                                 mobileSearchPanel
                                     .classList
-                                    .add(
-                                        'is-open'
-                                    );
+                                    .add('is-open');
 
                                 mobileSearchToggle
                                     .setAttribute(
@@ -698,9 +670,7 @@
 
                                 mobileSearchToggle
                                     .classList
-                                    .add(
-                                        'is-active'
-                                    );
+                                    .add('is-active');
 
 
                                 setTimeout(
@@ -728,7 +698,7 @@
 
                 /* =====================================================
                    MOBILE RESET
-                ===================================================== */
+                ====================================================== */
 
                 if (mobileResetButton) {
 
@@ -737,31 +707,19 @@
                         function() {
 
                             if (mobileSearchInput) {
-
-                                mobileSearchInput.value =
-                                    '';
-
+                                mobileSearchInput.value = '';
                             }
 
                             if (searchInput) {
-
-                                searchInput.value =
-                                    '';
-
+                                searchInput.value = '';
                             }
 
                             if (departmentFilter) {
-
-                                departmentFilter.value =
-                                    '';
-
+                                departmentFilter.value = '';
                             }
 
                             if (yearFilter) {
-
-                                yearFilter.value =
-                                    '';
-
+                                yearFilter.value = '';
                             }
 
                             loadData();
@@ -773,8 +731,8 @@
 
 
                 /* =====================================================
-                   ESCAPE
-                ===================================================== */
+                   ESCAPE KEY
+                ====================================================== */
 
                 document.addEventListener(
                     'keydown',
@@ -790,21 +748,22 @@
 
                             mobileSearchPanel
                                 .classList
-                                .remove(
-                                    'is-open'
-                                );
+                                .remove('is-open');
 
-                            mobileSearchToggle
-                                .setAttribute(
-                                    'aria-expanded',
-                                    'false'
-                                );
 
-                            mobileSearchToggle
-                                .classList
-                                .remove(
-                                    'is-active'
-                                );
+                            if (mobileSearchToggle) {
+
+                                mobileSearchToggle
+                                    .setAttribute(
+                                        'aria-expanded',
+                                        'false'
+                                    );
+
+                                mobileSearchToggle
+                                    .classList
+                                    .remove('is-active');
+
+                            }
 
                         }
 
@@ -814,7 +773,7 @@
 
                 /* =====================================================
                    RESIZE
-                ===================================================== */
+                ====================================================== */
 
                 window.addEventListener(
                     'resize',
@@ -829,9 +788,7 @@
 
                                 mobileSearchPanel
                                     .classList
-                                    .remove(
-                                        'is-open'
-                                    );
+                                    .remove('is-open');
 
                             }
 
@@ -845,9 +802,7 @@
 
                                 mobileSearchToggle
                                     .classList
-                                    .remove(
-                                        'is-active'
-                                    );
+                                    .remove('is-active');
 
                             }
 
@@ -860,7 +815,10 @@
         );
     </script>
 
+
+
     <style>
+
         :root {
 
             --student-black: #000000;
@@ -877,132 +835,206 @@
             --student-border: #000000;
             --student-border-soft: #dddddd;
 
+            --student-primary: #000000;
+
             --student-shadow:
                 0 4px 18px rgba(0, 0, 0, .07);
 
             --student-card-shadow:
                 0 2px 10px rgba(0, 0, 0, .05);
-
-            --student-primary: #000000;
-
-        }
-
-
-        [data-bs-theme="dark"] {
-
-            --student-black: #000000;
-            --student-white: #ffffff;
-
-            --student-page-bg: #000000;
-            --student-card-bg: #000000;
-            --student-input-bg: #0d0d0d;
-
-            --student-text: #ffffff;
-            --student-text-secondary: #dddddd;
-            --student-text-muted: #999999;
-
-            --student-border: #ffffff;
-            --student-border-soft: #333333;
-
-            --student-primary: #ffffff;
-
-            --student-shadow:
-                0 4px 18px rgba(0, 0, 0, .35);
-
-            --student-card-shadow:
-                0 2px 10px rgba(0, 0, 0, .35);
-
-        }
-
-
-        .dashboard-page {
-            color:
-                var(--student-text);
-
-            transition:
-                color .25s ease,
-                background-color .25s ease;
-
-        }
-
-
-        .student-header-content {
-            min-width: 0;
-            flex: 1;
-        }
-
-        .student-title {
-            margin: 0;
-            color: var(--student-text-main);
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: -0.035em;
-            line-height: 1.2;
-        }
-
-        .student-overline {
-            display: block;
-            margin-bottom: 0.25rem;
-            color: var(--student-text-sub);
-            font-size: 0.95rem;
-            font-weight: 800;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
-
-        .student-page-header {
-            padding: 15px;
-            background: white;
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            overflow: hidden;
-            box-sizing: border-box;
-            border-radius: 12px;
-        }
-
-
-        .student-header-content {
-            min-width: 0;
-        }
-
-
-
-
-        /* .student-page-title {
-
-            margin: 0 0 .4rem;
-
-            color:
-                var(--student-text);
-
-            font-size: 1.7rem;
-
-            font-weight: 800;
-
-            letter-spacing: -.035em;
-
-            line-height: 1.2;
-
-        } */
-
-
-        .student-page-description {
-
-            margin: 0;
-
-            color:
-                var(--student-text-secondary);
-
-            font-size: .86rem;
-
         }
 
 
         /* =========================================================
-           HEADER ACTION
-        ========================================================== */
+       DARK MODE
+       SAME NAVY THEME USED THROUGHOUT THE STUDENT PAGES
+    ========================================================== */
+
+        [data-bs-theme="dark"],
+        .dark {
+
+            --student-black: #ffffff;
+            --student-white: #ffffff;
+
+            --student-page-bg: #101426;
+            --student-card-bg: #181d33;
+            --student-input-bg: #20253a;
+
+            --student-text: #eeeef8;
+            --student-text-secondary: #d5d8e8;
+            --student-text-muted: #999fb9;
+
+            --student-border: #ffffff;
+            --student-border-soft: #292e45;
+
+            --student-primary: #ffffff;
+
+            --student-shadow:
+                0 4px 18px rgba(0, 0, 0, .25);
+
+            --student-card-shadow:
+                0 2px 10px rgba(0, 0, 0, .20);
+        }
+
+
+        /* =========================================================
+       GLOBAL DARK BACKGROUND
+    ========================================================== */
+
+        html[data-bs-theme="dark"],
+        html.dark {
+
+            background: #101426 !important;
+        }
+
+
+        body {
+
+            /* background:
+                var(--student-page-bg); */
+
+            color:
+                var(--student-text);
+
+            transition:
+                background-color .25s ease,
+                color .25s ease;
+        }
+
+
+        [data-bs-theme="dark"] body,
+        .dark body {
+
+            background: #101426 !important;
+
+            color: #eeeef8 !important;
+        }
+
+
+        /* =========================================================
+       PAGE
+    ========================================================== */
+
+        .student-page {
+
+            min-height: 100vh;
+
+            color:
+                var(--student-text);
+
+            /* background:
+                var(--student-page-bg); */
+
+            transition:
+                color .25s ease,
+                background-color .25s ease;
+        }
+
+
+        [data-bs-theme="dark"] .student-page,
+        .dark .student-page {
+            /* background:
+                #101426 !important;  */
+
+            color:
+                #eeeef8 !important;
+        }
+
+
+        /* =========================================================
+       HEADER
+    ========================================================== */
+
+        .student-page-header {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            gap: 1rem;
+
+            padding: 15px;
+
+            color:
+                var(--student-text);
+
+            background:
+                var(--student-page-bg);
+
+            box-sizing: border-box;
+        }
+
+
+        [data-bs-theme="dark"] .student-page-header,
+        .dark .student-page-header {
+
+            background:
+                #181d33 !important;
+
+            color:
+                #eeeef8;
+        }
+
+
+        .student-header-content {
+
+            min-width: 0;
+
+            flex: 1;
+        }
+
+
+        .student-title-row {
+
+            display: flex;
+
+            align-items: center;
+        }
+
+
+        .student-overline {
+
+            display: block;
+
+            margin-bottom: .2rem;
+
+            color:
+                var(--student-text-muted);
+
+            font-size: .7rem;
+
+            font-weight: 800;
+
+            letter-spacing: .13em;
+
+            line-height: 1.2;
+
+            text-transform: uppercase;
+        }
+
+
+        .student-title {
+
+            margin: 0;
+
+            color:
+                var(--student-text);
+
+            font-size: 1.8rem;
+
+            font-weight: 600;
+
+            line-height: 1.2;
+
+            letter-spacing: -.035em;
+        }
+
+
+        /* =========================================================
+       HEADER ACTIONS
+    ========================================================== */
 
         .student-header-actions {
 
@@ -1013,13 +1045,12 @@
             gap: .5rem;
 
             flex-shrink: 0;
-
         }
 
 
         /* =========================================================
-           MOBILE SEARCH BUTTON
-        ========================================================== */
+       MOBILE SEARCH BUTTON
+    ========================================================== */
 
         .student-mobile-search-button {
 
@@ -1052,7 +1083,6 @@
 
             transition:
                 .2s ease;
-
         }
 
 
@@ -1060,54 +1090,79 @@
         .student-mobile-search-button.is-active {
 
             color:
-                var(--student-white);
+                #ffffff;
 
             background:
-                var(--student-black);
+                #000000;
 
             border-color:
-                var(--student-black);
-
+                #000000;
         }
 
 
         [data-bs-theme="dark"] .student-mobile-search-button:hover,
-        [data-bs-theme="dark"] .student-mobile-search-button.is-active {
+        [data-bs-theme="dark"] .student-mobile-search-button.is-active,
+        .dark .student-mobile-search-button:hover,
+        .dark .student-mobile-search-button.is-active {
 
             color:
-                var(--student-black);
+                #101426;
 
             background:
-                var(--student-white);
+                #ffffff;
 
             border-color:
-                var(--student-white);
-
+                #ffffff;
         }
 
 
         /* =========================================================
-           FILTER CARD
-        ========================================================== */
+       FILTER CARD
+    ========================================================== */
+
+        .student-filter-card {
+
+            width: 100%;
+
+            color:
+                var(--student-text);
+
+            background:
+                var(--student-card-bg);
+
+            box-sizing: border-box;
+        }
 
 
+        [data-bs-theme="dark"] .student-filter-card,
+        .dark .student-filter-card {
+
+            background:
+                #181d33 !important;
+
+            color:
+                #eeeef8;
+        }
 
 
         .student-filter-body {
 
-            border-radius: 12px;
             overflow: hidden;
+
             padding:
                 1.2rem 1.25rem;
+
+            color:
+                var(--student-text);
+
             background:
                 var(--student-card-bg);
-
         }
 
 
         /* =========================================================
-           LABEL
-        ========================================================== */
+       FILTER LABEL
+    ========================================================== */
 
         .student-input-label {
 
@@ -1122,21 +1177,19 @@
 
             font-weight: 800;
 
-            text-transform: uppercase;
-
             letter-spacing: .05em;
 
+            text-transform: uppercase;
         }
 
 
         /* =========================================================
-           SEARCH
-        ========================================================== */
+       SEARCH
+    ========================================================== */
 
         .student-search {
 
             position: relative;
-
         }
 
 
@@ -1144,9 +1197,9 @@
 
             position: absolute;
 
-            left: 1rem;
-
             top: 50%;
+
+            left: 1rem;
 
             z-index: 2;
 
@@ -1157,7 +1210,6 @@
                 var(--student-text-muted);
 
             pointer-events: none;
-
         }
 
 
@@ -1185,9 +1237,21 @@
 
             font-size: .82rem;
 
+            box-sizing: border-box;
+
             transition:
                 .2s ease;
+        }
 
+
+        [data-bs-theme="dark"] .student-search input,
+        .dark .student-search input {
+
+            color: #eeeef8;
+
+            background: #20253a;
+
+            border-color: #292e45;
         }
 
 
@@ -1195,7 +1259,6 @@
 
             color:
                 var(--student-text-muted);
-
         }
 
 
@@ -1207,22 +1270,25 @@
 
             box-shadow:
                 0 0 0 3px rgba(0, 0, 0, .08);
-
         }
 
 
         [data-bs-theme="dark"] .student-search input:focus,
-        [data-bs-theme="dark"] .student-filter-select:focus {
+        [data-bs-theme="dark"] .student-filter-select:focus,
+        .dark .student-search input:focus,
+        .dark .student-filter-select:focus {
+
+            border-color:
+                #ffffff;
 
             box-shadow:
                 0 0 0 3px rgba(255, 255, 255, .10);
-
         }
 
 
         /* =========================================================
-           SELECT
-        ========================================================== */
+       SELECT
+    ========================================================== */
 
         .student-filter-select {
 
@@ -1250,27 +1316,45 @@
 
             cursor: pointer;
 
+            box-sizing: border-box;
+
             transition:
                 .2s ease;
+        }
 
+
+        [data-bs-theme="dark"] .student-filter-select,
+        .dark .student-filter-select {
+
+            color:
+                #eeeef8;
+
+            background:
+                #20253a;
+
+            border-color:
+                #292e45;
         }
 
 
         .student-filter-select option {
 
-            color: #000000;
+            color:
+                #000000;
 
-            background: #ffffff;
-
+            background:
+                #ffffff;
         }
 
 
-        [data-bs-theme="dark"] .student-filter-select option {
+        [data-bs-theme="dark"] .student-filter-select option,
+        .dark .student-filter-select option {
 
-            color: #ffffff;
+            color:
+                #eeeef8;
 
-            background: #000000;
-
+            background:
+                #181d33;
         }
 
 
@@ -1278,13 +1362,12 @@
 
             font-family:
                 monospace;
-
         }
 
 
         /* =========================================================
-           RESET
-        ========================================================== */
+       RESET BUTTON
+    ========================================================== */
 
         .student-reset-button {
 
@@ -1323,41 +1406,39 @@
 
             transition:
                 .2s ease;
-
         }
 
 
         .student-reset-button:hover {
 
             color:
-                var(--student-white);
+                #ffffff;
 
             background:
-                var(--student-black);
+                #000000;
 
             border-color:
-                var(--student-black);
-
+                #000000;
         }
 
 
-        [data-bs-theme="dark"] .student-reset-button:hover {
+        [data-bs-theme="dark"] .student-reset-button:hover,
+        .dark .student-reset-button:hover {
 
             color:
-                var(--student-black);
+                #101426;
 
             background:
-                var(--student-white);
+                #ffffff;
 
             border-color:
-                var(--student-white);
-
+                #ffffff;
         }
 
 
         /* =========================================================
-           SUCCESS ALERT
-        ========================================================== */
+       SUCCESS ALERT
+    ========================================================== */
 
         .student-success-alert {
 
@@ -1369,9 +1450,11 @@
 
             gap: 1rem;
 
-            margin-bottom: 1.5rem;
+            margin:
+                0 1.25rem 1rem;
 
-            padding: .9rem 1rem;
+            padding:
+                .9rem 1rem;
 
             color:
                 var(--student-text);
@@ -1383,13 +1466,31 @@
                 1px solid var(--student-border-soft);
 
             border-left:
-                4px solid var(--student-text);
+                4px solid var(--student-primary);
 
             border-radius: 8px;
 
             box-shadow:
                 var(--student-card-shadow);
 
+            box-sizing: border-box;
+        }
+
+
+        [data-bs-theme="dark"] .student-success-alert,
+        .dark .student-success-alert {
+
+            background:
+                #181d33;
+
+            border-color:
+                #292e45;
+
+            border-left-color:
+                #ffffff;
+
+            color:
+                #eeeef8;
         }
 
 
@@ -1404,14 +1505,12 @@
             font-size: .8rem;
 
             font-weight: 600;
-
         }
 
 
         .student-alert-content i {
 
             font-size: 1rem;
-
         }
 
 
@@ -1443,226 +1542,80 @@
 
             transition:
                 .2s ease;
-
         }
 
 
         .student-alert-close:hover {
 
             opacity: 1;
-
         }
-
-
-
-        .student-card {
-
-            position: relative;
-            overflow: hidden;
-
-        } 
-
 
 
         /* =========================================================
-           MOBILE SEARCH PANEL
-        ========================================================== */
+       RESULTS
+    ========================================================== */
 
-        .student-mobile-search-panel {
-
-            display: none;
-
-            margin-bottom: 1rem;
-
-            overflow: hidden;
-
-            background:
-                var(--student-card-bg);
-
-            border:
-                1px solid var(--student-border-soft);
-
-            border-radius: 10px;
-
-            opacity: 0;
-
-            transform:
-                translateY(-6px);
-
-            transition:
-                opacity .2s ease,
-                transform .2s ease;
-
-        }
-
-
-        .student-mobile-search-panel.is-open {
-
-            opacity: 1;
-
-            transform:
-                translateY(0);
-
-        }
-
-
-        .student-mobile-search-content {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: .5rem;
-
-            padding: .75rem;
-
-        }
-
-
-        .student-mobile-search-input {
+        .student-results-wrapper {
 
             position: relative;
-
-            flex: 1;
-
-        }
-
-
-        .student-mobile-search-input i {
-
-            position: absolute;
-
-            left: .85rem;
-
-            top: 50%;
-
-            transform:
-                translateY(-50%);
-
-            color:
-                var(--student-text-muted);
-
-            pointer-events: none;
-
-        }
-
-
-        .student-mobile-search-input input {
 
             width: 100%;
 
-            height: 44px;
-
-            padding:
-                .5rem .75rem .5rem 2.5rem;
-
-            color:
-                var(--student-text);
-
-            background:
-                var(--student-input-bg);
-
-            border:
-                1px solid var(--student-border-soft);
-
-            border-radius: 8px;
-
-            outline: none;
-
-            font-size: .8rem;
-
-        }
-
-
-        .student-mobile-search-input input:focus {
-
-            border-color:
-                var(--student-primary);
-
-            box-shadow:
-                0 0 0 3px rgba(0, 0, 0, .08);
-
-        }
-
-
-        [data-bs-theme="dark"] .student-mobile-search-input input:focus {
-
-            box-shadow:
-                0 0 0 3px rgba(255, 255, 255, .10);
-
+            box-sizing: border-box;
         }
 
 
         /* =========================================================
-           MOBILE RESET
-        ========================================================== */
+       STUDENT GRID
+    ========================================================== */
 
-        .student-mobile-reset-button {
+        #adminStudentTable {
 
-            position: relative;
+            display: grid !important;
 
-            display: flex;
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
 
-            align-items: center;
+            gap: 1.25rem;
 
-            justify-content: center;
+            width: 100%;
 
-            width: 44px;
+            margin-top: 1rem;
 
-            height: 44px;
+            padding: 0;
 
-            flex-shrink: 0;
-
-            color:
-                var(--student-text);
-
-            background:
-                var(--student-card-bg);
-
-            border:
-                1px solid var(--student-border-soft);
-
-            border-radius: 8px;
-
-            cursor: pointer;
+            box-sizing: border-box;
 
             transition:
-                .2s ease;
-
+                opacity .2s ease;
         }
 
 
-        .student-mobile-reset-button:hover {
+        #adminStudentTable.is-loading {
 
-            color:
-                var(--student-white);
+            opacity: .45;
 
-            background:
-                var(--student-black);
-
-            border-color:
-                var(--student-black);
-
+            pointer-events: none;
         }
 
 
-        [data-bs-theme="dark"] .student-mobile-reset-button:hover {
+        /* Prevent Bootstrap columns from breaking the grid */
 
-            color:
-                var(--student-black);
+        #adminStudentTable>* {
 
-            background:
-                var(--student-white);
+            min-width: 0;
 
-            border-color:
-                var(--student-white);
+            width: 100%;
 
+            margin: 0;
+
+            padding: 0 !important;
         }
 
 
         /* =========================================================
-           LOADING
-        ========================================================== */
+       LOADING
+    ========================================================== */
 
         .student-loading {
 
@@ -1704,33 +1657,7 @@
 
             font-weight: 700;
 
-        }
-
-        .student-overline {
-            display: block;
-            margin-bottom: 0.25rem;
-            color: var(--dept-text-sub);
-            font-size: 0.95rem;
-            font-weight: 800;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
-        #adminStudentTable {
-            margin-top: 0.005rem;
-            /* padding: 30px; */
-            transition:
-                opacity .2s ease;
-
-        }
-
-
-        #adminStudentTable.is-loading {
-
-            opacity: .45;
-
-            pointer-events: none;
-
+            white-space: nowrap;
         }
 
 
@@ -1750,7 +1677,6 @@
 
             animation:
                 studentSpin .7s linear infinite;
-
         }
 
 
@@ -1760,15 +1686,241 @@
 
                 transform:
                     rotate(360deg);
-
             }
 
         }
 
 
         /* =========================================================
-           EMPTY STATE
-        ========================================================== */
+       MOBILE SEARCH PANEL
+    ========================================================== */
+
+        .student-mobile-search-panel {
+
+            display: none;
+
+            margin-bottom: 1rem;
+
+            overflow: hidden;
+
+            color:
+                var(--student-text);
+
+            background:
+                var(--student-card-bg);
+
+            border:
+                1px solid var(--student-border-soft);
+
+            border-radius: 10px;
+
+            opacity: 0;
+
+            transform:
+                translateY(-6px);
+
+            transition:
+                opacity .2s ease,
+                transform .2s ease;
+        }
+
+
+        [data-bs-theme="dark"] .student-mobile-search-panel,
+        .dark .student-mobile-search-panel {
+
+            background:
+                #181d33;
+
+            border-color:
+                #292e45;
+        }
+
+
+        .student-mobile-search-panel.is-open {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+
+
+        .student-mobile-search-content {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: .5rem;
+
+            padding: .75rem;
+        }
+
+
+        .student-mobile-search-input {
+
+            position: relative;
+
+            flex: 1;
+        }
+
+
+        .student-mobile-search-input i {
+
+            position: absolute;
+
+            top: 50%;
+
+            left: .85rem;
+
+            transform:
+                translateY(-50%);
+
+            color:
+                var(--student-text-muted);
+
+            pointer-events: none;
+        }
+
+
+        .student-mobile-search-input input {
+
+            width: 100%;
+
+            height: 44px;
+
+            padding:
+                .5rem .75rem .5rem 2.5rem;
+
+            color:
+                var(--student-text);
+
+            background:
+                var(--student-input-bg);
+
+            border:
+                1px solid var(--student-border-soft);
+
+            border-radius: 8px;
+
+            outline: none;
+
+            font-size: .8rem;
+
+            box-sizing: border-box;
+        }
+
+
+        [data-bs-theme="dark"] .student-mobile-search-input input,
+        .dark .student-mobile-search-input input {
+
+            color:
+                #eeeef8;
+
+            background:
+                #20253a;
+
+            border-color:
+                #292e45;
+        }
+
+
+        .student-mobile-search-input input::placeholder {
+
+            color:
+                var(--student-text-muted);
+        }
+
+
+        .student-mobile-search-input input:focus {
+
+            border-color:
+                var(--student-primary);
+
+            box-shadow:
+                0 0 0 3px rgba(0, 0, 0, .08);
+        }
+
+
+        [data-bs-theme="dark"] .student-mobile-search-input input:focus,
+        .dark .student-mobile-search-input input:focus {
+
+            border-color:
+                #ffffff;
+
+            box-shadow:
+                0 0 0 3px rgba(255, 255, 255, .10);
+        }
+
+
+        /* =========================================================
+       MOBILE RESET
+    ========================================================== */
+
+        .student-mobile-reset-button {
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 44px;
+
+            height: 44px;
+
+            flex-shrink: 0;
+
+            color:
+                var(--student-text);
+
+            background:
+                var(--student-card-bg);
+
+            border:
+                1px solid var(--student-border-soft);
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            transition:
+                .2s ease;
+        }
+
+
+        .student-mobile-reset-button:hover {
+
+            color:
+                #ffffff;
+
+            background:
+                #000000;
+
+            border-color:
+                #000000;
+        }
+
+
+        [data-bs-theme="dark"] .student-mobile-reset-button:hover,
+        .dark .student-mobile-reset-button:hover {
+
+            color:
+                #101426;
+
+            background:
+                #ffffff;
+
+            border-color:
+                #ffffff;
+        }
+
+
+        /* =========================================================
+       EMPTY STATE
+    ========================================================== */
 
         .student-empty-state {
 
@@ -1777,6 +1929,8 @@
 
             text-align: center;
 
+            color:
+                var(--student-text);
         }
 
 
@@ -1805,11 +1959,11 @@
                 1px solid var(--student-border-soft);
 
             border-radius: 50%;
-
         }
 
 
         .student-empty-icon i {
+
             font-size: 1.8rem;
         }
 
@@ -1827,7 +1981,6 @@
             font-weight: 800;
 
             text-transform: uppercase;
-
         }
 
 
@@ -1839,13 +1992,12 @@
                 var(--student-text-muted);
 
             font-size: .78rem;
-
         }
 
 
         /* =========================================================
-           TOOLTIP
-        ========================================================== */
+       TOOLTIP
+    ========================================================== */
 
         .student-mobile-search-button[data-tooltip]::after,
         .student-mobile-reset-button[data-tooltip]::after,
@@ -1856,24 +2008,21 @@
 
             position: absolute;
 
-            left: 50%;
-
             top:
                 calc(100% + 8px);
+
+            left: 50%;
 
             z-index: 100;
 
             padding:
                 .4rem .6rem;
 
-            transform:
-                translateX(-50%) translateY(-3px);
-
             color:
-                var(--student-white);
+                #ffffff;
 
             background:
-                var(--student-black);
+                #000000;
 
             border-radius: 5px;
 
@@ -1884,134 +2033,139 @@
             white-space: nowrap;
 
             opacity: 0;
+
             pointer-events: none;
+
+            transform:
+                translateX(-50%) translateY(-3px);
+
             transition:
                 opacity .15s ease,
                 transform .15s ease;
-
         }
 
 
         .student-mobile-search-button[data-tooltip]:hover::after,
         .student-mobile-reset-button[data-tooltip]:hover::after,
         .student-reset-button[data-tooltip]:hover::after {
+
             opacity: 1;
+
             transform:
                 translateX(-50%) translateY(0);
+        }
+
+
+        /* =========================================================
+       TABLET
+    ========================================================== */
+
+        @media (max-width: 1199.98px) {
+
+            #adminStudentTable {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
 
         }
 
 
         /* =========================================================
-           MOBILE
-        ========================================================== */
+       MOBILE
+    ========================================================== */
 
         @media (max-width: 767.98px) {
 
-            /* HEADER */
-
             .student-page-header {
+
                 margin-bottom: 1rem;
+
                 padding: 1rem;
+
                 gap: 1rem;
             }
 
-            .student-page-title {
 
-                font-size: 1.25rem;
+            .student-title {
 
+                font-size: 1.35rem;
             }
 
 
-            .student-page-description {
+            .student-overline {
 
-                font-size: .76rem;
-
+                font-size: .65rem;
             }
 
-
-            /* SHOW SEARCH BUTTON */
 
             .student-mobile-search-button {
 
                 display: flex;
-
             }
 
-
-            /* HIDE DESKTOP FILTER */
 
             .student-filter-card {
 
                 display: none;
-
             }
 
-
-            /* SHOW MOBILE SEARCH */
 
             .student-mobile-search-panel {
 
                 display: block;
-
             }
 
 
-            /* STUDENT CARD */
+            #adminStudentTable {
 
-            .student-card-body {
+                grid-template-columns: 1fr;
 
-                padding: 1rem;
+                gap: 1rem;
 
+                padding:
+                    0 .75rem 1rem;
             }
 
 
-            /* HIDE TOOLTIP */
+            .student-success-alert {
+
+                margin:
+                    0 .75rem 1rem;
+            }
+
 
             .student-mobile-search-button[data-tooltip]::after,
             .student-mobile-reset-button[data-tooltip]::after,
             .student-reset-button[data-tooltip]::after {
 
                 display: none;
-
             }
 
         }
 
 
         /* =========================================================
-           SMALL MOBILE
-        ========================================================== */
+       SMALL MOBILE
+    ========================================================== */
 
         @media (max-width: 575.98px) {
 
             .student-page-header {
 
                 padding: .85rem;
-
-                border-radius: 9px;
-
             }
 
 
-            .student-page-title {
+            .student-title {
 
-                font-size: 1.05rem;
-
-            }
-
-
-            .student-page-description {
-
-                display: none;
-
+                font-size: 1.15rem;
             }
 
 
             .student-mobile-search-content {
 
                 padding: .6rem;
-
             }
 
 
@@ -2020,7 +2174,6 @@
                 height: 42px;
 
                 font-size: .76rem;
-
             }
 
 
@@ -2030,14 +2183,22 @@
                 width: 42px;
 
                 height: 42px;
-
             }
 
 
-            .student-card-body {
+            #adminStudentTable {
 
-                padding: .75rem;
+                gap: .85rem;
 
+                padding:
+                    0 .65rem 1rem;
+            }
+
+
+            .student-success-alert {
+
+                margin:
+                    0 .65rem .85rem;
             }
 
 
@@ -2045,21 +2206,20 @@
 
                 padding:
                     3rem 1rem;
-
             }
 
         }
 
 
         /* =========================================================
-           REDUCED MOTION
-        ========================================================== */
+       REDUCED MOTION
+    ========================================================== */
 
         @media (prefers-reduced-motion: reduce) {
 
-            .dashboard-page *,
-            .dashboard-page *::before,
-            .dashboard-page *::after {
+            .student-page *,
+            .student-page *::before,
+            .student-page *::after {
 
                 animation-duration:
                     .01ms !important;
@@ -2069,7 +2229,6 @@
 
                 transition-duration:
                     .01ms !important;
-
             }
 
         }
