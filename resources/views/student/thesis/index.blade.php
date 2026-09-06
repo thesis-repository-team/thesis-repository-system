@@ -4,7 +4,7 @@
 
         <div class="student-thesis-page">
 
-            <div class="container-fluid px-0">
+            {{-- <div class="container-fluid px-0"> --}}
 
                 {{-- =====================================================
                 PAGE HEADER
@@ -250,7 +250,7 @@
 
                 </div>
 
-            </div>
+            {{-- </div> --}}
 
         </div>
 
