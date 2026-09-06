@@ -1,14 +1,18 @@
 <x-app-layout>
 
     <div class="dashboard-content history-page">
+
         <div class="history-container">
 
             {{-- =====================================================
-            PAGE HEADER
-        ====================================================== --}}
+        PAGE HEADER
+    ====================================================== --}}
+
             <div class="page-header">
+
                 <div>
                     <div class="page-title-wrapper">
+
                         <div class="page-title-icon">
                             <i class="fas fa-history"></i>
                         </div>
@@ -22,6 +26,7 @@
                                 Review the theses you have viewed previously.
                             </p>
                         </div>
+
                     </div>
                 </div>
 
@@ -29,25 +34,17 @@
                     <i class="fas fa-search"></i>
                     <span>Browse Theses</span>
                 </a>
+
             </div>
 
 
             {{-- =====================================================
-            HISTORY CARD
-        ====================================================== --}}
+        HISTORY CARD
+    ====================================================== --}}
+
             <div class="history-card">
 
                 <div class="history-card-header">
-                    <div>
-                        <h3>
-                            <i class="fas fa-clock-rotate-left"></i>
-                            Thesis History
-                        </h3>
-
-                        <p>
-                            Your recently viewed thesis documents
-                        </p>
-                    </div>
 
                     @if ($histories->count())
                         <div class="history-count">
@@ -55,6 +52,7 @@
                             <span>Viewed</span>
                         </div>
                     @endif
+
                 </div>
 
 
@@ -63,30 +61,38 @@
                     @if ($histories->count())
 
                         {{-- =================================================
-                        VIEW SWITCHER
-                    ================================================== --}}
+                    VIEW SWITCHER
+                ================================================== --}}
+
                         <div class="history-view-toolbar">
+
                             <div class="history-view-toggle" role="group" aria-label="History view">
 
                                 <button type="button" class="history-view-button active" data-history-view="card"
                                     aria-pressed="true">
+
                                     <i class="fas fa-grip"></i>
                                     <span>Card</span>
+
                                 </button>
 
                                 <button type="button" class="history-view-button" data-history-view="table"
                                     aria-pressed="false">
+
                                     <i class="fas fa-table"></i>
                                     <span>Table</span>
+
                                 </button>
 
                             </div>
+
                         </div>
 
 
                         {{-- =================================================
-                        CARD VIEW
-                    ================================================== --}}
+                    CARD VIEW
+                ================================================== --}}
+
                         <div class="history-card-view">
 
                             <div class="history-card-grid">
@@ -100,6 +106,7 @@
                                         <div class="history-item-card">
 
                                             {{-- Card Header --}}
+
                                             <div class="history-item-header">
 
                                                 <div class="history-item-title-area">
@@ -111,7 +118,7 @@
                                                     <div class="history-item-heading">
 
                                                         <span class="history-item-number">
-                                                            #{{ $loop->iteration }}
+                                                            ID: {{ $loop->iteration }}
                                                         </span>
 
                                                         <h4>
@@ -130,13 +137,16 @@
 
 
                                             {{-- Card Information --}}
+
                                             <div class="history-item-info">
 
                                                 <div class="history-info-row">
 
                                                     <span class="history-info-label">
+
                                                         <i class="fas fa-user"></i>
                                                         Author
+
                                                     </span>
 
                                                     <strong>
@@ -149,16 +159,20 @@
                                                 <div class="history-info-row">
 
                                                     <span class="history-info-label">
+
                                                         <i class="far fa-calendar-alt"></i>
                                                         Viewed
+
                                                     </span>
 
                                                     <strong>
+
                                                         @if ($history->viewed_at)
                                                             {{ $history->viewed_at->format('M d, Y h:i A') }}
                                                         @else
                                                             N/A
                                                         @endif
+
                                                     </strong>
 
                                                 </div>
@@ -167,12 +181,14 @@
 
 
                                             {{-- Card Actions --}}
+
                                             <div class="history-item-actions">
 
                                                 @if ($thesis->files && $thesis->files->count())
                                                     @foreach ($thesis->files as $file)
                                                         <a href="{{ route('student.thesis.view-pdf', ['file' => $file->id]) }}"
-                                                            target="_blank" class="action-btn view-pdf-btn">
+                                                            target="_blank" class="action-btn view-pdf-btn"
+                                                            title="View PDF" aria-label="View PDF">
 
                                                             <i class="fas fa-file-pdf"></i>
                                                             <span>View PDF</span>
@@ -181,7 +197,8 @@
 
 
                                                         <a href="{{ route('student.thesis.download', $file) }}"
-                                                            class="action-btn download-btn">
+                                                            class="action-btn download-btn" title="Download"
+                                                            aria-label="Download">
 
                                                             <i class="fas fa-download"></i>
                                                             <span>Download</span>
@@ -190,13 +207,16 @@
                                                     @endforeach
                                                 @else
                                                     <span class="no-pdf">
+
                                                         <i class="fas fa-file-circle-xmark"></i>
                                                         No PDF
+
                                                     </span>
                                                 @endif
 
 
                                                 {{-- Save / Remove --}}
+
                                                 @if (isset($savedThesisIds) && in_array($thesis->id, $savedThesisIds))
                                                     <form
                                                         action="{{ route('student.saved_thesis.destroy', $thesis->id) }}"
@@ -243,8 +263,9 @@
 
 
                         {{-- =================================================
-                        TABLE VIEW
-                    ================================================== --}}
+                    TABLE VIEW
+                ================================================== --}}
+
                         <div class="history-table-view" hidden>
 
                             <div class="history-table-wrapper">
@@ -252,6 +273,7 @@
                                 <table class="history-table">
 
                                     <thead>
+
                                         <tr>
 
                                             <th class="number-column">
@@ -275,6 +297,7 @@
                                             </th>
 
                                         </tr>
+
                                     </thead>
 
 
@@ -289,6 +312,7 @@
                                                 <tr>
 
                                                     {{-- Number --}}
+
                                                     <td class="number-cell">
 
                                                         <span class="history-number">
@@ -299,6 +323,7 @@
 
 
                                                     {{-- Thesis --}}
+
                                                     <td class="thesis-cell">
 
                                                         <div class="thesis-info">
@@ -325,6 +350,7 @@
 
 
                                                     {{-- Author --}}
+
                                                     <td class="author-cell">
 
                                                         <div class="author-info">
@@ -343,6 +369,7 @@
 
 
                                                     {{-- Viewed --}}
+
                                                     <td class="date-cell">
 
                                                         <div class="date-info">
@@ -352,19 +379,23 @@
                                                             <div>
 
                                                                 <strong>
+
                                                                     @if ($history->viewed_at)
                                                                         {{ $history->viewed_at->format('M d, Y') }}
                                                                     @else
                                                                         N/A
                                                                     @endif
+
                                                                 </strong>
 
                                                                 <span>
+
                                                                     @if ($history->viewed_at)
                                                                         {{ $history->viewed_at->format('h:i A') }}
                                                                     @else
                                                                         N/A
                                                                     @endif
+
                                                                 </span>
 
                                                             </div>
@@ -375,6 +406,7 @@
 
 
                                                     {{-- Actions --}}
+
                                                     <td class="action-cell">
 
                                                         <div class="action-buttons">
@@ -402,13 +434,16 @@
                                                                 @endforeach
                                                             @else
                                                                 <span class="no-pdf">
+
                                                                     <i class="fas fa-file-circle-xmark"></i>
                                                                     No PDF
+
                                                                 </span>
                                                             @endif
 
 
                                                             {{-- Save / Remove --}}
+
                                                             @if (isset($savedThesisIds) && in_array($thesis->id, $savedThesisIds))
                                                                 <form
                                                                     action="{{ route('student.saved_thesis.destroy', $thesis->id) }}"
@@ -460,8 +495,9 @@
                         </div>
                     @else
                         {{-- =================================================
-                        EMPTY STATE
-                    ================================================== --}}
+                    EMPTY STATE
+                ================================================== --}}
+
                         <div class="empty-history">
 
                             <div class="empty-icon">
@@ -492,6 +528,7 @@
             </div>
 
         </div>
+
     </div>
 
 
@@ -507,10 +544,8 @@
             --history-purple: #6538d9;
             --history-purple-dark: #5030b8;
             --history-purple-light: #eee8ff;
-
             --history-text: #151a3b;
             --history-muted: #6d7392;
-
             --history-border: #ececf4;
             --history-card: #ffffff;
             --history-page-bg: #f8f8fc;
@@ -519,7 +554,6 @@
                 0 5px 20px rgba(30, 25, 70, 0.07);
 
             min-height: 100vh;
-
             background: var(--history-page-bg);
             color: var(--history-text);
 
@@ -559,7 +593,6 @@
 
             display: flex;
             align-items: center;
-
             gap: 14px;
         }
 
@@ -599,7 +632,6 @@
             margin: 5px 0 0;
 
             color: var(--history-muted);
-
             font-size: 13px;
         }
 
@@ -613,7 +645,6 @@
             gap: 8px;
 
             min-height: 42px;
-
             padding: 0 17px;
 
             border-radius: 9px;
@@ -652,7 +683,6 @@
             background: var(--history-card);
 
             border: 1px solid var(--history-border);
-
             border-radius: 12px;
 
             box-shadow: var(--history-shadow);
@@ -668,7 +698,6 @@
             padding: 18px 20px;
 
             display: flex;
-
             align-items: center;
             justify-content: space-between;
 
@@ -692,7 +721,6 @@
         .history-card-header h3 i {
 
             color: var(--history-purple);
-
             margin-right: 7px;
         }
 
@@ -702,7 +730,6 @@
             margin: 5px 0 0;
 
             color: var(--history-muted);
-
             font-size: 12px;
         }
 
@@ -787,11 +814,9 @@
             border-radius: 7px;
 
             background: transparent;
-
             color: var(--history-muted);
 
             display: inline-flex;
-
             align-items: center;
             justify-content: center;
 
@@ -814,7 +839,6 @@
         .history-view-button:hover {
 
             background: var(--history-purple-light);
-
             color: var(--history-purple);
         }
 
@@ -822,7 +846,6 @@
         .history-view-button.active {
 
             background: var(--history-purple);
-
             color: #ffffff;
 
             box-shadow:
@@ -833,7 +856,6 @@
         .history-view-button.active:hover {
 
             background: var(--history-purple-dark);
-
             color: #ffffff;
         }
 
@@ -855,12 +877,14 @@
         }
 
 
+        /* DESKTOP = 4 CARDS PER ROW */
+
         .history-card-grid {
 
             display: grid;
 
             grid-template-columns:
-                repeat(2, minmax(0, 1fr));
+                repeat(4, minmax(0, 1fr));
 
             gap: 16px;
         }
@@ -873,7 +897,6 @@
             background: var(--history-card);
 
             border: 1px solid var(--history-border);
-
             border-radius: 12px;
 
             padding: 16px;
@@ -910,7 +933,6 @@
         .history-item-title-area {
 
             display: flex;
-
             align-items: flex-start;
 
             gap: 11px;
@@ -986,7 +1008,6 @@
             padding: 13px 0;
 
             display: flex;
-
             flex-direction: column;
 
             gap: 9px;
@@ -998,7 +1019,6 @@
             display: flex;
 
             align-items: center;
-
             justify-content: space-between;
 
             gap: 10px;
@@ -1038,7 +1058,6 @@
             color: var(--history-text);
 
             font-size: 10px;
-
             font-weight: 600;
 
             text-align: right;
@@ -1072,7 +1091,6 @@
     ========================================================= */
 
         .history-table-view {
-
             width: 100%;
         }
 
@@ -1096,7 +1114,6 @@
 
 
         .history-table thead {
-
             background: #faf9fd;
         }
 
@@ -1108,11 +1125,9 @@
             color: #6d7392;
 
             font-size: 11px;
-
             font-weight: 700;
 
             text-transform: uppercase;
-
             letter-spacing: .04em;
 
             border-bottom: 1px solid var(--history-border);
@@ -1154,7 +1169,6 @@
 
 
         .number-cell {
-
             text-align: center;
         }
 
@@ -1172,7 +1186,6 @@
             border-radius: 8px;
 
             background: #f2effc;
-
             color: var(--history-purple);
 
             font-size: 11px;
@@ -1181,7 +1194,6 @@
 
 
         .thesis-cell {
-
             min-width: 300px;
         }
 
@@ -1211,7 +1223,6 @@
             border-radius: 10px;
 
             background: #eee8ff;
-
             color: var(--history-purple);
 
             font-size: 17px;
@@ -1219,7 +1230,6 @@
 
 
         .thesis-text {
-
             min-width: 0;
         }
 
@@ -1286,7 +1296,6 @@
             justify-content: center;
 
             background: #f0ebff;
-
             color: var(--history-purple);
 
             font-size: 12px;
@@ -1298,6 +1307,7 @@
             color: var(--history-text);
 
             font-size: 12px;
+
             font-weight: 500;
         }
 
@@ -1333,6 +1343,7 @@
             color: var(--history-text);
 
             font-size: 11px;
+
             font-weight: 600;
         }
 
@@ -1354,7 +1365,6 @@
     ========================================================= */
 
         .action-column {
-
             min-width: 270px;
         }
 
@@ -1547,7 +1557,6 @@
 
 
         .save-btn i {
-
             pointer-events: none;
         }
 
@@ -1692,7 +1701,6 @@
 
 
         [data-bs-theme="dark"] .page-title {
-
             color: #ffffff;
         }
 
@@ -1706,13 +1714,11 @@
 
 
         [data-bs-theme="dark"] .history-card-header {
-
             border-color: #292e45;
         }
 
 
         [data-bs-theme="dark"] .history-card-header h3 {
-
             color: #ffffff;
         }
 
@@ -1726,7 +1732,6 @@
 
 
         [data-bs-theme="dark"] .history-view-button {
-
             color: #999fb9;
         }
 
@@ -1756,13 +1761,11 @@
 
 
         [data-bs-theme="dark"] .history-item-card:hover {
-
             border-color: #40385f;
         }
 
 
         [data-bs-theme="dark"] .history-item-header {
-
             border-color: #292e45;
         }
 
@@ -1776,19 +1779,16 @@
 
 
         [data-bs-theme="dark"] .history-item-heading h4 {
-
             color: #ffffff;
         }
 
 
         [data-bs-theme="dark"] .history-item-actions {
-
             border-color: #292e45;
         }
 
 
         [data-bs-theme="dark"] .history-table thead {
-
             background: #20253a;
         }
 
@@ -1802,13 +1802,11 @@
 
 
         [data-bs-theme="dark"] .history-table td {
-
             border-color: #292e45;
         }
 
 
         [data-bs-theme="dark"] .history-table tbody tr:hover {
-
             background: #20253a;
         }
 
@@ -1830,13 +1828,11 @@
 
 
         [data-bs-theme="dark"] .thesis-text strong {
-
             color: #ffffff;
         }
 
 
         [data-bs-theme="dark"] .thesis-text span {
-
             color: #999fb9;
         }
 
@@ -1850,19 +1846,16 @@
 
 
         [data-bs-theme="dark"] .author-info span {
-
             color: #d1d4e1;
         }
 
 
         [data-bs-theme="dark"] .date-info strong {
-
             color: #e5e7f0;
         }
 
 
         [data-bs-theme="dark"] .date-info span {
-
             color: #999fb9;
         }
 
@@ -1894,7 +1887,6 @@
 
 
         [data-bs-theme="dark"] .empty-history h4 {
-
             color: #ffffff;
         }
 
@@ -1911,7 +1903,7 @@
        TABLET
     ========================================================= */
 
-        @media (max-width: 1000px) {
+        @media (max-width: 1100px) {
 
             .history-page {
 
@@ -1919,6 +1911,8 @@
                 padding-right: 15px;
             }
 
+
+            /* Tablet = 2 cards per row */
 
             .history-card-grid {
 
@@ -1928,7 +1922,6 @@
 
 
             .history-table {
-
                 min-width: 850px;
             }
 
@@ -1937,7 +1930,7 @@
 
         /* =========================================================
        MOBILE
-       CARD ONLY
+       2 CARDS PER ROW
     ========================================================= */
 
         @media (max-width: 700px) {
@@ -1961,13 +1954,11 @@
 
 
             .page-title {
-
                 font-size: 20px;
             }
 
 
             .page-subtitle {
-
                 font-size: 11px;
             }
 
@@ -1982,31 +1973,26 @@
 
 
             .browse-button {
-
                 width: 100%;
             }
 
 
             .history-card {
-
                 border-radius: 11px;
             }
 
 
             .history-card-header {
-
                 padding: 15px;
             }
 
 
             .history-card-header h3 {
-
                 font-size: 14px;
             }
 
 
             .history-card-header p {
-
                 font-size: 10px;
             }
 
@@ -2020,13 +2006,14 @@
 
 
             /* Hide Card/Table switcher on mobile */
-            .history-view-toolbar {
 
+            .history-view-toolbar {
                 display: none;
             }
 
 
             /* Always show cards */
+
             .history-card-view {
 
                 display: block !important;
@@ -2036,24 +2023,28 @@
 
 
             .history-table-view {
-
                 display: none !important;
             }
 
 
+            /* =====================================================
+           MOBILE = 2 CARDS PER ROW
+        ===================================================== */
+
             .history-card-grid {
 
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
 
-                gap: 12px;
+                gap: 10px;
             }
 
 
             .history-item-card {
 
-                padding: 15px;
+                padding: 12px;
 
-                border-radius: 11px;
+                border-radius: 10px;
 
                 box-shadow:
                     0 3px 12px rgba(30, 25, 70, .05);
@@ -2062,43 +2053,200 @@
 
             .history-item-icon {
 
-                width: 40px;
-                height: 40px;
+                width: 34px;
+                height: 34px;
 
-                font-size: 16px;
+                font-size: 14px;
+
+                border-radius: 8px;
+            }
+
+
+            .history-item-title-area {
+
+                gap: 8px;
+            }
+
+
+            .history-item-number {
+
+                font-size: 8px;
+
+                margin-bottom: 2px;
             }
 
 
             .history-item-heading h4 {
 
-                font-size: 13px;
+                font-size: 11px;
+
+                line-height: 1.35;
+
+                display: -webkit-box;
+
+                -webkit-line-clamp: 2;
+
+                -webkit-box-orient: vertical;
+
+                overflow: hidden;
+            }
+
+
+            .history-thesis-id {
+
+                font-size: 8px;
+
+                margin-top: 4px;
+
+                overflow: hidden;
+
+                text-overflow: ellipsis;
+
+                white-space: nowrap;
             }
 
 
             .history-item-info {
 
-                padding: 12px 0;
+                padding: 10px 0;
+
+                gap: 7px;
             }
 
+
+            .history-info-row {
+
+                align-items: flex-start;
+
+                gap: 5px;
+            }
+
+
+            .history-info-label {
+
+                gap: 4px;
+
+                font-size: 8px;
+            }
+
+
+            .history-info-label i {
+
+                width: 11px;
+
+                font-size: 8px;
+            }
+
+
+            .history-info-row strong {
+
+                max-width: 58%;
+
+                font-size: 8px;
+            }
+
+
+            /* =====================================================
+           MOBILE ACTION BUTTONS
+           ICON ONLY
+        ===================================================== */
 
             .history-item-actions {
 
-                padding-top: 12px;
+                padding-top: 10px;
+
+                gap: 5px;
+
+                flex-wrap: nowrap;
             }
 
 
-            .action-btn {
+            .history-item-actions .action-btn {
 
-                min-height: 34px;
+                width: 31px;
+                height: 31px;
 
-                padding: 0 9px;
+                min-width: 31px;
+                min-height: 31px;
 
-                font-size: 10px;
+                padding: 0;
+
+                border-radius: 7px;
+
+                gap: 0;
+
+                font-size: 11px;
+
+                flex: 0 0 31px;
+            }
+
+
+            /* Hide View PDF / Download text on mobile */
+
+            .history-item-actions .action-btn span {
+
+                display: none !important;
+            }
+
+
+            /* Keep icons centered */
+
+            .history-item-actions .action-btn i {
+
+                margin: 0;
+
+                display: inline-flex;
+
+                align-items: center;
+
+                justify-content: center;
+            }
+
+
+            /* Save button matches action buttons */
+
+            .history-item-actions .save-btn {
+
+                width: 31px;
+                height: 31px;
+
+                min-width: 31px;
+                min-height: 31px;
+
+                border-radius: 7px;
+
+                font-size: 11px;
+
+                flex: 0 0 31px;
+            }
+
+
+            .save-thesis-form {
+
+                width: 31px;
+                height: 31px;
+
+                flex: 0 0 31px;
+            }
+
+
+            /* No PDF stays readable */
+
+            .history-item-actions .no-pdf {
+
+                padding: 6px 7px;
+
+                font-size: 8px;
+
+                gap: 4px;
+
+                overflow: hidden;
+
+                white-space: nowrap;
             }
 
 
             .empty-history {
-
                 padding: 55px 15px;
             }
 
@@ -2119,26 +2267,64 @@
 
 
             .history-card-view {
-
                 padding: 10px;
             }
 
 
-            .history-item-card {
+            .history-card-grid {
 
-                padding: 13px;
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+                gap: 8px;
+            }
+
+
+            .history-item-card {
+                padding: 10px;
             }
 
 
             .history-item-actions {
 
-                gap: 5px;
+                gap: 4px;
             }
 
 
-            .action-btn {
+            .history-item-actions .action-btn {
 
-                padding: 0 8px;
+                width: 29px;
+                height: 29px;
+
+                min-width: 29px;
+                min-height: 29px;
+
+                flex-basis: 29px;
+
+                font-size: 10px;
+            }
+
+
+            .history-item-actions .save-btn {
+
+                width: 29px;
+                height: 29px;
+
+                min-width: 29px;
+                min-height: 29px;
+
+                flex-basis: 29px;
+
+                font-size: 10px;
+            }
+
+
+            .save-thesis-form {
+
+                width: 29px;
+                height: 29px;
+
+                flex-basis: 29px;
             }
 
         }
@@ -2146,8 +2332,9 @@
 
 
     {{-- =========================================================
-    CARD / TABLE JAVASCRIPT
+CARD / TABLE JAVASCRIPT
 ========================================================= --}}
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -2179,7 +2366,6 @@
             function isMobile() {
 
                 return window.innerWidth <= 700;
-
             }
 
 
@@ -2188,6 +2374,7 @@
                 /*
                  * Mobile must ALWAYS use Card view.
                  */
+
                 if (isMobile()) {
                     view = 'card';
                 }
@@ -2198,6 +2385,7 @@
 
 
                 cardView.hidden = !isCard;
+
                 tableView.hidden = isCard;
 
 
@@ -2224,6 +2412,7 @@
                 /*
                  * Save desktop choice.
                  */
+
                 if (save && !isMobile()) {
 
                     localStorage.setItem(
@@ -2240,6 +2429,7 @@
              * Load saved view.
              * Default = Card
              */
+
             let savedView =
                 localStorage.getItem(storageKey);
 
@@ -2260,6 +2450,7 @@
             /*
              * Card / Table buttons
              */
+
             buttons.forEach(function(button) {
 
                 button.addEventListener('click', function() {
@@ -2283,6 +2474,7 @@
              * Mobile = Card
              * Desktop = restore saved choice
              */
+
             let wasMobile = isMobile();
 
 

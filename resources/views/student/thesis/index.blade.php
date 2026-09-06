@@ -4,7 +4,7 @@
 
         <div class="student-thesis-page">
 
-            {{-- <div class="container-fluid px-0"> --}}
+            <div class="container-fluid px-0">
 
                 {{-- =====================================================
                 PAGE HEADER
@@ -250,7 +250,7 @@
 
                 </div>
 
-            {{-- </div> --}}
+            </div>
 
         </div>
 
@@ -1555,15 +1555,15 @@
 
         .student-thesis-page.card-view-active .thesis-card-view {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
         }
 
         /* Card layout styled like the supplied reference image */
         .student-thesis-page .thesis-record-card {
             min-width: 0;
             position: relative;
-            padding: 20px 18px 17px;
+            padding: 14px 13px 13px;
             background: var(--st-card);
             border: 1px solid var(--st-border);
             border-radius: 14px;
@@ -1574,22 +1574,22 @@
 
         .student-thesis-page .thesis-record-card-main {
             display: grid;
-            grid-template-columns: 92px minmax(0, 1fr);
-            gap: 15px;
+            grid-template-columns: 58px minmax(0, 1fr);
+            gap: 10px;
             align-items: start;
         }
 
         .student-thesis-page .thesis-record-card-pdf {
-            width: 92px;
-            height: 92px;
+            width: 58px;
+            height: 58px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            border-radius: 10px;
+            border-radius: 9px;
             background: #f5f5f7;
             color: #e12525;
-            font-size: 58px;
+            font-size: 34px;
         }
 
         .student-thesis-page .thesis-record-card-content {
@@ -1597,9 +1597,9 @@
         }
 
         .student-thesis-page .thesis-record-card-title {
-            margin: 1px 0 7px;
+            margin: 0 0 5px;
             color: var(--st-text);
-            font-size: 16px;
+            font-size: 13px;
             font-weight: 750;
             line-height: 1.28;
             overflow-wrap: anywhere;
@@ -1608,14 +1608,14 @@
 
         .student-thesis-page .thesis-record-card-row {
             display: block;
-            padding: 2px 0;
+            padding: 1px 0;
             border: 0;
         }
 
         .student-thesis-page .thesis-record-card-label {
             display: inline;
             color: var(--st-text);
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 750;
             letter-spacing: 0;
             text-transform: none;
@@ -1629,14 +1629,14 @@
             display: inline;
             min-width: 0;
             color: var(--st-text-secondary);
-            font-size: 10px;
+            font-size: 9px;
             line-height: 1.45;
             overflow-wrap: anywhere;
             word-break: break-word;
         }
 
         .student-thesis-page .thesis-record-card-action {
-            margin-top: 15px;
+            margin-top: 10px;
             padding-top: 0;
         }
 
@@ -2015,7 +2015,32 @@
 
         @media (max-width: 900px) {
             .student-thesis-page.card-view-active .thesis-card-view {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+            }
+
+            .student-thesis-page .thesis-record-card {
+                padding: 12px 11px 11px;
+            }
+
+            .student-thesis-page .thesis-record-card-main {
+                grid-template-columns: 48px minmax(0, 1fr);
+                gap: 8px;
+            }
+
+            .student-thesis-page .thesis-record-card-pdf {
+                width: 48px;
+                height: 48px;
+                font-size: 28px;
+            }
+
+            .student-thesis-page .thesis-record-card-title {
+                font-size: 12px;
+            }
+
+            .student-thesis-page .thesis-record-card-label,
+            .student-thesis-page .thesis-record-card-value {
+                font-size: 8px;
             }
         }
 
@@ -2036,27 +2061,38 @@
             }
 
             .student-thesis-page.card-view-active .thesis-card-view {
-                gap: 12px;
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 8px;
             }
 
             .student-thesis-page .thesis-record-card {
-                padding: 17px 15px 15px;
-                border-radius: 13px;
+                padding: 10px 9px 10px;
+                border-radius: 10px;
             }
 
             .student-thesis-page .thesis-record-card-main {
-                grid-template-columns: 76px minmax(0, 1fr);
-                gap: 12px;
+                grid-template-columns: 42px minmax(0, 1fr);
+                gap: 7px;
             }
 
             .student-thesis-page .thesis-record-card-pdf {
-                width: 76px;
-                height: 76px;
-                font-size: 47px;
+                width: 42px;
+                height: 42px;
+                font-size: 24px;
             }
 
             .student-thesis-page .thesis-record-card-title {
-                font-size: 14px;
+                font-size: 10px;
+            }
+
+            .student-thesis-page .thesis-record-card-label,
+            .student-thesis-page .thesis-record-card-value {
+                font-size: 7px;
+                line-height: 1.3;
+            }
+
+            .student-thesis-page .thesis-record-card-action {
+                margin-top: 7px;
             }
 
             .student-thesis-page .thesis-record-card-action .thesis-action-buttons {
@@ -2065,15 +2101,24 @@
         }
 
         @media (max-width: 480px) {
+            .student-thesis-page.card-view-active .thesis-card-view {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 7px;
+            }
+
+            .student-thesis-page .thesis-record-card {
+                padding: 9px 8px;
+            }
+
             .student-thesis-page .thesis-record-card-main {
-                grid-template-columns: 68px minmax(0, 1fr);
-                gap: 10px;
+                grid-template-columns: 36px minmax(0, 1fr);
+                gap: 6px;
             }
 
             .student-thesis-page .thesis-record-card-pdf {
-                width: 68px;
-                height: 68px;
-                font-size: 42px;
+                width: 36px;
+                height: 36px;
+                font-size: 21px;
             }
 
             .student-thesis-page .thesis-record-card-action .thesis-action-buttons {
@@ -2103,10 +2148,10 @@
 
             .student-thesis-page .thesis-card-view {
                 display: grid !important;
-                grid-template-columns: 1fr !important;
-                gap: 12px;
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 8px;
                 width: 100%;
-                padding: 12px 0 0;
+                padding: 8px 0 0;
             }
 
             .student-thesis-page {
@@ -2797,6 +2842,238 @@
 
             }
 
+        }
+
+        /* =========================================================
+           MOBILE CARD IMPROVEMENT
+           Only affects the thesis cards on mobile.
+        ========================================================= */
+        @media (max-width: 768px) {
+            .student-thesis-page.card-view-active .thesis-card-view {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                gap: 10px;
+                align-items: start;
+            }
+
+            .student-thesis-page .thesis-record-card {
+                width: 100%;
+                min-width: 0;
+                padding: 11px;
+                border-radius: 12px;
+                box-shadow: 0 3px 12px rgba(15, 23, 42, .06);
+                overflow: hidden;
+                display: grid;
+                grid-template-columns: 38px minmax(0, 1fr);
+                column-gap: 8px;
+                row-gap: 7px;
+                align-content: start;
+            }
+
+            /* Flatten the card structure so metadata can use the full card width. */
+            .student-thesis-page .thesis-record-card-main,
+            .student-thesis-page .thesis-record-card-content {
+                display: contents;
+            }
+
+            .student-thesis-page .thesis-record-card-pdf {
+                grid-column: 1;
+                grid-row: 1;
+                width: 38px;
+                height: 38px;
+                border-radius: 9px;
+                font-size: 22px;
+            }
+
+            .student-thesis-page .thesis-record-card-title {
+                grid-column: 2;
+                grid-row: 1;
+                align-self: center;
+                min-width: 0;
+                margin: 0;
+                font-size: 10.5px;
+                line-height: 1.3;
+                overflow-wrap: anywhere;
+                word-break: break-word;
+            }
+
+            .student-thesis-page .thesis-record-card-row {
+                grid-column: 1 / -1;
+                width: 100%;
+                min-width: 0;
+                display: grid;
+                grid-template-columns: 68px minmax(0, 1fr);
+                gap: 5px;
+                align-items: start;
+                padding: 2px 0;
+                margin: 0;
+            }
+
+            .student-thesis-page .thesis-record-card-label {
+                display: block;
+                min-width: 0;
+                color: var(--st-text);
+                font-size: 8px;
+                font-weight: 750;
+                line-height: 1.35;
+                white-space: nowrap;
+            }
+
+            .student-thesis-page .thesis-record-card-label::after {
+                content: none;
+            }
+
+            .student-thesis-page .thesis-record-card-value {
+                display: block;
+                min-width: 0;
+                color: var(--st-text-secondary);
+                font-size: 8px;
+                line-height: 1.35;
+                overflow-wrap: anywhere;
+                word-break: break-word;
+            }
+
+            .student-thesis-page .thesis-record-card-action {
+                grid-column: 1 / -1;
+                width: 100%;
+                min-width: 0;
+                margin-top: 3px;
+                padding-top: 7px;
+                border-top: 1px solid var(--st-border-light);
+            }
+
+            /* Keep action controls inside the card instead of squeezing them. */
+            .student-thesis-page .thesis-record-card-action .thesis-action-buttons {
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 6px;
+            }
+
+            .student-thesis-page .thesis-record-card-action .thesis-action-btn {
+                width: 100%;
+                min-width: 0;
+                min-height: 34px;
+                padding: 6px 7px;
+                justify-content: center;
+                border-radius: 9px;
+                font-size: 9px;
+                box-sizing: border-box;
+            }
+
+            /* If the existing action markup is used, keep it compact too. */
+            .student-thesis-page .thesis-record-card-action .action-menu {
+                width: 100%;
+                justify-content: stretch;
+            }
+
+            .student-thesis-page .thesis-record-card-action .action-menu-button {
+                width: 100%;
+                min-width: 0;
+                height: 34px;
+                padding: 0 8px;
+                font-size: 9px;
+                border-radius: 8px;
+            }
+
+            [data-bs-theme="dark"] .student-thesis-page .thesis-record-card {
+                background: var(--st-card);
+                border-color: var(--st-border);
+                box-shadow: none;
+            }
+
+            [data-bs-theme="dark"] .student-thesis-page .thesis-record-card-action {
+                border-top-color: var(--st-border);
+            }
+        }
+
+        /* =========================================================
+           MOBILE CARD ACTIONS - ICONS ONLY
+           View / Download / Save show icons only on mobile.
+        ========================================================= */
+        @media (max-width: 768px) {
+            .student-thesis-page .thesis-record-card-action .thesis-action-buttons {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 6px;
+            }
+
+            .student-thesis-page .thesis-record-card-action .thesis-action-btn {
+                min-width: 0;
+                width: 100%;
+                height: 36px;
+                min-height: 36px;
+                padding: 0;
+                font-size: 0 !important;
+                line-height: 1;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0;
+            }
+
+            /* Keep the icon visible while hiding View / Download / Save text. */
+            .student-thesis-page .thesis-record-card-action .thesis-action-btn i,
+            .student-thesis-page .thesis-record-card-action .thesis-action-btn .bi,
+            .student-thesis-page .thesis-record-card-action .thesis-action-btn .fa,
+            .student-thesis-page .thesis-record-card-action .thesis-action-btn .fa-solid,
+            .student-thesis-page .thesis-record-card-action .thesis-action-btn .fa-regular,
+            .student-thesis-page .thesis-record-card-action .thesis-action-btn svg {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 16px !important;
+                line-height: 1;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .student-thesis-page.card-view-active .thesis-card-view {
+                gap: 8px;
+            }
+
+            .student-thesis-page .thesis-record-card {
+                padding: 9px;
+                border-radius: 11px;
+                grid-template-columns: 34px minmax(0, 1fr);
+                column-gap: 7px;
+                row-gap: 6px;
+            }
+
+            .student-thesis-page .thesis-record-card-pdf {
+                width: 34px;
+                height: 34px;
+                font-size: 20px;
+            }
+
+            .student-thesis-page .thesis-record-card-title {
+                font-size: 10px;
+            }
+
+            .student-thesis-page .thesis-record-card-row {
+                grid-template-columns: 64px minmax(0, 1fr);
+                gap: 4px;
+                padding: 1px 0;
+            }
+
+            .student-thesis-page .thesis-record-card-label,
+            .student-thesis-page .thesis-record-card-value {
+                font-size: 7.8px;
+                line-height: 1.3;
+            }
+
+            .student-thesis-page .thesis-record-card-action {
+                margin-top: 2px;
+                padding-top: 6px;
+            }
+
+            .student-thesis-page .thesis-record-card-action .thesis-action-buttons {
+                gap: 5px;
+            }
+
+            .student-thesis-page .thesis-record-card-action .thesis-action-btn {
+                min-height: 32px;
+                padding: 5px 5px;
+                font-size: 8.5px;
+            }
         }
     </style>
 

@@ -491,14 +491,15 @@
 
                                     <span class="request-id">
                                         <i class="bi bi-journal-text"></i>
-                                        Request #{{ $loop->iteration }}
+                                        Request ID: {{ $loop->iteration }}
                                     </span>
 
 
                                     <div class="request-actions">
 
                                         <a href="{{ route('student.thesis_requests.show', $thesisRequest) }}"
-                                            target="_blank" class="action-btn action-view">
+                                            target="_blank" class="action-btn action-view" title="View Details"
+                                            aria-label="View Details">
 
                                             <i class="bi bi-eye"></i>
 
@@ -511,7 +512,8 @@
 
                                         @if ($thesisRequest->pdf_file)
                                             <a href="{{ route('student.thesis_requests.view-request-pdf', $thesisRequest) }}"
-                                                target="_blank" class="action-btn action-pdf">
+                                                target="_blank" class="action-btn action-pdf" title="View PDF"
+                                                aria-label="View PDF">
 
                                                 <i class="bi bi-file-earmark-pdf"></i>
 
@@ -546,7 +548,7 @@
                                     <tr>
 
                                         <th class="table-number">
-                                            #
+                                            ID
                                         </th>
 
                                         <th class="table-title">
@@ -766,8 +768,8 @@
 ============================================================= --}}
     <style>
         /* =========================================================
-       THEME VARIABLES
-    ========================================================= */
+           THEME VARIABLES
+        ========================================================= */
 
         .thesis-request-page {
 
@@ -796,8 +798,8 @@
 
 
         /* =========================================================
-       PAGE HEADER
-    ========================================================= */
+           PAGE HEADER
+        ========================================================= */
 
         .thesis-request-page .page-header {
 
@@ -847,8 +849,8 @@
 
 
         /* =========================================================
-       PAGE HEADER ACTIONS
-    ========================================================= */
+           PAGE HEADER ACTIONS
+        ========================================================= */
 
         .thesis-request-page .page-header-actions {
 
@@ -863,8 +865,8 @@
 
 
         /* =========================================================
-       CARD / TABLE SWITCH
-    ========================================================= */
+           CARD / TABLE SWITCH
+        ========================================================= */
 
         .thesis-request-page .view-switch {
 
@@ -927,7 +929,6 @@
             background: var(--dashboard-purple-light);
 
             color: var(--dashboard-purple);
-
         }
 
 
@@ -951,8 +952,8 @@
 
 
         /* =========================================================
-       CREATE BUTTON
-    ========================================================= */
+           CREATE BUTTON
+        ========================================================= */
 
         .thesis-request-page .create-request-btn,
         .thesis-request-page .empty-create-btn {
@@ -1017,8 +1018,8 @@
 
 
         /* =========================================================
-       ALERTS
-    ========================================================= */
+           ALERTS
+        ========================================================= */
 
         .thesis-request-page .custom-alert {
 
@@ -1073,8 +1074,8 @@
 
 
         /* =========================================================
-       PERMISSION CARD
-    ========================================================= */
+           PERMISSION CARD
+        ========================================================= */
 
         .thesis-request-page .permission-card {
 
@@ -1098,8 +1099,8 @@
 
 
         /* =========================================================
-       PERMISSION HEADER
-    ========================================================= */
+           PERMISSION HEADER
+        ========================================================= */
 
         .thesis-request-page .permission-header {
             text-align: center;
@@ -1165,8 +1166,8 @@
 
 
         /* =========================================================
-       INFORMATION
-    ========================================================= */
+           INFORMATION
+        ========================================================= */
 
         .thesis-request-page .information-section {
             margin-bottom: 30px;
@@ -1212,8 +1213,8 @@
 
 
         /* =========================================================
-       PERMISSION INFORMATION
-    ========================================================= */
+           PERMISSION INFORMATION
+        ========================================================= */
 
         .thesis-request-page .permission-information {
 
@@ -1331,8 +1332,8 @@
 
 
         /* =========================================================
-       PROCESS
-    ========================================================= */
+           PROCESS
+        ========================================================= */
 
         .thesis-request-page .process-step {
 
@@ -1408,8 +1409,8 @@
 
 
         /* =========================================================
-       REJECTION
-    ========================================================= */
+           REJECTION
+        ========================================================= */
 
         .thesis-request-page .rejection-notice {
 
@@ -1466,25 +1467,28 @@
 
 
         /* =========================================================
-       CARD REQUEST LIST
-    ========================================================= */
+           REQUEST CARD GRID
+           
+           DESKTOP:
+           4 CARDS IN ONE ROW
+        ========================================================= */
 
         .thesis-request-page .request-list {
 
             display: grid;
 
             grid-template-columns:
-                repeat(2, minmax(0, 1fr));
+                repeat(4, minmax(0, 1fr));
 
-            gap: 18px;
+            gap: 16px;
 
             width: 100%;
         }
 
 
         /* =========================================================
-       REQUEST CARD
-    ========================================================= */
+           REQUEST CARD
+        ========================================================= */
 
         .thesis-request-page .request-card {
 
@@ -1493,6 +1497,7 @@
             flex-direction: column;
 
             min-width: 0;
+            width: 100%;
 
             overflow: hidden;
 
@@ -1522,8 +1527,8 @@
 
 
         /* =========================================================
-       REQUEST HEADER
-    ========================================================= */
+           REQUEST HEADER
+        ========================================================= */
 
         .thesis-request-page .request-card-header {
 
@@ -1531,11 +1536,11 @@
 
             align-items: flex-start;
 
-            gap: 12px;
+            gap: 10px;
 
             min-height: 94px;
 
-            padding: 16px;
+            padding: 14px;
 
             background: var(--request-card);
 
@@ -1545,17 +1550,17 @@
 
         .thesis-request-page .request-number {
 
-            flex: 0 0 38px;
+            flex: 0 0 34px;
 
-            width: 38px;
-            height: 38px;
+            width: 34px;
+            height: 34px;
 
             display: flex;
 
             align-items: center;
             justify-content: center;
 
-            border-radius: 9px;
+            border-radius: 8px;
 
             background:
                 linear-gradient(135deg,
@@ -1564,7 +1569,7 @@
 
             color: #ffffff;
 
-            font-size: 0.8rem;
+            font-size: 0.75rem;
 
             font-weight: 700;
 
@@ -1597,11 +1602,11 @@
 
             color: var(--request-text);
 
-            font-size: 0.94rem;
+            font-size: 0.88rem;
 
             font-weight: 700;
 
-            line-height: 1.4;
+            line-height: 1.35;
         }
 
 
@@ -1613,15 +1618,15 @@
 
             gap: 5px;
 
-            margin: 6px 0 0;
+            margin: 5px 0 0;
 
             overflow: hidden;
 
             color: var(--request-muted);
 
-            font-size: 0.76rem;
+            font-size: 0.69rem;
 
-            line-height: 1.4;
+            line-height: 1.35;
 
             white-space: nowrap;
 
@@ -1643,8 +1648,8 @@
 
 
         /* =========================================================
-       STATUS
-    ========================================================= */
+           STATUS
+        ========================================================= */
 
         .thesis-request-page .status-badge {
 
@@ -1657,13 +1662,13 @@
 
             white-space: nowrap;
 
-            padding: 5px 8px;
+            padding: 5px 7px;
 
             border: 1px solid transparent;
 
             border-radius: 20px;
 
-            font-size: 0.67rem;
+            font-size: 0.62rem;
 
             font-weight: 600;
         }
@@ -1700,8 +1705,8 @@
 
 
         /* =========================================================
-       REQUEST BODY
-    ========================================================= */
+           REQUEST BODY
+        ========================================================= */
 
         .thesis-request-page .request-card-body {
 
@@ -1710,9 +1715,9 @@
             grid-template-columns:
                 repeat(3, minmax(0, 1fr));
 
-            gap: 10px;
+            gap: 8px;
 
-            padding: 14px 16px;
+            padding: 13px 14px;
 
             background: #fafafe;
 
@@ -1738,13 +1743,13 @@
 
             color: var(--request-muted);
 
-            font-size: 0.63rem;
+            font-size: 0.58rem;
 
             font-weight: 600;
 
             text-transform: uppercase;
 
-            letter-spacing: 0.04em;
+            letter-spacing: 0.035em;
         }
 
 
@@ -1756,7 +1761,7 @@
 
             color: var(--request-text);
 
-            font-size: 0.76rem;
+            font-size: 0.7rem;
 
             font-weight: 600;
 
@@ -1767,8 +1772,8 @@
 
 
         /* =========================================================
-       REQUEST FOOTER
-    ========================================================= */
+           REQUEST FOOTER
+        ========================================================= */
 
         .thesis-request-page .request-card-footer {
 
@@ -1778,9 +1783,9 @@
 
             justify-content: space-between;
 
-            gap: 10px;
+            gap: 8px;
 
-            padding: 11px 16px;
+            padding: 10px 14px;
 
             background: var(--request-card);
         }
@@ -1796,7 +1801,7 @@
 
             color: var(--request-muted);
 
-            font-size: 0.68rem;
+            font-size: 0.64rem;
 
             white-space: nowrap;
         }
@@ -1813,13 +1818,15 @@
 
             align-items: center;
 
-            gap: 6px;
+            gap: 5px;
+
+            flex: 0 0 auto;
         }
 
 
         /* =========================================================
-       ACTION BUTTONS
-    ========================================================= */
+           ACTION BUTTONS
+        ========================================================= */
 
         .thesis-request-page .action-btn {
 
@@ -1830,7 +1837,7 @@
 
             gap: 5px;
 
-            padding: 7px 10px;
+            padding: 6px 8px;
 
             border: 0;
 
@@ -1838,7 +1845,7 @@
 
             text-decoration: none;
 
-            font-size: 0.69rem;
+            font-size: 0.64rem;
 
             font-weight: 600;
 
@@ -1894,8 +1901,8 @@
 
 
         /* =========================================================
-       TABLE VIEW
-    ========================================================= */
+           TABLE VIEW
+        ========================================================= */
 
         .thesis-request-page .request-table-wrapper {
 
@@ -2084,7 +2091,6 @@
             flex: 0 0 auto;
 
             color: var(--dashboard-purple);
-
         }
 
 
@@ -2113,7 +2119,6 @@
             color: var(--request-muted);
 
             font-weight: 500;
-
         }
 
 
@@ -2142,8 +2147,8 @@
 
 
         /* =========================================================
-       EMPTY STATE
-    ========================================================= */
+           EMPTY STATE
+        ========================================================= */
 
         .thesis-request-page .empty-request-state {
 
@@ -2226,8 +2231,8 @@
 
 
         /* =========================================================
-       DARK MODE
-    ========================================================= */
+           DARK MODE
+        ========================================================= */
 
         [data-bs-theme="dark"] .thesis-request-page {
 
@@ -2466,8 +2471,8 @@
 
 
         /* =========================================================
-       DESKTOP TABLE BUTTONS
-    ========================================================= */
+           DESKTOP
+        ========================================================= */
 
         @media (min-width: 993px) {
 
@@ -2475,29 +2480,43 @@
                 display: none;
             }
 
-        }
 
-
-        /* =========================================================
-       LARGE DESKTOP
-    ========================================================= */
-
-        @media (min-width: 1400px) {
-
+            /*
+             * 4 CARDS PER ROW
+             */
             .thesis-request-page .request-list {
 
                 grid-template-columns:
-                    repeat(2, minmax(0, 1fr));
+                    repeat(4, minmax(0, 1fr));
 
-                gap: 20px;
+                gap: 16px;
             }
 
         }
 
 
         /* =========================================================
-       TABLET
-    ========================================================= */
+           LARGE DESKTOP
+        ========================================================= */
+
+        @media (min-width: 1400px) {
+
+            .thesis-request-page .request-list {
+
+                grid-template-columns:
+                    repeat(4, minmax(0, 1fr));
+
+                gap: 18px;
+            }
+
+        }
+
+
+        /* =========================================================
+           TABLET
+           
+           2 CARDS PER ROW
+        ========================================================= */
 
         @media (max-width: 992px) {
 
@@ -2512,7 +2531,7 @@
                 grid-template-columns:
                     repeat(2, minmax(0, 1fr));
 
-                gap: 15px;
+                gap: 14px;
             }
 
 
@@ -2538,8 +2557,10 @@
 
 
         /* =========================================================
-       MOBILE TABLET
-    ========================================================= */
+           MOBILE TABLET
+           
+           KEEP 2 CARDS PER ROW
+        ========================================================= */
 
         @media (max-width: 768px) {
 
@@ -2561,18 +2582,33 @@
             }
 
 
+            /*
+             * IMPORTANT:
+             * Mobile still displays 2 cards in one row.
+             */
             .thesis-request-page .request-list {
 
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
 
-                gap: 14px;
+                gap: 12px;
+            }
+
+
+            .thesis-request-page .request-card {
+
+                width: 100%;
+
+                min-width: 0;
             }
 
 
             .thesis-request-page .request-card-body {
 
                 grid-template-columns:
-                    repeat(3, minmax(0, 1fr));
+                    1fr;
+
+                gap: 8px;
             }
 
 
@@ -2581,16 +2617,99 @@
                 grid-column: auto;
             }
 
+
+            /*
+             * Keep card header compact on mobile.
+             */
+            .thesis-request-page .request-card-header {
+
+                min-height: 92px;
+
+                padding: 12px;
+
+                gap: 7px;
+            }
+
+
+            .thesis-request-page .request-number {
+
+                flex: 0 0 30px;
+
+                width: 30px;
+                height: 30px;
+
+                font-size: 0.68rem;
+            }
+
+
+            .thesis-request-page .request-title {
+
+                font-size: 0.78rem;
+
+                line-height: 1.3;
+            }
+
+
+            .thesis-request-page .request-author {
+
+                font-size: 0.63rem;
+
+                margin-top: 4px;
+            }
+
+
+            .thesis-request-page .status-badge {
+
+                padding: 4px 6px;
+
+                font-size: 0.56rem;
+            }
+
+
+            .thesis-request-page .request-card-body {
+
+                padding: 11px 12px;
+
+                gap: 7px;
+            }
+
+
+            .thesis-request-page .request-info-label {
+
+                font-size: 0.56rem;
+            }
+
+
+            .thesis-request-page .request-info strong {
+
+                font-size: 0.67rem;
+            }
+
+
+            .thesis-request-page .request-card-footer {
+
+                padding: 9px 12px;
+
+                gap: 7px;
+            }
+
+
+            .thesis-request-page .request-id {
+
+                font-size: 0.59rem;
+            }
+
         }
 
 
         /* =========================================================
-       MOBILE
-       
-       IMPORTANT:
-       Mobile shows CARD ONLY.
-       Table and view buttons are hidden.
-    ========================================================= */
+           MOBILE
+           
+           CARD ONLY
+           2 CARDS PER ROW
+           
+           ACTION BUTTONS = ICON ONLY
+        ========================================================= */
 
         @media (max-width: 767px) {
 
@@ -2605,23 +2724,122 @@
 
 
             .thesis-request-page .request-list {
+
                 display: grid !important;
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr)) !important;
+
+                gap: 10px !important;
+
+                width: 100%;
+            }
+
+
+            .thesis-request-page .request-card {
+
+                min-width: 0;
+
+                width: 100%;
+            }
+
+
+            /*
+             * Footer stays compact.
+             */
+            .thesis-request-page .request-card-footer {
+
+                flex-direction: row;
+
+                align-items: center;
+
+                justify-content: space-between;
+
+                padding: 8px 10px;
+
+                gap: 6px;
+            }
+
+
+            .thesis-request-page .request-actions {
+
+                display: flex;
+
+                align-items: center;
+
+                justify-content: flex-end;
+
+                gap: 5px;
+
+                width: auto;
+
+                flex: 0 0 auto;
+            }
+
+
+            /*
+             * MOBILE:
+             * Hide button text.
+             */
+            .thesis-request-page .action-btn span {
+
+                display: none !important;
+            }
+
+
+            /*
+             * MOBILE:
+             * Icon-only buttons.
+             */
+            .thesis-request-page .action-btn {
+
+                width: 32px;
+
+                height: 32px;
+
+                min-width: 32px;
+
+                flex: 0 0 32px;
+
+                padding: 0;
+
+                gap: 0;
+
+                border-radius: 7px;
+
+                font-size: 0.82rem;
+            }
+
+
+            .thesis-request-page .action-btn i {
+
+                margin: 0;
+
+                font-size: 0.82rem;
+            }
+
+
+            /*
+             * Keep the tooltip-like browser title.
+             */
+            .thesis-request-page .action-btn {
+                -webkit-tap-highlight-color: transparent;
             }
 
         }
 
 
         /* =========================================================
-       MOBILE
-    ========================================================= */
+           MOBILE 576PX
+        ========================================================= */
 
         @media (max-width: 576px) {
 
             .thesis-request-page .container-fluid {
 
-                padding-left: 12px !important;
+                padding-left: 10px !important;
 
-                padding-right: 12px !important;
+                padding-right: 10px !important;
             }
 
 
@@ -2629,27 +2847,27 @@
 
                 align-items: flex-start;
 
-                gap: 12px;
+                gap: 10px;
 
-                margin-bottom: 18px !important;
+                margin-bottom: 16px !important;
             }
 
 
             .thesis-request-page .page-header-actions {
 
-                gap: 7px;
+                gap: 6px;
             }
 
 
             .thesis-request-page .page-title {
 
-                font-size: 1.22rem;
+                font-size: 1.15rem;
             }
 
 
             .thesis-request-page .page-title i {
 
-                margin-right: 4px !important;
+                margin-right: 3px !important;
             }
 
 
@@ -2657,29 +2875,233 @@
 
                 margin-top: 4px;
 
-                font-size: 0.77rem;
+                font-size: 0.72rem;
             }
 
 
             .thesis-request-page .create-request-btn {
 
-                min-height: 40px;
+                min-height: 38px;
 
-                padding: 8px 11px;
+                padding: 7px 9px;
 
                 border-radius: 8px;
 
-                font-size: 0.74rem;
+                font-size: 0.7rem;
             }
 
 
             .thesis-request-page .create-request-btn i {
 
-                font-size: 0.83rem;
+                font-size: 0.78rem;
             }
 
 
-            /* PERMISSION */
+            /* =====================================================
+               REQUEST CARD
+            ===================================================== */
+
+            .thesis-request-page .request-list {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr)) !important;
+
+                gap: 9px !important;
+            }
+
+
+            .thesis-request-page .request-card {
+
+                border-radius: 9px;
+
+                box-shadow:
+                    0 3px 12px rgba(30, 25, 70, 0.06);
+            }
+
+
+            .thesis-request-page .request-card:hover {
+
+                transform: translateY(-2px);
+            }
+
+
+            .thesis-request-page .request-card-header {
+
+                min-height: 88px;
+
+                padding: 10px;
+
+                gap: 6px;
+            }
+
+
+            .thesis-request-page .request-number {
+
+                flex: 0 0 27px;
+
+                width: 27px;
+                height: 27px;
+
+                border-radius: 7px;
+
+                font-size: 0.62rem;
+            }
+
+
+            .thesis-request-page .request-title {
+
+                font-size: 0.72rem;
+
+                line-height: 1.3;
+            }
+
+
+            .thesis-request-page .request-author {
+
+                gap: 3px;
+
+                margin-top: 3px;
+
+                font-size: 0.57rem;
+            }
+
+
+            .thesis-request-page .request-author i {
+
+                font-size: 0.6rem;
+            }
+
+
+            .thesis-request-page .status-badge {
+
+                padding: 4px 5px;
+
+                gap: 3px;
+
+                font-size: 0.5rem;
+            }
+
+
+            .thesis-request-page .status-badge i {
+
+                font-size: 0.5rem;
+            }
+
+
+            /* =====================================================
+               CARD BODY
+            ===================================================== */
+
+            .thesis-request-page .request-card-body {
+
+                grid-template-columns: 1fr;
+
+                gap: 7px;
+
+                padding: 10px;
+            }
+
+
+            .thesis-request-page .request-info {
+
+                gap: 2px;
+            }
+
+
+            .thesis-request-page .request-info-label {
+
+                font-size: 0.5rem;
+
+                letter-spacing: 0.025em;
+            }
+
+
+            .thesis-request-page .request-info strong {
+
+                font-size: 0.62rem;
+
+                line-height: 1.3;
+            }
+
+
+            /* =====================================================
+               CARD FOOTER
+            ===================================================== */
+
+            .thesis-request-page .request-card-footer {
+
+                flex-direction: row;
+
+                align-items: center;
+
+                padding: 8px 9px;
+
+                gap: 5px;
+            }
+
+
+            .thesis-request-page .request-id {
+
+                min-width: 0;
+
+                overflow: hidden;
+
+                font-size: 0.53rem;
+
+                text-overflow: ellipsis;
+            }
+
+
+            .thesis-request-page .request-id i {
+
+                font-size: 0.58rem;
+            }
+
+
+            .thesis-request-page .request-actions {
+
+                gap: 4px;
+
+                width: auto;
+
+                flex: 0 0 auto;
+            }
+
+
+            /*
+             * ICON ONLY BUTTONS
+             */
+            .thesis-request-page .action-btn {
+
+                width: 29px;
+
+                height: 29px;
+
+                min-width: 29px;
+
+                flex: 0 0 29px;
+
+                padding: 0;
+
+                border-radius: 6px;
+            }
+
+
+            .thesis-request-page .action-btn i {
+
+                font-size: 0.75rem;
+            }
+
+
+            .thesis-request-page .action-btn span {
+
+                display: none !important;
+            }
+
+
+            /* =====================================================
+               PERMISSION
+            ===================================================== */
 
             .thesis-request-page .permission-card {
 
@@ -2765,120 +3187,9 @@
             }
 
 
-            /* REQUEST CARD */
-
-            .thesis-request-page .request-card {
-
-                border-radius: 11px;
-            }
-
-
-            .thesis-request-page .request-card-header {
-
-                min-height: auto;
-
-                padding: 14px;
-
-                gap: 9px;
-            }
-
-
-            .thesis-request-page .request-number {
-
-                flex-basis: 34px;
-
-                width: 34px;
-                height: 34px;
-
-                border-radius: 8px;
-
-                font-size: 0.72rem;
-            }
-
-
-            .thesis-request-page .request-title {
-
-                font-size: 0.87rem;
-            }
-
-
-            .thesis-request-page .request-author {
-
-                font-size: 0.7rem;
-            }
-
-
-            .thesis-request-page .status-badge {
-
-                padding: 5px 7px;
-
-                font-size: 0.61rem;
-            }
-
-
-            .thesis-request-page .request-card-body {
-
-                grid-template-columns: 1fr;
-
-                gap: 10px;
-
-                padding: 13px 14px;
-            }
-
-
-            .thesis-request-page .request-info:last-child {
-
-                grid-column: auto;
-            }
-
-
-            .thesis-request-page .request-info-label {
-
-                font-size: 0.62rem;
-            }
-
-
-            .thesis-request-page .request-info strong {
-
-                font-size: 0.76rem;
-            }
-
-
-            .thesis-request-page .request-card-footer {
-
-                flex-direction: column;
-
-                align-items: stretch;
-
-                padding: 12px 14px;
-
-                gap: 9px;
-            }
-
-
-            .thesis-request-page .request-id {
-
-                font-size: 0.67rem;
-            }
-
-
-            .thesis-request-page .request-actions {
-
-                width: 100%;
-            }
-
-
-            .thesis-request-page .action-btn {
-
-                flex: 1;
-
-                padding: 8px 7px;
-
-                font-size: 0.69rem;
-            }
-
-
-            /* EMPTY */
+            /* =====================================================
+               EMPTY
+            ===================================================== */
 
             .thesis-request-page .empty-request-state {
 
@@ -2902,8 +3213,11 @@
 
 
         /* =========================================================
-       VERY SMALL MOBILE
-    ========================================================= */
+           VERY SMALL MOBILE
+           
+           STILL 2 CARDS PER ROW
+           STILL ICON-ONLY ACTIONS
+        ========================================================= */
 
         @media (max-width: 380px) {
 
@@ -2927,35 +3241,144 @@
             }
 
 
+            /*
+             * IMPORTANT:
+             * Do NOT change to 1 card per row.
+             */
+            .thesis-request-page .request-list {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr)) !important;
+
+                gap: 8px !important;
+            }
+
+
             .thesis-request-page .request-card-header {
 
-                flex-wrap: wrap;
+                min-height: 92px;
+
+                flex-wrap: nowrap;
+
+                padding: 8px;
+            }
+
+
+            .thesis-request-page .request-number {
+
+                flex-basis: 25px;
+
+                width: 25px;
+                height: 25px;
+
+                font-size: 0.58rem;
+            }
+
+
+            .thesis-request-page .request-title {
+
+                font-size: 0.67rem;
+            }
+
+
+            .thesis-request-page .request-author {
+
+                font-size: 0.53rem;
             }
 
 
             .thesis-request-page .request-status {
 
-                margin-left: 43px;
+                margin-left: 0;
+
+                flex: 0 0 auto;
             }
 
 
+            .thesis-request-page .status-badge {
+
+                padding: 3px 4px;
+
+                font-size: 0.45rem;
+            }
+
+
+            .thesis-request-page .request-card-body {
+
+                padding: 8px;
+
+                gap: 6px;
+            }
+
+
+            .thesis-request-page .request-info-label {
+
+                font-size: 0.47rem;
+            }
+
+
+            .thesis-request-page .request-info strong {
+
+                font-size: 0.57rem;
+            }
+
+
+            .thesis-request-page .request-card-footer {
+
+                padding: 7px 8px;
+            }
+
+
+            .thesis-request-page .request-id {
+
+                font-size: 0.48rem;
+            }
+
+
+            /*
+             * Keep action buttons SIDE-BY-SIDE.
+             */
             .thesis-request-page .request-actions {
 
-                flex-direction: column;
+                flex-direction: row;
+
+                gap: 3px;
+
+                width: auto;
             }
 
 
             .thesis-request-page .action-btn {
 
-                width: 100%;
+                width: 27px;
+
+                height: 27px;
+
+                min-width: 27px;
+
+                flex: 0 0 27px;
+
+                padding: 0;
+            }
+
+
+            .thesis-request-page .action-btn i {
+
+                font-size: 0.7rem;
+            }
+
+
+            .thesis-request-page .action-btn span {
+
+                display: none !important;
             }
 
         }
 
 
         /* =========================================================
-       REDUCE MOTION
-    ========================================================= */
+           REDUCE MOTION
+        ========================================================= */
 
         @media (prefers-reduced-motion: reduce) {
 
