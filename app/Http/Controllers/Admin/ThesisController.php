@@ -15,7 +15,10 @@ class ThesisController extends Controller
 {
     public function index()
     {
-        $theses = Thesis::latest()->get();
+        $theses = Thesis::whereNotNull('published_at')
+        ->orderByDesc('published_at')
+        ->get();
+
         $departments = Department::all();
         $published_at = Thesis::whereNotNull('published_at')
             ->selectRaw('YEAR(published_at) as year')

@@ -9,13 +9,20 @@
         <div class="sidebar-brand">
 
             <div class="sidebar-logo">
-                <img src="{{ asset('image/Small LU Logo.png') }}"
-                     alt="Life University Logo">
+                <img src="{{ asset('image/Small LU Logo.png') }}" alt="Life University Logo">
             </div>
 
             <div class="sidebar-brand-text">
                 <h1>Thesis Repository</h1>
-                <p>Admin Dashboard</p>
+                <p>
+                    @if (Auth::user()->role === 'admin')
+                        Admin Dashboard
+                    @elseif (Auth::user()->role === 'hod')
+                        HoD Dashboard
+                    @elseif (Auth::user()->role === 'student')
+                        Student Dashboard
+                    @endif
+                </p>
             </div>
 
         </div>
@@ -31,7 +38,7 @@
 
             {{-- DASHBOARD --}}
             <a href="{{ route('dashboard') }}"
-               class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
 
                 <i class="bi bi-grid-fill"></i>
                 <span>Dashboard</span>
@@ -41,7 +48,6 @@
 
             {{-- ADMIN --}}
             @if (Auth::user()->role === 'admin')
-
                 <div class="sidebar-section-title">
                     MANAGEMENT
                 </div>
@@ -49,7 +55,7 @@
 
                 {{-- DEPARTMENTS --}}
                 <a href="{{ route('admin.departments.index') }}"
-                   class="sidebar-link {{ request()->routeIs('admin.departments.*') ? 'active' : '' }}">
+                    class="sidebar-link {{ request()->routeIs('admin.departments.*') ? 'active' : '' }}">
 
                     <i class="bi bi-building"></i>
                     <span>Departments</span>
@@ -59,7 +65,7 @@
 
                 {{-- HOD --}}
                 <a href="{{ route('admin.hods.index') }}"
-                   class="sidebar-link {{ request()->routeIs('admin.hods.*') ? 'active' : '' }}">
+                    class="sidebar-link {{ request()->routeIs('admin.hods.*') ? 'active' : '' }}">
 
                     <i class="bi bi-person-badge"></i>
                     <span>HoD Management</span>
@@ -69,7 +75,7 @@
 
                 {{-- STUDENTS --}}
                 <a href="{{ route('admin.students.index') }}"
-                   class="sidebar-link {{ request()->routeIs('admin.students.*') ? 'active' : '' }}">
+                    class="sidebar-link {{ request()->routeIs('admin.students.*') ? 'active' : '' }}">
 
                     <i class="bi bi-people"></i>
                     <span>Students</span>
@@ -79,7 +85,7 @@
 
                 {{-- THESES --}}
                 <a href="{{ route('admin.thesis.index') }}"
-                   class="sidebar-link {{ request()->routeIs('admin.thesis.*') ? 'active' : '' }}">
+                    class="sidebar-link {{ request()->routeIs('admin.thesis.*') ? 'active' : '' }}">
 
                     <i class="bi bi-journal-bookmark"></i>
                     <span>Theses</span>
@@ -89,18 +95,17 @@
 
                 {{-- REQUESTS --}}
                 <a href="{{ route('admin.thesis_requests.index') }}"
-                   class="sidebar-link {{ request()->routeIs('admin.thesis_requests.*') ? 'active' : '' }}">
+                    class="sidebar-link {{ request()->routeIs('admin.thesis_requests.*') ? 'active' : '' }}">
 
                     <i class="bi bi-clock-history"></i>
                     <span>Thesis Requests</span>
 
                 </a>
 
-            {{-- =================================================
+                {{-- =================================================
                  HOD
             ================================================== --}}
             @elseif (Auth::user()->role === 'hod')
-
                 <div class="sidebar-section-title">
                     MANAGEMENT
                 </div>
@@ -108,7 +113,7 @@
 
                 {{-- STUDENTS --}}
                 <a href="{{ route('hod.students.index') }}"
-                   class="sidebar-link {{ request()->routeIs('hod.students.*') ? 'active' : '' }}">
+                    class="sidebar-link {{ request()->routeIs('hod.students.*') ? 'active' : '' }}">
 
                     <i class="bi bi-people"></i>
                     <span>Students</span>
@@ -116,7 +121,7 @@
                 </a>
 
                 <a href="{{ route('hod.thesis.index') }}"
-                   class="sidebar-link {{ request()->routeIs('hod.thesis.index') ? 'active' : '' }}">
+                    class="sidebar-link {{ request()->routeIs('hod.thesis.index') ? 'active' : '' }}">
 
                     <i class="bi bi-journal-bookmark"></i>
                     <span>Theses</span>
@@ -125,7 +130,7 @@
 
 
                 <a href="{{ route('hod.thesis.my-theses') }}"
-                   class="sidebar-link {{ request()->routeIs('hod.thesis.my-theses') ? 'active' : '' }}">
+                    class="sidebar-link {{ request()->routeIs('hod.thesis.my-theses') ? 'active' : '' }}">
 
                     <i class="bi bi-bookmark-heart"></i>
                     <span>My Theses</span>
@@ -134,7 +139,7 @@
 
 
                 <a href="{{ route('hod.thesis_requests.index') }}"
-                   class="sidebar-link {{ request()->routeIs('hod.thesis_requests.*') ? 'active' : '' }}">
+                    class="sidebar-link {{ request()->routeIs('hod.thesis_requests.*') ? 'active' : '' }}">
 
                     <i class="bi bi-clock-history"></i>
                     <span>Thesis Requests</span>
@@ -142,18 +147,17 @@
                 </a>
 
 
-            {{-- =================================================
+                {{-- =================================================
                  STUDENT
             ================================================== --}}
             @elseif (Auth::user()->role === 'student')
-
                 <div class="sidebar-section-title">
                     MANAGEMENT
                 </div>
 
 
                 <a href="{{ route('student.thesis.index') }}"
-                   class="sidebar-link {{ request()->routeIs('student.thesis.index') ? 'active' : '' }}">
+                    class="sidebar-link {{ request()->routeIs('student.thesis.index') ? 'active' : '' }}">
 
                     <i class="bi bi-journal-bookmark"></i>
                     <span>Theses</span>
@@ -162,7 +166,7 @@
 
 
                 <a href="{{ route('student.thesis.my-theses') }}"
-                   class="sidebar-link {{ request()->routeIs('student.thesis.my-theses') ? 'active' : '' }}">
+                    class="sidebar-link {{ request()->routeIs('student.thesis.my-theses') ? 'active' : '' }}">
 
                     <i class="bi bi-bookmark-heart"></i>
                     <span>My Theses</span>
@@ -171,7 +175,7 @@
 
 
                 <a href="{{ route('student.thesis_requests.index') }}"
-                   class="sidebar-link {{ request()->routeIs('student.thesis_requests.*') ? 'active' : '' }}">
+                    class="sidebar-link {{ request()->routeIs('student.thesis_requests.*') ? 'active' : '' }}">
 
                     <i class="bi bi-clock-history"></i>
                     <span>Thesis Requests</span>
@@ -180,7 +184,7 @@
 
 
                 <a href="{{ route('student.thesis.view_history') }}"
-                   class="sidebar-link {{ request()->routeIs('student.thesis.view_history') ? 'active' : '' }}">
+                    class="sidebar-link {{ request()->routeIs('student.thesis.view_history') ? 'active' : '' }}">
 
                     <i class="bi bi-clock-history"></i>
                     <span>View History</span>
@@ -189,13 +193,12 @@
 
 
                 <a href="{{ route('student.saved_thesis.index') }}"
-                   class="sidebar-link {{ request()->routeIs('student.saved_thesis.index') ? 'active' : '' }}">
+                    class="sidebar-link {{ request()->routeIs('student.saved_thesis.index') ? 'active' : '' }}">
 
                     <i class="bi bi-bookmark"></i>
                     <span>Bookmarks</span>
 
                 </a>
-
             @endif
 
         </div>
@@ -206,7 +209,7 @@
 
             {{-- SETTINGS --}}
             <a href="{{ route('profile.edit') }}"
-               class="sidebar-link {{ request()->routeIs('profile.*') ? 'active' : '' }}">
+                class="sidebar-link {{ request()->routeIs('profile.*') ? 'active' : '' }}">
 
                 <i class="bi bi-gear"></i>
                 <span>Settings</span>
@@ -258,26 +261,21 @@
         <div class="header-right">
 
             {{-- NOTIFICATIONS --}}
-            <a href="{{ route('notifications.index') }}"
-               class="header-icon-button notification-button">
+            <a href="{{ route('notifications.index') }}" class="header-icon-button notification-button">
 
                 <i class="bi bi-bell"></i>
 
                 @if (auth()->user()->unreadNotifications->count() > 0)
-
                     <span class="notification-count">
                         {{ auth()->user()->unreadNotifications->count() }}
                     </span>
-
                 @endif
 
             </a>
 
 
             {{-- DARK MODE --}}
-            <button type="button"
-                    class="header-icon-button theme-toggle"
-                    onclick="toggleDashboardTheme()">
+            <button type="button" class="header-icon-button theme-toggle" onclick="toggleDashboardTheme()">
 
                 <i class="bi bi-moon-stars" id="themeIcon"></i>
 
@@ -287,8 +285,7 @@
             {{-- USER --}}
             <div class="desktop-user-menu">
 
-                <a href="{{ route('profile.edit') }}"
-                   class="header-user">
+                <a href="{{ route('profile.edit') }}" class="header-user">
 
                     <div class="header-avatar">
 
@@ -316,12 +313,9 @@
 
 
             {{-- MOBILE BUTTON --}}
-            <button type="button"
-                    class="mobile-menu-button"
-                    @click="open = !open">
+            <button type="button" class="mobile-menu-button" @click="open = !open">
 
-                <i class="bi"
-                   :class="open ? 'bi-x-lg' : 'bi-list'">
+                <i class="bi" :class="open ? 'bi-x-lg' : 'bi-list'">
                 </i>
 
             </button>
@@ -334,9 +328,7 @@
     {{-- =====================================================
          MOBILE NAVIGATION
     ====================================================== --}}
-    <div class="mobile-navigation"
-         x-show="open"
-         x-transition>
+    <div class="mobile-navigation" x-show="open" x-transition>
 
         <div class="mobile-user-card">
 
@@ -362,7 +354,7 @@
         <div class="mobile-navigation-links">
 
             <a href="{{ route('dashboard') }}"
-               class="mobile-nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                class="mobile-nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
 
                 <i class="bi bi-grid-fill"></i>
                 <span>Dashboard</span>
@@ -371,9 +363,8 @@
 
 
             @if (Auth::user()->role === 'admin')
-
                 <a href="{{ route('admin.departments.index') }}"
-                   class="mobile-nav-link {{ request()->routeIs('admin.departments.*') ? 'active' : '' }}">
+                    class="mobile-nav-link {{ request()->routeIs('admin.departments.*') ? 'active' : '' }}">
 
                     <i class="bi bi-building"></i>
                     <span>Departments</span>
@@ -382,7 +373,7 @@
 
 
                 <a href="{{ route('admin.hods.index') }}"
-                   class="mobile-nav-link {{ request()->routeIs('admin.hods.*') ? 'active' : '' }}">
+                    class="mobile-nav-link {{ request()->routeIs('admin.hods.*') ? 'active' : '' }}">
 
                     <i class="bi bi-person-badge"></i>
                     <span>HoD Management</span>
@@ -391,7 +382,7 @@
 
 
                 <a href="{{ route('admin.students.index') }}"
-                   class="mobile-nav-link {{ request()->routeIs('admin.students.*') ? 'active' : '' }}">
+                    class="mobile-nav-link {{ request()->routeIs('admin.students.*') ? 'active' : '' }}">
 
                     <i class="bi bi-people"></i>
                     <span>Students</span>
@@ -400,7 +391,7 @@
 
 
                 <a href="{{ route('admin.thesis.index') }}"
-                   class="mobile-nav-link {{ request()->routeIs('admin.thesis.*') ? 'active' : '' }}">
+                    class="mobile-nav-link {{ request()->routeIs('admin.thesis.*') ? 'active' : '' }}">
 
                     <i class="bi bi-journal-bookmark"></i>
                     <span>Theses</span>
@@ -409,18 +400,16 @@
 
 
                 <a href="{{ route('admin.thesis_requests.index') }}"
-                   class="mobile-nav-link {{ request()->routeIs('admin.thesis_requests.*') ? 'active' : '' }}">
+                    class="mobile-nav-link {{ request()->routeIs('admin.thesis_requests.*') ? 'active' : '' }}">
 
                     <i class="bi bi-clock-history"></i>
                     <span>Thesis Requests</span>
 
                 </a>
-
             @elseif (Auth::user()->role === 'hod')
-
                 {{-- STUDENTS --}}
                 <a href="{{ route('hod.students.index') }}"
-                   class="mobile-nav-link {{ request()->routeIs('hod.students.*') ? 'active' : '' }}">
+                    class="mobile-nav-link {{ request()->routeIs('hod.students.*') ? 'active' : '' }}">
 
                     <i class="bi bi-people"></i>
                     <span>Students</span>
@@ -428,7 +417,7 @@
                 </a>
 
                 <a href="{{ route('hod.thesis.index') }}"
-                   class="mobile-nav-link {{ request()->routeIs('hod.thesis.*') ? 'active' : '' }}">
+                    class="mobile-nav-link {{ request()->routeIs('hod.thesis.*') ? 'active' : '' }}">
 
                     <i class="bi bi-journal-bookmark"></i>
                     <span>Theses</span>
@@ -437,7 +426,7 @@
 
 
                 <a href="{{ route('hod.thesis.my-theses') }}"
-                   class="mobile-nav-link {{ request()->routeIs('hod.thesis.my-theses') ? 'active' : '' }}">
+                    class="mobile-nav-link {{ request()->routeIs('hod.thesis.my-theses') ? 'active' : '' }}">
 
                     <i class="bi bi-bookmark-heart"></i>
                     <span>My Theses</span>
@@ -446,17 +435,15 @@
 
 
                 <a href="{{ route('hod.thesis_requests.index') }}"
-                   class="mobile-nav-link {{ request()->routeIs('hod.thesis_requests.*') ? 'active' : '' }}">
+                    class="mobile-nav-link {{ request()->routeIs('hod.thesis_requests.*') ? 'active' : '' }}">
 
                     <i class="bi bi-clock-history"></i>
                     <span>Thesis Requests</span>
 
                 </a>
-
             @elseif (Auth::user()->role === 'student')
-
                 <a href="{{ route('student.thesis.index') }}"
-                   class="mobile-nav-link {{ request()->routeIs('student.thesis.*') ? 'active' : '' }}">
+                    class="mobile-nav-link {{ request()->routeIs('student.thesis.*') ? 'active' : '' }}">
 
                     <i class="bi bi-journal-bookmark"></i>
                     <span>Theses</span>
@@ -465,7 +452,7 @@
 
 
                 <a href="{{ route('student.thesis.my-theses') }}"
-                   class="mobile-nav-link {{ request()->routeIs('student.thesis.my-theses') ? 'active' : '' }}">
+                    class="mobile-nav-link {{ request()->routeIs('student.thesis.my-theses') ? 'active' : '' }}">
 
                     <i class="bi bi-bookmark-heart"></i>
                     <span>My Theses</span>
@@ -474,7 +461,7 @@
 
 
                 <a href="{{ route('student.thesis_requests.index') }}"
-                   class="mobile-nav-link {{ request()->routeIs('student.thesis_requests.*') ? 'active' : '' }}">
+                    class="mobile-nav-link {{ request()->routeIs('student.thesis_requests.*') ? 'active' : '' }}">
 
                     <i class="bi bi-clock-history"></i>
                     <span>Thesis Requests</span>
@@ -483,7 +470,7 @@
 
 
                 <a href="{{ route('student.thesis.view_history') }}"
-                   class="mobile-nav-link {{ request()->routeIs('student.thesis.view_history') ? 'active' : '' }}">
+                    class="mobile-nav-link {{ request()->routeIs('student.thesis.view_history') ? 'active' : '' }}">
 
                     <i class="bi bi-clock-history"></i>
                     <span>View History</span>
@@ -492,18 +479,17 @@
 
 
                 <a href="{{ route('student.saved_thesis.index') }}"
-                   class="mobile-nav-link {{ request()->routeIs('student.saved_thesis.index') ? 'active' : '' }}">
+                    class="mobile-nav-link {{ request()->routeIs('student.saved_thesis.index') ? 'active' : '' }}">
 
                     <i class="bi bi-bookmark"></i>
                     <span>Bookmarks</span>
 
                 </a>
-
             @endif
 
 
             <a href="{{ route('profile.edit') }}"
-               class="mobile-nav-link {{ request()->routeIs('profile.*') ? 'active' : '' }}">
+                class="mobile-nav-link {{ request()->routeIs('profile.*') ? 'active' : '' }}">
 
                 <i class="bi bi-gear"></i>
                 <span>Settings</span>
@@ -534,7 +520,7 @@
     <div class="mobile-bottom-bar">
 
         <a href="{{ route('dashboard') }}"
-           class="mobile-bottom-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+            class="mobile-bottom-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
 
             <i class="bi bi-grid-fill"></i>
             <span>Home</span>
@@ -543,9 +529,8 @@
 
 
         @if (Auth::user()->role === 'admin')
-
             <a href="{{ route('admin.departments.index') }}"
-               class="mobile-bottom-item {{ request()->routeIs('admin.departments.*') ? 'active' : '' }}">
+                class="mobile-bottom-item {{ request()->routeIs('admin.departments.*') ? 'active' : '' }}">
 
                 <i class="bi bi-building"></i>
                 <span>Departments</span>
@@ -554,55 +539,47 @@
 
 
             <a href="{{ route('admin.thesis.index') }}"
-               class="mobile-bottom-item {{ request()->routeIs('admin.thesis.*') ? 'active' : '' }}">
+                class="mobile-bottom-item {{ request()->routeIs('admin.thesis.*') ? 'active' : '' }}">
 
                 <i class="bi bi-journal-bookmark"></i>
                 <span>Theses</span>
 
             </a>
-
         @elseif (Auth::user()->role === 'hod')
-
             <a href="{{ route('hod.thesis.index') }}"
-               class="mobile-bottom-item {{ request()->routeIs('hod.thesis.*') ? 'active' : '' }}">
+                class="mobile-bottom-item {{ request()->routeIs('hod.thesis.*') ? 'active' : '' }}">
 
                 <i class="bi bi-journal-bookmark"></i>
                 <span>Theses</span>
 
             </a>
-
         @elseif (Auth::user()->role === 'student')
-
             <a href="{{ route('student.thesis.index') }}"
-               class="mobile-bottom-item {{ request()->routeIs('student.thesis.*') ? 'active' : '' }}">
+                class="mobile-bottom-item {{ request()->routeIs('student.thesis.*') ? 'active' : '' }}">
 
                 <i class="bi bi-journal-bookmark"></i>
                 <span>Theses</span>
 
             </a>
-
         @endif
 
 
-        <a href="{{ route('notifications.index') }}"
-           class="mobile-bottom-item position-relative">
+        <a href="{{ route('notifications.index') }}" class="mobile-bottom-item position-relative">
 
             <i class="bi bi-bell"></i>
             <span>Alerts</span>
 
             @if (auth()->user()->unreadNotifications->count() > 0)
-
                 <small class="mobile-notification-badge">
                     {{ auth()->user()->unreadNotifications->count() }}
                 </small>
-
             @endif
 
         </a>
 
 
         <a href="{{ route('profile.edit') }}"
-           class="mobile-bottom-item {{ request()->routeIs('profile.*') ? 'active' : '' }}">
+            class="mobile-bottom-item {{ request()->routeIs('profile.*') ? 'active' : '' }}">
 
             <i class="bi bi-person"></i>
             <span>Profile</span>
@@ -618,7 +595,6 @@
      THEME SCRIPT
 ====================================================== --}}
 <script>
-
     function toggleDashboardTheme() {
 
         const html = document.documentElement;
@@ -656,16 +632,16 @@
         );
 
         icon.classList.add(
-            theme === 'dark'
-                ? 'bi-sun'
-                : 'bi-moon-stars'
+            theme === 'dark' ?
+            'bi-sun' :
+            'bi-moon-stars'
         );
     }
 
 
     document.addEventListener(
         'DOMContentLoaded',
-        function () {
+        function() {
 
             const saved =
                 localStorage.getItem('dashboardTheme');
@@ -682,5 +658,4 @@
 
         }
     );
-
 </script>

@@ -1,256 +1,692 @@
 <x-app-layout>
 
-    <div class="py-8">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            {{-- Header --}}
-            <div class="flex items-center justify-between mb-6">
+<style>
+    /* =========================================================
+       HOD NOTIFICATIONS PAGE
+    ========================================================== */
 
-                <div>
-                    <h2 class="text-2xl font-bold text-gray-800">
+    .hod-notifications-page {
+        margin-left: 263px;
+        padding: 118px 30px 40px;
+        min-height: 100vh;
+        /* background: #f0f2f5; */
+        box-sizing: border-box;
+    }
+
+    .hod-notifications-wrapper {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    /* =========================================================
+       MAIN CARD
+    ========================================================== */
+
+    .hod-notifications-card {
+        width: 100%;
+        background: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    /* =========================================================
+       HEADER
+    ========================================================== */
+
+    .hod-notifications-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 22px;
+        background: #ffffff;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .hod-notifications-title-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+    }
+
+    .hod-notifications-title-icon {
+        width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        background: #f0ebff;
+        color: #6538d9;
+        font-size: 18px;
+    }
+
+    .hod-notifications-title {
+        margin: 0;
+        color: #11182f;
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    /* =========================================================
+       MARK ALL AS READ
+    ========================================================== */
+
+    .hod-mark-all-form {
+        margin: 0;
+    }
+
+    .hod-mark-all-button {
+        border: none;
+        background: transparent;
+        color: #6538d9;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 7px 9px;
+        border-radius: 6px;
+        transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .hod-mark-all-button:hover {
+        background: #f0ebff;
+        color: #4f29b5;
+    }
+
+    /* =========================================================
+       SECTION TITLE
+    ========================================================== */
+
+    .hod-notification-section-title {
+        margin: 0;
+        padding: 16px 22px 9px;
+        background: #ffffff;
+        color: #11182f;
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 1.3;
+    }
+
+    /* =========================================================
+       NOTIFICATION LIST
+    ========================================================== */
+
+    .hod-notifications-list {
+        width: 100%;
+    }
+
+    .hod-notification-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 13px 22px;
+        gap: 13px;
+        text-decoration: none;
+        background: #ffffff;
+        box-sizing: border-box;
+        border-bottom: 1px solid #f1f1f1;
+        transition: background 0.15s ease;
+    }
+
+    .hod-notification-item:last-child {
+        border-bottom: none;
+    }
+
+    .hod-notification-item:hover {
+        background: #f7f7f9;
+    }
+
+    /* =========================================================
+       UNREAD
+    ========================================================== */
+
+    .hod-notification-item.unread {
+        background: #f3f0ff;
+    }
+
+    .hod-notification-item.unread:hover {
+        background: #ebe6ff;
+    }
+
+    /* =========================================================
+       AVATAR
+    ========================================================== */
+
+    .hod-notification-avatar {
+        flex: 0 0 48px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: #e4e6eb;
+        color: #65676b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 600;
+        box-sizing: border-box;
+    }
+
+    .hod-notification-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .hod-notification-avatar-letter {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* =========================================================
+       NOTIFICATION CONTENT
+    ========================================================== */
+
+    .hod-notification-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .hod-notification-main-text {
+        margin: 0;
+        color: #11182f;
+        font-size: 14px;
+        line-height: 1.45;
+        word-break: break-word;
+    }
+
+    .hod-notification-main-text strong {
+        color: #11182f;
+        font-weight: 700;
+    }
+
+    .hod-notification-time {
+        margin-top: 3px;
+        color: #777b86;
+        font-size: 12px;
+        line-height: 1.3;
+    }
+
+    /* =========================================================
+       UNREAD DOT
+    ========================================================== */
+
+    .hod-unread-dot {
+        flex: 0 0 9px;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #6538d9;
+    }
+
+    /* =========================================================
+       EMPTY SECTION
+    ========================================================== */
+
+    .hod-notification-empty-section {
+        padding: 10px 22px 18px;
+        background: #ffffff;
+        color: #777b86;
+        font-size: 13px;
+    }
+
+    /* =========================================================
+       EMPTY STATE
+    ========================================================== */
+
+    .hod-notifications-empty {
+        padding: 80px 20px;
+        text-align: center;
+        background: #ffffff;
+    }
+
+    .hod-empty-icon {
+        width: 54px;
+        height: 54px;
+        margin: 0 auto 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: #f0ebff;
+        color: #6538d9;
+        font-size: 21px;
+    }
+
+    .hod-empty-title {
+        margin: 0;
+        color: #11182f;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .hod-empty-text {
+        margin: 6px 0 0;
+        color: #777b86;
+        font-size: 13px;
+    }
+
+    /* =========================================================
+       LARGE DESKTOP
+    ========================================================== */
+
+    @media (min-width: 1200px) {
+
+        .hod-notifications-page {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        .hod-notifications-header {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .hod-notification-section-title {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .hod-notification-item {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+    }
+
+    /* =========================================================
+       TABLET
+    ========================================================== */
+
+    @media (max-width: 900px) {
+
+        .hod-notifications-page {
+            margin-left: 263px;
+            padding: 118px 20px 35px;
+        }
+    }
+
+    /* =========================================================
+       MOBILE
+    ========================================================== */
+
+    @media (max-width: 600px) {
+
+        .hod-notifications-page {
+            margin-left: 0;
+            padding: 90px 10px 30px;
+            min-height: 100vh;
+        }
+
+        .hod-notifications-header {
+            padding: 16px;
+        }
+
+        .hod-notifications-title-wrapper {
+            gap: 9px;
+        }
+
+        .hod-notifications-title-icon {
+            width: 34px;
+            height: 34px;
+            font-size: 16px;
+        }
+
+        .hod-notifications-title {
+            font-size: 20px;
+        }
+
+        .hod-mark-all-button {
+            font-size: 12px;
+            padding: 6px;
+        }
+
+        .hod-notification-section-title {
+            padding: 14px 16px 8px;
+            font-size: 14px;
+        }
+
+        .hod-notification-item {
+            padding: 12px 14px;
+            gap: 11px;
+        }
+
+        .hod-notification-avatar {
+            flex: 0 0 42px;
+            width: 42px;
+            height: 42px;
+            font-size: 14px;
+        }
+
+        .hod-notification-main-text {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .hod-notification-time {
+            font-size: 11px;
+        }
+
+        .hod-unread-dot {
+            flex: 0 0 8px;
+            width: 8px;
+            height: 8px;
+        }
+    }
+</style>
+
+
+<div class="hod-notifications-page">
+
+    <div class="hod-notifications-wrapper">
+
+        <div class="hod-notifications-card">
+
+            {{-- =================================================
+                 HEADER
+            ================================================== --}}
+
+            <div class="hod-notifications-header">
+
+                <div class="hod-notifications-title-wrapper">
+
+                    <div class="hod-notifications-title-icon">
+                        <i class="bi bi-bell-fill"></i>
+                    </div>
+
+                    <h2 class="hod-notifications-title">
                         Notifications
                     </h2>
 
-                    <p class="text-sm text-gray-500 mt-1">
-                        View your latest notifications
-                    </p>
                 </div>
 
-                {{-- Mark All as Read --}}
-                @if (auth()->user()->unreadNotifications->count() > 0)
-                    <form method="POST" action="{{ route('notifications.readAll') }}">
-                        @csrf
 
-                        <button type="submit"
-                            class="inline-flex items-center gap-2 px-4 py-2
-                               bg-blue-600 text-white rounded-lg
-                               hover:bg-blue-700 transition">
+                {{-- MARK ALL AS READ --}}
 
-                            {{-- Check Icon --}}
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
+                <form
+                    method="POST"
+                    action="{{ route('notifications.readAll') }}"
+                    class="hod-mark-all-form"
+                >
 
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7" />
+                    @csrf
 
-                            </svg>
+                    <button
+                        type="submit"
+                        class="hod-mark-all-button"
+                    >
+                        Mark all as read
+                    </button>
 
-                            Mark all as read
-
-                        </button>
-                    </form>
-                @endif
+                </form>
 
             </div>
 
 
-            {{-- Success Message --}}
-            @if (session('success'))
-                <div
-                    class="mb-6 px-4 py-3
-                        bg-green-50
-                        border border-green-200
-                        text-green-700
-                        rounded-lg">
+            {{-- =================================================
+                 GET NOTIFICATIONS
+            ================================================== --}}
 
-                    {{ session('success') }}
+            @php
 
-                </div>
-            @endif
+                $newNotifications = auth()
+                    ->user()
+                    ->notifications
+                    ->filter(function ($notification) {
+                        return is_null($notification->read_at);
+                    });
 
+                $earlierNotifications = auth()
+                    ->user()
+                    ->notifications
+                    ->filter(function ($notification) {
+                        return !is_null($notification->read_at);
+                    });
 
-            {{-- Error Message --}}
-            @if (session('error'))
-                <div
-                    class="mb-6 px-4 py-3
-                        bg-red-50
-                        border border-red-200
-                        text-red-700
-                        rounded-lg">
-
-                    {{ session('error') }}
-
-                </div>
-            @endif
+            @endphp
 
 
-            {{-- Notifications --}}
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            {{-- =================================================
+                 NEW NOTIFICATIONS
+            ================================================== --}}
 
-                @forelse (auth()->user()->notifications as $notification)
-                    {{-- Clickable Notification --}}
-                    <div class="relative">
+            @if ($newNotifications->count() > 0)
 
-                        <a href="{{ route('notifications.open', $notification->id) }}"
-                            class="flex items-start justify-between
-                               px-6 py-5
-                               border-b border-gray-100
-                               last:border-b-0
-                               transition
-                               hover:bg-gray-50
-                               {{ is_null($notification->read_at) ? 'bg-blue-50 hover:bg-blue-100' : 'bg-white hover:bg-gray-50' }}">
+                <h3 class="hod-notification-section-title">
+                    New
+                </h3>
 
-                            {{-- Left Side --}}
-                            <div class="flex items-start gap-4">
+                <div class="hod-notifications-list">
 
-                                {{-- Notification Icon --}}
-                                <div
-                                    class="flex-shrink-0
-                                        w-10 h-10
-                                        flex items-center justify-center
-                                        rounded-full
-                                        {{ is_null($notification->read_at) ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-500' }}">
+                    @foreach ($newNotifications as $notification)
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
+                        @php
 
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032
-                                           2.032 0 0118 14.158V11a6
-                                           6 0 00-5-5.917V4a1 1 0
-                                           00-2 0v1.083A6 6 0 006
-                                           11v3.159c0 .538-.214
-                                           1.055-.595 1.436L4
-                                           17h5m6 0v1a3 3 0
-                                           01-6 0v-1m6 0H9" />
+                            $message =
+                                $notification->data['message']
+                                ?? 'New notification';
 
-                                    </svg>
+                            $authorName =
+                                $notification->data['author_name']
+                                ?? null;
 
-                                </div>
+                            $avatar =
+                                $notification->data['author_avatar']
+                                ?? ($notification->data['avatar'] ?? null);
+
+                            $initial =
+                                $authorName
+                                ? strtoupper(substr($authorName, 0, 1))
+                                : 'N';
+
+                        @endphp
 
 
-                                {{-- Notification Content --}}
-                                <div class="min-w-0">
+                        <a
+                            href="{{ route('notifications.open', $notification->id) }}"
+                            class="hod-notification-item unread"
+                        >
 
-                                    {{-- Message --}}
-                                    <p class="text-gray-800 font-medium">
-                                        {{ $notification->data['message'] ?? 'You have a new notification.' }}
-                                    </p>
+                            {{-- AVATAR --}}
+
+                            <div class="hod-notification-avatar">
+
+                                @if ($avatar)
+
+                                    <img
+                                        src="{{ asset($avatar) }}"
+                                        alt="{{ $authorName ?? 'User' }}"
+                                    >
+
+                                @else
+
+                                    <div class="hod-notification-avatar-letter">
+                                        {{ $initial }}
+                                    </div>
+
+                                @endif
+
+                            </div>
 
 
-                                    {{-- Thesis Title --}}
-                                    @if (!empty($notification->data['title']))
-                                        <p class="text-sm text-gray-600 mt-1">
-                                            <span class="font-medium">
-                                                Thesis:
-                                            </span>
+                            {{-- CONTENT --}}
 
-                                            {{ $notification->data['title'] }}
-                                        </p>
+                            <div class="hod-notification-content">
+
+                                <p class="hod-notification-main-text">
+
+                                    @if ($authorName)
+
+                                        <strong>
+                                            {{ $authorName }}
+                                        </strong>
+
                                     @endif
 
+                                    {{ $message }}
 
-                                    {{-- Student Name --}}
-                                    @if (!empty($notification->data['author_name']))
-                                        <p class="text-sm text-gray-600 mt-1">
-                                            <span class="font-medium">
-                                                Student:
-                                            </span>
-
-                                            {{ $notification->data['author_name'] }}
-                                        </p>
-                                    @endif
+                                </p>
 
 
-                                    {{-- Time --}}
-                                    <p class="text-sm text-gray-500 mt-2">
-                                        {{ $notification->created_at->diffForHumans() }}
-                                    </p>
+                                <div class="hod-notification-time">
 
-
-                                    {{-- New Badge --}}
-                                    @if (is_null($notification->read_at))
-                                        <span
-                                            class="inline-flex items-center mt-2
-                                                 px-2 py-1
-                                                 text-xs font-semibold
-                                                 text-blue-600
-                                                 bg-blue-100
-                                                 rounded-full">
-
-                                            New
-
-                                        </span>
-                                    @endif
+                                    {{ $notification->created_at->format('l g:i A') }}
 
                                 </div>
 
                             </div>
 
 
-                            {{-- Arrow --}}
-                            <div class="flex-shrink-0 ml-4 mt-2">
+                            {{-- UNREAD DOT --}}
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
+                            <span class="hod-unread-dot"></span>
 
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5l7 7-7 7" />
+                        </a>
 
-                                </svg>
+                    @endforeach
+
+                </div>
+
+            @endif
+
+
+            {{-- =================================================
+                 EARLIER NOTIFICATIONS
+            ================================================== --}}
+
+            @if ($earlierNotifications->count() > 0)
+
+                <h3 class="hod-notification-section-title">
+                    Earlier
+                </h3>
+
+                <div class="hod-notifications-list">
+
+                    @foreach ($earlierNotifications as $notification)
+
+                        @php
+
+                            $message =
+                                $notification->data['message']
+                                ?? 'New notification';
+
+                            $authorName =
+                                $notification->data['author_name']
+                                ?? null;
+
+                            $avatar =
+                                $notification->data['author_avatar']
+                                ?? ($notification->data['avatar'] ?? null);
+
+                            $initial =
+                                $authorName
+                                ? strtoupper(substr($authorName, 0, 1))
+                                : 'N';
+
+                        @endphp
+
+
+                        <a
+                            href="{{ route('notifications.open', $notification->id) }}"
+                            class="hod-notification-item"
+                        >
+
+                            {{-- AVATAR --}}
+
+                            <div class="hod-notification-avatar">
+
+                                @if ($avatar)
+
+                                    <img
+                                        src="{{ asset($avatar) }}"
+                                        alt="{{ $authorName ?? 'User' }}"
+                                    >
+
+                                @else
+
+                                    <div class="hod-notification-avatar-letter">
+                                        {{ $initial }}
+                                    </div>
+
+                                @endif
+
+                            </div>
+
+
+                            {{-- CONTENT --}}
+
+                            <div class="hod-notification-content">
+
+                                <p class="hod-notification-main-text">
+
+                                    @if ($authorName)
+
+                                        <strong>
+                                            {{ $authorName }}
+                                        </strong>
+
+                                    @endif
+
+                                    {{ $message }}
+
+                                </p>
+
+
+                                <div class="hod-notification-time">
+
+                                    {{ $notification->created_at->format('l g:i A') }}
+
+                                </div>
 
                             </div>
 
                         </a>
 
+                    @endforeach
 
-                        {{-- Mark as Read --}}
-                        @if (is_null($notification->read_at))
-                            <form method="POST" action="{{ route('notifications.read', $notification->id) }}"
-                                class="absolute right-14 bottom-5">
+                </div>
 
-                                @csrf
+            @endif
 
-                                <button type="submit"
-                                    class="text-xs
-                                       text-blue-600
-                                       hover:text-blue-800
-                                       font-medium
-                                       bg-white
-                                       px-2 py-1
-                                       rounded">
 
-                                    Mark as read
+            {{-- =================================================
+                 EMPTY STATE
+            ================================================== --}}
 
-                                </button>
+            @if (
+                $newNotifications->count() === 0 &&
+                $earlierNotifications->count() === 0
+            )
 
-                            </form>
-                        @endif
+                <div class="hod-notifications-empty">
 
+                    <div class="hod-empty-icon">
+                        <i class="bi bi-bell"></i>
                     </div>
 
-                @empty
+                    <h3 class="hod-empty-title">
+                        No notifications
+                    </h3>
 
-                    {{-- Empty State --}}
-                    <div class="py-16 text-center">
+                    <p class="hod-empty-text">
+                        You don't have any notifications yet.
+                    </p>
 
-                        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-300" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
+                </div>
 
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032
-                               2.032 0 0118 14.158V11a6
-                               6 0 00-5-5.917V4a1 1 0
-                               00-2 0v1.083A6 6 0 006
-                               11v3.159c0 .538-.214
-                               1.055-.595 1.436L4
-                               17h5m6 0v1a3 3 0
-                               01-6 0v-1m6 0H9" />
-
-                        </svg>
-
-                        <h3 class="mt-4 text-lg font-semibold text-gray-700">
-                            No notifications
-                        </h3>
-
-                        <p class="mt-1 text-sm text-gray-500">
-                            You don't have any notifications yet.
-                        </p>
-
-                    </div>
-                @endforelse
-
-            </div>
+            @endif
 
         </div>
+
     </div>
+
+</div>
 
 </x-app-layout>

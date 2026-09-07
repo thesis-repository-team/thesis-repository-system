@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
-use App\Models\Keyword;
+use App\Models\SavedThesis;
+use App\Models\Student;
 use App\Models\Thesis;
 use App\Models\ThesisFile;
-use App\Models\Student;
-use App\Models\SavedThesis;
 use App\Models\ViewHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +16,10 @@ class ThesisController extends Controller
 {
     public function index()
     {
-        $theses = Thesis::with(['files'])->get();
+        $theses = Thesis::with(['files'])
+            ->whereNotNull('published_at')
+            ->orderByDesc('published_at')
+            ->get();
         $departments = Department::all();
 
         $published_at = Thesis::whereNotNull('published_at')
@@ -31,7 +33,7 @@ class ThesisController extends Controller
             ->pluck('thesis_id')
             ->toArray();
 
-        return view('student.thesis.index', compact('theses','savedThesisIds', 'departments', 'published_at'));
+        return view('student.thesis.index', compact('theses', 'savedThesisIds', 'departments', 'published_at'));
     }
 
     public function viewPDF(ThesisFile $file)
@@ -138,7 +140,7 @@ class ThesisController extends Controller
             ->pluck('thesis_id')
             ->toArray();
 
-        return view('student.thesis.table', compact('theses','savedThesisIds'));
+        return view('student.thesis.table', compact('theses', 'savedThesisIds'));
     }
 
     public function downloadPDF(ThesisFile $file)
@@ -171,6 +173,4 @@ class ThesisController extends Controller
 
         return view('student.thesis.view_history', compact('histories'));
     }
-
-    
 }

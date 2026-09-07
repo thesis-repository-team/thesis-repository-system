@@ -1,13 +1,14 @@
 <x-app-layout>
 
+
     <div class="dashboard-page">
 
         <div class="dashboard-content">
 
 
             {{-- =================================================
-                 STATISTICS
-            ================================================== --}}
+             STATISTICS
+        ================================================== --}}
             <section class="dashboard-grid">
 
 
@@ -105,19 +106,19 @@
 
 
             {{-- =================================================
-                 LOWER CONTENT
-            ================================================== --}}
+             LOWER CONTENT
+        ================================================== --}}
             <section class="dashboard-lower-grid">
 
 
                 {{-- =================================================
-                     LEFT / MAIN COLUMN
-                ================================================== --}}
+                 LEFT / MAIN COLUMN
+            ================================================== --}}
                 <div class="dashboard-lower-main">
 
                     {{-- =================================================
-                         MY RECENT THESIS
-                    ================================================== --}}
+                     MY RECENT THESIS
+                ================================================== --}}
                     <div class="dashboard-card dashboard-large-card">
 
                         <div class="dashboard-card-header">
@@ -134,8 +135,7 @@
 
                             </div>
 
-                            <a href="{{ route('student.thesis.my-theses') }}"
-                               class="view-all">
+                            <a href="{{ route('student.thesis.my-theses') }}" class="view-all">
 
                                 <span>
                                     View all
@@ -151,7 +151,6 @@
                         <div class="thesis-list">
 
                             @forelse($recentTheses ?? [] as $thesis)
-
                                 <div class="thesis-item">
 
                                     <div class="thesis-avatar">
@@ -164,46 +163,28 @@
                                     <div class="thesis-info">
 
                                         <strong>
-
-                                            {{ $thesis->title ??
-                                                'Untitled Thesis' }}
-
+                                            {{ $thesis->title ?? 'Untitled Thesis' }}
                                         </strong>
 
                                         <span>
-
-                                            {{ $thesis->created_at?->format('M d, Y') ??
-                                                'Recent submission' }}
-
+                                            {{ $thesis->created_at?->format('M d, Y') ?? 'Recent submission' }}
                                         </span>
 
                                     </div>
 
 
-                                    @if (
-                                        isset($thesis->is_approved) &&
-                                        $thesis->is_approved == 1
-                                    )
-
+                                    @if (isset($thesis->is_approved) && $thesis->is_approved == 1)
                                         <span class="status-badge status-published">
                                             Approved
                                         </span>
-
-                                    @elseif (
-                                        isset($thesis->is_approved) &&
-                                        $thesis->is_approved === null
-                                    )
-
+                                    @elseif (isset($thesis->is_approved) && $thesis->is_approved === null)
                                         <span class="status-badge status-pending">
                                             Pending
                                         </span>
-
                                     @else
-
                                         <span class="status-badge status-published">
                                             Thesis
                                         </span>
-
                                     @endif
 
                                 </div>
@@ -219,7 +200,6 @@
                                     </span>
 
                                 </div>
-
                             @endforelse
 
                         </div>
@@ -228,8 +208,8 @@
 
 
                     {{-- =================================================
-                         STUDENT OVERVIEW
-                    ================================================== --}}
+                     STUDENT OVERVIEW
+                ================================================== --}}
                     <div class="dashboard-card dashboard-large-card-student">
 
                         <div class="dashboard-card-header">
@@ -253,21 +233,14 @@
                         <div class="hod-item">
 
                             <div class="hod-avatar">
-
                                 <i class="bi bi-person"></i>
-
                             </div>
 
                             <div class="hod-info">
 
                                 <strong>
-
                                     {{ $student->full_name ??
-                                        $student->user?->full_name ??
-                                        $student->user?->username ??
-                                        auth()->user()->username ??
-                                        'Student' }}
-
+                                        ($student->user?->full_name ?? ($student->user?->username ?? (auth()->user()->username ?? 'Student'))) }}
                                 </strong>
 
                                 <span>
@@ -283,18 +256,13 @@
                         <div class="hod-item">
 
                             <div class="hod-avatar">
-
                                 <i class="bi bi-building"></i>
-
                             </div>
 
                             <div class="hod-info">
 
                                 <strong>
-
-                                    {{ $department->name ??
-                                        'Your Department' }}
-
+                                    {{ $department->name ?? 'Your Department' }}
                                 </strong>
 
                                 <span>
@@ -310,9 +278,7 @@
                         <div class="hod-item">
 
                             <div class="hod-avatar">
-
                                 <i class="bi bi-book"></i>
-
                             </div>
 
                             <div class="hod-info">
@@ -334,9 +300,7 @@
                         <div class="hod-item">
 
                             <div class="hod-avatar">
-
                                 <i class="bi bi-bookmark"></i>
-
                             </div>
 
                             <div class="hod-info">
@@ -354,8 +318,7 @@
                         </div>
 
 
-                        <a href="{{ route('student.thesis.my-theses') }}"
-                           class="view-all">
+                        <a href="{{ route('student.thesis.my-theses') }}" class="view-all">
 
                             <span>
                                 View my thesis
@@ -372,13 +335,13 @@
 
 
                 {{-- =================================================
-                     RIGHT / SIDE COLUMN
-                ================================================== --}}
+                 RIGHT / SIDE COLUMN
+            ================================================== --}}
                 <div class="dashboard-lower-side">
 
                     {{-- =================================================
-                         QUICK ACTIONS
-                    ================================================== --}}
+                     QUICK ACTIONS
+                ================================================== --}}
                     <div class="dashboard-card dashboard-small-card">
 
                         <div class="dashboard-card-header">
@@ -399,13 +362,10 @@
 
 
                         {{-- MY THESIS --}}
-                        <a href="{{ route('student.thesis.my-theses') }}"
-                           class="hod-item quick-action">
+                        <a href="{{ route('student.thesis.my-theses') }}" class="hod-item quick-action">
 
                             <div class="hod-avatar">
-
                                 <i class="bi bi-journal-text"></i>
-
                             </div>
 
                             <div class="hod-info">
@@ -426,13 +386,10 @@
 
 
                         {{-- SAVED THESIS --}}
-                        <a href="{{ route('student.saved_thesis.index') }}"
-                           class="hod-item quick-action">
+                        <a href="{{ route('student.saved_thesis.index') }}" class="hod-item quick-action">
 
                             <div class="hod-avatar">
-
                                 <i class="bi bi-bookmark"></i>
-
                             </div>
 
                             <div class="hod-info">
@@ -453,13 +410,10 @@
 
 
                         {{-- NOTIFICATIONS --}}
-                        <a href="{{ route('notifications.index') }}"
-                           class="hod-item quick-action">
+                        <a href="{{ route('notifications.index') }}" class="hod-item quick-action">
 
                             <div class="hod-avatar">
-
                                 <i class="bi bi-bell"></i>
-
                             </div>
 
                             <div class="hod-info">
@@ -483,8 +437,8 @@
 
 
                     {{-- =================================================
-                         CALENDAR
-                    ================================================== --}}
+                     CALENDAR
+                ================================================== --}}
                     <div class="dashboard-card dashboard-small-card calendar-card">
 
                         <div class="dashboard-card-header">
@@ -506,13 +460,10 @@
 
                         <div class="calendar-wrapper">
 
-
                             {{-- CALENDAR HEADER --}}
                             <div class="calendar-header">
 
-                                <button type="button"
-                                    class="calendar-nav"
-                                    id="studentCalendarPrev"
+                                <button type="button" class="calendar-nav" id="studentCalendarPrev"
                                     aria-label="Previous month">
 
                                     <i class="bi bi-chevron-left"></i>
@@ -520,14 +471,11 @@
                                 </button>
 
 
-                                <div class="calendar-month"
-                                    id="studentCalendarMonth">
+                                <div class="calendar-month" id="studentCalendarMonth">
                                 </div>
 
 
-                                <button type="button"
-                                    class="calendar-nav"
-                                    id="studentCalendarNext"
+                                <button type="button" class="calendar-nav" id="studentCalendarNext"
                                     aria-label="Next month">
 
                                     <i class="bi bi-chevron-right"></i>
@@ -552,8 +500,7 @@
 
 
                             {{-- DAYS --}}
-                            <div class="calendar-days"
-                                id="studentCalendarDays">
+                            <div class="calendar-days" id="studentCalendarDays">
                             </div>
 
                         </div>
@@ -571,63 +518,126 @@
 
 
     <style>
-
         /* =========================================================
-           THEME
-        ========================================================== */
+       COLOR THEME
+    ========================================================== */
 
         :root {
 
-            --dashboard-black: #000000;
+            /* MAIN COLORS */
+            --dashboard-black: #111111;
             --dashboard-white: #ffffff;
 
-            --dashboard-page-bg: #ffffff;
+            /* PAGE */
+            --dashboard-page-bg: #f6f7fb;
+
+            /* CARDS */
             --dashboard-card-bg: #ffffff;
 
-            --dashboard-text: #000000;
-            --dashboard-text-secondary: #333333;
-            --dashboard-text-muted: #777777;
+            /* TEXT */
+            --dashboard-text: #171717;
+            --dashboard-text-secondary: #4b5563;
+            --dashboard-text-muted: #8a8f9b;
 
-            --dashboard-border: #000000;
-            --dashboard-border-soft: #dddddd;
+            /* BORDERS */
+            --dashboard-border: #e5e7eb;
+            --dashboard-border-soft: #e8eaf0;
 
-            --dashboard-divider: #eeeeee;
+            /* DIVIDERS */
+            --dashboard-divider: #eeeeF2;
 
-            --dashboard-soft: #f7f7f7;
+            /* SOFT BACKGROUND */
+            --dashboard-soft: #f5f3ff;
 
+            /* PRIMARY */
+            --dashboard-purple: #6538d9;
+            --dashboard-purple-dark: #5428c7;
+            --dashboard-purple-soft: #f1edff;
+
+            /* BLUE */
+            --dashboard-blue: #2563eb;
+            --dashboard-blue-soft: #eff6ff;
+
+            /* GREEN */
+            --dashboard-green: #15803d;
+            --dashboard-green-soft: #ecfdf3;
+
+            /* ORANGE */
+            --dashboard-orange: #ea580c;
+            --dashboard-orange-soft: #fff7ed;
+
+            /* RED */
+            --dashboard-red: #dc2626;
+            --dashboard-red-soft: #fef2f2;
+
+            /* SHADOW */
             --dashboard-card-shadow:
-                0 2px 10px rgba(0, 0, 0, .05);
-        }
+                0 4px 18px rgba(20, 24, 40, .06);
 
-
-        [data-bs-theme="dark"] {
-
-            --dashboard-page-bg: #101426;
-            --dashboard-card-bg: #181d33;
-
-            --dashboard-text: #eeeef8;
-            --dashboard-text-secondary: #d5d8e8;
-            --dashboard-text-muted: #999fb9;
-
-            --dashboard-border: #292e45;
-            --dashboard-border-soft: #292e45;
-
-            --dashboard-divider: #292e45;
-
-            --dashboard-soft: #20253a;
-
-            --dashboard-card-shadow:
-                0 2px 10px rgba(0, 0, 0, .35);
+            --dashboard-card-shadow-hover:
+                0 8px 25px rgba(20, 24, 40, .09);
         }
 
 
         /* =========================================================
-           PAGE
-        ========================================================== */
+       DARK MODE
+    ========================================================== */
+
+        [data-bs-theme="dark"] {
+
+            --dashboard-black: #ffffff;
+            --dashboard-white: #111525;
+
+            --dashboard-page-bg: #0f1322;
+
+            --dashboard-card-bg: #181d31;
+
+            --dashboard-text: #f4f5fb;
+            --dashboard-text-secondary: #c8ccda;
+            --dashboard-text-muted: #9298ad;
+
+            --dashboard-border: #292f45;
+            --dashboard-border-soft: #292f45;
+
+            --dashboard-divider: #292f45;
+
+            --dashboard-soft: #222741;
+
+            --dashboard-purple: #8b6cf2;
+            --dashboard-purple-dark: #9a7df5;
+            --dashboard-purple-soft: #292344;
+
+            --dashboard-blue: #5d8df5;
+            --dashboard-blue-soft: #202b4a;
+
+            --dashboard-green: #4ade80;
+            --dashboard-green-soft: #173526;
+
+            --dashboard-orange: #fb923c;
+            --dashboard-orange-soft: #3b291d;
+
+            --dashboard-red: #f87171;
+            --dashboard-red-soft: #3a2025;
+
+            --dashboard-card-shadow:
+                0 5px 20px rgba(0, 0, 0, .28);
+
+            --dashboard-card-shadow-hover:
+                0 10px 30px rgba(0, 0, 0, .35);
+        }
+
+
+        /* =========================================================
+       PAGE
+    ========================================================== */
 
         .dashboard-page {
 
+            min-height: 100vh;
+
             color: var(--dashboard-text);
+
+            background: var(--dashboard-page-bg);
 
             transition:
                 color .25s ease,
@@ -648,8 +658,8 @@
 
 
         /* =========================================================
-           STATISTICS
-        ========================================================== */
+       STATISTICS
+    ========================================================== */
 
         .dashboard-grid {
 
@@ -667,8 +677,8 @@
 
 
         /* =========================================================
-           STAT CARDS
-        ========================================================== */
+       STAT CARDS
+    ========================================================== */
 
         .stat-card {
 
@@ -680,14 +690,28 @@
 
             color: var(--dashboard-text);
 
-            border-radius: 12px;
+            border: 1px solid var(--dashboard-border);
+
+            border-radius: 14px;
 
             box-shadow:
                 var(--dashboard-card-shadow);
 
             transition:
                 background-color .25s ease,
-                color .25s ease;
+                color .25s ease,
+                border-color .25s ease,
+                box-shadow .25s ease,
+                transform .2s ease;
+        }
+
+
+        .stat-card:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                var(--dashboard-card-shadow-hover);
         }
 
 
@@ -715,11 +739,15 @@
 
         .stat-number {
 
+            margin-top: 2px;
+
             color: var(--dashboard-text);
 
-            font-size: 28px;
+            font-size: 29px;
 
-            font-weight: 700;
+            line-height: 1.15;
+
+            font-weight: 750;
         }
 
 
@@ -734,16 +762,16 @@
 
 
         /* =========================================================
-           STAT ICONS
-        ========================================================== */
+       STAT ICONS
+    ========================================================== */
 
         .stat-icon {
 
-            width: 42px;
+            width: 44px;
 
-            height: 42px;
+            height: 44px;
 
-            min-width: 42px;
+            min-width: 44px;
 
             display: flex;
 
@@ -751,7 +779,7 @@
 
             justify-content: center;
 
-            border-radius: 10px;
+            border-radius: 11px;
 
             font-size: 17px;
         }
@@ -759,54 +787,39 @@
 
         .stat-icon.purple {
 
-            background: #f1edff;
+            background: var(--dashboard-purple-soft);
 
-            color: #6538d9;
+            color: var(--dashboard-purple);
         }
 
 
         .stat-icon.blue {
 
-            background: #eff6ff;
+            background: var(--dashboard-blue-soft);
 
-            color: #2563eb;
+            color: var(--dashboard-blue);
         }
 
 
         .stat-icon.green {
 
-            background: #ecfdf3;
+            background: var(--dashboard-green-soft);
 
-            color: #15803d;
+            color: var(--dashboard-green);
         }
 
 
         .stat-icon.orange {
 
-            background: #fff7ed;
+            background: var(--dashboard-orange-soft);
 
-            color: #ea580c;
+            color: var(--dashboard-orange);
         }
 
 
         /* =========================================================
-           LOWER GRID
-        ========================================================== */
-
-        /*
-         * 10 equal columns
-         *
-         * 7 columns = 70%
-         * 3 columns = 30%
-         *
-         * Row 1:
-         * Recent Thesis = 70%
-         * Quick Actions = 30%
-         *
-         * Row 2:
-         * Student Overview = 30%
-         * Calendar = 70%
-         */
+       LOWER GRID
+    ========================================================== */
 
         .dashboard-lower-grid {
 
@@ -823,12 +836,6 @@
         }
 
 
-        /*
-         * Make the existing wrappers transparent
-         * so the cards can be positioned directly
-         * inside the lower grid.
-         */
-
         .dashboard-lower-main,
         .dashboard-lower-side {
 
@@ -837,11 +844,11 @@
 
 
         /* =========================================================
-           MY RECENT THESIS
-           70%
-        ========================================================== */
+       MY RECENT THESIS
+       70%
+    ========================================================== */
 
-        .dashboard-lower-main > .dashboard-large-card {
+        .dashboard-lower-main>.dashboard-large-card {
 
             grid-column: 1 / 8;
 
@@ -852,11 +859,11 @@
 
 
         /* =========================================================
-           QUICK ACTIONS
-           30%
-        ========================================================== */
+       QUICK ACTIONS
+       30%
+    ========================================================== */
 
-        .dashboard-lower-side > .dashboard-small-card:not(.calendar-card) {
+        .dashboard-lower-side>.dashboard-small-card:not(.calendar-card) {
 
             grid-column: 8 / 11;
 
@@ -867,11 +874,11 @@
 
 
         /* =========================================================
-           STUDENT OVERVIEW
-           50%
-        ========================================================== */
+       STUDENT OVERVIEW
+       50%
+    ========================================================== */
 
-        .dashboard-lower-main > .dashboard-large-card-student {
+        .dashboard-lower-main>.dashboard-large-card-student {
 
             grid-column: 1 / 6;
 
@@ -884,11 +891,11 @@
 
 
         /* =========================================================
-           CALENDAR
-           50%
-        ========================================================== */
+       CALENDAR
+       50%
+    ========================================================== */
 
-        .dashboard-lower-side > .calendar-card {
+        .dashboard-lower-side>.calendar-card {
 
             grid-column: 6 / 11;
 
@@ -903,8 +910,8 @@
 
 
         /* =========================================================
-           CARDS
-        ========================================================== */
+       CARDS
+    ========================================================== */
 
         .dashboard-card {
 
@@ -918,14 +925,18 @@
 
             color: var(--dashboard-text);
 
-            border-radius: 12px;
+            border: 1px solid var(--dashboard-border);
+
+            border-radius: 14px;
 
             box-shadow:
                 var(--dashboard-card-shadow);
 
             transition:
                 background-color .25s ease,
-                color .25s ease;
+                color .25s ease,
+                border-color .25s ease,
+                box-shadow .25s ease;
         }
 
 
@@ -937,8 +948,8 @@
 
 
         /* =========================================================
-           CARD HEADER
-        ========================================================== */
+       CARD HEADER
+    ========================================================== */
 
         .dashboard-card-header {
 
@@ -962,13 +973,13 @@
 
             margin-bottom: 5px;
 
-            color: var(--dashboard-text-muted);
+            color: var(--dashboard-purple);
 
             font-size: 10px;
 
-            font-weight: 700;
+            font-weight: 750;
 
-            letter-spacing: 1px;
+            letter-spacing: 1.1px;
 
             text-transform: uppercase;
         }
@@ -987,8 +998,8 @@
 
 
         /* =========================================================
-           VIEW ALL
-        ========================================================== */
+       VIEW ALL
+    ========================================================== */
 
         .view-all {
 
@@ -1004,124 +1015,24 @@
 
             font-size: 12px;
 
-            font-weight: 500;
+            font-weight: 600;
 
             text-decoration: none;
 
-            transition: color .2s ease;
+            transition:
+                color .2s ease;
         }
 
 
         .view-all:hover {
 
-            color: var(--dashboard-text);
+            color: var(--dashboard-purple);
         }
 
 
         /* =========================================================
-           REQUESTS
-        ========================================================== */
-
-        .request-list {
-
-            width: 100%;
-        }
-
-
-        .request-item {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 13px;
-
-            min-height: 58px;
-
-            padding: 9px 0;
-        }
-
-
-        .request-item + .request-item {
-
-            border-top:
-                1px solid var(--dashboard-divider);
-        }
-
-
-        .request-avatar {
-
-            width: 38px;
-
-            height: 38px;
-
-            min-width: 38px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background: #2563eb;
-
-            color: #ffffff;
-
-            font-size: 11px;
-
-            font-weight: 700;
-        }
-
-
-        .request-info {
-
-            min-width: 0;
-
-            flex: 1;
-        }
-
-
-        .request-title {
-
-            display: block;
-
-            overflow: hidden;
-
-            margin-bottom: 4px;
-
-            color: var(--dashboard-text);
-
-            font-size: 14px;
-
-            font-weight: 600;
-
-            white-space: nowrap;
-
-            text-overflow: ellipsis;
-        }
-
-
-        .request-name {
-
-            display: block;
-
-            overflow: hidden;
-
-            color: var(--dashboard-text-muted);
-
-            font-size: 12px;
-
-            white-space: nowrap;
-
-            text-overflow: ellipsis;
-        }
-
-
-        /* =========================================================
-           THESIS
-        ========================================================== */
+       THESIS
+    ========================================================== */
 
         .thesis-list {
 
@@ -1143,7 +1054,7 @@
         }
 
 
-        .thesis-item + .thesis-item {
+        .thesis-item+.thesis-item {
 
             border-top:
                 1px solid var(--dashboard-divider);
@@ -1152,11 +1063,11 @@
 
         .thesis-avatar {
 
-            width: 38px;
+            width: 40px;
 
-            height: 38px;
+            height: 40px;
 
-            min-width: 38px;
+            min-width: 40px;
 
             display: flex;
 
@@ -1164,11 +1075,11 @@
 
             justify-content: center;
 
-            border-radius: 9px;
+            border-radius: 10px;
 
-            background: #f1edff;
+            background: var(--dashboard-purple-soft);
 
-            color: #6538d9;
+            color: var(--dashboard-purple);
 
             font-size: 15px;
         }
@@ -1194,7 +1105,7 @@
 
             font-size: 14px;
 
-            font-weight: 600;
+            font-weight: 650;
 
             white-space: nowrap;
 
@@ -1219,124 +1130,8 @@
 
 
         /* =========================================================
-           SAVED THESIS
-        ========================================================== */
-
-        .student-list {
-
-            width: 100%;
-        }
-
-
-        .student-item {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 13px;
-
-            min-height: 58px;
-
-            padding: 9px 0;
-
-            transition:
-                background-color .2s ease;
-        }
-
-
-        .student-item + .student-item {
-
-            border-top:
-                1px solid var(--dashboard-divider);
-        }
-
-
-        .student-avatar {
-
-            width: 38px;
-
-            height: 38px;
-
-            min-width: 38px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background: var(--dashboard-soft);
-
-            color: var(--dashboard-text);
-
-            font-size: 13px;
-
-            font-weight: 700;
-
-            border: 1px solid var(--dashboard-border-soft);
-        }
-
-
-        .student-info {
-
-            min-width: 0;
-
-            flex: 1;
-        }
-
-
-        .student-info strong {
-
-            display: block;
-
-            overflow: hidden;
-
-            margin-bottom: 4px;
-
-            color: var(--dashboard-text);
-
-            font-size: 14px;
-
-            font-weight: 600;
-
-            white-space: nowrap;
-
-            text-overflow: ellipsis;
-        }
-
-
-        .student-info span {
-
-            display: block;
-
-            overflow: hidden;
-
-            color: var(--dashboard-text-muted);
-
-            font-size: 12px;
-
-            white-space: nowrap;
-
-            text-overflow: ellipsis;
-        }
-
-
-        .student-arrow {
-
-            flex-shrink: 0;
-
-            color: var(--dashboard-text-muted);
-
-            font-size: 11px;
-        }
-
-
-        /* =========================================================
-           STATUS
-        ========================================================== */
+       STATUS
+    ========================================================== */
 
         .status-badge {
 
@@ -1348,15 +1143,15 @@
 
             flex-shrink: 0;
 
-            min-width: 64px;
+            min-width: 68px;
 
             padding: 7px 10px;
 
-            border-radius: 6px;
+            border-radius: 7px;
 
             font-size: 10px;
 
-            font-weight: 600;
+            font-weight: 650;
 
             white-space: nowrap;
         }
@@ -1365,31 +1160,31 @@
         .status-published,
         .status-approved {
 
-            background: #ecfdf3;
+            background: var(--dashboard-green-soft);
 
-            color: #15803d;
+            color: var(--dashboard-green);
         }
 
 
         .status-pending {
 
-            background: #eff6ff;
+            background: var(--dashboard-blue-soft);
 
-            color: #2563eb;
+            color: var(--dashboard-blue);
         }
 
 
         .status-rejected {
 
-            background: #fef2f2;
+            background: var(--dashboard-red-soft);
 
-            color: #dc2626;
+            color: var(--dashboard-red);
         }
 
 
         /* =========================================================
-           STUDENT ITEMS / QUICK ACTIONS
-        ========================================================== */
+       STUDENT / QUICK ACTION ITEMS
+    ========================================================== */
 
         .hod-item {
 
@@ -1405,7 +1200,7 @@
         }
 
 
-        .hod-item + .hod-item {
+        .hod-item+.hod-item {
 
             border-top:
                 1px solid var(--dashboard-divider);
@@ -1414,11 +1209,11 @@
 
         .hod-avatar {
 
-            width: 36px;
+            width: 38px;
 
-            height: 36px;
+            height: 38px;
 
-            min-width: 36px;
+            min-width: 38px;
 
             display: flex;
 
@@ -1426,11 +1221,11 @@
 
             justify-content: center;
 
-            border-radius: 50%;
+            border-radius: 10px;
 
             background: var(--dashboard-soft);
 
-            color: var(--dashboard-text);
+            color: var(--dashboard-purple);
 
             font-size: 14px;
         }
@@ -1456,7 +1251,7 @@
 
             font-size: 13px;
 
-            font-weight: 600;
+            font-weight: 650;
 
             white-space: nowrap;
 
@@ -1481,37 +1276,56 @@
 
 
         /* =========================================================
-           QUICK ACTIONS
-        ========================================================== */
+       QUICK ACTIONS
+    ========================================================== */
 
         .quick-action {
+
+            position: relative;
 
             color: var(--dashboard-text);
 
             text-decoration: none;
 
+            border-radius: 9px;
+
             transition:
-                background-color .2s ease;
+                background-color .2s ease,
+                padding-left .2s ease;
         }
 
 
         .quick-action:hover {
 
+            padding-left: 7px;
+
             background: var(--dashboard-soft);
         }
 
 
-        .quick-action > i.bi-chevron-right {
+        .quick-action>i.bi-chevron-right {
 
             color: var(--dashboard-text-muted);
 
             font-size: 12px;
+
+            transition:
+                color .2s ease,
+                transform .2s ease;
+        }
+
+
+        .quick-action:hover>i.bi-chevron-right {
+
+            color: var(--dashboard-purple);
+
+            transform: translateX(2px);
         }
 
 
         /* =========================================================
-           CALENDAR
-        ========================================================== */
+       CALENDAR
+    ========================================================== */
 
         .calendar-card {
 
@@ -1555,9 +1369,9 @@
 
         .calendar-nav {
 
-            width: 30px;
+            width: 31px;
 
-            height: 30px;
+            height: 31px;
 
             display: flex;
 
@@ -1567,13 +1381,13 @@
 
             padding: 0;
 
-            border: 1px solid var(--dashboard-border-soft);
+            border: 1px solid var(--dashboard-border);
 
-            border-radius: 7px;
+            border-radius: 8px;
 
             background: var(--dashboard-card-bg);
 
-            color: var(--dashboard-text);
+            color: var(--dashboard-text-secondary);
 
             cursor: pointer;
 
@@ -1586,11 +1400,11 @@
 
         .calendar-nav:hover {
 
-            background: var(--dashboard-text);
+            background: var(--dashboard-purple);
 
-            color: var(--dashboard-card-bg);
+            color: #ffffff;
 
-            border-color: var(--dashboard-text);
+            border-color: var(--dashboard-purple);
         }
 
 
@@ -1666,23 +1480,28 @@
 
         .calendar-day.today {
 
-            background: var(--dashboard-text);
+            background: var(--dashboard-purple);
 
-            color: var(--dashboard-card-bg);
+            color: #ffffff;
 
             font-weight: 700;
+
+            box-shadow:
+                0 3px 8px rgba(101, 56, 217, .25);
         }
 
 
         .calendar-day:not(.empty):not(.today):hover {
 
-            background: var(--dashboard-soft);
+            background: var(--dashboard-purple-soft);
+
+            color: var(--dashboard-purple);
         }
 
 
         /* =========================================================
-           EMPTY
-        ========================================================== */
+       EMPTY
+    ========================================================== */
 
         .dashboard-empty {
 
@@ -1708,13 +1527,15 @@
 
         .dashboard-empty i {
 
+            color: var(--dashboard-purple);
+
             font-size: 16px;
         }
 
 
         /* =========================================================
-           RESPONSIVE
-        ========================================================== */
+       RESPONSIVE
+    ========================================================== */
 
         @media (max-width: 1200px) {
 
@@ -1746,12 +1567,6 @@
             }
 
 
-            /*
-             * On smaller screens everything becomes
-             * one column while keeping the same
-             * existing HTML structure.
-             */
-
             .dashboard-lower-grid {
 
                 grid-template-columns:
@@ -1768,10 +1583,10 @@
             }
 
 
-            .dashboard-lower-main > .dashboard-large-card,
-            .dashboard-lower-side > .dashboard-small-card:not(.calendar-card),
-            .dashboard-lower-main > .dashboard-large-card-student,
-            .dashboard-lower-side > .calendar-card {
+            .dashboard-lower-main>.dashboard-large-card,
+            .dashboard-lower-side>.dashboard-small-card:not(.calendar-card),
+            .dashboard-lower-main>.dashboard-large-card-student,
+            .dashboard-lower-side>.calendar-card {
 
                 grid-column: 1;
 
@@ -1871,17 +1686,15 @@
             }
 
         }
-
     </style>
 
 
 
     {{-- =============================================================
-         STUDENT CALENDAR JAVASCRIPT
-    ============================================================= --}}
+     STUDENT CALENDAR JAVASCRIPT
+============================================================= --}}
     <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
             const calendarMonth =
                 document.getElementById('studentCalendarMonth');
@@ -1920,8 +1733,7 @@
 
                 const monthName =
                     currentDate.toLocaleString(
-                        'default',
-                        {
+                        'default', {
                             month: 'long'
                         }
                     );
@@ -1967,9 +1779,7 @@
                  * Empty cells
                  */
                 for (
-                    let i = 0;
-                    i < firstDay;
-                    i++
+                    let i = 0; i < firstDay; i++
                 ) {
 
                     const emptyDay =
@@ -1991,9 +1801,7 @@
                  * Calendar days
                  */
                 for (
-                    let day = 1;
-                    day <= daysInMonth;
-                    day++
+                    let day = 1; day <= daysInMonth; day++
                 ) {
 
                     const dayElement =
@@ -2039,7 +1847,7 @@
              */
             calendarPrev.addEventListener(
                 'click',
-                function () {
+                function() {
 
                     currentDate.setMonth(
                         currentDate.getMonth() - 1
@@ -2056,7 +1864,7 @@
              */
             calendarNext.addEventListener(
                 'click',
-                function () {
+                function() {
 
                     currentDate.setMonth(
                         currentDate.getMonth() + 1
@@ -2074,7 +1882,7 @@
             renderCalendar();
 
         });
-
     </script>
+
 
 </x-app-layout>

@@ -15,7 +15,10 @@ class ThesisController extends Controller
 {
     public function index()
     {
-        $theses = Thesis::with('files')->get();
+        $theses = Thesis::with('files')
+            ->whereNotNull('published_at')
+            ->orderByDesc('published_at')
+            ->get();
         $departments = Department::all();
 
         $published_at = Thesis::whereNotNull('published_at')

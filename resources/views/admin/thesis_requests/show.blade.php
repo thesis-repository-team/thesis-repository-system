@@ -7,18 +7,32 @@
         ========================================================== --}}
 
         @if (session('success'))
+
             <div class="request-alert request-alert-success">
+
                 <i class="bi bi-check-circle-fill"></i>
-                <span>{{ session('success') }}</span>
+
+                <span>
+                    {{ session('success') }}
+                </span>
+
             </div>
+
         @endif
 
 
         @if (session('error'))
+
             <div class="request-alert request-alert-danger">
+
                 <i class="bi bi-exclamation-triangle-fill"></i>
-                <span>{{ session('error') }}</span>
+
+                <span>
+                    {{ session('error') }}
+                </span>
+
             </div>
+
         @endif
 
 
@@ -31,6 +45,10 @@
             <div class="request-form-card">
 
 
+                {{-- =================================================
+                    HEADER
+                ================================================== --}}
+
                 <div class="request-header">
 
                     <div class="request-header-content">
@@ -38,6 +56,7 @@
                         <span class="request-overline">
                             REQUEST #{{ $thesisRequest->id }}
                         </span>
+
 
                         <div class="request-title-row">
 
@@ -57,30 +76,51 @@
                     <div class="request-status-wrapper">
 
                         @if ($thesisRequest->status === 'approved')
+
                             <span class="request-status status-approved">
+
                                 <i class="bi bi-check-circle-fill"></i>
+
                                 Approved
+
                             </span>
+
                         @elseif ($thesisRequest->status === 'pending')
+
                             <span class="request-status status-pending">
+
                                 <i class="bi bi-clock-fill"></i>
+
                                 Pending
+
                             </span>
+
                         @elseif ($thesisRequest->status === 'rejected')
+
                             <span class="request-status status-rejected">
+
                                 <i class="bi bi-x-circle-fill"></i>
+
                                 Rejected
+
                             </span>
+
                         @else
+
                             <span class="request-status status-default">
+
                                 <i class="bi bi-question-circle-fill"></i>
+
                                 {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
+
                             </span>
+
                         @endif
 
                     </div>
 
                 </div>
+
 
                 {{-- =================================================
                     REQUEST INFORMATION
@@ -91,23 +131,26 @@
                     <div class="section-heading">
 
                         <div class="section-heading-icon">
+
                             <i class="bi bi-info-circle-fill"></i>
+
                         </div>
 
+
                         <div>
-                            <h2>Request Information</h2>
+
+                            <h2>
+                                Request Information
+                            </h2>
 
                             <p>
                                 Details about this thesis submission.
                             </p>
+
                         </div>
 
                     </div>
 
-
-                    {{-- =================================================
-                        TWO UNEQUAL COLUMNS
-                    ================================================== --}}
 
                     <div class="request-information-form">
 
@@ -121,7 +164,9 @@
                             </span>
 
                             <div class="request-form-control">
+
                                 {{ $thesisRequest->author_name ?? 'N/A' }}
+
                             </div>
 
                         </div>
@@ -136,7 +181,9 @@
                             </span>
 
                             <div class="request-form-control">
+
                                 {{ $thesisRequest->department?->name ?? 'N/A' }}
+
                             </div>
 
                         </div>
@@ -151,7 +198,9 @@
                             </span>
 
                             <div class="request-form-control">
+
                                 {{ $thesisRequest->user?->name ?? ($thesisRequest->user?->username ?? 'N/A') }}
+
                             </div>
 
                         </div>
@@ -225,8 +274,11 @@
                     <div class="section-heading">
 
                         <div class="section-heading-icon">
+
                             <i class="bi bi-file-text-fill"></i>
+
                         </div>
+
 
                         <div>
 
@@ -261,8 +313,11 @@
                     <div class="section-heading">
 
                         <div class="section-heading-icon">
+
                             <i class="bi bi-card-text"></i>
+
                         </div>
+
 
                         <div>
 
@@ -297,8 +352,11 @@
                     <div class="section-heading">
 
                         <div class="section-heading-icon document-icon">
+
                             <i class="bi bi-file-earmark-pdf-fill"></i>
+
                         </div>
+
 
                         <div>
 
@@ -320,8 +378,11 @@
                         <div class="document-left">
 
                             <div class="document-file-icon">
+
                                 <i class="bi bi-file-earmark-pdf-fill"></i>
+
                             </div>
+
 
                             <div class="document-details">
 
@@ -338,8 +399,11 @@
                         </div>
 
 
-                        <a href="{{ route('admin.thesis_requests.view-request-pdf', $thesisRequest) }}" target="_blank"
-                            class="view-pdf-button">
+                        <a
+                            href="{{ route('admin.thesis_requests.view-request-pdf', $thesisRequest) }}"
+                            target="_blank"
+                            class="view-pdf-button"
+                        >
 
                             <i class="bi bi-eye-fill"></i>
 
@@ -357,6 +421,7 @@
                 ================================================== --}}
 
                 @if ($thesisRequest->status === 'rejected')
+
                     <div class="request-content-section">
 
                         <div class="section-heading">
@@ -366,6 +431,7 @@
                                 <i class="bi bi-exclamation-triangle-fill"></i>
 
                             </div>
+
 
                             <div>
 
@@ -418,10 +484,10 @@
 
                             </div>
 
-
                         </div>
 
                     </div>
+
                 @endif
 
 
@@ -430,24 +496,28 @@
                 ================================================== --}}
 
                 @if ($thesisRequest->status === 'pending')
-                    <div class="request-content-section review-section">
 
-                        <div class="section-heading">
+                    <div class="review-decision-section">
 
-                            <div class="section-heading-icon">
 
-                                <i class="bi bi-clipboard-check-fill"></i>
+                        {{-- =================================================
+                            REVIEW HEADER
+                        ================================================== --}}
 
-                            </div>
+                        <div class="review-decision-header">
 
                             <div>
 
-                                <h2>
+                                <span class="review-decision-overline">
+                                    ACTION REQUIRED
+                                </span>
+
+                                <h3>
                                     Review Decision
-                                </h2>
+                                </h3>
 
                                 <p>
-                                    Choose whether to approve or reject this thesis request.
+                                    Choose whether to approve or reject this thesis submission.
                                 </p>
 
                             </div>
@@ -455,76 +525,159 @@
                         </div>
 
 
-                        {{-- APPROVE FORM --}}
+                        {{-- =================================================
+                            APPROVE
+                        ================================================== --}}
 
-                        <form action="{{ route('admin.thesis_requests.approve', $thesisRequest) }}" method="POST"
-                            class="approve-form">
+                        <div class="approve-box">
 
-                            @csrf
+                            <div class="approve-content">
 
-                            <button type="submit" class="action-button approve-button">
+                                <div class="approve-icon">
 
-                                <i class="bi bi-check-circle-fill"></i>
+                                    <i class="bi bi-check-lg"></i>
 
-                                Approve Request
-
-                            </button>
-
-                        </form>
+                                </div>
 
 
-                        {{-- REJECT FORM --}}
+                                <div>
 
-                        <form action="{{ route('admin.thesis_requests.reject', $thesisRequest) }}" method="POST">
+                                    <strong>
+                                        Approve Thesis Request
+                                    </strong>
 
-                            @csrf
+                                    <span>
+                                        Approving will accept this thesis submission.
+                                    </span>
 
-                            @method('PUT')
-
-
-                            <div class="reject-area">
-
-                                <label for="remarks" class="review-label">
-
-                                    <i class="bi bi-chat-left-text-fill"></i>
-
-                                    Rejection Reason
-
-                                </label>
-
-
-                                <textarea name="remarks" id="remarks" class="review-textarea" rows="5"
-                                    placeholder="Please explain why this thesis request is rejected..." required>{{ old('remarks') }}</textarea>
-
-
-                                @error('remarks')
-                                    <div class="review-error">
-
-                                        <i class="bi bi-exclamation-circle-fill"></i>
-
-                                        {{ $message }}
-
-                                    </div>
-                                @enderror
-
-
-                                <button type="submit" class="action-button reject-button">
-
-                                    <i class="bi bi-x-circle-fill"></i>
-
-                                    Reject Request
-
-                                </button>
+                                </div>
 
                             </div>
 
-                        </form>
+
+                            <form
+                                action="{{ route('admin.thesis_requests.approve', $thesisRequest) }}"
+                                method="POST"
+                            >
+
+                                @csrf
+
+                                <button
+                                    type="submit"
+                                    class="approve-button"
+                                >
+
+                                    <i class="bi bi-check-circle"></i>
+
+                                    Approve Request
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                        {{-- =================================================
+                            REJECT
+                        ================================================== --}}
+
+                        <div class="reject-box">
+
+                            <div class="reject-heading">
+
+                                <div class="reject-icon">
+
+                                    <i class="bi bi-x-lg"></i>
+
+                                </div>
+
+
+                                <div>
+
+                                    <strong>
+                                        Reject Thesis Request
+                                    </strong>
+
+                                    <span>
+                                        Please provide a reason for rejecting this submission.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <form
+                                action="{{ route('admin.thesis_requests.reject', $thesisRequest) }}"
+                                method="POST"
+                            >
+
+                                @csrf
+
+                                @method('PUT')
+
+
+                                <div class="review-textarea-wrapper">
+
+                                    <label for="remarks">
+                                        Rejection Reason
+                                    </label>
+
+
+                                    <textarea
+                                        name="remarks"
+                                        id="remarks"
+                                        rows="5"
+                                        class="review-textarea"
+                                        placeholder="Explain why this thesis request is being rejected..."
+                                        required
+                                    >{{ old('remarks') }}</textarea>
+
+
+                                    @error('remarks')
+
+                                        <div class="review-validation-error">
+
+                                            <i class="bi bi-exclamation-circle"></i>
+
+                                            {{ $message }}
+
+                                        </div>
+
+                                    @enderror
+
+                                </div>
+
+
+                                <div class="reject-submit">
+
+                                    <button
+                                        type="submit"
+                                        class="reject-button"
+                                    >
+
+                                        <i class="bi bi-x-circle"></i>
+
+                                        Reject Request
+
+                                    </button>
+
+                                </div>
+
+                            </form>
+
+                        </div>
 
                     </div>
+
                 @endif
 
+
             </div>
+
         @else
+
             {{-- =====================================================
                 EMPTY STATE
             ====================================================== --}}
@@ -532,12 +685,16 @@
             <div class="empty-request">
 
                 <div class="empty-icon">
+
                     <i class="bi bi-journal-x"></i>
+
                 </div>
+
 
                 <h2>
                     No Requests Found
                 </h2>
+
 
                 <p>
                     There are currently no thesis upload requests.
@@ -550,11 +707,11 @@
     </div>
 
 
-    ```html
     <style>
+
         /* =========================================================
-       VARIABLES
-    ========================================================== */
+           VARIABLES
+        ========================================================== */
 
         .thesis-request-page {
 
@@ -579,22 +736,21 @@
 
 
         /* =========================================================
-       GLOBAL PAGE
-    ========================================================== */
+           GLOBAL PAGE
+        ========================================================== */
 
         .thesis-request-page {
-            /* background: #ffffff; */
+
             color: var(--request-text);
 
             transition:
-                /* background-color .25s ease, */
                 color .25s ease;
         }
 
 
         /* =========================================================
-       ALERTS
-    ========================================================== */
+           ALERTS
+        ========================================================== */
 
         .request-alert {
 
@@ -635,8 +791,8 @@
 
 
         /* =========================================================
-       MAIN CARD
-    ========================================================== */
+           MAIN CARD
+        ========================================================== */
 
         .request-form-card {
 
@@ -661,8 +817,8 @@
 
 
         /* =========================================================
-       HEADER
-    ========================================================== */
+           HEADER
+        ========================================================== */
 
         .request-header {
 
@@ -720,7 +876,7 @@
         }
 
 
-        .request-title-row>i {
+        .request-title-row > i {
 
             flex-shrink: 0;
 
@@ -752,21 +908,9 @@
         }
 
 
-        .request-id {
-
-            display: block;
-
-            margin-top: 5px;
-
-            color: var(--request-muted);
-
-            font-size: .67rem;
-        }
-
-
         /* =========================================================
-       STATUS
-    ========================================================== */
+           STATUS
+        ========================================================== */
 
         .request-status-wrapper {
 
@@ -831,8 +975,8 @@
 
 
         /* =========================================================
-       CONTENT SECTIONS
-    ========================================================== */
+           CONTENT SECTIONS
+        ========================================================== */
 
         .request-content-section {
 
@@ -855,8 +999,8 @@
 
 
         /* =========================================================
-       SECTION HEADING
-    ========================================================== */
+           SECTION HEADING
+        ========================================================== */
 
         .section-heading {
 
@@ -919,8 +1063,8 @@
 
 
         /* =========================================================
-       INFORMATION
-    ========================================================== */
+           INFORMATION
+        ========================================================== */
 
         .request-information-form {
 
@@ -936,10 +1080,6 @@
             box-sizing: border-box;
         }
 
-
-        /* =========================================================
-       FORM GROUP
-    ========================================================== */
 
         .request-form-group {
 
@@ -960,10 +1100,6 @@
         }
 
 
-        /* =========================================================
-       LABEL
-    ========================================================== */
-
         .request-form-label {
 
             display: block;
@@ -983,10 +1119,6 @@
             white-space: nowrap;
         }
 
-
-        /* =========================================================
-       VALUE
-    ========================================================== */
 
         .request-form-control {
 
@@ -1035,8 +1167,8 @@
 
 
         /* =========================================================
-       REJECTION REASON
-    ========================================================== */
+           REJECTION REASON
+        ========================================================== */
 
         .reason-value {
 
@@ -1047,8 +1179,8 @@
 
 
         /* =========================================================
-       ABSTRACT / DESCRIPTION
-    ========================================================== */
+           ABSTRACT / DESCRIPTION
+        ========================================================== */
 
         .text-content {
 
@@ -1073,8 +1205,8 @@
 
 
         /* =========================================================
-       DOCUMENT
-    ========================================================== */
+           DOCUMENT
+        ========================================================== */
 
         .document-box {
 
@@ -1165,8 +1297,8 @@
 
 
         /* =========================================================
-       VIEW PDF
-    ========================================================== */
+           VIEW PDF
+        ========================================================== */
 
         .view-pdf-button {
 
@@ -1213,8 +1345,8 @@
 
 
         /* =========================================================
-       REJECTION
-    ========================================================== */
+           REJECTION ICON
+        ========================================================== */
 
         .rejection-icon {
 
@@ -1225,26 +1357,112 @@
 
 
         /* =========================================================
-       REVIEW
-    ========================================================== */
+           REVIEW DECISION
+        ========================================================== */
 
-        .review-section {
+        .review-decision-section {
+
+            margin-top: 8px;
+
+            padding-top: 5px;
+        }
+
+
+        /* =========================================================
+           REVIEW HEADER
+        ========================================================== */
+
+        .review-decision-header {
+
+            margin-bottom: 18px;
+        }
+
+
+        .review-decision-overline {
+
+            display: block;
+
+            margin-bottom: 4px;
+
+            color: var(--request-red);
+
+            font-size: .59rem;
+
+            font-weight: 800;
+
+            letter-spacing: .12em;
+
+            text-transform: uppercase;
+        }
+
+
+        .review-decision-header h3 {
+
+            margin: 0;
+
+            color: var(--request-black);
+
+            font-size: .95rem;
+
+            font-weight: 800;
+
+            letter-spacing: -.01em;
+        }
+
+
+        .review-decision-header p {
+
+            margin: 4px 0 0;
+
+            color: var(--request-muted);
+
+            font-size: .63rem;
+        }
+
+
+        /* =========================================================
+           APPROVE BOX
+        ========================================================== */
+
+        .approve-box {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 18px;
+
+            width: 100%;
+
+            padding: 14px;
+
+            margin-bottom: 12px;
+
+            box-sizing: border-box;
+
+            background: #f5faf7;
 
             border: none !important;
 
-            margin-bottom: 0;
-
-            padding-bottom: 0;
+            border-radius: 10px;
         }
 
 
-        .approve-form {
+        .approve-content {
 
-            margin: 0 0 10px;
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            min-width: 0;
         }
 
 
-        .action-button {
+        .approve-icon {
 
             display: flex;
 
@@ -1252,77 +1470,209 @@
 
             justify-content: center;
 
+            width: 38px;
+
+            height: 38px;
+
+            flex-shrink: 0;
+
+            color: var(--request-green);
+
+            background: #e4f5eb;
+
+            border-radius: 9px;
+
+            font-size: .9rem;
+        }
+
+
+        .approve-content > div:last-child {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 3px;
+
+            min-width: 0;
+        }
+
+
+        .approve-content strong {
+
+            color: var(--request-text);
+
+            font-size: .69rem;
+
+            font-weight: 800;
+        }
+
+
+        .approve-content span {
+
+            color: var(--request-muted);
+
+            font-size: .59rem;
+
+            line-height: 1.4;
+        }
+
+
+        /* =========================================================
+           APPROVE BUTTON
+        ========================================================== */
+
+        .approve-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
             gap: 6px;
 
-            width: 100%;
+            flex-shrink: 0;
 
-            min-height: 39px;
+            min-height: 36px;
 
-            padding: 9px 14px;
+            padding: 8px 13px;
 
             color: #ffffff !important;
+
+            background: var(--request-green);
 
             border: none !important;
 
             border-radius: 7px;
 
-            font-size: .65rem;
+            font-family: inherit;
+
+            font-size: .61rem;
 
             font-weight: 700;
 
             cursor: pointer;
 
+            white-space: nowrap;
+
             transition: .2s ease;
-        }
-
-
-        .action-button:hover {
-
-            color: #ffffff !important;
-
-            transform: translateY(-1px);
-        }
-
-
-        .approve-button {
-
-            background: var(--request-green);
         }
 
 
         .approve-button:hover {
 
+            color: #ffffff !important;
+
             background: #157347;
+
+            transform: translateY(-1px);
         }
 
 
-        .reject-area {
+        /* =========================================================
+           REJECT BOX
+        ========================================================== */
 
-            margin-top: 8px;
+        .reject-box {
+
+            padding: 14px;
+
+            background: #fff7f7;
+
+            border: none !important;
+
+            border-radius: 10px;
         }
 
 
-        .review-label {
+        .reject-heading {
 
             display: flex;
 
             align-items: center;
 
-            gap: 5px;
+            gap: 11px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .reject-icon {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 38px;
+
+            height: 38px;
+
+            flex-shrink: 0;
+
+            color: var(--request-red);
+
+            background: #ffe8ea;
+
+            border-radius: 9px;
+
+            font-size: .85rem;
+        }
+
+
+        .reject-heading > div:last-child {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 3px;
+        }
+
+
+        .reject-heading strong {
+
+            color: var(--request-text);
+
+            font-size: .69rem;
+
+            font-weight: 800;
+        }
+
+
+        .reject-heading span {
+
+            color: var(--request-muted);
+
+            font-size: .59rem;
+
+            line-height: 1.4;
+        }
+
+
+        /* =========================================================
+           TEXTAREA
+        ========================================================== */
+
+        .review-textarea-wrapper {
+
+            width: 100%;
+        }
+
+
+        .review-textarea-wrapper label {
+
+            display: block;
 
             margin-bottom: 6px;
 
             color: var(--request-text);
 
-            font-size: .68rem;
+            font-size: .63rem;
 
             font-weight: 700;
-        }
-
-
-        .review-label i {
-
-            color: var(--request-red);
         }
 
 
@@ -1340,9 +1690,9 @@
 
             color: var(--request-text);
 
-            background: var(--request-soft);
+            background: #ffffff;
 
-            border: none !important;
+            border: 1px solid #eeeeee !important;
 
             border-radius: 8px;
 
@@ -1352,20 +1702,22 @@
 
             font-family: inherit;
 
-            font-size: .68rem;
+            font-size: .66rem;
 
             line-height: 1.55;
+
+            transition: .2s ease;
         }
 
 
         .review-textarea:focus {
 
-            border: none !important;
+            border-color: #dddddd !important;
 
             outline: none;
 
             box-shadow:
-                0 0 0 2px rgba(220, 53, 69, .12);
+                0 0 0 2px rgba(220, 53, 69, .08);
         }
 
 
@@ -1375,21 +1727,11 @@
         }
 
 
-        .reject-button {
+        /* =========================================================
+           VALIDATION ERROR
+        ========================================================== */
 
-            margin-top: 8px;
-
-            background: var(--request-red);
-        }
-
-
-        .reject-button:hover {
-
-            background: #bb2d3b;
-        }
-
-
-        .review-error {
+        .review-validation-error {
 
             display: flex;
 
@@ -1397,17 +1739,77 @@
 
             gap: 5px;
 
-            margin-top: 5px;
+            margin-top: 6px;
 
             color: var(--request-red);
 
-            font-size: .61rem;
+            font-size: .6rem;
         }
 
 
         /* =========================================================
-       EMPTY STATE
-    ========================================================== */
+           REJECT SUBMIT
+        ========================================================== */
+
+        .reject-submit {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            margin-top: 9px;
+        }
+
+
+        .reject-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 6px;
+
+            min-height: 36px;
+
+            padding: 8px 13px;
+
+            color: #ffffff !important;
+
+            background: var(--request-red);
+
+            border: none !important;
+
+            border-radius: 7px;
+
+            font-family: inherit;
+
+            font-size: .61rem;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            white-space: nowrap;
+
+            transition: .2s ease;
+        }
+
+
+        .reject-button:hover {
+
+            color: #ffffff !important;
+
+            background: #bb2d3b;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================================================
+           EMPTY STATE
+        ========================================================== */
 
         .empty-request {
 
@@ -1484,9 +1886,8 @@
 
 
         /* =========================================================
-       DARK MODE
-       SAME AS ADMIN DASHBOARD
-    ========================================================== */
+           DARK MODE
+        ========================================================== */
 
         [data-bs-theme="dark"] .thesis-request-page {
 
@@ -1507,13 +1908,10 @@
                 0 4px 18px rgba(0, 0, 0, .35);
 
             background: #101426;
+
             color: #eeeef8;
         }
 
-
-        /* =========================================================
-       DARK PAGE
-    ========================================================== */
 
         [data-bs-theme="dark"] body {
 
@@ -1532,8 +1930,8 @@
 
 
         /* =========================================================
-       DARK MAIN CARD
-    ========================================================== */
+           DARK MAIN CARD
+        ========================================================== */
 
         [data-bs-theme="dark"] .request-form-card {
 
@@ -1547,8 +1945,8 @@
 
 
         /* =========================================================
-       DARK HEADER
-    ========================================================== */
+           DARK HEADER
+        ========================================================== */
 
         [data-bs-theme="dark"] .request-header {
 
@@ -1571,7 +1969,7 @@
         }
 
 
-        [data-bs-theme="dark"] .request-title-row>i {
+        [data-bs-theme="dark"] .request-title-row > i {
 
             color: #ffffff;
         }
@@ -1584,8 +1982,8 @@
 
 
         /* =========================================================
-       DARK STATUS
-    ========================================================== */
+           DARK STATUS
+        ========================================================== */
 
         [data-bs-theme="dark"] .status-approved {
 
@@ -1620,8 +2018,8 @@
 
 
         /* =========================================================
-       DARK SECTION HEADINGS
-    ========================================================== */
+           DARK SECTION HEADINGS
+        ========================================================== */
 
         [data-bs-theme="dark"] .section-heading-icon {
 
@@ -1644,8 +2042,8 @@
 
 
         /* =========================================================
-       DARK FORM LABELS
-    ========================================================== */
+           DARK FORM LABELS
+        ========================================================== */
 
         [data-bs-theme="dark"] .request-form-label {
 
@@ -1654,8 +2052,8 @@
 
 
         /* =========================================================
-       DARK FORM VALUES
-    ========================================================== */
+           DARK FORM VALUES
+        ========================================================== */
 
         [data-bs-theme="dark"] .request-form-control {
 
@@ -1674,8 +2072,8 @@
 
 
         /* =========================================================
-       DARK ABSTRACT / DESCRIPTION
-    ========================================================== */
+           DARK ABSTRACT / DESCRIPTION
+        ========================================================== */
 
         [data-bs-theme="dark"] .text-content {
 
@@ -1686,8 +2084,8 @@
 
 
         /* =========================================================
-       DARK DOCUMENT
-    ========================================================== */
+           DARK DOCUMENT
+        ========================================================== */
 
         [data-bs-theme="dark"] .document-box {
 
@@ -1716,8 +2114,8 @@
 
 
         /* =========================================================
-       DARK REJECTION ICON
-    ========================================================== */
+           DARK REJECTION
+        ========================================================== */
 
         [data-bs-theme="dark"] .rejection-icon {
 
@@ -1728,18 +2126,90 @@
 
 
         /* =========================================================
-       DARK REVIEW LABEL
-    ========================================================== */
+           DARK REVIEW HEADER
+        ========================================================== */
 
-        [data-bs-theme="dark"] .review-label {
+        [data-bs-theme="dark"] .review-decision-overline {
 
-            color: #d5d8e8;
+            color: #ff9da5;
+        }
+
+
+        [data-bs-theme="dark"] .review-decision-header h3 {
+
+            color: #ffffff;
+        }
+
+
+        [data-bs-theme="dark"] .review-decision-header p {
+
+            color: #999fb9;
         }
 
 
         /* =========================================================
-       DARK TEXTAREA
-    ========================================================== */
+           DARK APPROVE BOX
+        ========================================================== */
+
+        [data-bs-theme="dark"] .approve-box {
+
+            background: #19352a;
+        }
+
+
+        [data-bs-theme="dark"] .approve-icon {
+
+            color: #9de2bb;
+
+            background: #214c39;
+        }
+
+
+        [data-bs-theme="dark"] .approve-content strong {
+
+            color: #ffffff;
+        }
+
+
+        [data-bs-theme="dark"] .approve-content span {
+
+            color: #999fb9;
+        }
+
+
+        /* =========================================================
+           DARK REJECT BOX
+        ========================================================== */
+
+        [data-bs-theme="dark"] .reject-box {
+
+            background: #3a2028;
+        }
+
+
+        [data-bs-theme="dark"] .reject-icon {
+
+            color: #ff9da5;
+
+            background: #4a2730;
+        }
+
+
+        [data-bs-theme="dark"] .reject-heading strong {
+
+            color: #ffffff;
+        }
+
+
+        [data-bs-theme="dark"] .reject-heading span {
+
+            color: #999fb9;
+        }
+
+
+        /* =========================================================
+           DARK TEXTAREA
+        ========================================================== */
 
         [data-bs-theme="dark"] .review-textarea {
 
@@ -1751,9 +2221,17 @@
         }
 
 
+        [data-bs-theme="dark"] .review-textarea-wrapper label {
+
+            color: #d5d8e8;
+        }
+
+
         [data-bs-theme="dark"] .review-textarea:focus {
 
             background: #252b42;
+
+            border: none !important;
 
             box-shadow:
                 0 0 0 2px rgba(255, 255, 255, .10);
@@ -1767,8 +2245,8 @@
 
 
         /* =========================================================
-       DARK ALERTS
-    ========================================================== */
+           DARK ALERTS
+        ========================================================== */
 
         [data-bs-theme="dark"] .request-alert-success {
 
@@ -1787,8 +2265,8 @@
 
 
         /* =========================================================
-       DARK EMPTY STATE
-    ========================================================== */
+           DARK EMPTY STATE
+        ========================================================== */
 
         [data-bs-theme="dark"] .empty-request {
 
@@ -1820,8 +2298,8 @@
 
 
         /* =========================================================
-       TABLET
-    ========================================================== */
+           TABLET
+        ========================================================== */
 
         @media (max-width: 900px) {
 
@@ -1836,8 +2314,8 @@
 
 
         /* =========================================================
-       MOBILE
-    ========================================================== */
+           MOBILE
+        ========================================================== */
 
         @media (max-width: 767.98px) {
 
@@ -1904,12 +2382,40 @@
                 width: 100%;
             }
 
+
+            /* REVIEW DECISION */
+
+            .approve-box {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .approve-button {
+
+                width: 100%;
+            }
+
+
+            .reject-submit {
+
+                justify-content: stretch;
+            }
+
+
+            .reject-button {
+
+                width: 100%;
+            }
+
         }
 
 
         /* =========================================================
-       SMALL MOBILE
-    ========================================================== */
+           SMALL MOBILE
+        ========================================================== */
 
         @media (max-width: 480px) {
 
@@ -1942,7 +2448,7 @@
             }
 
 
-            .request-title-row>i {
+            .request-title-row > i {
 
                 font-size: 1rem;
             }
@@ -1951,12 +2457,6 @@
             .request-title {
 
                 font-size: 1.05rem;
-            }
-
-
-            .request-id {
-
-                font-size: .62rem;
             }
 
 
@@ -2068,12 +2568,68 @@
                 font-size: .56rem;
             }
 
+
+            /* REVIEW */
+
+            .review-decision-header h3 {
+
+                font-size: .86rem;
+            }
+
+
+            .review-decision-header p {
+
+                font-size: .59rem;
+            }
+
+
+            .approve-box,
+            .reject-box {
+
+                padding: 11px;
+
+                border-radius: 9px;
+            }
+
+
+            .approve-icon,
+            .reject-icon {
+
+                width: 34px;
+
+                height: 34px;
+
+                font-size: .78rem;
+            }
+
+
+            .approve-content strong,
+            .reject-heading strong {
+
+                font-size: .65rem;
+            }
+
+
+            .approve-content span,
+            .reject-heading span {
+
+                font-size: .56rem;
+            }
+
+
+            .review-textarea {
+
+                min-height: 90px;
+
+                font-size: .63rem;
+            }
+
         }
 
 
         /* =========================================================
-       VERY SMALL SCREENS
-    ========================================================== */
+           VERY SMALL SCREENS
+        ========================================================== */
 
         @media (max-width: 360px) {
 
@@ -2105,8 +2661,8 @@
 
 
         /* =========================================================
-       REDUCED MOTION
-    ========================================================== */
+           REDUCED MOTION
+        ========================================================== */
 
         @media (prefers-reduced-motion: reduce) {
 
@@ -2120,8 +2676,7 @@
             }
 
         }
+
     </style>
-
-
 
 </x-app-layout>
