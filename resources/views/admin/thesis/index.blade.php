@@ -903,28 +903,21 @@
         --thesis-black: #000000;
         --thesis-white: #ffffff;
 
-        /* Admin Dashboard background */
         --thesis-page-bg: #101426;
 
-        /* Admin Dashboard cards */
         --thesis-card-bg: #181d33;
 
-        /* Admin Dashboard inputs */
         --thesis-input-bg: #20253a;
 
-        /* Text */
         --thesis-text: #ffffff;
         --thesis-text-secondary: #d5d8e8;
         --thesis-text-muted: #999fb9;
 
-        /* Borders */
         --thesis-border: #ffffff;
         --thesis-border-soft: #292e45;
 
-        /* Primary */
         --thesis-primary: #ffffff;
 
-        /* Shadows */
         --thesis-shadow:
             0 4px 18px rgba(0, 0, 0, .35);
 
@@ -1637,7 +1630,7 @@
 
 
     /* =========================================================
-       GRID
+       GRID — 4 CARDS PER ROW
     ========================================================== */
 
     .thesis-card-grid {
@@ -1645,7 +1638,7 @@
         display: grid;
 
         grid-template-columns:
-            repeat(3, minmax(0, 1fr));
+            repeat(4, minmax(0, 1fr));
 
         gap: 1.25rem;
 
@@ -2975,6 +2968,40 @@
 
 
     /* =========================================================
+       LARGE DESKTOP
+       4 CARDS PER ROW
+    ========================================================== */
+
+    @media (min-width: 1400px) {
+
+        .thesis-card-grid {
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+        }
+
+    }
+
+
+    /* =========================================================
+       SMALL DESKTOP / LARGE TABLET
+       3 CARDS PER ROW
+    ========================================================== */
+
+    @media (max-width: 1399.98px) {
+
+        .thesis-card-grid {
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+        }
+
+    }
+
+
+    /* =========================================================
        TABLET
     ========================================================== */
 
@@ -3044,7 +3071,8 @@
 
         .thesis-card-grid {
 
-            grid-template-columns: 1fr;
+            grid-template-columns:
+                1fr;
 
             gap: 1rem;
 

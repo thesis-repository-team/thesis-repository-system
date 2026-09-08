@@ -28,7 +28,6 @@
 
             </div>
 
-
             {{-- HEADER ACTIONS --}}
 
             <div class="student-header-actions">
@@ -73,7 +72,6 @@
 
                 </div>
 
-
                 <button
                     type="button"
                     id="mobileResetFilter"
@@ -99,7 +97,6 @@
             <div class="student-filter-body">
 
                 <div class="row g-3 align-items-end">
-
 
                     {{-- SEARCH --}}
 
@@ -248,7 +245,6 @@
 
                 </div>
 
-
                 <button
                     type="button"
                     class="student-alert-close"
@@ -288,7 +284,8 @@
 
 
                 {{-- =================================================
-                    SAME GRID AS THESIS PAGE
+                    STUDENT GRID
+                    4 CARDS PER ROW
                 ================================================== --}}
 
                 <div
@@ -383,12 +380,6 @@
 
                 function loadData() {
 
-                    /*
-                    |--------------------------------------------------------------------------
-                    | Cancel Previous Request
-                    |--------------------------------------------------------------------------
-                    */
-
                     if (currentController) {
                         currentController.abort();
                     }
@@ -397,11 +388,7 @@
                         new AbortController();
 
 
-                    /*
-                    |--------------------------------------------------------------------------
-                    | Show Loading
-                    |--------------------------------------------------------------------------
-                    */
+                    /* SHOW LOADING */
 
                     if (spinner) {
 
@@ -420,11 +407,7 @@
                     }
 
 
-                    /*
-                    |--------------------------------------------------------------------------
-                    | Get Search Value
-                    |--------------------------------------------------------------------------
-                    */
+                    /* GET SEARCH VALUE */
 
                     let search = '';
 
@@ -445,11 +428,7 @@
                     }
 
 
-                    /*
-                    |--------------------------------------------------------------------------
-                    | Department
-                    |--------------------------------------------------------------------------
-                    */
+                    /* DEPARTMENT */
 
                     const department =
                         departmentFilter
@@ -457,11 +436,7 @@
                             : '';
 
 
-                    /*
-                    |--------------------------------------------------------------------------
-                    | Year
-                    |--------------------------------------------------------------------------
-                    */
+                    /* YEAR */
 
                     const year =
                         yearFilter
@@ -469,11 +444,7 @@
                             : '';
 
 
-                    /*
-                    |--------------------------------------------------------------------------
-                    | Build Query
-                    |--------------------------------------------------------------------------
-                    */
+                    /* BUILD QUERY */
 
                     const query =
                         new URLSearchParams({
@@ -485,11 +456,7 @@
                         });
 
 
-                    /*
-                    |--------------------------------------------------------------------------
-                    | AJAX Request
-                    |--------------------------------------------------------------------------
-                    */
+                    /* AJAX REQUEST */
 
                     fetch(
                         "{{ route('admin.students.search') }}?" +
@@ -913,7 +880,6 @@
 
         /* =========================================================
            DARK MODE
-           SAME PALETTE AS ADMIN DASHBOARD
         ========================================================== */
 
         [data-bs-theme="dark"] {
@@ -1009,8 +975,6 @@
         }
 
 
-        /* DARK HEADER */
-
         [data-bs-theme="dark"]
         .student-page-header {
 
@@ -1078,8 +1042,6 @@
 
         }
 
-
-        /* DARK TITLE */
 
         [data-bs-theme="dark"]
         .student-title {
@@ -1168,8 +1130,6 @@
         }
 
 
-        /* DARK MOBILE SEARCH BUTTON */
-
         [data-bs-theme="dark"]
         .student-mobile-search-button {
 
@@ -1225,8 +1185,6 @@
 
         }
 
-
-        /* DARK FILTER */
 
         [data-bs-theme="dark"]
         .student-filter-card,
@@ -1357,8 +1315,6 @@
         }
 
 
-        /* DARK SEARCH */
-
         [data-bs-theme="dark"]
         .student-search input {
 
@@ -1444,8 +1400,6 @@
 
         }
 
-
-        /* DARK SELECT */
 
         [data-bs-theme="dark"]
         .student-filter-select {
@@ -1546,8 +1500,6 @@
 
         }
 
-
-        /* DARK RESET */
 
         [data-bs-theme="dark"]
         .student-reset-button {
@@ -1717,8 +1669,8 @@
 
 
         /* =========================================================
-           THESIS GRID
-           SAME GRID AS ADMIN THESIS PAGE
+           STUDENT GRID
+           4 CARDS PER ROW
         ========================================================== */
 
         .thesis-card-grid {
@@ -1726,7 +1678,7 @@
             display: grid;
 
             grid-template-columns:
-                repeat(3, minmax(0, 1fr));
+                repeat(4, minmax(0, 1fr));
 
             gap: 1.25rem;
 
@@ -2453,6 +2405,40 @@
 
 
         /* =========================================================
+           LARGE DESKTOP
+           4 CARDS PER ROW
+        ========================================================== */
+
+        @media (min-width: 1400px) {
+
+            .thesis-card-grid {
+
+                grid-template-columns:
+                    repeat(4, minmax(0, 1fr));
+
+            }
+
+        }
+
+
+        /* =========================================================
+           DESKTOP / SMALLER DESKTOP
+           3 CARDS PER ROW
+        ========================================================== */
+
+        @media (min-width: 1200px) and (max-width: 1399.98px) {
+
+            .thesis-card-grid {
+
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+
+            }
+
+        }
+
+
+        /* =========================================================
            TABLET
         ========================================================== */
 
@@ -2526,11 +2512,12 @@
             }
 
 
-            /* THESIS GRID */
+            /* ONE CARD PER ROW */
 
             .thesis-card-grid {
 
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
 
                 gap: 1rem;
 

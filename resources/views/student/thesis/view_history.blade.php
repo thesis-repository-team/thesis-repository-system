@@ -44,7 +44,7 @@
 
             <div class="history-card">
 
-                <div class="history-card-header">
+                {{-- <div class="history-card-header">
 
                     @if ($histories->count())
                         <div class="history-count">
@@ -53,7 +53,7 @@
                         </div>
                     @endif
 
-                </div>
+                </div> --}}
 
 
                 <div class="history-card-body">

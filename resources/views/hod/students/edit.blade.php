@@ -151,12 +151,15 @@
                 </div>
 
 
+
+                
                 {{-- =================================================
                 ACTIONS
-            ================================================== --}}
-
+                ================================================== --}}
+                
                 <div class="student-form-actions">
-
+                    
+                    <p><strong>Upload Permission</strong> is used to control whether a student can request to upload thesis documents.</p>
                     <a href="{{ route('hod.students.index') }}" class="student-cancel-button">
 
                         Cancel

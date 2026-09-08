@@ -58,7 +58,8 @@
 
 
         {{-- =========================================================
-            GRID
+            REQUEST GRID
+            4 CARDS PER ROW
         ========================================================== --}}
 
         <div class="request-grid">
@@ -284,7 +285,8 @@
 
                                             {{ $thesisRequest->thesis?->publishedBy?->full_name
                                                 ?? $thesisRequest->thesis?->publishedBy?->username
-                                                ?? 'N/A' }}
+                                                ?? 'N/A'
+                                            }}
 
                                         </strong>
 
@@ -304,6 +306,7 @@
                     ================================================== --}}
 
                     <div class="request-actions">
+
 
                         {{-- VIEW DETAILS --}}
 
@@ -393,24 +396,33 @@
 
 
 <style>
+
     /* =========================================================
        VARIABLES
     ========================================================== */
 
     :root {
+
         --thesis-request-black: #000000;
+
         --thesis-request-white: #ffffff;
 
         --thesis-request-page-bg: #ffffff;
+
         --thesis-request-card-bg: #ffffff;
+
         --thesis-request-input-bg: #fafafa;
 
         --thesis-request-text: #000000;
+
         --thesis-request-text-secondary: #333333;
+
         --thesis-request-text-muted: #777777;
+
         --thesis-request-placeholder: #999999;
 
         --thesis-request-border: #dddddd;
+
         --thesis-request-border-soft: #eeeeee;
 
         --thesis-request-primary: #000000;
@@ -420,6 +432,7 @@
 
         --thesis-request-card-shadow:
             0 2px 10px rgba(0, 0, 0, .05);
+
     }
 
 
@@ -429,19 +442,27 @@
     ========================================================== */
 
     [data-bs-theme="dark"] {
+
         --thesis-request-black: #000000;
+
         --thesis-request-white: #ffffff;
 
         --thesis-request-page-bg: #101426;
+
         --thesis-request-card-bg: #181d33;
+
         --thesis-request-input-bg: #20253a;
 
         --thesis-request-text: #ffffff;
+
         --thesis-request-text-secondary: #d5d8e8;
+
         --thesis-request-text-muted: #999fb9;
+
         --thesis-request-placeholder: #777f9c;
 
         --thesis-request-border: #343a52;
+
         --thesis-request-border-soft: #292e45;
 
         --thesis-request-primary: #ffffff;
@@ -451,6 +472,7 @@
 
         --thesis-request-card-shadow:
             0 2px 10px rgba(0, 0, 0, .30);
+
     }
 
 
@@ -459,32 +481,48 @@
     ========================================================== */
 
     body {
-        /* background: var(--thesis-request-page-bg); */
-        color: var(--thesis-request-text);
+
+        color:
+            var(--thesis-request-text);
+
         transition:
             background-color .25s ease,
             color .25s ease;
+
     }
+
 
     .dashboard-content,
     .thesis-requests-page {
-        /* background: var(--thesis-request-page-bg); */
-        color: var(--thesis-request-text);
+
+        color:
+            var(--thesis-request-text);
+
         transition:
             background-color .25s ease,
             color .25s ease;
+
     }
 
 
     [data-bs-theme="dark"] body {
+
         background: #101426;
+
         color: #eeeef8;
+
     }
 
-    [data-bs-theme="dark"] .dashboard-content,
-    [data-bs-theme="dark"] .thesis-requests-page {
+
+    [data-bs-theme="dark"]
+    .dashboard-content,
+    [data-bs-theme="dark"]
+    .thesis-requests-page {
+
         background: #101426;
+
         color: #eeeef8;
+
     }
 
 
@@ -493,39 +531,60 @@
     ========================================================== */
 
     .request-page-header {
+
         display: flex;
+
         align-items: flex-start;
+
         justify-content: space-between;
-        background: var(--thesis-request-card-bg);
+
         margin-bottom: 1.5rem;
+
         padding: 15px;
+
+        background:
+            var(--thesis-request-card-bg);
+
         border-radius: 12px;
+
     }
 
+
     .request-overline {
+
         display: block;
 
         margin-bottom: .25rem;
 
-        color: var(--thesis-request-text-muted);
+        color:
+            var(--thesis-request-text-muted);
 
         font-size: .65rem;
+
         font-weight: 800;
 
         letter-spacing: .13em;
+
         text-transform: uppercase;
+
     }
 
+
     .request-page-title {
+
         margin: 0;
 
-        color: var(--thesis-request-text);
+        color:
+            var(--thesis-request-text);
 
         font-size: 1.8rem;
+
         font-weight: 600;
+
         line-height: 1.2;
 
         letter-spacing: -.035em;
+
     }
 
 
@@ -533,19 +592,33 @@
        DARK HEADER
     ========================================================== */
 
-    [data-bs-theme="dark"] .request-page-header {
+    [data-bs-theme="dark"]
+    .request-page-header {
+
         background: #171b30;
+
         border-radius: 12px;
+
         padding-top: 1rem;
+
         padding-bottom: 1rem;
+
     }
 
-    [data-bs-theme="dark"] .request-overline {
+
+    [data-bs-theme="dark"]
+    .request-overline {
+
         color: #999fb9;
+
     }
 
-    [data-bs-theme="dark"] .request-page-title {
+
+    [data-bs-theme="dark"]
+    .request-page-title {
+
         color: #ffffff;
+
     }
 
 
@@ -555,7 +628,9 @@
 
     .request-alert,
     .request-success {
+
         display: flex;
+
         align-items: center;
 
         gap: .6rem;
@@ -567,57 +642,78 @@
             .8rem 1rem;
 
         border: none !important;
+
         border-radius: 9px;
 
         font-size: .75rem;
+
         font-weight: 600;
+
     }
 
 
     /* ERROR */
 
     .request-alert {
+
         color: #b42318;
+
         background: #fff5f5;
+
     }
 
 
     /* SUCCESS */
 
     .request-success {
+
         color: #176b3a;
+
         background: #f0fff5;
+
     }
 
 
     /* DARK ALERTS */
 
-    [data-bs-theme="dark"] .request-alert {
+    [data-bs-theme="dark"]
+    .request-alert {
+
         color: #ffb4b4;
+
         background: #3a2028;
+
     }
 
-    [data-bs-theme="dark"] .request-success {
+
+    [data-bs-theme="dark"]
+    .request-success {
+
         color: #9de2bb;
+
         background: #19352a;
+
     }
 
 
     /* =========================================================
-       GRID
+       REQUEST GRID
+       4 CARDS PER ROW
     ========================================================== */
 
     .request-grid {
+
         display: grid;
 
         grid-template-columns:
-            repeat(3, minmax(0, 1fr));
+            repeat(4, minmax(0, 1fr));
 
         gap: 1.25rem;
 
         width: 100%;
 
         box-sizing: border-box;
+
     }
 
 
@@ -626,7 +722,9 @@
     ========================================================== */
 
     .request-card {
+
         display: flex;
+
         flex-direction: column;
 
         min-width: 0;
@@ -650,32 +748,44 @@
             transform .2s ease,
             box-shadow .2s ease,
             background-color .2s ease;
+
     }
 
+
     .request-card:hover {
+
         transform:
             translateY(-3px);
 
         box-shadow:
             0 10px 28px rgba(0, 0, 0, .09);
+
     }
 
 
     /* DARK CARD */
 
-    [data-bs-theme="dark"] .request-card {
+    [data-bs-theme="dark"]
+    .request-card {
+
         color: #eeeef8;
+
         background: #181d33;
 
         box-shadow:
             0 2px 10px rgba(0, 0, 0, .30);
+
     }
 
-    [data-bs-theme="dark"] .request-card:hover {
+
+    [data-bs-theme="dark"]
+    .request-card:hover {
+
         background: #1b2038;
 
         box-shadow:
             0 10px 30px rgba(0, 0, 0, .45);
+
     }
 
 
@@ -684,12 +794,15 @@
     ========================================================== */
 
     .request-card-content {
+
         display: flex;
+
         flex-direction: column;
 
         flex: 1;
 
         padding: 1rem;
+
     }
 
 
@@ -698,22 +811,31 @@
     ========================================================== */
 
     .request-title-row {
+
         display: flex;
 
         align-items: flex-start;
+
         justify-content: space-between;
 
         gap: .75rem;
 
         margin-bottom: 1rem;
+
     }
+
 
     .request-title-area {
+
         flex: 1;
+
         min-width: 0;
+
     }
 
+
     .request-title-with-icon {
+
         display: flex;
 
         align-items: center;
@@ -721,24 +843,35 @@
         gap: .5rem;
 
         min-width: 0;
+
     }
 
+
     .request-title-with-icon > i {
+
         flex-shrink: 0;
 
         color:
             var(--thesis-request-text);
 
         font-size: 1.1rem;
+
         line-height: 1;
+
     }
+
 
     .request-title-with-icon .request-title {
+
         flex: 1;
+
         min-width: 0;
+
     }
 
+
     .request-title {
+
         display: -webkit-box;
 
         margin: 0;
@@ -749,13 +882,17 @@
             var(--thesis-request-text);
 
         font-size: .98rem;
+
         font-weight: 800;
+
         line-height: 1.4;
 
         letter-spacing: -.015em;
 
         -webkit-line-clamp: 3;
+
         -webkit-box-orient: vertical;
+
     }
 
 
@@ -764,9 +901,11 @@
     ========================================================== */
 
     .request-status {
+
         display: inline-flex;
 
         align-items: center;
+
         justify-content: center;
 
         flex-shrink: 0;
@@ -781,44 +920,57 @@
         border-radius: 999px;
 
         font-size: .6rem;
+
         font-weight: 700;
 
         white-space: nowrap;
+
     }
 
 
     /* PENDING */
 
     .request-status.pending {
+
         color: #8a6500;
+
         background: #fff4d2;
+
     }
 
 
     /* APPROVED */
 
     .request-status.approved {
+
         color: #176b3a;
+
         background: #e5f7ed;
+
     }
 
 
     /* REJECTED */
 
     .request-status.rejected {
+
         color: #d92d3a;
+
         background: #ffe7e9;
+
     }
 
 
     /* UNKNOWN */
 
     .request-status.unknown {
+
         color:
             var(--thesis-request-text-secondary);
 
         background:
             var(--thesis-request-input-bg);
+
     }
 
 
@@ -827,7 +979,9 @@
     ========================================================== */
 
     .request-information {
+
         display: flex;
+
         flex-direction: column;
 
         margin-bottom: 0;
@@ -841,17 +995,22 @@
         border: none !important;
 
         border-radius: 9px;
+
     }
 
 
     /* DARK INFORMATION */
 
-    [data-bs-theme="dark"] .request-information {
+    [data-bs-theme="dark"]
+    .request-information {
+
         background: #20253a;
+
     }
 
 
     .request-info {
+
         display: flex;
 
         align-items: center;
@@ -861,10 +1020,14 @@
         min-width: 0;
 
         padding: .42rem 0;
+
     }
 
+
     .request-info + .request-info {
+
         border-top: none !important;
+
     }
 
 
@@ -873,12 +1036,15 @@
     ========================================================== */
 
     .request-info-icon {
+
         display: flex;
 
         align-items: center;
+
         justify-content: center;
 
         width: 28px;
+
         height: 28px;
 
         flex-shrink: 0;
@@ -894,48 +1060,66 @@
         border-radius: 7px;
 
         font-size: .68rem;
+
     }
 
 
     /* DARK ICON */
 
-    [data-bs-theme="dark"] .request-info-icon {
+    [data-bs-theme="dark"]
+    .request-info-icon {
+
         color: #ffffff;
+
         background: #181d33;
+
     }
 
 
     .request-info-content {
+
         display: flex;
+
         flex-direction: column;
 
         min-width: 0;
+
     }
 
+
     .request-info-content span {
+
         margin-bottom: .08rem;
 
         color:
             var(--thesis-request-text-muted);
 
         font-size: .52rem;
+
         font-weight: 800;
 
         letter-spacing: .04em;
+
         text-transform: uppercase;
+
     }
 
+
     .request-info-content strong {
+
         overflow: hidden;
 
         color:
             var(--thesis-request-text-secondary);
 
         font-size: .68rem;
+
         font-weight: 600;
 
         text-overflow: ellipsis;
+
         white-space: nowrap;
+
     }
 
 
@@ -944,6 +1128,7 @@
     ========================================================== */
 
     .request-actions {
+
         display: flex;
 
         gap: .5rem;
@@ -954,20 +1139,26 @@
             var(--thesis-request-input-bg);
 
         border: none !important;
+
     }
 
 
     /* DARK ACTION AREA */
 
-    [data-bs-theme="dark"] .request-actions {
+    [data-bs-theme="dark"]
+    .request-actions {
+
         background: #20253a;
+
     }
 
 
     .request-action {
+
         display: inline-flex;
 
         align-items: center;
+
         justify-content: center;
 
         gap: .4rem;
@@ -975,6 +1166,7 @@
         flex: 1;
 
         min-width: 0;
+
         min-height: 38px;
 
         padding:
@@ -987,6 +1179,7 @@
         text-decoration: none;
 
         font-size: .6rem;
+
         font-weight: 800;
 
         white-space: nowrap;
@@ -995,13 +1188,17 @@
             background .2s ease,
             color .2s ease,
             transform .2s ease;
+
     }
 
+
     .request-action:hover {
+
         color: #ffffff;
 
         transform:
             translateY(-1px);
+
     }
 
 
@@ -1010,15 +1207,20 @@
     ========================================================== */
 
     .request-action-details {
+
         color: #ffffff;
 
         background: #1463d8;
+
     }
 
+
     .request-action-details:hover {
+
         color: #ffffff;
 
         background: #0d4fae;
+
     }
 
 
@@ -1027,15 +1229,20 @@
     ========================================================== */
 
     .request-action-pdf {
+
         color: #ffffff;
 
         background: #d92d3a;
+
     }
 
+
     .request-action-pdf:hover {
+
         color: #ffffff;
 
         background: #b4232f;
+
     }
 
 
@@ -1044,11 +1251,13 @@
     ========================================================== */
 
     .request-action-disabled {
+
         opacity: .45;
 
         cursor: not-allowed;
 
         pointer-events: none;
+
     }
 
 
@@ -1057,12 +1266,16 @@
     ========================================================== */
 
     .request-empty {
-        grid-column: 1 / -1;
+
+        grid-column:
+            1 / -1;
 
         display: flex;
+
         flex-direction: column;
 
         align-items: center;
+
         justify-content: center;
 
         min-height: 280px;
@@ -1083,27 +1296,35 @@
 
         box-shadow:
             var(--thesis-request-card-shadow);
+
     }
 
 
     /* DARK EMPTY */
 
-    [data-bs-theme="dark"] .request-empty {
+    [data-bs-theme="dark"]
+    .request-empty {
+
         color: #eeeef8;
+
         background: #181d33;
 
         box-shadow:
             0 2px 10px rgba(0, 0, 0, .30);
+
     }
 
 
     .request-empty-icon {
+
         display: flex;
 
         align-items: center;
+
         justify-content: center;
 
         width: 52px;
+
         height: 52px;
 
         margin-bottom: .8rem;
@@ -1118,18 +1339,24 @@
         border-radius: 11px;
 
         font-size: 1.2rem;
+
     }
 
 
     /* DARK EMPTY ICON */
 
-    [data-bs-theme="dark"] .request-empty-icon {
+    [data-bs-theme="dark"]
+    .request-empty-icon {
+
         color: #000000;
+
         background: #ffffff;
+
     }
 
 
     .request-empty h3 {
+
         margin:
             0 0 .3rem;
 
@@ -1137,16 +1364,21 @@
             var(--thesis-request-text);
 
         font-size: .95rem;
+
         font-weight: 800;
+
     }
 
+
     .request-empty p {
+
         margin: 0;
 
         color:
             var(--thesis-request-text-muted);
 
         font-size: .7rem;
+
     }
 
 
@@ -1160,24 +1392,68 @@
     .thesis-requests-page thead,
     .thesis-requests-page tbody,
     .thesis-requests-page tr {
+
         border: none !important;
 
         border-top: none !important;
+
         border-right: none !important;
+
         border-bottom: none !important;
+
         border-left: none !important;
+
+    }
+
+
+    /* =========================================================
+       LARGE DESKTOP
+       4 CARDS
+    ========================================================== */
+
+    @media (min-width: 1400px) {
+
+        .request-grid {
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+        }
+
+    }
+
+
+    /* =========================================================
+       SMALL DESKTOP
+       3 CARDS
+    ========================================================== */
+
+    @media (max-width: 1399.98px) {
+
+        .request-grid {
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+        }
+
     }
 
 
     /* =========================================================
        TABLET
+       2 CARDS
     ========================================================== */
 
     @media (max-width: 1199.98px) {
 
         .request-grid {
+
             grid-template-columns:
                 repeat(2, minmax(0, 1fr));
+
+            gap: 1.15rem;
+
         }
 
     }
@@ -1185,41 +1461,62 @@
 
     /* =========================================================
        MOBILE
+       1 CARD
     ========================================================== */
 
     @media (max-width: 767.98px) {
 
         .request-page-header {
+
             padding:
                 0 1rem;
+
         }
 
-        [data-bs-theme="dark"] .request-page-header {
+
+        [data-bs-theme="dark"]
+        .request-page-header {
+
             padding:
                 .9rem 1rem;
+
         }
+
 
         .request-page-title {
+
             font-size: 1.4rem;
+
         }
 
+
         .request-grid {
-            grid-template-columns: 1fr;
+
+            grid-template-columns:
+                1fr;
 
             gap: 1rem;
 
             padding:
                 0 .75rem 1rem;
+
         }
+
 
         .request-alert,
         .request-success {
+
             margin-left: .75rem;
+
             margin-right: .75rem;
+
         }
 
+
         .request-title-row {
+
             align-items: flex-start;
+
         }
 
     }
@@ -1232,35 +1529,53 @@
     @media (max-width: 480px) {
 
         .request-card {
+
             border-radius: 12px;
+
         }
+
 
         .request-card-content {
+
             padding: .85rem;
+
         }
+
 
         .request-title-row {
+
             gap: .5rem;
+
         }
 
+
         .request-status {
+
             padding:
                 .35rem .5rem;
 
             font-size: .55rem;
+
         }
+
 
         .request-actions {
+
             flex-direction: column;
+
         }
 
+
         .request-action {
+
             width: 100%;
+
             min-height: 38px;
+
         }
 
     }
+
 </style>
 
 </x-app-layout>
-
