@@ -13,11 +13,19 @@ return new class extends Migration
     {
         Schema::create('saved_theses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('students', 'id')->cascadeOnDelete();
-            $table->foreignId('thesis_id')->constrained('theses', 'id')->cascadeOnDelete();
-            $table->dateTime('saved_at')->nullable();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('thesis_id')->constrained('theses')->cascadeOnDelete();
+            $table->timestamp('saved_at')->useCurrent();
             $table->timestamps();
+            $table->unique(['user_id', 'thesis_id']);
         });
+        // Schema::create('saved_theses', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->foreignId('student_id')->constrained('students', 'id')->cascadeOnDelete();
+        //     $table->foreignId('thesis_id')->constrained('theses', 'id')->cascadeOnDelete();
+        //     $table->dateTime('saved_at')->nullable();
+        //     $table->timestamps();
+        // });
     }
 
     /**

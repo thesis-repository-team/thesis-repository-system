@@ -8,7 +8,7 @@ class SavedThesis extends Model
 {
 
     protected $fillable = [
-        'student_id',
+        'user_id',
         'thesis_id',
         'saved_at'
     ];
@@ -17,11 +17,13 @@ class SavedThesis extends Model
         'saved_at' => 'datetime',
     ];
 
-    public function student(){
-        return $this->belongsTo(Student::class, 'student_id');
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function thesis(){
-        return $this->belongsTo(Thesis::class,'thesis_id');
+    public function thesis()
+    {
+        return $this->belongsTo(Thesis::class, 'thesis_id');
     }
 }
