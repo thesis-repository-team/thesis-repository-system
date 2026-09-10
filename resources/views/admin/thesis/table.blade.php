@@ -1,155 +1,170 @@
+<div class="thesis-partial-card-results">
 
-@forelse ($theses as $thesis)
+    @forelse ($theses as $thesis)
+        <div class="admin-thesis-card">
 
-    <div class="admin-thesis-card">
+            {{-- =================================================
+                CARD TOP
+            ================================================== --}}
 
-        {{-- =====================================================
-            CARD TOP
-        ====================================================== --}}
+            <div class="admin-thesis-card-top">
 
-        <div class="admin-thesis-card-top">
+                <div class="admin-thesis-card-heading">
 
-            <div class="admin-thesis-card-heading">
+                    <div class="admin-thesis-icon">
+                        <i class="bi bi-journal-text"></i>
+                    </div>
 
-                <div class="admin-thesis-icon">
-                    <i class="bi bi-journal-text"></i>
-                </div>
-
-                <h3 class="admin-thesis-card-title">
-                    {{ $thesis->title }}
-                </h3>
-
-            </div>
-
-        </div>
-
-
-        {{-- =====================================================
-            PUBLISHED INFORMATION
-        ====================================================== --}}
-
-        <div class="admin-thesis-published">
-
-            {{-- PUBLISHED BY --}}
-
-            <div class="admin-thesis-published-item">
-
-                <div class="admin-thesis-published-icon">
-                    <i class="bi bi-person-check"></i>
-                </div>
-
-                <div class="admin-thesis-published-content">
-
-                    <span class="admin-thesis-published-label">
-                        Published By
-                    </span>
-
-                    <span class="admin-thesis-published-value">
-                        {{ optional($thesis->publishedBy)->username
-                            ?? optional($thesis->publishedBy)->full_name
-                            ?? '—' }}
-                    </span>
+                    <h3 class="admin-thesis-card-title">
+                        {{ $thesis->title }}
+                    </h3>
 
                 </div>
 
             </div>
 
 
-            {{-- PUBLISHED AT --}}
+            {{-- =================================================
+                PUBLISHED
+            ================================================== --}}
 
-            <div class="admin-thesis-published-item">
+            <div class="admin-thesis-published">
 
-                <div class="admin-thesis-published-icon">
-                    <i class="bi bi-calendar-check"></i>
-                </div>
+                <div class="admin-thesis-published-item">
 
-                <div class="admin-thesis-published-content">
+                    <div class="admin-thesis-published-icon">
+                        <i class="bi bi-person"></i>
+                    </div>
 
-                    <span class="admin-thesis-published-label">
-                        Published At
-                    </span>
+                    <div class="admin-thesis-published-content">
 
-                    <span class="admin-thesis-published-value">
-                        {{ $thesis->published_at
-                            ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y')
-                            : '—' }}
-                    </span>
+                        <span class="admin-thesis-published-label">
+                            Published By
+                        </span>
 
-                </div>
+                        <span class="admin-thesis-published-value">
 
-            </div>
+                            {{ optional($thesis->publishedBy)->username ?? (optional($thesis->publishedBy)->full_name ?? '—') }}
 
-        </div>
+                        </span>
 
-
-        {{-- =====================================================
-            CARD BODY
-        ====================================================== --}}
-
-        <div class="admin-thesis-card-body">
-
-            {{-- AUTHOR --}}
-
-            <div class="admin-thesis-detail">
-
-                <div class="admin-thesis-detail-icon">
-                    <i class="bi bi-person"></i>
-                </div>
-
-                <div class="admin-thesis-detail-content">
-
-                    <span class="admin-thesis-detail-label">
-                        Author
-                    </span>
-
-                    <span class="admin-thesis-detail-value">
-                        {{ $thesis->author_name ?? '—' }}
-                    </span>
+                    </div>
 
                 </div>
 
-            </div>
 
+                <div class="admin-thesis-published-item">
 
-            {{-- DEPARTMENT --}}
+                    <div class="admin-thesis-published-icon">
+                        <i class="bi bi-calendar3"></i>
+                    </div>
 
-            <div class="admin-thesis-detail">
+                    <div class="admin-thesis-published-content">
 
-                <div class="admin-thesis-detail-icon">
-                    <i class="bi bi-building"></i>
-                </div>
+                        <span class="admin-thesis-published-label">
+                            Published At
+                        </span>
 
-                <div class="admin-thesis-detail-content">
+                        <span class="admin-thesis-published-value">
 
-                    <span class="admin-thesis-detail-label">
-                        Department
-                    </span>
+                            {{ $thesis->published_at ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y') : '—' }}
 
-                    <span class="admin-thesis-detail-value">
-                        {{ optional($thesis->department)->name ?? '—' }}
-                    </span>
+                        </span>
+
+                    </div>
 
                 </div>
 
             </div>
 
 
-            {{-- ACADEMIC YEAR --}}
+            {{-- =================================================
+                CARD BODY
+            ================================================== --}}
 
-            <div class="admin-thesis-detail">
+            <div class="admin-thesis-card-body">
 
-                <div class="admin-thesis-detail-icon">
-                    <i class="bi bi-calendar3"></i>
+                {{-- AUTHOR --}}
+
+                <div class="admin-thesis-detail">
+
+                    <div class="admin-thesis-detail-icon">
+                        <i class="bi bi-person"></i>
+                    </div>
+
+                    <div class="admin-thesis-detail-content">
+
+                        <span class="admin-thesis-detail-label">
+                            Author
+                        </span>
+
+                        <span class="admin-thesis-detail-value">
+                            {{ $thesis->author_name ?? '—' }}
+                        </span>
+
+                    </div>
+
                 </div>
 
-                <div class="admin-thesis-detail-content">
 
-                    <span class="admin-thesis-detail-label">
-                        Academic Year
+                {{-- DEPARTMENT --}}
+
+                <div class="admin-thesis-detail">
+
+                    <div class="admin-thesis-detail-icon">
+                        <i class="bi bi-building"></i>
+                    </div>
+
+                    <div class="admin-thesis-detail-content">
+
+                        <span class="admin-thesis-detail-label">
+                            Department
+                        </span>
+
+                        <span class="admin-thesis-detail-value">
+                            {{ optional($thesis->department)->name ?? '—' }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                {{-- ACADEMIC YEAR --}}
+
+                <div class="admin-thesis-detail">
+
+                    <div class="admin-thesis-detail-icon">
+                        <i class="bi bi-calendar3"></i>
+                    </div>
+
+                    <div class="admin-thesis-detail-content">
+
+                        <span class="admin-thesis-detail-label">
+                            Academic Year
+                        </span>
+
+                        <span class="admin-thesis-detail-value">
+                            {{ $thesis->academic_year ?? '—' }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                {{-- SUBMITTED BY --}}
+
+                <div class="admin-thesis-submitted">
+
+                    <span class="admin-thesis-submitted-label">
+                        Submitted By
                     </span>
 
-                    <span class="admin-thesis-detail-value">
-                        {{ $thesis->academic_year ?? '—' }}
+                    <span class="admin-thesis-submitted-value">
+
+                        {{ optional($thesis->submittedBy)->username ?? (optional($thesis->submittedBy)->full_name ?? '—') }}
+
                     </span>
 
                 </div>
@@ -157,102 +172,276 @@
             </div>
 
 
-            {{-- SUBMITTED BY --}}
+            {{-- =================================================
+                CARD FOOTER
+            ================================================== --}}
 
-            <div class="admin-thesis-submitted">
+            <div class="admin-thesis-card-footer">
 
-                <span class="admin-thesis-submitted-label">
-                    Submitted By
-                </span>
+                <a href="{{ route('admin.thesis.view-pdf', $thesis->id) }}" target="_blank"
+                    class="admin-thesis-action admin-thesis-view">
 
-                <span class="admin-thesis-submitted-value">
-                    {{ optional($thesis->submittedBy)->username
-                        ?? optional($thesis->submittedBy)->full_name
-                        ?? '—' }}
-                </span>
+                    <i class="bi bi-file-earmark-pdf"></i>
 
-            </div>
-
-        </div>
-
-
-        {{-- =====================================================
-            FOOTER
-        ====================================================== --}}
-
-        <div class="admin-thesis-card-footer">
-
-            {{-- VIEW PDF --}}
-
-            <a
-                href="{{ route('admin.thesis.view-pdf', $thesis->id) }}"
-                target="_blank"
-                class="admin-thesis-action admin-thesis-view">
-
-                <i class="bi bi-file-earmark-pdf"></i>
-
-                View PDF
-
-            </a>
-
-
-            {{-- DOWNLOAD --}}
-
-            @if ($thesis->files && $thesis->files->count())
-
-                @php
-                    $file = $thesis->files->first();
-                @endphp
-
-                <a
-                    href="{{ route('admin.thesis.download', $file->id) }}"
-                    class="admin-thesis-action admin-thesis-download">
-
-                    <i class="bi bi-download"></i>
-
-                    Download
+                    <span>
+                        View PDF
+                    </span>
 
                 </a>
 
-            @else
 
-                <span
-                    class="admin-thesis-action admin-thesis-download disabled">
+                @if ($thesis->files && $thesis->files->count())
+                    @php
+                        $file = $thesis->files->first();
+                    @endphp
 
-                    <i class="bi bi-download"></i>
+                    <a href="{{ route('admin.thesis.download', $file->id) }}"
+                        class="admin-thesis-action admin-thesis-download">
 
-                    No File
+                        <i class="bi bi-download"></i>
 
-                </span>
+                        <span>
+                            Download
+                        </span>
 
-            @endif
+                    </a>
+                @else
+                    <span class="admin-thesis-action admin-thesis-download disabled">
+
+                        <i class="bi bi-download"></i>
+
+                        <span>
+                            No File
+                        </span>
+
+                    </span>
+                @endif
+
+            </div>
 
         </div>
 
-    </div>
+    @empty
 
-@empty
+        <div class="admin-thesis-empty">
 
-    {{-- =====================================================
-        EMPTY STATE
-    ====================================================== --}}
+            <div class="admin-thesis-empty-icon">
 
-    <div class="admin-thesis-empty">
+                <i class="bi bi-journal-x"></i>
 
-        <div class="admin-thesis-empty-icon">
+            </div>
 
-            <i class="bi bi-journal-x"></i>
+            <h3>
+                No Thesis Found
+            </h3>
+
+            <p>
+                There are no thesis records matching your search or filters.
+            </p>
 
         </div>
+    @endforelse
 
-        <h3>
-            No Thesis Found
-        </h3>
+</div>
 
-        <p>
-            There are no thesis records matching your search or filters.
-        </p>
+
+<div class="thesis-partial-table-results">
+
+    <div class="thesis-table-wrapper">
+
+        <table class="thesis-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        #
+                    </th>
+
+                    <th>
+                        Thesis
+                    </th>
+
+                    <th>
+                        Author
+                    </th>
+
+                    <th>
+                        Department
+                    </th>
+
+                    <th>
+                        Academic Year
+                    </th>
+
+                    <th>
+                        Submitted By
+                    </th>
+
+                    <th>
+                        Published By
+                    </th>
+
+                    <th>
+                        Published At
+                    </th>
+
+                    <th>
+                        Actions
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                @forelse ($theses as $thesis)
+                    <tr>
+
+                        {{-- NUMBER --}}
+
+                        <td class="thesis-table-number">
+                            {{ $loop->iteration }}
+                        </td>
+
+
+                        {{-- TITLE --}}
+
+                        <td class="thesis-table-title-cell">
+
+                            <span class="thesis-table-title-text">
+                                {{ $thesis->title }}
+                            </span>
+
+                        </td>
+
+
+                        {{-- AUTHOR --}}
+
+                        <td>
+
+                            {{ $thesis->author_name ?? '—' }}
+
+                        </td>
+
+
+                        {{-- DEPARTMENT --}}
+
+                        <td>
+
+                            {{ optional($thesis->department)->name ?? '—' }}
+
+                        </td>
+
+
+                        {{-- ACADEMIC YEAR --}}
+
+                        <td>
+
+                            {{ $thesis->academic_year ?? '—' }}
+
+                        </td>
+
+
+                        {{-- SUBMITTED BY --}}
+
+                        <td>
+
+                            {{ optional($thesis->submittedBy)->username ?? (optional($thesis->submittedBy)->full_name ?? '—') }}
+
+                        </td>
+
+
+                        {{-- PUBLISHED BY --}}
+
+                        <td>
+
+                            {{ optional($thesis->publishedBy)->username ?? (optional($thesis->publishedBy)->full_name ?? '—') }}
+
+                        </td>
+
+
+                        {{-- PUBLISHED AT --}}
+
+                        <td>
+
+                            {{ $thesis->published_at ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y') : '—' }}
+
+                        </td>
+
+
+                        {{-- ACTIONS --}}
+
+                        <td>
+
+                            <div class="thesis-table-actions">
+
+                                {{-- VIEW PDF --}}
+
+                                <a href="{{ route('admin.thesis.view-pdf', $thesis->id) }}" target="_blank"
+                                    class="thesis-table-action thesis-table-view" title="View PDF"
+                                    aria-label="View PDF">
+
+                                    <i class="bi bi-file-earmark-pdf"></i>
+
+                                </a>
+
+
+                                {{-- DOWNLOAD --}}
+
+                                @if ($thesis->files && $thesis->files->count())
+                                    @php
+                                        $file = $thesis->files->first();
+                                    @endphp
+
+                                    <a href="{{ route('admin.thesis.download', $file->id) }}"
+                                        class="thesis-table-action thesis-table-download" title="Download"
+                                        aria-label="Download">
+
+                                        <i class="bi bi-download"></i>
+
+                                    </a>
+                                @else
+                                    <span class="thesis-table-action thesis-table-download disabled" title="No File"
+                                        aria-label="No File">
+
+                                        <i class="bi bi-download"></i>
+
+                                    </span>
+                                @endif
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                @empty
+
+                    <tr>
+
+                        <td colspan="9" class="thesis-table-empty">
+
+                            <strong>
+                                No Thesis Found
+                            </strong>
+
+                            <span>
+                                There are no thesis records matching your search or filters.
+                            </span>
+
+                        </td>
+
+                    </tr>
+                @endforelse
+
+            </tbody>
+
+        </table>
 
     </div>
 
-@endforelse
+</div>

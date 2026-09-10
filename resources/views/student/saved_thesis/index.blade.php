@@ -2,26 +2,20 @@
 
     <style>
         /* =========================================================
-       SAVED THESES PAGE
-       CARD + TABLE VIEW
-       LIGHT + DARK MODE
-    ========================================================= */
+           SAVED THESES PAGE
+        ========================================================= */
 
         .saved-theses-page {
             --st-purple: #6538d9;
             --st-purple-dark: #5030b8;
             --st-purple-light: #eee8ff;
-
             --st-bg: #f8f8fc;
             --st-card: #ffffff;
             --st-border: #e7e7ef;
-
             --st-text: #151a3b;
             --st-muted: #6d7392;
-
             --st-success: #20955b;
             --st-danger: #d83232;
-
             --st-shadow: 0 4px 15px rgba(30, 25, 70, 0.06);
 
             min-height: 100vh;
@@ -30,21 +24,24 @@
             padding: 18px 0 35px;
         }
 
+
         /* =========================================================
-       CONTAINER
-    ========================================================= */
+           CONTAINER
+        ========================================================= */
 
         .saved-theses-container {
             width: 100%;
-            max-width: 1250px;
+            max-width: 1320px;
             margin: 0 auto;
             padding: 0 18px;
             margin-top: 10%;
+            box-sizing: border-box;
         }
 
+
         /* =========================================================
-       PAGE HEADER
-    ========================================================= */
+           PAGE HEADER
+        ========================================================= */
 
         .saved-page-header {
             display: flex;
@@ -67,30 +64,27 @@
             margin-right: 7px;
         }
 
+
         /* =========================================================
-       BACK BUTTON
-    ========================================================= */
+           BACK BUTTON
+        ========================================================= */
 
         .saved-back-button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
-
             min-height: 36px;
             padding: 0 13px;
-
             border: 1px solid #ddd5f7;
             border-radius: 7px;
-
             background: var(--st-purple-light);
             color: var(--st-purple);
-
             text-decoration: none;
             font-size: 12px;
             font-weight: 600;
-
             transition: all 0.2s ease;
+            white-space: nowrap;
         }
 
         .saved-back-button:hover {
@@ -100,9 +94,10 @@
             transform: translateY(-1px);
         }
 
+
         /* =========================================================
-       ALERTS
-    ========================================================= */
+           ALERTS
+        ========================================================= */
 
         .saved-alert {
             border: 0;
@@ -125,33 +120,29 @@
             border-left: 4px solid #3484dc;
         }
 
+
         /* =========================================================
-       MAIN CARD
-    ========================================================= */
+           MAIN CARD
+        ========================================================= */
 
         .saved-theses-card {
-            background: var(--st-card);
-            border: 1px solid var(--st-border);
             border-radius: 10px;
-            box-shadow: var(--st-shadow);
             overflow: hidden;
         }
 
+
         /* =========================================================
-       CARD HEADER
-    ========================================================= */
+           CARD HEADER
+        ========================================================= */
 
         .saved-card-header {
             min-height: 52px;
             padding: 0 16px;
-
             display: flex;
             align-items: center;
-
             background: linear-gradient(135deg,
                     #7040df 0%,
                     #6234d4 100%);
-
             color: #ffffff;
         }
 
@@ -165,17 +156,19 @@
             margin-right: 6px;
         }
 
+
         /* =========================================================
-       CARD BODY
-    ========================================================= */
+           CARD BODY
+        ========================================================= */
 
         .saved-card-body {
             padding: 15px;
         }
 
+
         /* =========================================================
-       VIEW SWITCHER
-    ========================================================= */
+           VIEW SWITCHER
+        ========================================================= */
 
         .saved-view-toolbar {
             display: flex;
@@ -188,13 +181,10 @@
             display: inline-flex;
             align-items: center;
             gap: 3px;
-
             padding: 4px;
-
             background: var(--st-card);
             border: 1px solid var(--st-border);
             border-radius: 9px;
-
             box-shadow: 0 3px 10px rgba(30, 25, 70, 0.05);
         }
 
@@ -203,21 +193,15 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-
             min-height: 34px;
             padding: 0 12px;
-
             border: 0;
             border-radius: 6px;
-
             background: transparent;
             color: var(--st-muted);
-
             font-size: 11px;
             font-weight: 700;
-
             cursor: pointer;
-
             transition:
                 background 0.2s ease,
                 color 0.2s ease,
@@ -244,38 +228,40 @@
             color: #ffffff;
         }
 
+
         /* =========================================================
-       HIDDEN VIEW
-    ========================================================= */
+           HIDDEN VIEW
+        ========================================================= */
 
         .saved-card-view[hidden],
         .saved-table-view[hidden] {
             display: none !important;
         }
 
+
         /* =========================================================
-       THESIS GRID
-    ========================================================= */
+           THESIS GRID
+           4 CARDS PER ROW
+        ========================================================= */
 
         .saved-theses-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 14px;
+            width: 100%;
         }
 
+
         /* =========================================================
-       THESIS ITEM
-    ========================================================= */
+           THESIS ITEM
+        ========================================================= */
 
         .saved-thesis-item {
             min-width: 0;
             padding: 15px;
-
             background: var(--st-card);
-
             border: 1px solid var(--st-border);
             border-radius: 9px;
-
             transition:
                 transform 0.2s ease,
                 box-shadow 0.2s ease,
@@ -288,9 +274,10 @@
             box-shadow: 0 7px 20px rgba(50, 35, 100, 0.08);
         }
 
+
         /* =========================================================
-       THESIS CONTENT
-    ========================================================= */
+           THESIS CONTENT
+        ========================================================= */
 
         .saved-thesis-content {
             display: flex;
@@ -303,18 +290,17 @@
             min-width: 0;
         }
 
+
         /* =========================================================
-       THESIS TITLE
-    ========================================================= */
+           THESIS TITLE
+        ========================================================= */
 
         .saved-thesis-title {
             margin: 0 0 10px;
-
             color: var(--st-text);
             font-size: 15px;
             font-weight: 700;
             line-height: 1.4;
-
             word-break: break-word;
 
             display: -webkit-box;
@@ -323,17 +309,16 @@
             overflow: hidden;
         }
 
+
         /* =========================================================
-       INFORMATION
-    ========================================================= */
+           INFORMATION
+        ========================================================= */
 
         .saved-info-row {
             margin-bottom: 5px;
-
             color: var(--st-muted);
             font-size: 11.5px;
             line-height: 1.45;
-
             word-break: break-word;
         }
 
@@ -348,13 +333,13 @@
             color: var(--st-purple);
         }
 
+
         /* =========================================================
-       SAVED DATE
-    ========================================================= */
+           SAVED DATE
+        ========================================================= */
 
         .saved-date {
             margin-top: 8px;
-
             color: var(--st-muted);
             font-size: 10.5px;
             line-height: 1.4;
@@ -365,15 +350,15 @@
             margin-right: 3px;
         }
 
+
         /* =========================================================
-       ACTIONS
-    ========================================================= */
+           ACTIONS
+        ========================================================= */
 
         .saved-actions {
             display: flex;
             align-items: center;
             gap: 7px;
-
             width: 100%;
             margin-top: auto;
         }
@@ -381,7 +366,6 @@
         .saved-action-button {
             min-height: 32px;
             padding: 0 10px;
-
             border-radius: 6px;
 
             display: inline-flex;
@@ -400,7 +384,6 @@
 
         .saved-action-view {
             flex: 1;
-
             background: var(--st-purple);
             border: 1px solid var(--st-purple);
             color: #ffffff;
@@ -415,7 +398,6 @@
 
         .saved-action-remove {
             flex: 1;
-
             background: #fff0f0;
             border: 1px solid #ffd7d7;
             color: var(--st-danger);
@@ -437,9 +419,10 @@
             width: 100%;
         }
 
+
         /* =========================================================
-       TABLE VIEW
-    ========================================================= */
+           TABLE VIEW
+        ========================================================= */
 
         .saved-table-view {
             width: 100%;
@@ -448,52 +431,38 @@
         .saved-table-wrapper {
             width: 100%;
             overflow-x: auto;
-
             background: var(--st-card);
-
             border: 1px solid var(--st-border);
             border-radius: 9px;
-
             box-shadow: 0 3px 12px rgba(30, 25, 70, 0.04);
         }
 
         .saved-theses-table {
             width: 100%;
             min-width: 900px;
-
             border-collapse: collapse;
             border-spacing: 0;
         }
 
         .saved-theses-table th {
             padding: 12px 13px;
-
             background: #faf9fe;
-
             border-bottom: 1px solid var(--st-border);
-
             color: var(--st-muted);
-
             font-size: 10px;
             font-weight: 700;
-
             text-align: left;
             text-transform: uppercase;
             letter-spacing: 0.03em;
-
             white-space: nowrap;
         }
 
         .saved-theses-table td {
             padding: 13px;
-
             border-bottom: 1px solid var(--st-border);
-
             color: var(--st-text);
-
             font-size: 11.5px;
             line-height: 1.45;
-
             vertical-align: middle;
         }
 
@@ -511,20 +480,16 @@
 
         .saved-table-number {
             width: 45px;
-
             color: var(--st-muted) !important;
             font-weight: 700;
-
             text-align: center;
         }
 
         .saved-table-title {
             min-width: 250px;
             max-width: 380px;
-
             color: var(--st-text);
             font-weight: 700;
-
             word-break: break-word;
         }
 
@@ -550,27 +515,24 @@
             white-space: nowrap;
         }
 
+
         /* =========================================================
-       TABLE ACTION BUTTONS
-    ========================================================= */
+           TABLE ACTION BUTTONS
+        ========================================================= */
 
         .saved-table-actions {
             display: flex;
             align-items: center;
             justify-content: flex-start;
-
             gap: 6px;
-
             flex-wrap: nowrap;
             white-space: nowrap;
         }
 
         .saved-table-actions .saved-action-button {
             flex: 0 0 auto;
-
             min-height: 30px;
             padding: 0 9px;
-
             font-size: 10.5px;
         }
 
@@ -583,9 +545,10 @@
             width: auto;
         }
 
+
         /* =========================================================
-       EMPTY STATE
-    ========================================================= */
+           EMPTY STATE
+        ========================================================= */
 
         .saved-empty-state {
             padding: 55px 20px;
@@ -602,16 +565,13 @@
             justify-content: center;
 
             border-radius: 50%;
-
             background: var(--st-purple-light);
             color: var(--st-purple);
-
             font-size: 25px;
         }
 
         .saved-empty-state h5 {
             margin: 0 0 6px;
-
             color: var(--st-text);
             font-size: 16px;
             font-weight: 700;
@@ -619,23 +579,21 @@
 
         .saved-empty-state p {
             margin: 0;
-
             color: var(--st-muted);
             font-size: 12px;
         }
 
+
         /* =========================================================
-       DARK MODE
-    ========================================================= */
+           DARK MODE
+        ========================================================= */
 
         [data-bs-theme="dark"] .saved-theses-page {
             --st-bg: #101426;
             --st-card: #181d33;
             --st-border: #292e45;
-
             --st-text: #ffffff;
             --st-muted: #999fb9;
-
             --st-shadow: 0 5px 18px rgba(0, 0, 0, 0.22);
         }
 
@@ -724,9 +682,11 @@
             background: #20253a;
         }
 
+
         /* =========================================================
-       LARGE DESKTOP
-    ========================================================= */
+           LARGE DESKTOP
+           4 CARDS PER ROW
+        ========================================================= */
 
         @media (min-width: 1200px) {
 
@@ -735,13 +695,22 @@
             }
 
             .saved-theses-grid {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
+                grid-template-columns: repeat(4, minmax(0, 1fr));
             }
         }
 
+
         /* =========================================================
-       TABLET
-    ========================================================= */
+           TABLET
+           2 CARDS PER ROW
+        ========================================================= */
+
+        @media (max-width: 1199px) {
+
+            .saved-theses-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
 
         @media (max-width: 900px) {
 
@@ -754,10 +723,11 @@
             }
         }
 
+
         /* =========================================================
-       MOBILE
-       CARD ONLY
-    ========================================================= */
+           MOBILE
+           CARD ONLY
+        ========================================================= */
 
         @media (max-width: 768px) {
 
@@ -768,6 +738,7 @@
 
             .saved-theses-container {
                 padding: 0 12px;
+                margin-top: 5%;
             }
 
             .saved-page-header {
@@ -798,12 +769,16 @@
                 padding: 12px;
             }
 
+
             /* Hide Card/Table switcher on mobile */
+
             .saved-view-toolbar {
                 display: none;
             }
 
+
             /* Always use cards on mobile */
+
             .saved-card-view {
                 display: block !important;
             }
@@ -839,14 +814,16 @@
             }
         }
 
+
         /* =========================================================
-       SMALL MOBILE
-    ========================================================= */
+           SMALL MOBILE
+        ========================================================= */
 
         @media (max-width: 480px) {
 
             .saved-theses-container {
                 padding: 0 10px;
+                margin-top: 3%;
             }
 
             .saved-page-title {
@@ -902,27 +879,55 @@
                 font-size: 22px;
             }
         }
+
+
+        /* =========================================================
+           VERY SMALL MOBILE
+        ========================================================= */
+
+        @media (max-width: 380px) {
+
+            .saved-theses-container {
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+
+            .saved-action-button {
+                padding: 0 6px;
+                font-size: 9.5px;
+            }
+        }
     </style>
 
+
+    {{-- =========================================================
+         MAIN PAGE
+    ========================================================== --}}
 
     <div class="dashboard-content saved-theses-page">
 
         <div class="saved-theses-container">
 
+
             {{-- =====================================================
-             PAGE HEADER
-        ====================================================== --}}
+                 PAGE HEADER
+            ====================================================== --}}
 
             <div class="saved-page-header">
 
                 <h2 class="saved-page-title">
+
                     <i class="fas fa-bookmark"></i>
+
                     Saved Theses
+
                 </h2>
+
 
                 <a href="{{ route('student.thesis.index') }}" class="saved-back-button">
 
                     <i class="fas fa-arrow-left"></i>
+
                     Back to Theses
 
                 </a>
@@ -931,8 +936,8 @@
 
 
             {{-- =====================================================
-             SUCCESS MESSAGE
-        ====================================================== --}}
+                 SUCCESS ALERT
+            ====================================================== --}}
 
             @if (session('success'))
                 <div class="saved-alert saved-alert-success">
@@ -946,8 +951,8 @@
 
 
             {{-- =====================================================
-             INFO MESSAGE
-        ====================================================== --}}
+                 INFO ALERT
+            ====================================================== --}}
 
             @if (session('info'))
                 <div class="saved-alert saved-alert-info">
@@ -961,405 +966,389 @@
 
 
             {{-- =====================================================
-             MAIN CARD
-        ====================================================== --}}
+                 MAIN CARD
+            ====================================================== --}}
 
             <div class="saved-theses-card">
 
 
-                {{-- =================================================
-                 CARD HEADER
-            ================================================== --}}
-
-                <div class="saved-card-header">
-
-                    <h5>
-
-                        <i class="fas fa-bookmark"></i>
-
-                        My Saved Theses
-
-                    </h5>
-
-                </div>
+                @if ($savedTheses->count() > 0)
 
 
-                {{-- =================================================
-                 CARD BODY
-            ================================================== --}}
-
-                <div class="saved-card-body">
-
-
-                    @if ($savedTheses->count() > 0)
-
-
-                        {{-- =============================================
+                    {{-- =================================================
                          CARD / TABLE VIEW BUTTONS
-                    ============================================== --}}
+                    ================================================== --}}
 
-                        <div class="saved-view-toolbar">
+                    <div class="saved-view-toolbar">
 
-                            <div class="saved-view-toggle" role="group" aria-label="Choose saved theses view">
+                        <div class="saved-view-toggle" role="group" aria-label="Choose saved theses view">
 
-                                <button type="button" class="saved-view-button active" data-saved-view="card"
-                                    aria-pressed="true">
+                            <button type="button" class="saved-view-button active" data-saved-view="card"
+                                aria-pressed="true">
 
-                                    <i class="fas fa-th-large"></i>
+                                <i class="fas fa-th-large"></i>
 
-                                    Card
+                                Card
 
-                                </button>
+                            </button>
 
-                                <button type="button" class="saved-view-button" data-saved-view="table"
-                                    aria-pressed="false">
 
-                                    <i class="fas fa-table"></i>
+                            <button type="button" class="saved-view-button" data-saved-view="table"
+                                aria-pressed="false">
 
-                                    Table
+                                <i class="fas fa-table"></i>
 
-                                </button>
+                                Table
 
-                            </div>
+                            </button>
 
                         </div>
 
+                    </div>
 
-                        {{-- =============================================
+
+                    {{-- =================================================
                          CARD VIEW
-                    ============================================== --}}
+                    ================================================== --}}
 
-                        <div class="saved-card-view">
+                    <div class="saved-card-view">
+
+                        <div class="saved-theses-grid">
 
 
-                            <div class="saved-theses-grid">
-
-                                @foreach ($savedTheses as $saved)
-                                    @if ($saved->thesis)
-                                        {{-- =================================
+                            @foreach ($savedTheses as $saved)
+                                @if ($saved->thesis)
+                                    {{-- =================================
                                          THESIS CARD
                                     ================================== --}}
 
-                                        <div class="saved-thesis-item">
+                                    <div class="saved-thesis-item">
 
-                                            <div class="saved-thesis-content">
+                                        <div class="saved-thesis-content">
 
 
-                                                {{-- ==========================
+                                            {{-- ==========================
                                                  THESIS INFORMATION
                                             =========================== --}}
 
-                                                <div class="saved-thesis-info">
+                                            <div class="saved-thesis-info">
 
 
-                                                    {{-- Thesis Title --}}
+                                                {{-- Thesis Title --}}
 
-                                                    <h5 class="saved-thesis-title">
+                                                <h5 class="saved-thesis-title">
 
-                                                        {{ $saved->thesis->title }}
+                                                    {{ $saved->thesis->title }}
 
-                                                    </h5>
-
-
-                                                    {{-- Author --}}
-
-                                                    @if ($saved->thesis->author_name)
-                                                        <div class="saved-info-row">
-
-                                                            <strong>
-                                                                Author:
-                                                            </strong>
-
-                                                            {{ $saved->thesis->author_name }}
-
-                                                        </div>
-                                                    @endif
+                                                </h5>
 
 
-                                                    {{-- Department --}}
+                                                {{-- Author --}}
 
-                                                    @if ($saved->thesis->department)
-                                                        <div class="saved-info-row">
+                                                @if ($saved->thesis->author_name)
+                                                    <div class="saved-info-row">
 
-                                                            <strong>
-                                                                Department:
-                                                            </strong>
+                                                        <strong>
+                                                            Author:
+                                                        </strong>
 
-                                                            {{ $saved->thesis->department->dept_name }}
-
-                                                        </div>
-                                                    @endif
-
-
-                                                    {{-- Saved Date --}}
-
-                                                    <div class="saved-date">
-
-                                                        <i class="fas fa-clock"></i>
-
-                                                        Saved:
-
-                                                        {{ $saved->saved_at ? $saved->saved_at->format('d M Y, h:i A') : $saved->created_at->format('d M Y, h:i A') }}
+                                                        {{ $saved->thesis->author_name }}
 
                                                     </div>
+                                                @endif
 
+
+                                                {{-- Department --}}
+
+                                                @if ($saved->thesis->department)
+                                                    <div class="saved-info-row">
+
+                                                        <strong>
+                                                            Department:
+                                                        </strong>
+
+                                                        {{ $saved->thesis->department->dept_name }}
+
+                                                    </div>
+                                                @endif
+
+
+                                                {{-- Saved Date --}}
+
+                                                <div class="saved-date">
+
+                                                    <i class="fas fa-clock"></i>
+
+                                                    Saved:
+
+                                                    @if ($saved->saved_at)
+                                                        {{ $saved->saved_at->format('d M Y, h:i A') }}
+                                                    @elseif ($saved->created_at)
+                                                        {{ $saved->created_at->format('d M Y, h:i A') }}
+                                                    @else
+                                                        N/A
+                                                    @endif
 
                                                 </div>
 
+                                            </div>
 
-                                                {{-- ==========================
+
+                                            {{-- ==========================
                                                  ACTION BUTTONS
                                             =========================== --}}
 
-                                                <div class="saved-actions">
+                                            <div class="saved-actions">
 
 
-                                                    {{-- View --}}
+                                                {{-- View --}}
 
-                                                    <a href="{{ route('student.thesis.show', $saved->thesis->id) }}"
-                                                        class="saved-action-button saved-action-view">
+                                                <a href="{{ route('student.thesis.show', $saved->thesis->id) }}"
+                                                    class="saved-action-button saved-action-view">
 
-                                                        <i class="fas fa-eye"></i>
+                                                    <i class="fas fa-eye"></i>
 
-                                                        View
+                                                    View
 
-                                                    </a>
-
-
-                                                    {{-- Remove --}}
-
-                                                    <form
-                                                        action="{{ route('student.saved_thesis.destroy', $saved->thesis->id) }}"
-                                                        method="POST"
-                                                        onsubmit="return confirm('Are you sure you want to remove this thesis from your saved theses?');">
-
-                                                        @csrf
-
-                                                        @method('DELETE')
+                                                </a>
 
 
-                                                        <button type="submit"
-                                                            class="saved-action-button saved-action-remove">
+                                                {{-- Remove --}}
 
-                                                            <i class="fas fa-trash"></i>
+                                                <form
+                                                    action="{{ route('student.saved_thesis.destroy', $saved->thesis->id) }}"
+                                                    method="POST"
+                                                    onsubmit="return confirm('Are you sure you want to remove this thesis from your saved theses?');">
 
-                                                            Remove
+                                                    @csrf
 
-                                                        </button>
-
-                                                    </form>
+                                                    @method('DELETE')
 
 
-                                                </div>
+                                                    <button type="submit"
+                                                        class="saved-action-button saved-action-remove">
 
+                                                        <i class="fas fa-trash"></i>
+
+                                                        Remove
+
+                                                    </button>
+
+                                                </form>
 
                                             </div>
 
                                         </div>
-                                    @endif
-                                @endforeach
 
-                            </div>
+                                    </div>
+                                @endif
+                            @endforeach
 
                         </div>
 
+                    </div>
 
-                        {{-- =============================================
+
+                    {{-- =================================================
                          TABLE VIEW
-                    ============================================== --}}
+                    ================================================== --}}
 
-                        <div class="saved-table-view" hidden>
+                    <div class="saved-table-view" hidden>
 
+                        <div class="saved-table-wrapper">
 
-                            <div class="saved-table-wrapper">
+                            <table class="saved-theses-table">
 
-                                <table class="saved-theses-table">
+                                <thead>
 
-                                    <thead>
+                                    <tr>
 
-                                        <tr>
+                                        <th class="saved-table-number">
+                                            #
+                                        </th>
 
-                                            <th class="saved-table-number">
-                                                #
-                                            </th>
+                                        <th>
+                                            Title
+                                        </th>
 
-                                            <th>
-                                                Title
-                                            </th>
+                                        <th>
+                                            Author
+                                        </th>
 
-                                            <th>
-                                                Author
-                                            </th>
+                                        <th>
+                                            Department
+                                        </th>
 
-                                            <th>
-                                                Department
-                                            </th>
+                                        <th>
+                                            Saved Date
+                                        </th>
 
-                                            <th>
-                                                Saved Date
-                                            </th>
+                                        <th>
+                                            Action
+                                        </th>
 
-                                            <th>
-                                                Action
-                                            </th>
+                                    </tr>
 
-                                        </tr>
+                                </thead>
 
-                                    </thead>
 
+                                <tbody>
 
-                                    <tbody>
+                                    @php
+                                        $tableNumber = 1;
+                                    @endphp
 
-                                        @php
-                                            $tableNumber = 1;
-                                        @endphp
 
+                                    @foreach ($savedTheses as $saved)
+                                        @if ($saved->thesis)
+                                            <tr>
 
-                                        @foreach ($savedTheses as $saved)
-                                            @if ($saved->thesis)
-                                                <tr>
 
-                                                    {{-- Number --}}
+                                                {{-- Number --}}
 
-                                                    <td class="saved-table-number">
+                                                <td class="saved-table-number">
 
-                                                        {{ $tableNumber++ }}
+                                                    {{ $tableNumber++ }}
 
-                                                    </td>
+                                                </td>
 
 
-                                                    {{-- Title --}}
+                                                {{-- Title --}}
 
-                                                    <td class="saved-table-title">
+                                                <td class="saved-table-title">
 
-                                                        {{ $saved->thesis->title }}
+                                                    {{ $saved->thesis->title }}
 
-                                                    </td>
+                                                </td>
 
 
-                                                    {{-- Author --}}
+                                                {{-- Author --}}
 
-                                                    <td class="saved-table-author">
+                                                <td class="saved-table-author">
 
-                                                        @if ($saved->thesis->author_name)
-                                                            {{ $saved->thesis->author_name }}
-                                                        @else
-                                                            <span>—</span>
-                                                        @endif
+                                                    @if ($saved->thesis->author_name)
+                                                        {{ $saved->thesis->author_name }}
+                                                    @else
+                                                        <span>—</span>
+                                                    @endif
 
-                                                    </td>
+                                                </td>
 
 
-                                                    {{-- Department --}}
+                                                {{-- Department --}}
 
-                                                    <td class="saved-table-department">
+                                                <td class="saved-table-department">
 
-                                                        @if ($saved->thesis->department)
-                                                            {{ $saved->thesis->department->dept_name }}
-                                                        @else
-                                                            <span>—</span>
-                                                        @endif
+                                                    @if ($saved->thesis->department)
+                                                        {{ $saved->thesis->department->dept_name }}
+                                                    @else
+                                                        <span>—</span>
+                                                    @endif
 
-                                                    </td>
+                                                </td>
 
 
-                                                    {{-- Saved Date --}}
+                                                {{-- Saved Date --}}
 
-                                                    <td class="saved-table-date">
+                                                <td class="saved-table-date">
 
-                                                        <i class="fas fa-clock"
-                                                            style="color: var(--st-purple); margin-right: 4px;"></i>
+                                                    <i class="fas fa-clock"
+                                                        style="color: var(--st-purple); margin-right: 4px;"></i>
 
-                                                        {{ $saved->saved_at ? $saved->saved_at->format('d M Y, h:i A') : $saved->created_at->format('d M Y, h:i A') }}
+                                                    @if ($saved->saved_at)
+                                                        {{ $saved->saved_at->format('d M Y, h:i A') }}
+                                                    @elseif ($saved->created_at)
+                                                        {{ $saved->created_at->format('d M Y, h:i A') }}
+                                                    @else
+                                                        N/A
+                                                    @endif
 
-                                                    </td>
+                                                </td>
 
 
-                                                    {{-- Actions --}}
+                                                {{-- Actions --}}
 
-                                                    <td class="saved-table-action-cell">
+                                                <td class="saved-table-action-cell">
 
-                                                        <div class="saved-table-actions">
+                                                    <div class="saved-table-actions">
 
 
-                                                            {{-- View --}}
+                                                        {{-- View --}}
 
-                                                            <a href="{{ route('student.thesis.show', $saved->thesis->id) }}"
-                                                                class="saved-action-button saved-action-view">
+                                                        <a href="{{ route('student.thesis.show', $saved->thesis->id) }}"
+                                                            class="saved-action-button saved-action-view">
 
-                                                                <i class="fas fa-eye"></i>
+                                                            <i class="fas fa-eye"></i>
 
-                                                                View
+                                                            View
 
-                                                            </a>
+                                                        </a>
 
 
-                                                            {{-- Remove --}}
+                                                        {{-- Remove --}}
 
-                                                            <form
-                                                                action="{{ route('student.saved_thesis.destroy', $saved->thesis->id) }}"
-                                                                method="POST"
-                                                                onsubmit="return confirm('Are you sure you want to remove this thesis from your saved theses?');">
+                                                        <form
+                                                            action="{{ route('student.saved_thesis.destroy', $saved->thesis->id) }}"
+                                                            method="POST"
+                                                            onsubmit="return confirm('Are you sure you want to remove this thesis from your saved theses?');">
 
-                                                                @csrf
+                                                            @csrf
 
-                                                                @method('DELETE')
+                                                            @method('DELETE')
 
 
-                                                                <button type="submit"
-                                                                    class="saved-action-button saved-action-remove">
+                                                            <button type="submit"
+                                                                class="saved-action-button saved-action-remove">
 
-                                                                    <i class="fas fa-trash"></i>
+                                                                <i class="fas fa-trash"></i>
 
-                                                                    Remove
+                                                                Remove
 
-                                                                </button>
+                                                            </button>
 
-                                                            </form>
+                                                        </form>
 
+                                                    </div>
 
-                                                        </div>
+                                                </td>
 
-                                                    </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
 
-                                                </tr>
-                                            @endif
-                                        @endforeach
+                                </tbody>
 
-                                    </tbody>
-
-                                </table>
-
-                            </div>
+                            </table>
 
                         </div>
-                    @else
-                        {{-- =============================================
+
+                    </div>
+                @else
+                    {{-- =================================================
                          EMPTY STATE
-                    ============================================== --}}
+                    ================================================== --}}
 
-                        <div class="saved-empty-state">
+                    <div class="saved-empty-state">
 
-                            <div class="saved-empty-icon">
+                        <div class="saved-empty-icon">
 
-                                <i class="fas fa-bookmark"></i>
-
-                            </div>
-
-                            <h5>
-                                No Saved Theses
-                            </h5>
-
-                            <p>
-                                You have not saved any theses yet.
-                            </p>
+                            <i class="fas fa-bookmark"></i>
 
                         </div>
 
-                    @endif
+
+                        <h5>
+                            No Saved Theses
+                        </h5>
 
 
-                </div>
+                        <p>
+                            You have not saved any theses yet.
+                        </p>
+
+                    </div>
+
+                @endif
 
             </div>
 
@@ -1368,14 +1357,15 @@
     </div>
 
 
-    {{-- =============================================================
-     CARD / TABLE VIEW JAVASCRIPT
-============================================================= --}}
+    {{-- =========================================================
+         JAVASCRIPT
+    ========================================================== --}}
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
-            const page = document.querySelector('.saved-theses-page');
+            const page =
+                document.querySelector('.saved-theses-page');
 
             if (!page) {
                 return;
@@ -1392,12 +1382,17 @@
                 page.querySelector('.saved-table-view');
 
 
-            if (!viewButtons.length || !cardView || !tableView) {
+            if (
+                !viewButtons.length ||
+                !cardView ||
+                !tableView
+            ) {
                 return;
             }
 
 
-            const storageKey = 'savedThesesView';
+            const storageKey =
+                'savedThesesView';
 
 
             /* =========================================================
@@ -1415,7 +1410,10 @@
                SET VIEW
             ========================================================= */
 
-            function setView(view, savePreference = true) {
+            function setView(
+                view,
+                savePreference = true
+            ) {
 
                 /*
                  * Mobile always uses Card view.
@@ -1428,7 +1426,8 @@
                 }
 
 
-                const showCard = view === 'card';
+                const showCard =
+                    view === 'card';
 
 
                 /* Card */
@@ -1438,7 +1437,8 @@
 
                 /* Table */
 
-                tableView.hidden = showCard;
+                tableView.hidden =
+                    showCard;
 
 
                 /* Buttons */
@@ -1446,7 +1446,10 @@
                 viewButtons.forEach(function(button) {
 
                     const buttonView =
-                        button.getAttribute('data-saved-view');
+                        button.getAttribute(
+                            'data-saved-view'
+                        );
+
 
                     const isActive =
                         buttonView === view;
@@ -1460,7 +1463,9 @@
 
                     button.setAttribute(
                         'aria-pressed',
-                        isActive ? 'true' : 'false'
+                        isActive ?
+                        'true' :
+                        'false'
                     );
 
                 });
@@ -1470,7 +1475,10 @@
                  * Save only desktop preference.
                  */
 
-                if (savePreference && !isMobile()) {
+                if (
+                    savePreference &&
+                    !isMobile()
+                ) {
 
                     localStorage.setItem(
                         storageKey,
@@ -1487,7 +1495,9 @@
             ========================================================= */
 
             let savedView =
-                localStorage.getItem(storageKey);
+                localStorage.getItem(
+                    storageKey
+                );
 
 
             if (
@@ -1500,7 +1510,10 @@
             }
 
 
-            setView(savedView, false);
+            setView(
+                savedView,
+                false
+            );
 
 
             /* =========================================================
@@ -1541,47 +1554,50 @@
                 'resize',
                 function() {
 
-                    clearTimeout(resizeTimer);
+                    clearTimeout(
+                        resizeTimer
+                    );
 
 
-                    resizeTimer = setTimeout(
-                        function() {
+                    resizeTimer =
+                        setTimeout(
+                            function() {
 
-                            /*
-                             * Mobile = Card only
-                             */
+                                /*
+                                 * Mobile = Card only
+                                 */
 
-                            if (isMobile()) {
+                                if (isMobile()) {
+
+                                    setView(
+                                        'card',
+                                        false
+                                    );
+
+                                    return;
+
+                                }
+
+
+                                /*
+                                 * Desktop = restore selected
+                                 * desktop preference
+                                 */
+
+                                const currentView =
+                                    localStorage.getItem(
+                                        storageKey
+                                    ) || 'card';
+
 
                                 setView(
-                                    'card',
+                                    currentView,
                                     false
                                 );
 
-                                return;
-
-                            }
-
-
-                            /*
-                             * Desktop = restore selected
-                             * desktop preference
-                             */
-
-                            const currentView =
-                                localStorage.getItem(
-                                    storageKey
-                                ) || 'card';
-
-
-                            setView(
-                                currentView,
-                                false
-                            );
-
-                        },
-                        100
-                    );
+                            },
+                            100
+                        );
 
                 }
             );

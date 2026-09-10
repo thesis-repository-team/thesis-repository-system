@@ -1,39 +1,93 @@
-@forelse ($students as $student)
-    {{-- =====================================================
-            STUDENT CARD
-        ====================================================== --}}
+{{-- =========================================================
+     CARD VIEW
+========================================================= --}}
 
-    <div class="student-item-card">
+<div class="student-partial-card-results">
 
-        {{-- =================================================
-                CARD BODY
-            ================================================== --}}
+    @forelse ($students as $student)
+        <div class="admin-student-card">
 
-        <div class="student-item-card-body">
+            {{-- CARD BODY --}}
+            <div class="admin-student-card-body">
 
-            {{-- =================================================
-                    TOP SECTION
+                {{-- =================================================
+                     TOP SECTION
                 ================================================== --}}
 
-            <div class="student-item-top">
+                <div class="admin-student-card-top">
 
-                {{-- STUDENT INFORMATION --}}
-                <div class="student-profile">
+                    <div class="admin-student-profile">
 
-                    {{-- AVATAR --}}
-                    <div class="student-avatar">
-                        <i class="bi bi-person"></i>
+                        <div class="admin-student-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+
+                        <div class="admin-student-profile-info">
+
+                            <h3 class="admin-student-card-title">
+                                {{ $student->full_name }}
+                            </h3>
+
+                            <span class="admin-student-id">
+                                Student #{{ $loop->iteration }}
+                            </span>
+
+                        </div>
+
                     </div>
 
-                    {{-- NAME + ID --}}
-                    <div class="student-profile-info">
 
-                        <h5 class="student-name">
-                            {{ $student->full_name }}
-                        </h5>
+                    {{-- UPLOAD PERMISSION --}}
 
-                        <span class="student-id">
-                            Student #{{ $loop->iteration }}
+                    @if ($student->upload_permission)
+                        <span class="admin-student-permission admin-student-permission-allowed">
+
+                            <i class="bi bi-check-circle-fill"></i>
+
+                            Allowed
+
+                        </span>
+                    @else
+                        <span class="admin-student-permission admin-student-permission-denied">
+
+                            <i class="bi bi-x-circle-fill"></i>
+
+                            Not Allowed
+
+                        </span>
+                    @endif
+
+                </div>
+
+
+                {{-- =================================================
+                     DIVIDER
+                ================================================== --}}
+
+                <div class="admin-student-card-divider"></div>
+
+
+                {{-- =================================================
+                     EMAIL
+                ================================================== --}}
+
+                <div class="admin-student-info-row">
+
+                    <div class="admin-student-info-icon">
+                        <i class="bi bi-envelope"></i>
+                    </div>
+
+                    <div class="admin-student-info-content">
+
+                        <span class="admin-student-info-label">
+                            Email
+                        </span>
+
+                        <span class="admin-student-info-value admin-student-email"
+                            title="{{ $student->user->email ?? 'N/A' }}">
+
+                            {{ $student->user->email ?? 'N/A' }}
+
                         </span>
 
                     </div>
@@ -42,155 +96,89 @@
 
 
                 {{-- =================================================
-                        UPLOAD PERMISSION
-                    ================================================== --}}
+                     DEPARTMENT
+                ================================================== --}}
 
-                @if ($student->upload_permission)
-                    {{-- ALLOWED --}}
-                    <span class="student-permission student-permission-allowed" title="Upload Allowed">
+                <div class="admin-student-info-row">
 
-                        <i class="bi bi-check-circle-fill"></i>
+                    <div class="admin-student-info-icon">
+                        <i class="bi bi-building"></i>
+                    </div>
 
-                        <span>
-                            Allowed
+                    <div class="admin-student-info-content">
+
+                        <span class="admin-student-info-label">
+                            Department
                         </span>
 
-                    </span>
-                @else
-                    {{-- NOT ALLOWED --}}
-                    <span class="student-permission student-permission-denied" title="Upload Not Allowed">
+                        <span class="admin-student-info-value">
 
-                        <i class="bi bi-x-circle-fill"></i>
+                            {{ $student->department->name ?? 'N/A' }}
 
-                        <span>
-                            Not Allowed
                         </span>
 
-                    </span>
-                @endif
+                    </div>
 
-            </div>
+                </div>
 
 
-            {{-- =================================================
-                    DIVIDER
+                {{-- =================================================
+                     STARTED YEAR
                 ================================================== --}}
 
-            <div class="student-card-divider"></div>
+                <div class="admin-student-info-row">
+
+                    <div class="admin-student-info-icon">
+                        <i class="bi bi-calendar3"></i>
+                    </div>
+
+                    <div class="admin-student-info-content">
+
+                        <span class="admin-student-info-label">
+                            Started Year
+                        </span>
+
+                        <span class="admin-student-year-badge">
+
+                            {{ $student->started_year ?? 'N/A' }}
+
+                        </span>
+
+                    </div>
+
+                </div>
 
 
-            {{-- =================================================
-                    EMAIL
+                {{-- =================================================
+                     EDIT BUTTON
                 ================================================== --}}
 
-            <div class="student-info-row">
+                <div class="admin-student-card-action">
 
-                <div class="student-info-icon">
-                    <i class="bi bi-envelope"></i>
-                </div>
+                    <a href="{{ route('admin.students.edit', $student->id) }}" class="admin-student-edit-button">
 
-                <div class="student-info-content">
+                        <i class="bi bi-pencil-square"></i>
 
-                    <span class="student-info-label">
-                        Email
-                    </span>
+                        <span>
+                            Edit
+                        </span>
 
-                    <span class="student-info-value student-email" title="{{ $student->user->email ?? 'N/A' }}">
-                        {{ $student->user->email ?? 'N/A' }}
-                    </span>
+                    </a>
 
                 </div>
-
-            </div>
-
-
-            {{-- =================================================
-                    DEPARTMENT
-                ================================================== --}}
-
-            <div class="student-info-row">
-
-                <div class="student-info-icon">
-                    <i class="bi bi-building"></i>
-                </div>
-
-                <div class="student-info-content">
-
-                    <span class="student-info-label">
-                        Department
-                    </span>
-
-                    <span class="student-info-value">
-                        {{ $student->department->name ?? 'N/A' }}
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            {{-- =================================================
-                    STARTED YEAR
-                ================================================== --}}
-
-            <div class="student-info-row student-year-row">
-
-                <div class="student-info-icon">
-                    <i class="bi bi-calendar3"></i>
-                </div>
-
-                <div class="student-info-content">
-
-                    <span class="student-info-label">
-                        Started Year
-                    </span>
-
-                    <span class="student-year-badge">
-                        {{ $student->started_year ?? 'N/A' }}
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            {{-- =================================================
-                    CARD ACTION
-                ================================================== --}}
-
-            <div class="student-card-action">
-
-                <a href="{{ route('hod.students.edit', $student->id) }}" class="student-edit-button"
-                    data-tooltip="Edit Student" aria-label="Edit Student">
-
-                    <i class="bi bi-pencil-square"></i>
-
-                    <span>
-                        Edit
-                    </span>
-
-                </a>
 
             </div>
 
         </div>
 
-    </div>
+    @empty
 
+        <div class="admin-student-empty-result">
 
+            <div class="admin-student-empty-result-icon">
 
-@empty
-
-    {{-- =========================================================
-        EMPTY RESULT
-    ========================================================== --}}
-
-    <div class="col-12">
-
-        <div class="student-empty-result">
-
-            <div class="student-empty-result-icon">
                 <i class="bi bi-people"></i>
+
             </div>
 
             <h5>
@@ -202,1594 +190,1456 @@
             </p>
 
         </div>
+    @endforelse
+
+</div>
+
+
+
+{{-- =========================================================
+     TABLE VIEW
+========================================================= --}}
+
+<div class="student-partial-table-results">
+
+    <div class="student-table-wrapper">
+
+        <table class="student-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>#</th>
+
+                    <th>Student</th>
+
+                    <th>Email</th>
+
+                    <th>Department</th>
+
+                    <th>Started Year</th>
+
+                    <th>Upload Permission</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @forelse ($students as $student)
+                    <tr>
+
+                        {{-- NUMBER --}}
+
+                        <td>
+                            {{ $loop->iteration }}
+                        </td>
+
+
+                        {{-- STUDENT --}}
+
+                        <td>
+
+                            <div class="student-table-profile">
+                                {{-- 
+                                <div class="student-table-avatar">
+
+                                    <i class="bi bi-person"></i>
+
+                                </div> --}}
+
+                                <div>
+
+                                    <span class="student-table-name">
+
+                                        {{ $student->full_name }}
+
+                                    </span>
+
+                                    {{-- <span class="student-table-number">
+
+                                        Student #{{ $loop->iteration }}
+
+                                    </span> --}}
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        {{-- EMAIL --}}
+
+                        <td>
+
+                            <div class="student-table-email" title="{{ $student->user->email ?? 'N/A' }}">
+
+                                {{ $student->user->email ?? 'N/A' }}
+
+                            </div>
+
+                        </td>
+
+
+                        {{-- DEPARTMENT --}}
+
+                        <td>
+
+                            {{ $student->department->name ?? 'N/A' }}
+
+                        </td>
+
+
+                        {{-- YEAR --}}
+
+                        <td>
+
+                            <span class="student-table-year">
+
+                                {{ $student->started_year ?? 'N/A' }}
+
+                            </span>
+
+                        </td>
+
+
+                        {{-- UPLOAD PERMISSION --}}
+
+                        <td>
+
+                            @if ($student->upload_permission)
+                                <span class="student-table-permission allowed">
+
+                                    <i class="bi bi-check-circle-fill"></i>
+
+                                    Allowed
+
+                                </span>
+                            @else
+                                <span class="student-table-permission denied">
+
+                                    <i class="bi bi-x-circle-fill"></i>
+
+                                    Not Allowed
+
+                                </span>
+                            @endif
+
+                        </td>
+
+
+                        {{-- ACTION --}}
+
+                        <td>
+
+                            <a href="{{ route('admin.students.edit', $student->id) }}"
+                                class="student-table-edit-button">
+
+                                <i class="bi bi-pencil-square"></i>
+
+                                <span>
+                                    Edit
+                                </span>
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                @empty
+
+                    <tr>
+
+                        <td colspan="7" class="student-table-empty">
+
+                            <i class="bi bi-people"></i>
+
+                            <strong>
+                                No Students Found
+                            </strong>
+
+                            <span>
+                                No students match your current search or filter.
+                            </span>
+
+                        </td>
+
+                    </tr>
+                @endforelse
+
+            </tbody>
+
+        </table>
 
     </div>
-@endforelse
+
+</div>
 
 
-{{-- =============================================================
-    STUDENT CARD CSS
-    BLACK + WHITE DESIGN
-    GREEN = ALLOWED
-    RED = NOT ALLOWED
-    LIGHT + DARK MODE
-============================================================= --}}
 
 <style>
-
-/* =========================================================
-   LIGHT MODE
+    /* =========================================================
+   CARD GRID
 ========================================================= */
 
-.student-item-card,
-.student-empty-result {
+    .student-partial-card-results {
 
-    --student-card-bg: #ffffff;
-    --student-soft-bg: #f7f7f7;
+        display: grid;
 
-    --student-text: #000000;
-    --student-secondary: #333333;
-    --student-muted: #777777;
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
 
-    --student-border: #dddddd;
+        gap: 1.25rem;
 
-    --student-success: #15803d;
-    --student-success-bg: #f0fdf4;
-    --student-success-border: #22c55e;
+        width: 100%;
 
-    --student-danger: #dc2626;
-    --student-danger-bg: #fef2f2;
-    --student-danger-border: #ef4444;
-
-    --student-shadow:
-        0 3px 12px rgba(0, 0, 0, .06);
-
-    --student-shadow-hover:
-        0 8px 24px rgba(0, 0, 0, .10);
-}
+    }
 
 
-/* =========================================================
-   DARK MODE VARIABLES
-
-   PAGE  : #101426
-   CARD  : #181d33
-   SOFT  : #20253a
-   BORDER: #292e45
+    /* =========================================================
+   STUDENT CARD
 ========================================================= */
 
-[data-bs-theme="dark"] .student-item-card,
-[data-bs-theme="dark"] .student-empty-result,
-.dark .student-item-card,
-.dark .student-empty-result {
+    .admin-student-card {
 
-    --student-card-bg: #181d33;
-    --student-soft-bg: #20253a;
+        position: relative;
 
-    --student-text: #eeeef8;
-    --student-secondary: #d5d8e8;
-    --student-muted: #999fb9;
+        width: 100%;
 
-    --student-border: #292e45;
+        min-width: 0;
 
-    --student-success: #4ade80;
-    --student-success-bg: #07140b;
-    --student-success-border: #22c55e;
+        overflow: hidden;
 
-    --student-danger: #f87171;
-    --student-danger-bg: #1a0808;
-    --student-danger-border: #ef4444;
+        background: #ffffff;
 
-    --student-shadow:
-        0 4px 16px rgba(0, 0, 0, .35);
+        border: 1px solid #e1e1e1;
 
-    --student-shadow-hover:
-        0 8px 28px rgba(0, 0, 0, .55);
-}
+        border-radius: 12px;
+
+        box-shadow:
+            0 2px 10px rgba(0, 0, 0, .04);
+
+        transition:
+            transform .2s ease,
+            box-shadow .2s ease,
+            border-color .2s ease;
+
+    }
 
 
-/* =========================================================
-   CARD
-========================================================= */
+    .admin-student-card:hover {
 
-.student-item-card {
+        transform: translateY(-2px);
 
-    position: relative;
+        border-color: #cfcfcf;
 
-    display: flex;
-    flex-direction: column;
+        box-shadow:
+            0 8px 24px rgba(0, 0, 0, .08);
 
-    width: 100%;
-    height: 100%;
-
-    overflow: hidden;
-
-    color: var(--student-text);
-
-    background: var(--student-card-bg);
-
-    border: 1px solid var(--student-border);
-
-    border-radius: 8px;
-
-    box-shadow: var(--student-shadow);
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        border-color .2s ease,
-        background-color .2s ease;
-}
+    }
 
 
-.student-item-card:hover {
-
-    transform: translateY(-3px);
-
-    border-color: var(--student-text);
-
-    box-shadow: var(--student-shadow-hover);
-}
-
-
-/* =========================================================
+    /* =========================================================
    CARD BODY
 ========================================================= */
 
-.student-item-card-body {
+    .admin-student-card-body {
 
-    display: flex;
+        padding: 1.15rem;
 
-    flex-direction: column;
-
-    min-height: 100%;
-
-    padding: 1.25rem;
-
-    color: var(--student-text);
-
-    background: var(--student-card-bg);
-}
+    }
 
 
-/* =========================================================
-   TOP
+    /* =========================================================
+   CARD TOP
 ========================================================= */
 
-.student-item-top {
+    .admin-student-card-top {
 
-    display: flex;
+        display: flex;
 
-    align-items: flex-start;
+        align-items: flex-start;
 
-    justify-content: space-between;
+        justify-content: space-between;
 
-    gap: .75rem;
-}
+        gap: .75rem;
+
+    }
 
 
-/* =========================================================
+    /* =========================================================
    PROFILE
 ========================================================= */
 
-.student-profile {
+    .admin-student-profile {
 
-    display: flex;
+        display: flex;
 
-    align-items: center;
+        align-items: center;
 
-    min-width: 0;
+        gap: .75rem;
 
-    gap: .75rem;
-}
+        min-width: 0;
 
+        flex: 1;
 
-.student-profile-info {
-
-    min-width: 0;
-}
+    }
 
 
-/* =========================================================
-   AVATAR
-========================================================= */
+    .admin-student-icon {
 
-.student-avatar {
+        display: flex;
 
-    display: flex;
+        align-items: center;
 
-    align-items: center;
+        justify-content: center;
 
-    justify-content: center;
+        width: 43px;
 
-    width: 48px;
-    height: 48px;
+        height: 43px;
 
-    flex: 0 0 48px;
+        flex-shrink: 0;
 
-    color: var(--student-text);
+        color: #ffffff;
 
-    background: var(--student-soft-bg);
+        background: #6538d9;
 
-    border: 1px solid var(--student-border);
+        border-radius: 50%;
 
-    border-radius: 50%;
-
-    transition:
-        background-color .2s ease,
-        color .2s ease,
-        border-color .2s ease;
-}
+    }
 
 
-.student-avatar i {
+    .admin-student-icon i {
 
-    font-size: 1.2rem;
-}
+        font-size: 1rem;
 
-
-/* =========================================================
-   AVATAR HOVER - LIGHT
-========================================================= */
-
-.student-item-card:hover .student-avatar {
-
-    color: #ffffff;
-
-    background: #000000;
-
-    border-color: #000000;
-}
+    }
 
 
-/* =========================================================
-   AVATAR HOVER - DARK
-========================================================= */
+    .admin-student-profile-info {
 
-[data-bs-theme="dark"] .student-item-card:hover .student-avatar,
-.dark .student-item-card:hover .student-avatar {
+        min-width: 0;
 
-    color: #000000;
-
-    background: #ffffff;
-
-    border-color: #ffffff;
-}
+    }
 
 
-/* =========================================================
-   STUDENT NAME
-========================================================= */
+    .admin-student-card-title {
 
-.student-name {
+        margin: 0;
 
-    margin:
-        0 0 .2rem;
+        overflow: hidden;
 
-    overflow:
-        hidden;
+        color: #111111;
 
-    color:
-        var(--student-text);
+        font-size: .9rem;
 
-    font-size:
-        .88rem;
+        font-weight: 800;
 
-    font-weight:
-        800;
+        line-height: 1.35;
 
-    line-height:
-        1.3;
+        text-overflow: ellipsis;
 
-    text-overflow:
-        ellipsis;
+        white-space: nowrap;
 
-    white-space:
-        nowrap;
-
-    text-transform:
-        uppercase;
-}
+    }
 
 
-/* =========================================================
-   STUDENT ID
-========================================================= */
+    .admin-student-id {
 
-.student-id {
+        display: block;
 
-    display:
-        block;
+        margin-top: .2rem;
 
-    color:
-        var(--student-muted);
+        color: #888888;
 
-    font-family:
-        monospace;
+        font-size: .62rem;
 
-    font-size:
-        .68rem;
+        font-weight: 600;
 
-    letter-spacing:
-        .02em;
-}
+    }
 
 
-/* =========================================================
+    /* =========================================================
    PERMISSION
 ========================================================= */
 
-.student-permission {
+    .admin-student-permission {
 
-    display:
-        inline-flex;
+        display: inline-flex;
 
-    align-items:
-        center;
+        align-items: center;
 
-    justify-content:
-        center;
+        gap: .3rem;
 
-    flex-shrink:
-        0;
+        flex-shrink: 0;
 
-    gap:
-        .35rem;
+        padding: .3rem .45rem;
 
-    min-height:
-        28px;
+        border-radius: 5px;
 
-    padding:
-        .35rem .6rem;
+        font-size: .55rem;
 
-    border:
-        1px solid;
+        font-weight: 800;
 
-    border-radius:
-        6px;
+        text-transform: uppercase;
 
-    font-family:
-        monospace;
+        white-space: nowrap;
 
-    font-size:
-        .61rem;
-
-    font-weight:
-        800;
-
-    line-height:
-        1;
-
-    text-transform:
-        uppercase;
-
-    white-space:
-        nowrap;
-
-    transition:
-        background-color .2s ease,
-        color .2s ease,
-        border-color .2s ease;
-}
+    }
 
 
-.student-permission i {
+    .admin-student-permission i {
 
-    font-size:
-        .72rem;
-}
+        font-size: .62rem;
 
-
-/* =========================================================
-   ALLOWED
-========================================================= */
-
-.student-permission-allowed {
-
-    color:
-        var(--student-success);
-
-    background:
-        var(--student-success-bg);
-
-    border-color:
-        var(--student-success-border);
-}
+    }
 
 
-.student-permission-allowed i {
+    .admin-student-permission-allowed {
 
-    color:
-        var(--student-success);
-}
+        color: #15803d;
 
+        background: #f0fdf4;
 
-/* =========================================================
-   NOT ALLOWED
-========================================================= */
+        border: 1px solid #bbf7d0;
 
-.student-permission-denied {
-
-    color:
-        var(--student-danger);
-
-    background:
-        var(--student-danger-bg);
-
-    border-color:
-        var(--student-danger-border);
-}
+    }
 
 
-.student-permission-denied i {
+    .admin-student-permission-denied {
 
-    color:
-        var(--student-danger);
-}
+        color: #dc2626;
 
+        background: #fef2f2;
 
-/* =========================================================
-   PERMISSION HOVER
-========================================================= */
+        border: 1px solid #fecaca;
 
-.student-permission-allowed:hover {
-
-    color:
-        #ffffff;
-
-    background:
-        var(--student-success);
-
-    border-color:
-        var(--student-success);
-}
+    }
 
 
-.student-permission-allowed:hover i {
-
-    color:
-        #ffffff;
-}
-
-
-.student-permission-denied:hover {
-
-    color:
-        #ffffff;
-
-    background:
-        var(--student-danger);
-
-    border-color:
-        var(--student-danger);
-}
-
-
-.student-permission-denied:hover i {
-
-    color:
-        #ffffff;
-}
-
-
-/* =========================================================
+    /* =========================================================
    DIVIDER
 ========================================================= */
 
-.student-card-divider {
+    .admin-student-card-divider {
 
-    width:
-        100%;
+        width: 100%;
 
-    height:
-        1px;
+        height: 1px;
 
-    margin:
-        1rem 0;
+        margin: 1rem 0;
 
-    background:
-        var(--student-border);
-}
+        background: #eeeeee;
+
+    }
 
 
-/* =========================================================
+    /* =========================================================
    INFORMATION ROW
 ========================================================= */
 
-.student-info-row {
+    .admin-student-info-row {
 
-    display:
-        flex;
+        display: flex;
 
-    align-items:
-        center;
+        align-items: center;
 
-    gap:
-        .8rem;
+        gap: .7rem;
 
-    min-width:
-        0;
+        min-width: 0;
 
-    margin-bottom:
-        1rem;
-}
+        margin-bottom: .75rem;
+
+    }
 
 
-.student-year-row {
+    .admin-student-info-icon {
 
-    margin-bottom:
-        1.25rem;
-}
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        width: 32px;
+
+        height: 32px;
+
+        flex-shrink: 0;
+
+        color: #6538d9;
+
+        background: #f5f2ff;
+
+        border-radius: 7px;
+
+    }
 
 
-/* =========================================================
-   INFORMATION ICON
+    .admin-student-info-icon i {
+
+        font-size: .78rem;
+
+    }
+
+
+    .admin-student-info-content {
+
+        display: flex;
+
+        flex-direction: column;
+
+        min-width: 0;
+
+        flex: 1;
+
+    }
+
+
+    .admin-student-info-label {
+
+        margin-bottom: .12rem;
+
+        color: #888888;
+
+        font-size: .57rem;
+
+        font-weight: 800;
+
+        letter-spacing: .04em;
+
+        text-transform: uppercase;
+
+    }
+
+
+    .admin-student-info-value {
+
+        overflow: hidden;
+
+        color: #222222;
+
+        font-size: .73rem;
+
+        font-weight: 700;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+
+    }
+
+
+    .admin-student-email {
+
+        display: block;
+
+    }
+
+
+    .admin-student-year-badge {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        width: fit-content;
+
+        padding: .2rem .4rem;
+
+        color: #222222;
+
+        background: #f5f5f5;
+
+        border: 1px solid #dddddd;
+
+        border-radius: 4px;
+
+        font-family: monospace;
+
+        font-size: .65rem;
+
+        font-weight: 700;
+
+    }
+
+
+    /* =========================================================
+   CARD ACTION
 ========================================================= */
 
-.student-info-icon {
+    .admin-student-card-action {
 
-    display:
-        flex;
+        margin-top: 1rem;
 
-    align-items:
-        center;
+        padding-top: .85rem;
 
-    justify-content:
-        center;
+        border-top: 1px solid #eeeeee;
 
-    width:
-        36px;
-
-    height:
-        36px;
-
-    flex:
-        0 0 36px;
-
-    color:
-        var(--student-text);
-
-    background:
-        var(--student-soft-bg);
-
-    border:
-        1px solid var(--student-border);
-
-    border-radius:
-        7px;
-}
+    }
 
 
-.student-info-icon i {
+    .admin-student-edit-button {
 
-    font-size:
-        .88rem;
-}
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: .45rem;
+
+        width: 100%;
+
+        height: 37px;
+
+        color: #6538d9;
+
+        background: transparent;
+
+        border: 1px solid #6538d9;
+
+        border-radius: 6px;
+
+        font-size: .65rem;
+
+        font-weight: 800;
+
+        text-decoration: none;
+
+        text-transform: uppercase;
+
+        transition: .2s ease;
+
+    }
 
 
-/* =========================================================
-   INFORMATION CONTENT
+    .admin-student-edit-button:hover {
+
+        color: #ffffff;
+
+        background: #6538d9;
+
+        border-color: #6538d9;
+
+    }
+
+
+    .admin-student-edit-button i {
+
+        font-size: .8rem;
+
+    }
+
+
+    /* =========================================================
+   EMPTY CARD
 ========================================================= */
 
-.student-info-content {
+    .admin-student-empty-result {
 
-    display:
-        flex;
+        grid-column: 1 / -1;
 
-    flex-direction:
-        column;
+        padding: 4rem 1rem;
 
-    min-width:
-        0;
+        text-align: center;
 
-    gap:
-        .18rem;
-}
+    }
 
 
-/* =========================================================
-   LABEL
+    .admin-student-empty-result-icon {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        width: 65px;
+
+        height: 65px;
+
+        margin: 0 auto 1rem;
+
+        color: #777777;
+
+        background: #f7f7f7;
+
+        border: 1px solid #e5e5e5;
+
+        border-radius: 50%;
+
+    }
+
+
+    .admin-student-empty-result-icon i {
+
+        font-size: 1.6rem;
+
+    }
+
+
+    .admin-student-empty-result h5 {
+
+        margin: 0 0 .35rem;
+
+        color: #222222;
+
+        font-size: .85rem;
+
+        font-weight: 800;
+
+        text-transform: uppercase;
+
+    }
+
+
+    .admin-student-empty-result p {
+
+        margin: 0;
+
+        color: #888888;
+
+        font-size: .72rem;
+
+    }
+
+
+    /* =========================================================
+   DARK MODE CARD
 ========================================================= */
 
-.student-info-label {
+    [data-bs-theme="dark"] .admin-student-card {
 
-    color:
-        var(--student-muted);
+        background: #181d33;
 
-    font-size:
-        .61rem;
+        border-color: #292e45;
 
-    font-weight:
-        800;
+        box-shadow:
+            0 3px 12px rgba(0, 0, 0, .3);
 
-    letter-spacing:
-        .06em;
-
-    line-height:
-        1.2;
-
-    text-transform:
-        uppercase;
-}
+    }
 
 
-/* =========================================================
-   VALUE
+    [data-bs-theme="dark"] .admin-student-card:hover {
+
+        background: #1b2038;
+
+        border-color: #3a405a;
+
+        box-shadow:
+            0 8px 24px rgba(0, 0, 0, .4);
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-card-title {
+
+        color: #ffffff;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-id {
+
+        color: #8e95b0;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-card-divider {
+
+        background: #292e45;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-info-icon {
+
+        color: #a88ff0;
+
+        background: #25203c;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-info-label {
+
+        color: #8e95b0;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-info-value {
+
+        color: #eeeef8;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-year-badge {
+
+        color: #eeeeee;
+
+        background: #20253a;
+
+        border-color: #343a52;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-card-action {
+
+        border-color: #292e45;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-edit-button {
+
+        color: #a88ff0;
+
+        border-color: #a88ff0;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-edit-button:hover {
+
+        color: #ffffff;
+
+        background: #6538d9;
+
+        border-color: #6538d9;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-empty-result h5 {
+
+        color: #ffffff;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-empty-result-icon {
+
+        color: #999fb9;
+
+        background: #20253a;
+
+        border-color: #343a52;
+
+    }
+
+
+    /* =========================================================
+   TABLE
 ========================================================= */
 
-.student-info-value {
+    .student-partial-table-results {
 
-    display:
-        block;
+        display: none;
 
-    overflow:
-        hidden;
-
-    color:
-        var(--student-text);
-
-    font-size:
-        .76rem;
-
-    font-weight:
-        600;
-
-    line-height:
-        1.4;
-
-    text-overflow:
-        ellipsis;
-
-    white-space:
-        nowrap;
-}
+    }
 
 
-.student-email {
+    .student-results-container.table-mode .student-partial-card-results {
 
-    max-width:
-        220px;
-}
+        display: none;
+
+    }
 
 
-/* =========================================================
-   YEAR BADGE
+    .student-results-container.table-mode .student-partial-table-results {
+
+        display: block;
+
+    }
+
+
+    .student-table-wrapper {
+
+        width: 100%;
+
+        overflow-x: auto;
+
+        background: #ffffff;
+
+        border: 1px solid #e1e1e1;
+
+        border-radius: 10px;
+
+    }
+
+
+    .student-table {
+
+        width: 100%;
+
+        min-width: 950px;
+
+        border-collapse: collapse;
+
+    }
+
+
+    .student-table th {
+
+        padding: .85rem;
+
+        color: #444444;
+
+        background: #f8f8f8;
+
+        border-bottom: 1px solid #dddddd;
+
+        font-size: .64rem;
+
+        font-weight: 800;
+
+        text-align: left;
+
+        text-transform: uppercase;
+
+        white-space: nowrap;
+
+    }
+
+
+    .student-table td {
+
+        padding: .8rem;
+
+        color: #222222;
+
+        background: #ffffff;
+
+        border-bottom: 1px solid #eeeeee;
+
+        font-size: .74rem;
+
+        vertical-align: middle;
+
+    }
+
+
+    .student-table tbody tr:hover td {
+
+        background: #fafafa;
+
+    }
+
+
+    .student-table tbody tr:last-child td {
+
+        border-bottom: 0;
+
+    }
+
+
+    /* =========================================================
+   TABLE PROFILE
 ========================================================= */
 
-.student-year-badge {
+    .student-table-profile {
 
-    display:
-        inline-flex;
+        display: flex;
 
-    align-items:
-        center;
+        align-items: center;
 
-    width:
-        fit-content;
+        gap: .6rem;
 
-    padding:
-        .3rem .55rem;
+        min-width: 190px;
 
-    color:
-        var(--student-text);
-
-    background:
-        var(--student-soft-bg);
-
-    border:
-        1px solid var(--student-border);
-
-    border-radius:
-        5px;
-
-    font-family:
-        monospace;
-
-    font-size:
-        .7rem;
-
-    font-weight:
-        700;
-
-    line-height:
-        1;
-}
+    }
 
 
-/* =========================================================
-   ACTION
+    .student-table-avatar {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        width: 35px;
+
+        height: 35px;
+
+        flex-shrink: 0;
+
+        color: #ffffff;
+
+        background: #6538d9;
+
+        border-radius: 50%;
+
+    }
+
+
+    .student-table-name {
+
+        display: block;
+
+        max-width: 210px;
+
+        overflow: hidden;
+
+        color: #222222;
+
+        font-size: .74rem;
+
+        font-weight: 800;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+
+    }
+
+
+    .student-table-number {
+
+        display: block;
+
+        margin-top: .12rem;
+
+        color: #888888;
+
+        font-size: .58rem;
+
+    }
+
+
+    .student-table-email {
+
+        max-width: 220px;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+
+    }
+
+
+    /* =========================================================
+   TABLE YEAR
 ========================================================= */
 
-.student-card-action {
+    .student-table-year {
 
-    position:
-        relative;
+        display: inline-flex;
 
-    display:
-        flex;
+        padding: .25rem .45rem;
 
-    justify-content:
-        flex-end;
+        color: #333333;
 
-    margin-top:
-        auto;
+        background: #f5f5f5;
 
-    padding-top:
-        1rem;
+        border: 1px solid #dddddd;
 
-    border-top:
-        1px solid var(--student-border);
-}
+        border-radius: 5px;
+
+        font-family: monospace;
+
+        font-size: .63rem;
+
+    }
 
 
-/* =========================================================
-   EDIT BUTTON
+    /* =========================================================
+   TABLE PERMISSION
 ========================================================= */
 
-.student-edit-button {
+    .student-table-permission {
 
-    display:
-        inline-flex;
+        display: inline-flex;
 
-    align-items:
-        center;
+        align-items: center;
 
-    justify-content:
-        center;
+        gap: .3rem;
 
-    gap:
-        .4rem;
+        padding: .3rem .5rem;
 
-    min-width:
-        86px;
+        border-radius: 5px;
 
-    min-height:
-        36px;
+        font-size: .6rem;
 
-    padding:
-        .45rem .8rem;
+        font-weight: 800;
 
-    color:
-        #ffffff;
+        white-space: nowrap;
 
-    background:
-        #000000;
-
-    border:
-        1px solid #000000;
-
-    border-radius:
-        6px;
-
-    font-size:
-        .68rem;
-
-    font-weight:
-        800;
-
-    line-height:
-        1;
-
-    text-decoration:
-        none;
-
-    text-transform:
-        uppercase;
-
-    transition:
-        background-color .2s ease,
-        color .2s ease,
-        border-color .2s ease,
-        transform .2s ease,
-        box-shadow .2s ease;
-}
+    }
 
 
-/* =========================================================
-   EDIT BUTTON DARK
+    .student-table-permission.allowed {
+
+        color: #15803d;
+
+        background: #f0fdf4;
+
+        border: 1px solid #bbf7d0;
+
+    }
+
+
+    .student-table-permission.denied {
+
+        color: #dc2626;
+
+        background: #fef2f2;
+
+        border: 1px solid #fecaca;
+
+    }
+
+
+    /* =========================================================
+   TABLE EDIT
 ========================================================= */
 
-[data-bs-theme="dark"] .student-edit-button,
-.dark .student-edit-button {
+    .student-table-edit-button {
 
-    color:
-        #000000 !important;
+        display: inline-flex;
 
-    background:
-        #ffffff !important;
+        align-items: center;
 
-    border-color:
-        #ffffff !important;
-}
+        justify-content: center;
+
+        gap: .35rem;
+
+        min-width: 75px;
+
+        height: 33px;
+
+        padding: .3rem .6rem;
+
+        color: #6538d9;
+
+        background: transparent;
+
+        border: 1px solid #6538d9;
+
+        border-radius: 6px;
+
+        font-size: .61rem;
+
+        font-weight: 800;
+
+        text-decoration: none;
+
+        text-transform: uppercase;
+
+        transition: .2s ease;
+
+    }
 
 
-.student-edit-button i {
+    .student-table-edit-button:hover {
 
-    font-size:
-        .75rem;
-}
+        color: #ffffff;
+
+        background: #6538d9;
+
+        border-color: #6538d9;
+
+    }
 
 
-/* =========================================================
-   EDIT BUTTON HOVER - LIGHT
+    /* =========================================================
+   TABLE EMPTY
 ========================================================= */
 
-.student-edit-button:hover {
+    .student-table-empty {
 
-    color:
-        #000000;
+        height: 220px;
 
-    background:
-        #ffffff;
+        text-align: center !important;
 
-    border-color:
-        #000000;
-
-    transform:
-        translateY(-1px);
-
-    box-shadow:
-        0 5px 14px rgba(0, 0, 0, .12);
-}
+    }
 
 
-/* =========================================================
-   EDIT BUTTON HOVER - DARK
+    .student-table-empty i {
+
+        display: block;
+
+        margin-bottom: .5rem;
+
+        color: #888888;
+
+        font-size: 1.7rem;
+
+    }
+
+
+    .student-table-empty strong {
+
+        display: block;
+
+        color: #333333;
+
+        font-size: .8rem;
+
+    }
+
+
+    .student-table-empty span {
+
+        display: block;
+
+        margin-top: .25rem;
+
+        color: #888888;
+
+        font-size: .7rem;
+
+    }
+
+
+    /* =========================================================
+   DARK MODE TABLE
 ========================================================= */
 
-[data-bs-theme="dark"] .student-edit-button:hover,
-.dark .student-edit-button:hover {
+    [data-bs-theme="dark"] .student-table-wrapper {
 
-    color:
-        #ffffff !important;
+        background: #181d33;
 
-    background:
-        #000000 !important;
+        border-color: #292e45;
 
-    border-color:
-        #ffffff !important;
-
-    box-shadow:
-        0 5px 14px rgba(255, 255, 255, .08);
-}
+    }
 
 
-/* =========================================================
-   EMPTY RESULT
+    [data-bs-theme="dark"] .student-table th {
+
+        color: #d5d8e8;
+
+        background: #20253a;
+
+        border-color: #343a52;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table td {
+
+        color: #eeeef8;
+
+        background: #181d33;
+
+        border-color: #292e45;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table tbody tr:hover td {
+
+        background: #20253a;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-name {
+
+        color: #ffffff;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-number {
+
+        color: #8e95b0;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-year {
+
+        color: #eeeeee;
+
+        background: #20253a;
+
+        border-color: #343a52;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-permission.allowed {
+
+        color: #4ade80;
+
+        background: #07140b;
+
+        border-color: #166534;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-permission.denied {
+
+        color: #f87171;
+
+        background: #1a0808;
+
+        border-color: #7f1d1d;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-edit-button {
+
+        color: #a88ff0;
+
+        border-color: #a88ff0;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-edit-button:hover {
+
+        color: #ffffff;
+
+        background: #6538d9;
+
+        border-color: #6538d9;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-empty strong {
+
+        color: #ffffff;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-empty i {
+
+        color: #999fb9;
+
+    }
+
+
+    /* =========================================================
+   RESPONSIVE
 ========================================================= */
 
-.student-empty-result {
+    @media (max-width: 1399.98px) {
 
-    display:
-        flex;
+        .student-partial-card-results {
 
-    flex-direction:
-        column;
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
 
-    align-items:
-        center;
+        }
 
-    justify-content:
-        center;
-
-    min-height:
-        280px;
-
-    padding:
-        2.5rem 1rem;
-
-    text-align:
-        center;
-
-    color:
-        var(--student-text);
-
-    background:
-        var(--student-card-bg);
-
-    border:
-        1px solid var(--student-border);
-
-    border-radius:
-        8px;
-
-    box-shadow:
-        var(--student-shadow);
-}
-
-
-/* =========================================================
-   EMPTY ICON
-========================================================= */
-
-.student-empty-result-icon {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    width:
-        64px;
-
-    height:
-        64px;
-
-    margin-bottom:
-        1rem;
-
-    color:
-        var(--student-text);
-
-    background:
-        var(--student-soft-bg);
-
-    border:
-        1px solid var(--student-border);
-
-    border-radius:
-        50%;
-}
-
-
-.student-empty-result-icon i {
-
-    font-size:
-        1.5rem;
-}
-
-
-/* =========================================================
-   EMPTY TITLE
-========================================================= */
-
-.student-empty-result h5 {
-
-    margin:
-        0 0 .4rem;
-
-    color:
-        var(--student-text);
-
-    font-size:
-        .85rem;
-
-    font-weight:
-        800;
-
-    text-transform:
-        uppercase;
-}
-
-
-/* =========================================================
-   EMPTY TEXT
-========================================================= */
-
-.student-empty-result p {
-
-    margin:
-        0;
-
-    color:
-        var(--student-muted);
-
-    font-size:
-        .74rem;
-}
-
-
-/* =========================================================
-   EXPLICIT DARK MODE
-   Prevent Bootstrap from overriding the card
-========================================================= */
-
-[data-bs-theme="dark"] .student-item-card,
-.dark .student-item-card {
-
-    background-color:
-        #181d33 !important;
-
-    color:
-        #eeeef8 !important;
-
-    border-color:
-        #292e45 !important;
-}
-
-
-[data-bs-theme="dark"] .student-item-card-body,
-.dark .student-item-card-body {
-
-    background-color:
-        #181d33 !important;
-
-    color:
-        #eeeef8 !important;
-}
-
-
-[data-bs-theme="dark"] .student-name,
-.dark .student-name {
-
-    color:
-        #eeeef8 !important;
-}
-
-
-[data-bs-theme="dark"] .student-id,
-.dark .student-id {
-
-    color:
-        #999fb9 !important;
-}
-
-
-[data-bs-theme="dark"] .student-info-label,
-.dark .student-info-label {
-
-    color:
-        #999fb9 !important;
-}
-
-
-[data-bs-theme="dark"] .student-info-value,
-.dark .student-info-value {
-
-    color:
-        #eeeef8 !important;
-}
-
-
-[data-bs-theme="dark"] .student-avatar,
-.dark .student-avatar {
-
-    color:
-        #eeeef8 !important;
-
-    background-color:
-        #20253a !important;
-
-    border-color:
-        #292e45 !important;
-}
-
-
-[data-bs-theme="dark"] .student-info-icon,
-.dark .student-info-icon {
-
-    color:
-        #eeeef8 !important;
-
-    background-color:
-        #20253a !important;
-
-    border-color:
-        #292e45 !important;
-}
-
-
-[data-bs-theme="dark"] .student-year-badge,
-.dark .student-year-badge {
-
-    color:
-        #eeeef8 !important;
-
-    background-color:
-        #20253a !important;
-
-    border-color:
-        #292e45 !important;
-}
-
-
-[data-bs-theme="dark"] .student-card-divider,
-.dark .student-card-divider {
-
-    background-color:
-        #292e45 !important;
-}
-
-
-[data-bs-theme="dark"] .student-card-action,
-.dark .student-card-action {
-
-    border-color:
-        #292e45 !important;
-}
-
-
-/* =========================================================
-   DARK EMPTY STATE
-========================================================= */
-
-[data-bs-theme="dark"] .student-empty-result,
-.dark .student-empty-result {
-
-    background-color:
-        #181d33 !important;
-
-    color:
-        #eeeef8 !important;
-
-    border-color:
-        #292e45 !important;
-}
-
-
-[data-bs-theme="dark"] .student-empty-result-icon,
-.dark .student-empty-result-icon {
-
-    color:
-        #eeeef8 !important;
-
-    background-color:
-        #20253a !important;
-
-    border-color:
-        #292e45 !important;
-}
-
-
-[data-bs-theme="dark"] .student-empty-result h5,
-.dark .student-empty-result h5 {
-
-    color:
-        #eeeef8 !important;
-}
-
-
-[data-bs-theme="dark"] .student-empty-result p,
-.dark .student-empty-result p {
-
-    color:
-        #999fb9 !important;
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 991.98px) {
-
-    .student-item-card-body {
-
-        padding:
-            1.1rem;
     }
 
 
-    .student-name {
+    @media (max-width: 1199.98px) {
 
-        font-size:
-            .82rem;
+        .student-partial-card-results {
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+        }
+
     }
 
 
-    .student-permission {
+    @media (max-width: 767.98px) {
 
-        padding:
-            .28rem .45rem;
+        .student-partial-card-results {
 
-        font-size:
-            .58rem;
-    }
-}
+            grid-template-columns: 1fr;
 
+            gap: 1rem;
 
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 767.98px) {
-
-    .student-item-card {
-
-        border-radius:
-            7px;
-    }
+        }
 
 
-    .student-item-card-body {
+        .admin-student-card-body {
 
-        padding:
-            1rem;
-    }
+            padding: 1rem;
 
-
-    .student-name {
-
-        font-size:
-            .84rem;
-    }
+        }
 
 
-    .student-avatar {
+        .admin-student-card-title {
 
-        width:
-            44px;
+            font-size: .84rem;
 
-        height:
-            44px;
+        }
 
-        flex-basis:
-            44px;
+
+        .admin-student-permission {
+
+            font-size: .5rem;
+
+        }
+
+
+        .student-table-wrapper {
+
+            border-radius: 8px;
+
+        }
+
     }
 
 
-    .student-permission {
+    @media (max-width: 575.98px) {
 
-        min-height:
-            25px;
+        .admin-student-card-top {
 
-        padding:
-            .25rem .45rem;
+            gap: .5rem;
 
-        font-size:
-            .56rem;
+        }
+
+
+        .admin-student-icon {
+
+            width: 40px;
+
+            height: 40px;
+
+        }
+
+
+        .admin-student-permission span {
+
+            display: none;
+
+        }
+
+
+        .admin-student-permission {
+
+            width: 25px;
+
+            height: 25px;
+
+            justify-content: center;
+
+            padding: 0;
+
+        }
+
+
+        .admin-student-info-value {
+
+            font-size: .7rem;
+
+        }
+
     }
-
-
-    .student-info-value {
-
-        font-size:
-            .74rem;
-    }
-
-
-    .student-email {
-
-        max-width:
-            calc(100vw - 120px);
-    }
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media (max-width: 575.98px) {
-
-    .student-item-card-body {
-
-        padding:
-            .9rem;
-    }
-
-
-    .student-item-top {
-
-        gap:
-            .5rem;
-    }
-
-
-    .student-profile {
-
-        gap:
-            .6rem;
-    }
-
-
-    .student-avatar {
-
-        width:
-            42px;
-
-        height:
-            42px;
-
-        flex-basis:
-            42px;
-    }
-
-
-    .student-avatar i {
-
-        font-size:
-            1.05rem;
-    }
-
-
-    .student-name {
-
-        max-width:
-            170px;
-
-        font-size:
-            .78rem;
-    }
-
-
-    .student-id {
-
-        font-size:
-            .62rem;
-    }
-
-
-    /* =====================================================
-       PERMISSION ICON ONLY
-    ====================================================== */
-
-    .student-permission {
-
-        width:
-            30px;
-
-        height:
-            30px;
-
-        min-height:
-            30px;
-
-        padding:
-            0;
-
-        border-radius:
-            50%;
-    }
-
-
-    .student-permission span {
-
-        display:
-            none;
-    }
-
-
-    .student-permission i {
-
-        margin:
-            0;
-
-        font-size:
-            .75rem;
-    }
-
-
-    /* =====================================================
-       INFO
-    ====================================================== */
-
-    .student-info-row {
-
-        gap:
-            .65rem;
-
-        margin-bottom:
-            .85rem;
-    }
-
-
-    .student-info-icon {
-
-        width:
-            34px;
-
-        height:
-            34px;
-
-        flex-basis:
-            34px;
-    }
-
-
-    .student-info-label {
-
-        font-size:
-            .58rem;
-    }
-
-
-    .student-info-value {
-
-        font-size:
-            .7rem;
-    }
-
-
-    .student-email {
-
-        max-width:
-            calc(100vw - 115px);
-    }
-
-
-    .student-year-row {
-
-        margin-bottom:
-            1rem;
-    }
-
-
-    /* =====================================================
-       ACTION
-    ====================================================== */
-
-    .student-card-action {
-
-        padding-top:
-            .8rem;
-    }
-
-
-    /* =====================================================
-       EDIT ICON ONLY
-    ====================================================== */
-
-    .student-edit-button {
-
-        width:
-            38px;
-
-        min-width:
-            38px;
-
-        height:
-            36px;
-
-        min-height:
-            36px;
-
-        padding:
-            0;
-    }
-
-
-    .student-edit-button span {
-
-        display:
-            none;
-    }
-
-
-    .student-edit-button i {
-
-        margin:
-            0;
-
-        font-size:
-            .8rem;
-    }
-
-
-    /* =====================================================
-       TOOLTIP
-    ====================================================== */
-
-    .student-edit-button[data-tooltip]::after {
-
-        content:
-            attr(data-tooltip);
-
-        position:
-            absolute;
-
-        right:
-            0;
-
-        bottom:
-            calc(100% + 8px);
-
-        z-index:
-            100;
-
-        padding:
-            .4rem .6rem;
-
-        color:
-            #ffffff;
-
-        background:
-            #000000;
-
-        border-radius:
-            5px;
-
-        font-size:
-            .62rem;
-
-        font-weight:
-            700;
-
-        white-space:
-            nowrap;
-
-        opacity:
-            0;
-
-        pointer-events:
-            none;
-
-        transform:
-            translateY(3px);
-
-        transition:
-            opacity .15s ease,
-            transform .15s ease;
-    }
-
-
-    .student-edit-button[data-tooltip]:hover::after {
-
-        opacity:
-            1;
-
-        transform:
-            translateY(0);
-    }
-
-
-    /* =====================================================
-       EMPTY
-    ====================================================== */
-
-    .student-empty-result {
-
-        min-height:
-            230px;
-
-        padding:
-            2rem 1rem;
-    }
-}
-
-
-/* =========================================================
-   VERY SMALL MOBILE
-========================================================= */
-
-@media (max-width: 380px) {
-
-    .student-name {
-
-        max-width:
-            135px;
-    }
-
-
-    .student-permission {
-
-        width:
-            28px;
-
-        height:
-            28px;
-
-        min-height:
-            28px;
-    }
-
-
-    .student-info-value {
-
-        max-width:
-            190px;
-    }
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-    .student-item-card,
-    .student-avatar,
-    .student-edit-button,
-    .student-permission {
-
-        transition:
-            none !important;
-    }
-}
-
 </style>

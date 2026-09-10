@@ -7,32 +7,24 @@
         ========================================================== --}}
 
         @if (session('success'))
-
             <div class="request-alert request-alert-success">
-
                 <i class="bi bi-check-circle-fill"></i>
 
                 <span>
                     {{ session('success') }}
                 </span>
-
             </div>
-
         @endif
 
 
         @if (session('error'))
-
             <div class="request-alert request-alert-danger">
-
                 <i class="bi bi-exclamation-triangle-fill"></i>
 
                 <span>
                     {{ session('error') }}
                 </span>
-
             </div>
-
         @endif
 
 
@@ -43,7 +35,6 @@
             ====================================================== --}}
 
             <div class="request-form-card">
-
 
                 {{-- =================================================
                     HEADER
@@ -57,10 +48,11 @@
                             REQUEST #{{ $thesisRequest->id }}
                         </span>
 
-
                         <div class="request-title-row">
 
-                            <i class="bi bi-journal-text"></i>
+                            <div class="request-title-icon">
+                                <i class="bi bi-journal-text"></i>
+                            </div>
 
                             <h1 class="request-title">
                                 {{ $thesisRequest->title }}
@@ -78,41 +70,30 @@
                         @if ($thesisRequest->status === 'approved')
 
                             <span class="request-status status-approved">
-
                                 <i class="bi bi-check-circle-fill"></i>
-
                                 Approved
-
                             </span>
 
                         @elseif ($thesisRequest->status === 'pending')
 
                             <span class="request-status status-pending">
-
                                 <i class="bi bi-clock-fill"></i>
-
                                 Pending
-
                             </span>
 
                         @elseif ($thesisRequest->status === 'rejected')
 
                             <span class="request-status status-rejected">
-
                                 <i class="bi bi-x-circle-fill"></i>
-
                                 Rejected
-
                             </span>
 
                         @else
 
                             <span class="request-status status-default">
-
                                 <i class="bi bi-question-circle-fill"></i>
 
                                 {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
-
                             </span>
 
                         @endif
@@ -131,14 +112,10 @@
                     <div class="section-heading">
 
                         <div class="section-heading-icon">
-
                             <i class="bi bi-info-circle-fill"></i>
-
                         </div>
 
-
                         <div>
-
                             <h2>
                                 Request Information
                             </h2>
@@ -146,14 +123,12 @@
                             <p>
                                 Details about this thesis submission.
                             </p>
-
                         </div>
 
                     </div>
 
 
                     <div class="request-information-form">
-
 
                         {{-- AUTHOR --}}
 
@@ -164,9 +139,7 @@
                             </span>
 
                             <div class="request-form-control">
-
                                 {{ $thesisRequest->author_name ?? 'N/A' }}
-
                             </div>
 
                         </div>
@@ -181,9 +154,7 @@
                             </span>
 
                             <div class="request-form-control">
-
                                 {{ $thesisRequest->department?->name ?? 'N/A' }}
-
                             </div>
 
                         </div>
@@ -198,9 +169,7 @@
                             </span>
 
                             <div class="request-form-control">
-
                                 {{ $thesisRequest->user?->name ?? ($thesisRequest->user?->username ?? 'N/A') }}
-
                             </div>
 
                         </div>
@@ -218,7 +187,8 @@
 
                                 {{ $thesisRequest->submitted_at
                                     ? \Carbon\Carbon::parse($thesisRequest->submitted_at)->format('d M Y, h:i A')
-                                    : 'N/A' }}
+                                    : 'N/A'
+                                }}
 
                             </div>
 
@@ -235,7 +205,9 @@
 
                             <div class="request-form-control">
 
-                                {{ $thesisRequest->reviewer?->name ?? ($thesisRequest->reviewer?->username ?? 'Not reviewed') }}
+                                {{ $thesisRequest->reviewer?->name
+                                    ?? ($thesisRequest->reviewer?->username ?? 'Not reviewed')
+                                }}
 
                             </div>
 
@@ -254,7 +226,8 @@
 
                                 {{ $thesisRequest->reviewed_at
                                     ? \Carbon\Carbon::parse($thesisRequest->reviewed_at)->format('d M Y, h:i A')
-                                    : 'Not reviewed' }}
+                                    : 'Not reviewed'
+                                }}
 
                             </div>
 
@@ -274,11 +247,8 @@
                     <div class="section-heading">
 
                         <div class="section-heading-icon">
-
                             <i class="bi bi-file-text-fill"></i>
-
                         </div>
-
 
                         <div>
 
@@ -313,11 +283,8 @@
                     <div class="section-heading">
 
                         <div class="section-heading-icon">
-
                             <i class="bi bi-card-text"></i>
-
                         </div>
-
 
                         <div>
 
@@ -352,11 +319,8 @@
                     <div class="section-heading">
 
                         <div class="section-heading-icon document-icon">
-
                             <i class="bi bi-file-earmark-pdf-fill"></i>
-
                         </div>
-
 
                         <div>
 
@@ -378,11 +342,8 @@
                         <div class="document-left">
 
                             <div class="document-file-icon">
-
                                 <i class="bi bi-file-earmark-pdf-fill"></i>
-
                             </div>
-
 
                             <div class="document-details">
 
@@ -398,6 +359,8 @@
 
                         </div>
 
+
+                        {{-- VIEW PDF --}}
 
                         <a
                             href="{{ route('admin.thesis_requests.view-request-pdf', $thesisRequest) }}"
@@ -427,11 +390,8 @@
                         <div class="section-heading">
 
                             <div class="section-heading-icon rejection-icon">
-
                                 <i class="bi bi-exclamation-triangle-fill"></i>
-
                             </div>
-
 
                             <div>
 
@@ -450,7 +410,6 @@
 
                         <div class="request-information-form">
 
-
                             {{-- REJECTED BY --}}
 
                             <div class="request-form-group">
@@ -460,9 +419,7 @@
                                 </span>
 
                                 <div class="request-form-control">
-
                                     {{ $thesisRequest->reviewer?->name ?? ($thesisRequest->reviewer?->username ?? 'Unknown') }}
-
                                 </div>
 
                             </div>
@@ -477,9 +434,7 @@
                                 </span>
 
                                 <div class="request-form-control reason-value">
-
                                     {{ $thesisRequest->remarks ?? 'No rejection reason provided.' }}
-
                                 </div>
 
                             </div>
@@ -499,10 +454,7 @@
 
                     <div class="review-decision-section">
 
-
-                        {{-- =================================================
-                            REVIEW HEADER
-                        ================================================== --}}
+                        {{-- REVIEW HEADER --}}
 
                         <div class="review-decision-header">
 
@@ -525,20 +477,15 @@
                         </div>
 
 
-                        {{-- =================================================
-                            APPROVE
-                        ================================================== --}}
+                        {{-- APPROVE --}}
 
                         <div class="approve-box">
 
                             <div class="approve-content">
 
                                 <div class="approve-icon">
-
                                     <i class="bi bi-check-lg"></i>
-
                                 </div>
-
 
                                 <div>
 
@@ -578,20 +525,15 @@
                         </div>
 
 
-                        {{-- =================================================
-                            REJECT
-                        ================================================== --}}
+                        {{-- REJECT --}}
 
                         <div class="reject-box">
 
                             <div class="reject-heading">
 
                                 <div class="reject-icon">
-
                                     <i class="bi bi-x-lg"></i>
-
                                 </div>
-
 
                                 <div>
 
@@ -623,7 +565,6 @@
                                     <label for="remarks">
                                         Rejection Reason
                                     </label>
-
 
                                     <textarea
                                         name="remarks"
@@ -673,7 +614,6 @@
 
                 @endif
 
-
             </div>
 
         @else
@@ -685,16 +625,12 @@
             <div class="empty-request">
 
                 <div class="empty-icon">
-
                     <i class="bi bi-journal-x"></i>
-
                 </div>
-
 
                 <h2>
                     No Requests Found
                 </h2>
-
 
                 <p>
                     There are currently no thesis upload requests.
@@ -710,7 +646,7 @@
     <style>
 
         /* =========================================================
-           VARIABLES
+           PAGE VARIABLES
         ========================================================== */
 
         .thesis-request-page {
@@ -721,17 +657,38 @@
 
             --request-card: #ffffff;
             --request-soft: #f8f8f8;
-            --request-soft-blue: #f1f5ff;
+            --request-soft-purple: #f0ebff;
 
-            --request-blue: #0d6efd;
+            /* Main purple */
+            --request-purple: #6538d9;
+            --request-purple-hover: #5630bd;
+
+            /* Action colors */
+            --request-blue: #2563eb;
+            --request-blue-hover: #1d4ed8;
+
             --request-green: #198754;
+            --request-green-hover: #157347;
+
             --request-red: #dc3545;
+            --request-red-hover: #bb2d3b;
+
             --request-yellow: #997404;
 
             --request-shadow:
-                0 4px 18px rgba(0, 0, 0, .055);
+                0 4px 18px rgba(35, 20, 65, .07);
 
             color: var(--request-text);
+
+            box-sizing: border-box;
+        }
+
+
+        .thesis-request-page *,
+        .thesis-request-page *::before,
+        .thesis-request-page *::after {
+
+            box-sizing: border-box;
         }
 
 
@@ -744,7 +701,8 @@
             color: var(--request-text);
 
             transition:
-                color .25s ease;
+                color .25s ease,
+                background-color .25s ease;
         }
 
 
@@ -808,8 +766,6 @@
 
             box-shadow: var(--request-shadow);
 
-            box-sizing: border-box;
-
             transition:
                 background-color .25s ease,
                 box-shadow .25s ease;
@@ -834,7 +790,7 @@
 
             padding-bottom: 18px;
 
-            border: none !important;
+            border-bottom: 1px solid #eeeeee;
         }
 
 
@@ -850,9 +806,9 @@
 
             display: block;
 
-            margin-bottom: 5px;
+            margin-bottom: 6px;
 
-            color: var(--request-muted);
+            color: var(--request-purple);
 
             font-size: .61rem;
 
@@ -876,15 +832,27 @@
         }
 
 
-        .request-title-row > i {
+        .request-title-icon {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 34px;
+
+            height: 34px;
 
             flex-shrink: 0;
 
-            color: var(--request-black);
+            color: var(--request-purple);
 
-            font-size: 1.15rem;
+            background: var(--request-soft-purple);
 
-            line-height: 1;
+            border-radius: 8px;
+
+            font-size: .9rem;
         }
 
 
@@ -984,17 +952,17 @@
 
             padding-bottom: 23px;
 
-            border: none !important;
+            border-bottom: 1px solid #eeeeee;
         }
 
 
-        .request-content-section:last-child {
+        .request-content-section:last-of-type {
 
             margin-bottom: 0;
 
             padding-bottom: 0;
 
-            border-bottom: none !important;
+            border-bottom: none;
         }
 
 
@@ -1028,15 +996,29 @@
 
             flex-shrink: 0;
 
-            color: var(--request-blue);
+            color: var(--request-purple);
 
-            background: var(--request-soft-blue);
-
-            border: none !important;
+            background: var(--request-soft-purple);
 
             border-radius: 8px;
 
             font-size: .75rem;
+        }
+
+
+        .document-icon {
+
+            color: var(--request-red);
+
+            background: #fff0f1;
+        }
+
+
+        .rejection-icon {
+
+            color: var(--request-red);
+
+            background: #fff0f1;
         }
 
 
@@ -1076,8 +1058,6 @@
             gap: 12px 28px;
 
             width: 100%;
-
-            box-sizing: border-box;
         }
 
 
@@ -1095,16 +1075,12 @@
             width: 100%;
 
             min-width: 0;
-
-            box-sizing: border-box;
         }
 
 
         .request-form-label {
 
             display: block;
-
-            margin: 0;
 
             color: var(--request-text);
 
@@ -1132,8 +1108,6 @@
 
             padding: .55rem .75rem;
 
-            box-sizing: border-box;
-
             color: var(--request-text);
 
             background: var(--request-soft);
@@ -1141,8 +1115,6 @@
             border: none !important;
 
             border-radius: 8px;
-
-            outline: none;
 
             font-family: inherit;
 
@@ -1155,8 +1127,7 @@
             overflow-wrap: anywhere;
 
             transition:
-                background-color .2s ease,
-                color .2s ease;
+                background-color .2s ease;
         }
 
 
@@ -1258,8 +1229,6 @@
 
             background: #fff0f1;
 
-            border: none !important;
-
             border-radius: 8px;
 
             font-size: .85rem;
@@ -1298,6 +1267,7 @@
 
         /* =========================================================
            VIEW PDF
+           RED OUTLINE
         ========================================================== */
 
         .view-pdf-button {
@@ -1312,13 +1282,15 @@
 
             flex-shrink: 0;
 
+            min-height: 36px;
+
             padding: 7px 12px;
 
-            color: #ffffff !important;
+            color: var(--request-red) !important;
 
-            background: var(--request-red);
+            background: transparent;
 
-            border: none !important;
+            border: 1px solid var(--request-red) !important;
 
             border-radius: 7px;
 
@@ -1330,7 +1302,11 @@
 
             white-space: nowrap;
 
-            transition: .2s ease;
+            transition:
+                color .2s ease,
+                background-color .2s ease,
+                border-color .2s ease,
+                transform .2s ease;
         }
 
 
@@ -1338,21 +1314,11 @@
 
             color: #ffffff !important;
 
-            background: #bb2d3b;
+            background: var(--request-red);
+
+            border-color: var(--request-red) !important;
 
             transform: translateY(-1px);
-        }
-
-
-        /* =========================================================
-           REJECTION ICON
-        ========================================================== */
-
-        .rejection-icon {
-
-            color: var(--request-red);
-
-            background: #fff0f1;
         }
 
 
@@ -1368,10 +1334,6 @@
         }
 
 
-        /* =========================================================
-           REVIEW HEADER
-        ========================================================== */
-
         .review-decision-header {
 
             margin-bottom: 18px;
@@ -1384,7 +1346,7 @@
 
             margin-bottom: 4px;
 
-            color: var(--request-red);
+            color: var(--request-purple);
 
             font-size: .59rem;
 
@@ -1440,11 +1402,7 @@
 
             margin-bottom: 12px;
 
-            box-sizing: border-box;
-
             background: #f5faf7;
-
-            border: none !important;
 
             border-radius: 10px;
         }
@@ -1542,7 +1500,7 @@
 
             background: var(--request-green);
 
-            border: none !important;
+            border: 1px solid var(--request-green) !important;
 
             border-radius: 7px;
 
@@ -1564,7 +1522,9 @@
 
             color: #ffffff !important;
 
-            background: #157347;
+            background: var(--request-green-hover);
+
+            border-color: var(--request-green-hover) !important;
 
             transform: translateY(-1px);
         }
@@ -1579,8 +1539,6 @@
             padding: 14px;
 
             background: #fff7f7;
-
-            border: none !important;
 
             border-radius: 10px;
         }
@@ -1686,13 +1644,11 @@
 
             padding: 10px 11px;
 
-            box-sizing: border-box;
-
             color: var(--request-text);
 
             background: #ffffff;
 
-            border: 1px solid #eeeeee !important;
+            border: 1px solid #e5e5e5 !important;
 
             border-radius: 8px;
 
@@ -1712,12 +1668,10 @@
 
         .review-textarea:focus {
 
-            border-color: #dddddd !important;
-
-            outline: none;
+            border-color: var(--request-purple) !important;
 
             box-shadow:
-                0 0 0 2px rgba(220, 53, 69, .08);
+                0 0 0 2px rgba(101, 56, 217, .10);
         }
 
 
@@ -1779,7 +1733,7 @@
 
             background: var(--request-red);
 
-            border: none !important;
+            border: 1px solid var(--request-red) !important;
 
             border-radius: 7px;
 
@@ -1801,7 +1755,9 @@
 
             color: #ffffff !important;
 
-            background: #bb2d3b;
+            background: var(--request-red-hover);
+
+            border-color: var(--request-red-hover) !important;
 
             transform: translateY(-1px);
         }
@@ -1827,8 +1783,6 @@
 
             background: var(--request-card);
 
-            border: none !important;
-
             border-radius: 14px;
 
             box-shadow: var(--request-shadow);
@@ -1853,9 +1807,7 @@
 
             color: #ffffff;
 
-            background: #111111;
-
-            border: none !important;
+            background: var(--request-purple);
 
             border-radius: 11px;
 
@@ -1897,17 +1849,24 @@
 
             --request-card: #181d33;
             --request-soft: #20253a;
-            --request-soft-blue: #252b42;
+            --request-soft-purple: #292342;
 
-            --request-blue: #ffffff;
-            --request-green: #198754;
-            --request-red: #dc3545;
+            --request-purple: #7c5ce3;
+            --request-purple-hover: #9278ea;
+
+            --request-blue: #60a5fa;
+            --request-blue-hover: #3b82f6;
+
+            --request-green: #2fbf71;
+            --request-green-hover: #25a761;
+
+            --request-red: #ff6470;
+            --request-red-hover: #ff4d5b;
+
             --request-yellow: #ffc107;
 
             --request-shadow:
                 0 4px 18px rgba(0, 0, 0, .35);
-
-            background: #101426;
 
             color: #eeeef8;
         }
@@ -1937,8 +1896,6 @@
 
             background: #181d33;
 
-            border: none !important;
-
             box-shadow:
                 0 4px 18px rgba(0, 0, 0, .35);
         }
@@ -1950,14 +1907,16 @@
 
         [data-bs-theme="dark"] .request-header {
 
-            background: #171b30;
-
             margin:
                 -22px -22px 25px;
 
             padding:
                 18px 22px;
 
+            background: #171b30;
+
+            border-bottom-color: #292e45;
+            
             border-radius:
                 14px 14px 0 0;
         }
@@ -1965,19 +1924,60 @@
 
         [data-bs-theme="dark"] .request-overline {
 
-            color: #999fb9;
+            color: #7c5ce3;
         }
 
 
-        [data-bs-theme="dark"] .request-title-row > i {
+        [data-bs-theme="dark"] .request-title-icon {
 
-            color: #ffffff;
+            color: #7c5ce3;
+
+            background: #292342;
         }
 
 
         [data-bs-theme="dark"] .request-title {
 
             color: #ffffff;
+        }
+
+
+        /* =========================================================
+           DARK CONTENT SECTIONS
+        ========================================================== */
+
+        [data-bs-theme="dark"] .request-content-section {
+
+            border-bottom-color: #292e45;
+        }
+
+
+        [data-bs-theme="dark"] .section-heading-icon {
+
+            color: #7c5ce3;
+
+            background: #292342;
+        }
+
+
+        [data-bs-theme="dark"] .document-icon,
+        [data-bs-theme="dark"] .rejection-icon {
+
+            color: #ff6470;
+
+            background: #3a2028;
+        }
+
+
+        [data-bs-theme="dark"] .section-heading h2 {
+
+            color: #ffffff;
+        }
+
+
+        [data-bs-theme="dark"] .section-heading p {
+
+            color: #999fb9;
         }
 
 
@@ -2018,31 +2018,7 @@
 
 
         /* =========================================================
-           DARK SECTION HEADINGS
-        ========================================================== */
-
-        [data-bs-theme="dark"] .section-heading-icon {
-
-            color: #ffffff;
-
-            background: #20253a;
-        }
-
-
-        [data-bs-theme="dark"] .section-heading h2 {
-
-            color: #ffffff;
-        }
-
-
-        [data-bs-theme="dark"] .section-heading p {
-
-            color: #999fb9;
-        }
-
-
-        /* =========================================================
-           DARK FORM LABELS
+           DARK FORM
         ========================================================== */
 
         [data-bs-theme="dark"] .request-form-label {
@@ -2051,17 +2027,11 @@
         }
 
 
-        /* =========================================================
-           DARK FORM VALUES
-        ========================================================== */
-
         [data-bs-theme="dark"] .request-form-control {
 
             color: #ffffff;
 
             background: #20253a;
-
-            border: none !important;
         }
 
 
@@ -2072,7 +2042,7 @@
 
 
         /* =========================================================
-           DARK ABSTRACT / DESCRIPTION
+           DARK TEXT
         ========================================================== */
 
         [data-bs-theme="dark"] .text-content {
@@ -2114,24 +2084,36 @@
 
 
         /* =========================================================
-           DARK REJECTION
+           DARK PDF BUTTON
         ========================================================== */
 
-        [data-bs-theme="dark"] .rejection-icon {
+        [data-bs-theme="dark"] .view-pdf-button {
 
-            color: #ff9da5;
+            color: #ff6470 !important;
 
-            background: #3a2028;
+            background: transparent;
+
+            border-color: #ff6470 !important;
+        }
+
+
+        [data-bs-theme="dark"] .view-pdf-button:hover {
+
+            color: #ffffff !important;
+
+            background: #ff6470;
+
+            border-color: #ff6470 !important;
         }
 
 
         /* =========================================================
-           DARK REVIEW HEADER
+           DARK REVIEW
         ========================================================== */
 
         [data-bs-theme="dark"] .review-decision-overline {
 
-            color: #ff9da5;
+            color: #7c5ce3;
         }
 
 
@@ -2148,7 +2130,7 @@
 
 
         /* =========================================================
-           DARK APPROVE BOX
+           DARK APPROVE
         ========================================================== */
 
         [data-bs-theme="dark"] .approve-box {
@@ -2178,7 +2160,7 @@
 
 
         /* =========================================================
-           DARK REJECT BOX
+           DARK REJECT
         ========================================================== */
 
         [data-bs-theme="dark"] .reject-box {
@@ -2217,7 +2199,7 @@
 
             background: #20253a;
 
-            border: none !important;
+            border-color: #292e45 !important;
         }
 
 
@@ -2231,10 +2213,10 @@
 
             background: #252b42;
 
-            border: none !important;
+            border-color: #7c5ce3 !important;
 
             box-shadow:
-                0 0 0 2px rgba(255, 255, 255, .10);
+                0 0 0 2px rgba(124, 92, 227, .15);
         }
 
 
@@ -2265,7 +2247,7 @@
 
 
         /* =========================================================
-           DARK EMPTY STATE
+           DARK EMPTY
         ========================================================== */
 
         [data-bs-theme="dark"] .empty-request {
@@ -2279,9 +2261,9 @@
 
         [data-bs-theme="dark"] .empty-icon {
 
-            color: #000000;
+            color: #ffffff;
 
-            background: #ffffff;
+            background: #7c5ce3;
         }
 
 
@@ -2369,6 +2351,12 @@
             }
 
 
+            .request-form-control {
+
+                width: 100%;
+            }
+
+
             .document-box {
 
                 align-items: flex-start;
@@ -2383,7 +2371,7 @@
             }
 
 
-            /* REVIEW DECISION */
+            /* REVIEW */
 
             .approve-box {
 
@@ -2448,9 +2436,13 @@
             }
 
 
-            .request-title-row > i {
+            .request-title-icon {
 
-                font-size: 1rem;
+                width: 30px;
+
+                height: 30px;
+
+                font-size: .78rem;
             }
 
 

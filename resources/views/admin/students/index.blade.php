@@ -28,18 +28,23 @@
 
             </div>
 
-            {{-- HEADER ACTIONS --}}
+
+            {{-- =====================================================
+                HEADER ACTIONS
+            ====================================================== --}}
 
             <div class="student-header-actions">
 
                 {{-- MOBILE SEARCH TOGGLE --}}
+
                 <button
                     type="button"
                     id="mobileSearchToggle"
                     class="student-mobile-search-button"
                     aria-label="Open Search"
                     aria-expanded="false"
-                    data-tooltip="Search">
+                    data-tooltip="Search"
+                >
 
                     <i class="bi bi-search"></i>
 
@@ -56,7 +61,8 @@
 
         <div
             id="mobileSearchPanel"
-            class="student-mobile-search-panel">
+            class="student-mobile-search-panel"
+        >
 
             <div class="student-mobile-search-content">
 
@@ -68,16 +74,19 @@
                         type="text"
                         id="mobileSearchInput"
                         placeholder="Search name, department, email..."
-                        autocomplete="off">
+                        autocomplete="off"
+                    >
 
                 </div>
+
 
                 <button
                     type="button"
                     id="mobileResetFilter"
                     class="student-mobile-reset-button"
                     aria-label="Reset Search"
-                    data-tooltip="Reset">
+                    data-tooltip="Reset"
+                >
 
                     <i class="bi bi-arrow-counterclockwise"></i>
 
@@ -104,10 +113,9 @@
 
                         <label
                             for="search"
-                            class="student-input-label">
-
+                            class="student-input-label"
+                        >
                             Search
-
                         </label>
 
                         <div class="student-search">
@@ -118,7 +126,8 @@
                                 type="text"
                                 id="search"
                                 placeholder="Search name, department, email..."
-                                autocomplete="off">
+                                autocomplete="off"
+                            >
 
                         </div>
 
@@ -131,16 +140,16 @@
 
                         <label
                             for="departmentFilter"
-                            class="student-input-label">
-
+                            class="student-input-label"
+                        >
                             Department
-
                         </label>
 
                         <select
                             class="student-filter-select"
                             id="departmentFilter"
-                            name="department">
+                            name="department"
+                        >
 
                             <option value="">
                                 All Departments
@@ -165,16 +174,16 @@
 
                         <label
                             for="yearFilter"
-                            class="student-input-label">
-
+                            class="student-input-label"
+                        >
                             Started Year
-
                         </label>
 
                         <select
                             class="student-filter-select student-year-select"
                             id="yearFilter"
-                            name="started_year">
+                            name="started_year"
+                        >
 
                             <option value="">
                                 All Years
@@ -206,7 +215,8 @@
                             id="resetFilter"
                             class="student-reset-button"
                             data-tooltip="Reset Filters"
-                            aria-label="Reset Filters">
+                            aria-label="Reset Filters"
+                        >
 
                             <i class="bi bi-arrow-counterclockwise"></i>
 
@@ -233,7 +243,8 @@
 
             <div
                 class="student-success-alert"
-                role="alert">
+                role="alert"
+            >
 
                 <div class="student-alert-content">
 
@@ -245,11 +256,13 @@
 
                 </div>
 
+
                 <button
                     type="button"
                     class="student-alert-close"
                     data-bs-dismiss="alert"
-                    aria-label="Close">
+                    aria-label="Close"
+                >
 
                     <i class="bi bi-x-lg"></i>
 
@@ -266,59 +279,87 @@
 
         <div class="student-results-wrapper">
 
-            @if ($students->count())
 
-                {{-- LOADING --}}
+            {{-- =====================================================
+                CARD / TABLE TOGGLE
+            ====================================================== --}}
 
-                <div
-                    id="studentSearchSpinner"
-                    class="student-loading d-none">
+            <div class="student-results-toolbar">
 
-                    <div class="student-spinner"></div>
+                <div class="student-view-toggle">
 
-                    <span>
-                        Loading students...
-                    </span>
+                    {{-- CARDS --}}
 
-                </div>
+                    <button
+                        type="button"
+                        id="studentCardViewButton"
+                        class="student-view-button is-active"
+                        aria-label="Card View"
+                        title="Card View"
+                    >
+
+                        <i class="bi bi-grid-3x3-gap"></i>
+
+                        <span>
+                            Cards
+                        </span>
+
+                    </button>
 
 
-                {{-- =================================================
-                    STUDENT GRID
-                    4 CARDS PER ROW
-                ================================================== --}}
+                    {{-- TABLE --}}
 
-                <div
-                    id="adminStudentTable"
-                    class="thesis-card-grid">
+                    <button
+                        type="button"
+                        id="studentTableViewButton"
+                        class="student-view-button"
+                        aria-label="Table View"
+                        title="Table View"
+                    >
 
-                    @include('admin.students.table')
+                        <i class="bi bi-table"></i>
 
-                </div>
+                        <span>
+                            Table
+                        </span>
 
-            @else
-
-                {{-- EMPTY STATE --}}
-
-                <div class="student-empty-state">
-
-                    <div class="student-empty-icon">
-
-                        <i class="bi bi-people"></i>
-
-                    </div>
-
-                    <h5>
-                        No Students Found
-                    </h5>
-
-                    <p>
-                        There are currently no students available.
-                    </p>
+                    </button>
 
                 </div>
 
-            @endif
+            </div>
+
+
+            {{-- =====================================================
+                LOADING
+            ====================================================== --}}
+
+            <div
+                id="studentSearchSpinner"
+                class="student-loading d-none"
+            >
+
+                <div class="student-spinner"></div>
+
+                <span>
+                    Loading students...
+                </span>
+
+            </div>
+
+
+            {{-- =====================================================
+                CARD / TABLE RESULTS
+            ====================================================== --}}
+
+            <div
+                id="adminStudentTable"
+                class="student-results-container"
+            >
+
+                @include('admin.students.table')
+
+            </div>
 
         </div>
 
@@ -336,6 +377,7 @@
             function () {
 
                 let searchTimeout = null;
+
                 let currentController = null;
 
 
@@ -367,11 +409,150 @@
                 const mobileSearchPanel =
                     document.getElementById('mobileSearchPanel');
 
-                const studentGrid =
+                const studentResultsContainer =
                     document.getElementById('adminStudentTable');
 
                 const spinner =
                     document.getElementById('studentSearchSpinner');
+
+                const studentCardViewButton =
+                    document.getElementById('studentCardViewButton');
+
+                const studentTableViewButton =
+                    document.getElementById('studentTableViewButton');
+
+
+                /* =====================================================
+                   CARD / TABLE VIEW
+                ====================================================== */
+
+                function setStudentView(view) {
+
+                    if (!studentResultsContainer) {
+                        return;
+                    }
+
+
+                    if (view === 'table') {
+
+                        studentResultsContainer
+                            .classList
+                            .add('table-mode');
+
+
+                        if (studentTableViewButton) {
+
+                            studentTableViewButton
+                                .classList
+                                .add('is-active');
+
+                        }
+
+
+                        if (studentCardViewButton) {
+
+                            studentCardViewButton
+                                .classList
+                                .remove('is-active');
+
+                        }
+
+
+                        localStorage.setItem(
+                            'adminStudentView',
+                            'table'
+                        );
+
+                    } else {
+
+                        studentResultsContainer
+                            .classList
+                            .remove('table-mode');
+
+
+                        if (studentCardViewButton) {
+
+                            studentCardViewButton
+                                .classList
+                                .add('is-active');
+
+                        }
+
+
+                        if (studentTableViewButton) {
+
+                            studentTableViewButton
+                                .classList
+                                .remove('is-active');
+
+                        }
+
+
+                        localStorage.setItem(
+                            'adminStudentView',
+                            'cards'
+                        );
+
+                    }
+
+                }
+
+
+                /* =====================================================
+                   CARD BUTTON
+                ====================================================== */
+
+                if (studentCardViewButton) {
+
+                    studentCardViewButton.addEventListener(
+                        'click',
+                        function () {
+
+                            setStudentView('cards');
+
+                        }
+                    );
+
+                }
+
+
+                /* =====================================================
+                   TABLE BUTTON
+                ====================================================== */
+
+                if (studentTableViewButton) {
+
+                    studentTableViewButton.addEventListener(
+                        'click',
+                        function () {
+
+                            setStudentView('table');
+
+                        }
+                    );
+
+                }
+
+
+                /* =====================================================
+                   LOAD SAVED VIEW
+                ====================================================== */
+
+                const savedStudentView =
+                    localStorage.getItem(
+                        'adminStudentView'
+                    );
+
+
+                if (savedStudentView === 'table') {
+
+                    setStudentView('table');
+
+                } else {
+
+                    setStudentView('cards');
+
+                }
 
 
                 /* =====================================================
@@ -381,8 +562,11 @@
                 function loadData() {
 
                     if (currentController) {
+
                         currentController.abort();
+
                     }
+
 
                     currentController =
                         new AbortController();
@@ -398,37 +582,43 @@
 
                     }
 
-                    if (studentGrid) {
 
-                        studentGrid.classList.add(
-                            'is-loading'
-                        );
+                    if (studentResultsContainer) {
+
+                        studentResultsContainer
+                            .classList
+                            .add('is-loading');
 
                     }
 
 
-                    /* GET SEARCH VALUE */
+                    /* =================================================
+                       SEARCH VALUE
+                    ================================================== */
 
                     let search = '';
+
 
                     if (window.innerWidth <= 767.98) {
 
                         search =
                             mobileSearchInput
-                                ? mobileSearchInput.value
+                                ? mobileSearchInput.value.trim()
                                 : '';
 
                     } else {
 
                         search =
                             searchInput
-                                ? searchInput.value
+                                ? searchInput.value.trim()
                                 : '';
 
                     }
 
 
-                    /* DEPARTMENT */
+                    /* =================================================
+                       DEPARTMENT
+                    ================================================== */
 
                     const department =
                         departmentFilter
@@ -436,7 +626,9 @@
                             : '';
 
 
-                    /* YEAR */
+                    /* =================================================
+                       YEAR
+                    ================================================== */
 
                     const year =
                         yearFilter
@@ -444,30 +636,44 @@
                             : '';
 
 
-                    /* BUILD QUERY */
+                    /* =================================================
+                       QUERY
+                    ================================================== */
 
                     const query =
                         new URLSearchParams({
 
                             search: search,
+
                             department: department,
+
                             year: year
 
                         });
 
 
-                    /* AJAX REQUEST */
+                    /* =================================================
+                       AJAX
+                    ================================================== */
 
                     fetch(
                         "{{ route('admin.students.search') }}?" +
                         query.toString(),
                         {
                             signal:
-                                currentController.signal
+                                currentController.signal,
+
+                            headers: {
+                                'X-Requested-With':
+                                    'XMLHttpRequest',
+
+                                'Accept':
+                                    'text/html'
+                            }
                         }
                     )
 
-                    .then(response => {
+                    .then(function (response) {
 
                         if (!response.ok) {
 
@@ -481,18 +687,39 @@
 
                     })
 
-                    .then(data => {
+                    .then(function (data) {
 
-                        if (studentGrid) {
+                        if (studentResultsContainer) {
 
-                            studentGrid.innerHTML =
+                            studentResultsContainer.innerHTML =
                                 data;
+
+                        }
+
+
+                        /*
+                         * Re-apply current view after AJAX.
+                         */
+
+                        const currentView =
+                            localStorage.getItem(
+                                'adminStudentView'
+                            );
+
+
+                        if (currentView === 'table') {
+
+                            setStudentView('table');
+
+                        } else {
+
+                            setStudentView('cards');
 
                         }
 
                     })
 
-                    .catch(error => {
+                    .catch(function (error) {
 
                         if (
                             error.name !==
@@ -508,7 +735,7 @@
 
                     })
 
-                    .finally(() => {
+                    .finally(function () {
 
                         if (spinner) {
 
@@ -518,11 +745,12 @@
 
                         }
 
-                        if (studentGrid) {
 
-                            studentGrid.classList.remove(
-                                'is-loading'
-                            );
+                        if (studentResultsContainer) {
+
+                            studentResultsContainer
+                                .classList
+                                .remove('is-loading');
 
                         }
 
@@ -544,6 +772,7 @@
                             clearTimeout(
                                 searchTimeout
                             );
+
 
                             searchTimeout =
                                 setTimeout(
@@ -570,6 +799,7 @@
                             clearTimeout(
                                 searchTimeout
                             );
+
 
                             searchTimeout =
                                 setTimeout(
@@ -622,20 +852,32 @@
                         function () {
 
                             if (searchInput) {
+
                                 searchInput.value = '';
+
                             }
+
 
                             if (mobileSearchInput) {
+
                                 mobileSearchInput.value = '';
+
                             }
+
 
                             if (departmentFilter) {
+
                                 departmentFilter.value = '';
+
                             }
 
+
                             if (yearFilter) {
+
                                 yearFilter.value = '';
+
                             }
+
 
                             loadData();
 
@@ -670,11 +912,13 @@
                                     .classList
                                     .remove('is-open');
 
+
                                 mobileSearchToggle
                                     .setAttribute(
                                         'aria-expanded',
                                         'false'
                                     );
+
 
                                 mobileSearchToggle
                                     .classList
@@ -686,11 +930,13 @@
                                     .classList
                                     .add('is-open');
 
+
                                 mobileSearchToggle
                                     .setAttribute(
                                         'aria-expanded',
                                         'true'
                                     );
+
 
                                 mobileSearchToggle
                                     .classList
@@ -731,20 +977,32 @@
                         function () {
 
                             if (mobileSearchInput) {
+
                                 mobileSearchInput.value = '';
+
                             }
+
 
                             if (searchInput) {
+
                                 searchInput.value = '';
+
                             }
+
 
                             if (departmentFilter) {
+
                                 departmentFilter.value = '';
+
                             }
 
+
                             if (yearFilter) {
+
                                 yearFilter.value = '';
+
                             }
+
 
                             loadData();
 
@@ -783,6 +1041,7 @@
                                         'false'
                                     );
 
+
                                 mobileSearchToggle
                                     .classList
                                     .remove('is-active');
@@ -816,6 +1075,7 @@
 
                             }
 
+
                             if (mobileSearchToggle) {
 
                                 mobileSearchToggle
@@ -823,6 +1083,7 @@
                                         'aria-expanded',
                                         'false'
                                     );
+
 
                                 mobileSearchToggle
                                     .classList
@@ -836,6 +1097,7 @@
                 );
 
             }
+
         );
 
     </script>
@@ -848,32 +1110,46 @@
     <style>
 
         /* =========================================================
-           VARIABLES
+           COLOR VARIABLES
         ========================================================== */
 
         :root {
 
-            --student-black: #000000;
-            --student-white: #ffffff;
+            /*
+             * Main purple theme
+             */
+            --student-primary: #6538D9;
+            --student-primary-hover: #5630BD;
 
-            --student-page-bg: #ffffff;
-            --student-card-bg: #ffffff;
-            --student-input-bg: #fafafa;
+            --student-primary-soft: #F0EBFF;
+            --student-primary-soft-hover: #E8E0FF;
 
-            --student-text: #000000;
-            --student-text-secondary: #333333;
-            --student-text-muted: #777777;
+            /*
+             * Light theme
+             */
+            --student-black: #111111;
+            --student-white: #FFFFFF;
 
-            --student-border: #000000;
-            --student-border-soft: #dddddd;
+            --student-page-bg: #F0F2F5;
+            --student-card-bg: #FFFFFF;
+            --student-card-bg-soft: #FAF9FF;
+
+            --student-input-bg: #F8F7FC;
+
+            --student-text: #16121F;
+            --student-text-secondary: #514D5A;
+            --student-text-muted: #8A8792;
+
+            --student-border: #E4E1EB;
+            --student-border-soft: #E5E1EE;
+
+            --student-hover: #F5F3FA;
 
             --student-shadow:
-                0 4px 18px rgba(0, 0, 0, .07);
+                0 4px 18px rgba(35, 20, 65, .08);
 
             --student-card-shadow:
-                0 2px 10px rgba(0, 0, 0, .05);
-
-            --student-primary: #000000;
+                0 2px 10px rgba(35, 20, 65, .05);
 
         }
 
@@ -885,23 +1161,31 @@
         [data-bs-theme="dark"] {
 
             --student-black: #000000;
-            --student-white: #ffffff;
+            --student-white: #FFFFFF;
 
             --student-page-bg: #101426;
-            --student-card-bg: #181d33;
-            --student-input-bg: #20253a;
+            --student-card-bg: #181D33;
+            --student-card-bg-soft: #1C2138;
 
-            --student-text: #eeeef8;
-            --student-text-secondary: #d5d8e8;
-            --student-text-muted: #999fb9;
+            --student-input-bg: #20253A;
 
-            --student-border: #ffffff;
-            --student-border-soft: #292e45;
+            --student-text: #FFFFFF;
+            --student-text-secondary: #D5D8E8;
+            --student-text-muted: #999FB9;
 
-            --student-primary: #ffffff;
+            --student-border: #292E45;
+            --student-border-soft: #292E45;
+
+            --student-hover: #20253A;
+
+            --student-primary: #7C5CE3;
+            --student-primary-hover: #9278EA;
+
+            --student-primary-soft: #292342;
+            --student-primary-soft-hover: #342C52;
 
             --student-shadow:
-                0 4px 18px rgba(0, 0, 0, .35);
+                0 8px 24px rgba(0, 0, 0, .35);
 
             --student-card-shadow:
                 0 2px 10px rgba(0, 0, 0, .30);
@@ -910,27 +1194,24 @@
 
 
         /* =========================================================
-           DARK MODE - BODY
+           BODY
         ========================================================== */
 
-        [data-bs-theme="dark"] body {
+        body {
 
-            background: #101426;
-
-            color: #eeeef8;
+            background:
+                var(--student-page-bg);
 
         }
 
 
-        /* =========================================================
-           DARK MODE - PAGE
-        ========================================================== */
+        [data-bs-theme="dark"] body {
 
-        [data-bs-theme="dark"] .student-page {
+            background:
+                #101426;
 
-            background: #101426;
-
-            color: #eeeef8;
+            color:
+                #FFFFFF;
 
         }
 
@@ -941,8 +1222,15 @@
 
         .student-page {
 
+            min-height: 100vh;
+
+            padding: 20px;
+
             color:
                 var(--student-text);
+
+            background:
+                var(--student-page-bg);
 
             transition:
                 color .25s ease,
@@ -967,20 +1255,20 @@
 
             padding: 15px;
 
+            margin: 100px 0 20px;
+
             background:
-                var(--student-page-bg);
+                var(--student-card-bg);
+
+            border:
+                1px solid var(--student-border-soft);
+
+            border-radius: 12px;
+
+            box-shadow:
+                var(--student-card-shadow);
 
             box-sizing: border-box;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-page-header {
-
-            background: #171b30;
-
-            border-color: #282d43;
 
         }
 
@@ -1003,16 +1291,20 @@
         }
 
 
+        /* =========================================================
+           PAGE TITLE
+        ========================================================== */
+
         .student-overline {
 
             display: block;
 
-            margin-bottom: .2rem;
+            margin-bottom: .25rem;
 
             color:
-                var(--student-text-muted);
+                var(--student-primary);
 
-            font-size: .7rem;
+            font-size: .72rem;
 
             font-weight: 800;
 
@@ -1032,29 +1324,13 @@
             color:
                 var(--student-text);
 
-            font-size: 1.8rem;
+            font-size: 1.9rem;
 
-            font-weight: 600;
+            font-weight: 700;
 
             line-height: 1.2;
 
             letter-spacing: -.035em;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-title {
-
-            color: #ffffff;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-overline {
-
-            color: #999fb9;
 
         }
 
@@ -1072,6 +1348,138 @@
             gap: .5rem;
 
             flex-shrink: 0;
+
+        }
+
+
+        /* =========================================================
+           CARD / TABLE TOOLBAR
+        ========================================================== */
+
+        .student-results-toolbar {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            width: 100%;
+
+            margin-top: 1rem;
+
+            margin-bottom: .75rem;
+
+        }
+
+
+        .student-view-toggle {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 3px;
+
+            padding: 3px;
+
+            background:
+                var(--student-input-bg);
+
+            border:
+                1px solid var(--student-border-soft);
+
+            border-radius: 9px;
+
+            box-shadow:
+                0 2px 7px rgba(35, 20, 65, .04);
+
+        }
+
+
+        .student-view-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: .4rem;
+
+            min-width: 82px;
+
+            height: 38px;
+
+            padding:
+                .45rem .75rem;
+
+            color:
+                var(--student-text-muted);
+
+            background:
+                transparent;
+
+            border: 0;
+
+            border-radius: 7px;
+
+            font-size: .75rem;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            cursor: pointer;
+
+            transition:
+                color .2s ease,
+                background-color .2s ease,
+                box-shadow .2s ease,
+                transform .2s ease;
+
+        }
+
+
+        .student-view-button i {
+
+            font-size: .9rem;
+
+        }
+
+
+        .student-view-button:hover {
+
+            color:
+                var(--student-primary);
+
+            background:
+                var(--student-primary-soft);
+
+        }
+
+
+        .student-view-button.is-active {
+
+            color:
+                #FFFFFF;
+
+            background:
+                var(--student-primary);
+
+            box-shadow:
+                0 3px 8px rgba(101, 56, 217, .25);
+
+        }
+
+
+        .student-view-button.is-active:hover {
+
+            color:
+                #FFFFFF;
+
+            background:
+                var(--student-primary-hover);
 
         }
 
@@ -1105,12 +1513,17 @@
             border:
                 1px solid var(--student-border-soft);
 
-            border-radius: 8px;
+            border-radius: 9px;
 
             cursor: pointer;
 
+            box-shadow:
+                0 2px 7px rgba(35, 20, 65, .04);
+
             transition:
-                .2s ease;
+                color .2s ease,
+                background-color .2s ease,
+                border-color .2s ease;
 
         }
 
@@ -1119,13 +1532,13 @@
         .student-mobile-search-button.is-active {
 
             color:
-                var(--student-white);
+                #FFFFFF;
 
             background:
-                var(--student-black);
+                var(--student-primary);
 
             border-color:
-                var(--student-black);
+                var(--student-primary);
 
         }
 
@@ -1133,11 +1546,14 @@
         [data-bs-theme="dark"]
         .student-mobile-search-button {
 
-            color: #ffffff;
+            color:
+                #FFFFFF;
 
-            background: #181d33;
+            background:
+                #181D33;
 
-            border-color: #292e45;
+            border-color:
+                #292E45;
 
         }
 
@@ -1148,11 +1564,14 @@
         [data-bs-theme="dark"]
         .student-mobile-search-button.is-active {
 
-            color: #000000;
+            color:
+                #FFFFFF;
 
-            background: #ffffff;
+            background:
+                #7C5CE3;
 
-            border-color: #ffffff;
+            border-color:
+                #7C5CE3;
 
         }
 
@@ -1167,6 +1586,14 @@
 
             background:
                 var(--student-card-bg);
+
+            border:
+                1px solid var(--student-border-soft);
+
+            border-radius: 12px;
+
+            box-shadow:
+                var(--student-card-shadow);
 
             box-sizing: border-box;
 
@@ -1183,18 +1610,7 @@
             background:
                 var(--student-card-bg);
 
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-filter-card,
-
-        [data-bs-theme="dark"]
-        .student-filter-body {
-
-            background: #181d33;
-
-            border-color: #292e45;
+            border-radius: 12px;
 
         }
 
@@ -1212,21 +1628,13 @@
             color:
                 var(--student-text-secondary);
 
-            font-size: .67rem;
+            font-size: .75rem;
 
             font-weight: 800;
 
             letter-spacing: .05em;
 
             text-transform: uppercase;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-input-label {
-
-            color: #d5d8e8;
 
         }
 
@@ -1256,7 +1664,7 @@
                 translateY(-50%);
 
             color:
-                var(--student-text-muted);
+                var(--student-primary);
 
             pointer-events: none;
 
@@ -1285,12 +1693,14 @@
 
             outline: none;
 
-            font-size: .82rem;
+            font-size: .9rem;
 
             box-sizing: border-box;
 
             transition:
-                .2s ease;
+                border-color .2s ease,
+                box-shadow .2s ease,
+                background-color .2s ease;
 
         }
 
@@ -1303,6 +1713,14 @@
         }
 
 
+        .student-search input:hover {
+
+            border-color:
+                #CFC8E0;
+
+        }
+
+
         .student-search input:focus,
         .student-filter-select:focus {
 
@@ -1310,46 +1728,7 @@
                 var(--student-primary);
 
             box-shadow:
-                0 0 0 3px rgba(0, 0, 0, .08);
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-search input {
-
-            color: #ffffff;
-
-            background: #20253a;
-
-            border-color: #343a52;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-search input::placeholder {
-
-            color: #777f9c;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-search i {
-
-            color: #999fb9;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-search input:focus {
-
-            border-color: #ffffff;
-
-            box-shadow:
-                0 0 0 3px rgba(255, 255, 255, .10);
+                0 0 0 3px rgba(101, 56, 217, .12);
 
         }
 
@@ -1380,35 +1759,34 @@
 
             outline: none;
 
-            font-size: .8rem;
+            font-size: .9rem;
 
             cursor: pointer;
 
             box-sizing: border-box;
 
             transition:
-                .2s ease;
+                border-color .2s ease,
+                box-shadow .2s ease;
+
+        }
+
+
+        .student-filter-select:hover {
+
+            border-color:
+                #CFC8E0;
 
         }
 
 
         .student-filter-select option {
 
-            color: #000000;
+            color:
+                #16121F;
 
-            background: #ffffff;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-filter-select {
-
-            color: #ffffff;
-
-            background: #20253a;
-
-            border-color: #343a52;
+            background:
+                #FFFFFF;
 
         }
 
@@ -1416,20 +1794,11 @@
         [data-bs-theme="dark"]
         .student-filter-select option {
 
-            color: #ffffff;
+            color:
+                #FFFFFF;
 
-            background: #20253a;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-filter-select:focus {
-
-            border-color: #ffffff;
-
-            box-shadow:
-                0 0 0 3px rgba(255, 255, 255, .10);
+            background:
+                #20253A;
 
         }
 
@@ -1463,7 +1832,7 @@
             gap: .45rem;
 
             color:
-                var(--student-text);
+                var(--student-text-secondary);
 
             background:
                 var(--student-card-bg);
@@ -1473,7 +1842,7 @@
 
             border-radius: 8px;
 
-            font-size: .7rem;
+            font-size: .75rem;
 
             font-weight: 800;
 
@@ -1482,7 +1851,10 @@
             cursor: pointer;
 
             transition:
-                .2s ease;
+                color .2s ease,
+                background-color .2s ease,
+                border-color .2s ease,
+                box-shadow .2s ease;
 
         }
 
@@ -1490,37 +1862,29 @@
         .student-reset-button:hover {
 
             color:
-                var(--student-white);
+                var(--student-primary);
 
             background:
-                var(--student-black);
+                var(--student-primary-soft);
 
             border-color:
-                var(--student-black);
+                var(--student-primary);
+
+            box-shadow:
+                0 3px 8px rgba(101, 56, 217, .10);
 
         }
 
 
-        [data-bs-theme="dark"]
-        .student-reset-button {
+        .student-reset-button:focus-visible {
 
-            color: #ffffff;
+            outline: none;
 
-            background: #20253a;
+            border-color:
+                var(--student-primary);
 
-            border-color: #343a52;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-reset-button:hover {
-
-            color: #000000;
-
-            background: #ffffff;
-
-            border-color: #ffffff;
+            box-shadow:
+                0 0 0 3px rgba(101, 56, 217, .12);
 
         }
 
@@ -1540,7 +1904,7 @@
             gap: 1rem;
 
             margin:
-                0 1.25rem 1rem;
+                1rem 0;
 
             padding:
                 .9rem 1rem;
@@ -1555,31 +1919,14 @@
                 1px solid var(--student-border-soft);
 
             border-left:
-                4px solid var(--student-text);
+                4px solid var(--student-primary);
 
-            border-radius: 8px;
+            border-radius: 9px;
 
             box-shadow:
                 var(--student-card-shadow);
 
             box-sizing: border-box;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-success-alert {
-
-            color: #eeeef8;
-
-            background: #181d33;
-
-            border-color: #292e45;
-
-            border-left-color: #ffffff;
-
-            box-shadow:
-                0 2px 10px rgba(0, 0, 0, .30);
 
         }
 
@@ -1592,7 +1939,10 @@
 
             gap: .6rem;
 
-            font-size: .8rem;
+            color:
+                var(--student-text);
+
+            font-size: .82rem;
 
             font-weight: 600;
 
@@ -1600,6 +1950,9 @@
 
 
         .student-alert-content i {
+
+            color:
+                var(--student-primary);
 
             font-size: 1rem;
 
@@ -1621,34 +1974,35 @@
             padding: 0;
 
             color:
-                var(--student-text);
+                var(--student-text-muted);
 
-            background:
-                transparent;
+            background: transparent;
 
             border: 0;
 
+            border-radius: 6px;
+
             cursor: pointer;
 
-            opacity: .65;
+            opacity: .75;
 
             transition:
-                .2s ease;
+                color .2s ease,
+                background-color .2s ease,
+                opacity .2s ease;
 
         }
 
 
         .student-alert-close:hover {
 
+            color:
+                var(--student-primary);
+
+            background:
+                var(--student-primary-soft);
+
             opacity: 1;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-alert-close {
-
-            color: #ffffff;
 
         }
 
@@ -1668,12 +2022,32 @@
         }
 
 
+        .student-results-container {
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            transition:
+                opacity .2s ease;
+
+        }
+
+
+        .student-results-container.is-loading {
+
+            opacity: .45;
+
+            pointer-events: none;
+
+        }
+
+
         /* =========================================================
-           STUDENT GRID
-           4 CARDS PER ROW
+           CARD VIEW
         ========================================================== */
 
-        .thesis-card-grid {
+        .student-partial-card-results {
 
             display: grid;
 
@@ -1684,170 +2058,467 @@
 
             width: 100%;
 
-            margin-top: 1rem;
-
             box-sizing: border-box;
-
-            transition:
-                opacity .2s ease;
-
-        }
-
-
-        .thesis-card-grid.is-loading {
-
-            opacity: .45;
-
-            pointer-events: none;
 
         }
 
 
         /* =========================================================
-           DARK STUDENT CARD SUPPORT
+           TABLE VIEW
         ========================================================== */
 
-        [data-bs-theme="dark"]
-        .thesis-card-grid > * {
+        .student-partial-table-results {
 
-            color: #eeeef8;
+            display: none;
+
+            width: 100%;
+
+            box-sizing: border-box;
 
         }
 
 
-        [data-bs-theme="dark"]
-        .student-card,
+        .student-results-container.table-mode
+        .student-partial-card-results {
 
-        [data-bs-theme="dark"]
-        .student-item,
+            display: none;
 
-        [data-bs-theme="dark"]
-        .student-list-item,
+        }
 
-        [data-bs-theme="dark"]
-        .student-result-card,
 
-        [data-bs-theme="dark"]
-        .admin-student-card,
+        .student-results-container.table-mode
+        .student-partial-table-results {
 
-        [data-bs-theme="dark"]
-        .admin-student-item {
+            display: block;
 
-            background: #181d33;
+        }
 
-            color: #eeeef8;
 
-            border-color: #292e45;
+        /* =========================================================
+           TABLE WRAPPER
+        ========================================================== */
+
+        .student-table-wrapper {
+
+            width: 100%;
+
+            overflow-x: auto;
+
+            background:
+                var(--student-card-bg);
+
+            border:
+                1px solid var(--student-border-soft);
+
+            border-radius: 10px;
 
             box-shadow:
-                0 2px 10px rgba(0, 0, 0, .30);
+                var(--student-card-shadow);
+
+            box-sizing: border-box;
 
         }
 
 
-        [data-bs-theme="dark"]
-        .student-card:hover,
+        .student-table {
 
-        [data-bs-theme="dark"]
-        .student-item:hover,
+            width: 100%;
 
-        [data-bs-theme="dark"]
-        .student-list-item:hover,
+            min-width: 950px;
 
-        [data-bs-theme="dark"]
-        .student-result-card:hover,
+            margin: 0;
 
-        [data-bs-theme="dark"]
-        .admin-student-card:hover,
+            border-collapse: collapse;
 
-        [data-bs-theme="dark"]
-        .admin-student-item:hover {
+            color:
+                var(--student-text);
 
-            background: #1b2038;
+            background:
+                var(--student-card-bg);
 
-            border-color: #343a52;
+        }
+
+
+        /* =========================================================
+           TABLE HEADER
+        ========================================================== */
+
+        .student-table thead th {
+
+            padding:
+                .9rem .85rem;
+
+            color:
+                var(--student-text-secondary);
+
+            background:
+                var(--student-input-bg);
+
+            border-bottom:
+                1px solid var(--student-border-soft);
+
+            font-size: .72rem;
+
+            font-weight: 800;
+
+            line-height: 1.35;
+
+            text-align: left;
+
+            text-transform: uppercase;
+
+            white-space: nowrap;
+
+        }
+
+
+        /* =========================================================
+           TABLE BODY
+        ========================================================== */
+
+        .student-table tbody td {
+
+            padding:
+                .85rem;
+
+            color:
+                var(--student-text);
+
+            background:
+                var(--student-card-bg);
+
+            border-bottom:
+                1px solid var(--student-border-soft);
+
+            font-size: .80rem;
+
+            font-weight: 600;
+
+            line-height: 1.45;
+
+            vertical-align: middle;
+
+        }
+
+
+        .student-table tbody tr:last-child td {
+
+            border-bottom: 0;
+
+        }
+
+
+        .student-table tbody tr {
+
+            transition:
+                background-color .2s ease;
+
+        }
+
+
+        .student-table tbody tr:hover td {
+
+            background:
+                var(--student-input-bg);
+
+        }
+
+
+        /* =========================================================
+           TABLE PROFILE
+        ========================================================== */
+
+        .student-table-profile {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: .65rem;
+
+            min-width: 190px;
+
+        }
+
+
+        .student-table-avatar {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 36px;
+
+            height: 36px;
+
+            flex-shrink: 0;
+
+            color:
+                #FFFFFF;
+
+            background:
+                var(--student-primary);
+
+            border-radius: 50%;
 
             box-shadow:
-                0 4px 18px rgba(0, 0, 0, .35);
+                0 3px 8px rgba(101, 56, 217, .20);
+
+        }
+
+
+        .student-table-name {
+
+            display: block;
+
+            max-width: 220px;
+
+            overflow: hidden;
+
+            color:
+                var(--student-text);
+
+            font-size: .82rem;
+
+            font-weight: 800;
+
+            line-height: 1.4;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+        }
+
+
+        .student-table-number {
+
+            display: block;
+
+            margin-top: .15rem;
+
+            color:
+                var(--student-text-muted);
+
+            font-size: .68rem;
+
+            line-height: 1.35;
+
+        }
+
+
+        .student-table-email {
+
+            max-width: 220px;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+        }
+
+
+        /* =========================================================
+           PERMISSION BADGES
+        ========================================================== */
+
+        .student-table-permission {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: .35rem;
+
+            padding:
+                .35rem .55rem;
+
+            border-radius: 6px;
+
+            font-size: .68rem;
+
+            font-weight: 800;
+
+            line-height: 1.3;
+
+            white-space: nowrap;
+
+        }
+
+
+        .student-table-permission.allowed {
+
+            color:
+                #15803D;
+
+            background:
+                #F0FDF4;
+
+            border:
+                1px solid #22C55E;
+
+        }
+
+
+        .student-table-permission.denied {
+
+            color:
+                #DC2626;
+
+            background:
+                #FEF2F2;
+
+            border:
+                1px solid #EF4444;
 
         }
 
 
         [data-bs-theme="dark"]
-        .student-card h1,
+        .student-table-permission.allowed {
 
-        [data-bs-theme="dark"]
-        .student-card h2,
+            color:
+                #4ADE80;
 
-        [data-bs-theme="dark"]
-        .student-card h3,
+            background:
+                #07140B;
 
-        [data-bs-theme="dark"]
-        .student-card h4,
-
-        [data-bs-theme="dark"]
-        .student-card h5,
-
-        [data-bs-theme="dark"]
-        .student-card h6,
-
-        [data-bs-theme="dark"]
-        .student-item h1,
-
-        [data-bs-theme="dark"]
-        .student-item h2,
-
-        [data-bs-theme="dark"]
-        .student-item h3,
-
-        [data-bs-theme="dark"]
-        .student-item h4,
-
-        [data-bs-theme="dark"]
-        .student-item h5,
-
-        [data-bs-theme="dark"]
-        .student-item h6,
-
-        [data-bs-theme="dark"]
-        .student-card-title,
-
-        [data-bs-theme="dark"]
-        .student-name {
-
-            color: #ffffff;
+            border-color:
+                #22C55E;
 
         }
 
 
         [data-bs-theme="dark"]
-        .student-card p,
+        .student-table-permission.denied {
+
+            color:
+                #F87171;
+
+            background:
+                #1A0808;
+
+            border-color:
+                #EF4444;
+
+        }
+
+
+        /* =========================================================
+           YEAR
+        ========================================================== */
+
+        .student-table-year {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            padding:
+                .3rem .5rem;
+
+            color:
+                var(--student-primary);
+
+            background:
+                var(--student-primary-soft);
+
+            border:
+                1px solid rgba(101, 56, 217, .18);
+
+            border-radius: 5px;
+
+            font-family:
+                monospace;
+
+            font-size: .70rem;
+
+            font-weight: 700;
+
+        }
+
 
         [data-bs-theme="dark"]
-        .student-card span,
+        .student-table-year {
 
-        [data-bs-theme="dark"]
-        .student-item p,
+            color:
+                #B8A7F2;
 
-        [data-bs-theme="dark"]
-        .student-item span,
+            background:
+                #292342;
 
-        [data-bs-theme="dark"]
-        .student-email,
+            border-color:
+                #463B67;
 
-        [data-bs-theme="dark"]
-        .student-department,
+        }
 
-        [data-bs-theme="dark"]
-        .student-year,
 
-        [data-bs-theme="dark"]
-        .student-info,
+        /* =========================================================
+           TABLE EDIT BUTTON
+        ========================================================== */
 
-        [data-bs-theme="dark"]
-        .student-info span {
+        .student-table-edit-button {
 
-            color: #999fb9;
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: .4rem;
+
+            min-width: 76px;
+
+            height: 34px;
+
+            padding:
+                .35rem .65rem;
+
+            color:
+                var(--student-primary);
+
+            background:
+                transparent;
+
+            border:
+                1px solid var(--student-primary);
+
+            border-radius: 6px;
+
+            font-size: .72rem;
+
+            font-weight: 800;
+
+            text-decoration: none;
+
+            text-transform: uppercase;
+
+            transition:
+                color .2s ease,
+                background-color .2s ease,
+                border-color .2s ease,
+                box-shadow .2s ease;
+
+        }
+
+
+        .student-table-edit-button:hover {
+
+            color:
+                #FFFFFF;
+
+            background:
+                var(--student-primary);
+
+            border-color:
+                var(--student-primary);
+
+            box-shadow:
+                0 3px 8px rgba(101, 56, 217, .20);
 
         }
 
@@ -1892,26 +2563,11 @@
             box-shadow:
                 var(--student-shadow);
 
-            font-size: .7rem;
+            font-size: .78rem;
 
             font-weight: 700;
 
             white-space: nowrap;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-loading {
-
-            color: #ffffff;
-
-            background: #181d33;
-
-            border-color: #292e45;
-
-            box-shadow:
-                0 4px 18px rgba(0, 0, 0, .35);
 
         }
 
@@ -1932,16 +2588,6 @@
 
             animation:
                 studentSpin .7s linear infinite;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-spinner {
-
-            border-color: #343a52;
-
-            border-top-color: #ffffff;
 
         }
 
@@ -1978,6 +2624,9 @@
 
             border-radius: 10px;
 
+            box-shadow:
+                var(--student-card-shadow);
+
             opacity: 0;
 
             transform:
@@ -1996,16 +2645,6 @@
 
             transform:
                 translateY(0);
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-mobile-search-panel {
-
-            background: #181d33;
-
-            border-color: #292e45;
 
         }
 
@@ -2044,9 +2683,7 @@
                 translateY(-50%);
 
             color:
-                var(--student-text-muted);
-
-            pointer-events: none;
+                var(--student-primary);
 
         }
 
@@ -2073,37 +2710,21 @@
 
             outline: none;
 
-            font-size: .8rem;
+            font-size: .88rem;
 
             box-sizing: border-box;
 
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-mobile-search-input input {
-
-            color: #ffffff;
-
-            background: #20253a;
-
-            border-color: #343a52;
+            transition:
+                border-color .2s ease,
+                box-shadow .2s ease;
 
         }
 
 
-        [data-bs-theme="dark"]
         .student-mobile-search-input input::placeholder {
 
-            color: #777f9c;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-mobile-search-input i {
-
-            color: #999fb9;
+            color:
+                var(--student-text-muted);
 
         }
 
@@ -2114,29 +2735,12 @@
                 var(--student-primary);
 
             box-shadow:
-                0 0 0 3px rgba(0, 0, 0, .08);
+                0 0 0 3px rgba(101, 56, 217, .12);
 
         }
 
-
-        [data-bs-theme="dark"]
-        .student-mobile-search-input input:focus {
-
-            border-color: #ffffff;
-
-            box-shadow:
-                0 0 0 3px rgba(255, 255, 255, .10);
-
-        }
-
-
-        /* =========================================================
-           MOBILE RESET
-        ========================================================== */
 
         .student-mobile-reset-button {
-
-            position: relative;
 
             display: flex;
 
@@ -2151,7 +2755,7 @@
             flex-shrink: 0;
 
             color:
-                var(--student-text);
+                var(--student-text-secondary);
 
             background:
                 var(--student-card-bg);
@@ -2164,7 +2768,9 @@
             cursor: pointer;
 
             transition:
-                .2s ease;
+                color .2s ease,
+                background-color .2s ease,
+                border-color .2s ease;
 
         }
 
@@ -2172,266 +2778,39 @@
         .student-mobile-reset-button:hover {
 
             color:
-                var(--student-white);
+                #FFFFFF;
 
             background:
-                var(--student-black);
+                var(--student-primary);
 
             border-color:
-                var(--student-black);
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-mobile-reset-button {
-
-            color: #ffffff;
-
-            background: #20253a;
-
-            border-color: #343a52;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-mobile-reset-button:hover {
-
-            color: #000000;
-
-            background: #ffffff;
-
-            border-color: #ffffff;
+                var(--student-primary);
 
         }
 
 
         /* =========================================================
-           EMPTY STATE
+           RESPONSIVE
         ========================================================== */
 
-        .student-empty-state {
+        @media (max-width: 1399.98px) {
 
-            padding:
-                4rem 1rem;
-
-            text-align: center;
-
-            color:
-                var(--student-text);
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-empty-state {
-
-            color: #eeeef8;
-
-        }
-
-
-        .student-empty-icon {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            width: 70px;
-
-            height: 70px;
-
-            margin:
-                0 auto 1rem;
-
-            color:
-                var(--student-text);
-
-            background:
-                var(--student-input-bg);
-
-            border:
-                1px solid var(--student-border-soft);
-
-            border-radius: 50%;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-empty-icon {
-
-            color: #ffffff;
-
-            background: #20253a;
-
-            border-color: #292e45;
-
-        }
-
-
-        .student-empty-icon i {
-
-            font-size: 1.8rem;
-
-        }
-
-
-        .student-empty-state h5 {
-
-            margin:
-                0 0 .4rem;
-
-            color:
-                var(--student-text);
-
-            font-size: .9rem;
-
-            font-weight: 800;
-
-            text-transform: uppercase;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-empty-state h5 {
-
-            color: #ffffff;
-
-        }
-
-
-        .student-empty-state p {
-
-            margin: 0;
-
-            color:
-                var(--student-text-muted);
-
-            font-size: .78rem;
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-empty-state p {
-
-            color: #999fb9;
-
-        }
-
-
-        /* =========================================================
-           TOOLTIP
-        ========================================================== */
-
-        .student-mobile-search-button[data-tooltip]::after,
-        .student-mobile-reset-button[data-tooltip]::after,
-        .student-reset-button[data-tooltip]::after {
-
-            content:
-                attr(data-tooltip);
-
-            position: absolute;
-
-            top:
-                calc(100% + 8px);
-
-            left: 50%;
-
-            z-index: 100;
-
-            padding:
-                .4rem .6rem;
-
-            color:
-                var(--student-white);
-
-            background:
-                var(--student-black);
-
-            border-radius: 5px;
-
-            font-size: .62rem;
-
-            font-weight: 700;
-
-            white-space: nowrap;
-
-            opacity: 0;
-
-            pointer-events: none;
-
-            transform:
-                translateX(-50%) translateY(-3px);
-
-            transition:
-                opacity .15s ease,
-                transform .15s ease;
-
-        }
-
-
-        .student-mobile-search-button[data-tooltip]:hover::after,
-        .student-mobile-reset-button[data-tooltip]:hover::after,
-        .student-reset-button[data-tooltip]:hover::after {
-
-            opacity: 1;
-
-            transform:
-                translateX(-50%) translateY(0);
-
-        }
-
-
-        [data-bs-theme="dark"]
-        .student-mobile-search-button[data-tooltip]::after,
-
-        [data-bs-theme="dark"]
-        .student-mobile-reset-button[data-tooltip]::after,
-
-        [data-bs-theme="dark"]
-        .student-reset-button[data-tooltip]::after {
-
-            color: #000000;
-
-            background: #ffffff;
-
-        }
-
-
-        /* =========================================================
-           LARGE DESKTOP
-           4 CARDS PER ROW
-        ========================================================== */
-
-        @media (min-width: 1400px) {
-
-            .thesis-card-grid {
+            .student-partial-card-results {
 
                 grid-template-columns:
-                    repeat(4, minmax(0, 1fr));
+                    repeat(3, minmax(0, 1fr));
 
             }
 
         }
 
 
-        /* =========================================================
-           DESKTOP / SMALLER DESKTOP
-           3 CARDS PER ROW
-        ========================================================== */
+        @media (max-width: 1199.98px) {
 
-        @media (min-width: 1200px) and (max-width: 1399.98px) {
-
-            .thesis-card-grid {
+            .student-partial-card-results {
 
                 grid-template-columns:
-                    repeat(3, minmax(0, 1fr));
+                    repeat(2, minmax(0, 1fr));
 
             }
 
@@ -2442,12 +2821,28 @@
            TABLET
         ========================================================== */
 
-        @media (max-width: 1199.98px) {
+        @media (max-width: 991.98px) {
 
-            .thesis-card-grid {
+            .student-page {
 
-                grid-template-columns:
-                    repeat(2, minmax(0, 1fr));
+                padding:
+                    16px;
+
+            }
+
+
+            .student-page-header {
+
+                margin-top:
+                    80px;
+
+            }
+
+
+            .student-filter-body {
+
+                padding:
+                    1rem;
 
             }
 
@@ -2460,90 +2855,209 @@
 
         @media (max-width: 767.98px) {
 
+            .student-page {
+
+                padding:
+                    12px;
+
+            }
+
+
             .student-page-header {
 
-                margin-bottom: 1rem;
+                align-items: center;
 
-                padding: 1rem;
+                padding:
+                    .9rem 1rem;
 
-                gap: 1rem;
+                margin:
+                    75px 0 12px;
+
+                border-radius:
+                    10px;
 
             }
 
 
             .student-title {
 
-                font-size: 1.35rem;
+                font-size:
+                    1.35rem;
 
             }
 
 
             .student-overline {
 
-                font-size: .65rem;
+                font-size:
+                    .65rem;
 
             }
 
-
-            /* SHOW SEARCH BUTTON */
 
             .student-mobile-search-button {
 
-                display: flex;
+                display:
+                    flex;
 
             }
 
-
-            /* HIDE DESKTOP FILTER */
 
             .student-filter-card {
 
-                display: none;
+                display:
+                    none;
 
             }
 
-
-            /* SHOW MOBILE SEARCH */
 
             .student-mobile-search-panel {
 
-                display: block;
+                display:
+                    block;
 
             }
 
 
-            /* ONE CARD PER ROW */
+            /* =====================================================
+               TOGGLE
+            ====================================================== */
 
-            .thesis-card-grid {
+            .student-results-toolbar {
+
+                justify-content:
+                    flex-end;
+
+                margin-top:
+                    .75rem;
+
+                margin-bottom:
+                    .75rem;
+
+                padding:
+                    0 .25rem;
+
+                box-sizing:
+                    border-box;
+
+            }
+
+
+            .student-view-button {
+
+                width:
+                    38px;
+
+                min-width:
+                    38px;
+
+                height:
+                    38px;
+
+                padding:
+                    0;
+
+            }
+
+
+            .student-view-button span {
+
+                display:
+                    none;
+
+            }
+
+
+            /* =====================================================
+               CARDS
+            ====================================================== */
+
+            .student-partial-card-results {
 
                 grid-template-columns:
                     1fr;
 
-                gap: 1rem;
+                gap:
+                    1rem;
 
                 padding:
-                    0 .75rem 1rem;
+                    0 .25rem 1rem;
 
             }
 
 
-            /* ALERT */
+            /* =====================================================
+               TABLE
+            ====================================================== */
+
+            .student-partial-table-results {
+
+                padding:
+                    0 .25rem 1rem;
+
+            }
+
+
+            .student-table thead th {
+
+                font-size:
+                    .62rem;
+
+            }
+
+
+            .student-table tbody td {
+
+                font-size:
+                    .68rem;
+
+            }
+
+
+            .student-table-name {
+
+                font-size:
+                    .70rem;
+
+            }
+
+
+            .student-table-number {
+
+                font-size:
+                    .62rem;
+
+            }
+
+
+            .student-table-permission {
+
+                font-size:
+                    .62rem;
+
+            }
+
+
+            .student-table-year {
+
+                font-size:
+                    .64rem;
+
+            }
+
+
+            .student-table-edit-button {
+
+                font-size:
+                    .66rem;
+
+            }
+
 
             .student-success-alert {
 
                 margin:
-                    0 .75rem 1rem;
-
-            }
-
-
-            /* HIDE TOOLTIP */
-
-            .student-mobile-search-button[data-tooltip]::after,
-            .student-mobile-reset-button[data-tooltip]::after,
-            .student-reset-button[data-tooltip]::after {
-
-                display: none;
+                    0 0 1rem;
 
             }
 
@@ -2556,70 +3070,259 @@
 
         @media (max-width: 575.98px) {
 
+            .student-page {
+
+                padding:
+                    10px;
+
+            }
+
+
             .student-page-header {
 
-                padding: .85rem;
+                padding:
+                    .8rem .85rem;
+
+                margin-top:
+                    70px;
 
             }
 
 
             .student-title {
 
-                font-size: 1.15rem;
+                font-size:
+                    1.15rem;
+
+            }
+
+
+            .student-results-toolbar {
+
+                padding:
+                    0 .15rem;
+
+            }
+
+
+            .student-view-button {
+
+                width:
+                    36px;
+
+                min-width:
+                    36px;
+
+                height:
+                    36px;
+
+            }
+
+
+            .student-mobile-search-button {
+
+                width:
+                    42px;
+
+                height:
+                    42px;
 
             }
 
 
             .student-mobile-search-content {
 
-                padding: .6rem;
+                padding:
+                    .6rem;
 
             }
 
 
             .student-mobile-search-input input {
 
-                height: 42px;
-
-                font-size: .76rem;
-
-            }
-
-
-            .student-mobile-reset-button,
-            .student-mobile-search-button {
-
-                width: 42px;
-
-                height: 42px;
+                font-size:
+                    .84rem;
 
             }
 
 
-            .thesis-card-grid {
-
-                gap: .85rem;
+            .student-partial-card-results {
 
                 padding:
-                    0 .65rem 1rem;
+                    0 .15rem 1rem;
 
             }
 
 
-            .student-success-alert {
-
-                margin:
-                    0 .65rem .85rem;
-
-            }
-
-
-            .student-empty-state {
+            .student-partial-table-results {
 
                 padding:
-                    3rem 1rem;
+                    0 .15rem 1rem;
 
             }
+
+
+            /* =====================================================
+               SMALL MOBILE TABLE
+            ====================================================== */
+
+            .student-table thead th {
+
+                padding:
+                    .6rem .35rem;
+
+                font-size:
+                    .56rem;
+
+                line-height:
+                    1.3;
+
+                white-space:
+                    normal;
+
+            }
+
+
+            .student-table tbody td {
+
+                padding:
+                    .65rem .35rem;
+
+                font-size:
+                    .62rem;
+
+                line-height:
+                    1.4;
+
+            }
+
+
+            .student-table-name {
+
+                font-size:
+                    .64rem;
+
+            }
+
+
+            .student-table-number {
+
+                font-size:
+                    .56rem;
+
+            }
+
+
+            .student-table-permission {
+
+                font-size:
+                    .56rem;
+
+            }
+
+
+            .student-table-year {
+
+                font-size:
+                    .58rem;
+
+            }
+
+
+            .student-table-edit-button {
+
+                min-width:
+                    60px;
+
+                height:
+                    30px;
+
+                padding:
+                    .25rem .45rem;
+
+                font-size:
+                    .58rem;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           DARK MODE MOBILE
+        ========================================================== */
+
+        @media (max-width: 767.98px) {
+
+            [data-bs-theme="dark"]
+            .student-page-header {
+
+                background:
+                    #181D33;
+
+                border-color:
+                    #292E45;
+
+            }
+
+
+            [data-bs-theme="dark"]
+            .student-mobile-search-panel {
+
+                background:
+                    #181D33;
+
+                border-color:
+                    #292E45;
+
+            }
+
+
+            [data-bs-theme="dark"]
+            .student-mobile-reset-button {
+
+                color:
+                    #D5D8E8;
+
+                background:
+                    #20253A;
+
+                border-color:
+                    #343A52;
+
+            }
+
+
+            [data-bs-theme="dark"]
+            .student-mobile-reset-button:hover {
+
+                color:
+                    #FFFFFF;
+
+                background:
+                    #7C5CE3;
+
+                border-color:
+                    #7C5CE3;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           ACCESSIBILITY
+        ========================================================== */
+
+        .student-view-button:focus-visible,
+        .student-mobile-search-button:focus-visible,
+        .student-mobile-reset-button:focus-visible {
+
+            outline:
+                none;
+
+            box-shadow:
+                0 0 0 3px rgba(101, 56, 217, .20);
 
         }
 

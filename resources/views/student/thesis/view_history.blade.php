@@ -2,528 +2,594 @@
 
     <div class="dashboard-content history-page">
 
-        <div class="history-container">
+        <div class="page-header">
 
-            {{-- =====================================================
-        PAGE HEADER
-    ====================================================== --}}
+            <div>
+                <div class="page-title-wrapper">
 
-            <div class="page-header">
+                    <div class="page-title-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
 
-                <div>
-                    <div class="page-title-wrapper">
+                    <div>
+                        <h2 class="page-title">View History</h2>
 
-                        <div class="page-title-icon">
-                            <i class="fas fa-history"></i>
-                        </div>
+                        <p class="page-subtitle">
+                            Review the theses you have viewed previously.
+                        </p>
+                    </div>
 
-                        <div>
-                            <h2 class="page-title">
-                                View History
-                            </h2>
+                </div>
+            </div>
 
-                            <p class="page-subtitle">
-                                Review the theses you have viewed previously.
-                            </p>
+            <a
+                href="{{ route('student.thesis.index') }}"
+                class="browse-button"
+            >
+                <i class="fas fa-search"></i>
+                <span>Browse Theses</span>
+            </a>
+
+        </div>
+
+
+        {{-- =========================================================
+             MAIN HISTORY CARD
+        ========================================================== --}}
+
+        <div class="history-card">
+
+            <div class="history-card-body">
+
+                @if ($histories->count())
+
+                    {{-- =================================================
+                         VIEW TOGGLE
+                    ================================================== --}}
+
+                    <div class="history-view-toolbar">
+
+                        <div
+                            class="history-view-toggle"
+                            role="group"
+                            aria-label="History view"
+                        >
+
+                            <button
+                                type="button"
+                                class="history-view-button active"
+                                data-history-view="card"
+                                aria-pressed="true"
+                            >
+                                <i class="fas fa-grip"></i>
+                                <span>Card</span>
+                            </button>
+
+                            <button
+                                type="button"
+                                class="history-view-button"
+                                data-history-view="table"
+                                aria-pressed="false"
+                            >
+                                <i class="fas fa-table"></i>
+                                <span>Table</span>
+                            </button>
+
                         </div>
 
                     </div>
-                </div>
-
-                <a href="{{ route('student.thesis.index') }}" class="browse-button">
-                    <i class="fas fa-search"></i>
-                    <span>Browse Theses</span>
-                </a>
-
-            </div>
 
 
-            {{-- =====================================================
-        HISTORY CARD
-    ====================================================== --}}
+                    {{-- =================================================
+                         CARD VIEW
+                    ================================================== --}}
 
-            <div class="history-card">
+                    <div class="history-card-view">
 
-                {{-- <div class="history-card-header">
+                        <div class="history-card-grid">
 
-                    @if ($histories->count())
-                        <div class="history-count">
-                            {{ $histories->count() }}
-                            <span>Viewed</span>
-                        </div>
-                    @endif
+                            @foreach ($histories as $history)
 
-                </div> --}}
+                                @if ($history->thesis)
 
+                                    @php
+                                        $thesis = $history->thesis;
+                                    @endphp
 
-                <div class="history-card-body">
+                                    <div class="history-item-card">
 
-                    @if ($histories->count())
+                                        {{-- =================================
+                                             CARD HEADER
+                                        ================================== --}}
 
-                        {{-- =================================================
-                    VIEW SWITCHER
-                ================================================== --}}
+                                        <div class="history-item-header">
 
-                        <div class="history-view-toolbar">
+                                            <div class="history-item-title-area">
 
-                            <div class="history-view-toggle" role="group" aria-label="History view">
-
-                                <button type="button" class="history-view-button active" data-history-view="card"
-                                    aria-pressed="true">
-
-                                    <i class="fas fa-grip"></i>
-                                    <span>Card</span>
-
-                                </button>
-
-                                <button type="button" class="history-view-button" data-history-view="table"
-                                    aria-pressed="false">
-
-                                    <i class="fas fa-table"></i>
-                                    <span>Table</span>
-
-                                </button>
-
-                            </div>
-
-                        </div>
-
-
-                        {{-- =================================================
-                    CARD VIEW
-                ================================================== --}}
-
-                        <div class="history-card-view">
-
-                            <div class="history-card-grid">
-
-                                @foreach ($histories as $history)
-                                    @if ($history->thesis)
-                                        @php
-                                            $thesis = $history->thesis;
-                                        @endphp
-
-                                        <div class="history-item-card">
-
-                                            {{-- Card Header --}}
-
-                                            <div class="history-item-header">
-
-                                                <div class="history-item-title-area">
-
-                                                    <div class="history-item-icon">
-                                                        <i class="fas fa-file-lines"></i>
-                                                    </div>
-
-                                                    <div class="history-item-heading">
-
-                                                        <span class="history-item-number">
-                                                            ID: {{ $loop->iteration }}
-                                                        </span>
-
-                                                        <h4>
-                                                            {{ $thesis->title }}
-                                                        </h4>
-
-                                                        <span class="history-thesis-id">
-                                                            Thesis ID: {{ $thesis->id }}
-                                                        </span>
-
-                                                    </div>
-
+                                                <div class="history-item-icon">
+                                                    <i class="fas fa-file-lines"></i>
                                                 </div>
 
-                                            </div>
+                                                <div class="history-item-heading">
 
-
-                                            {{-- Card Information --}}
-
-                                            <div class="history-item-info">
-
-                                                <div class="history-info-row">
-
-                                                    <span class="history-info-label">
-
-                                                        <i class="fas fa-user"></i>
-                                                        Author
-
+                                                    <span class="history-item-number">
+                                                        ID: {{ $loop->iteration }}
                                                     </span>
 
-                                                    <strong>
-                                                        {{ $thesis->author_name }}
-                                                    </strong>
+                                                    <h4>
+                                                        {{ $thesis->title }}
+                                                    </h4>
+
+                                                    <span class="history-thesis-id">
+                                                        Thesis ID: {{ $thesis->id }}
+                                                    </span>
 
                                                 </div>
-
-
-                                                <div class="history-info-row">
-
-                                                    <span class="history-info-label">
-
-                                                        <i class="far fa-calendar-alt"></i>
-                                                        Viewed
-
-                                                    </span>
-
-                                                    <strong>
-
-                                                        @if ($history->viewed_at)
-                                                            {{ $history->viewed_at->format('M d, Y h:i A') }}
-                                                        @else
-                                                            N/A
-                                                        @endif
-
-                                                    </strong>
-
-                                                </div>
-
-                                            </div>
-
-
-                                            {{-- Card Actions --}}
-
-                                            <div class="history-item-actions">
-
-                                                @if ($thesis->files && $thesis->files->count())
-                                                    @foreach ($thesis->files as $file)
-                                                        <a href="{{ route('student.thesis.view-pdf', ['file' => $file->id]) }}"
-                                                            target="_blank" class="action-btn view-pdf-btn"
-                                                            title="View PDF" aria-label="View PDF">
-
-                                                            <i class="fas fa-file-pdf"></i>
-                                                            <span>View PDF</span>
-
-                                                        </a>
-
-
-                                                        <a href="{{ route('student.thesis.download', $file) }}"
-                                                            class="action-btn download-btn" title="Download"
-                                                            aria-label="Download">
-
-                                                            <i class="fas fa-download"></i>
-                                                            <span>Download</span>
-
-                                                        </a>
-                                                    @endforeach
-                                                @else
-                                                    <span class="no-pdf">
-
-                                                        <i class="fas fa-file-circle-xmark"></i>
-                                                        No PDF
-
-                                                    </span>
-                                                @endif
-
-
-                                                {{-- Save / Remove --}}
-
-                                                @if (isset($savedThesisIds) && in_array($thesis->id, $savedThesisIds))
-                                                    <form
-                                                        action="{{ route('student.saved_thesis.destroy', $thesis->id) }}"
-                                                        method="POST" class="save-thesis-form">
-
-                                                        @csrf
-                                                        @method('DELETE')
-
-                                                        <button type="submit" class="save-btn saved"
-                                                            title="Remove saved thesis"
-                                                            aria-label="Remove saved thesis">
-
-                                                            <i class="fas fa-bookmark"></i>
-
-                                                        </button>
-
-                                                    </form>
-                                                @else
-                                                    <form
-                                                        action="{{ route('student.saved_thesis.store', $thesis->id) }}"
-                                                        method="POST" class="save-thesis-form">
-
-                                                        @csrf
-
-                                                        <button type="submit" class="save-btn" title="Save thesis"
-                                                            aria-label="Save thesis">
-
-                                                            <i class="far fa-bookmark"></i>
-
-                                                        </button>
-
-                                                    </form>
-                                                @endif
 
                                             </div>
 
                                         </div>
-                                    @endif
-                                @endforeach
 
-                            </div>
+
+                                        {{-- =================================
+                                             CARD INFORMATION
+                                        ================================== --}}
+
+                                        <div class="history-item-info">
+
+                                            <div class="history-info-row">
+
+                                                <span class="history-info-label">
+                                                    <i class="fas fa-user"></i>
+                                                    Author
+                                                </span>
+
+                                                <strong>
+                                                    {{ $thesis->author_name ?? 'N/A' }}
+                                                </strong>
+
+                                            </div>
+
+
+                                            <div class="history-info-row">
+
+                                                <span class="history-info-label">
+                                                    <i class="far fa-calendar-alt"></i>
+                                                    Viewed
+                                                </span>
+
+                                                <strong>
+
+                                                    @if ($history->viewed_at)
+
+                                                        {{ $history->viewed_at->format('M d, Y h:i A') }}
+
+                                                    @else
+
+                                                        N/A
+
+                                                    @endif
+
+                                                </strong>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        {{-- =================================
+                                             CARD ACTIONS
+                                        ================================== --}}
+
+                                        <div class="history-item-actions">
+
+                                            @if ($thesis->files && $thesis->files->count())
+
+                                                @foreach ($thesis->files as $file)
+
+                                                    <a
+                                                        href="{{ route('student.thesis.view-pdf', ['file' => $file->id]) }}"
+                                                        target="_blank"
+                                                        class="action-btn view-pdf-btn"
+                                                        title="View PDF"
+                                                        aria-label="View PDF"
+                                                    >
+                                                        <i class="fas fa-file-pdf"></i>
+                                                        <span>View PDF</span>
+                                                    </a>
+
+
+                                                    <a
+                                                        href="{{ route('student.thesis.download', $file) }}"
+                                                        class="action-btn download-btn"
+                                                        title="Download"
+                                                        aria-label="Download"
+                                                    >
+                                                        <i class="fas fa-download"></i>
+                                                        <span>Download</span>
+                                                    </a>
+
+                                                @endforeach
+
+                                            @else
+
+                                                <span class="no-pdf">
+
+                                                    <i class="fas fa-file-circle-xmark"></i>
+
+                                                    <span>No PDF</span>
+
+                                                </span>
+
+                                            @endif
+
+
+                                            {{-- SAVE THESIS --}}
+
+                                            @if (
+                                                isset($savedThesisIds) &&
+                                                in_array($thesis->id, $savedThesisIds)
+                                            )
+
+                                                <form
+                                                    action="{{ route('student.saved_thesis.destroy', $thesis->id) }}"
+                                                    method="POST"
+                                                    class="save-thesis-form"
+                                                >
+
+                                                    @csrf
+
+                                                    @method('DELETE')
+
+                                                    <button
+                                                        type="submit"
+                                                        class="save-btn saved"
+                                                        title="Remove saved thesis"
+                                                        aria-label="Remove saved thesis"
+                                                    >
+                                                        <i class="fas fa-bookmark"></i>
+                                                    </button>
+
+                                                </form>
+
+                                            @else
+
+                                                <form
+                                                    action="{{ route('student.saved_thesis.store', $thesis->id) }}"
+                                                    method="POST"
+                                                    class="save-thesis-form"
+                                                >
+
+                                                    @csrf
+
+                                                    <button
+                                                        type="submit"
+                                                        class="save-btn"
+                                                        title="Save thesis"
+                                                        aria-label="Save thesis"
+                                                    >
+                                                        <i class="far fa-bookmark"></i>
+                                                    </button>
+
+                                                </form>
+
+                                            @endif
+
+                                        </div>
+
+                                    </div>
+
+                                @endif
+
+                            @endforeach
 
                         </div>
 
-
-                        {{-- =================================================
-                    TABLE VIEW
-                ================================================== --}}
-
-                        <div class="history-table-view" hidden>
-
-                            <div class="history-table-wrapper">
-
-                                <table class="history-table">
-
-                                    <thead>
-
-                                        <tr>
-
-                                            <th class="number-column">
-                                                ID
-                                            </th>
-
-                                            <th>
-                                                Thesis Title
-                                            </th>
-
-                                            <th>
-                                                Author
-                                            </th>
-
-                                            <th>
-                                                Viewed At
-                                            </th>
-
-                                            <th class="action-column">
-                                                Action
-                                            </th>
-
-                                        </tr>
-
-                                    </thead>
+                    </div>
 
 
-                                    <tbody>
+                    {{-- =================================================
+                         TABLE VIEW
+                    ================================================== --}}
 
-                                        @foreach ($histories as $history)
-                                            @if ($history->thesis)
-                                                @php
-                                                    $thesis = $history->thesis;
-                                                @endphp
+                    <div
+                        class="history-table-view"
+                        hidden
+                    >
 
-                                                <tr>
+                        <div class="history-table-wrapper">
 
-                                                    {{-- Number --}}
+                            <table class="history-table">
 
-                                                    <td class="number-cell">
+                                <thead>
 
-                                                        <span class="history-number">
-                                                            {{ $loop->iteration }}
-                                                        </span>
+                                    <tr>
 
-                                                    </td>
+                                        <th class="number-column">
+                                            ID
+                                        </th>
+
+                                        <th>
+                                            Thesis Title
+                                        </th>
+
+                                        <th>
+                                            Author
+                                        </th>
+
+                                        <th>
+                                            Viewed At
+                                        </th>
+
+                                        <th class="action-column">
+                                            Action
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
 
 
-                                                    {{-- Thesis --}}
+                                <tbody>
 
-                                                    <td class="thesis-cell">
+                                    @foreach ($histories as $history)
 
-                                                        <div class="thesis-info">
+                                        @if ($history->thesis)
 
-                                                            <div class="thesis-icon">
-                                                                <i class="fas fa-file-lines"></i>
-                                                            </div>
+                                            @php
+                                                $thesis = $history->thesis;
+                                            @endphp
 
-                                                            <div class="thesis-text">
+                                            <tr>
 
-                                                                <strong>
-                                                                    {{ $thesis->title }}
-                                                                </strong>
+                                                {{-- ID --}}
 
-                                                                <span>
-                                                                    Thesis ID: {{ $thesis->id }}
-                                                                </span>
+                                                <td class="number-cell">
 
-                                                            </div>
+                                                    <span class="history-number">
+                                                        {{ $loop->iteration }}
+                                                    </span>
 
+                                                </td>
+
+
+                                                {{-- THESIS --}}
+
+                                                <td class="thesis-cell">
+
+                                                    <div class="thesis-info">
+
+                                                        <div class="thesis-icon">
+                                                            <i class="fas fa-file-lines"></i>
                                                         </div>
 
-                                                    </td>
+                                                        <div class="thesis-text">
 
-
-                                                    {{-- Author --}}
-
-                                                    <td class="author-cell">
-
-                                                        <div class="author-info">
-
-                                                            <div class="author-avatar">
-                                                                <i class="fas fa-user"></i>
-                                                            </div>
+                                                            <strong>
+                                                                {{ $thesis->title }}
+                                                            </strong>
 
                                                             <span>
-                                                                {{ $thesis->author_name }}
+                                                                Thesis ID: {{ $thesis->id }}
                                                             </span>
 
                                                         </div>
 
-                                                    </td>
+                                                    </div>
+
+                                                </td>
 
 
-                                                    {{-- Viewed --}}
+                                                {{-- AUTHOR --}}
 
-                                                    <td class="date-cell">
+                                                <td class="author-cell">
 
-                                                        <div class="date-info">
+                                                    <div class="author-info">
 
-                                                            <i class="far fa-calendar-alt"></i>
+                                                        <div class="author-avatar">
+                                                            <i class="fas fa-user"></i>
+                                                        </div>
 
-                                                            <div>
+                                                        <span>
+                                                            {{ $thesis->author_name ?? 'N/A' }}
+                                                        </span>
 
-                                                                <strong>
+                                                    </div>
 
-                                                                    @if ($history->viewed_at)
-                                                                        {{ $history->viewed_at->format('M d, Y') }}
-                                                                    @else
-                                                                        N/A
-                                                                    @endif
+                                                </td>
 
-                                                                </strong>
 
-                                                                <span>
+                                                {{-- VIEWED DATE --}}
 
-                                                                    @if ($history->viewed_at)
-                                                                        {{ $history->viewed_at->format('h:i A') }}
-                                                                    @else
-                                                                        N/A
-                                                                    @endif
+                                                <td class="date-cell">
 
-                                                                </span>
+                                                    <div class="date-info">
 
-                                                            </div>
+                                                        <i class="far fa-calendar-alt"></i>
+
+                                                        <div>
+
+                                                            <strong>
+
+                                                                @if ($history->viewed_at)
+
+                                                                    {{ $history->viewed_at->format('M d, Y') }}
+
+                                                                @else
+
+                                                                    N/A
+
+                                                                @endif
+
+                                                            </strong>
+
+
+                                                            <span>
+
+                                                                @if ($history->viewed_at)
+
+                                                                    {{ $history->viewed_at->format('h:i A') }}
+
+                                                                @else
+
+                                                                    N/A
+
+                                                                @endif
+
+                                                            </span>
 
                                                         </div>
 
-                                                    </td>
+                                                    </div>
+
+                                                </td>
 
 
-                                                    {{-- Actions --}}
+                                                {{-- ACTIONS --}}
 
-                                                    <td class="action-cell">
+                                                <td class="action-cell">
 
-                                                        <div class="action-buttons">
+                                                    <div class="action-buttons">
 
-                                                            @if ($thesis->files && $thesis->files->count())
-                                                                @foreach ($thesis->files as $file)
-                                                                    <a href="{{ route('student.thesis.view-pdf', ['file' => $file->id]) }}"
-                                                                        target="_blank" class="action-btn view-pdf-btn"
-                                                                        title="View PDF">
+                                                        @if ($thesis->files && $thesis->files->count())
 
-                                                                        <i class="fas fa-file-pdf"></i>
-                                                                        <span>View PDF</span>
+                                                            @foreach ($thesis->files as $file)
 
-                                                                    </a>
-
-
-                                                                    <a href="{{ route('student.thesis.download', $file) }}"
-                                                                        class="action-btn download-btn"
-                                                                        title="Download">
-
-                                                                        <i class="fas fa-download"></i>
-                                                                        <span>Download</span>
-
-                                                                    </a>
-                                                                @endforeach
-                                                            @else
-                                                                <span class="no-pdf">
-
-                                                                    <i class="fas fa-file-circle-xmark"></i>
-                                                                    No PDF
-
-                                                                </span>
-                                                            @endif
+                                                                <a
+                                                                    href="{{ route('student.thesis.view-pdf', ['file' => $file->id]) }}"
+                                                                    target="_blank"
+                                                                    class="action-btn view-pdf-btn"
+                                                                    title="View PDF"
+                                                                >
+                                                                    <i class="fas fa-file-pdf"></i>
+                                                                    <span>View PDF</span>
+                                                                </a>
 
 
-                                                            {{-- Save / Remove --}}
+                                                                <a
+                                                                    href="{{ route('student.thesis.download', $file) }}"
+                                                                    class="action-btn download-btn"
+                                                                    title="Download"
+                                                                >
+                                                                    <i class="fas fa-download"></i>
+                                                                    <span>Download</span>
+                                                                </a>
 
-                                                            @if (isset($savedThesisIds) && in_array($thesis->id, $savedThesisIds))
-                                                                <form
-                                                                    action="{{ route('student.saved_thesis.destroy', $thesis->id) }}"
-                                                                    method="POST" class="save-thesis-form">
+                                                            @endforeach
 
-                                                                    @csrf
-                                                                    @method('DELETE')
+                                                        @else
 
-                                                                    <button type="submit" class="save-btn saved"
-                                                                        title="Remove saved thesis"
-                                                                        aria-label="Remove saved thesis">
+                                                            <span class="no-pdf">
 
-                                                                        <i class="fas fa-bookmark"></i>
+                                                                <i class="fas fa-file-circle-xmark"></i>
 
-                                                                    </button>
+                                                                <span>No PDF</span>
 
-                                                                </form>
-                                                            @else
-                                                                <form
-                                                                    action="{{ route('student.saved_thesis.store', $thesis->id) }}"
-                                                                    method="POST" class="save-thesis-form">
+                                                            </span>
 
-                                                                    @csrf
+                                                        @endif
 
-                                                                    <button type="submit" class="save-btn"
-                                                                        title="Save thesis" aria-label="Save thesis">
 
-                                                                        <i class="far fa-bookmark"></i>
+                                                        {{-- SAVE BUTTON --}}
 
-                                                                    </button>
+                                                        @if (
+                                                            isset($savedThesisIds) &&
+                                                            in_array($thesis->id, $savedThesisIds)
+                                                        )
 
-                                                                </form>
-                                                            @endif
+                                                            <form
+                                                                action="{{ route('student.saved_thesis.destroy', $thesis->id) }}"
+                                                                method="POST"
+                                                                class="save-thesis-form"
+                                                            >
 
-                                                        </div>
+                                                                @csrf
 
-                                                    </td>
+                                                                @method('DELETE')
 
-                                                </tr>
-                                            @endif
-                                        @endforeach
+                                                                <button
+                                                                    type="submit"
+                                                                    class="save-btn saved"
+                                                                    title="Remove saved thesis"
+                                                                    aria-label="Remove saved thesis"
+                                                                >
+                                                                    <i class="fas fa-bookmark"></i>
+                                                                </button>
 
-                                    </tbody>
+                                                            </form>
 
-                                </table>
+                                                        @else
 
-                            </div>
+                                                            <form
+                                                                action="{{ route('student.saved_thesis.store', $thesis->id) }}"
+                                                                method="POST"
+                                                                class="save-thesis-form"
+                                                            >
 
-                        </div>
-                    @else
-                        {{-- =================================================
-                    EMPTY STATE
-                ================================================== --}}
+                                                                @csrf
 
-                        <div class="empty-history">
+                                                                <button
+                                                                    type="submit"
+                                                                    class="save-btn"
+                                                                    title="Save thesis"
+                                                                    aria-label="Save thesis"
+                                                                >
+                                                                    <i class="far fa-bookmark"></i>
+                                                                </button>
 
-                            <div class="empty-icon">
-                                <i class="fas fa-history"></i>
-                            </div>
+                                                            </form>
 
-                            <h4>
-                                No View History
-                            </h4>
+                                                        @endif
 
-                            <p>
-                                You have not viewed any thesis yet.
-                            </p>
+                                                    </div>
 
-                            <a href="{{ route('student.thesis.index') }}" class="empty-button">
+                                                </td>
 
-                                <i class="fas fa-search"></i>
-                                Browse Theses
+                                            </tr>
 
-                            </a>
+                                        @endif
+
+                                    @endforeach
+
+                                </tbody>
+
+                            </table>
 
                         </div>
 
-                    @endif
+                    </div>
 
-                </div>
+                @else
+
+                    {{-- =================================================
+                         EMPTY HISTORY
+                    ================================================== --}}
+
+                    <div class="empty-history">
+
+                        <div class="empty-icon">
+                            <i class="fas fa-history"></i>
+                        </div>
+
+                        <h4>
+                            No View History
+                        </h4>
+
+                        <p>
+                            You have not viewed any thesis yet.
+                        </p>
+
+                        <a
+                            href="{{ route('student.thesis.index') }}"
+                            class="empty-button"
+                        >
+                            <i class="fas fa-search"></i>
+                            Browse Theses
+                        </a>
+
+                    </div>
+
+                @endif
 
             </div>
 
@@ -532,29 +598,40 @@
     </div>
 
 
+    {{-- =========================================================
+         PAGE CSS
+    ========================================================== --}}
+
     <style>
+
         /* =========================================================
-       STUDENT THESIS HISTORY
-       CARD + TABLE VIEW
-       LIGHT + DARK MODE
-    ========================================================= */
+           PAGE
+        ========================================================== */
 
         .history-page {
 
             --history-purple: #6538d9;
             --history-purple-dark: #5030b8;
             --history-purple-light: #eee8ff;
+
             --history-text: #151a3b;
             --history-muted: #6d7392;
-            --history-border: #ececf4;
+
+            --history-border: #e8e8f0;
+
+            /* CARD BACKGROUND */
             --history-card: #ffffff;
-            --history-page-bg: #f8f8fc;
+
+            /* PAGE BACKGROUND */
+            --history-page-bg: #f4f5f9;
 
             --history-shadow:
-                0 5px 20px rgba(30, 25, 70, 0.07);
+                0 5px 20px rgba(30, 25, 70, .07);
 
             min-height: 100vh;
+
             background: var(--history-page-bg);
+
             color: var(--history-text);
 
             font-family:
@@ -563,56 +640,68 @@
                 Arial,
                 sans-serif;
 
-            padding: 118px 18px 35px;
+            padding:
+                118px
+                18px
+                35px;
+
             box-sizing: border-box;
-        }
 
-
-        .history-container {
-            width: 100%;
-            margin: 0 auto;
         }
 
 
         /* =========================================================
-       PAGE HEADER
-    ========================================================= */
+           PAGE HEADER
+        ========================================================== */
 
-        .page-header {
+        .history-page .page-header {
 
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
 
             gap: 20px;
+
             margin-bottom: 22px;
+
         }
 
 
         .page-title-wrapper {
 
             display: flex;
+
             align-items: center;
+
             gap: 14px;
+
         }
 
 
         .page-title-icon {
 
             width: 48px;
+
             height: 48px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
 
             border-radius: 12px;
 
             background: var(--history-purple-light);
+
             color: var(--history-purple);
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 21px;
 
-            font-size: 20px;
             flex-shrink: 0;
+
         }
 
 
@@ -620,10 +709,14 @@
 
             margin: 0;
 
-            font-size: 24px;
+            font-size: 23px;
+
+            line-height: 1.2;
+
             font-weight: 700;
 
             color: var(--history-text);
+
         }
 
 
@@ -631,253 +724,188 @@
 
             margin: 5px 0 0;
 
-            color: var(--history-muted);
             font-size: 13px;
+
+            color: var(--history-muted);
+
         }
 
+
+        /* =========================================================
+           BROWSE BUTTON
+        ========================================================== */
 
         .browse-button {
 
             display: inline-flex;
+
             align-items: center;
+
             justify-content: center;
 
             gap: 8px;
 
-            min-height: 42px;
-            padding: 0 17px;
+            padding: 11px 17px;
 
             border-radius: 9px;
 
             background: var(--history-purple);
+
             color: #ffffff;
 
             text-decoration: none;
 
             font-size: 13px;
+
             font-weight: 600;
 
             transition:
                 background .2s ease,
-                transform .2s ease;
+                transform .2s ease,
+                box-shadow .2s ease;
 
             white-space: nowrap;
+
         }
 
 
         .browse-button:hover {
 
             background: var(--history-purple-dark);
+
             color: #ffffff;
 
             transform: translateY(-1px);
+
+            box-shadow:
+                0 5px 15px rgba(101, 56, 217, .22);
+
         }
 
 
         /* =========================================================
-       MAIN CARD
-    ========================================================= */
+           MAIN HISTORY CONTAINER
+        ========================================================== */
 
         .history-card {
 
-            background: var(--history-card);
+            width: 100%;
 
-            border: 1px solid var(--history-border);
-            border-radius: 12px;
+            /* background: var(--history-card); */
 
-            box-shadow: var(--history-shadow);
+            /* border: 1px solid var(--history-border); */
+
+            border-radius: 13px;
+
+            
+
+            /* box-shadow: var(--history-shadow); */
 
             overflow: hidden;
+
         }
 
 
-        .history-card-header {
+        /* .history-card-body {
 
-            min-height: 78px;
+            padding: 20px;
 
-            padding: 18px 20px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 15px;
-
-            border-bottom: 1px solid var(--history-border);
-        }
-
-
-        .history-card-header h3 {
-
-            margin: 0;
-
-            font-size: 16px;
-            font-weight: 700;
-
-            color: var(--history-text);
-        }
-
-
-        .history-card-header h3 i {
-
-            color: var(--history-purple);
-            margin-right: 7px;
-        }
-
-
-        .history-card-header p {
-
-            margin: 5px 0 0;
-
-            color: var(--history-muted);
-            font-size: 12px;
-        }
-
-
-        .history-count {
-
-            min-width: 55px;
-
-            padding: 7px 11px;
-
-            border-radius: 8px;
-
-            background: var(--history-purple-light);
-            color: var(--history-purple);
-
-            font-size: 14px;
-            font-weight: 700;
-
-            text-align: center;
-        }
-
-
-        .history-count span {
-
-            display: block;
-
-            margin-top: 1px;
-
-            font-size: 9px;
-            font-weight: 600;
-
-            text-transform: uppercase;
-            letter-spacing: .03em;
-        }
-
-
-        .history-card-body {
-            padding: 0;
-        }
+        } */
 
 
         /* =========================================================
-       CARD / TABLE SWITCHER
-    ========================================================= */
+           VIEW TOOLBAR
+        ========================================================== */
 
         .history-view-toolbar {
 
             display: flex;
+
             justify-content: flex-end;
 
-            padding: 15px 18px 0;
+            align-items: center;
+
+            margin-bottom: 18px;
+
         }
 
 
         .history-view-toggle {
 
             display: inline-flex;
+
             align-items: center;
 
-            gap: 3px;
+            padding: 3px;
 
-            padding: 4px;
+            gap: 2px;
 
             background: var(--history-card);
 
             border: 1px solid var(--history-border);
 
-            border-radius: 10px;
+            border-radius: 9px;
 
             box-shadow:
-                0 3px 12px rgba(30, 25, 70, .05);
+                0 3px 10px rgba(30, 25, 70, .05);
+
         }
 
 
         .history-view-button {
 
-            min-height: 34px;
+            display: inline-flex;
 
-            padding: 0 12px;
+            align-items: center;
 
-            border: 0;
+            justify-content: center;
+
+            gap: 7px;
+
+            min-width: 85px;
+
+            padding: 8px 12px;
+
+            border: none;
+
             border-radius: 7px;
 
             background: transparent;
+
             color: var(--history-muted);
 
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 12px;
 
-            gap: 6px;
-
-            font-size: 11px;
-            font-weight: 700;
+            font-weight: 600;
 
             cursor: pointer;
 
             transition:
                 background .2s ease,
-                color .2s ease,
-                box-shadow .2s ease;
+                color .2s ease;
 
-            white-space: nowrap;
         }
 
 
         .history-view-button:hover {
 
-            background: var(--history-purple-light);
             color: var(--history-purple);
+
         }
 
 
         .history-view-button.active {
 
             background: var(--history-purple);
+
             color: #ffffff;
 
-            box-shadow:
-                0 3px 9px rgba(101, 56, 217, .22);
-        }
-
-
-        .history-view-button.active:hover {
-
-            background: var(--history-purple-dark);
-            color: #ffffff;
-        }
-
-
-        .history-card-view[hidden],
-        .history-table-view[hidden] {
-
-            display: none !important;
         }
 
 
         /* =========================================================
-       CARD VIEW
-    ========================================================= */
-
-        .history-card-view {
-
-            padding: 16px 18px 20px;
-        }
-
-
-        /* DESKTOP = 4 CARDS PER ROW */
+           CARD GRID
+        ========================================================== */
 
         .history-card-grid {
 
@@ -887,27 +915,42 @@
                 repeat(4, minmax(0, 1fr));
 
             gap: 16px;
+
         }
 
 
+        /* =========================================================
+           HISTORY ITEM CARD
+        ========================================================== */
+
         .history-item-card {
 
-            min-width: 0;
-
-            background: var(--history-card);
+            /*
+             * IMPORTANT:
+             * This is the card background.
+             */
+            background: #ffffff;
 
             border: 1px solid var(--history-border);
+
             border-radius: 12px;
 
             padding: 16px;
 
             box-shadow:
-                0 3px 12px rgba(30, 25, 70, .04);
+                0 4px 14px rgba(30, 25, 70, .055);
+
+            min-width: 0;
+
+            display: flex;
+
+            flex-direction: column;
 
             transition:
                 transform .2s ease,
                 box-shadow .2s ease,
                 border-color .2s ease;
+
         }
 
 
@@ -915,53 +958,67 @@
 
             transform: translateY(-2px);
 
-            box-shadow:
-                0 7px 20px rgba(30, 25, 70, .08);
+            border-color: #dcd7ef;
 
-            border-color: #ddd5f8;
+            box-shadow:
+                0 8px 22px rgba(30, 25, 70, .09);
+
         }
 
 
+        /* =========================================================
+           ITEM HEADER
+        ========================================================== */
+
         .history-item-header {
 
-            padding-bottom: 13px;
+            margin-bottom: 15px;
 
-            border-bottom: 1px solid var(--history-border);
         }
 
 
         .history-item-title-area {
 
             display: flex;
+
             align-items: flex-start;
 
-            gap: 11px;
+            gap: 12px;
+
         }
 
 
         .history-item-icon {
 
             width: 42px;
+
             height: 42px;
 
-            flex-shrink: 0;
+            min-width: 42px;
 
             display: flex;
+
             align-items: center;
+
             justify-content: center;
 
             border-radius: 10px;
 
             background: var(--history-purple-light);
+
             color: var(--history-purple);
 
             font-size: 17px;
+
         }
 
 
         .history-item-heading {
 
             min-width: 0;
+
+            flex: 1;
+
         }
 
 
@@ -969,12 +1026,18 @@
 
             display: block;
 
-            margin-bottom: 3px;
+            margin-bottom: 4px;
+
+            font-size: 10px;
+
+            font-weight: 700;
 
             color: var(--history-purple);
 
-            font-size: 9px;
-            font-weight: 700;
+            text-transform: uppercase;
+
+            letter-spacing: .3px;
+
         }
 
 
@@ -984,10 +1047,20 @@
 
             color: var(--history-text);
 
-            font-size: 13px;
-            line-height: 1.45;
+            font-size: 14px;
+
+            line-height: 1.4;
 
             font-weight: 700;
+
+            display: -webkit-box;
+
+            -webkit-line-clamp: 2;
+
+            -webkit-box-orient: vertical;
+
+            overflow: hidden;
+
         }
 
 
@@ -997,20 +1070,31 @@
 
             margin-top: 5px;
 
+            font-size: 10px;
+
             color: var(--history-muted);
 
-            font-size: 9px;
         }
 
 
+        /* =========================================================
+           ITEM INFORMATION
+        ========================================================== */
+
         .history-item-info {
 
-            padding: 13px 0;
-
             display: flex;
+
             flex-direction: column;
 
             gap: 9px;
+
+            padding: 13px 0;
+
+            border-top: 1px solid var(--history-border);
+
+            border-bottom: 1px solid var(--history-border);
+
         }
 
 
@@ -1019,15 +1103,17 @@
             display: flex;
 
             align-items: center;
+
             justify-content: space-between;
 
             gap: 10px;
+
         }
 
 
         .history-info-label {
 
-            display: flex;
+            display: inline-flex;
 
             align-items: center;
 
@@ -1035,9 +1121,10 @@
 
             color: var(--history-muted);
 
-            font-size: 10px;
+            font-size: 11px;
 
-            white-space: nowrap;
+            font-weight: 500;
+
         }
 
 
@@ -1045,36 +1132,39 @@
 
             width: 14px;
 
+            text-align: center;
+
             color: var(--history-purple);
 
-            text-align: center;
         }
 
 
         .history-info-row strong {
 
-            max-width: 65%;
-
-            color: var(--history-text);
-
-            font-size: 10px;
-            font-weight: 600;
+            max-width: 60%;
 
             text-align: right;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            color: var(--history-text);
 
             overflow: hidden;
 
             text-overflow: ellipsis;
 
             white-space: nowrap;
+
         }
 
 
+        /* =========================================================
+           ITEM ACTIONS
+        ========================================================== */
+
         .history-item-actions {
-
-            padding-top: 12px;
-
-            border-top: 1px solid var(--history-border);
 
             display: flex;
 
@@ -1082,16 +1172,205 @@
 
             gap: 6px;
 
-            flex-wrap: wrap;
+            padding-top: 13px;
+
+            margin-top: auto;
+
+            min-width: 0;
+
+        }
+
+
+        .action-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 5px;
+
+            min-height: 32px;
+
+            padding: 7px 9px;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            border: 1px solid transparent;
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            white-space: nowrap;
+
+            transition:
+                background .2s ease,
+                color .2s ease,
+                border-color .2s ease,
+                transform .2s ease;
+
+        }
+
+
+        .action-btn:hover {
+
+            transform: translateY(-1px);
+
+        }
+
+
+        /* VIEW PDF */
+
+        .view-pdf-btn {
+
+            background: #eaf8ef;
+
+            color: #188447;
+
+            border-color: #d2efdc;
+
+        }
+
+
+        .view-pdf-btn:hover {
+
+            background: #188447;
+
+            color: #ffffff;
+
+            border-color: #188447;
+
+        }
+
+
+        /* DOWNLOAD */
+
+        .download-btn {
+
+            background: #edf4ff;
+
+            color: #2868c7;
+
+            border-color: #d8e7ff;
+
+        }
+
+
+        .download-btn:hover {
+
+            background: #2868c7;
+
+            color: #ffffff;
+
+            border-color: #2868c7;
+
+        }
+
+
+        /* SAVE */
+
+        .save-thesis-form {
+
+            margin: 0;
+
+            margin-left: auto;
+
+            display: flex;
+
+        }
+
+
+        .save-btn {
+
+            width: 32px;
+
+            height: 32px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 0;
+
+            border: 1px solid #e0d9f7;
+
+            border-radius: 7px;
+
+            background: #f7f4ff;
+
+            color: var(--history-purple);
+
+            cursor: pointer;
+
+            transition:
+                background .2s ease,
+                color .2s ease,
+                transform .2s ease;
+
+        }
+
+
+        .save-btn:hover {
+
+            background: var(--history-purple);
+
+            color: #ffffff;
+
+            transform: translateY(-1px);
+
+        }
+
+
+        .save-btn.saved {
+
+            background: var(--history-purple);
+
+            color: #ffffff;
+
+            border-color: var(--history-purple);
+
+        }
+
+
+        .no-pdf {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            color: #a04c4c;
+
+            background: #fff1f1;
+
+            border: 1px solid #f2d7d7;
+
+            border-radius: 7px;
+
+            padding: 7px 9px;
+
+            font-size: 10px;
+
+            font-weight: 600;
+
         }
 
 
         /* =========================================================
-       TABLE
-    ========================================================= */
+           TABLE
+        ========================================================== */
 
         .history-table-view {
+
             width: 100%;
+
         }
 
 
@@ -1100,6 +1379,11 @@
             width: 100%;
 
             overflow-x: auto;
+
+            border: 1px solid var(--history-border);
+
+            border-radius: 10px;
+
         }
 
 
@@ -1110,91 +1394,120 @@
             min-width: 900px;
 
             border-collapse: collapse;
+
+            background: var(--history-card);
+
         }
 
 
-        .history-table thead {
-            background: #faf9fd;
-        }
+        .history-table thead th {
 
+            padding: 11px 12px;
 
-        .history-table th {
-
-            padding: 14px 18px;
-
-            color: #6d7392;
-
-            font-size: 11px;
-            font-weight: 700;
-
-            text-transform: uppercase;
-            letter-spacing: .04em;
+            background: #f7f7fb;
 
             border-bottom: 1px solid var(--history-border);
 
+            color: var(--history-muted);
+
+            font-size: 10px;
+
+            font-weight: 700;
+
             text-align: left;
 
+            text-transform: uppercase;
+
+            letter-spacing: .35px;
+
             white-space: nowrap;
+
         }
 
 
-        .history-table td {
+        .history-table tbody td {
 
-            padding: 16px 18px;
+            padding: 11px 12px;
 
-            border-bottom: 1px solid #f0f0f5;
+            border-bottom: 1px solid var(--history-border);
+
+            color: var(--history-text);
+
+            font-size: 11px;
 
             vertical-align: middle;
+
+        }
+
+
+        .history-table tbody tr:last-child td {
+
+            border-bottom: none;
+
         }
 
 
         .history-table tbody tr {
 
             transition: background .2s ease;
+
         }
 
 
         .history-table tbody tr:hover {
 
-            background: #faf9fe;
+            background: #faf9ff;
+
         }
 
 
         .number-column {
 
-            width: 60px;
+            width: 55px;
 
-            text-align: center !important;
         }
 
 
         .number-cell {
+
             text-align: center;
+
         }
 
 
         .history-number {
 
-            width: 28px;
-            height: 28px;
+            width: 27px;
+
+            height: 27px;
 
             display: inline-flex;
 
             align-items: center;
+
             justify-content: center;
 
-            border-radius: 8px;
+            border-radius: 7px;
 
-            background: #f2effc;
+            background: var(--history-purple-light);
+
             color: var(--history-purple);
 
-            font-size: 11px;
+            font-size: 10px;
+
             font-weight: 700;
+
         }
 
 
+        /* =========================================================
+           THESIS TABLE CELL
+        ========================================================== */
+
         .thesis-cell {
-            min-width: 300px;
+
+            min-width: 270px;
+
         }
 
 
@@ -1204,41 +1517,58 @@
 
             align-items: center;
 
-            gap: 11px;
+            gap: 10px;
+
+            min-width: 0;
+
         }
 
 
         .thesis-icon {
 
-            width: 40px;
-            height: 40px;
+            width: 34px;
 
-            flex-shrink: 0;
+            height: 34px;
+
+            min-width: 34px;
 
             display: flex;
 
             align-items: center;
+
             justify-content: center;
 
-            border-radius: 10px;
+            border-radius: 8px;
 
-            background: #eee8ff;
+            background: var(--history-purple-light);
+
             color: var(--history-purple);
 
-            font-size: 17px;
+            font-size: 14px;
+
         }
 
 
         .thesis-text {
+
             min-width: 0;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 3px;
+
         }
 
 
         .thesis-text strong {
 
-            display: block;
+            font-size: 11px;
 
-            max-width: 420px;
+            font-weight: 700;
+
+            color: var(--history-text);
 
             overflow: hidden;
 
@@ -1246,28 +1576,23 @@
 
             white-space: nowrap;
 
-            color: var(--history-text);
+            max-width: 330px;
 
-            font-size: 13px;
-            font-weight: 600;
         }
 
 
         .thesis-text span {
 
-            display: block;
-
-            margin-top: 4px;
+            font-size: 9px;
 
             color: var(--history-muted);
 
-            font-size: 10px;
         }
 
 
         /* =========================================================
-       AUTHOR
-    ========================================================= */
+           AUTHOR
+        ========================================================== */
 
         .author-info {
 
@@ -1275,46 +1600,48 @@
 
             align-items: center;
 
-            gap: 9px;
+            gap: 8px;
 
             white-space: nowrap;
+
         }
 
 
         .author-avatar {
 
-            width: 32px;
-            height: 32px;
+            width: 28px;
 
-            flex-shrink: 0;
-
-            border-radius: 50%;
+            height: 28px;
 
             display: flex;
 
             align-items: center;
+
             justify-content: center;
 
-            background: #f0ebff;
-            color: var(--history-purple);
+            border-radius: 50%;
 
-            font-size: 12px;
+            background: #f1f1f6;
+
+            color: var(--history-muted);
+
+            font-size: 11px;
+
         }
 
 
-        .author-info span {
+        .author-cell span {
+
+            font-size: 11px;
 
             color: var(--history-text);
 
-            font-size: 12px;
-
-            font-weight: 500;
         }
 
 
         /* =========================================================
-       DATE
-    ========================================================= */
+           DATE
+        ========================================================== */
 
         .date-info {
 
@@ -1322,58 +1649,57 @@
 
             align-items: center;
 
-            gap: 9px;
+            gap: 8px;
 
-            white-space: nowrap;
         }
 
 
-        .date-info>i {
+        .date-info > i {
 
             color: var(--history-purple);
 
             font-size: 14px;
+
+        }
+
+
+        .date-info > div {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 2px;
+
         }
 
 
         .date-info strong {
 
-            display: block;
+            font-size: 10px;
 
             color: var(--history-text);
 
-            font-size: 11px;
-
-            font-weight: 600;
         }
 
 
         .date-info span {
 
-            display: block;
-
-            margin-top: 3px;
+            font-size: 9px;
 
             color: var(--history-muted);
 
-            font-size: 10px;
         }
 
 
         /* =========================================================
-       TABLE ACTIONS
-    ========================================================= */
+           TABLE ACTION
+        ========================================================== */
 
         .action-column {
-            min-width: 270px;
-        }
 
+            width: 230px;
 
-        .action-cell {
-
-            min-width: 270px;
-
-            white-space: nowrap;
         }
 
 
@@ -1385,228 +1711,52 @@
 
             gap: 6px;
 
-            flex-wrap: nowrap;
-
-            white-space: nowrap;
         }
 
 
-        .action-btn {
+        .action-cell .save-thesis-form {
 
-            min-height: 32px;
+            margin-left: 0;
 
-            padding: 0 10px;
-
-            border-radius: 7px;
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 6px;
-
-            text-decoration: none;
-
-            border: 0;
-
-            font-size: 10px;
-
-            font-weight: 600;
-
-            transition:
-                background .2s ease,
-                color .2s ease,
-                transform .2s ease;
-
-            white-space: nowrap;
-
-            flex: 0 0 auto;
-        }
-
-
-        .view-pdf-btn {
-
-            background: #e6f7ed;
-
-            color: #188650;
-        }
-
-
-        .view-pdf-btn:hover {
-
-            background: #188650;
-
-            color: #ffffff;
-
-            transform: translateY(-1px);
-        }
-
-
-        .download-btn {
-
-            background: #e1efff;
-
-            color: #3484dc;
-        }
-
-
-        .download-btn:hover {
-
-            background: #3484dc;
-
-            color: #ffffff;
-
-            transform: translateY(-1px);
         }
 
 
         /* =========================================================
-       SAVE BUTTON
-    ========================================================= */
-
-        .save-thesis-form {
-
-            display: inline-flex;
-
-            margin: 0;
-            padding: 0;
-
-            flex: 0 0 auto;
-        }
-
-
-        .save-btn {
-
-            width: 32px;
-            height: 32px;
-
-            padding: 0;
-
-            border: 1px solid transparent;
-
-            border-radius: 7px;
-
-            background: #eee8ff;
-
-            color: var(--history-purple);
-
-            display: inline-flex;
-
-            align-items: center;
-            justify-content: center;
-
-            cursor: pointer;
-
-            font-size: 13px;
-
-            line-height: 1;
-
-            appearance: none;
-            -webkit-appearance: none;
-
-            transition:
-                background-color .2s ease,
-                color .2s ease,
-                border-color .2s ease,
-                transform .15s ease,
-                box-shadow .2s ease;
-        }
-
-
-        .save-btn:hover {
-
-            background: var(--history-purple);
-
-            border-color: var(--history-purple);
-
-            color: #ffffff;
-
-            transform: translateY(-1px);
-        }
-
-
-        .save-btn:focus {
-
-            outline: none;
-
-            box-shadow:
-                0 0 0 3px rgba(101, 56, 217, .18);
-        }
-
-
-        .save-btn.saved {
-
-            background: var(--history-purple);
-
-            border-color: var(--history-purple);
-
-            color: #ffffff;
-        }
-
-
-        .save-btn.saved:hover {
-
-            background: #d83232;
-
-            border-color: #d83232;
-
-            color: #ffffff;
-        }
-
-
-        .save-btn i {
-            pointer-events: none;
-        }
-
-
-        /* =========================================================
-       NO PDF
-    ========================================================= */
-
-        .no-pdf {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 6px;
-
-            padding: 7px 10px;
-
-            border-radius: 7px;
-
-            background: #fff0d8;
-
-            color: #ed8c16;
-
-            font-size: 10px;
-
-            font-weight: 600;
-
-            white-space: nowrap;
-        }
-
-
-        /* =========================================================
-       EMPTY STATE
-    ========================================================= */
+           EMPTY STATE
+        ========================================================== */
 
         .empty-history {
 
-            padding: 70px 20px;
+            min-height: 350px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
 
             text-align: center;
+
+            padding: 40px 20px;
+
         }
 
 
         .empty-icon {
 
-            width: 70px;
-            height: 70px;
+            width: 68px;
 
-            margin: 0 auto 18px;
+            height: 68px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-bottom: 16px;
 
             border-radius: 50%;
 
@@ -1614,34 +1764,32 @@
 
             color: var(--history-purple);
 
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
             font-size: 27px;
+
         }
 
 
         .empty-history h4 {
 
-            margin: 0;
+            margin: 0 0 7px;
+
+            font-size: 17px;
+
+            font-weight: 700;
 
             color: var(--history-text);
 
-            font-size: 18px;
-
-            font-weight: 700;
         }
 
 
         .empty-history p {
 
-            margin: 7px 0 20px;
+            margin: 0 0 18px;
 
             color: var(--history-muted);
 
-            font-size: 13px;
+            font-size: 12px;
+
         }
 
 
@@ -1651,11 +1799,11 @@
 
             align-items: center;
 
+            justify-content: center;
+
             gap: 7px;
 
-            min-height: 40px;
-
-            padding: 0 16px;
+            padding: 10px 16px;
 
             border-radius: 8px;
 
@@ -1668,6 +1816,11 @@
             font-size: 12px;
 
             font-weight: 600;
+
+            transition:
+                background .2s ease,
+                transform .2s ease;
+
         }
 
 
@@ -1676,12 +1829,15 @@
             background: var(--history-purple-dark);
 
             color: #ffffff;
+
+            transform: translateY(-1px);
+
         }
 
 
         /* =========================================================
-       DARK MODE
-    ========================================================= */
+           DARK MODE
+        ========================================================== */
 
         [data-bs-theme="dark"] .history-page {
 
@@ -1697,58 +1853,7 @@
 
             --history-shadow:
                 0 5px 20px rgba(0, 0, 0, .20);
-        }
 
-
-        [data-bs-theme="dark"] .page-title {
-            color: #ffffff;
-        }
-
-
-        [data-bs-theme="dark"] .page-title-icon {
-
-            background: #25203f;
-
-            color: #a88cff;
-        }
-
-
-        [data-bs-theme="dark"] .history-card-header {
-            border-color: #292e45;
-        }
-
-
-        [data-bs-theme="dark"] .history-card-header h3 {
-            color: #ffffff;
-        }
-
-
-        [data-bs-theme="dark"] .history-view-toggle {
-
-            background: #181d33;
-
-            border-color: #292e45;
-        }
-
-
-        [data-bs-theme="dark"] .history-view-button {
-            color: #999fb9;
-        }
-
-
-        [data-bs-theme="dark"] .history-view-button:hover {
-
-            background: #25203f;
-
-            color: #a88cff;
-        }
-
-
-        [data-bs-theme="dark"] .history-view-button.active {
-
-            background: var(--history-purple);
-
-            color: #ffffff;
         }
 
 
@@ -1757,122 +1862,90 @@
             background: #181d33;
 
             border-color: #292e45;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, .18);
+
         }
 
 
         [data-bs-theme="dark"] .history-item-card:hover {
-            border-color: #40385f;
+
+            border-color: #3b4160;
+
+            box-shadow:
+                0 8px 24px rgba(0, 0, 0, .25);
+
         }
 
 
-        [data-bs-theme="dark"] .history-item-header {
-            border-color: #292e45;
-        }
+        [data-bs-theme="dark"] .history-table thead th {
 
+            background: #20253b;
 
-        [data-bs-theme="dark"] .history-item-icon {
-
-            background: #25203f;
-
-            color: #a88cff;
-        }
-
-
-        [data-bs-theme="dark"] .history-item-heading h4 {
-            color: #ffffff;
-        }
-
-
-        [data-bs-theme="dark"] .history-item-actions {
-            border-color: #292e45;
-        }
-
-
-        [data-bs-theme="dark"] .history-table thead {
-            background: #20253a;
-        }
-
-
-        [data-bs-theme="dark"] .history-table th {
-
-            color: #aeb4cd;
-
-            border-color: #292e45;
-        }
-
-
-        [data-bs-theme="dark"] .history-table td {
-            border-color: #292e45;
         }
 
 
         [data-bs-theme="dark"] .history-table tbody tr:hover {
-            background: #20253a;
-        }
 
+            background: #1d2238;
 
-        [data-bs-theme="dark"] .history-number {
-
-            background: #25203f;
-
-            color: #a88cff;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-icon {
-
-            background: #25203f;
-
-            color: #a88cff;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-text strong {
-            color: #ffffff;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-text span {
-            color: #999fb9;
         }
 
 
         [data-bs-theme="dark"] .author-avatar {
 
-            background: #25203f;
+            background: #252a41;
 
-            color: #a88cff;
+            color: #aeb4cd;
+
         }
 
 
-        [data-bs-theme="dark"] .author-info span {
-            color: #d1d4e1;
+        [data-bs-theme="dark"] .history-view-toggle {
+
+            background: #181d33;
+
         }
 
 
-        [data-bs-theme="dark"] .date-info strong {
-            color: #e5e7f0;
-        }
+        [data-bs-theme="dark"] .history-view-button {
 
-
-        [data-bs-theme="dark"] .date-info span {
             color: #999fb9;
+
         }
 
 
-        [data-bs-theme="dark"] .history-count {
+        [data-bs-theme="dark"] .view-pdf-btn {
 
-            background: #25203f;
+            background: rgba(24, 132, 71, .15);
 
-            color: #a88cff;
+            border-color: rgba(24, 132, 71, .30);
+
+            color: #65d595;
+
+        }
+
+
+        [data-bs-theme="dark"] .download-btn {
+
+            background: rgba(40, 104, 199, .15);
+
+            border-color: rgba(40, 104, 199, .30);
+
+            color: #75a9f5;
+
         }
 
 
         [data-bs-theme="dark"] .save-btn {
 
-            background: #25203f;
+            background: #242942;
 
-            color: #a88cff;
+            border-color: #353b58;
+
+            color: #a994f3;
+
         }
 
 
@@ -1883,153 +1956,114 @@
             border-color: var(--history-purple);
 
             color: #ffffff;
+
         }
 
 
-        [data-bs-theme="dark"] .empty-history h4 {
-            color: #ffffff;
-        }
+        [data-bs-theme="dark"] .no-pdf {
 
+            background: rgba(160, 76, 76, .14);
 
-        [data-bs-theme="dark"] .empty-icon {
+            border-color: rgba(160, 76, 76, .28);
 
-            background: #25203f;
+            color: #ef9696;
 
-            color: #a88cff;
         }
 
 
         /* =========================================================
-       TABLET
-    ========================================================= */
+           RESPONSIVE
+        ========================================================== */
 
-        @media (max-width: 1100px) {
+        @media (max-width: 1200px) {
 
-            .history-page {
+            .history-card-grid {
 
-                padding-left: 15px;
-                padding-right: 15px;
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+
             }
 
+        }
 
-            /* Tablet = 2 cards per row */
+
+        @media (max-width: 1000px) {
 
             .history-card-grid {
 
                 grid-template-columns:
                     repeat(2, minmax(0, 1fr));
-            }
 
-
-            .history-table {
-                min-width: 850px;
             }
 
         }
 
 
-        /* =========================================================
-       MOBILE
-       2 CARDS PER ROW
-    ========================================================= */
-
         @media (max-width: 700px) {
 
             .history-page {
 
-                padding: 90px 12px 80px;
+                padding:
+                    90px
+                    12px
+                    80px;
+
             }
 
 
-            .page-header {
-
-                align-items: flex-start;
+            .history-page .page-header {
 
                 flex-direction: column;
 
-                gap: 13px;
+                align-items: stretch;
 
-                margin-bottom: 16px;
             }
 
 
-            .page-title {
-                font-size: 20px;
-            }
+            .page-title-wrapper {
 
+                align-items: flex-start;
 
-            .page-subtitle {
-                font-size: 11px;
-            }
-
-
-            .page-title-icon {
-
-                width: 42px;
-                height: 42px;
-
-                font-size: 17px;
             }
 
 
             .browse-button {
+
                 width: 100%;
+
             }
 
 
-            .history-card {
-                border-radius: 11px;
+            .history-card-body {
+
+                padding: 14px;
+
             }
 
 
-            .history-card-header {
-                padding: 15px;
-            }
-
-
-            .history-card-header h3 {
-                font-size: 14px;
-            }
-
-
-            .history-card-header p {
-                font-size: 10px;
-            }
-
-
-            .history-count {
-
-                min-width: 45px;
-
-                font-size: 12px;
-            }
-
-
-            /* Hide Card/Table switcher on mobile */
-
+            /*
+             * On small screens the card view is easier to use.
+             */
             .history-view-toolbar {
+
                 display: none;
+
             }
 
-
-            /* Always show cards */
 
             .history-card-view {
 
                 display: block !important;
 
-                padding: 13px;
             }
 
 
             .history-table-view {
+
                 display: none !important;
+
             }
 
-
-            /* =====================================================
-           MOBILE = 2 CARDS PER ROW
-        ===================================================== */
 
             .history-card-grid {
 
@@ -2037,6 +2071,7 @@
                     repeat(2, minmax(0, 1fr));
 
                 gap: 10px;
+
             }
 
 
@@ -2044,27 +2079,33 @@
 
                 padding: 12px;
 
-                border-radius: 10px;
-
-                box-shadow:
-                    0 3px 12px rgba(30, 25, 70, .05);
-            }
-
-
-            .history-item-icon {
-
-                width: 34px;
-                height: 34px;
-
-                font-size: 14px;
-
-                border-radius: 8px;
             }
 
 
             .history-item-title-area {
 
                 gap: 8px;
+
+            }
+
+
+            .history-item-icon {
+
+                width: 35px;
+
+                height: 35px;
+
+                min-width: 35px;
+
+                font-size: 14px;
+
+            }
+
+
+            .history-item-heading h4 {
+
+                font-size: 12px;
+
             }
 
 
@@ -2072,23 +2113,6 @@
 
                 font-size: 8px;
 
-                margin-bottom: 2px;
-            }
-
-
-            .history-item-heading h4 {
-
-                font-size: 11px;
-
-                line-height: 1.35;
-
-                display: -webkit-box;
-
-                -webkit-line-clamp: 2;
-
-                -webkit-box-orient: vertical;
-
-                overflow: hidden;
             }
 
 
@@ -2096,373 +2120,241 @@
 
                 font-size: 8px;
 
-                margin-top: 4px;
-
-                overflow: hidden;
-
-                text-overflow: ellipsis;
-
-                white-space: nowrap;
-            }
-
-
-            .history-item-info {
-
-                padding: 10px 0;
-
-                gap: 7px;
-            }
-
-
-            .history-info-row {
-
-                align-items: flex-start;
-
-                gap: 5px;
             }
 
 
             .history-info-label {
 
-                gap: 4px;
+                font-size: 9px;
 
-                font-size: 8px;
-            }
-
-
-            .history-info-label i {
-
-                width: 11px;
-
-                font-size: 8px;
             }
 
 
             .history-info-row strong {
 
-                max-width: 58%;
+                font-size: 9px;
 
-                font-size: 8px;
             }
 
-
-            /* =====================================================
-           MOBILE ACTION BUTTONS
-           ICON ONLY
-        ===================================================== */
 
             .history-item-actions {
 
-                padding-top: 10px;
+                gap: 4px;
 
-                gap: 5px;
-
-                flex-wrap: nowrap;
             }
 
 
-            .history-item-actions .action-btn {
+            .action-btn {
 
-                width: 31px;
-                height: 31px;
+                width: 30px;
 
-                min-width: 31px;
-                min-height: 31px;
+                min-width: 30px;
+
+                height: 30px;
+
+                min-height: 30px;
 
                 padding: 0;
 
-                border-radius: 7px;
-
-                gap: 0;
-
                 font-size: 11px;
 
-                flex: 0 0 31px;
             }
 
 
-            /* Hide View PDF / Download text on mobile */
+            .action-btn span {
 
-            .history-item-actions .action-btn span {
+                display: none;
 
-                display: none !important;
             }
 
 
-            /* Keep icons centered */
+            .save-btn {
 
-            .history-item-actions .action-btn i {
+                width: 30px;
 
-                margin: 0;
+                height: 30px;
 
-                display: inline-flex;
+            }
 
-                align-items: center;
+
+            .no-pdf {
+
+                width: 30px;
+
+                height: 30px;
+
+                padding: 0;
 
                 justify-content: center;
+
             }
 
 
-            /* Save button matches action buttons */
+            .no-pdf span {
 
-            .history-item-actions .save-btn {
+                display: none;
 
-                width: 31px;
-                height: 31px;
-
-                min-width: 31px;
-                min-height: 31px;
-
-                border-radius: 7px;
-
-                font-size: 11px;
-
-                flex: 0 0 31px;
-            }
-
-
-            .save-thesis-form {
-
-                width: 31px;
-                height: 31px;
-
-                flex: 0 0 31px;
-            }
-
-
-            /* No PDF stays readable */
-
-            .history-item-actions .no-pdf {
-
-                padding: 6px 7px;
-
-                font-size: 8px;
-
-                gap: 4px;
-
-                overflow: hidden;
-
-                white-space: nowrap;
-            }
-
-
-            .empty-history {
-                padding: 55px 15px;
             }
 
         }
 
 
-        /* =========================================================
-       VERY SMALL MOBILE
-    ========================================================= */
-
-        @media (max-width: 380px) {
+        @media (max-width: 450px) {
 
             .history-page {
 
                 padding-left: 9px;
+
                 padding-right: 9px;
+
             }
 
 
-            .history-card-view {
+            .history-card-body {
+
                 padding: 10px;
+
             }
 
 
             .history-card-grid {
 
-                grid-template-columns:
-                    repeat(2, minmax(0, 1fr));
+                grid-template-columns: 1fr;
 
-                gap: 8px;
+                gap: 10px;
+
             }
 
 
             .history-item-card {
-                padding: 10px;
+
+                padding: 13px;
+
+            }
+
+
+            .page-title {
+
+                font-size: 20px;
+
+            }
+
+
+            .page-title-icon {
+
+                width: 42px;
+
+                height: 42px;
+
+                font-size: 18px;
+
+            }
+
+        }
+
+
+        @media (max-width: 380px) {
+
+            .history-page {
+
+                padding-top: 85px;
+
             }
 
 
             .history-item-actions {
 
-                gap: 4px;
+                gap: 3px;
+
             }
 
 
-            .history-item-actions .action-btn {
+            .action-btn,
+            .save-btn,
+            .no-pdf {
 
-                width: 29px;
-                height: 29px;
+                width: 28px;
 
-                min-width: 29px;
-                min-height: 29px;
+                min-width: 28px;
 
-                flex-basis: 29px;
+                height: 28px;
 
-                font-size: 10px;
-            }
+                min-height: 28px;
 
-
-            .history-item-actions .save-btn {
-
-                width: 29px;
-                height: 29px;
-
-                min-width: 29px;
-                min-height: 29px;
-
-                flex-basis: 29px;
-
-                font-size: 10px;
-            }
-
-
-            .save-thesis-form {
-
-                width: 29px;
-                height: 29px;
-
-                flex-basis: 29px;
             }
 
         }
+
     </style>
 
 
     {{-- =========================================================
-CARD / TABLE JAVASCRIPT
-========================================================= --}}
+         VIEW TOGGLE JAVASCRIPT
+    ========================================================== --}}
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
 
-            const page = document.querySelector('.history-page');
+        document.addEventListener('DOMContentLoaded', function () {
 
-            if (!page) {
-                return;
-            }
-
-
-            const buttons =
-                page.querySelectorAll('[data-history-view]');
+            const viewButtons =
+                document.querySelectorAll('.history-view-button');
 
             const cardView =
-                page.querySelector('.history-card-view');
+                document.querySelector('.history-card-view');
 
             const tableView =
-                page.querySelector('.history-table-view');
+                document.querySelector('.history-table-view');
 
 
-            if (!buttons.length || !cardView || !tableView) {
+            if (!viewButtons.length || !cardView || !tableView) {
                 return;
             }
 
 
-            const storageKey = 'studentHistoryView';
+            viewButtons.forEach(function (button) {
 
-
-            function isMobile() {
-
-                return window.innerWidth <= 700;
-            }
-
-
-            function setHistoryView(view, save = true) {
-
-                /*
-                 * Mobile must ALWAYS use Card view.
-                 */
-
-                if (isMobile()) {
-                    view = 'card';
-                }
-
-
-                const isCard =
-                    view === 'card';
-
-
-                cardView.hidden = !isCard;
-
-                tableView.hidden = isCard;
-
-
-                buttons.forEach(function(button) {
-
-                    const active =
-                        button.dataset.historyView === view;
-
-
-                    button.classList.toggle(
-                        'active',
-                        active
-                    );
-
-
-                    button.setAttribute(
-                        'aria-pressed',
-                        active ? 'true' : 'false'
-                    );
-
-                });
-
-
-                /*
-                 * Save desktop choice.
-                 */
-
-                if (save && !isMobile()) {
-
-                    localStorage.setItem(
-                        storageKey,
-                        view
-                    );
-
-                }
-
-            }
-
-
-            /*
-             * Load saved view.
-             * Default = Card
-             */
-
-            let savedView =
-                localStorage.getItem(storageKey);
-
-
-            if (
-                savedView !== 'card' &&
-                savedView !== 'table'
-            ) {
-
-                savedView = 'card';
-
-            }
-
-
-            setHistoryView(savedView, false);
-
-
-            /*
-             * Card / Table buttons
-             */
-
-            buttons.forEach(function(button) {
-
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
 
                     const selectedView =
-                        button.dataset.historyView;
+                        this.dataset.historyView;
 
 
-                    setHistoryView(
-                        selectedView,
-                        true
+                    viewButtons.forEach(function (btn) {
+
+                        btn.classList.remove('active');
+
+                        btn.setAttribute(
+                            'aria-pressed',
+                            'false'
+                        );
+
+                    });
+
+
+                    this.classList.add('active');
+
+                    this.setAttribute(
+                        'aria-pressed',
+                        'true'
                     );
+
+
+                    if (
+                        selectedView === 'table' &&
+                        window.innerWidth > 700
+                    ) {
+
+                        cardView.hidden = true;
+
+                        tableView.hidden = false;
+
+                    } else {
+
+                        cardView.hidden = false;
+
+                        tableView.hidden = true;
+
+                    }
 
                 });
 
@@ -2470,47 +2362,31 @@ CARD / TABLE JAVASCRIPT
 
 
             /*
-             * When resizing:
-             * Mobile = Card
-             * Desktop = restore saved choice
+             * Always return to card view on mobile.
              */
+            function handleResponsiveView() {
 
-            let wasMobile = isMobile();
+                if (window.innerWidth <= 700) {
 
+                    cardView.hidden = false;
 
-            window.addEventListener('resize', function() {
-
-                const currentlyMobile =
-                    isMobile();
-
-
-                if (currentlyMobile) {
-
-                    setHistoryView(
-                        'card',
-                        false
-                    );
-
-                } else if (wasMobile && !currentlyMobile) {
-
-                    const desktopView =
-                        localStorage.getItem(storageKey) ||
-                        'card';
-
-
-                    setHistoryView(
-                        desktopView,
-                        false
-                    );
+                    tableView.hidden = true;
 
                 }
 
+            }
 
-                wasMobile = currentlyMobile;
 
-            });
+            handleResponsiveView();
+
+
+            window.addEventListener(
+                'resize',
+                handleResponsiveView
+            );
 
         });
+
     </script>
 
 </x-app-layout>

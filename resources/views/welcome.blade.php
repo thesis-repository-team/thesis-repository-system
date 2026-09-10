@@ -9,16 +9,12 @@
 
     <title>Thesis Repository</title>
 
-    <link rel="icon" href="{{ asset('images/logo.png') }}">
-
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
-      
-
         :root {
             --primary: #6538d9;
             --primary-dark: #4f27b5;
