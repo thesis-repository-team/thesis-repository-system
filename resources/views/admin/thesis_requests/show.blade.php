@@ -116,6 +116,7 @@
                         </div>
 
                         <div>
+
                             <h2>
                                 Request Information
                             </h2>
@@ -123,6 +124,7 @@
                             <p>
                                 Details about this thesis submission.
                             </p>
+
                         </div>
 
                     </div>
@@ -339,6 +341,8 @@
 
                     <div class="document-box">
 
+                        {{-- DOCUMENT INFORMATION --}}
+
                         <div class="document-left">
 
                             <div class="document-file-icon">
@@ -360,19 +364,50 @@
                         </div>
 
 
-                        {{-- VIEW PDF --}}
+                        {{-- =================================================
+                            DOCUMENT ACTIONS
+                        ================================================== --}}
 
-                        <a
-                            href="{{ route('admin.thesis_requests.view-request-pdf', $thesisRequest) }}"
-                            target="_blank"
-                            class="view-pdf-button"
-                        >
+                        <div class="document-actions">
 
-                            <i class="bi bi-eye-fill"></i>
+                            {{-- =================================================
+                                VIEW PDF
+                            ================================================== --}}
 
-                            View PDF
+                            <a
+                                href="{{ route('admin.thesis_requests.view-request-pdf', $thesisRequest) }}"
+                                target="_blank"
+                                class="view-pdf-button"
+                            >
 
-                        </a>
+                                <i class="bi bi-eye-fill"></i>
+
+                                View PDF
+
+                            </a>
+
+
+                            {{-- =================================================
+                                DOWNLOAD PDF
+                                ONLY WHEN APPROVED
+                            ================================================== --}}
+
+                            @if ($thesisRequest->status === 'approved' && $thesisRequest->thesis_id)
+
+                                <a
+                                    href="{{ route('admin.thesis.download', $thesisRequest->thesis_id) }}"
+                                    class="download-pdf-button"
+                                >
+
+                                    <i class="bi bi-download"></i>
+
+                                    Download PDF
+
+                                </a>
+
+                            @endif
+
+                        </div>
 
                     </div>
 
@@ -419,7 +454,11 @@
                                 </span>
 
                                 <div class="request-form-control">
-                                    {{ $thesisRequest->reviewer?->name ?? ($thesisRequest->reviewer?->username ?? 'Unknown') }}
+
+                                    {{ $thesisRequest->reviewer?->name
+                                        ?? ($thesisRequest->reviewer?->username ?? 'Unknown')
+                                    }}
+
                                 </div>
 
                             </div>
@@ -434,7 +473,9 @@
                                 </span>
 
                                 <div class="request-form-control reason-value">
+
                                     {{ $thesisRequest->remarks ?? 'No rejection reason provided.' }}
+
                                 </div>
 
                             </div>
@@ -477,7 +518,9 @@
                         </div>
 
 
-                        {{-- APPROVE --}}
+                        {{-- =================================================
+                            APPROVE
+                        ================================================== --}}
 
                         <div class="approve-box">
 
@@ -525,7 +568,9 @@
                         </div>
 
 
-                        {{-- REJECT --}}
+                        {{-- =================================================
+                            REJECT
+                        ================================================== --}}
 
                         <div class="reject-box">
 
@@ -659,11 +704,9 @@
             --request-soft: #f8f8f8;
             --request-soft-purple: #f0ebff;
 
-            /* Main purple */
             --request-purple: #6538d9;
             --request-purple-hover: #5630bd;
 
-            /* Action colors */
             --request-blue: #2563eb;
             --request-blue-hover: #1d4ed8;
 
@@ -1208,6 +1251,8 @@
             gap: 10px;
 
             min-width: 0;
+
+            flex: 1;
         }
 
 
@@ -1266,8 +1311,25 @@
 
 
         /* =========================================================
-           VIEW PDF
-           RED OUTLINE
+           DOCUMENT ACTIONS
+        ========================================================== */
+
+        .document-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            gap: 8px;
+
+            flex-shrink: 0;
+        }
+
+
+        /* =========================================================
+           VIEW PDF BUTTON
         ========================================================== */
 
         .view-pdf-button {
@@ -1279,8 +1341,6 @@
             justify-content: center;
 
             gap: 5px;
-
-            flex-shrink: 0;
 
             min-height: 36px;
 
@@ -1317,6 +1377,60 @@
             background: var(--request-red);
 
             border-color: var(--request-red) !important;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================================================
+           DOWNLOAD PDF BUTTON - BLUE
+        ========================================================== */
+
+        .download-pdf-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 5px;
+
+            min-height: 36px;
+
+            padding: 7px 12px;
+
+            color: var(--request-blue) !important;
+
+            background: transparent;
+
+            border: 1px solid var(--request-blue) !important;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            font-size: .61rem;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+            transition:
+                color .2s ease,
+                background-color .2s ease,
+                border-color .2s ease,
+                transform .2s ease;
+        }
+
+
+        .download-pdf-button:hover {
+
+            color: #ffffff !important;
+
+            background: var(--request-blue);
+
+            border-color: var(--request-blue) !important;
 
             transform: translateY(-1px);
         }
@@ -1916,7 +2030,7 @@
             background: #171b30;
 
             border-bottom-color: #292e45;
-            
+
             border-radius:
                 14px 14px 0 0;
         }
@@ -2084,7 +2198,7 @@
 
 
         /* =========================================================
-           DARK PDF BUTTON
+           DARK VIEW PDF BUTTON
         ========================================================== */
 
         [data-bs-theme="dark"] .view-pdf-button {
@@ -2104,6 +2218,30 @@
             background: #ff6470;
 
             border-color: #ff6470 !important;
+        }
+
+
+        /* =========================================================
+           DARK DOWNLOAD PDF BUTTON - BLUE
+        ========================================================== */
+
+        [data-bs-theme="dark"] .download-pdf-button {
+
+            color: #60a5fa !important;
+
+            background: transparent;
+
+            border-color: #60a5fa !important;
+        }
+
+
+        [data-bs-theme="dark"] .download-pdf-button:hover {
+
+            color: #ffffff !important;
+
+            background: #3b82f6;
+
+            border-color: #3b82f6 !important;
         }
 
 
@@ -2357,6 +2495,10 @@
             }
 
 
+            /* =====================================================
+               MOBILE DOCUMENT
+            ====================================================== */
+
             .document-box {
 
                 align-items: flex-start;
@@ -2365,13 +2507,28 @@
             }
 
 
-            .view-pdf-button {
+            .document-actions {
+
+                display: grid;
+
+                grid-template-columns: 1fr 1fr;
+
+                width: 100%;
+
+                gap: 8px;
+            }
+
+
+            .view-pdf-button,
+            .download-pdf-button {
 
                 width: 100%;
             }
 
 
-            /* REVIEW */
+            /* =====================================================
+               REVIEW
+            ====================================================== */
 
             .approve-box {
 
@@ -2561,7 +2718,32 @@
             }
 
 
-            /* REVIEW */
+            /* =====================================================
+               SMALL MOBILE DOCUMENT BUTTONS
+            ====================================================== */
+
+            .document-actions {
+
+                grid-template-columns: 1fr 1fr;
+
+                gap: 6px;
+            }
+
+
+            .view-pdf-button,
+            .download-pdf-button {
+
+                min-height: 34px;
+
+                padding: 7px 8px;
+
+                font-size: .57rem;
+            }
+
+
+            /* =====================================================
+               REVIEW
+            ====================================================== */
 
             .review-decision-header h3 {
 
@@ -2647,6 +2829,19 @@
                 padding-left: .55rem;
 
                 padding-right: .55rem;
+            }
+
+
+            .document-actions {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .view-pdf-button,
+            .download-pdf-button {
+
+                width: 100%;
             }
 
         }

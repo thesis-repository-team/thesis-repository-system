@@ -61,18 +61,28 @@ class DepartmentController extends Controller
     public function thesis(Department $department)
     {
         $theses = Thesis::with([
-            'publishedBy',
-            'submittedBy',
             'department',
+            'publishedBy',
             'files',
         ])
-            ->where('department_id', $department->id)
-            ->latest()
-            ->get();
+        ->where('department_id', $department->id)
+
+        // Thesis must be published/approved.
+        ->whereNotNull('published_at')
+
+        // Publisher must be Admin or HoD.
+        ->whereHas('publishedBy', function ($query) {
+            $query->whereIn('role', ['admin', 'hod']);
+        })
+
+        ->latest('published_at')
+        ->get();
 
         return view(
             'admin.departments.thesis',
             compact('department', 'theses')
         );
     }
+
+    
 }

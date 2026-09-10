@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
-use App\Models\Keyword;
 use App\Models\Thesis;
 use App\Models\ThesisFile;
 use Illuminate\Http\Request;
@@ -16,8 +15,8 @@ class ThesisController extends Controller
     public function index()
     {
         $theses = Thesis::whereNotNull('published_at')
-        ->orderByDesc('published_at')
-        ->get();
+            ->orderByDesc('published_at')
+            ->get();
 
         $departments = Department::all();
         $published_at = Thesis::whereNotNull('published_at')
@@ -37,6 +36,30 @@ class ThesisController extends Controller
 
         return response()->file(
             storage_path('app/public/'.$file->file_path)
+        );
+    }
+
+    public function show(Thesis $thesis)
+    {
+    
+        if (
+            is_null($thesis->published_at) ||
+            ! $thesis->publishedBy ||
+            ! in_array($thesis->publishedBy->role, ['admin', 'hod'], true)
+        ) {
+            abort(404);
+        }
+
+        // Load relationships needed by show.blade.php.
+        $thesis->load([
+            'department',
+            'publishedBy',
+            'files',
+        ]);
+
+        return view(
+            'admin.thesis.show',
+            compact('thesis')
         );
     }
 
@@ -169,12 +192,11 @@ class ThesisController extends Controller
         return redirect()->route('admin.thesis.index')->with('success', 'Thesis deleted successfully.');
     }
 
-
     public function myUpload()
     {
-    
+
         $theses = Thesis::where('published_by', auth()->id())
-            ->with('files','department')
+            ->with('files', 'department')
             ->latest()
             ->get();
 

@@ -1,3 +1,4 @@
+```blade
 <x-app-layout>
 
     <div class="dashboard-content thesis-page">
@@ -8,14 +9,10 @@
 
         <div class="thesis-page-header">
 
-            {{-- =====================================================
-                LEFT: BACK TO DEPARTMENTS
-            ====================================================== --}}
-
             <div class="thesis-header-left">
 
                 <a href="{{ route('admin.departments.index') }}"
-                    class="thesis-back-link">
+                   class="thesis-back-link">
 
                     <span class="thesis-back-icon">
                         &lt;
@@ -29,10 +26,6 @@
 
             </div>
 
-
-            {{-- =====================================================
-                RIGHT: DEPARTMENT NAME
-            ====================================================== --}}
 
             <div class="thesis-header-right">
 
@@ -56,11 +49,10 @@
 
         <div class="thesis-results-wrapper">
 
-            {{-- =====================================================
-                LOADING
-            ====================================================== --}}
+            {{-- LOADING --}}
 
-            <div id="thesisSearchSpinner" class="thesis-loading d-none">
+            <div id="thesisSearchSpinner"
+                 class="thesis-loading d-none">
 
                 <div class="thesis-spinner"></div>
 
@@ -72,18 +64,16 @@
 
 
 
-            {{-- =====================================================
-                VIEW TOGGLE
-            ====================================================== --}}
+            {{-- VIEW TOGGLE --}}
 
             <div class="thesis-results-toolbar">
 
                 <div class="thesis-view-toggle">
 
                     <button type="button"
-                        id="thesisCardViewButton"
-                        class="thesis-view-button is-active"
-                        aria-label="Card View">
+                            id="thesisCardViewButton"
+                            class="thesis-view-button is-active"
+                            aria-label="Card View">
 
                         <i class="bi bi-grid-3x3-gap"></i>
 
@@ -95,9 +85,9 @@
 
 
                     <button type="button"
-                        id="thesisTableViewButton"
-                        class="thesis-view-button"
-                        aria-label="Table View">
+                            id="thesisTableViewButton"
+                            class="thesis-view-button"
+                            aria-label="Table View">
 
                         <i class="bi bi-table"></i>
 
@@ -113,20 +103,33 @@
 
 
 
-            {{-- =====================================================
-                RESULTS CONTAINER
-            ====================================================== --}}
+            {{-- RESULTS CONTAINER --}}
 
             <div id="adminThesisCards"
-                class="thesis-results-container">
+                 class="thesis-results-container">
 
                 @php
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | ONLY APPROVED / PUBLISHED THESIS
+                    |--------------------------------------------------------------------------
+                    |
+                    | A thesis is considered approved when published_at is not null.
+                    | Your Admin/HoD approval process sets published_at when approved.
+                    |
+                    */
 
                     $thesisCollection = method_exists($theses, 'getCollection')
                         ? $theses->getCollection()
                         : collect($theses);
 
-                    $groupedTheses = $thesisCollection->groupBy(function ($thesis) {
+                    $approvedTheses = $thesisCollection
+                        ->filter(function ($thesis) {
+                            return !is_null($thesis->published_at);
+                        });
+
+                    $groupedTheses = $approvedTheses->groupBy(function ($thesis) {
                         return optional($thesis->department)->name ?? 'No Department';
                     });
 
@@ -178,8 +181,6 @@
 
                                         <div class="admin-thesis-published">
 
-                                            {{-- PUBLISHED BY --}}
-
                                             <div class="admin-thesis-published-item">
 
                                                 <div class="admin-thesis-published-icon">
@@ -197,7 +198,8 @@
                                                     <span class="admin-thesis-published-value">
 
                                                         {{ optional($thesis->publishedBy)->username
-                                                            ?? (optional($thesis->publishedBy)->full_name ?? '—') }}
+                                                            ?? optional($thesis->publishedBy)->full_name
+                                                            ?? '—' }}
 
                                                     </span>
 
@@ -206,8 +208,6 @@
                                             </div>
 
 
-
-                                            {{-- PUBLISHED AT --}}
 
                                             <div class="admin-thesis-published-item">
 
@@ -260,9 +260,7 @@
                                                     </span>
 
                                                     <span class="admin-thesis-detail-value">
-
                                                         {{ $thesis->author_name ?? '—' }}
-
                                                     </span>
 
                                                 </div>
@@ -288,9 +286,7 @@
                                                     </span>
 
                                                     <span class="admin-thesis-detail-value">
-
                                                         {{ optional($thesis->department)->name ?? '—' }}
-
                                                     </span>
 
                                                 </div>
@@ -316,9 +312,7 @@
                                                     </span>
 
                                                     <span class="admin-thesis-detail-value">
-
                                                         {{ $thesis->academic_year ?? '—' }}
-
                                                     </span>
 
                                                 </div>
@@ -338,7 +332,8 @@
                                                 <span class="admin-thesis-submitted-value">
 
                                                     {{ optional($thesis->submittedBy)->username
-                                                        ?? (optional($thesis->submittedBy)->full_name ?? '—') }}
+                                                        ?? optional($thesis->submittedBy)->full_name
+                                                        ?? '—' }}
 
                                                 </span>
 
@@ -348,15 +343,32 @@
 
 
 
-                                        {{-- CARD FOOTER --}}
+                                        {{-- =================================================
+                                            CARD FOOTER
+                                        ================================================== --}}
 
                                         <div class="admin-thesis-card-footer">
+
+                                            {{-- VIEW DETAIL --}}
+
+                                            <a href="{{ route('admin.thesis.show', $thesis->id) }}"
+                                               class="admin-thesis-action admin-thesis-detail-button">
+
+                                                <i class="bi bi-eye"></i>
+
+                                                <span>
+                                                    View Detail
+                                                </span>
+
+                                            </a>
+
+
 
                                             {{-- VIEW PDF --}}
 
                                             <a href="{{ route('admin.thesis.view-pdf', $thesis->id) }}"
-                                                target="_blank"
-                                                class="admin-thesis-action admin-thesis-view">
+                                            
+                                               class="admin-thesis-action admin-thesis-pdf-button">
 
                                                 <i class="bi bi-file-earmark-pdf"></i>
 
@@ -365,41 +377,6 @@
                                                 </span>
 
                                             </a>
-
-
-
-                                            {{-- DOWNLOAD --}}
-
-                                            @if ($thesis->files && $thesis->files->count())
-
-                                                @php
-                                                    $file = $thesis->files->first();
-                                                @endphp
-
-                                                <a href="{{ route('admin.thesis.download', $file->id) }}"
-                                                    class="admin-thesis-action admin-thesis-download">
-
-                                                    <i class="bi bi-download"></i>
-
-                                                    <span>
-                                                        Download
-                                                    </span>
-
-                                                </a>
-
-                                            @else
-
-                                                <span class="admin-thesis-action admin-thesis-download disabled">
-
-                                                    <i class="bi bi-download"></i>
-
-                                                    <span>
-                                                        No File
-                                                    </span>
-
-                                                </span>
-
-                                            @endif
 
                                         </div>
 
@@ -422,11 +399,11 @@
                             </div>
 
                             <h3>
-                                No Thesis Found
+                                No Approved Thesis Found
                             </h3>
 
                             <p>
-                                There are no thesis records matching your search or filters.
+                                There are no approved thesis records in this department.
                             </p>
 
                         </div>
@@ -508,7 +485,8 @@
                                                 <td>
 
                                                     {{ optional($thesis->submittedBy)->username
-                                                        ?? (optional($thesis->submittedBy)->full_name ?? '—') }}
+                                                        ?? optional($thesis->submittedBy)->full_name
+                                                        ?? '—' }}
 
                                                 </td>
 
@@ -516,7 +494,8 @@
                                                 <td>
 
                                                     {{ optional($thesis->publishedBy)->username
-                                                        ?? (optional($thesis->publishedBy)->full_name ?? '—') }}
+                                                        ?? optional($thesis->publishedBy)->full_name
+                                                        ?? '—' }}
 
                                                 </td>
 
@@ -530,47 +509,36 @@
                                                 </td>
 
 
+                                                {{-- ACTIONS --}}
+
                                                 <td>
 
                                                     <div class="thesis-table-actions">
 
-                                                        <a href="{{ route('admin.thesis.view-pdf', $thesis->id) }}"
-                                                            target="_blank"
-                                                            class="thesis-table-action thesis-table-view"
-                                                            title="View PDF"
-                                                            aria-label="View PDF">
+                                                        {{-- VIEW DETAIL --}}
 
-                                                            <i class="bi bi-file-earmark-pdf"></i>
+                                                        <a href="{{ route('admin.thesis.show', $thesis->id) }}"
+                                                           class="thesis-table-action thesis-table-detail"
+                                                           title="View Detail"
+                                                           aria-label="View Detail">
+
+                                                            <i class="bi bi-eye"></i>
 
                                                         </a>
 
 
-                                                        @if ($thesis->files && $thesis->files->count())
 
-                                                            @php
-                                                                $file = $thesis->files->first();
-                                                            @endphp
+                                                        {{-- VIEW PDF --}}
 
-                                                            <a href="{{ route('admin.thesis.download', $file->id) }}"
-                                                                class="thesis-table-action thesis-table-download"
-                                                                title="Download"
-                                                                aria-label="Download">
+                                                        <a href="{{ route('admin.thesis.view-pdf', $thesis->id) }}"
+                                                           target="_blank"
+                                                           class="thesis-table-action thesis-table-pdf"
+                                                           title="View PDF"
+                                                           aria-label="View PDF">
 
-                                                                <i class="bi bi-download"></i>
+                                                            <i class="bi bi-file-earmark-pdf"></i>
 
-                                                            </a>
-
-                                                        @else
-
-                                                            <span class="thesis-table-action thesis-table-download disabled"
-                                                                title="No File"
-                                                                aria-label="No File">
-
-                                                                <i class="bi bi-download"></i>
-
-                                                            </span>
-
-                                                        @endif
+                                                        </a>
 
                                                     </div>
 
@@ -599,11 +567,11 @@
                             </div>
 
                             <h3>
-                                No Thesis Found
+                                No Approved Thesis Found
                             </h3>
 
                             <p>
-                                There are no thesis records matching your search or filters.
+                                There are no approved thesis records in this department.
                             </p>
 
                         </div>
@@ -626,7 +594,7 @@
 
     <script>
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
 
             let searchTimeout = null;
             let currentController = null;
@@ -683,28 +651,15 @@
 
                 if (view === 'table') {
 
-                    thesisResultsContainer.classList.add(
-                        'table-mode'
-                    );
-
+                    thesisResultsContainer.classList.add('table-mode');
 
                     if (thesisTableViewButton) {
-
-                        thesisTableViewButton.classList.add(
-                            'is-active'
-                        );
-
+                        thesisTableViewButton.classList.add('is-active');
                     }
-
 
                     if (thesisCardViewButton) {
-
-                        thesisCardViewButton.classList.remove(
-                            'is-active'
-                        );
-
+                        thesisCardViewButton.classList.remove('is-active');
                     }
-
 
                     localStorage.setItem(
                         'adminThesisView',
@@ -713,36 +668,21 @@
 
                 } else {
 
-                    thesisResultsContainer.classList.remove(
-                        'table-mode'
-                    );
-
+                    thesisResultsContainer.classList.remove('table-mode');
 
                     if (thesisCardViewButton) {
-
-                        thesisCardViewButton.classList.add(
-                            'is-active'
-                        );
-
+                        thesisCardViewButton.classList.add('is-active');
                     }
-
 
                     if (thesisTableViewButton) {
-
-                        thesisTableViewButton.classList.remove(
-                            'is-active'
-                        );
-
+                        thesisTableViewButton.classList.remove('is-active');
                     }
-
 
                     localStorage.setItem(
                         'adminThesisView',
                         'cards'
                     );
-
                 }
-
             }
 
 
@@ -751,24 +691,21 @@
 
                 thesisCardViewButton.addEventListener(
                     'click',
-                    function() {
-
+                    function () {
                         setThesisView('cards');
-
                     }
                 );
 
             }
 
 
+
             if (thesisTableViewButton) {
 
                 thesisTableViewButton.addEventListener(
                     'click',
-                    function() {
-
+                    function () {
                         setThesisView('table');
-
                     }
                 );
 
@@ -777,9 +714,7 @@
 
 
             const savedThesisView =
-                localStorage.getItem(
-                    'adminThesisView'
-                );
+                localStorage.getItem('adminThesisView');
 
 
             setThesisView(
@@ -797,9 +732,7 @@
             function loadData() {
 
                 if (currentController) {
-
                     currentController.abort();
-
                 }
 
 
@@ -808,20 +741,12 @@
 
 
                 if (spinner) {
-
-                    spinner.classList.remove(
-                        'd-none'
-                    );
-
+                    spinner.classList.remove('d-none');
                 }
 
 
                 if (thesisResultsContainer) {
-
-                    thesisResultsContainer.classList.add(
-                        'is-loading'
-                    );
-
+                    thesisResultsContainer.classList.add('is-loading');
                 }
 
 
@@ -884,7 +809,7 @@
                     }
                 )
 
-                .then(function(response) {
+                .then(function (response) {
 
                     if (!response.ok) {
 
@@ -894,12 +819,11 @@
 
                     }
 
-
                     return response.text();
 
                 })
 
-                .then(function(html) {
+                .then(function (html) {
 
                     if (thesisResultsContainer) {
 
@@ -923,12 +847,9 @@
 
                 })
 
-                .catch(function(error) {
+                .catch(function (error) {
 
-                    if (
-                        error.name !==
-                        'AbortError'
-                    ) {
+                    if (error.name !== 'AbortError') {
 
                         console.error(
                             'Error loading thesis records:',
@@ -939,14 +860,10 @@
 
                 })
 
-                .finally(function() {
+                .finally(function () {
 
                     if (spinner) {
-
-                        spinner.classList.add(
-                            'd-none'
-                        );
-
+                        spinner.classList.add('d-none');
                     }
 
 
@@ -972,12 +889,9 @@
 
                 searchInput.addEventListener(
                     'input',
-                    function() {
+                    function () {
 
-                        clearTimeout(
-                            searchTimeout
-                        );
-
+                        clearTimeout(searchTimeout);
 
                         searchTimeout =
                             setTimeout(
@@ -1000,12 +914,9 @@
 
                 mobileSearchInput.addEventListener(
                     'input',
-                    function() {
+                    function () {
 
-                        clearTimeout(
-                            searchTimeout
-                        );
-
+                        clearTimeout(searchTimeout);
 
                         searchTimeout =
                             setTimeout(
@@ -1052,30 +963,22 @@
             function resetFilters() {
 
                 if (searchInput) {
-
                     searchInput.value = '';
-
                 }
 
 
                 if (mobileSearchInput) {
-
                     mobileSearchInput.value = '';
-
                 }
 
 
                 if (departmentFilter) {
-
                     departmentFilter.value = '';
-
                 }
 
 
                 if (yearFilter) {
-
                     yearFilter.value = '';
-
                 }
 
 
@@ -1113,7 +1016,7 @@
 
                 mobileSearchToggle.addEventListener(
                     'click',
-                    function() {
+                    function () {
 
                         if (!mobileSearchPanel) {
                             return;
@@ -1162,12 +1065,10 @@
 
 
                             setTimeout(
-                                function() {
+                                function () {
 
                                     if (mobileSearchInput) {
-
                                         mobileSearchInput.focus();
-
                                     }
 
                                 },
@@ -1189,7 +1090,7 @@
 
             document.addEventListener(
                 'keydown',
-                function(event) {
+                function (event) {
 
                     if (
                         event.key === 'Escape' &&
@@ -1231,7 +1132,7 @@
 
             window.addEventListener(
                 'resize',
-                function() {
+                function () {
 
                     if (window.innerWidth > 767.98) {
 
@@ -1298,11 +1199,10 @@
             --thesis-text-secondary: #4B5563;
             --thesis-text-muted: #6B7280;
 
-            --thesis-border: #111111;
             --thesis-border-soft: #E5E7EB;
 
-            --thesis-view: #16A34A;
-            --thesis-download: #2563EB;
+            --thesis-detail: #16A34A;
+            --thesis-pdf: #2563EB;
 
             --thesis-shadow:
                 0 8px 24px rgba(17, 17, 17, .08);
@@ -1310,7 +1210,6 @@
             --thesis-card-shadow:
                 0 2px 10px rgba(17, 17, 17, .05);
 
-            /* HEADER */
             --thesis-header-bg:
                 linear-gradient(
                     135deg,
@@ -1350,8 +1249,8 @@
             --thesis-purple-light: #292342;
             --thesis-purple-soft: #342C52;
 
-            --thesis-view: #4ADE80;
-            --thesis-download: #60A5FA;
+            --thesis-detail: #4ADE80;
+            --thesis-pdf: #60A5FA;
 
             --thesis-shadow:
                 0 8px 24px rgba(0, 0, 0, .35);
@@ -1359,7 +1258,6 @@
             --thesis-card-shadow:
                 0 2px 10px rgba(0, 0, 0, .30);
 
-            /* HEADER */
             --thesis-header-bg:
                 linear-gradient(
                     135deg,
@@ -1414,7 +1312,7 @@
 
 
         /* =========================================================
-           CLEAN PAGE HEADER
+           PAGE HEADER
         ========================================================== */
 
         .thesis-page-header {
@@ -1468,8 +1366,6 @@
 
 
 
-        /* subtle purple accent on the left */
-
         .thesis-page-header::before {
 
             content:
@@ -1496,8 +1392,6 @@
         }
 
 
-
-        /* subtle light glow */
 
         .thesis-page-header::after {
 
@@ -1556,10 +1450,6 @@
         }
 
 
-
-        /* =========================================================
-           BACK TO DEPARTMENTS
-        ========================================================== */
 
         .thesis-back-link {
 
@@ -1633,9 +1523,7 @@
                 1;
 
             transition:
-                color .2s ease,
-                background-color .2s ease,
-                transform .2s ease;
+                .2s ease;
 
         }
 
@@ -1705,10 +1593,6 @@
 
 
 
-        /* =========================================================
-           DEPARTMENT LABEL
-        ========================================================== */
-
         .thesis-header-department-label {
 
             display:
@@ -1735,10 +1619,6 @@
         }
 
 
-
-        /* =========================================================
-           DEPARTMENT NAME
-        ========================================================== */
 
         .thesis-header-department-name {
 
@@ -1774,386 +1654,6 @@
 
             white-space:
                 nowrap;
-
-        }
-
-
-
-        /* =========================================================
-           DARK HEADER
-        ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-header-department-label {
-
-            color:
-                #A78BFA;
-
-        }
-
-
-
-        [data-bs-theme="dark"] .thesis-header-department-name {
-
-            color:
-                #FFFFFF;
-
-        }
-
-
-
-        [data-bs-theme="dark"] .thesis-back-icon {
-
-            color:
-                #B9A8F5;
-
-            background:
-                #292342;
-
-            border-color:
-                #403760;
-
-        }
-
-
-
-        [data-bs-theme="dark"] .thesis-back-link:hover .thesis-back-icon {
-
-            color:
-                #FFFFFF;
-
-            background:
-                #7C5CE3;
-
-            border-color:
-                #7C5CE3;
-
-        }
-
-
-
-        /* =========================================================
-           FILTER
-        ========================================================== */
-
-        .thesis-filter-card {
-
-            width:
-                100%;
-
-            margin-bottom:
-                1rem;
-
-            background:
-                var(--thesis-card-bg);
-
-            box-sizing:
-                border-box;
-
-        }
-
-
-
-        .thesis-filter-body {
-
-            width:
-                100%;
-
-            padding:
-                1.2rem 1.25rem;
-
-            background:
-                var(--thesis-card-bg);
-
-            border:
-                1px solid var(--thesis-border-soft);
-
-            border-radius:
-                12px;
-
-            box-shadow:
-                var(--thesis-card-shadow);
-
-            box-sizing:
-                border-box;
-
-        }
-
-
-
-        .thesis-filter-grid {
-
-            display:
-                grid;
-
-            grid-template-columns:
-                minmax(0, 2fr)
-                minmax(180px, 1fr)
-                minmax(150px, .8fr)
-                120px;
-
-            gap:
-                1rem;
-
-            align-items:
-                end;
-
-        }
-
-
-
-        .thesis-filter-field {
-
-            min-width:
-                0;
-
-        }
-
-
-
-        .thesis-input-label {
-
-            display:
-                block;
-
-            margin-bottom:
-                .45rem;
-
-            color:
-                var(--thesis-text-secondary);
-
-            font-size:
-                .75rem;
-
-            font-weight:
-                800;
-
-            letter-spacing:
-                .05em;
-
-            text-transform:
-                uppercase;
-
-        }
-
-
-
-        .thesis-search {
-
-            position:
-                relative;
-
-        }
-
-
-
-        .thesis-search i {
-
-            position:
-                absolute;
-
-            top:
-                50%;
-
-            left:
-                1rem;
-
-            z-index:
-                2;
-
-            transform:
-                translateY(-50%);
-
-            color:
-                var(--thesis-purple);
-
-            pointer-events:
-                none;
-
-        }
-
-
-
-        .thesis-search input {
-
-            width:
-                100%;
-
-            height:
-                45px;
-
-            padding:
-                .6rem 1rem .6rem 2.75rem;
-
-            color:
-                var(--thesis-text);
-
-            background:
-                var(--thesis-input-bg);
-
-            border:
-                1px solid var(--thesis-border-soft);
-
-            border-radius:
-                8px;
-
-            outline:
-                none;
-
-            font-size:
-                .9rem;
-
-            box-sizing:
-                border-box;
-
-        }
-
-
-
-        .thesis-search input:focus {
-
-            border-color:
-                var(--thesis-purple);
-
-            box-shadow:
-                0 0 0 3px rgba(101, 56, 217, .12);
-
-        }
-
-
-
-        .thesis-filter-select {
-
-            width:
-                100%;
-
-            height:
-                45px;
-
-            padding:
-                .5rem 2rem .5rem .85rem;
-
-            color:
-                var(--thesis-text);
-
-            background:
-                var(--thesis-input-bg);
-
-            border:
-                1px solid var(--thesis-border-soft);
-
-            border-radius:
-                8px;
-
-            outline:
-                none;
-
-            font-size:
-                .9rem;
-
-            cursor:
-                pointer;
-
-            box-sizing:
-                border-box;
-
-        }
-
-
-
-        .thesis-filter-select:focus {
-
-            border-color:
-                var(--thesis-purple);
-
-            box-shadow:
-                0 0 0 3px rgba(101, 56, 217, .12);
-
-        }
-
-
-
-        .thesis-filter-select option {
-
-            color:
-                #111111;
-
-            background:
-                #FFFFFF;
-
-        }
-
-
-
-        [data-bs-theme="dark"] .thesis-filter-select option {
-
-            color:
-                #FFFFFF;
-
-            background:
-                #20253A;
-
-        }
-
-
-
-        .thesis-reset-button {
-
-            width:
-                100%;
-
-            height:
-                45px;
-
-            display:
-                inline-flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            gap:
-                .45rem;
-
-            color:
-                var(--thesis-text-secondary);
-
-            background:
-                var(--thesis-input-bg);
-
-            border:
-                1px solid var(--thesis-border-soft);
-
-            border-radius:
-                8px;
-
-            font-size:
-                .75rem;
-
-            font-weight:
-                800;
-
-            text-transform:
-                uppercase;
-
-            cursor:
-                pointer;
-
-        }
-
-
-
-        .thesis-reset-button:hover {
-
-            color:
-                #FFFFFF;
-
-            background:
-                var(--thesis-purple);
-
-            border-color:
-                var(--thesis-purple);
 
         }
 
@@ -2375,10 +1875,6 @@
         }
 
 
-
-        /* =========================================================
-           CARD GRID
-        ========================================================== */
 
         .thesis-department-grid {
 
@@ -3016,67 +2512,69 @@
 
 
 
-        .admin-thesis-view {
+        /* =========================================================
+           VIEW DETAIL - GREEN
+        ========================================================== */
+
+        .admin-thesis-detail-button {
 
             color:
-                var(--thesis-view);
+                var(--thesis-detail);
+
+            background:
+                transparent;
 
             border:
-                1px solid var(--thesis-view);
+                1px solid var(--thesis-detail);
 
         }
 
 
 
-        .admin-thesis-view:hover {
+        .admin-thesis-detail-button:hover {
 
             color:
                 #FFFFFF;
 
             background:
-                var(--thesis-view);
-
-        }
-
-
-
-        .admin-thesis-download {
-
-            color:
-                var(--thesis-download);
-
-            border:
-                1px solid var(--thesis-download);
-
-        }
-
-
-
-        .admin-thesis-download:hover {
-
-            color:
-                #FFFFFF;
-
-            background:
-                var(--thesis-download);
-
-        }
-
-
-
-        .admin-thesis-download.disabled {
-
-            color:
-                var(--thesis-text-muted);
+                var(--thesis-detail);
 
             border-color:
-                var(--thesis-border-soft);
+                var(--thesis-detail);
 
-            opacity:
-                .5;
+        }
 
-            pointer-events:
-                none;
+
+
+        /* =========================================================
+           VIEW PDF - BLUE
+        ========================================================== */
+
+        .admin-thesis-pdf-button {
+
+            color:
+                var(--thesis-pdf);
+
+            background:
+                transparent;
+
+            border:
+                1px solid var(--thesis-pdf);
+
+        }
+
+
+
+        .admin-thesis-pdf-button:hover {
+
+            color:
+                #FFFFFF;
+
+            background:
+                var(--thesis-pdf);
+
+            border-color:
+                var(--thesis-pdf);
 
         }
 
@@ -3237,7 +2735,7 @@
 
 
         /* =========================================================
-           TABLE SECTION
+           TABLE
         ========================================================== */
 
         .thesis-department-table-section {
@@ -3260,10 +2758,6 @@
         }
 
 
-
-        /* =========================================================
-           TABLE
-        ========================================================== */
 
         .thesis-table-wrapper {
 
@@ -3541,383 +3035,53 @@
 
 
 
-        .thesis-table-view {
+        /* DETAIL GREEN */
+
+        .thesis-table-detail {
 
             color:
-                var(--thesis-view);
+                var(--thesis-detail);
 
             border:
-                1px solid var(--thesis-view);
+                1px solid var(--thesis-detail);
 
         }
 
 
 
-        .thesis-table-view:hover {
+        .thesis-table-detail:hover {
 
             color:
                 #FFFFFF;
 
             background:
-                var(--thesis-view);
+                var(--thesis-detail);
 
         }
 
 
 
-        .thesis-table-download {
+        /* PDF BLUE */
+
+        .thesis-table-pdf {
 
             color:
-                var(--thesis-download);
+                var(--thesis-pdf);
 
             border:
-                1px solid var(--thesis-download);
+                1px solid var(--thesis-pdf);
 
         }
 
 
 
-        .thesis-table-download:hover {
+        .thesis-table-pdf:hover {
 
             color:
                 #FFFFFF;
 
             background:
-                var(--thesis-download);
-
-        }
-
-
-
-        .thesis-table-action.disabled {
-
-            color:
-                var(--thesis-text-muted);
-
-            border-color:
-                var(--thesis-border-soft);
-
-            opacity:
-                .45;
-
-            pointer-events:
-                none;
-
-        }
-
-
-
-        /* =========================================================
-           MOBILE SEARCH
-        ========================================================== */
-
-        .thesis-mobile-search-panel {
-
-            display:
-                none;
-
-            margin-bottom:
-                1rem;
-
-            overflow:
-                hidden;
-
-            background:
-                var(--thesis-card-bg);
-
-            border:
-                1px solid var(--thesis-border-soft);
-
-            border-radius:
-                10px;
-
-        }
-
-
-
-        .thesis-mobile-search-content {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                .5rem;
-
-            padding:
-                .75rem;
-
-        }
-
-
-
-        .thesis-mobile-search-input {
-
-            position:
-                relative;
-
-            flex:
-                1;
-
-        }
-
-
-
-        .thesis-mobile-search-input i {
-
-            position:
-                absolute;
-
-            top:
-                50%;
-
-            left:
-                .85rem;
-
-            transform:
-                translateY(-50%);
-
-            color:
-                var(--thesis-purple);
-
-        }
-
-
-
-        .thesis-mobile-search-input input {
-
-            width:
-                100%;
-
-            height:
-                44px;
-
-            padding:
-                .5rem .75rem .5rem 2.5rem;
-
-            color:
-                var(--thesis-text);
-
-            background:
-                var(--thesis-input-bg);
-
-            border:
-                1px solid var(--thesis-border-soft);
-
-            border-radius:
-                8px;
-
-            outline:
-                none;
-
-            box-sizing:
-                border-box;
-
-        }
-
-
-
-        .thesis-mobile-reset-button {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            width:
-                44px;
-
-            height:
-                44px;
-
-            flex-shrink:
-                0;
-
-            color:
-                var(--thesis-purple);
-
-            background:
-                var(--thesis-purple-light);
-
-            border:
-                1px solid #DDD6FE;
-
-            border-radius:
-                8px;
-
-            cursor:
-                pointer;
-
-        }
-
-
-
-        /* =========================================================
-           LOADING
-        ========================================================== */
-
-        .thesis-loading {
-
-            position:
-                absolute;
-
-            top:
-                1rem;
-
-            left:
-                50%;
-
-            z-index:
-                50;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                .6rem;
-
-            padding:
-                .65rem .9rem;
-
-            transform:
-                translateX(-50%);
-
-            color:
-                var(--thesis-text);
-
-            background:
-                var(--thesis-card-bg);
-
-            border:
-                1px solid var(--thesis-border-soft);
-
-            border-radius:
-                8px;
-
-            box-shadow:
-                var(--thesis-shadow);
-
-            font-size:
-                .78rem;
-
-            font-weight:
-                700;
-
-            white-space:
-                nowrap;
-
-        }
-
-
-
-        .thesis-spinner {
-
-            width:
-                17px;
-
-            height:
-                17px;
-
-            border:
-                2px solid var(--thesis-border-soft);
-
-            border-top-color:
-                var(--thesis-purple);
-
-            border-radius:
-                50%;
-
-            animation:
-                thesisSpin .7s linear infinite;
-
-        }
-
-
-
-        @keyframes thesisSpin {
-
-            to {
-
-                transform:
-                    rotate(360deg);
-
-            }
-
-        }
-
-
-
-        /* =========================================================
-           1400px
-        ========================================================== */
-
-        @media (max-width: 1399.98px) {
-
-            .thesis-department-grid {
-
-                grid-template-columns:
-                    repeat(3, minmax(0, 1fr));
-
-            }
-
-        }
-
-
-
-        /* =========================================================
-           1200px
-        ========================================================== */
-
-        @media (max-width: 1199.98px) {
-
-            .thesis-filter-grid {
-
-                grid-template-columns:
-                    minmax(0, 1.5fr)
-                    minmax(160px, 1fr)
-                    minmax(140px, .8fr)
-                    110px;
-
-            }
-
-
-            .thesis-department-grid {
-
-                grid-template-columns:
-                    repeat(2, minmax(0, 1fr));
-
-            }
-
-
-            .thesis-table thead th {
-
-                padding:
-                    .75rem .5rem;
-
-                font-size:
-                    .68rem;
-
-            }
-
-
-            .thesis-table tbody td {
-
-                padding:
-                    .75rem .5rem;
-
-                font-size:
-                    .74rem;
-
-            }
+                var(--thesis-pdf);
 
         }
 
@@ -3936,8 +3100,6 @@
 
             }
 
-
-            /* HEADER */
 
             .thesis-page-header {
 
@@ -3963,14 +3125,6 @@
 
                 width:
                     3px;
-
-            }
-
-
-            .thesis-header-left {
-
-                min-width:
-                    0;
 
             }
 
@@ -4027,9 +3181,6 @@
             }
 
 
-
-            /* DEPARTMENT CARDS */
-
             .thesis-department-grid {
 
                 grid-template-columns:
@@ -4040,9 +3191,6 @@
 
             }
 
-
-
-            /* TABLE */
 
             .thesis-results-container.table-mode {
 
@@ -4111,7 +3259,7 @@
             .thesis-table td:nth-child(2) {
 
                 width:
-                    43%;
+                    39%;
 
             }
 
@@ -4120,7 +3268,7 @@
             .thesis-table td:nth-child(3) {
 
                 width:
-                    20%;
+                    18%;
 
             }
 
@@ -4195,6 +3343,17 @@
 
                 min-width:
                     28px;
+
+            }
+
+
+            .admin-thesis-action {
+
+                min-height:
+                    36px;
+
+                font-size:
+                    .66rem;
 
             }
 
@@ -4276,10 +3435,10 @@
             .admin-thesis-action {
 
                 min-height:
-                    36px;
+                    34px;
 
                 font-size:
-                    .66rem;
+                    .62rem;
 
             }
 
@@ -4360,3 +3519,5 @@
     </style>
 
 </x-app-layout>
+```
+
