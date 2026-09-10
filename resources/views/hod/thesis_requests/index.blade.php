@@ -8,433 +8,864 @@
 
         <div class="request-page-header">
 
-            <div class="request-header-content">
+            <div>
 
                 <span class="request-overline">
                     MANAGEMENT
                 </span>
 
-                <h1 class="request-page-title">
+                <h2 class="request-page-title">
                     Thesis Requests
-                </h1>
-
-                <p class="request-page-description">
-                    Review thesis upload requests and their submission information.
-                </p>
+                </h2>
 
             </div>
 
-            <div class="request-header-icon">
-                <i class="bi bi-journal-check"></i>
+
+            {{-- =====================================================
+                VIEW TOGGLE
+            ====================================================== --}}
+
+            <div class="request-view-toggle">
+
+                <button type="button" id="requestCardViewBtn" class="request-view-button active">
+                    <i class="bi bi-grid-3x3-gap"></i>
+
+                    <span>
+                        Card
+                    </span>
+                </button>
+
+
+                <button type="button" id="requestTableViewBtn" class="request-view-button">
+                    <i class="bi bi-table"></i>
+
+                    <span>
+                        Table
+                    </span>
+                </button>
+
             </div>
 
         </div>
 
 
+
         {{-- =========================================================
-            ERROR ALERT
+            ALERTS
         ========================================================== --}}
 
         @if (session('error'))
-
             <div class="request-alert">
 
-                <div class="alert-icon">
-                    <i class="bi bi-exclamation-circle-fill"></i>
-                </div>
+                <i class="bi bi-exclamation-circle"></i>
 
-                <div class="alert-content">
-
-                    <strong>
-                        Action Failed
-                    </strong>
-
-                    <span>
-                        {{ session('error') }}
-                    </span>
-
-                </div>
+                <span>
+                    {{ session('error') }}
+                </span>
 
             </div>
-
         @endif
 
-
-        {{-- =========================================================
-            SUCCESS ALERT
-        ========================================================== --}}
 
         @if (session('success'))
-
             <div class="request-success">
 
-                <div class="alert-icon">
-                    <i class="bi bi-check-circle-fill"></i>
-                </div>
+                <i class="bi bi-check-circle"></i>
 
-                <div class="alert-content">
-
-                    <strong>
-                        Success
-                    </strong>
-
-                    <span>
-                        {{ session('success') }}
-                    </span>
-
-                </div>
+                <span>
+                    {{ session('success') }}
+                </span>
 
             </div>
-
         @endif
 
 
+
         {{-- =========================================================
-            REQUEST GRID
+            REQUEST RESULTS CONTAINER
         ========================================================== --}}
 
-        <div class="request-grid">
+        <div id="requestResultsContainer">
 
-            @forelse ($thesisRequests as $thesisRequest)
 
-                <article class="request-card">
+            {{-- =====================================================
+                CARD VIEW
+            ====================================================== --}}
 
-                    {{-- =================================================
-                        CARD CONTENT
-                    ================================================== --}}
+            <div id="requestCardView" class="request-grid">
 
-                    <div class="request-card-content">
+                @forelse ($thesisRequests as $thesisRequest)
+                    <article class="request-card">
 
                         {{-- =================================================
-                            TITLE + STATUS
+                            CARD CONTENT
                         ================================================== --}}
 
-                        <div class="request-title-row">
+                        <div class="request-card-content">
 
-                            <div class="request-title-area">
 
-                                <div class="request-title-with-icon">
+                            {{-- =================================================
+                                TITLE + STATUS
+                            ================================================== --}}
 
-                                    <i class="bi bi-journal-text"></i>
+                            <div class="request-title-row">
 
-                                    <h3
-                                        class="request-title"
-                                        title="{{ $thesisRequest->title }}"
-                                    >
-                                        {{ $thesisRequest->title }}
-                                    </h3>
+                                <div class="request-title-area">
+
+                                    <div class="request-title-with-icon">
+
+                                        <i class="bi bi-journal-text"></i>
+
+                                        <h3 class="request-title" title="{{ $thesisRequest->title }}">
+                                            {{ $thesisRequest->title }}
+                                        </h3>
+
+                                    </div>
 
                                 </div>
+
+
+                                {{-- STATUS --}}
+
+                                @if ($thesisRequest->status === 'pending')
+                                    <span class="request-status pending">
+
+                                        <i class="bi bi-clock"></i>
+
+                                        Pending
+
+                                    </span>
+                                @elseif ($thesisRequest->status === 'approved')
+                                    <span class="request-status approved">
+
+                                        <i class="bi bi-check-circle"></i>
+
+                                        Approved
+
+                                    </span>
+                                @elseif ($thesisRequest->status === 'rejected')
+                                    <span class="request-status rejected">
+
+                                        <i class="bi bi-x-circle"></i>
+
+                                        Rejected
+
+                                    </span>
+                                @else
+                                    <span class="request-status unknown">
+
+                                        <i class="bi bi-question-circle"></i>
+
+                                        {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
+
+                                    </span>
+                                @endif
 
                             </div>
 
 
-                            {{-- STATUS --}}
 
-                            @if ($thesisRequest->status === 'pending')
+                            {{-- =================================================
+                                INFORMATION
+                            ================================================== --}}
 
-                                <span class="request-status pending">
+                            <div class="request-information">
 
-                                    <i class="bi bi-clock"></i>
 
-                                    Pending
+                                {{-- DEPARTMENT --}}
 
-                                </span>
+                                <div class="request-info">
 
-                            @elseif ($thesisRequest->status === 'approved')
+                                    <div class="request-info-icon">
 
-                                <span class="request-status approved">
+                                        <i class="bi bi-building"></i>
 
-                                    <i class="bi bi-check-circle"></i>
+                                    </div>
 
-                                    Approved
+                                    <div class="request-info-content">
 
-                                </span>
+                                        <span>
+                                            Department
+                                        </span>
 
-                            @elseif ($thesisRequest->status === 'rejected')
+                                        <strong>
+                                            {{ $thesisRequest->department?->name ?? 'N/A' }}
+                                        </strong>
 
-                                <span class="request-status rejected">
+                                    </div>
 
-                                    <i class="bi bi-x-circle"></i>
+                                </div>
 
-                                    Rejected
 
-                                </span>
 
-                            @else
+                                {{-- AUTHOR --}}
 
-                                <span class="request-status unknown">
+                                <div class="request-info">
 
-                                    <i class="bi bi-question-circle"></i>
+                                    <div class="request-info-icon">
 
-                                    {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
+                                        <i class="bi bi-person"></i>
 
-                                </span>
+                                    </div>
 
-                            @endif
+                                    <div class="request-info-content">
+
+                                        <span>
+                                            Author
+                                        </span>
+
+                                        <strong>
+                                            {{ $thesisRequest->author_name ?? 'N/A' }}
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                {{-- SUBMITTED BY --}}
+
+                                <div class="request-info">
+
+                                    <div class="request-info-icon">
+
+                                        <i class="bi bi-person-up"></i>
+
+                                    </div>
+
+                                    <div class="request-info-content">
+
+                                        <span>
+                                            Submitted By
+                                        </span>
+
+                                        <strong>
+                                            {{ $thesisRequest->user?->username ?? 'N/A' }}
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                {{-- SUBMITTED AT --}}
+
+                                <div class="request-info">
+
+                                    <div class="request-info-icon">
+
+                                        <i class="bi bi-calendar3"></i>
+
+                                    </div>
+
+                                    <div class="request-info-content">
+
+                                        <span>
+                                            Submitted At
+                                        </span>
+
+                                        <strong>
+
+                                            @if ($thesisRequest->submitted_at)
+                                                {{ \Carbon\Carbon::parse($thesisRequest->submitted_at)->format('d M Y') }}
+                                            @else
+                                                N/A
+                                            @endif
+
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                {{-- PUBLISHED BY --}}
+
+                                @if ($thesisRequest->thesis)
+                                    <div class="request-info">
+
+                                        <div class="request-info-icon">
+
+                                            <i class="bi bi-person-check"></i>
+
+                                        </div>
+
+                                        <div class="request-info-content">
+
+                                            <span>
+                                                Published By
+                                            </span>
+
+                                            <strong>
+
+                                                {{ $thesisRequest->thesis?->publishedBy?->full_name ??
+                                                    ($thesisRequest->thesis?->publishedBy?->username ?? 'N/A') }}
+
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+                                @endif
+
+                            </div>
 
                         </div>
 
 
+
                         {{-- =================================================
-                            INFORMATION
+                            CARD ACTIONS
                         ================================================== --}}
 
-                        <div class="request-information">
+                        <div class="request-actions">
 
 
-                            {{-- DEPARTMENT --}}
+                            {{-- VIEW DETAILS --}}
 
-                            <div class="request-info">
+                            <a href="{{ route('hod.thesis_requests.show', $thesisRequest->id) }}"
+                                class="request-action request-action-details">
 
-                                <div class="request-info-icon">
-                                    <i class="bi bi-building"></i>
-                                </div>
-
-                                <div class="request-info-content">
-
-                                    <span>
-                                        Department
-                                    </span>
-
-                                    <strong>
-                                        {{ $thesisRequest->department?->name ?? 'N/A' }}
-                                    </strong>
-
-                                </div>
-
-                            </div>
-
-
-                            {{-- AUTHOR --}}
-
-                            <div class="request-info">
-
-                                <div class="request-info-icon">
-                                    <i class="bi bi-person"></i>
-                                </div>
-
-                                <div class="request-info-content">
-
-                                    <span>
-                                        Author
-                                    </span>
-
-                                    <strong>
-                                        {{ $thesisRequest->author_name ?? 'N/A' }}
-                                    </strong>
-
-                                </div>
-
-                            </div>
-
-
-                            {{-- SUBMITTED BY --}}
-
-                            <div class="request-info">
-
-                                <div class="request-info-icon">
-                                    <i class="bi bi-person-up"></i>
-                                </div>
-
-                                <div class="request-info-content">
-
-                                    <span>
-                                        Submitted By
-                                    </span>
-
-                                    <strong>
-                                        {{ $thesisRequest->user?->username ?? 'N/A' }}
-                                    </strong>
-
-                                </div>
-
-                            </div>
-
-
-                            {{-- SUBMITTED AT --}}
-
-                            <div class="request-info">
-
-                                <div class="request-info-icon">
-                                    <i class="bi bi-calendar3"></i>
-                                </div>
-
-                                <div class="request-info-content">
-
-                                    <span>
-                                        Submitted At
-                                    </span>
-
-                                    <strong>
-                                        {{ $thesisRequest->submitted_at
-                                            ? \Carbon\Carbon::parse($thesisRequest->submitted_at)->format('d M Y')
-                                            : 'N/A' }}
-                                    </strong>
-
-                                </div>
-
-                            </div>
-
-
-                            {{-- PUBLISHED BY --}}
-
-                            <div class="request-info">
-
-                                <div class="request-info-icon">
-                                    <i class="bi bi-person-check"></i>
-                                </div>
-
-                                <div class="request-info-content">
-
-                                    <span>
-                                        Published By
-                                    </span>
-
-                                    <strong>
-
-                                        @if ($thesisRequest->thesis)
-
-                                            {{ $thesisRequest->thesis?->publishedBy?->full_name
-                                                ?? ($thesisRequest->thesis?->publishedBy?->username ?? 'N/A') }}
-
-                                        @else
-
-                                            N/A
-
-                                        @endif
-
-                                    </strong>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- =================================================
-                        ACTIONS
-                    ================================================== --}}
-
-                    <div class="request-actions">
-
-
-                        {{-- VIEW DETAILS --}}
-
-                        <a
-                            href="{{ route('hod.thesis_requests.show', $thesisRequest->id) }}"
-                            class="request-action request-action-primary"
-                        >
-
-                            <i class="bi bi-eye"></i>
-
-                            <span>
-                                View Details
-                            </span>
-
-                        </a>
-
-
-                        {{-- VIEW PDF --}}
-
-                        @if ($thesisRequest->thesis)
-
-                            <a
-                                href="{{ route('hod.thesis.view-pdf', $thesisRequest->thesis->id) }}"
-                                target="_blank"
-                                class="request-action request-action-secondary"
-                            >
-
-                                <i class="bi bi-file-earmark-pdf"></i>
+                                <i class="bi bi-eye"></i>
 
                                 <span>
-                                    View PDF
+                                    View Details
                                 </span>
 
                             </a>
 
-                        @else
 
-                            <span class="request-action request-action-disabled">
 
-                                <i class="bi bi-file-earmark-x"></i>
+                            {{-- VIEW PDF --}}
 
-                                <span>
-                                    No PDF
+                            @if ($thesisRequest->thesis)
+                                <a href="{{ route('hod.thesis.view-pdf', $thesisRequest->thesis->id) }}"
+                                    target="_blank" class="request-action request-action-pdf">
+
+                                    <i class="bi bi-file-earmark-pdf"></i>
+
+                                    <span>
+                                        View PDF
+                                    </span>
+
+                                </a>
+                            @else
+                                <span class="request-action request-action-pdf request-action-disabled">
+
+                                    <i class="bi bi-file-earmark-x"></i>
+
+                                    <span>
+                                        No PDF
+                                    </span>
+
                                 </span>
+                            @endif
 
-                            </span>
+                        </div>
 
-                        @endif
+                    </article>
+
+
+                @empty
+
+                    <div class="request-empty">
+
+                        <div class="request-empty-icon">
+
+                            <i class="bi bi-journal-x"></i>
+
+                        </div>
+
+                        <h3>
+                            No Thesis Requests
+                        </h3>
+
+                        <p>
+                            There are currently no thesis upload requests.
+                        </p>
 
                     </div>
+                @endforelse
 
-                </article>
-
-
-            @empty
+            </div>
 
 
-                {{-- =================================================
-                    EMPTY STATE
-                ================================================== --}}
 
-                <div class="request-empty">
+            {{-- =====================================================
+                TABLE VIEW
+            ====================================================== --}}
 
-                    <div class="request-empty-icon">
+            <div id="requestTableView" class="request-table-container">
 
-                        <i class="bi bi-journal-x"></i>
+                <div class="request-table-scroll">
 
-                    </div>
+                    <table class="request-table">
 
-                    <h3>
-                        No Thesis Requests
-                    </h3>
+                        <thead>
 
-                    <p>
-                        There are currently no thesis upload requests.
-                    </p>
+                            <tr>
+
+                                <th>
+                                    #
+                                </th>
+
+                                <th>
+                                    Thesis Title
+                                </th>
+
+                                <th>
+                                    Author
+                                </th>
+
+                                <th>
+                                    Department
+                                </th>
+
+                                <th>
+                                    Submitted By
+                                </th>
+
+                                <th>
+                                    Submitted At
+                                </th>
+
+                                <th>
+                                    Published By
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+
+                        <tbody>
+
+                            @forelse ($thesisRequests as $thesisRequest)
+                                <tr>
+
+
+                                    {{-- NUMBER --}}
+
+                                    <td class="request-table-number">
+
+                                        {{ $loop->iteration }}
+
+                                    </td>
+
+
+
+                                    {{-- TITLE --}}
+
+                                    <td>
+
+                                        <div class="request-table-title">
+
+                                            <span title="{{ $thesisRequest->title }}">
+                                                {{ $thesisRequest->title }}
+                                            </span>
+
+                                        </div>
+
+                                    </td>
+
+
+
+                                    {{-- AUTHOR --}}
+
+                                    <td>
+
+                                        <span class="request-table-text">
+
+                                            {{ $thesisRequest->author_name ?? 'N/A' }}
+
+                                        </span>
+
+                                    </td>
+
+
+
+                                    {{-- DEPARTMENT --}}
+
+                                    <td>
+
+                                        <span class="request-table-department">
+
+                                            {{ $thesisRequest->department?->name ?? 'N/A' }}
+
+                                        </span>
+
+                                    </td>
+
+
+
+                                    {{-- SUBMITTED BY --}}
+
+                                    <td>
+
+                                        <span class="request-table-text">
+
+                                            {{ $thesisRequest->user?->username ?? 'N/A' }}
+
+                                        </span>
+
+                                    </td>
+
+
+
+                                    {{-- SUBMITTED AT --}}
+
+                                    <td>
+
+                                        <span class="request-table-text">
+
+                                            @if ($thesisRequest->submitted_at)
+                                                {{ \Carbon\Carbon::parse($thesisRequest->submitted_at)->format('d M Y') }}
+                                            @else
+                                                N/A
+                                            @endif
+
+                                        </span>
+
+                                    </td>
+
+
+
+                                    {{-- PUBLISHED BY --}}
+
+                                    <td>
+
+                                        <span class="request-table-text">
+
+                                            @if ($thesisRequest->thesis)
+                                                {{ $thesisRequest->thesis?->publishedBy?->full_name ??
+                                                    ($thesisRequest->thesis?->publishedBy?->username ?? 'N/A') }}
+                                            @else
+                                                N/A
+                                            @endif
+
+                                        </span>
+
+                                    </td>
+
+
+
+                                    {{-- STATUS --}}
+
+                                    <td>
+
+                                        @if ($thesisRequest->status === 'pending')
+                                            <span class="request-table-status pending">
+
+                                                <i class="bi bi-clock"></i>
+
+                                                Pending
+
+                                            </span>
+                                        @elseif ($thesisRequest->status === 'approved')
+                                            <span class="request-table-status approved">
+
+                                                <i class="bi bi-check-circle"></i>
+
+                                                Approved
+
+                                            </span>
+                                        @elseif ($thesisRequest->status === 'rejected')
+                                            <span class="request-table-status rejected">
+
+                                                <i class="bi bi-x-circle"></i>
+
+                                                Rejected
+
+                                            </span>
+                                        @else
+                                            <span class="request-table-status unknown">
+
+                                                <i class="bi bi-question-circle"></i>
+
+                                                {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
+
+                                            </span>
+                                        @endif
+
+                                    </td>
+
+
+
+                                    {{-- ACTIONS --}}
+
+                                    <td>
+
+                                        <div class="request-table-actions">
+
+
+                                            {{-- DETAILS --}}
+
+                                            <a href="{{ route('hod.thesis_requests.show', $thesisRequest->id) }}"
+                                                class="request-table-action request-table-details" title="View Details">
+
+                                                <i class="bi bi-eye"></i>
+
+                                            </a>
+
+
+
+                                            {{-- PDF --}}
+
+                                            @if ($thesisRequest->thesis)
+                                                <a href="{{ route('hod.thesis.view-pdf', $thesisRequest->thesis->id) }}"
+                                                    target="_blank" class="request-table-action request-table-pdf"
+                                                    title="View PDF">
+
+                                                    <i class="bi bi-file-earmark-pdf"></i>
+
+                                                </a>
+                                            @else
+                                                <span class="request-table-action request-table-pdf disabled"
+                                                    title="No PDF">
+
+                                                    <i class="bi bi-file-earmark-x"></i>
+
+                                                </span>
+                                            @endif
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+
+                            @empty
+
+                                <tr>
+
+                                    <td colspan="9" class="request-table-empty">
+
+                                        <div class="request-empty">
+
+                                            <div class="request-empty-icon">
+
+                                                <i class="bi bi-journal-x"></i>
+
+                                            </div>
+
+                                            <h3>
+                                                No Thesis Requests
+                                            </h3>
+
+                                            <p>
+                                                There are currently no thesis upload requests.
+                                            </p>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+                            @endforelse
+
+                        </tbody>
+
+                    </table>
 
                 </div>
 
-
-            @endforelse
+            </div>
 
         </div>
 
     </div>
 
 
-    <style>
 
+    <style>
         /* =========================================================
-           PAGE VARIABLES
+           COLOR VARIABLES
         ========================================================== */
 
-        .thesis-requests-page {
+        :root {
 
-            --request-black: #111111;
-            --request-dark: #222222;
+            --thesis-request-page-bg: #f0f2f5;
 
-            --request-text: #333333;
-            --request-muted: #777777;
-            --request-light-text: #999999;
+            --thesis-request-card-bg: #ffffff;
 
-            --request-card-bg: #ffffff;
-            --request-soft-bg: #fafafa;
+            --thesis-request-card-bg-soft: #faf9ff;
 
-            --request-border: #e7e7e7;
+            --thesis-request-input-bg: #f8f7fc;
 
-            --request-shadow:
-                0 4px 18px rgba(0, 0, 0, .055);
+            --thesis-request-text: #16121f;
 
-            --request-shadow-hover:
-                0 12px 30px rgba(0, 0, 0, .10);
+            --thesis-request-text-secondary: #514d5a;
 
+            --thesis-request-text-muted: #8a8792;
+
+            --thesis-request-placeholder: #aaa6b2;
+
+            --thesis-request-border: #e4e1eb;
+
+            --thesis-request-border-soft: #e9e6ef;
+
+
+            /* PURPLE */
+
+            --thesis-request-primary: #6538d9;
+
+            --thesis-request-primary-hover: #5630bd;
+
+            --thesis-request-primary-soft: #f0ebff;
+
+            --thesis-request-primary-soft-hover: #e8e0ff;
+
+
+            /* BLUE - VIEW DETAILS */
+
+            --thesis-request-details: #2563eb;
+
+            --thesis-request-details-hover: #1d4ed8;
+
+            --thesis-request-details-soft: #eff6ff;
+
+
+            /* RED - PDF */
+
+            --thesis-request-pdf: #dc2626;
+
+            --thesis-request-pdf-hover: #b91c1c;
+
+            --thesis-request-pdf-soft: #fef2f2;
+
+
+            --thesis-request-white: #ffffff;
+
+            --thesis-request-black: #111111;
+
+
+            --thesis-request-shadow:
+                0 4px 18px rgba(35, 20, 65, .08);
+
+            --thesis-request-card-shadow:
+                0 2px 10px rgba(35, 20, 65, .05);
         }
+
+
+
+        /* =========================================================
+           DARK MODE
+        ========================================================== */
+
+        [data-bs-theme="dark"] {
+
+            --thesis-request-page-bg: #101426;
+
+            --thesis-request-card-bg: #181d33;
+
+            --thesis-request-card-bg-soft: #1c2138;
+
+            --thesis-request-input-bg: #20253a;
+
+            --thesis-request-text: #ffffff;
+
+            --thesis-request-text-secondary: #d5d8e8;
+
+            --thesis-request-text-muted: #999fb9;
+
+            --thesis-request-placeholder: #777f9c;
+
+            --thesis-request-border: #292e45;
+
+            --thesis-request-border-soft: #292e45;
+
+
+            /* PURPLE */
+
+            --thesis-request-primary: #7c5ce3;
+
+            --thesis-request-primary-hover: #9278ea;
+
+            --thesis-request-primary-soft: #292342;
+
+            --thesis-request-primary-soft-hover: #342c52;
+
+
+            /* BLUE */
+
+            --thesis-request-details: #60a5fa;
+
+            --thesis-request-details-hover: #93c5fd;
+
+            --thesis-request-details-soft: #172554;
+
+
+            /* RED */
+
+            --thesis-request-pdf: #f87171;
+
+            --thesis-request-pdf-hover: #fca5a5;
+
+            --thesis-request-pdf-soft: #450a0a;
+
+
+            --thesis-request-shadow:
+                0 8px 24px rgba(0, 0, 0, .35);
+
+            --thesis-request-card-shadow:
+                0 2px 10px rgba(0, 0, 0, .30);
+        }
+
+
+
+        /* =========================================================
+           BODY
+        ========================================================== */
+
+        body {
+
+            background:
+                var(--thesis-request-page-bg);
+
+            color:
+                var(--thesis-request-text);
+
+            transition:
+                background-color .25s ease,
+                color .25s ease;
+        }
+
+
+
+        /* =========================================================
+           MAIN PAGE
+        ========================================================== */
+
+        .dashboard-content.thesis-requests-page {
+
+            min-height: 100vh;
+
+            padding: 20px;
+
+            background:
+                var(--thesis-request-page-bg);
+
+            color:
+                var(--thesis-request-text);
+
+            transition:
+                background-color .25s ease,
+                color .25s ease;
+        }
+
 
 
         /* =========================================================
@@ -444,101 +875,167 @@
         .request-page-header {
 
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
 
             gap: 20px;
 
+            margin-top: 100px;
+
             margin-bottom: 20px;
-            padding: 18px 20px;
 
-            background: #ffffff;
+            padding: 16px 18px;
 
-            border: none !important;
-            border-radius: 14px;
+            background:
+                var(--thesis-request-card-bg);
+
+            border:
+                1px solid var(--thesis-request-border-soft);
+
+            border-radius: 12px;
 
             box-shadow:
-                0 2px 10px rgba(0, 0, 0, .025);
-
+                var(--thesis-request-card-shadow);
         }
 
-
-        .request-header-content {
-            min-width: 0;
-        }
 
 
         .request-overline {
 
             display: block;
 
-            margin-bottom: 5px;
+            margin-bottom: 4px;
 
-            color: #666666;
+            color:
+                var(--thesis-request-primary);
 
-            font-size: .63rem;
+            font-size: .72rem;
+
             font-weight: 800;
 
-            letter-spacing: .14em;
+            letter-spacing: .13em;
 
             text-transform: uppercase;
-
         }
+
 
 
         .request-page-title {
 
             margin: 0;
 
-            color: var(--request-black);
+            color:
+                var(--thesis-request-text);
 
-            font-size: 1.65rem;
-            font-weight: 800;
+            font-size: 1.9rem;
+
+            font-weight: 700;
 
             line-height: 1.2;
 
             letter-spacing: -.035em;
-
         }
 
-
-        .request-page-description {
-
-            margin: 5px 0 0;
-
-            color: var(--request-muted);
-
-            font-size: .72rem;
-
-            line-height: 1.5;
-
-        }
 
 
         /* =========================================================
-           HEADER ICON
+           VIEW TOGGLE
         ========================================================== */
 
-        .request-header-icon {
+        .request-view-toggle {
 
-            display: flex;
+            display: inline-flex;
+
             align-items: center;
+
+            gap: 3px;
+
+            padding: 4px;
+
+            background:
+                var(--thesis-request-input-bg);
+
+            border:
+                1px solid var(--thesis-request-border-soft);
+
+            border-radius: 10px;
+        }
+
+
+
+        .request-view-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
             justify-content: center;
 
-            width: 48px;
-            height: 48px;
+            gap: 7px;
 
-            flex-shrink: 0;
+            min-width: 82px;
 
-            color: #222222;
-            background: #eeeeee;
+            height: 38px;
 
-            border: none !important;
-            border-radius: 12px;
+            padding: 0 12px;
 
-            font-size: 1.2rem;
+            border: 0;
 
+            border-radius: 7px;
+
+            background: transparent;
+
+            color:
+                var(--thesis-request-text-muted);
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                background .2s ease,
+                color .2s ease,
+                transform .2s ease;
         }
+
+
+
+        .request-view-button:hover {
+
+            color:
+                var(--thesis-request-primary);
+
+            background:
+                var(--thesis-request-primary-soft);
+        }
+
+
+
+        .request-view-button.active {
+
+            color: #ffffff;
+
+            background:
+                var(--thesis-request-primary);
+
+            box-shadow:
+                0 3px 8px rgba(101, 56, 217, .22);
+        }
+
+
+
+        .request-view-button.active:hover {
+
+            color: #ffffff;
+
+            background:
+                var(--thesis-request-primary-hover);
+        }
+
 
 
         /* =========================================================
@@ -549,72 +1046,132 @@
         .request-success {
 
             display: flex;
+
             align-items: center;
 
-            gap: 12px;
+            gap: .6rem;
 
-            margin-bottom: 18px;
-            padding: 11px 14px;
+            margin: 0 0 1.25rem;
 
-            border: none !important;
-            border-radius: 10px;
+            padding: .85rem 1rem;
 
+            border: 1px solid transparent;
+
+            border-radius: 9px;
+
+            font-size: .82rem;
+
+            font-weight: 600;
         }
+
 
 
         .request-alert {
 
-            color: #555555;
-            background: #f1f1f1;
+            color: #b42318;
 
+            background: #fff5f5;
+
+            border-left:
+                4px solid #d92d3a;
         }
+
+
+
+        .request-alert i {
+
+            color: #d92d3a;
+        }
+
 
 
         .request-success {
 
-            color: #333333;
-            background: #eeeeee;
+            color: #176b3a;
 
+            background: #f0fff5;
+
+            border-left:
+                4px solid #21a366;
         }
 
 
-        .alert-icon {
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .request-success i {
 
-            flex-shrink: 0;
-
-            font-size: .95rem;
-
+            color: #21a366;
         }
 
 
-        .alert-content {
 
-            display: flex;
-            flex-direction: column;
+        [data-bs-theme="dark"] .request-alert {
 
-            gap: 1px;
+            color: #ffb4b4;
 
+            background: #3a2028;
+
+            border-color: #55303a;
         }
 
 
-        .alert-content strong {
 
-            font-size: .68rem;
-            font-weight: 800;
+        [data-bs-theme="dark"] .request-success {
 
+            color: #9de2bb;
+
+            background: #19352a;
+
+            border-color: #28543f;
         }
 
 
-        .alert-content span {
 
-            font-size: .65rem;
-            font-weight: 500;
+        /* =========================================================
+           RESULTS CONTAINER
+        ========================================================== */
 
+        #requestResultsContainer {
+
+            width: 100%;
         }
+
+
+
+        /* =========================================================
+           DEFAULT VIEW
+           CARD VIEW
+        ========================================================== */
+
+        #requestResultsContainer #requestCardView {
+
+            display: grid;
+        }
+
+
+
+        #requestResultsContainer #requestTableView {
+
+            display: none;
+        }
+
+
+
+        /* =========================================================
+           TABLE MODE
+        ========================================================== */
+
+        #requestResultsContainer.table-mode #requestCardView {
+
+            display: none;
+        }
+
+
+
+        #requestResultsContainer.table-mode #requestTableView {
+
+            display: block;
+        }
+
 
 
         /* =========================================================
@@ -626,13 +1183,15 @@
             display: grid;
 
             grid-template-columns:
-                repeat(3, minmax(0, 1fr));
+                repeat(4, minmax(0, 1fr));
 
-            gap: 16px;
+            gap: 1.25rem;
 
             width: 100%;
 
+            box-sizing: border-box;
         }
+
 
 
         /* =========================================================
@@ -642,33 +1201,61 @@
         .request-card {
 
             display: flex;
+
             flex-direction: column;
 
             min-width: 0;
 
             overflow: hidden;
 
-            background: var(--request-card-bg);
+            color:
+                var(--thesis-request-text);
 
-            border: none !important;
+            background:
+                var(--thesis-request-card-bg);
+
+            border:
+                1px solid var(--thesis-request-border-soft);
+
             border-radius: 14px;
 
-            box-shadow: var(--request-shadow);
+            box-shadow:
+                var(--thesis-request-card-shadow);
 
             transition:
-                transform .22s ease,
-                box-shadow .22s ease;
-
+                transform .2s ease,
+                box-shadow .2s ease,
+                background-color .2s ease,
+                border-color .2s ease;
         }
+
 
 
         .request-card:hover {
 
             transform: translateY(-3px);
 
-            box-shadow: var(--request-shadow-hover);
+            border-color:
+                rgba(101, 56, 217, .30);
 
+            box-shadow:
+                0 10px 28px rgba(35, 20, 65, .11);
         }
+
+
+
+        [data-bs-theme="dark"] .request-card:hover {
+
+            border-color:
+                rgba(124, 92, 227, .35);
+
+            background:
+                var(--thesis-request-card-bg-soft);
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, .45);
+        }
+
 
 
         /* =========================================================
@@ -678,17 +1265,18 @@
         .request-card-content {
 
             display: flex;
+
             flex-direction: column;
 
             flex: 1;
 
-            padding: 17px;
-
+            padding: 1rem;
         }
 
 
+
         /* =========================================================
-           TITLE ROW
+           TITLE
         ========================================================== */
 
         .request-title-row {
@@ -696,21 +1284,23 @@
             display: flex;
 
             align-items: flex-start;
+
             justify-content: space-between;
 
-            gap: 12px;
+            gap: .75rem;
 
-            margin-bottom: 16px;
-
+            margin-bottom: 1rem;
         }
+
 
 
         .request-title-area {
 
             flex: 1;
-            min-width: 0;
 
+            min-width: 0;
         }
+
 
 
         .request-title-with-icon {
@@ -719,24 +1309,38 @@
 
             align-items: center;
 
-            gap: 7px;
+            gap: .5rem;
 
             min-width: 0;
-
         }
 
 
-        .request-title-with-icon > i {
+
+        .request-title-with-icon>i {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 32px;
+
+            height: 32px;
 
             flex-shrink: 0;
 
-            color: #333333;
+            color:
+                var(--thesis-request-primary);
+
+            background:
+                var(--thesis-request-primary-soft);
+
+            border-radius: 8px;
 
             font-size: .9rem;
-
-            line-height: 1;
-
         }
+
 
 
         .request-title {
@@ -751,19 +1355,22 @@
 
             overflow: hidden;
 
-            color: var(--request-black);
+            color:
+                var(--thesis-request-text);
 
-            font-size: .92rem;
-            font-weight: 750;
+            font-size: 1.05rem;
+
+            font-weight: 800;
 
             line-height: 1.4;
 
-            letter-spacing: -.012em;
+            letter-spacing: -.015em;
 
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 3;
+
             -webkit-box-orient: vertical;
-
         }
+
 
 
         /* =========================================================
@@ -775,64 +1382,68 @@
             display: inline-flex;
 
             align-items: center;
-            justify-content: center;
 
-            gap: 4px;
+            justify-content: center;
 
             flex-shrink: 0;
 
-            padding: 5px 9px;
+            gap: .3rem;
 
-            border: none !important;
+            padding: .42rem .68rem;
+
+            border: none;
+
             border-radius: 999px;
 
-            font-size: .55rem;
-            font-weight: 800;
+            font-size: .68rem;
+
+            font-weight: 700;
 
             white-space: nowrap;
-
         }
 
-
-        .request-status i {
-            font-size: .62rem;
-        }
 
 
         .request-status.pending {
 
             color: #8a6500;
-            background: #fff3bf;
 
+            background: #fff4d2;
         }
+
 
 
         .request-status.approved {
 
-            color: #187a3d;
-            background: #dcf7e5;
+            color: #176b3a;
 
+            background: #e5f7ed;
         }
+
 
 
         .request-status.rejected {
 
-            color: #c62835;
-            background: #fde1e4;
+            color: #d92d3a;
 
+            background: #ffe7e9;
         }
+
 
 
         .request-status.unknown {
 
-            color: #666666;
-            background: #eeeeee;
+            color:
+                var(--thesis-request-text-secondary);
 
+            background:
+                var(--thesis-request-input-bg);
         }
 
 
+
         /* =========================================================
-           INFORMATION BOX
+           INFORMATION
         ========================================================== */
 
         .request-information {
@@ -841,22 +1452,15 @@
 
             flex-direction: column;
 
-            gap: 0;
+            padding: .7rem .75rem;
 
-            margin: 0;
-            padding: 7px 10px;
+            background:
+                var(--thesis-request-input-bg);
 
-            background: var(--request-soft-bg);
-
-            border: none !important;
-            border-radius: 10px;
-
+            border-radius: 9px;
         }
 
 
-        /* =========================================================
-           INFORMATION ITEM
-        ========================================================== */
 
         .request-info {
 
@@ -864,153 +1468,141 @@
 
             align-items: center;
 
-            gap: 10px;
+            gap: .6rem;
 
-            width: 100%;
             min-width: 0;
 
-            padding: 9px 4px;
-
-            background: transparent;
-
-            border: none !important;
-
+            padding: .45rem 0;
         }
 
 
-        .request-info + .request-info {
-            border-top: none !important;
-        }
-
-
-        /* =========================================================
-           INFORMATION ICON
-        ========================================================== */
 
         .request-info-icon {
 
             display: flex;
 
             align-items: center;
+
             justify-content: center;
 
             width: 30px;
+
             height: 30px;
 
             flex-shrink: 0;
 
-            color: #444444;
-            background: #e9e9e9;
+            color:
+                var(--thesis-request-primary);
 
-            border: none !important;
+            background:
+                var(--thesis-request-card-bg);
+
+            border:
+                1px solid var(--thesis-request-border-soft);
+
             border-radius: 7px;
 
-            font-size: .67rem;
-
+            font-size: .75rem;
         }
 
 
-        /* =========================================================
-           INFORMATION CONTENT
-        ========================================================== */
 
         .request-info-content {
 
             display: flex;
+
             flex-direction: column;
 
-            flex: 1;
-
             min-width: 0;
-
         }
+
 
 
         .request-info-content span {
 
-            margin-bottom: 2px;
+            margin-bottom: .08rem;
 
-            color: var(--request-light-text);
+            color:
+                var(--thesis-request-text-muted);
 
-            font-size: .48rem;
+            font-size: .60rem;
+
             font-weight: 800;
 
-            letter-spacing: .055em;
+            letter-spacing: .04em;
 
             text-transform: uppercase;
-
         }
+
 
 
         .request-info-content strong {
 
-            display: block;
-
             overflow: hidden;
 
-            color: var(--request-text);
+            color:
+                var(--thesis-request-text-secondary);
 
-            font-size: .63rem;
-            font-weight: 650;
+            font-size: .78rem;
 
-            line-height: 1.35;
+            font-weight: 600;
 
             text-overflow: ellipsis;
 
             white-space: nowrap;
-
         }
 
 
+
         /* =========================================================
-           ACTIONS
+           CARD ACTIONS
         ========================================================== */
 
         .request-actions {
 
-            display: grid;
+            display: flex;
 
-            grid-template-columns:
-                1fr 1fr;
+            gap: .5rem;
 
-            gap: 6px;
+            padding: .75rem;
 
-            margin-top: auto;
-            padding: 11px;
+            background:
+                var(--thesis-request-input-bg);
 
-            background: var(--request-soft-bg);
-
-            border: none !important;
-
+            border-top:
+                1px solid var(--thesis-request-border-soft);
         }
 
 
-        /* =========================================================
-           ACTION BUTTON
-        ========================================================== */
 
         .request-action {
 
             display: inline-flex;
 
             align-items: center;
+
             justify-content: center;
 
-            gap: 5px;
+            gap: .4rem;
+
+            flex: 1;
 
             min-width: 0;
-            min-height: 35px;
 
-            padding: 6px 8px;
+            min-height: 40px;
 
-            border: none !important;
+            padding: .45rem .7rem;
+
+            border: 1px solid;
+
             border-radius: 7px;
 
-            outline: none !important;
+            background: transparent;
 
-            text-decoration: none !important;
+            text-decoration: none;
 
-            font-size: .56rem;
+            font-size: .72rem;
+
             font-weight: 800;
 
             white-space: nowrap;
@@ -1018,81 +1610,95 @@
             transition:
                 background .2s ease,
                 color .2s ease,
-                transform .2s ease;
-
+                border-color .2s ease,
+                transform .2s ease,
+                box-shadow .2s ease;
         }
 
 
-        .request-action i {
-            font-size: .65rem;
-        }
 
-
-        /* =========================================================
-           VIEW DETAILS - BLUE
-        ========================================================== */
-
-        .request-action-primary {
-
-            color: #ffffff !important;
-
-            background: #2563eb !important;
-
-        }
-
-
-        .request-action-primary:hover {
-
-            color: #ffffff !important;
-
-            background: #1d4ed8 !important;
+        .request-action:hover {
 
             transform: translateY(-1px);
-
         }
+
 
 
         /* =========================================================
-           VIEW PDF - RED
+           VIEW DETAILS
         ========================================================== */
 
-        .request-action-secondary {
+        .request-action-details {
 
-            color: #ffffff !important;
+            color:
+                var(--thesis-request-details);
 
-            background: #dc2626 !important;
+            background: transparent;
 
+            border-color:
+                var(--thesis-request-details);
         }
 
 
-        .request-action-secondary:hover {
 
-            color: #ffffff !important;
+        .request-action-details:hover {
 
-            background: #b91c1c !important;
+            color: #ffffff;
 
-            transform: translateY(-1px);
+            background:
+                var(--thesis-request-details);
 
+            border-color:
+                var(--thesis-request-details);
+
+            box-shadow:
+                0 5px 12px rgba(37, 99, 235, .20);
         }
+
 
 
         /* =========================================================
-           DISABLED
+           VIEW PDF
         ========================================================== */
+
+        .request-action-pdf {
+
+            color:
+                var(--thesis-request-pdf);
+
+            background: transparent;
+
+            border-color:
+                var(--thesis-request-pdf);
+        }
+
+
+
+        .request-action-pdf:hover {
+
+            color: #ffffff;
+
+            background:
+                var(--thesis-request-pdf);
+
+            border-color:
+                var(--thesis-request-pdf);
+
+            box-shadow:
+                0 5px 12px rgba(220, 38, 38, .20);
+        }
+
+
 
         .request-action-disabled {
 
-            color: #aaaaaa !important;
-
-            background: #eeeeee !important;
-
-            border: none !important;
+            opacity: .45;
 
             cursor: not-allowed;
 
             pointer-events: none;
-
         }
+
 
 
         /* =========================================================
@@ -1108,22 +1714,30 @@
             flex-direction: column;
 
             align-items: center;
+
             justify-content: center;
 
-            min-height: 300px;
+            min-height: 280px;
 
-            padding: 30px;
+            padding: 2rem;
 
             text-align: center;
 
-            background: var(--request-card-bg);
+            color:
+                var(--thesis-request-text);
 
-            border: none !important;
+            background:
+                var(--thesis-request-card-bg);
+
+            border:
+                1px solid var(--thesis-request-border-soft);
+
             border-radius: 14px;
 
-            box-shadow: var(--request-shadow);
-
+            box-shadow:
+                var(--thesis-request-card-shadow);
         }
+
 
 
         .request-empty-icon {
@@ -1131,575 +1745,981 @@
             display: flex;
 
             align-items: center;
+
             justify-content: center;
 
-            width: 58px;
-            height: 58px;
+            width: 52px;
 
-            margin-bottom: 12px;
+            height: 52px;
 
-            color: #333333;
-            background: #eeeeee;
+            margin-bottom: .8rem;
 
-            border: none !important;
-            border-radius: 14px;
+            color: #ffffff;
 
-            font-size: 1.3rem;
+            background:
+                var(--thesis-request-primary);
 
+            border-radius: 11px;
+
+            font-size: 1.2rem;
+
+            box-shadow:
+                0 5px 15px rgba(101, 56, 217, .22);
         }
+
 
 
         .request-empty h3 {
 
-            margin: 0 0 5px;
+            margin: 0 0 .3rem;
 
-            color: var(--request-black);
+            color:
+                var(--thesis-request-text);
 
-            font-size: .95rem;
+            font-size: 1rem;
+
             font-weight: 800;
-
         }
+
 
 
         .request-empty p {
 
             margin: 0;
 
-            color: var(--request-muted);
+            color:
+                var(--thesis-request-text-muted);
+
+            font-size: .78rem;
+        }
+
+
+
+        /* =========================================================
+           TABLE CONTAINER
+        ========================================================== */
+
+        .request-table-container {
+
+            width: 100%;
+
+            overflow: hidden;
+
+            background:
+                var(--thesis-request-card-bg);
+
+            border:
+                1px solid var(--thesis-request-border-soft);
+
+            border-radius: 14px;
+
+            box-shadow:
+                var(--thesis-request-card-shadow);
+        }
+
+
+
+        .request-table-scroll {
+
+            width: 100%;
+
+            overflow-x: auto;
+
+            overflow-y: hidden;
+        }
+
+
+
+        /* =========================================================
+           TABLE
+        ========================================================== */
+
+        .request-table {
+
+            width: 100%;
+
+            min-width: 1200px;
+
+            border-collapse: collapse;
+
+            background:
+                var(--thesis-request-card-bg);
+
+            color:
+                var(--thesis-request-text);
+        }
+
+
+
+        /* =========================================================
+           TABLE HEADER
+        ========================================================== */
+
+        .request-table thead {
+
+            background: #E9E2FF;
+        }
+
+
+
+        .request-table th {
+
+            padding: 16px;
+
+            color: #4C3A8A;
+
+            background: #E9E2FF;
+
+            border-bottom:
+                1px solid #D8CCFF !important;
+
+            text-align: left;
+
+            font-size: .72rem;
+
+            font-weight: 800;
+
+            letter-spacing: .06em;
+
+            text-transform: uppercase;
+
+            white-space: nowrap;
+        }
+
+
+
+        [data-bs-theme="dark"] .request-table thead {
+
+            background: #292342;
+        }
+
+
+
+        [data-bs-theme="dark"] .request-table th {
+
+            color: #D8CCFF;
+
+            background: #292342;
+
+            border-bottom-color:
+                #403765 !important;
+        }
+
+
+
+        /* =========================================================
+           TABLE ROWS
+        ========================================================== */
+
+        .request-table tbody tr {
+
+            border-bottom:
+                1px solid var(--thesis-request-border-soft);
+
+            transition:
+                background .2s ease;
+        }
+
+
+
+        .request-table tbody tr:last-child {
+
+            border-bottom: none;
+        }
+
+
+
+        .request-table tbody tr:hover {
+
+            background:
+                var(--thesis-request-primary-soft);
+        }
+
+
+
+        /* =========================================================
+           TABLE CELLS
+        ========================================================== */
+
+        .request-table td {
+
+            padding: 16px;
+
+            color:
+                var(--thesis-request-text-secondary);
+
+            font-size: .80rem;
+
+            vertical-align: middle;
+        }
+
+
+
+        /* =========================================================
+           TABLE TITLE
+        ========================================================== */
+
+        .request-table-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: .65rem;
+
+            min-width: 280px;
+        }
+
+
+
+        .request-table-title-icon {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 34px;
+
+            height: 34px;
+
+            flex-shrink: 0;
+
+            color:
+                var(--thesis-request-primary);
+
+            background:
+                var(--thesis-request-primary-soft);
+
+            border-radius: 8px;
+
+            font-size: .85rem;
+        }
+
+
+
+        .request-table-title span {
+
+            display: block;
+
+            max-width: 320px;
+
+            overflow: hidden;
+
+            color:
+                var(--thesis-request-text);
+
+            font-size: .80rem;
+
+            font-weight: 700;
+
+            line-height: 1.4;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+        }
+
+
+
+        /* =========================================================
+           TABLE NUMBER
+        ========================================================== */
+
+        .request-table-number {
+
+            color:
+                var(--thesis-request-primary) !important;
+
+            font-size: .80rem !important;
+
+            font-weight: 800;
+        }
+
+
+
+        /* =========================================================
+           TABLE TEXT
+        ========================================================== */
+
+        .request-table-text {
+
+            color:
+                var(--thesis-request-text-secondary);
+
+            font-size: .80rem;
+
+            font-weight: 600;
+        }
+
+
+
+        /* =========================================================
+           TABLE DEPARTMENT
+        ========================================================== */
+
+        .request-table-department {
+
+            display: inline-block;
+
+            padding: .38rem .6rem;
+
+            color:
+                var(--thesis-request-primary);
+
+            background:
+                var(--thesis-request-primary-soft);
+
+            border-radius: 6px;
+
+            font-size: .70rem;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+
+
+        /* =========================================================
+           TABLE STATUS
+        ========================================================== */
+
+        .request-table-status {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: .3rem;
+
+            padding: .38rem .62rem;
+
+            border-radius: 999px;
 
             font-size: .68rem;
 
+            font-weight: 800;
+
+            white-space: nowrap;
         }
 
 
-        /* =========================================================
-           DARK MODE
-           NAVY THEME
-        ========================================================== */
 
-        [data-bs-theme="dark"] .thesis-requests-page,
-        .dark .thesis-requests-page {
+        .request-table-status.pending {
 
-            --request-black: #eeeef8;
-            --request-dark: #d5d8e8;
+            color: #8a6500;
 
-            --request-text: #d5d8e8;
-            --request-muted: #999fb9;
-            --request-light-text: #999fb9;
-
-            --request-card-bg: #181d33;
-            --request-soft-bg: #20253a;
-
-            --request-border: #292e45;
-
-            --request-shadow:
-                0 4px 18px rgba(0, 0, 0, .35);
-
-            --request-shadow-hover:
-                0 8px 24px rgba(0, 0, 0, .50);
-
-            color-scheme: dark;
-
+            background: #fff4d2;
         }
 
 
+
+        .request-table-status.approved {
+
+            color: #176b3a;
+
+            background: #e5f7ed;
+        }
+
+
+
+        .request-table-status.rejected {
+
+            color: #d92d3a;
+
+            background: #ffe7e9;
+        }
+
+
+
+        .request-table-status.unknown {
+
+            color:
+                var(--thesis-request-text-secondary);
+
+            background:
+                var(--thesis-request-input-bg);
+        }
+
+
+
         /* =========================================================
-           DARK MODE - PAGE HEADER
+           TABLE ACTIONS
         ========================================================== */
 
-        [data-bs-theme="dark"] .request-page-header,
-        .dark .request-page-header {
+        .request-table-actions {
 
-            background: #181d33;
+            display: flex;
 
-            color: #eeeef8;
+            align-items: center;
 
-            border: none !important;
+            gap: 6px;
+        }
+
+
+
+        .request-table-action {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 36px;
+
+            height: 36px;
+
+            border: 1px solid;
+
+            border-radius: 7px;
+
+            background: transparent;
+
+            text-decoration: none;
+
+            font-size: .85rem;
+
+            transition:
+                transform .2s ease,
+                background .2s ease,
+                color .2s ease,
+                border-color .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+
+        .request-table-action:hover {
+
+            color: #ffffff;
+
+            transform: translateY(-1px);
+        }
+
+
+
+        /* =========================================================
+           TABLE DETAILS
+        ========================================================== */
+
+        .request-table-details {
+
+            color:
+                var(--thesis-request-details);
+
+            background: transparent;
+
+            border-color:
+                var(--thesis-request-details);
+        }
+
+
+
+        .request-table-details:hover {
+
+            color: #ffffff;
+
+            background:
+                var(--thesis-request-details);
+
+            border-color:
+                var(--thesis-request-details);
 
             box-shadow:
-                0 4px 18px rgba(0, 0, 0, .25);
-
+                0 4px 10px rgba(37, 99, 235, .22);
         }
 
-
-        [data-bs-theme="dark"] .request-overline,
-        .dark .request-overline {
-
-            color: #999fb9;
-
-        }
-
-
-        [data-bs-theme="dark"] .request-page-title,
-        .dark .request-page-title {
-
-            color: #eeeef8;
-
-        }
-
-
-        [data-bs-theme="dark"] .request-page-description,
-        .dark .request-page-description {
-
-            color: #999fb9;
-
-        }
 
 
         /* =========================================================
-           DARK MODE - HEADER ICON
+           TABLE PDF
         ========================================================== */
 
-        [data-bs-theme="dark"] .request-header-icon,
-        .dark .request-header-icon {
+        .request-table-pdf {
 
-            color: #d5d8e8;
+            color:
+                var(--thesis-request-pdf);
 
-            background: #20253a;
+            background: transparent;
 
-            border: 1px solid #292e45 !important;
-
+            border-color:
+                var(--thesis-request-pdf);
         }
 
 
-        /* =========================================================
-           DARK MODE - ALERTS
-        ========================================================== */
 
-        [data-bs-theme="dark"] .request-alert,
-        .dark .request-alert {
+        .request-table-pdf:hover {
 
-            color: #d5d8e8;
+            color: #ffffff;
 
-            background: #181d33;
+            background:
+                var(--thesis-request-pdf);
 
-            border: 1px solid #292e45 !important;
-
-        }
-
-
-        [data-bs-theme="dark"] .request-success,
-        .dark .request-success {
-
-            color: #d5d8e8;
-
-            background: #181d33;
-
-            border: 1px solid #292e45 !important;
-
-        }
-
-
-        [data-bs-theme="dark"] .alert-content strong,
-        .dark .alert-content strong {
-
-            color: #eeeef8;
-
-        }
-
-
-        [data-bs-theme="dark"] .alert-content span,
-        .dark .alert-content span {
-
-            color: #999fb9;
-
-        }
-
-
-        /* =========================================================
-           DARK MODE - CARD
-        ========================================================== */
-
-        [data-bs-theme="dark"] .request-card,
-        .dark .request-card {
-
-            background: #181d33;
-
-            border: 1px solid #292e45 !important;
+            border-color:
+                var(--thesis-request-pdf);
 
             box-shadow:
-                0 8px 24px rgba(0, 0, 0, .50);
-
+                0 4px 10px rgba(220, 38, 38, .22);
         }
 
 
-        [data-bs-theme="dark"] .request-card:hover,
-        .dark .request-card:hover {
 
-            border-color: #ffffff !important;
+        .request-table-action.disabled {
 
-            box-shadow:
-                0 12px 30px rgba(0, 0, 0, .55);
+            opacity: .45;
 
+            cursor: not-allowed;
+
+            pointer-events: none;
         }
+
 
 
         /* =========================================================
-           DARK MODE - TITLE
+           TABLE EMPTY
         ========================================================== */
 
-        [data-bs-theme="dark"] .request-title-with-icon > i,
-        .dark .request-title-with-icon > i {
+        .request-table-empty {
 
-            color: #d5d8e8;
+            padding: 0 !important;
 
+            text-align: center;
         }
 
 
-        [data-bs-theme="dark"] .request-title,
-        .dark .request-title {
 
-            color: #eeeef8;
+        .request-table-empty .request-empty {
 
+            min-height: 280px;
+
+            margin: 0;
+
+            border: none;
+
+            box-shadow: none;
+
+            border-radius: 0;
         }
+
 
 
         /* =========================================================
-           DARK MODE - STATUS
+           REMOVE CELL SIDE BORDERS
         ========================================================== */
 
-        [data-bs-theme="dark"] .request-status.pending,
-        .dark .request-status.pending {
+        .thesis-requests-page table,
+        .thesis-requests-page table th,
+        .thesis-requests-page table td,
+        .thesis-requests-page thead,
+        .thesis-requests-page tbody {
 
-            color: #f4d35e;
+            border-left: none !important;
 
-            background: #302914;
+            border-right: none !important;
 
-            border: 1px solid #5b4b1c !important;
-
+            border-top: none !important;
         }
 
 
-        [data-bs-theme="dark"] .request-status.approved,
-        .dark .request-status.approved {
 
-            color: #86efac;
+        .thesis-requests-page .request-table tbody tr {
 
-            background: #0d2a1a;
-
-            border: 1px solid #1f7a46 !important;
-
+            border-bottom:
+                1px solid var(--thesis-request-border-soft) !important;
         }
 
 
-        [data-bs-theme="dark"] .request-status.rejected,
-        .dark .request-status.rejected {
 
-            color: #ff8b94;
+        .thesis-requests-page .request-table tbody tr:last-child {
 
-            background: #35181d;
-
-            border: 1px solid #7a2933 !important;
-
+            border-bottom: none !important;
         }
 
-
-        [data-bs-theme="dark"] .request-status.unknown,
-        .dark .request-status.unknown {
-
-            color: #d5d8e8;
-
-            background: #20253a;
-
-            border: 1px solid #292e45 !important;
-
-        }
-
-
-        /* =========================================================
-           DARK MODE - INFORMATION BOX
-        ========================================================== */
-
-        [data-bs-theme="dark"] .request-information,
-        .dark .request-information {
-
-            background: #20253a;
-
-            border: 1px solid #292e45 !important;
-
-        }
-
-
-        /* =========================================================
-           DARK MODE - INFORMATION ICON
-        ========================================================== */
-
-        [data-bs-theme="dark"] .request-info-icon,
-        .dark .request-info-icon {
-
-            color: #d5d8e8;
-
-            background: #181d33;
-
-            border: 1px solid #292e45 !important;
-
-        }
-
-
-        /* =========================================================
-           DARK MODE - INFORMATION TEXT
-        ========================================================== */
-
-        [data-bs-theme="dark"] .request-info-content span,
-        .dark .request-info-content span {
-
-            color: #999fb9;
-
-        }
-
-
-        [data-bs-theme="dark"] .request-info-content strong,
-        .dark .request-info-content strong {
-
-            color: #eeeef8;
-
-        }
-
-
-        /* =========================================================
-           DARK MODE - ACTION AREA
-        ========================================================== */
-
-        [data-bs-theme="dark"] .request-actions,
-        .dark .request-actions {
-
-            background: #20253a;
-
-            border-top: 1px solid #292e45 !important;
-
-        }
-
-
-        /* =========================================================
-           DARK MODE - VIEW DETAILS
-        ========================================================== */
-
-        [data-bs-theme="dark"] .request-action-primary,
-        .dark .request-action-primary {
-
-            color: #ffffff !important;
-
-            background: #2563eb !important;
-
-        }
-
-
-        [data-bs-theme="dark"] .request-action-primary:hover,
-        .dark .request-action-primary:hover {
-
-            color: #ffffff !important;
-
-            background: #1d4ed8 !important;
-
-        }
-
-
-        /* =========================================================
-           DARK MODE - VIEW PDF
-        ========================================================== */
-
-        [data-bs-theme="dark"] .request-action-secondary,
-        .dark .request-action-secondary {
-
-            color: #ffffff !important;
-
-            background: #dc2626 !important;
-
-        }
-
-
-        [data-bs-theme="dark"] .request-action-secondary:hover,
-        .dark .request-action-secondary:hover {
-
-            color: #ffffff !important;
-
-            background: #b91c1c !important;
-
-        }
-
-
-        /* =========================================================
-           DARK MODE - NO PDF
-        ========================================================== */
-
-        [data-bs-theme="dark"] .request-action-disabled,
-        .dark .request-action-disabled {
-
-            color: #999fb9 !important;
-
-            background: #181d33 !important;
-
-            border: 1px solid #292e45 !important;
-
-        }
-
-
-        /* =========================================================
-           DARK MODE - EMPTY STATE
-        ========================================================== */
-
-        [data-bs-theme="dark"] .request-empty,
-        .dark .request-empty {
-
-            background: #181d33;
-
-            color: #eeeef8;
-
-            border: 1px solid #292e45 !important;
-
-            box-shadow:
-                0 8px 24px rgba(0, 0, 0, .50);
-
-        }
-
-
-        [data-bs-theme="dark"] .request-empty-icon,
-        .dark .request-empty-icon {
-
-            color: #d5d8e8;
-
-            background: #20253a;
-
-            border: 1px solid #292e45 !important;
-
-        }
-
-
-        [data-bs-theme="dark"] .request-empty h3,
-        .dark .request-empty h3 {
-
-            color: #eeeef8;
-
-        }
-
-
-        [data-bs-theme="dark"] .request-empty p,
-        .dark .request-empty p {
-
-            color: #999fb9;
-
-        }
-
-
-        /* =========================================================
-           LARGE TABLET
-        ========================================================== */
-
-        @media (max-width: 1200px) {
-
-            .request-grid {
-
-                grid-template-columns:
-                    repeat(2, minmax(0, 1fr));
-
-            }
-
-        }
 
 
         /* =========================================================
            TABLET
         ========================================================== */
 
-        @media (max-width: 850px) {
+        @media (min-width: 768px) and (max-width: 1199.98px) {
 
             .request-grid {
 
-                grid-template-columns: 1fr;
-
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
             }
 
         }
+
+
+
+        /* =========================================================
+           SMALL DESKTOP
+        ========================================================== */
+
+        @media (min-width: 1200px) and (max-width: 1399.98px) {
+
+            .request-grid {
+
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+            }
+
+        }
+
+
+
+        /* =========================================================
+           LARGE DESKTOP
+        ========================================================== */
+
+        @media (min-width: 1400px) {
+
+            .request-grid {
+
+                grid-template-columns:
+                    repeat(4, minmax(0, 1fr));
+            }
+
+        }
+
 
 
         /* =========================================================
            MOBILE
         ========================================================== */
 
-        @media (max-width: 600px) {
+        @media (max-width: 767.98px) {
+
+            .dashboard-content.thesis-requests-page {
+
+                padding: 12px;
+            }
+
+
 
             .request-page-header {
 
-                padding: 15px;
+                align-items: flex-start;
 
+                flex-direction: column;
+
+                gap: 15px;
+
+                margin-top: 80px;
+
+                padding: .9rem 1rem;
             }
 
 
-            .request-header-icon {
 
-                width: 40px;
-                height: 40px;
+            .request-view-toggle {
 
-                font-size: 1rem;
-
+                width: 100%;
             }
+
+
+
+            .request-view-button {
+
+                flex: 1;
+            }
+
 
 
             .request-page-title {
 
-                font-size: 1.35rem;
-
+                font-size: 1.5rem;
             }
 
 
-            .request-page-description {
 
-                font-size: .65rem;
-
-            }
-
-
-            .request-card-content {
-
-                padding: 14px;
-
-            }
-
-
-            .request-information {
-
-                padding: 6px 8px;
-
-            }
-
-
-            .request-actions {
+            .request-grid {
 
                 grid-template-columns: 1fr;
 
+                gap: 1rem;
             }
 
 
-            .request-action {
 
-                min-height: 35px;
+            .request-alert,
+            .request-success {
 
+                margin-left: 0;
+
+                margin-right: 0;
+            }
+
+
+
+            .request-table th {
+
+                font-size: .70rem;
+            }
+
+
+
+            .request-table td {
+
+                font-size: .78rem;
             }
 
         }
+
 
 
         /* =========================================================
            SMALL MOBILE
         ========================================================== */
 
-        @media (max-width: 420px) {
+        @media (max-width: 480px) {
+
+            .request-card {
+
+                border-radius: 12px;
+            }
+
+
+
+            .request-card-content {
+
+                padding: .85rem;
+            }
+
+
 
             .request-title-row {
 
-                flex-direction: column;
-
+                gap: .5rem;
             }
+
+
+
+            .request-title {
+
+                font-size: .98rem;
+            }
+
 
 
             .request-status {
 
-                align-self: flex-start;
+                padding: .35rem .5rem;
 
+                font-size: .62rem;
+            }
+
+
+
+            .request-actions {
+
+                flex-direction: column;
+            }
+
+
+
+            .request-action {
+
+                width: 100%;
+
+                min-height: 40px;
+
+                font-size: .70rem;
             }
 
         }
-
     </style>
+
+
+
+    {{-- =========================================================
+        VIEW TOGGLE JAVASCRIPT
+        SAVES AND RESTORES CARD / TABLE VIEW
+    ========================================================== --}}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+
+            const requestResultsContainer =
+                document.getElementById(
+                    'requestResultsContainer'
+                );
+
+
+            const requestCardViewButton =
+                document.getElementById(
+                    'requestCardViewBtn'
+                );
+
+
+            const requestTableViewButton =
+                document.getElementById(
+                    'requestTableViewBtn'
+                );
+
+
+
+            /* =====================================================
+               SET REQUEST VIEW
+            ====================================================== */
+
+            function setRequestView(view) {
+
+                if (!requestResultsContainer) {
+
+                    return;
+
+                }
+
+
+
+                /* =================================================
+                   TABLE VIEW
+                ================================================== */
+
+                if (view === 'table') {
+
+
+                    requestResultsContainer.classList.add(
+                        'table-mode'
+                    );
+
+
+
+                    if (requestTableViewButton) {
+
+                        requestTableViewButton.classList.add(
+                            'active'
+                        );
+
+                    }
+
+
+
+                    if (requestCardViewButton) {
+
+                        requestCardViewButton.classList.remove(
+                            'active'
+                        );
+
+                    }
+
+
+
+                    localStorage.setItem(
+                        'thesisRequestsView',
+                        'table'
+                    );
+
+                }
+
+
+                /* =================================================
+                   CARD VIEW
+                ================================================== */
+                else {
+
+
+                    requestResultsContainer.classList.remove(
+                        'table-mode'
+                    );
+
+
+
+                    if (requestCardViewButton) {
+
+                        requestCardViewButton.classList.add(
+                            'active'
+                        );
+
+                    }
+
+
+
+                    if (requestTableViewButton) {
+
+                        requestTableViewButton.classList.remove(
+                            'active'
+                        );
+
+                    }
+
+
+
+                    localStorage.setItem(
+                        'thesisRequestsView',
+                        'cards'
+                    );
+
+                }
+
+            }
+
+
+
+            /* =====================================================
+               CARD BUTTON
+            ====================================================== */
+
+            if (requestCardViewButton) {
+
+                requestCardViewButton.addEventListener(
+                    'click',
+                    function() {
+
+                        setRequestView('cards');
+
+                    }
+                );
+
+            }
+
+
+
+            /* =====================================================
+               TABLE BUTTON
+            ====================================================== */
+
+            if (requestTableViewButton) {
+
+                requestTableViewButton.addEventListener(
+                    'click',
+                    function() {
+
+                        setRequestView('table');
+
+                    }
+                );
+
+            }
+
+
+
+            /* =====================================================
+               RESTORE SAVED VIEW
+            ====================================================== */
+
+            const savedRequestView =
+                localStorage.getItem(
+                    'thesisRequestsView'
+                );
+
+
+
+            setRequestView(
+
+                savedRequestView === 'table' ?
+                'table' :
+                'cards'
+
+            );
+
+        });
+    </script>
 
 </x-app-layout>

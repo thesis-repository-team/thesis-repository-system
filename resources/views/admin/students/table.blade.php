@@ -1,44 +1,93 @@
-@forelse ($students as $student)
+{{-- =========================================================
+     CARD VIEW
+========================================================= --}}
 
-    {{-- =====================================================
-        STUDENT CARD
-    ====================================================== --}}
+<div class="student-partial-card-results">
 
-    <div class="admin-student-card">
+    @forelse ($students as $student)
+        <div class="admin-student-card">
 
-        {{-- =================================================
-            CARD BODY
-        ================================================== --}}
+            {{-- CARD BODY --}}
+            <div class="admin-student-card-body">
 
-        <div class="admin-student-card-body">
+                {{-- =================================================
+                     TOP SECTION
+                ================================================== --}}
 
-            {{-- =================================================
-                TOP SECTION
-            ================================================== --}}
+                <div class="admin-student-card-top">
 
-            <div class="admin-student-card-top">
+                    <div class="admin-student-profile">
 
-                {{-- STUDENT INFORMATION --}}
+                        <div class="admin-student-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
 
-                <div class="admin-student-profile">
+                        <div class="admin-student-profile-info">
 
-                    {{-- AVATAR --}}
+                            <h3 class="admin-student-card-title">
+                                {{ $student->full_name }}
+                            </h3>
 
-                    <div class="admin-student-icon">
-                        <i class="bi bi-person"></i>
+                            <span class="admin-student-id">
+                                Student #{{ $loop->iteration }}
+                            </span>
+
+                        </div>
+
                     </div>
 
 
-                    {{-- NAME + ID --}}
+                    {{-- UPLOAD PERMISSION --}}
 
-                    <div class="admin-student-profile-info">
+                    @if ($student->upload_permission)
+                        <span class="admin-student-permission admin-student-permission-allowed">
 
-                        <h3 class="admin-student-card-title">
-                            {{ $student->full_name }}
-                        </h3>
+                            <i class="bi bi-check-circle-fill"></i>
 
-                        <span class="admin-student-id">
-                            Student #{{ $loop->iteration }}
+                            Allowed
+
+                        </span>
+                    @else
+                        <span class="admin-student-permission admin-student-permission-denied">
+
+                            <i class="bi bi-x-circle-fill"></i>
+
+                            Not Allowed
+
+                        </span>
+                    @endif
+
+                </div>
+
+
+                {{-- =================================================
+                     DIVIDER
+                ================================================== --}}
+
+                <div class="admin-student-card-divider"></div>
+
+
+                {{-- =================================================
+                     EMAIL
+                ================================================== --}}
+
+                <div class="admin-student-info-row">
+
+                    <div class="admin-student-info-icon">
+                        <i class="bi bi-envelope"></i>
+                    </div>
+
+                    <div class="admin-student-info-content">
+
+                        <span class="admin-student-info-label">
+                            Email
+                        </span>
+
+                        <span class="admin-student-info-value admin-student-email"
+                            title="{{ $student->user->email ?? 'N/A' }}">
+
+                            {{ $student->user->email ?? 'N/A' }}
+
                         </span>
 
                     </div>
@@ -47,343 +96,369 @@
 
 
                 {{-- =================================================
-                    UPLOAD PERMISSION
+                     DEPARTMENT
                 ================================================== --}}
 
-                @if ($student->upload_permission)
+                <div class="admin-student-info-row">
 
-                    {{-- ALLOWED --}}
+                    <div class="admin-student-info-icon">
+                        <i class="bi bi-building"></i>
+                    </div>
 
-                    <span
-                        class="admin-student-permission admin-student-permission-allowed"
-                        title="Upload Allowed">
+                    <div class="admin-student-info-content">
 
-                        <i class="bi bi-check-circle-fill"></i>
-
-                        <span>
-                            Allowed
+                        <span class="admin-student-info-label">
+                            Department
                         </span>
 
-                    </span>
+                        <span class="admin-student-info-value">
 
-                @else
+                            {{ $student->department->name ?? 'N/A' }}
 
-                    {{-- NOT ALLOWED --}}
-
-                    <span
-                        class="admin-student-permission admin-student-permission-denied"
-                        title="Upload Not Allowed">
-
-                        <i class="bi bi-x-circle-fill"></i>
-
-                        <span>
-                            Not Allowed
                         </span>
 
-                    </span>
-
-                @endif
-
-            </div>
-
-
-            {{-- =================================================
-                DIVIDER
-            ================================================== --}}
-
-            <div class="admin-student-card-divider"></div>
-
-
-            {{-- =================================================
-                EMAIL
-            ================================================== --}}
-
-            <div class="admin-student-info-row">
-
-                <div class="admin-student-info-icon">
-                    <i class="bi bi-envelope"></i>
-                </div>
-
-                <div class="admin-student-info-content">
-
-                    <span class="admin-student-info-label">
-                        Email
-                    </span>
-
-                    <span
-                        class="admin-student-info-value admin-student-email"
-                        title="{{ $student->user->email ?? 'N/A' }}">
-
-                        {{ $student->user->email ?? 'N/A' }}
-
-                    </span>
+                    </div>
 
                 </div>
 
-            </div>
 
+                {{-- =================================================
+                     STARTED YEAR
+                ================================================== --}}
 
-            {{-- =================================================
-                DEPARTMENT
-            ================================================== --}}
+                <div class="admin-student-info-row">
 
-            <div class="admin-student-info-row">
+                    <div class="admin-student-info-icon">
+                        <i class="bi bi-calendar3"></i>
+                    </div>
 
-                <div class="admin-student-info-icon">
-                    <i class="bi bi-building"></i>
-                </div>
+                    <div class="admin-student-info-content">
 
-                <div class="admin-student-info-content">
+                        <span class="admin-student-info-label">
+                            Started Year
+                        </span>
 
-                    <span class="admin-student-info-label">
-                        Department
-                    </span>
+                        <span class="admin-student-year-badge">
 
-                    <span class="admin-student-info-value">
-                        {{ $student->department->name ?? 'N/A' }}
-                    </span>
+                            {{ $student->started_year ?? 'N/A' }}
 
-                </div>
+                        </span>
 
-            </div>
-
-
-            {{-- =================================================
-                STARTED YEAR
-            ================================================== --}}
-
-            <div class="admin-student-info-row admin-student-year-row">
-
-                <div class="admin-student-info-icon">
-                    <i class="bi bi-calendar3"></i>
-                </div>
-
-                <div class="admin-student-info-content">
-
-                    <span class="admin-student-info-label">
-                        Started Year
-                    </span>
-
-                    <span class="admin-student-year-badge">
-                        {{ $student->started_year ?? 'N/A' }}
-                    </span>
+                    </div>
 
                 </div>
 
-            </div>
 
+                {{-- =================================================
+                     EDIT BUTTON
+                ================================================== --}}
 
-            {{-- =================================================
-                CARD ACTION
-            ================================================== --}}
+                <div class="admin-student-card-action">
 
-            <div class="admin-student-card-action">
+                    <a href="{{ route('admin.students.edit', $student->id) }}" class="admin-student-edit-button">
 
-                <a
-                    href="{{ route('admin.students.edit', $student->id) }}"
-                    class="admin-student-edit-button"
-                    data-tooltip="Edit Student"
-                    aria-label="Edit Student">
+                        <i class="bi bi-pencil-square"></i>
 
-                    <i class="bi bi-pencil-square"></i>
+                        <span>
+                            Edit
+                        </span>
 
-                    <span>
-                        Edit
-                    </span>
+                    </a>
 
-                </a>
+                </div>
 
             </div>
 
         </div>
 
-    </div>
+    @empty
 
+        <div class="admin-student-empty-result">
 
-@empty
+            <div class="admin-student-empty-result-icon">
 
-    {{-- =========================================================
-        EMPTY RESULT
-    ========================================================== --}}
+                <i class="bi bi-people"></i>
 
-    <div class="admin-student-empty-result">
+            </div>
 
-        <div class="admin-student-empty-result-icon">
+            <h5>
+                No Students Found
+            </h5>
 
-            <i class="bi bi-people"></i>
+            <p>
+                No students match your current search or filter.
+            </p>
 
         </div>
+    @endforelse
 
-        <h5>
-            No Students Found
-        </h5>
+</div>
 
-        <p>
-            No students match your current search or filter.
-        </p>
+
+
+{{-- =========================================================
+     TABLE VIEW
+========================================================= --}}
+
+<div class="student-partial-table-results">
+
+    <div class="student-table-wrapper">
+
+        <table class="student-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>#</th>
+
+                    <th>Student</th>
+
+                    <th>Email</th>
+
+                    <th>Department</th>
+
+                    <th>Started Year</th>
+
+                    <th>Upload Permission</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @forelse ($students as $student)
+                    <tr>
+
+                        {{-- NUMBER --}}
+
+                        <td>
+                            {{ $loop->iteration }}
+                        </td>
+
+
+                        {{-- STUDENT --}}
+
+                        <td>
+
+                            <div class="student-table-profile">
+                                {{-- 
+                                <div class="student-table-avatar">
+
+                                    <i class="bi bi-person"></i>
+
+                                </div> --}}
+
+                                <div>
+
+                                    <span class="student-table-name">
+
+                                        {{ $student->full_name }}
+
+                                    </span>
+
+                                    {{-- <span class="student-table-number">
+
+                                        Student #{{ $loop->iteration }}
+
+                                    </span> --}}
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        {{-- EMAIL --}}
+
+                        <td>
+
+                            <div class="student-table-email" title="{{ $student->user->email ?? 'N/A' }}">
+
+                                {{ $student->user->email ?? 'N/A' }}
+
+                            </div>
+
+                        </td>
+
+
+                        {{-- DEPARTMENT --}}
+
+                        <td>
+
+                            {{ $student->department->name ?? 'N/A' }}
+
+                        </td>
+
+
+                        {{-- YEAR --}}
+
+                        <td>
+
+                            <span class="student-table-year">
+
+                                {{ $student->started_year ?? 'N/A' }}
+
+                            </span>
+
+                        </td>
+
+
+                        {{-- UPLOAD PERMISSION --}}
+
+                        <td>
+
+                            @if ($student->upload_permission)
+                                <span class="student-table-permission allowed">
+
+                                    <i class="bi bi-check-circle-fill"></i>
+
+                                    Allowed
+
+                                </span>
+                            @else
+                                <span class="student-table-permission denied">
+
+                                    <i class="bi bi-x-circle-fill"></i>
+
+                                    Not Allowed
+
+                                </span>
+                            @endif
+
+                        </td>
+
+
+                        {{-- ACTION --}}
+
+                        <td>
+
+                            <a href="{{ route('admin.students.edit', $student->id) }}"
+                                class="student-table-edit-button">
+
+                                <i class="bi bi-pencil-square"></i>
+
+                                <span>
+                                    Edit
+                                </span>
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                @empty
+
+                    <tr>
+
+                        <td colspan="7" class="student-table-empty">
+
+                            <i class="bi bi-people"></i>
+
+                            <strong>
+                                No Students Found
+                            </strong>
+
+                            <span>
+                                No students match your current search or filter.
+                            </span>
+
+                        </td>
+
+                    </tr>
+                @endforelse
+
+            </tbody>
+
+        </table>
 
     </div>
 
-@endforelse
+</div>
+
 
 
 <style>
-
     /* =========================================================
-       VARIABLES
-    ========================================================== */
+   CARD GRID
+========================================================= */
 
-    .admin-student-card,
-    .admin-student-empty-result {
+    .student-partial-card-results {
 
-        --student-black: #000000;
-        --student-white: #ffffff;
+        display: grid;
 
-        --student-card-bg: #ffffff;
-        --student-soft-bg: #f7f7f7;
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
 
-        --student-text: #000000;
-        --student-secondary: #333333;
-        --student-muted: #777777;
+        gap: 1.25rem;
 
-        --student-border: #dddddd;
-        --student-border-strong: #000000;
+        width: 100%;
 
-
-        /* =====================================================
-           ALLOWED
-        ====================================================== */
-
-        --student-success: #15803d;
-        --student-success-bg: #f0fdf4;
-        --student-success-border: #22c55e;
-
-
-        /* =====================================================
-           NOT ALLOWED
-        ====================================================== */
-
-        --student-danger: #dc2626;
-        --student-danger-bg: #fef2f2;
-        --student-danger-border: #ef4444;
-
-
-        --student-shadow:
-            0 3px 12px rgba(0, 0, 0, .06);
-
-        --student-shadow-hover:
-            0 8px 24px rgba(0, 0, 0, .10);
     }
 
 
     /* =========================================================
-       DARK MODE
-    ========================================================== */
-
-    [data-bs-theme="dark"] .admin-student-card,
-    [data-bs-theme="dark"] .admin-student-empty-result,
-    .dark .admin-student-card,
-    .dark .admin-student-empty-result {
-
-        --student-black: #000000;
-        --student-white: #ffffff;
-
-        --student-card-bg: #000000;
-        --student-soft-bg: #111111;
-
-        --student-text: #ffffff;
-        --student-secondary: #dddddd;
-        --student-muted: #999999;
-
-        --student-border: #333333;
-        --student-border-strong: #ffffff;
-
-
-        /* =====================================================
-           ALLOWED - DARK
-        ====================================================== */
-
-        --student-success: #4ade80;
-        --student-success-bg: #07140b;
-        --student-success-border: #22c55e;
-
-
-        /* =====================================================
-           NOT ALLOWED - DARK
-        ====================================================== */
-
-        --student-danger: #f87171;
-        --student-danger-bg: #1a0808;
-        --student-danger-border: #ef4444;
-
-
-        --student-shadow:
-            0 3px 12px rgba(0, 0, 0, .40);
-
-        --student-shadow-hover:
-            0 8px 24px rgba(0, 0, 0, .60);
-    }
-
-
-    /* =========================================================
-       CARD
-    ========================================================== */
+   STUDENT CARD
+========================================================= */
 
     .admin-student-card {
 
         position: relative;
 
-        height: 100%;
+        width: 100%;
+
+        min-width: 0;
 
         overflow: hidden;
 
-        color: var(--student-text);
+        background: #ffffff;
 
-        background: var(--student-card-bg);
+        border: 1px solid #e1e1e1;
 
-        border: 2px solid var(--student-border);
+        border-radius: 12px;
 
-        border-radius: 8px;
-
-        box-shadow: var(--student-shadow);
+        box-shadow:
+            0 2px 10px rgba(0, 0, 0, .04);
 
         transition:
             transform .2s ease,
             box-shadow .2s ease,
-            border-color .2s ease,
-            background-color .2s ease;
+            border-color .2s ease;
+
     }
 
 
     .admin-student-card:hover {
 
-        transform: translateY(-3px);
+        transform: translateY(-2px);
 
-        border-color: var(--student-border-strong);
+        border-color: #cfcfcf;
 
-        box-shadow: var(--student-shadow-hover);
+        box-shadow:
+            0 8px 24px rgba(0, 0, 0, .08);
+
     }
 
 
     /* =========================================================
-       CARD BODY
-    ========================================================== */
+   CARD BODY
+========================================================= */
 
     .admin-student-card-body {
 
-        display: flex;
+        padding: 1.15rem;
 
-        flex-direction: column;
-
-        min-height: 100%;
-
-        padding: 1.25rem;
     }
 
 
     /* =========================================================
-       TOP SECTION
-    ========================================================== */
+   CARD TOP
+========================================================= */
 
     .admin-student-card-top {
 
@@ -394,12 +469,13 @@
         justify-content: space-between;
 
         gap: .75rem;
+
     }
 
 
     /* =========================================================
-       PROFILE
-    ========================================================== */
+   PROFILE
+========================================================= */
 
     .admin-student-profile {
 
@@ -407,15 +483,14 @@
 
         align-items: center;
 
+        gap: .75rem;
+
         min-width: 0;
 
-        gap: .75rem;
+        flex: 1;
+
     }
 
-
-    /* =========================================================
-       AVATAR
-    ========================================================== */
 
     .admin-student-icon {
 
@@ -425,111 +500,74 @@
 
         justify-content: center;
 
-        width: 48px;
+        width: 43px;
 
-        height: 48px;
+        height: 43px;
 
-        flex: 0 0 48px;
+        flex-shrink: 0;
 
-        color: var(--student-text);
+        color: #ffffff;
 
-        background: var(--student-soft-bg);
-
-        border: 1px solid var(--student-border);
+        background: #6538d9;
 
         border-radius: 50%;
 
-        transition:
-            background-color .2s ease,
-            color .2s ease,
-            border-color .2s ease;
-    }
-
-
-    .admin-student-card:hover .admin-student-icon {
-
-        color: var(--student-white);
-
-        background: var(--student-black);
-
-        border-color: var(--student-black);
-    }
-
-
-    [data-bs-theme="dark"] .admin-student-card:hover .admin-student-icon,
-    .dark .admin-student-card:hover .admin-student-icon {
-
-        color: var(--student-black);
-
-        background: var(--student-white);
-
-        border-color: var(--student-white);
     }
 
 
     .admin-student-icon i {
 
-        font-size: 1.2rem;
+        font-size: 1rem;
+
     }
 
-
-    /* =========================================================
-       PROFILE INFO
-    ========================================================== */
 
     .admin-student-profile-info {
 
         min-width: 0;
+
     }
 
 
-    /* =========================================================
-       STUDENT NAME
-    ========================================================== */
-
     .admin-student-card-title {
 
-        margin: 0 0 .2rem;
+        margin: 0;
 
         overflow: hidden;
 
-        color: var(--student-text);
+        color: #111111;
 
-        font-size: .88rem;
+        font-size: .9rem;
 
         font-weight: 800;
 
-        line-height: 1.3;
+        line-height: 1.35;
 
         text-overflow: ellipsis;
 
         white-space: nowrap;
 
-        text-transform: uppercase;
     }
 
-
-    /* =========================================================
-       STUDENT ID
-    ========================================================== */
 
     .admin-student-id {
 
         display: block;
 
-        color: var(--student-muted);
+        margin-top: .2rem;
 
-        font-family: monospace;
+        color: #888888;
 
-        font-size: .68rem;
+        font-size: .62rem;
 
-        letter-spacing: .02em;
+        font-weight: 600;
+
     }
 
 
     /* =========================================================
-       PERMISSION BADGE
-    ========================================================== */
+   PERMISSION
+========================================================= */
 
     .admin-student-permission {
 
@@ -537,131 +575,57 @@
 
         align-items: center;
 
-        justify-content: center;
+        gap: .3rem;
 
         flex-shrink: 0;
 
-        gap: .35rem;
+        padding: .3rem .45rem;
 
-        min-height: 28px;
+        border-radius: 5px;
 
-        padding: .35rem .6rem;
-
-        border: 1px solid;
-
-        border-radius: 6px;
-
-        font-family: monospace;
-
-        font-size: .61rem;
+        font-size: .55rem;
 
         font-weight: 800;
-
-        line-height: 1;
 
         text-transform: uppercase;
 
         white-space: nowrap;
 
-        transition:
-            color .2s ease,
-            background-color .2s ease,
-            border-color .2s ease,
-            box-shadow .2s ease;
     }
 
 
     .admin-student-permission i {
 
-        font-size: .72rem;
+        font-size: .62rem;
+
     }
 
-
-    /* =========================================================
-       ALLOWED = GREEN
-    ========================================================== */
 
     .admin-student-permission-allowed {
 
-        color: var(--student-success);
+        color: #15803d;
 
-        background: var(--student-success-bg);
+        background: #f0fdf4;
 
-        border-color: var(--student-success-border);
+        border: 1px solid #bbf7d0;
 
-        box-shadow:
-            inset 0 0 0 1px rgba(34, 197, 94, .05);
     }
 
-
-    .admin-student-permission-allowed i {
-
-        color: var(--student-success);
-    }
-
-
-    /* =========================================================
-       NOT ALLOWED = RED
-    ========================================================== */
 
     .admin-student-permission-denied {
 
-        color: var(--student-danger);
+        color: #dc2626;
 
-        background: var(--student-danger-bg);
+        background: #fef2f2;
 
-        border-color: var(--student-danger-border);
+        border: 1px solid #fecaca;
 
-        box-shadow:
-            inset 0 0 0 1px rgba(239, 68, 68, .05);
-    }
-
-
-    .admin-student-permission-denied i {
-
-        color: var(--student-danger);
     }
 
 
     /* =========================================================
-       PERMISSION HOVER
-    ========================================================== */
-
-    .admin-student-permission-allowed:hover {
-
-        background: var(--student-success);
-
-        color: #ffffff;
-
-        border-color: var(--student-success);
-    }
-
-
-    .admin-student-permission-allowed:hover i {
-
-        color: #ffffff;
-    }
-
-
-    .admin-student-permission-denied:hover {
-
-        background: var(--student-danger);
-
-        color: #ffffff;
-
-        border-color: var(--student-danger);
-    }
-
-
-    .admin-student-permission-denied:hover i {
-
-        color: #ffffff;
-    }
-
-
-    /* =========================================================
-       DIVIDER
-    ========================================================== */
+   DIVIDER
+========================================================= */
 
     .admin-student-card-divider {
 
@@ -671,13 +635,14 @@
 
         margin: 1rem 0;
 
-        background: var(--student-border);
+        background: #eeeeee;
+
     }
 
 
     /* =========================================================
-       INFORMATION ROW
-    ========================================================== */
+   INFORMATION ROW
+========================================================= */
 
     .admin-student-info-row {
 
@@ -685,23 +650,14 @@
 
         align-items: center;
 
-        gap: .8rem;
+        gap: .7rem;
 
         min-width: 0;
 
-        margin-bottom: 1rem;
+        margin-bottom: .75rem;
+
     }
 
-
-    .admin-student-year-row {
-
-        margin-bottom: 1.25rem;
-    }
-
-
-    /* =========================================================
-       INFORMATION ICON
-    ========================================================== */
 
     .admin-student-info-icon {
 
@@ -711,31 +667,27 @@
 
         justify-content: center;
 
-        width: 36px;
+        width: 32px;
 
-        height: 36px;
+        height: 32px;
 
-        flex: 0 0 36px;
+        flex-shrink: 0;
 
-        color: var(--student-text);
+        color: #6538d9;
 
-        background: var(--student-soft-bg);
-
-        border: 1px solid var(--student-border);
+        background: #f5f2ff;
 
         border-radius: 7px;
+
     }
 
 
     .admin-student-info-icon i {
 
-        font-size: .88rem;
+        font-size: .78rem;
+
     }
 
-
-    /* =========================================================
-       INFORMATION CONTENT
-    ========================================================== */
 
     .admin-student-info-content {
 
@@ -745,59 +697,51 @@
 
         min-width: 0;
 
-        gap: .18rem;
+        flex: 1;
+
     }
 
 
     .admin-student-info-label {
 
-        color: var(--student-muted);
+        margin-bottom: .12rem;
 
-        font-size: .61rem;
+        color: #888888;
+
+        font-size: .57rem;
 
         font-weight: 800;
 
-        letter-spacing: .06em;
-
-        line-height: 1.2;
+        letter-spacing: .04em;
 
         text-transform: uppercase;
+
     }
 
 
     .admin-student-info-value {
 
-        display: block;
-
         overflow: hidden;
 
-        color: var(--student-text);
+        color: #222222;
 
-        font-size: .76rem;
+        font-size: .73rem;
 
-        font-weight: 600;
-
-        line-height: 1.4;
+        font-weight: 700;
 
         text-overflow: ellipsis;
 
         white-space: nowrap;
+
     }
 
-
-    /* =========================================================
-       EMAIL
-    ========================================================== */
 
     .admin-student-email {
 
-        max-width: 220px;
+        display: block;
+
     }
 
-
-    /* =========================================================
-       YEAR BADGE
-    ========================================================== */
 
     .admin-student-year-badge {
 
@@ -807,180 +751,105 @@
 
         width: fit-content;
 
-        padding: .3rem .55rem;
+        padding: .2rem .4rem;
 
-        color: var(--student-text);
+        color: #222222;
 
-        background: var(--student-soft-bg);
+        background: #f5f5f5;
 
-        border: 1px solid var(--student-border);
+        border: 1px solid #dddddd;
 
-        border-radius: 5px;
+        border-radius: 4px;
 
         font-family: monospace;
 
-        font-size: .7rem;
+        font-size: .65rem;
 
         font-weight: 700;
 
-        line-height: 1;
     }
 
 
     /* =========================================================
-       ACTION AREA
-    ========================================================== */
+   CARD ACTION
+========================================================= */
 
     .admin-student-card-action {
 
-        position: relative;
+        margin-top: 1rem;
 
-        display: flex;
+        padding-top: .85rem;
 
-        justify-content: flex-end;
+        border-top: 1px solid #eeeeee;
 
-        margin-top: auto;
-
-        padding-top: 1rem;
-
-        border-top: 1px solid var(--student-border);
     }
 
 
-    /* =========================================================
-       EDIT BUTTON
-    ========================================================== */
-
     .admin-student-edit-button {
 
-        display: inline-flex;
+        display: flex;
 
         align-items: center;
 
         justify-content: center;
 
-        gap: .4rem;
+        gap: .45rem;
 
-        min-width: 86px;
+        width: 100%;
 
-        min-height: 36px;
+        height: 37px;
 
-        padding: .45rem .8rem;
+        color: #6538d9;
 
-        color: var(--student-white);
+        background: transparent;
 
-        background: var(--student-black);
-
-        border: 1px solid var(--student-black);
+        border: 1px solid #6538d9;
 
         border-radius: 6px;
 
-        font-size: .68rem;
+        font-size: .65rem;
 
         font-weight: 800;
-
-        line-height: 1;
 
         text-decoration: none;
 
         text-transform: uppercase;
 
-        transition:
-            background-color .2s ease,
-            color .2s ease,
-            border-color .2s ease,
-            transform .2s ease,
-            box-shadow .2s ease;
+        transition: .2s ease;
+
     }
 
 
-    /* =========================================================
-       DARK MODE BUTTON
-    ========================================================== */
+    .admin-student-edit-button:hover {
 
-    [data-bs-theme="dark"] .admin-student-edit-button,
-    .dark .admin-student-edit-button {
+        color: #ffffff;
 
-        color: var(--student-black);
+        background: #6538d9;
 
-        background: var(--student-white);
+        border-color: #6538d9;
 
-        border-color: var(--student-white);
     }
 
 
     .admin-student-edit-button i {
 
-        font-size: .75rem;
+        font-size: .8rem;
+
     }
 
 
     /* =========================================================
-       BUTTON HOVER - LIGHT
-    ========================================================== */
-
-    .admin-student-edit-button:hover {
-
-        color: var(--student-black);
-
-        background: var(--student-white);
-
-        border-color: var(--student-black);
-
-        transform: translateY(-1px);
-
-        box-shadow:
-            0 5px 14px rgba(0, 0, 0, .12);
-    }
-
-
-    /* =========================================================
-       BUTTON HOVER - DARK
-    ========================================================== */
-
-    [data-bs-theme="dark"] .admin-student-edit-button:hover,
-    .dark .admin-student-edit-button:hover {
-
-        color: var(--student-white);
-
-        background: var(--student-black);
-
-        border-color: var(--student-white);
-
-        box-shadow:
-            0 5px 14px rgba(255, 255, 255, .08);
-    }
-
-
-    /* =========================================================
-       EMPTY RESULT
-    ========================================================== */
+   EMPTY CARD
+========================================================= */
 
     .admin-student-empty-result {
 
-        display: flex;
+        grid-column: 1 / -1;
 
-        flex-direction: column;
-
-        align-items: center;
-
-        justify-content: center;
-
-        min-height: 280px;
-
-        padding: 2.5rem 1rem;
+        padding: 4rem 1rem;
 
         text-align: center;
 
-        color: var(--student-text);
-
-        background: var(--student-card-bg);
-
-        border: 2px solid var(--student-border);
-
-        border-radius: 8px;
-
-        box-shadow: var(--student-shadow);
     }
 
 
@@ -992,39 +861,42 @@
 
         justify-content: center;
 
-        width: 64px;
+        width: 65px;
 
-        height: 64px;
+        height: 65px;
 
-        margin-bottom: 1rem;
+        margin: 0 auto 1rem;
 
-        color: var(--student-text);
+        color: #777777;
 
-        background: var(--student-soft-bg);
+        background: #f7f7f7;
 
-        border: 1px solid var(--student-border);
+        border: 1px solid #e5e5e5;
 
         border-radius: 50%;
+
     }
 
 
     .admin-student-empty-result-icon i {
 
-        font-size: 1.5rem;
+        font-size: 1.6rem;
+
     }
 
 
     .admin-student-empty-result h5 {
 
-        margin: 0 0 .4rem;
+        margin: 0 0 .35rem;
 
-        color: var(--student-text);
+        color: #222222;
 
         font-size: .85rem;
 
         font-weight: 800;
 
         text-transform: uppercase;
+
     }
 
 
@@ -1032,377 +904,742 @@
 
         margin: 0;
 
-        color: var(--student-muted);
+        color: #888888;
+
+        font-size: .72rem;
+
+    }
+
+
+    /* =========================================================
+   DARK MODE CARD
+========================================================= */
+
+    [data-bs-theme="dark"] .admin-student-card {
+
+        background: #181d33;
+
+        border-color: #292e45;
+
+        box-shadow:
+            0 3px 12px rgba(0, 0, 0, .3);
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-card:hover {
+
+        background: #1b2038;
+
+        border-color: #3a405a;
+
+        box-shadow:
+            0 8px 24px rgba(0, 0, 0, .4);
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-card-title {
+
+        color: #ffffff;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-id {
+
+        color: #8e95b0;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-card-divider {
+
+        background: #292e45;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-info-icon {
+
+        color: #a88ff0;
+
+        background: #25203c;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-info-label {
+
+        color: #8e95b0;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-info-value {
+
+        color: #eeeef8;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-year-badge {
+
+        color: #eeeeee;
+
+        background: #20253a;
+
+        border-color: #343a52;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-card-action {
+
+        border-color: #292e45;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-edit-button {
+
+        color: #a88ff0;
+
+        border-color: #a88ff0;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-edit-button:hover {
+
+        color: #ffffff;
+
+        background: #6538d9;
+
+        border-color: #6538d9;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-empty-result h5 {
+
+        color: #ffffff;
+
+    }
+
+
+    [data-bs-theme="dark"] .admin-student-empty-result-icon {
+
+        color: #999fb9;
+
+        background: #20253a;
+
+        border-color: #343a52;
+
+    }
+
+
+    /* =========================================================
+   TABLE
+========================================================= */
+
+    .student-partial-table-results {
+
+        display: none;
+
+    }
+
+
+    .student-results-container.table-mode .student-partial-card-results {
+
+        display: none;
+
+    }
+
+
+    .student-results-container.table-mode .student-partial-table-results {
+
+        display: block;
+
+    }
+
+
+    .student-table-wrapper {
+
+        width: 100%;
+
+        overflow-x: auto;
+
+        background: #ffffff;
+
+        border: 1px solid #e1e1e1;
+
+        border-radius: 10px;
+
+    }
+
+
+    .student-table {
+
+        width: 100%;
+
+        min-width: 950px;
+
+        border-collapse: collapse;
+
+    }
+
+
+    .student-table th {
+
+        padding: .85rem;
+
+        color: #444444;
+
+        background: #f8f8f8;
+
+        border-bottom: 1px solid #dddddd;
+
+        font-size: .64rem;
+
+        font-weight: 800;
+
+        text-align: left;
+
+        text-transform: uppercase;
+
+        white-space: nowrap;
+
+    }
+
+
+    .student-table td {
+
+        padding: .8rem;
+
+        color: #222222;
+
+        background: #ffffff;
+
+        border-bottom: 1px solid #eeeeee;
 
         font-size: .74rem;
+
+        vertical-align: middle;
+
     }
 
 
-    /* =========================================================
-       TABLET
-    ========================================================== */
+    .student-table tbody tr:hover td {
 
-    @media (max-width: 991.98px) {
+        background: #fafafa;
 
-        .admin-student-card-body {
-
-            padding: 1.1rem;
-        }
+    }
 
 
-        .admin-student-card-title {
+    .student-table tbody tr:last-child td {
 
-            font-size: .82rem;
-        }
-
-
-        .admin-student-permission {
-
-            padding: .28rem .45rem;
-
-            font-size: .58rem;
-        }
+        border-bottom: 0;
 
     }
 
 
     /* =========================================================
-       MOBILE
-    ========================================================== */
+   TABLE PROFILE
+========================================================= */
+
+    .student-table-profile {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: .6rem;
+
+        min-width: 190px;
+
+    }
+
+
+    .student-table-avatar {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        width: 35px;
+
+        height: 35px;
+
+        flex-shrink: 0;
+
+        color: #ffffff;
+
+        background: #6538d9;
+
+        border-radius: 50%;
+
+    }
+
+
+    .student-table-name {
+
+        display: block;
+
+        max-width: 210px;
+
+        overflow: hidden;
+
+        color: #222222;
+
+        font-size: .74rem;
+
+        font-weight: 800;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+
+    }
+
+
+    .student-table-number {
+
+        display: block;
+
+        margin-top: .12rem;
+
+        color: #888888;
+
+        font-size: .58rem;
+
+    }
+
+
+    .student-table-email {
+
+        max-width: 220px;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+
+    }
+
+
+    /* =========================================================
+   TABLE YEAR
+========================================================= */
+
+    .student-table-year {
+
+        display: inline-flex;
+
+        padding: .25rem .45rem;
+
+        color: #333333;
+
+        background: #f5f5f5;
+
+        border: 1px solid #dddddd;
+
+        border-radius: 5px;
+
+        font-family: monospace;
+
+        font-size: .63rem;
+
+    }
+
+
+    /* =========================================================
+   TABLE PERMISSION
+========================================================= */
+
+    .student-table-permission {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: .3rem;
+
+        padding: .3rem .5rem;
+
+        border-radius: 5px;
+
+        font-size: .6rem;
+
+        font-weight: 800;
+
+        white-space: nowrap;
+
+    }
+
+
+    .student-table-permission.allowed {
+
+        color: #15803d;
+
+        background: #f0fdf4;
+
+        border: 1px solid #bbf7d0;
+
+    }
+
+
+    .student-table-permission.denied {
+
+        color: #dc2626;
+
+        background: #fef2f2;
+
+        border: 1px solid #fecaca;
+
+    }
+
+
+    /* =========================================================
+   TABLE EDIT
+========================================================= */
+
+    .student-table-edit-button {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: .35rem;
+
+        min-width: 75px;
+
+        height: 33px;
+
+        padding: .3rem .6rem;
+
+        color: #6538d9;
+
+        background: transparent;
+
+        border: 1px solid #6538d9;
+
+        border-radius: 6px;
+
+        font-size: .61rem;
+
+        font-weight: 800;
+
+        text-decoration: none;
+
+        text-transform: uppercase;
+
+        transition: .2s ease;
+
+    }
+
+
+    .student-table-edit-button:hover {
+
+        color: #ffffff;
+
+        background: #6538d9;
+
+        border-color: #6538d9;
+
+    }
+
+
+    /* =========================================================
+   TABLE EMPTY
+========================================================= */
+
+    .student-table-empty {
+
+        height: 220px;
+
+        text-align: center !important;
+
+    }
+
+
+    .student-table-empty i {
+
+        display: block;
+
+        margin-bottom: .5rem;
+
+        color: #888888;
+
+        font-size: 1.7rem;
+
+    }
+
+
+    .student-table-empty strong {
+
+        display: block;
+
+        color: #333333;
+
+        font-size: .8rem;
+
+    }
+
+
+    .student-table-empty span {
+
+        display: block;
+
+        margin-top: .25rem;
+
+        color: #888888;
+
+        font-size: .7rem;
+
+    }
+
+
+    /* =========================================================
+   DARK MODE TABLE
+========================================================= */
+
+    [data-bs-theme="dark"] .student-table-wrapper {
+
+        background: #181d33;
+
+        border-color: #292e45;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table th {
+
+        color: #d5d8e8;
+
+        background: #20253a;
+
+        border-color: #343a52;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table td {
+
+        color: #eeeef8;
+
+        background: #181d33;
+
+        border-color: #292e45;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table tbody tr:hover td {
+
+        background: #20253a;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-name {
+
+        color: #ffffff;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-number {
+
+        color: #8e95b0;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-year {
+
+        color: #eeeeee;
+
+        background: #20253a;
+
+        border-color: #343a52;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-permission.allowed {
+
+        color: #4ade80;
+
+        background: #07140b;
+
+        border-color: #166534;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-permission.denied {
+
+        color: #f87171;
+
+        background: #1a0808;
+
+        border-color: #7f1d1d;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-edit-button {
+
+        color: #a88ff0;
+
+        border-color: #a88ff0;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-edit-button:hover {
+
+        color: #ffffff;
+
+        background: #6538d9;
+
+        border-color: #6538d9;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-empty strong {
+
+        color: #ffffff;
+
+    }
+
+
+    [data-bs-theme="dark"] .student-table-empty i {
+
+        color: #999fb9;
+
+    }
+
+
+    /* =========================================================
+   RESPONSIVE
+========================================================= */
+
+    @media (max-width: 1399.98px) {
+
+        .student-partial-card-results {
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+        }
+
+    }
+
+
+    @media (max-width: 1199.98px) {
+
+        .student-partial-card-results {
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+        }
+
+    }
+
 
     @media (max-width: 767.98px) {
 
-        .admin-student-card {
+        .student-partial-card-results {
 
-            border-radius: 7px;
+            grid-template-columns: 1fr;
+
+            gap: 1rem;
+
         }
 
 
         .admin-student-card-body {
 
             padding: 1rem;
+
         }
 
 
         .admin-student-card-title {
 
             font-size: .84rem;
-        }
 
-
-        .admin-student-icon {
-
-            width: 44px;
-
-            height: 44px;
-
-            flex-basis: 44px;
         }
 
 
         .admin-student-permission {
 
-            min-height: 25px;
+            font-size: .5rem;
 
-            padding: .25rem .45rem;
-
-            font-size: .56rem;
         }
 
 
-        .admin-student-info-value {
+        .student-table-wrapper {
 
-            font-size: .74rem;
-        }
+            border-radius: 8px;
 
-
-        .admin-student-email {
-
-            max-width: calc(100vw - 120px);
         }
 
     }
 
 
-    /* =========================================================
-       SMALL MOBILE
-    ========================================================== */
-
     @media (max-width: 575.98px) {
-
-        .admin-student-card-body {
-
-            padding: .9rem;
-        }
-
 
         .admin-student-card-top {
 
             gap: .5rem;
-        }
 
-
-        .admin-student-profile {
-
-            gap: .6rem;
         }
 
 
         .admin-student-icon {
 
-            width: 42px;
+            width: 40px;
 
-            height: 42px;
+            height: 40px;
 
-            flex-basis: 42px;
-        }
-
-
-        .admin-student-icon i {
-
-            font-size: 1.05rem;
-        }
-
-
-        .admin-student-card-title {
-
-            max-width: 170px;
-
-            font-size: .78rem;
-        }
-
-
-        .admin-student-id {
-
-            font-size: .62rem;
-        }
-
-
-        /* =====================================================
-           PERMISSION BADGE = ICON ONLY
-        ====================================================== */
-
-        .admin-student-permission {
-
-            width: 30px;
-
-            height: 30px;
-
-            min-height: 30px;
-
-            padding: 0;
-
-            border-radius: 50%;
         }
 
 
         .admin-student-permission span {
 
             display: none;
+
         }
 
 
-        .admin-student-permission i {
+        .admin-student-permission {
 
-            margin: 0;
+            width: 25px;
 
-            font-size: .75rem;
-        }
+            height: 25px;
 
+            justify-content: center;
 
-        /* =====================================================
-           INFORMATION
-        ====================================================== */
+            padding: 0;
 
-        .admin-student-info-row {
-
-            gap: .65rem;
-
-            margin-bottom: .85rem;
-        }
-
-
-        .admin-student-info-icon {
-
-            width: 34px;
-
-            height: 34px;
-
-            flex-basis: 34px;
-        }
-
-
-        .admin-student-info-label {
-
-            font-size: .58rem;
         }
 
 
         .admin-student-info-value {
 
             font-size: .7rem;
-        }
 
-
-        .admin-student-email {
-
-            max-width: calc(100vw - 115px);
-        }
-
-
-        .admin-student-year-row {
-
-            margin-bottom: 1rem;
-        }
-
-
-        /* =====================================================
-           ACTION
-        ====================================================== */
-
-        .admin-student-card-action {
-
-            padding-top: .8rem;
-        }
-
-
-        /* =====================================================
-           EDIT BUTTON = ICON ONLY
-        ====================================================== */
-
-        .admin-student-edit-button {
-
-            width: 38px;
-
-            min-width: 38px;
-
-            height: 36px;
-
-            min-height: 36px;
-
-            padding: 0;
-        }
-
-
-        .admin-student-edit-button span {
-
-            display: none;
-        }
-
-
-        .admin-student-edit-button i {
-
-            margin: 0;
-
-            font-size: .8rem;
-        }
-
-
-        /* =====================================================
-           MOBILE TOOLTIP
-        ====================================================== */
-
-        .admin-student-edit-button[data-tooltip]::after {
-
-            content: attr(data-tooltip);
-
-            position: absolute;
-
-            right: 0;
-
-            bottom: calc(100% + 8px);
-
-            padding: .4rem .6rem;
-
-            color: #ffffff;
-
-            background: #000000;
-
-            border-radius: 5px;
-
-            font-size: .62rem;
-
-            font-weight: 700;
-
-            white-space: nowrap;
-
-            opacity: 0;
-
-            pointer-events: none;
-
-            transform: translateY(3px);
-
-            transition:
-                opacity .15s ease,
-                transform .15s ease;
-
-            z-index: 100;
-        }
-
-
-        .admin-student-edit-button[data-tooltip]:hover::after {
-
-            opacity: 1;
-
-            transform: translateY(0);
-        }
-
-
-        .admin-student-empty-result {
-
-            min-height: 230px;
-
-            padding: 2rem 1rem;
         }
 
     }
-
-
-    /* =========================================================
-       VERY SMALL MOBILE
-    ========================================================== */
-
-    @media (max-width: 380px) {
-
-        .admin-student-card-title {
-
-            max-width: 135px;
-        }
-
-
-        .admin-student-permission {
-
-            width: 28px;
-
-            height: 28px;
-
-            min-height: 28px;
-        }
-
-
-        .admin-student-info-value {
-
-            max-width: 190px;
-        }
-
-    }
-
-
-    /* =========================================================
-       REDUCED MOTION
-    ========================================================== */
-
-    @media (prefers-reduced-motion: reduce) {
-
-        .admin-student-card,
-        .admin-student-icon,
-        .admin-student-edit-button,
-        .admin-student-permission {
-
-            transition: none !important;
-        }
-
-    }
-
 </style>
-

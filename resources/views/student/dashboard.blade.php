@@ -1,4 +1,8 @@
 <x-app-layout>
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
     <div class="dashboard-page">
 
         <div class="dashboard-content">
@@ -633,6 +637,8 @@
 
             background: var(--dashboard-page-bg);
 
+            padding: 20px;
+
             transition:
                 color .25s ease,
                 background-color .25s ease;
@@ -640,7 +646,6 @@
 
 
         .dashboard-content {
-
             color: var(--dashboard-text);
         }
 

@@ -674,7 +674,7 @@
 
 
         .dashboard-content {
-
+            padding: 20px;
             color: var(--dashboard-text);
         }
 
@@ -686,6 +686,8 @@
         .stat-card {
 
             background: var(--dashboard-card-bg);
+
+            margin: 100px 0 20px;
 
             color: var(--dashboard-text);
 

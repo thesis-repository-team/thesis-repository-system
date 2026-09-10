@@ -1,10 +1,14 @@
+```blade
 <x-app-layout>
 
     <div class="thesis-create-wrapper">
 
         <div class="thesis-create-card">
 
-            {{-- HEADER --}}
+            {{-- =====================================================
+                HEADER
+            ====================================================== --}}
+
             <div class="thesis-create-header">
 
                 <span class="thesis-create-overline">
@@ -22,7 +26,10 @@
             </div>
 
 
-            {{-- FORM --}}
+            {{-- =====================================================
+                FORM
+            ====================================================== --}}
+
             <form
                 action="{{ route('hod.thesis.store') }}"
                 method="POST"
@@ -32,9 +39,10 @@
                 @csrf
 
 
-                {{-- =====================================================
-                     TITLE
-                ====================================================== --}}
+                {{-- =================================================
+                    TITLE
+                ================================================== --}}
+
                 <div class="thesis-form-group">
 
                     <label
@@ -61,9 +69,10 @@
                 </div>
 
 
-                {{-- =====================================================
-                     AUTHOR
-                ====================================================== --}}
+                {{-- =================================================
+                    AUTHOR
+                ================================================== --}}
+
                 <div class="thesis-form-group">
 
                     <label
@@ -90,9 +99,10 @@
                 </div>
 
 
-                {{-- =====================================================
-                     DEPARTMENT
-                ====================================================== --}}
+                {{-- =================================================
+                    DEPARTMENT
+                ================================================== --}}
+
                 <div class="thesis-form-group">
 
                     <label
@@ -134,9 +144,10 @@
                 </div>
 
 
-                {{-- =====================================================
-                     FILE
-                ====================================================== --}}
+                {{-- =================================================
+                    FILE
+                ================================================== --}}
+
                 <div class="thesis-form-group">
 
                     <label
@@ -173,9 +184,10 @@
                 </div>
 
 
-                {{-- =====================================================
-                     ABSTRACT
-                ====================================================== --}}
+                {{-- =================================================
+                    ABSTRACT
+                ================================================== --}}
+
                 <div class="thesis-form-group thesis-full-width">
 
                     <label
@@ -200,9 +212,10 @@
                 </div>
 
 
-                {{-- =====================================================
-                     DESCRIPTION
-                ====================================================== --}}
+                {{-- =================================================
+                    DESCRIPTION
+                ================================================== --}}
+
                 <div class="thesis-form-group thesis-full-width">
 
                     <label
@@ -227,20 +240,17 @@
                 </div>
 
 
-                {{-- =====================================================
-                     ACTIONS
-                ====================================================== --}}
+                {{-- =================================================
+                    ACTIONS
+                ================================================== --}}
+
                 <div class="thesis-form-actions">
 
                     {{-- CANCEL --}}
                     <a
                         href="{{ route('hod.thesis.index') }}"
                         class="thesis-cancel-button">
-
-                        <i class="bi bi-x-lg"></i>
-
                         Cancel
-
                     </a>
 
 
@@ -248,11 +258,7 @@
                     <button
                         type="submit"
                         class="thesis-save-button">
-
-                        <i class="bi bi-check-lg"></i>
-
                         Save Thesis
-
                     </button>
 
                 </div>
@@ -272,7 +278,17 @@
 
         .thesis-create-wrapper {
 
+            --thesis-purple: #6538d9;
+            --thesis-purple-hover: #5630bd;
+
+            --thesis-blue: #0d6efd;
+            --thesis-blue-hover: #0b5ed7;
+
+            --thesis-red: #dc3545;
+            --thesis-red-hover: #bb2d3b;
+
             --thesis-card-bg: #ffffff;
+
             --thesis-input-bg: #fafafa;
             --thesis-input-focus-bg: #ffffff;
 
@@ -298,6 +314,7 @@
             box-sizing: border-box;
 
             color: var(--thesis-text);
+
         }
 
 
@@ -309,13 +326,16 @@
 
             width: 100%;
 
-            background: var(--thesis-card-bg);
+            background:
+                var(--thesis-card-bg);
 
             border-radius: 12px;
 
-            box-shadow: var(--thesis-shadow);
+            box-shadow:
+                var(--thesis-shadow);
 
             overflow: hidden;
+
         }
 
 
@@ -328,6 +348,11 @@
             padding:
                 1.4rem
                 1.5rem;
+
+            border-bottom:
+                1px solid
+                var(--thesis-divider);
+
         }
 
 
@@ -337,13 +362,15 @@
 
             margin-bottom: .25rem;
 
-            color: var(--thesis-muted);
+            color:
+                var(--thesis-purple);
 
             font-size: .65rem;
 
             font-weight: 800;
 
             letter-spacing: .1em;
+
         }
 
 
@@ -351,11 +378,13 @@
 
             margin: 0;
 
-            color: var(--thesis-text);
+            color:
+                var(--thesis-text);
 
             font-size: 1.25rem;
 
             font-weight: 800;
+
         }
 
 
@@ -363,9 +392,11 @@
 
             margin: .35rem 0 0;
 
-            color: var(--thesis-muted);
+            color:
+                var(--thesis-muted);
 
             font-size: .78rem;
+
         }
 
 
@@ -388,18 +419,21 @@
                 1.25rem;
 
             padding: 1.5rem;
+
         }
 
 
         .thesis-form-group {
 
             min-width: 0;
+
         }
 
 
         .thesis-full-width {
 
             grid-column: 1 / -1;
+
         }
 
 
@@ -413,7 +447,8 @@
 
             margin-bottom: .45rem;
 
-            color: var(--thesis-text-secondary);
+            color:
+                var(--thesis-text-secondary);
 
             font-size: .68rem;
 
@@ -422,6 +457,7 @@
             letter-spacing: .05em;
 
             text-transform: uppercase;
+
         }
 
 
@@ -445,7 +481,8 @@
 
             box-sizing: border-box;
 
-            color: var(--thesis-text);
+            color:
+                var(--thesis-text);
 
             background:
                 var(--thesis-input-bg);
@@ -467,6 +504,7 @@
                 color .2s ease,
                 border-color .2s ease,
                 box-shadow .2s ease;
+
         }
 
 
@@ -476,9 +514,11 @@
 
         .thesis-form-control::placeholder {
 
-            color: var(--thesis-muted);
+            color:
+                var(--thesis-muted);
 
             opacity: .8;
+
         }
 
 
@@ -489,7 +529,8 @@
         .thesis-form-control:hover {
 
             border-color:
-                var(--thesis-text-secondary);
+                var(--thesis-purple);
+
         }
 
 
@@ -499,17 +540,19 @@
 
         .thesis-form-control:focus {
 
-            color: var(--thesis-text);
+            color:
+                var(--thesis-text);
 
             background:
                 var(--thesis-input-focus-bg);
 
             border-color:
-                var(--thesis-text);
+                var(--thesis-purple);
 
             box-shadow:
                 0 0 0 3px
-                rgba(0, 0, 0, .08);
+                rgba(101, 56, 217, .12);
+
         }
 
 
@@ -519,7 +562,21 @@
 
         .thesis-form-control.is-invalid {
 
-            border-color: #dc3545;
+            border-color:
+                var(--thesis-red);
+
+        }
+
+
+        .thesis-form-control.is-invalid:focus {
+
+            border-color:
+                var(--thesis-red);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(220, 53, 69, .12);
+
         }
 
 
@@ -530,6 +587,7 @@
         .thesis-form-select {
 
             cursor: pointer;
+
         }
 
 
@@ -537,7 +595,9 @@
 
             color: #000000;
 
-            background: #ffffff;
+            background:
+                #ffffff;
+
         }
 
 
@@ -554,6 +614,7 @@
             resize: vertical;
 
             line-height: 1.5;
+
         }
 
 
@@ -566,6 +627,7 @@
             padding-top: .65rem;
 
             cursor: pointer;
+
         }
 
 
@@ -577,9 +639,11 @@
                 .4rem
                 .7rem;
 
-            color: #ffffff;
+            color:
+                #ffffff;
 
-            background: #111111;
+            background:
+                var(--thesis-purple);
 
             border: 0;
 
@@ -592,13 +656,20 @@
             cursor: pointer;
 
             transition:
-                background .2s ease;
+                background .2s ease,
+                transform .2s ease;
+
         }
 
 
         .thesis-file-input::file-selector-button:hover {
 
-            background: #333333;
+            background:
+                var(--thesis-purple-hover);
+
+            transform:
+                translateY(-1px);
+
         }
 
 
@@ -608,9 +679,11 @@
 
             margin-top: .4rem;
 
-            color: var(--thesis-muted);
+            color:
+                var(--thesis-muted);
 
             font-size: .68rem;
+
         }
 
 
@@ -622,11 +695,13 @@
 
             margin-top: .35rem;
 
-            color: #dc3545;
+            color:
+                var(--thesis-red);
 
             font-size: .7rem;
 
             font-weight: 600;
+
         }
 
 
@@ -651,6 +726,7 @@
             border-top:
                 1px solid
                 var(--thesis-divider);
+
         }
 
 
@@ -683,13 +759,16 @@
                 background .2s ease,
                 border-color .2s ease,
                 color .2s ease,
-                transform .2s ease;
+                transform .2s ease,
+                box-shadow .2s ease;
+
         }
 
 
         /* =========================================================
            CANCEL BUTTON
-           RED
+           RED BORDER
+           NO ICON
         ========================================================== */
 
         .thesis-cancel-button {
@@ -700,33 +779,46 @@
 
             justify-content: center;
 
-            gap: .4rem;
+            min-width: 105px;
 
-            color: #ffffff;
+            color:
+                var(--thesis-red);
 
-            background: #dc3545;
+            background:
+                #ffffff;
 
             border:
                 1px solid
-                #dc3545;
+                var(--thesis-red);
+
         }
 
 
         .thesis-cancel-button:hover {
 
-            color: #ffffff;
+            color:
+                #ffffff;
 
-            background: #bb2d3b;
+            background:
+                var(--thesis-red);
 
-            border-color: #bb2d3b;
+            border-color:
+                var(--thesis-red);
 
-            transform: translateY(-1px);
+            transform:
+                translateY(-1px);
+
+            box-shadow:
+                0 4px 12px
+                rgba(220, 53, 69, .18);
+
         }
 
 
         /* =========================================================
            SAVE BUTTON
-           BLUE
+           BLUE BORDER
+           NO ICON
         ========================================================== */
 
         .thesis-save-button {
@@ -737,33 +829,44 @@
 
             justify-content: center;
 
-            gap: .4rem;
+            min-width: 120px;
 
-            color: #ffffff;
+            color:
+                var(--thesis-blue);
 
-            background: #0d6efd;
+            background:
+                #ffffff;
 
             border:
                 1px solid
-                #0d6efd;
+                var(--thesis-blue);
+
         }
 
 
         .thesis-save-button:hover {
 
-            color: #ffffff;
+            color:
+                #ffffff;
 
-            background: #0b5ed7;
+            background:
+                var(--thesis-blue);
 
-            border-color: #0b5ed7;
+            border-color:
+                var(--thesis-blue);
 
-            transform: translateY(-1px);
+            transform:
+                translateY(-1px);
+
+            box-shadow:
+                0 4px 12px
+                rgba(13, 110, 253, .18);
+
         }
 
 
         /* =========================================================
            DARK MODE
-           BOOTSTRAP
         ========================================================== */
 
         [data-bs-theme="dark"] .thesis-create-wrapper {
@@ -784,16 +887,16 @@
 
             --thesis-divider: #292e45;
 
+            --thesis-purple: #7c5ce3;
+
+            --thesis-purple-hover: #6d4fd0;
+
             --thesis-shadow:
                 0 8px 24px
                 rgba(0, 0, 0, .50);
+
         }
 
-
-        /* =========================================================
-           DARK MODE
-           CUSTOM .dark
-        ========================================================== */
 
         .dark .thesis-create-wrapper {
 
@@ -813,9 +916,14 @@
 
             --thesis-divider: #292e45;
 
+            --thesis-purple: #7c5ce3;
+
+            --thesis-purple-hover: #6d4fd0;
+
             --thesis-shadow:
                 0 8px 24px
                 rgba(0, 0, 0, .50);
+
         }
 
 
@@ -826,13 +934,29 @@
         [data-bs-theme="dark"] .thesis-create-card,
         .dark .thesis-create-card {
 
-            background: #181d33;
+            background:
+                #181d33;
 
-            color: #eeeef8;
+            color:
+                #eeeef8;
 
             box-shadow:
                 0 8px 24px
                 rgba(0, 0, 0, .50);
+
+        }
+
+
+        /* =========================================================
+           DARK MODE HEADER
+        ========================================================== */
+
+        [data-bs-theme="dark"] .thesis-create-header,
+        .dark .thesis-create-header {
+
+            border-bottom-color:
+                #292e45;
+
         }
 
 
@@ -843,21 +967,27 @@
         [data-bs-theme="dark"] .thesis-create-title,
         .dark .thesis-create-title {
 
-            color: #eeeef8;
+            color:
+                #eeeef8;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-create-overline,
         .dark .thesis-create-overline {
 
-            color: #999fb9;
+            color:
+                #7c5ce3;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-create-description,
         .dark .thesis-create-description {
 
-            color: #999fb9;
+            color:
+                #999fb9;
+
         }
 
 
@@ -868,7 +998,9 @@
         [data-bs-theme="dark"] .thesis-form-label,
         .dark .thesis-form-label {
 
-            color: #d5d8e8;
+            color:
+                #d5d8e8;
+
         }
 
 
@@ -879,42 +1011,54 @@
         [data-bs-theme="dark"] .thesis-form-control,
         .dark .thesis-form-control {
 
-            color: #eeeef8;
+            color:
+                #eeeef8;
 
-            background: #20253a;
+            background:
+                #20253a;
 
-            border-color: #292e45;
+            border-color:
+                #292e45;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-form-control::placeholder,
         .dark .thesis-form-control::placeholder {
 
-            color: #999fb9;
+            color:
+                #999fb9;
 
             opacity: .9;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-form-control:hover,
         .dark .thesis-form-control:hover {
 
-            border-color: #555b75;
+            border-color:
+                #7c5ce3;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-form-control:focus,
         .dark .thesis-form-control:focus {
 
-            color: #eeeef8;
+            color:
+                #eeeef8;
 
-            background: #20253a;
+            background:
+                #20253a;
 
-            border-color: #ffffff;
+            border-color:
+                #7c5ce3;
 
             box-shadow:
                 0 0 0 3px
-                rgba(255, 255, 255, .08);
+                rgba(124, 92, 227, .16);
+
         }
 
 
@@ -925,18 +1069,24 @@
         [data-bs-theme="dark"] .thesis-form-select,
         .dark .thesis-form-select {
 
-            color: #eeeef8;
+            color:
+                #eeeef8;
 
-            background-color: #20253a;
+            background-color:
+                #20253a;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-form-select option,
         .dark .thesis-form-select option {
 
-            color: #eeeef8;
+            color:
+                #eeeef8;
 
-            background: #20253a;
+            background:
+                #20253a;
+
         }
 
 
@@ -947,34 +1097,45 @@
         [data-bs-theme="dark"] .thesis-file-input,
         .dark .thesis-file-input {
 
-            color: #eeeef8;
+            color:
+                #eeeef8;
 
-            background: #20253a;
+            background:
+                #20253a;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-file-input::file-selector-button,
         .dark .thesis-file-input::file-selector-button {
 
-            color: #111111;
+            color:
+                #ffffff;
 
-            background: #ffffff;
+            background:
+                #7c5ce3;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-file-input::file-selector-button:hover,
         .dark .thesis-file-input::file-selector-button:hover {
 
-            color: #111111;
+            color:
+                #ffffff;
 
-            background: #e5e5e5;
+            background:
+                #6d4fd0;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-file-help,
         .dark .thesis-file-help {
 
-            color: #999fb9;
+            color:
+                #999fb9;
+
         }
 
 
@@ -985,7 +1146,9 @@
         [data-bs-theme="dark"] .thesis-error,
         .dark .thesis-error {
 
-            color: #fca5a5;
+            color:
+                #fca5a5;
+
         }
 
 
@@ -996,61 +1159,79 @@
         [data-bs-theme="dark"] .thesis-form-actions,
         .dark .thesis-form-actions {
 
-            border-top-color: #292e45;
+            border-top-color:
+                #292e45;
+
         }
 
 
         /* =========================================================
            DARK MODE CANCEL
-           RED
+           RED BORDER
         ========================================================== */
 
         [data-bs-theme="dark"] .thesis-cancel-button,
         .dark .thesis-cancel-button {
 
-            color: #ffffff;
+            color:
+                #f87171;
 
-            background: #dc3545;
+            background:
+                transparent;
 
-            border-color: #dc3545;
+            border-color:
+                #f87171;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-cancel-button:hover,
         .dark .thesis-cancel-button:hover {
 
-            color: #ffffff;
+            color:
+                #ffffff;
 
-            background: #bb2d3b;
+            background:
+                #dc3545;
 
-            border-color: #bb2d3b;
+            border-color:
+                #dc3545;
+
         }
 
 
         /* =========================================================
            DARK MODE SAVE
-           BLUE
+           BLUE BORDER
         ========================================================== */
 
         [data-bs-theme="dark"] .thesis-save-button,
         .dark .thesis-save-button {
 
-            color: #ffffff;
+            color:
+                #60a5fa;
 
-            background: #0d6efd;
+            background:
+                transparent;
 
-            border-color: #0d6efd;
+            border-color:
+                #60a5fa;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-save-button:hover,
         .dark .thesis-save-button:hover {
 
-            color: #ffffff;
+            color:
+                #ffffff;
 
-            background: #0b5ed7;
+            background:
+                #0d6efd;
 
-            border-color: #0b5ed7;
+            border-color:
+                #0d6efd;
+
         }
 
 
@@ -1061,7 +1242,8 @@
         [data-bs-theme="dark"] .thesis-form-control:-webkit-autofill,
         .dark .thesis-form-control:-webkit-autofill {
 
-            -webkit-text-fill-color: #eeeef8;
+            -webkit-text-fill-color:
+                #eeeef8;
 
             -webkit-box-shadow:
                 0 0 0 1000px
@@ -1071,7 +1253,9 @@
                 0 0 0 1000px
                 #20253a inset;
 
-            border-color: #292e45;
+            border-color:
+                #292e45;
+
         }
 
 
@@ -1091,12 +1275,14 @@
                     90px
                     10px
                     20px;
+
             }
 
 
             .thesis-create-header {
 
                 padding: 1rem;
+
             }
 
 
@@ -1107,12 +1293,14 @@
                 gap: 1rem;
 
                 padding: 1rem;
+
             }
 
 
             .thesis-full-width {
 
                 grid-column: auto;
+
             }
 
 
@@ -1121,6 +1309,7 @@
                 flex-direction: column-reverse;
 
                 align-items: stretch;
+
             }
 
 
@@ -1130,6 +1319,7 @@
                 width: 100%;
 
                 text-align: center;
+
             }
 
         }
@@ -1147,24 +1337,28 @@
                     85px
                     8px
                     20px;
+
             }
 
 
             .thesis-create-header {
 
                 padding: .9rem;
+
             }
 
 
             .thesis-create-form {
 
                 padding: .9rem;
+
             }
 
 
             .thesis-create-title {
 
                 font-size: 1.05rem;
+
             }
 
 
@@ -1173,12 +1367,99 @@
                 height: 44px;
 
                 font-size: .8rem;
+
             }
 
 
             .thesis-textarea {
 
                 min-height: 105px;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           VERY SMALL MOBILE
+        ========================================================== */
+
+        @media (max-width: 380px) {
+
+            .thesis-create-wrapper {
+
+                padding:
+                    80px
+                    6px
+                    15px;
+
+            }
+
+
+            .thesis-create-card {
+
+                border-radius: 9px;
+
+            }
+
+
+            .thesis-create-header {
+
+                padding: .8rem;
+
+            }
+
+
+            .thesis-create-form {
+
+                padding: .8rem;
+
+            }
+
+
+            .thesis-create-title {
+
+                font-size: 1rem;
+
+            }
+
+
+            .thesis-create-description {
+
+                font-size: .72rem;
+
+            }
+
+
+            .thesis-form-label {
+
+                font-size: .64rem;
+
+            }
+
+
+            .thesis-form-control {
+
+                font-size: .78rem;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           REDUCED MOTION
+        ========================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .thesis-form-control,
+            .thesis-cancel-button,
+            .thesis-save-button,
+            .thesis-file-input::file-selector-button {
+
+                transition: none;
+
             }
 
         }
@@ -1186,3 +1467,4 @@
     </style>
 
 </x-app-layout>
+```
