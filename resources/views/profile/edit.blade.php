@@ -20,7 +20,15 @@
                 CLOSE BUTTON
                 GO BACK TO DASHBOARD
             ================================================== --}}
-                <a href="{{ route('dashboard') }}" class="profile-popup-close" aria-label="{{ __('Close') }}"
+                @php
+                    $dashboardRoute = match (auth()->user()->role) {
+                        'admin' => 'admin.dashboard',
+                        'hod' => 'hod.dashboard',
+                        default => 'student.dashboard', // student and guest
+                    };
+                @endphp
+
+                <a href="{{ route($dashboardRoute) }}" class="profile-popup-close" aria-label="{{ __('Close') }}"
                     title="{{ __('Close') }}">
                     <i class="bi bi-x-lg"></i>
                 </a>

@@ -21,6 +21,8 @@
                         HoD Dashboard
                     @elseif (Auth::user()->role === 'student')
                         Student Dashboard
+                    @elseif (Auth::user()->role === 'guest')
+                        Dashboard
                     @endif
                 </p>
             </div>
@@ -37,13 +39,24 @@
             </div>
 
             {{-- DASHBOARD --}}
-            <a href="{{ route('dashboard') }}"
+            <a href="
+    @if (auth()->user()->role === 'admin') {{ route('admin.dashboard') }}
+    @elseif(auth()->user()->role === 'hod')
+        {{ route('hod.dashboard') }}
+    @else
+        {{ route('student.dashboard') }} @endif
+"
+                class="sidebar-link">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+            {{-- <a href="{{ route('dashboard') }}"
                 class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
 
                 <i class="bi bi-grid-fill"></i>
                 <span>Dashboard</span>
 
-            </a>
+            </a> --}}
 
 
             {{-- ADMIN --}}
@@ -164,7 +177,6 @@
 
                 </a>
 
-
                 <a href="{{ route('student.thesis.my-theses') }}"
                     class="sidebar-link {{ request()->routeIs('student.thesis.my-theses') ? 'active' : '' }}">
 
@@ -182,6 +194,35 @@
 
                 </a>
 
+
+                <a href="{{ route('student.thesis.view_history') }}"
+                    class="sidebar-link {{ request()->routeIs('student.thesis.view_history') ? 'active' : '' }}">
+
+                    <i class="bi bi-clock-history"></i>
+                    <span>View History</span>
+
+                </a>
+
+
+                <a href="{{ route('student.saved_thesis.index') }}"
+                    class="sidebar-link {{ request()->routeIs('student.saved_thesis.index') ? 'active' : '' }}">
+
+                    <i class="bi bi-bookmark"></i>
+                    <span>Bookmarks</span>
+
+                </a>
+            @elseif (Auth::user()->role === 'guest')
+                <div class="sidebar-section-title">
+                    MANAGEMENT
+                </div>
+
+                <a href="{{ route('student.thesis.index') }}"
+                    class="sidebar-link {{ request()->routeIs('student.thesis.index') ? 'active' : '' }}">
+
+                    <i class="bi bi-journal-bookmark"></i>
+                    <span>Theses</span>
+
+                </a>
 
                 <a href="{{ route('student.thesis.view_history') }}"
                     class="sidebar-link {{ request()->routeIs('student.thesis.view_history') ? 'active' : '' }}">
@@ -223,8 +264,8 @@
 
                 <button type="submit" class="sidebar-link logout-link">
 
-                    <i class="bi bi-box-arrow-right"></i>
-                    <span>Logout</span>
+                    <i class="bi bi-box-arrow-right" style="color: #dc3545;"></i>
+                    <span style="color: #dc3545;">Logout</span>
 
                 </button>
 
@@ -261,18 +302,19 @@
         <div class="header-right">
 
             {{-- NOTIFICATIONS --}}
-            <a href="{{ route('notifications.index') }}" class="header-icon-button notification-button">
+            @if (Auth::user()->role === 'admin' || Auth::user()->role === 'hod' || Auth::user()->role === 'student')
+                <a href="{{ route('notifications.index') }}" class="header-icon-button notification-button">
 
-                <i class="bi bi-bell"></i>
+                    <i class="bi bi-bell"></i>
 
-                @if (auth()->user()->unreadNotifications->count() > 0)
-                    <span class="notification-count">
-                        {{ auth()->user()->unreadNotifications->count() }}
-                    </span>
-                @endif
+                    @if (auth()->user()->unreadNotifications->count() > 0)
+                        <span class="notification-count">
+                            {{ auth()->user()->unreadNotifications->count() }}
+                        </span>
+                    @endif
 
-            </a>
-
+                </a>
+            @endif
 
             {{-- DARK MODE --}}
             <button type="button" class="header-icon-button theme-toggle" onclick="toggleDashboardTheme()">
@@ -485,6 +527,31 @@
                     <span>Bookmarks</span>
 
                 </a>
+            @elseif (Auth::user()->role === 'guest')
+                <a href="{{ route('student.thesis.index') }}"
+                    class="mobile-nav-link {{ request()->routeIs('student.thesis.*') ? 'active' : '' }}">
+
+                    <i class="bi bi-journal-bookmark"></i>
+                    <span>Theses</span>
+
+                </a>
+
+                <a href="{{ route('student.thesis.view_history') }}"
+                    class="mobile-nav-link {{ request()->routeIs('student.thesis.view_history') ? 'active' : '' }}">
+
+                    <i class="bi bi-clock-history"></i>
+                    <span>View History</span>
+
+                </a>
+
+
+                <a href="{{ route('student.saved_thesis.index') }}"
+                    class="mobile-nav-link {{ request()->routeIs('student.saved_thesis.index') ? 'active' : '' }}">
+
+                    <i class="bi bi-bookmark"></i>
+                    <span>Bookmarks</span>
+
+                </a>
             @endif
 
 
@@ -500,7 +567,7 @@
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
 
-                <button type="submit" class="mobile-nav-link logout-link">
+                <button type="submit" class="mobile-nav-link logout-link" style="color: #dc3545;">
 
                     <i class="bi bi-box-arrow-right"></i>
                     <span>Logout</span>
@@ -561,22 +628,30 @@
                 <span>Theses</span>
 
             </a>
+        @elseif (Auth::user()->role === 'guest')
+            <a href="{{ route('student.thesis.index') }}"
+                class="mobile-bottom-item {{ request()->routeIs('student.thesis.*') ? 'active' : '' }}">
+
+                <i class="bi bi-journal-bookmark"></i>
+                <span>Theses</span>
+
+            </a>
         @endif
 
 
-        <a href="{{ route('notifications.index') }}" class="mobile-bottom-item position-relative">
+        @if (Auth::user()->role === 'admin' || Auth::user()->role === 'hod' || Auth::user()->role === 'student')
+            <a href="{{ route('notifications.index') }}" class="mobile-bottom-item position-relative">
 
-            <i class="bi bi-bell"></i>
-            <span>Alerts</span>
+                <i class="bi bi-bell"></i>
+                <span>Alerts</span>
 
-            @if (auth()->user()->unreadNotifications->count() > 0)
-                <small class="mobile-notification-badge">
-                    {{ auth()->user()->unreadNotifications->count() }}
-                </small>
-            @endif
-
-        </a>
-
+                @if (auth()->user()->unreadNotifications->count() > 0)
+                    <small class="mobile-notification-badge">
+                        {{ auth()->user()->unreadNotifications->count() }}
+                    </small>
+                @endif
+            </a>
+        @endif
 
         <a href="{{ route('profile.edit') }}"
             class="mobile-bottom-item {{ request()->routeIs('profile.*') ? 'active' : '' }}">

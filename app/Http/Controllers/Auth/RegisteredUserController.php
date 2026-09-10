@@ -22,8 +22,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        // get department for dropdown
         $departments = Department::all();
+
         return view('auth.register', compact('departments'));
     }
 
@@ -38,31 +38,51 @@ class RegisteredUserController extends Controller
             'username' => ['required', 'string', 'max:100'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'full_name' => ['required', 'string', 'max:100'],
-            'department_id' => ['required', 'exists:departments,id'],
-            'started_year' => ['required', 'integer', 'min:2000'],
+            'full_name' => ['nullable', 'string', 'max:100'],
+            'department_id' => ['nullable', 'exists:departments,id'],
+            'started_year' => ['nullable', 'integer', 'min:2000'],
         ]);
 
+        $isStudent = str_ends_with(
+            strtolower($request->email),
+            '@lifeun.edu.kh'
+        );
+
+        // Create user
         $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'student'
+            'role' => $isStudent ? 'student' : 'guest',
         ]);
 
-        // create student record
-        Student::create([
-            'full_name' => $request->full_name,
-            'user_id' => $user->id,
-            'department_id' => $request->department_id,
-            'upload_permission' => false,
-            'started_year' => $request->started_year,
-        ]);
+        // Only students have a student profile
+        if ($isStudent) {
+            // Extra validation for students
+            $request->validate([
+                'full_name' => ['required', 'string', 'max:100'],
+                'department_id' => ['required', 'exists:departments,id'],
+                'started_year' => ['required', 'integer', 'min:2000'],
+            ]);
 
-        event(new Registered($user));
+            Student::create([
+                'full_name' => $request->full_name,
+                'user_id' => $user->id,
+                'department_id' => $request->department_id,
+                'upload_permission' => false,
+                'started_year' => $request->started_year,
+            ]);
 
+            event(new Registered($user));
+
+            Auth::login($user);
+
+            return redirect()->route('verification.notice');
+        }
+
+        // Guest
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect()->route('student.dashboard');
     }
 }

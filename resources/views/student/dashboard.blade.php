@@ -1,11 +1,7 @@
 <x-app-layout>
-
-
     <div class="dashboard-page">
 
         <div class="dashboard-content">
-
-
             {{-- =================================================
              STATISTICS
         ================================================== --}}
@@ -317,22 +313,20 @@
 
                         </div>
 
+                        @if (auth()->user()->role === 'student')
+                            <a href="{{ route('student.thesis.my-theses') }}" class="view-all">
 
-                        <a href="{{ route('student.thesis.my-theses') }}" class="view-all">
+                                <span>
+                                    View my thesis
+                                </span>
 
-                            <span>
-                                View my thesis
-                            </span>
+                                <i class="bi bi-chevron-right"></i>
 
-                            <i class="bi bi-chevron-right"></i>
-
-                        </a>
-
+                            </a>
+                        @endif
                     </div>
 
                 </div>
-
-
 
                 {{-- =================================================
                  RIGHT / SIDE COLUMN
@@ -360,30 +354,30 @@
 
                         </div>
 
+                        @if (auth()->user()->role === 'student')
+                            {{-- MY THESIS --}}
+                            <a href="{{ route('student.thesis.my-theses') }}" class="hod-item quick-action">
 
-                        {{-- MY THESIS --}}
-                        <a href="{{ route('student.thesis.my-theses') }}" class="hod-item quick-action">
+                                <div class="hod-avatar">
+                                    <i class="bi bi-journal-text"></i>
+                                </div>
 
-                            <div class="hod-avatar">
-                                <i class="bi bi-journal-text"></i>
-                            </div>
+                                <div class="hod-info">
 
-                            <div class="hod-info">
+                                    <strong>
+                                        My Thesis
+                                    </strong>
 
-                                <strong>
-                                    My Thesis
-                                </strong>
+                                    <span>
+                                        View your thesis
+                                    </span>
 
-                                <span>
-                                    View your thesis
-                                </span>
+                                </div>
 
-                            </div>
+                                <i class="bi bi-chevron-right"></i>
 
-                            <i class="bi bi-chevron-right"></i>
-
-                        </a>
-
+                            </a>
+                        @endif
 
                         {{-- SAVED THESIS --}}
                         <a href="{{ route('student.saved_thesis.index') }}" class="hod-item quick-action">
@@ -1689,7 +1683,6 @@
     </style>
 
 
-
     {{-- =============================================================
      STUDENT CALENDAR JAVASCRIPT
 ============================================================= --}}
@@ -1875,14 +1868,10 @@
                 }
             );
 
-
             /*
              * Initial calendar
              */
             renderCalendar();
-
         });
     </script>
-
-
 </x-app-layout>

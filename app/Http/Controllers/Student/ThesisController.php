@@ -29,9 +29,26 @@ class ThesisController extends Controller
             ->pluck('year');
 
         // Get all thesis IDs saved by this student
-        $savedThesisIds = SavedThesis::where('student_id', auth()->user()->student->id)
+        $savedThesisIds = [];
+
+        $savedThesisIds = SavedThesis::where(
+            'user_id',
+            auth()->id()
+        )
             ->pluck('thesis_id')
             ->toArray();
+
+        // if (auth()->user()->student) {
+        //     $savedThesisIds = SavedThesis::where(
+        //         'user_id',
+        //         auth()->id()
+        //     )->pluck('thesis_id')->toArray();
+        // }
+
+
+        // $savedThesisIds = SavedThesis::where('student_id', auth()->user()->student->id)
+        //     ->pluck('thesis_id')
+        //     ->toArray();
 
         return view('student.thesis.index', compact('theses', 'savedThesisIds', 'departments', 'published_at'));
     }
@@ -58,9 +75,14 @@ class ThesisController extends Controller
         ]);
 
         return response()->file(
-            storage_path('app/public/'.$file->file_path)
+            storage_path('app/public/' . $file->file_path)
         );
+    }
+    public function show(Thesis $thesis)
+    {
+        $thesis->load(['files', 'department']);
 
+        return view('student.thesis.show', compact('thesis'));
     }
 
     public function myTheses()
@@ -135,8 +157,11 @@ class ThesisController extends Controller
 
         $theses = $query->get();
 
-        // Get all thesis IDs saved by this student
-        $savedThesisIds = SavedThesis::where('student_id', auth()->user()->student->id)
+        // Get all thesis IDs saved by this user
+        $savedThesisIds = SavedThesis::where(
+            'user_id',
+            auth()->id()
+        )
             ->pluck('thesis_id')
             ->toArray();
 
@@ -145,7 +170,7 @@ class ThesisController extends Controller
 
     public function downloadPDF(ThesisFile $file)
     {
-        $filePath = storage_path('app/public/'.$file->file_path);
+        $filePath = storage_path('app/public/' . $file->file_path);
 
         if (! file_exists($filePath)) {
             return back()->with('error', 'PDF file not found.');
@@ -155,7 +180,7 @@ class ThesisController extends Controller
             '/[\/\\\\:*?"<>|]/',
             '-',
             $file->thesis->title
-        ).'.pdf';
+        ) . '.pdf';
 
         return response()->download(
             $filePath,
