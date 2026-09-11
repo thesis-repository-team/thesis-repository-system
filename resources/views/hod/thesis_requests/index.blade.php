@@ -11,13 +11,12 @@
             <div>
 
                 <span class="request-overline">
-                    MANAGEMENT
+                    MANAGEMENT from department
                 </span>
 
-                <h2 class="request-page-title">
-                    Thesis Requests
-                </h2>
-
+                <h3 class="request-page-title">
+                    Thesis Requests 
+                </h3>
             </div>
 
 

@@ -19,7 +19,7 @@
                         </span>
 
                         <h1 class="hod-title">
-                            Head Of Department
+                            Head of Department (HoD)
                         </h1>
 
                     </div>

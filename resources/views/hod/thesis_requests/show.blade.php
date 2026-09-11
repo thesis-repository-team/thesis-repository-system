@@ -1,13 +1,16 @@
 <x-app-layout>
 
     <div class="dashboard-content thesis-request-page">
+        @php
+            $isSameDepartment =
+                auth()->user()->hod && auth()->user()->hod->department_id === $thesisRequest?->department_id;
+        @endphp
 
         {{-- =========================================================
             ALERTS
         ========================================================== --}}
 
         @if (session('success'))
-
             <div class="request-alert request-alert-success">
 
                 <i class="bi bi-check-circle-fill"></i>
@@ -17,12 +20,10 @@
                 </span>
 
             </div>
-
         @endif
 
 
         @if (session('error'))
-
             <div class="request-alert request-alert-danger">
 
                 <i class="bi bi-exclamation-triangle-fill"></i>
@@ -32,7 +33,6 @@
                 </span>
 
             </div>
-
         @endif
 
 
@@ -76,7 +76,6 @@
                     <div class="request-status-wrapper">
 
                         @if ($thesisRequest->status === 'approved')
-
                             <span class="request-status status-approved">
 
                                 <i class="bi bi-check-circle-fill"></i>
@@ -84,9 +83,7 @@
                                 Approved
 
                             </span>
-
                         @elseif ($thesisRequest->status === 'pending')
-
                             <span class="request-status status-pending">
 
                                 <i class="bi bi-clock-fill"></i>
@@ -94,9 +91,7 @@
                                 Pending
 
                             </span>
-
                         @elseif ($thesisRequest->status === 'rejected')
-
                             <span class="request-status status-rejected">
 
                                 <i class="bi bi-x-circle-fill"></i>
@@ -104,9 +99,7 @@
                                 Rejected
 
                             </span>
-
                         @else
-
                             <span class="request-status status-default">
 
                                 <i class="bi bi-question-circle-fill"></i>
@@ -114,7 +107,6 @@
                                 {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
 
                             </span>
-
                         @endif
 
                     </div>
@@ -399,11 +391,8 @@
                         </div>
 
 
-                        <a
-                            href="{{ route('hod.thesis_requests.view-request-pdf', $thesisRequest) }}"
-                            target="_blank"
-                            class="view-pdf-button"
-                        >
+                        <a href="{{ route('hod.thesis_requests.view-request-pdf', $thesisRequest) }}" target="_blank"
+                            class="view-pdf-button">
 
                             <i class="bi bi-eye-fill"></i>
 
@@ -421,7 +410,6 @@
                 ================================================== --}}
 
                 @if ($thesisRequest->status === 'rejected')
-
                     <div class="request-content-section">
 
                         <div class="section-heading">
@@ -487,7 +475,6 @@
                         </div>
 
                     </div>
-
                 @endif
 
 
@@ -495,11 +482,11 @@
                     REVIEW DECISION
                 ================================================== --}}
 
-                @if ($thesisRequest->status === 'pending')
 
+
+
+                @if ($thesisRequest->status === 'pending' && $isSameDepartment)
                     <div class="review-decision-section">
-
-
                         {{-- =================================================
                             REVIEW HEADER
                         ================================================== --}}
@@ -555,17 +542,11 @@
                             </div>
 
 
-                            <form
-                                action="{{ route('hod.thesis_requests.approve', $thesisRequest) }}"
-                                method="POST"
-                            >
+                            <form action="{{ route('hod.thesis_requests.approve', $thesisRequest) }}" method="POST">
 
                                 @csrf
 
-                                <button
-                                    type="submit"
-                                    class="approve-button"
-                                >
+                                <button type="submit" class="approve-button">
 
                                     <i class="bi bi-check-circle"></i>
 
@@ -608,10 +589,7 @@
                             </div>
 
 
-                            <form
-                                action="{{ route('hod.thesis_requests.reject', $thesisRequest) }}"
-                                method="POST"
-                            >
+                            <form action="{{ route('hod.thesis_requests.reject', $thesisRequest) }}" method="POST">
 
                                 @csrf
 
@@ -625,18 +603,11 @@
                                     </label>
 
 
-                                    <textarea
-                                        name="remarks"
-                                        id="remarks"
-                                        rows="5"
-                                        class="review-textarea"
-                                        placeholder="Explain why this thesis request is being rejected..."
-                                        required
-                                    >{{ old('remarks') }}</textarea>
+                                    <textarea name="remarks" id="remarks" rows="5" class="review-textarea"
+                                        placeholder="Explain why this thesis request is being rejected..." required>{{ old('remarks') }}</textarea>
 
 
                                     @error('remarks')
-
                                         <div class="review-validation-error">
 
                                             <i class="bi bi-exclamation-circle"></i>
@@ -644,7 +615,6 @@
                                             {{ $message }}
 
                                         </div>
-
                                     @enderror
 
                                 </div>
@@ -652,10 +622,7 @@
 
                                 <div class="reject-submit">
 
-                                    <button
-                                        type="submit"
-                                        class="reject-button"
-                                    >
+                                    <button type="submit" class="reject-button">
 
                                         <i class="bi bi-x-circle"></i>
 
@@ -670,14 +637,30 @@
                         </div>
 
                     </div>
+                @else
+                    {{-- DIFFERENT DEPARTMENT NOTICE --}}
+                    <div class="department-restriction-notice">
 
+                        <div class="department-restriction-icon">
+                            <i class="bi bi-shield-lock-fill"></i>
+                        </div>
+
+                        <div class="department-restriction-content">
+                            <h4>Approval Restricted</h4>
+
+                            <p>
+                                This thesis request is associated with another department. You are not authorized to
+                                approve or reject this request, as it falls outside your departmental
+                                responsibility.
+                            </p>
+                        </div>
+
+                    </div>
                 @endif
 
 
             </div>
-
         @else
-
             {{-- =====================================================
                 EMPTY STATE
             ====================================================== --}}
@@ -708,7 +691,6 @@
 
 
     <style>
-
         /* =========================================================
            VARIABLES
         ========================================================== */
@@ -876,7 +858,7 @@
         }
 
 
-        .request-title-row > i {
+        .request-title-row>i {
 
             flex-shrink: 0;
 
@@ -1486,7 +1468,7 @@
         }
 
 
-        .approve-content > div:last-child {
+        .approve-content>div:last-child {
 
             display: flex;
 
@@ -1622,7 +1604,7 @@
         }
 
 
-        .reject-heading > div:last-child {
+        .reject-heading>div:last-child {
 
             display: flex;
 
@@ -1969,7 +1951,7 @@
         }
 
 
-        [data-bs-theme="dark"] .request-title-row > i {
+        [data-bs-theme="dark"] .request-title-row>i {
 
             color: #ffffff;
         }
@@ -2448,7 +2430,7 @@
             }
 
 
-            .request-title-row > i {
+            .request-title-row>i {
 
                 font-size: 1rem;
             }
@@ -2677,6 +2659,121 @@
 
         }
 
+        /* =========================================================
+        DIFFERENT DEPARTMENT NOTICE
+        ========================================================= */
+
+        .department-restriction-notice {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding: 16px 18px;
+
+            background: #fff9e6;
+            border: 1px solid #f3df9a;
+            border-radius: 10px;
+        }
+
+
+        /* Icon */
+
+        .department-restriction-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+
+            background: #fff1bd;
+            color: #997404;
+
+            border-radius: 50%;
+
+            font-size: 18px;
+        }
+
+
+        /* Content */
+
+        .department-restriction-content {
+            flex: 1;
+        }
+
+
+        .department-restriction-content h4 {
+            margin: 0 0 4px;
+
+            color: #765b00;
+
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+
+        .department-restriction-content p {
+            margin: 0;
+
+            color: #806d35;
+
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+
+        /* =========================================================
+        DARK MODE
+        ========================================================= */
+
+        [data-bs-theme="dark"] .department-restriction-notice {
+            background: #332d19;
+            border-color: #5a4d22;
+        }
+
+
+        [data-bs-theme="dark"] .department-restriction-icon {
+            background: #4a401d;
+            color: #f5d36b;
+        }
+
+
+        [data-bs-theme="dark"] .department-restriction-content h4 {
+            color: #f5d36b;
+        }
+
+
+        [data-bs-theme="dark"] .department-restriction-content p {
+            color: #c9b978;
+        }
+
+
+        /* =========================================================
+        MOBILE
+        ========================================================= */
+
+        @media (max-width: 767.98px) {
+
+            .department-restriction-notice {
+                align-items: flex-start;
+                padding: 14px;
+            }
+
+            .department-restriction-icon {
+                width: 38px;
+                height: 38px;
+                font-size: 16px;
+            }
+
+            .department-restriction-content h4 {
+                font-size: 13px;
+            }
+
+            .department-restriction-content p {
+                font-size: 12px;
+            }
+        }
     </style>
 
 </x-app-layout>

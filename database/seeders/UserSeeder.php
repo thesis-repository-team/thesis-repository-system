@@ -29,10 +29,16 @@ class UserSeeder extends Seeder
                 'role' => 'hod',
             ],
             [
-                'email' => 'student@gmail.com',
+                'email' => 'student@lifeun.edu.kh',
                 'username' => 'Student',
                 'password' => Hash::make('12345678'),
                 'role' => 'student',
+            ],
+            [
+                'email' => 'guest@gmail.com',
+                'username' => 'Guest',
+                'password' => Hash::make('12345678'),
+                'role' => 'guest',
             ],
         ]);
     }

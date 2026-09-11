@@ -318,6 +318,13 @@
                 background 0.2s ease;
         }
 
+        .form-control::placeholder {
+            color: #9ca3af;
+            /* light gray */
+            opacity: 1;
+            /* ensures full visibility on all browsers */
+        }
+
         .thesis-request-page textarea.form-control {
             min-height: 120px;
 
@@ -874,7 +881,6 @@
             background: #111318;
         }
 
-
         /* =========================================================
            DARK MODE FILE BUTTONS
         ========================================================= */
@@ -899,7 +905,6 @@
             color: var(--tr-primary);
         }
 
-
         /* =========================================================
            DARK MODE REPLACE BUTTON
         ========================================================= */
@@ -914,7 +919,6 @@
 
             color: #ffffff;
         }
-
 
         /* =========================================================
            DARK MODE REMOVE BUTTON
@@ -1235,22 +1239,24 @@
                             {{-- =================================================
                                  AUTHOR NAME
                             ================================================== --}}
+                            <div class="row">
+                                <div class="col-md-6 thesis-form-group">
+                                    <label class="thesis-form-label">
+                                        Author(s) Name
+                                        <span class="thesis-required">*</span>
+                                    </label>
+                                    <input type="text" name="author_name" class="form-control"
+                                        value="{{ old('author_name') }}" required>
+                                </div>
 
-                            <div class="thesis-form-group">
-
-                                <label class="thesis-form-label">
-
-                                    Author(s) Name
-
-                                    <span class="thesis-required">
-                                        *
-                                    </span>
-
-                                </label>
-
-                                <input type="text" name="author_name" class="form-control"
-                                    value="{{ old('author_name') }}" required>
-
+                                <div class="col-md-6 thesis-form-group">
+                                    <label class="thesis-form-label">
+                                        Academic Year
+                                        <span class="thesis-required">*</span>
+                                    </label>
+                                    <input type="text" name="academic_year" class="form-control" placeholder="2025"
+                                        value="{{ old('academic_year') }}" required>
+                                </div>
                             </div>
 
 

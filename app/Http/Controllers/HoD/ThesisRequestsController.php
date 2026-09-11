@@ -12,17 +12,37 @@ use Illuminate\Http\Request;
 
 class ThesisRequestsController extends Controller
 {
-    //
     public function index()
     {
+        $hod = auth()->user()->hod;
+
+        if (!$hod || !$hod->is_active) {
+            abort(403);
+        }
+
         $thesisRequests = ThesisRequest::with([
             'user',
             'department',
             'thesis.publishedBy'
-        ])->latest()->get();
+        ])
+            ->where('department_id', $hod->department_id)
+            ->latest()
+            ->get();
 
         return view('hod.thesis_requests.index', compact('thesisRequests'));
     }
+
+    //
+    // public function index()
+    // {
+    //     $thesisRequests = ThesisRequest::with([
+    //         'user',
+    //         'department',
+    //         'thesis.publishedBy'
+    //     ])->latest()->get();
+
+    //     return view('hod.thesis_requests.index', compact('thesisRequests'));
+    // }
 
     public function show(ThesisRequest $thesisRequest)
     {
@@ -135,7 +155,7 @@ class ThesisRequestsController extends Controller
 
         return redirect()->route('hod.dashboard')->with('success', 'Request approved and thesis created.');
     }
-    
+
     public function rejectRequest(Request $request, ThesisRequest $thesisRequest)
     {
         $request->validate([

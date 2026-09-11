@@ -156,25 +156,29 @@
                 {{-- =================================================
                 ACTIONS
                 ================================================== --}}
-                
                 <div class="student-form-actions">
-                    
-                    <p><strong>Upload Permission</strong> is used to control whether a student can request to upload thesis documents.</p>
-                    <a href="{{ route('hod.students.index') }}" class="student-cancel-button">
 
-                        Cancel
+    <div class="student-form-note">
+        <i class="bi bi-info-circle"></i>
+        <span>
+            <strong>Upload Permission</strong> controls whether this student can request to upload thesis documents.
+        </span>
+    </div>
 
-                    </a>
+    <div class="student-form-buttons">
 
-                    <button type="submit" class="student-save-button">
+        <a href="{{ route('hod.students.index') }}" class="student-cancel-button">
+            Cancel
+        </a>
 
-                        <i class="bi bi-check-lg"></i>
+        <button type="submit" class="student-save-button">
+            <i class="bi bi-check-lg"></i>
+            Save Student
+        </button>
 
-                        Save Student
+    </div>
 
-                    </button>
-
-                </div>
+</div>
 
             </form>
 
@@ -481,28 +485,78 @@
         /* =========================================================
        ACTIONS
     ========================================================== */
+.student-form-actions {
+    grid-column: 1 / -1;
 
-        .student-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-            grid-column: 1 / -1;
+    width: 100%;
 
-            display: flex;
+    padding-top: 1rem;
 
-            align-items: center;
+    border-top: 1px solid #eeeeee;
 
-            justify-content: flex-end;
+    box-sizing: border-box;
+}
 
-            gap: .6rem;
 
-            width: 100%;
+/* =========================================================
+   NOTE
+========================================================= */
 
-            padding-top: 1rem;
+.student-form-note {
 
-            border-top: 1px solid #eeeeee;
+    display: flex;
+    align-items: flex-start;
 
-            box-sizing: border-box;
+    gap: .5rem;
 
-        }
+    max-width: 55%;
+
+    color: #777777;
+
+    font-size: .7rem;
+
+    line-height: 1.5;
+}
+
+.student-form-note i {
+
+    margin-top: .1rem;
+
+    color: #999999;
+
+    font-size: .8rem;
+
+    flex-shrink: 0;
+}
+
+.student-form-note strong {
+
+    color: #555555;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.student-form-buttons {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: .6rem;
+
+    flex-shrink: 0;
+}
 
 
         /* =========================================================

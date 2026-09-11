@@ -61,7 +61,7 @@ class ThesisRequestsController extends Controller
             'title' => 'required|string|max:255',
             'abstract' => 'nullable|string',
             'description' => 'nullable|string',
-            'academic_year' => 'nullable|year',
+            'academic_year' => 'required|integer|digits:4',
             'pdf_file' => 'required|file|mimes:pdf|max:20480', // 20MB max
         ]);
 
@@ -116,7 +116,7 @@ class ThesisRequestsController extends Controller
             return redirect()->back()->with('error', 'File not found.');
         }
 
-        return response()->file(storage_path('app/public/'.$file->pdf_file));
+        return response()->file(storage_path('app/public/' . $file->pdf_file));
     }
 
     // For Student rejected thesis
@@ -169,7 +169,7 @@ class ThesisRequestsController extends Controller
             'author_name' => 'required|string|max:255',
             'abstract' => 'nullable|string',
             'description' => 'nullable|string',
-            'academic_year' => 'nullable|year',
+            'academic_year' => 'nullable|integer|digits:4',
             'thesis_file' => 'nullable|file|mimes:pdf,doc,docx|max:20480',
         ]);
 

@@ -155,7 +155,7 @@
 
                 <div class="admin-student-card-action">
 
-                    <a href="{{ route('admin.students.edit', $student->id) }}" class="admin-student-edit-button">
+                    <a href="{{ route('hod.students.edit', $student->id) }}" class="admin-student-edit-button">
 
                         <i class="bi bi-pencil-square"></i>
 
