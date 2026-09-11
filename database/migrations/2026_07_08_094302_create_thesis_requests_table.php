@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('abstract');
             $table->text('description');
+            $table->year('academic_year');
             $table->string('pdf_file')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->foreignId('reviewed_by')->nullable()->constrained('users')->nullOnDelete();

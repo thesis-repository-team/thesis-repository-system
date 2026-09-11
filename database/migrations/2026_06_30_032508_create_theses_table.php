@@ -19,10 +19,11 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->foreignId('department_id')->constrained('departments', 'id')->cascadeOnDelete();
             $table->string('author_name');
+            $table->year('academic_year'); // acdemic year of thesis
 
             // theses will be posted by "hods" or "student"
-            // so using "User" table instead of "hods" table or "student" table 
-            // note: "User" table contain all user roles (admin, hod, student) 
+            // so using "User" table instead of "hods" table or "student" table
+            // note: "User" table contain all user roles (admin, hod, student)
             // student name will be here if they their request to upload is approved by admin or hod.
             // cannot be null. admin & hod can upload.
             $table->foreignId('submitted_by')->constrained('users')->cascadeOnDelete();

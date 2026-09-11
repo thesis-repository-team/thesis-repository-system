@@ -33,10 +33,8 @@
                 FORM
             ========================================================== --}}
 
-            <form action="{{ route('admin.thesis.store') }}"
-                  method="POST"
-                  enctype="multipart/form-data"
-                  class="thesis-create-form">
+            <form action="{{ route('admin.thesis.store') }}" method="POST" enctype="multipart/form-data"
+                class="thesis-create-form">
 
                 @csrf
 
@@ -51,15 +49,9 @@
                         Title
                     </label>
 
-                    <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        value="{{ old('title') }}"
+                    <input type="text" id="title" name="title" value="{{ old('title') }}"
                         class="thesis-form-control @error('title') is-invalid @enderror"
-                        placeholder="Enter thesis title"
-                        required
-                    >
+                        placeholder="Enter thesis title" required>
 
                     @error('title')
                         <div class="thesis-error">
@@ -80,15 +72,9 @@
                         Author Name
                     </label>
 
-                    <input
-                        type="text"
-                        id="author_name"
-                        name="author_name"
-                        value="{{ old('author_name') }}"
+                    <input type="text" id="author_name" name="author_name" value="{{ old('author_name') }}"
                         class="thesis-form-control @error('author_name') is-invalid @enderror"
-                        placeholder="Enter author name"
-                        required
-                    >
+                        placeholder="Enter author name" required>
 
                     @error('author_name')
                         <div class="thesis-error">
@@ -109,26 +95,19 @@
                         Department
                     </label>
 
-                    <select
-                        id="department_id"
-                        name="department_id"
+                    <select id="department_id" name="department_id"
                         class="thesis-form-control thesis-form-select @error('department_id') is-invalid @enderror"
-                        required
-                    >
+                        required>
 
                         <option value="">
                             Select Department
                         </option>
 
                         @foreach ($departments as $department)
-
-                            <option
-                                value="{{ $department->id }}"
-                                {{ old('department_id') == $department->id ? 'selected' : '' }}
-                            >
+                            <option value="{{ $department->id }}"
+                                {{ old('department_id') == $department->id ? 'selected' : '' }}>
                                 {{ $department->name }}
                             </option>
-
                         @endforeach
 
                     </select>
@@ -142,6 +121,23 @@
                 </div>
 
 
+                <div class="thesis-form-group">
+                    <label for="academic_year" class="thesis-form-label">
+                        Academic Year
+                    </label>
+
+                    <input type="number" id="academic_year" name="academic_year" value="{{ old('academic_year') }}"
+                        class="thesis-form-control @error('academic_year') is-invalid @enderror" placeholder="e.g. 2012"
+                        min="1900" max="2100" required>
+
+                    @error('academic_year')
+                        <div class="thesis-error">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                
                 {{-- =====================================================
                     FILE
                 ====================================================== --}}
@@ -152,15 +148,9 @@
                         Thesis File(s)
                     </label>
 
-                    <input
-                        type="file"
-                        id="files"
-                        name="files[]"
+                    <input type="file" id="files" name="files[]"
                         class="thesis-form-control thesis-file-input @error('files') is-invalid @enderror"
-                        accept=".pdf"
-                        multiple
-                        required
-                    >
+                        accept=".pdf" multiple required>
 
                     <small class="thesis-file-help">
                         PDF only. You may upload one or more files.
@@ -191,13 +181,9 @@
                         Abstract
                     </label>
 
-                    <textarea
-                        id="abstract"
-                        name="abstract"
-                        class="thesis-form-control thesis-textarea @error('abstract') is-invalid @enderror"
-                        rows="5"
-                        placeholder="Enter thesis abstract"
-                    >{{ old('abstract') }}</textarea>
+                    <textarea id="abstract" name="abstract"
+                        class="thesis-form-control thesis-textarea @error('abstract') is-invalid @enderror" rows="5"
+                        placeholder="Enter thesis abstract">{{ old('abstract') }}</textarea>
 
                     @error('abstract')
                         <div class="thesis-error">
@@ -218,13 +204,9 @@
                         Description
                     </label>
 
-                    <textarea
-                        id="description"
-                        name="description"
-                        class="thesis-form-control thesis-textarea @error('description') is-invalid @enderror"
-                        rows="5"
-                        placeholder="Enter thesis description"
-                    >{{ old('description') }}</textarea>
+                    <textarea id="description" name="description"
+                        class="thesis-form-control thesis-textarea @error('description') is-invalid @enderror" rows="5"
+                        placeholder="Enter thesis description">{{ old('description') }}</textarea>
 
                     @error('description')
                         <div class="thesis-error">
@@ -243,20 +225,14 @@
 
                     {{-- CANCEL --}}
 
-                    <a
-                        href="{{ route('admin.thesis.index') }}"
-                        class="thesis-cancel-button"
-                    >
+                    <a href="{{ route('admin.thesis.index') }}" class="thesis-cancel-button">
                         Cancel
                     </a>
 
 
                     {{-- CREATE --}}
 
-                    <button
-                        type="submit"
-                        class="thesis-save-button"
-                    >
+                    <button type="submit" class="thesis-save-button">
                         Create
                     </button>
 
@@ -270,7 +246,6 @@
 
 
     <style>
-
         /* =========================================================
            VARIABLES
         ========================================================== */
@@ -348,9 +323,14 @@
 
             width: calc(100% - 250px);
 
+            min-height: 100vh;
+
             padding-top: 118px;
+
             padding-left: 20px;
+
             padding-right: 20px;
+
             padding-bottom: 30px;
 
             box-sizing: border-box;
@@ -359,7 +339,7 @@
 
             color: var(--thesis-text);
 
-            /* background: var(--thesis-page-bg); */
+            background-color: var(--thesis-page-bg);
 
             transition:
                 background-color .25s ease,
@@ -574,7 +554,7 @@
 
             color: var(--thesis-text);
 
-            background: var(--thesis-input-bg);
+            background-color: var(--thesis-input-bg);
 
             border:
                 1px solid var(--thesis-border-soft);
@@ -618,7 +598,7 @@
 
             color: var(--thesis-text);
 
-            background: var(--thesis-input-bg);
+            background-color: var(--thesis-input-bg);
 
             border-color: var(--thesis-purple);
 
@@ -649,23 +629,80 @@
 
             cursor: pointer;
 
+            color: #000000 !important;
+
+            background-color: #fafafa !important;
+
+            color-scheme: light;
+
         }
 
+
+        /* =========================================================
+           SELECT OPTIONS
+        ========================================================== */
 
         .thesis-form-select option {
 
-            color: #000000;
+            color: #000000 !important;
 
-            background: #ffffff;
+            background-color: #ffffff !important;
 
         }
 
 
-        [data-bs-theme="dark"] .thesis-form-select option {
+        /* =========================================================
+           SELECT — DARK MODE
+        ========================================================== */
 
-            color: #ffffff;
+        html[data-bs-theme="dark"] .thesis-form-select {
 
-            background: #181d33;
+            color: #ffffff !important;
+
+            background-color: #20253a !important;
+
+            color-scheme: dark;
+
+            border-color: #343a52;
+
+        }
+
+
+        /* =========================================================
+           SELECT OPTIONS — DARK MODE
+        ========================================================== */
+
+        html[data-bs-theme="dark"] .thesis-form-select option {
+
+            color: #ffffff !important;
+
+            background-color: #181d33 !important;
+
+        }
+
+
+        /* =========================================================
+           SELECT PLACEHOLDER — DARK MODE
+        ========================================================== */
+
+        html[data-bs-theme="dark"] .thesis-form-select:invalid {
+
+            color: #999fb9 !important;
+
+        }
+
+
+        /* =========================================================
+           SELECT — FOCUS DARK MODE
+        ========================================================== */
+
+        html[data-bs-theme="dark"] .thesis-form-select:focus {
+
+            color: #ffffff !important;
+
+            background-color: #20253a !important;
+
+            border-color: var(--thesis-purple);
 
         }
 
@@ -1144,8 +1181,6 @@
             }
 
         }
-
     </style>
-
 
 </x-app-layout>

@@ -3,123 +3,90 @@
 namespace App\Http\Controllers\HoD;
 
 use App\Http\Controllers\Controller;
-use App\Models\Department;
+use App\Models\Hod;
 use App\Models\Student;
 use App\Models\Thesis;
 use App\Models\ThesisRequest;
-use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
 
-        $user = Auth::user();
-
-        $hod = $user->hod;
-
-        if (!$hod) {
-            abort(403, 'HoD profile not found.');
+        if ($user->role !== 'hod') {
+            abort(403);
         }
 
-        // HoD department
-        $departmentId = $hod->department_id;
+        $hod = Hod::with('department')
+            ->where('user_id', $user->id)
+            ->firstOrFail();
 
-        if (!$departmentId) {
-            abort(403, 'HoD department is not assigned.');
+        $department = $hod->department;
+
+        if (! $department) {
+            abort(404, 'HoD department not found.');
         }
 
-        $department = Department::find($departmentId);
+        $departmentId = $department->id;
 
-        if (!$department) {
-            abort(403, 'Department not found.');
-        }
-
-        $studentsCount = Student::where(
-            'department_id',
-            $departmentId
-        )->count();
-
-
-        $thesesCount = Thesis::where(
-            'department_id',
-            $departmentId
-        )->count();
-
-
-        $pendingRequestsCount = ThesisRequest::where(
-            'department_id',
-            $departmentId
-        )
-            ->whereNull('is_approved')
+        $pendingRequestsCount = ThesisRequest::where('department_id', $departmentId)
+            ->where('status', 'pending')
             ->count();
 
-
-        $approvedThesisCount = ThesisRequest::where(
-            'department_id',
-            $departmentId
-        )
-            ->where('is_approved', 1)
+        $approvedThesisCount = ThesisRequest::where('department_id', $departmentId)
+            ->where('status', 'approved')
             ->count();
 
-
-        $rejectedRequestsCount = ThesisRequest::where(
-            'department_id',
-            $departmentId
-        )
-            ->where('is_approved', 0)
+        $rejectedRequestsCount = ThesisRequest::where('department_id', $departmentId)
+            ->where('status', 'rejected')
             ->count();
 
-
-        $publishedThesisCount = Thesis::where(
-            'department_id',
-            $departmentId
-        )
-            ->where('is_approved', 1)
+        $thesesCount = Thesis::where('department_id', $departmentId)
             ->count();
 
-        $recentStudents = Student::where(
-            'department_id',
-            $departmentId
-        )
-            ->with('user')
+        $publishedThesisCount = Thesis::where('department_id', $departmentId)
+            ->count();
+
+        $studentsCount = Student::where('department_id', $departmentId)
+            ->count();
+
+        $recentRequests = ThesisRequest::with([
+            'user',
+            'thesis',
+        ])
+            ->where('department_id', $departmentId)
             ->latest()
             ->take(5)
             ->get();
 
-
-        $recentRequests = ThesisRequest::where(
-            'department_id',
-            $departmentId
-        )
-            ->with([
-                'user',
-                'thesis'
-            ])
+        $recentTheses = Thesis::with([
+            'student',
+            'author',
+            'submittedBy',
+        ])
+            ->where('department_id', $departmentId)
             ->latest()
             ->take(5)
             ->get();
 
-
-        $recentTheses = Thesis::where(
-            'department_id',
-            $departmentId
-        )
+        $recentStudents = Student::with('user')
+            ->where('department_id', $departmentId)
             ->latest()
             ->take(5)
             ->get();
 
         return view('hod.dashboard', compact(
             'department',
-            'studentsCount',
-            'thesesCount',
             'pendingRequestsCount',
             'approvedThesisCount',
             'rejectedRequestsCount',
+            'thesesCount',
+            'studentsCount',
             'publishedThesisCount',
-            'recentStudents',
             'recentRequests',
-            'recentTheses'
+            'recentTheses',
+            'recentStudents'
         ));
     }
 }

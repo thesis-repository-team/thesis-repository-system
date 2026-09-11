@@ -2151,8 +2151,7 @@
             color:
                 var(--student-text-secondary);
 
-            background:
-                var(--student-input-bg);
+            background: #E9E2FF;
 
             border-bottom:
                 1px solid var(--student-border-soft);

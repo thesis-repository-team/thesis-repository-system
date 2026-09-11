@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Student\DashboardController;
+use App\Http\Controllers\Student\SavedThesisController as StudentSaveThesisController;
 use App\Http\Controllers\Student\ThesisController as StudentThesisController;
 use App\Http\Controllers\Student\ThesisRequestsController as StudentThesisRequestsController;
-use App\Http\Controllers\Student\SavedThesisController as StudentSaveThesisController;
 use Illuminate\Support\Facades\Route;
 
 // Student & Guest routes (shared routes)
@@ -40,7 +40,7 @@ Route::prefix('student')->name('student.')->middleware(['auth', 'role:student,gu
 
         // Resubmit Rejected Thesis
         Route::put('/thesis/{thesisRequest}/resubmit', [StudentThesisRequestsController::class, 'resubmit'])->name('thesis_requests.resubmit');
-    });
 
-    Route::get('/thesis/{thesis}', [StudentThesisController::class, 'show'])->name('thesis.show');
+        Route::get('/thesis/{thesis}', [StudentThesisController::class, 'show'])->name('thesis.show');
+    });
 });

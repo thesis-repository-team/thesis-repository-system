@@ -26,6 +26,8 @@ Route::prefix('hod')->name('hod.')->middleware(['auth', 'role:hod'])->group(func
     Route::get('/thesis/my-theses', [HoDThesisController::class, 'myTheses'])->name('thesis.my-theses');
     Route::get('/thesis/search', [HoDThesisController::class, 'search'])->name('thesis.search');
     Route::get('/thesis/download/{file}', [HoDThesisController::class, 'downloadPDF'])->name('thesis.download');
+    Route::get('/thesis/{thesis}', [HoDThesisController::class, 'show'])
+    ->name('thesis.show');
 
     // Thesis Requests Routes
     Route::get('/thesis-requests/index', [HoDThesisRequestsController::class, 'index'])->name('thesis_requests.index');

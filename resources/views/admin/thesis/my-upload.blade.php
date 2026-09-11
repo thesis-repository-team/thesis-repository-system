@@ -65,10 +65,7 @@
 
                 <div class="thesis-view-toggle">
 
-                    <button
-                        type="button"
-                        id="thesisCardViewButton"
-                        class="thesis-view-button is-active"
+                    <button type="button" id="thesisCardViewButton" class="thesis-view-button is-active"
                         aria-label="Card View">
 
                         <i class="bi bi-grid-3x3-gap"></i>
@@ -80,10 +77,7 @@
                     </button>
 
 
-                    <button
-                        type="button"
-                        id="thesisTableViewButton"
-                        class="thesis-view-button"
+                    <button type="button" id="thesisTableViewButton" class="thesis-view-button"
                         aria-label="Table View">
 
                         <i class="bi bi-table"></i>
@@ -113,7 +107,6 @@
                 <div class="thesis-partial-card-results">
 
                     @forelse ($theses as $thesis)
-
                         <div class="admin-thesis-card">
 
                             {{-- =================================================
@@ -163,8 +156,7 @@
 
                                         <span class="admin-thesis-published-value">
 
-                                            {{ optional($thesis->publishedBy)->username
-                                                ?? (optional($thesis->publishedBy)->full_name ?? '—') }}
+                                            {{ optional($thesis->publishedBy)->username ?? (optional($thesis->publishedBy)->full_name ?? '—') }}
 
                                         </span>
 
@@ -189,9 +181,7 @@
 
                                         <span class="admin-thesis-published-value">
 
-                                            {{ $thesis->published_at
-                                                ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y')
-                                                : '—' }}
+                                            {{ $thesis->published_at ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y') : '—' }}
 
                                         </span>
 
@@ -299,8 +289,7 @@
 
                                     <span class="admin-thesis-submitted-value">
 
-                                        {{ optional($thesis->submittedBy)->username
-                                            ?? (optional($thesis->submittedBy)->full_name ?? '—') }}
+                                        {{ optional($thesis->submittedBy)->username ?? (optional($thesis->submittedBy)->full_name ?? '—') }}
 
                                     </span>
 
@@ -320,8 +309,7 @@
                                     EDIT
                                 ================================================== --}}
 
-                                <a
-                                    href="{{ route('admin.thesis.edit', $thesis->id) }}"
+                                <a href="{{ route('admin.thesis.edit', $thesis->id) }}"
                                     class="admin-thesis-action admin-thesis-edit">
 
                                     <i class="bi bi-pencil-square"></i>
@@ -337,9 +325,7 @@
                                     DELETE
                                 ================================================== --}}
 
-                                <form
-                                    action="{{ route('admin.thesis.destroy', $thesis->id) }}"
-                                    method="POST"
+                                <form action="{{ route('admin.thesis.destroy', $thesis->id) }}" method="POST"
                                     class="admin-thesis-delete-form"
                                     onsubmit="return confirm('Are you sure you want to delete this thesis?');">
 
@@ -347,9 +333,7 @@
 
                                     @method('DELETE')
 
-                                    <button
-                                        type="submit"
-                                        class="admin-thesis-action admin-thesis-delete">
+                                    <button type="submit" class="admin-thesis-action admin-thesis-delete">
 
                                         <i class="bi bi-trash3"></i>
 
@@ -384,7 +368,6 @@
                             </p>
 
                         </div>
-
                     @endforelse
 
                 </div>
@@ -448,7 +431,6 @@
                             <tbody>
 
                                 @forelse ($theses as $thesis)
-
                                     <tr>
 
                                         {{-- NUMBER --}}
@@ -504,8 +486,7 @@
 
                                         <td>
 
-                                            {{ optional($thesis->submittedBy)->username
-                                                ?? (optional($thesis->submittedBy)->full_name ?? '—') }}
+                                            {{ optional($thesis->submittedBy)->username ?? (optional($thesis->submittedBy)->full_name ?? '—') }}
 
                                         </td>
 
@@ -514,8 +495,7 @@
 
                                         <td>
 
-                                            {{ optional($thesis->publishedBy)->username
-                                                ?? (optional($thesis->publishedBy)->full_name ?? '—') }}
+                                            {{ optional($thesis->publishedBy)->username ?? (optional($thesis->publishedBy)->full_name ?? '—') }}
 
                                         </td>
 
@@ -524,9 +504,7 @@
 
                                         <td>
 
-                                            {{ $thesis->published_at
-                                                ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y')
-                                                : '—' }}
+                                            {{ $thesis->published_at ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y') : '—' }}
 
                                         </td>
 
@@ -540,10 +518,8 @@
 
                                                 {{-- EDIT --}}
 
-                                                <a
-                                                    href="{{ route('admin.thesis.edit', $thesis->id) }}"
-                                                    class="thesis-table-action thesis-table-edit"
-                                                    title="Edit"
+                                                <a href="{{ route('admin.thesis.edit', $thesis->id) }}"
+                                                    class="thesis-table-action thesis-table-edit" title="Edit"
                                                     aria-label="Edit">
 
                                                     <i class="bi bi-pencil-square"></i>
@@ -553,20 +529,16 @@
 
                                                 {{-- DELETE --}}
 
-                                                <form
-                                                    action="{{ route('admin.thesis.destroy', $thesis->id) }}"
-                                                    method="POST"
-                                                    class="thesis-table-delete-form"
+                                                <form action="{{ route('admin.thesis.destroy', $thesis->id) }}"
+                                                    method="POST" class="thesis-table-delete-form"
                                                     onsubmit="return confirm('Are you sure you want to delete this thesis?');">
 
                                                     @csrf
 
                                                     @method('DELETE')
 
-                                                    <button
-                                                        type="submit"
-                                                        class="thesis-table-action thesis-table-delete"
-                                                        title="Delete"
+                                                    <button type="submit"
+                                                        class="thesis-table-action thesis-table-delete" title="Delete"
                                                         aria-label="Delete">
 
                                                         <i class="bi bi-trash3"></i>
@@ -585,9 +557,7 @@
 
                                     <tr>
 
-                                        <td
-                                            colspan="9"
-                                            class="thesis-table-empty">
+                                        <td colspan="9" class="thesis-table-empty">
 
                                             <strong>
                                                 No Thesis Found
@@ -600,7 +570,6 @@
                                         </td>
 
                                     </tr>
-
                                 @endforelse
 
                             </tbody>
@@ -623,8 +592,7 @@
     ============================================================= --}}
 
     <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
             let searchTimeout = null;
 
@@ -752,7 +720,7 @@
 
                 thesisCardViewButton.addEventListener(
                     'click',
-                    function () {
+                    function() {
 
                         setThesisView('cards');
 
@@ -766,7 +734,7 @@
 
                 thesisTableViewButton.addEventListener(
                     'click',
-                    function () {
+                    function() {
 
                         setThesisView('table');
 
@@ -787,9 +755,9 @@
 
 
             setThesisView(
-                savedThesisView === 'table'
-                    ? 'table'
-                    : 'cards'
+                savedThesisView === 'table' ?
+                'table' :
+                'cards'
             );
 
 
@@ -834,16 +802,16 @@
                 if (window.innerWidth <= 767.98) {
 
                     currentSearch =
-                        mobileSearchInput
-                            ? mobileSearchInput.value.trim()
-                            : '';
+                        mobileSearchInput ?
+                        mobileSearchInput.value.trim() :
+                        '';
 
                 } else {
 
                     currentSearch =
-                        searchInput
-                            ? searchInput.value.trim()
-                            : '';
+                        searchInput ?
+                        searchInput.value.trim() :
+                        '';
 
                 }
 
@@ -853,114 +821,108 @@
 
                         search: currentSearch,
 
-                        department:
-                            departmentFilter
-                                ? departmentFilter.value
-                                : '',
+                        department: departmentFilter ?
+                            departmentFilter.value :
+                            '',
 
-                        year:
-                            yearFilter
-                                ? yearFilter.value
-                                : ''
+                        year: yearFilter ?
+                            yearFilter.value :
+                            ''
 
                     });
 
 
                 fetch(
-                    "{{ route('admin.thesis.search') }}?" +
-                    query.toString(),
-                    {
-                        signal:
-                            currentController.signal,
+                        "{{ route('admin.thesis.search') }}?" +
+                        query.toString(), {
+                            signal: currentController.signal,
 
-                        headers: {
+                            headers: {
 
-                            'X-Requested-With':
-                                'XMLHttpRequest',
+                                'X-Requested-With': 'XMLHttpRequest',
 
-                            'Accept':
-                                'text/html'
+                                'Accept': 'text/html'
+
+                            }
+
+                        }
+                    )
+
+                    .then(function(response) {
+
+                        if (!response.ok) {
+
+                            throw new Error(
+                                'Network response failed'
+                            );
 
                         }
 
-                    }
-                )
 
-                .then(function (response) {
+                        return response.text();
 
-                    if (!response.ok) {
+                    })
 
-                        throw new Error(
-                            'Network response failed'
-                        );
+                    .then(function(html) {
 
-                    }
+                        if (thesisResultsContainer) {
 
-
-                    return response.text();
-
-                })
-
-                .then(function (html) {
-
-                    if (thesisResultsContainer) {
-
-                        thesisResultsContainer.innerHTML =
-                            html;
+                            thesisResultsContainer.innerHTML =
+                                html;
 
 
-                        const currentView =
-                            localStorage.getItem(
-                                'adminThesisView'
+                            const currentView =
+                                localStorage.getItem(
+                                    'adminThesisView'
+                                );
+
+
+                            setThesisView(
+                                currentView === 'table' ?
+                                'table' :
+                                'cards'
                             );
 
+                        }
 
-                        setThesisView(
-                            currentView === 'table'
-                                ? 'table'
-                                : 'cards'
-                        );
+                    })
 
-                    }
+                    .catch(function(error) {
 
-                })
+                        if (
+                            error.name !==
+                            'AbortError'
+                        ) {
 
-                .catch(function (error) {
+                            console.error(
+                                'Error loading thesis records:',
+                                error
+                            );
 
-                    if (
-                        error.name !==
-                        'AbortError'
-                    ) {
+                        }
 
-                        console.error(
-                            'Error loading thesis records:',
-                            error
-                        );
+                    })
 
-                    }
+                    .finally(function() {
 
-                })
+                        if (spinner) {
 
-                .finally(function () {
+                            spinner.classList.add(
+                                'd-none'
+                            );
 
-                    if (spinner) {
-
-                        spinner.classList.add(
-                            'd-none'
-                        );
-
-                    }
+                        }
 
 
-                    if (thesisResultsContainer) {
+                        if (thesisResultsContainer) {
 
-                        thesisResultsContainer.classList.remove(
-                            'is-loading'
-                        );
+                            thesisResultsContainer.classList.remove(
+                                'is-loading'
+                            );
 
-                    }
+                        }
 
-                });
+                    });
 
             }
 
@@ -973,7 +935,7 @@
 
                 searchInput.addEventListener(
                     'input',
-                    function () {
+                    function() {
 
                         clearTimeout(
                             searchTimeout
@@ -1000,7 +962,7 @@
 
                 mobileSearchInput.addEventListener(
                     'input',
-                    function () {
+                    function() {
 
                         clearTimeout(
                             searchTimeout
@@ -1110,7 +1072,7 @@
 
                 mobileSearchToggle.addEventListener(
                     'click',
-                    function () {
+                    function() {
 
                         if (!mobileSearchPanel) {
                             return;
@@ -1159,7 +1121,7 @@
 
 
                             setTimeout(
-                                function () {
+                                function() {
 
                                     if (mobileSearchInput) {
 
@@ -1185,7 +1147,7 @@
 
             document.addEventListener(
                 'keydown',
-                function (event) {
+                function(event) {
 
                     if (
                         event.key === 'Escape' &&
@@ -1226,7 +1188,7 @@
 
             window.addEventListener(
                 'resize',
-                function () {
+                function() {
 
                     if (window.innerWidth > 767.98) {
 
@@ -1259,7 +1221,6 @@
             );
 
         });
-
     </script>
 
 
@@ -1268,7 +1229,6 @@
     ============================================================= --}}
 
     <style>
-
         /* =========================================================
            COLOR SYSTEM
         ========================================================== */
@@ -1774,16 +1734,14 @@
         }
 
 
-        .thesis-results-container.table-mode
-        .thesis-partial-card-results {
+        .thesis-results-container.table-mode .thesis-partial-card-results {
 
             display: none;
 
         }
 
 
-        .thesis-results-container.table-mode
-        .thesis-partial-table-results {
+        .thesis-results-container.table-mode .thesis-partial-table-results {
 
             display: block;
 
@@ -1840,8 +1798,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .admin-thesis-card:hover {
+        [data-bs-theme="dark"] .admin-thesis-card:hover {
 
             border-color:
                 #51447A;
@@ -1940,8 +1897,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .admin-thesis-card-title {
+        [data-bs-theme="dark"] .admin-thesis-card-title {
 
             color: #FFFFFF;
 
@@ -2081,8 +2037,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .admin-thesis-published {
+        [data-bs-theme="dark"] .admin-thesis-published {
 
             background: #20253A;
 
@@ -2091,8 +2046,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .admin-thesis-published-icon {
+        [data-bs-theme="dark"] .admin-thesis-published-icon {
 
             color: #C4B5FD;
 
@@ -2166,8 +2120,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .admin-thesis-detail-icon {
+        [data-bs-theme="dark"] .admin-thesis-detail-icon {
 
             color: #C4B5FD;
 
@@ -2668,8 +2621,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .thesis-table thead th {
+        [data-bs-theme="dark"] .thesis-table thead th {
 
             color:
                 #D8CCFF;
@@ -2735,14 +2687,13 @@
 
         .thesis-table tbody tr:hover td {
 
-            background:
-                var(--thesis-purple-light);
+            background: #fafafa;
+
 
         }
 
 
-        [data-bs-theme="dark"]
-        .thesis-table tbody tr:hover td {
+        [data-bs-theme="dark"] .thesis-table tbody tr:hover td {
 
             background:
                 #20253A;
@@ -2798,8 +2749,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .thesis-table-title-text {
+        [data-bs-theme="dark"] .thesis-table-title-text {
 
             color: #FFFFFF;
 
@@ -2986,8 +2936,7 @@
            DARK MODE - ACTIONS
         ========================================================== */
 
-        [data-bs-theme="dark"]
-        .admin-thesis-edit {
+        [data-bs-theme="dark"] .admin-thesis-edit {
 
             color:
                 #60A5FA;
@@ -2998,8 +2947,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .admin-thesis-edit:hover {
+        [data-bs-theme="dark"] .admin-thesis-edit:hover {
 
             color: #FFFFFF;
 
@@ -3012,8 +2960,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .admin-thesis-delete {
+        [data-bs-theme="dark"] .admin-thesis-delete {
 
             color:
                 #F87171;
@@ -3024,8 +2971,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .admin-thesis-delete:hover {
+        [data-bs-theme="dark"] .admin-thesis-delete:hover {
 
             color: #FFFFFF;
 
@@ -3038,8 +2984,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .thesis-table-edit {
+        [data-bs-theme="dark"] .thesis-table-edit {
 
             color:
                 #60A5FA;
@@ -3050,8 +2995,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .thesis-table-edit:hover {
+        [data-bs-theme="dark"] .thesis-table-edit:hover {
 
             color: #FFFFFF;
 
@@ -3064,8 +3008,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .thesis-table-delete {
+        [data-bs-theme="dark"] .thesis-table-delete {
 
             color:
                 #F87171;
@@ -3076,8 +3019,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .thesis-table-delete:hover {
+        [data-bs-theme="dark"] .thesis-table-delete:hover {
 
             color: #FFFFFF;
 
@@ -3791,7 +3733,6 @@
             }
 
         }
-
     </style>
 
 </x-app-layout>

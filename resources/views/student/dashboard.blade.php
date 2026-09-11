@@ -1,8 +1,4 @@
 <x-app-layout>
-<<<<<<< HEAD
-=======
-
->>>>>>> main
     <div class="dashboard-page">
 
         <div class="dashboard-content">

@@ -29,12 +29,8 @@
                 FORM
             ================================================== --}}
 
-            <form
-                action="{{ route('admin.thesis.update', $thesis) }}"
-                method="POST"
-                enctype="multipart/form-data"
-                class="thesis-edit-form"
-            >
+            <form action="{{ route('admin.thesis.update', $thesis) }}" method="POST" enctype="multipart/form-data"
+                class="thesis-edit-form">
 
                 @csrf
                 @method('PUT')
@@ -46,22 +42,13 @@
 
                 <div class="thesis-edit-group">
 
-                    <label
-                        for="title"
-                        class="thesis-edit-label"
-                    >
+                    <label for="title" class="thesis-edit-label">
                         Title
                     </label>
 
-                    <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        value="{{ old('title', $thesis->title) }}"
+                    <input type="text" id="title" name="title" value="{{ old('title', $thesis->title) }}"
                         class="thesis-edit-control @error('title') is-invalid @enderror"
-                        placeholder="Enter thesis title"
-                        required
-                    >
+                        placeholder="Enter thesis title" required>
 
                     @error('title')
                         <div class="thesis-edit-error">
@@ -78,24 +65,35 @@
 
                 <div class="thesis-edit-group">
 
-                    <label
-                        for="author_name"
-                        class="thesis-edit-label"
-                    >
+                    <label for="author_name" class="thesis-edit-label">
                         Author Name
                     </label>
 
-                    <input
-                        type="text"
-                        id="author_name"
-                        name="author_name"
+                    <input type="text" id="author_name" name="author_name"
                         value="{{ old('author_name', $thesis->author_name) }}"
                         class="thesis-edit-control @error('author_name') is-invalid @enderror"
-                        placeholder="Enter author name"
-                        required
-                    >
+                        placeholder="Enter author name" required>
 
                     @error('author_name')
+                        <div class="thesis-edit-error">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
+                </div>
+
+                <div class="thesis-edit-group">
+
+                    <label for="academic_year" class="thesis-edit-label">
+                        Academic Year
+                    </label>
+
+                    <input type="number" id="academic_year" name="academic_year"
+                        value="{{ old('academic_year', $thesis->academic_year) }}"
+                        class="thesis-edit-control @error('academic_year') is-invalid @enderror" placeholder="e.g. 2012"
+                        min="1900" max="2100">
+
+                    @error('academic_year')
                         <div class="thesis-edit-error">
                             {{ $message }}
                         </div>
@@ -110,19 +108,13 @@
 
                 <div class="thesis-edit-group thesis-edit-full">
 
-                    <label
-                        for="abstract"
-                        class="thesis-edit-label"
-                    >
+                    <label for="abstract" class="thesis-edit-label">
                         Abstract
                     </label>
 
-                    <textarea
-                        id="abstract"
-                        name="abstract"
+                    <textarea id="abstract" name="abstract"
                         class="thesis-edit-control thesis-edit-textarea @error('abstract') is-invalid @enderror"
-                        placeholder="Enter thesis abstract"
-                    >{{ old('abstract', $thesis->abstract) }}</textarea>
+                        placeholder="Enter thesis abstract">{{ old('abstract', $thesis->abstract) }}</textarea>
 
                     @error('abstract')
                         <div class="thesis-edit-error">
@@ -139,19 +131,13 @@
 
                 <div class="thesis-edit-group thesis-edit-full">
 
-                    <label
-                        for="description"
-                        class="thesis-edit-label"
-                    >
+                    <label for="description" class="thesis-edit-label">
                         Description
                     </label>
 
-                    <textarea
-                        id="description"
-                        name="description"
+                    <textarea id="description" name="description"
                         class="thesis-edit-control thesis-edit-textarea @error('description') is-invalid @enderror"
-                        placeholder="Enter thesis description"
-                    >{{ old('description', $thesis->description) }}</textarea>
+                        placeholder="Enter thesis description">{{ old('description', $thesis->description) }}</textarea>
 
                     @error('description')
                         <div class="thesis-edit-error">
@@ -178,7 +164,6 @@
                         <div class="thesis-current-files">
 
                             @foreach ($thesis->files as $file)
-
                                 <div class="thesis-current-file">
 
                                     <div class="thesis-file-name">
@@ -192,22 +177,16 @@
                                     </div>
 
 
-                                    <a
-                                        href="{{ asset('storage/' . $file->file_path) }}"
-                                        target="_blank"
-                                        class="thesis-view-button"
-                                    >
+                                    <a href="{{ asset('storage/' . $file->file_path) }}" target="_blank"
+                                        class="thesis-view-button">
                                         View
                                     </a>
 
                                 </div>
-
                             @endforeach
 
                         </div>
-
                     @else
-
                         <div class="thesis-no-file">
                             No file uploaded.
                         </div>
@@ -223,21 +202,13 @@
 
                 <div class="thesis-edit-group thesis-edit-full">
 
-                    <label
-                        for="files"
-                        class="thesis-edit-label"
-                    >
+                    <label for="files" class="thesis-edit-label">
                         Replace Thesis File(s)
                     </label>
 
-                    <input
-                        type="file"
-                        id="files"
-                        name="files[]"
+                    <input type="file" id="files" name="files[]"
                         class="thesis-edit-control thesis-file-input @error('files') is-invalid @enderror"
-                        accept=".pdf"
-                        multiple
-                    >
+                        accept=".pdf" multiple>
 
                     <div class="thesis-file-help">
                         Leave empty to keep the current file(s).
@@ -269,20 +240,14 @@
 
                     {{-- CANCEL --}}
 
-                    <a
-                        href="{{ route('admin.thesis.index') }}"
-                        class="thesis-cancel-button"
-                    >
+                    <a href="{{ route('admin.thesis.index') }}" class="thesis-cancel-button">
                         Cancel
                     </a>
 
 
                     {{-- UPDATE --}}
 
-                    <button
-                        type="submit"
-                        class="thesis-update-button"
-                    >
+                    <button type="submit" class="thesis-update-button">
                         Update Thesis
                     </button>
 
@@ -296,7 +261,6 @@
 
 
     <style>
-
         /* =========================================================
            VARIABLES
         ========================================================== */
@@ -1253,7 +1217,6 @@
             }
 
         }
-
     </style>
 
 </x-app-layout>

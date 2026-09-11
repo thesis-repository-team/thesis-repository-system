@@ -59,6 +59,7 @@ class ThesisRequestsController extends Controller
             'description' => $request->description ?? '',
             'department_id' => $request->department_id,
             'author_name' => $request->author_name,
+            'academic_year' => $request->academic_year,
             'submitted_by' => $request->submitted_by,
             'published_by' => auth()->user()->id,
             'published_at' => now(),

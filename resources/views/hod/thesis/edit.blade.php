@@ -5,8 +5,9 @@
         <div class="thesis-edit-card">
 
             {{-- =================================================
-            FORM HEADER
-        ================================================== --}}
+                FORM HEADER
+            ================================================== --}}
+
             <div class="thesis-edit-header">
 
                 <span class="thesis-edit-overline">
@@ -25,27 +26,42 @@
 
 
             {{-- =================================================
-            FORM
-        ================================================== --}}
-            <form action="{{ route('hod.thesis.update', $thesis) }}" method="POST" enctype="multipart/form-data"
-                class="thesis-edit-form">
+                FORM
+            ================================================== --}}
+
+            <form
+                action="{{ route('hod.thesis.update', $thesis) }}"
+                method="POST"
+                enctype="multipart/form-data"
+                class="thesis-edit-form"
+            >
 
                 @csrf
                 @method('PUT')
 
 
                 {{-- =================================================
-                TITLE
-            ================================================== --}}
+                    TITLE
+                ================================================== --}}
+
                 <div class="thesis-edit-group">
 
-                    <label for="title" class="thesis-edit-label">
+                    <label
+                        for="title"
+                        class="thesis-edit-label"
+                    >
                         Title
                     </label>
 
-                    <input type="text" id="title" name="title" value="{{ old('title', $thesis->title) }}"
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        value="{{ old('title', $thesis->title) }}"
                         class="thesis-edit-control @error('title') is-invalid @enderror"
-                        placeholder="Enter thesis title" required>
+                        placeholder="Enter thesis title"
+                        required
+                    >
 
                     @error('title')
                         <div class="thesis-edit-error">
@@ -57,18 +73,27 @@
 
 
                 {{-- =================================================
-                AUTHOR NAME
-            ================================================== --}}
+                    AUTHOR NAME
+                ================================================== --}}
+
                 <div class="thesis-edit-group">
 
-                    <label for="author_name" class="thesis-edit-label">
+                    <label
+                        for="author_name"
+                        class="thesis-edit-label"
+                    >
                         Author Name
                     </label>
 
-                    <input type="text" id="author_name" name="author_name"
+                    <input
+                        type="text"
+                        id="author_name"
+                        name="author_name"
                         value="{{ old('author_name', $thesis->author_name) }}"
                         class="thesis-edit-control @error('author_name') is-invalid @enderror"
-                        placeholder="Enter author name" required>
+                        placeholder="Enter author name"
+                        required
+                    >
 
                     @error('author_name')
                         <div class="thesis-edit-error">
@@ -78,19 +103,45 @@
 
                 </div>
 
+                <div class="thesis-edit-group">
+
+                    <label for="academic_year" class="thesis-edit-label">
+                        Academic Year
+                    </label>
+
+                    <input type="number" id="academic_year" name="academic_year"
+                        value="{{ old('academic_year', $thesis->academic_year) }}"
+                        class="thesis-edit-control @error('academic_year') is-invalid @enderror" placeholder="e.g. 2012"
+                        min="1900" max="2100">
+
+                    @error('academic_year')
+                        <div class="thesis-edit-error">
+                            {{ $message }}
+                        </div>
+                    @enderror
+
+                </div>
+
 
                 {{-- =================================================
-                ABSTRACT
-            ================================================== --}}
+                    ABSTRACT
+                ================================================== --}}
+
                 <div class="thesis-edit-group thesis-edit-full">
 
-                    <label for="abstract" class="thesis-edit-label">
+                    <label
+                        for="abstract"
+                        class="thesis-edit-label"
+                    >
                         Abstract
                     </label>
 
-                    <textarea id="abstract" name="abstract"
+                    <textarea
+                        id="abstract"
+                        name="abstract"
                         class="thesis-edit-control thesis-edit-textarea @error('abstract') is-invalid @enderror"
-                        placeholder="Enter thesis abstract">{{ old('abstract', $thesis->abstract) }}</textarea>
+                        placeholder="Enter thesis abstract"
+                    >{{ old('abstract', $thesis->abstract) }}</textarea>
 
                     @error('abstract')
                         <div class="thesis-edit-error">
@@ -102,17 +153,24 @@
 
 
                 {{-- =================================================
-                DESCRIPTION
-            ================================================== --}}
+                    DESCRIPTION
+                ================================================== --}}
+
                 <div class="thesis-edit-group thesis-edit-full">
 
-                    <label for="description" class="thesis-edit-label">
+                    <label
+                        for="description"
+                        class="thesis-edit-label"
+                    >
                         Description
                     </label>
 
-                    <textarea id="description" name="description"
+                    <textarea
+                        id="description"
+                        name="description"
                         class="thesis-edit-control thesis-edit-textarea @error('description') is-invalid @enderror"
-                        placeholder="Enter thesis description">{{ old('description', $thesis->description) }}</textarea>
+                        placeholder="Enter thesis description"
+                    >{{ old('description', $thesis->description) }}</textarea>
 
                     @error('description')
                         <div class="thesis-edit-error">
@@ -124,19 +182,22 @@
 
 
                 {{-- =================================================
-                CURRENT FILES
-            ================================================== --}}
+                    CURRENT FILES
+                ================================================== --}}
+
                 <div class="thesis-edit-group thesis-edit-full">
 
                     <label class="thesis-edit-label">
                         Current Thesis File(s)
                     </label>
 
+
                     @if ($thesis->files->count())
 
                         <div class="thesis-current-files">
 
                             @foreach ($thesis->files as $file)
+
                                 <div class="thesis-current-file">
 
                                     <div class="thesis-file-name">
@@ -150,19 +211,22 @@
                                     </div>
 
 
-                                    <a href="{{ asset('storage/' . $file->file_path) }}" target="_blank"
-                                        class="thesis-view-button">
-
-                                        <i class="bi bi-eye"></i>
+                                    <a
+                                        href="{{ asset('storage/' . $file->file_path) }}"
+                                        target="_blank"
+                                        class="thesis-view-button"
+                                    >
                                         View
-
                                     </a>
 
                                 </div>
+
                             @endforeach
 
                         </div>
+
                     @else
+
                         <div class="thesis-no-file">
                             No file uploaded.
                         </div>
@@ -173,28 +237,39 @@
 
 
                 {{-- =================================================
-                REPLACE FILES
-            ================================================== --}}
+                    REPLACE FILES
+                ================================================== --}}
+
                 <div class="thesis-edit-group thesis-edit-full">
 
-                    <label for="files" class="thesis-edit-label">
+                    <label
+                        for="files"
+                        class="thesis-edit-label"
+                    >
                         Replace Thesis File(s)
                     </label>
 
-                    <input type="file" id="files" name="files[]"
+                    <input
+                        type="file"
+                        id="files"
+                        name="files[]"
                         class="thesis-edit-control thesis-file-input @error('files') is-invalid @enderror"
-                        accept=".pdf" multiple>
+                        accept=".pdf"
+                        multiple
+                    >
 
                     <div class="thesis-file-help">
                         Leave empty to keep the current file(s).
                         PDF files only.
                     </div>
 
+
                     @error('files')
                         <div class="thesis-edit-error">
                             {{ $message }}
                         </div>
                     @enderror
+
 
                     @error('files.*')
                         <div class="thesis-edit-error">
@@ -206,18 +281,27 @@
 
 
                 {{-- =================================================
-                ACTIONS
-            ================================================== --}}
+                    ACTIONS
+                ================================================== --}}
+
                 <div class="thesis-edit-actions">
 
-                    {{-- CANCEL - NO ICON --}}
-                    <a href="{{ route('hod.thesis.index') }}" class="thesis-cancel-button">
+                    {{-- CANCEL --}}
+
+                    <a
+                        href="{{ route('hod.thesis.index') }}"
+                        class="thesis-cancel-button"
+                    >
                         Cancel
                     </a>
 
 
-                    {{-- UPDATE - NO ICON --}}
-                    <button type="submit" class="thesis-update-button">
+                    {{-- UPDATE --}}
+
+                    <button
+                        type="submit"
+                        class="thesis-update-button"
+                    >
                         Update Thesis
                     </button>
 
@@ -231,34 +315,80 @@
 
 
     <style>
+
         /* =========================================================
-       PAGE
-    ========================================================== */
+           VARIABLES
+        ========================================================== */
 
-        .thesis-edit-wrapper {
+        :root {
 
+            --thesis-purple: #6538d9;
+            --thesis-purple-hover: #5427c4;
+
+            --thesis-blue: #2563eb;
+            --thesis-blue-hover: #1d4ed8;
+
+            --thesis-red: #dc2626;
+            --thesis-red-hover: #b91c1c;
+
+            --thesis-page-bg: #ffffff;
             --thesis-card-bg: #ffffff;
             --thesis-input-bg: #fafafa;
-            --thesis-input-focus-bg: #ffffff;
 
-            --thesis-text: #111111;
+            --thesis-text: #000000;
             --thesis-text-secondary: #333333;
-            --thesis-muted: #777777;
+            --thesis-text-muted: #777777;
 
             --thesis-border: #dddddd;
-            --thesis-divider: #eeeeee;
+            --thesis-border-soft: #eeeeee;
 
-            --thesis-blue: #0d6efd;
-            --thesis-blue-hover: #0b5ed7;
-
-            --thesis-red: #dc3545;
-            --thesis-red-hover: #bb2d3b;
+            --thesis-placeholder: #999999;
 
             --thesis-shadow:
                 0 4px 18px rgba(0, 0, 0, .06);
 
+        }
+
+
+        /* =========================================================
+           DARK MODE
+        ========================================================== */
+
+        [data-bs-theme="dark"] {
+
+            --thesis-page-bg: #101426;
+
+            --thesis-card-bg: #181d33;
+
+            --thesis-input-bg: #20253a;
+
+            --thesis-text: #ffffff;
+
+            --thesis-text-secondary: #eeeef8;
+
+            --thesis-text-muted: #999fb9;
+
+            --thesis-border: #343a52;
+
+            --thesis-border-soft: #292e45;
+
+            --thesis-placeholder: #777f9c;
+
+            --thesis-shadow:
+                0 4px 18px rgba(0, 0, 0, .30);
+
+        }
+
+
+        /* =========================================================
+           PAGE
+        ========================================================== */
+
+        .thesis-edit-wrapper {
+
             margin-left: 250px;
-            width: 86%;
+
+            width: calc(100% - 250px);
 
             padding-top: 118px;
             padding-left: 20px;
@@ -266,21 +396,34 @@
             padding-bottom: 30px;
 
             box-sizing: border-box;
+
             overflow-x: hidden;
 
             color: var(--thesis-text);
+
+            /* background: var(--thesis-page-bg); */
+
+            transition:
+                background-color .25s ease,
+                color .25s ease;
+
         }
 
 
         /* =========================================================
-       CARD
-    ========================================================== */
+           CARD
+        ========================================================== */
 
         .thesis-edit-card {
 
             width: 100%;
 
             background: var(--thesis-card-bg);
+
+            color: var(--thesis-text);
+
+            border:
+                1px solid var(--thesis-border-soft);
 
             border-radius: 12px;
 
@@ -289,12 +432,19 @@
             overflow: hidden;
 
             box-sizing: border-box;
+
+            transition:
+                background-color .25s ease,
+                color .25s ease,
+                border-color .25s ease,
+                box-shadow .25s ease;
+
         }
 
 
         /* =========================================================
-       HEADER
-    ========================================================== */
+           HEADER
+        ========================================================== */
 
         .thesis-edit-header {
 
@@ -302,9 +452,19 @@
 
             padding: 1.4rem 1.5rem;
 
+            background: var(--thesis-card-bg);
+
+            border-bottom:
+                1px solid var(--thesis-border-soft);
+
             box-sizing: border-box;
+
         }
 
+
+        /* =========================================================
+           MANAGEMENT
+        ========================================================== */
 
         .thesis-edit-overline {
 
@@ -312,7 +472,7 @@
 
             margin-bottom: .25rem;
 
-            color: #6538d9;
+            color: var(--thesis-purple);
 
             font-size: .65rem;
 
@@ -321,8 +481,13 @@
             letter-spacing: .1em;
 
             text-transform: uppercase;
+
         }
 
+
+        /* =========================================================
+           TITLE
+        ========================================================== */
 
         .thesis-edit-title {
 
@@ -335,24 +500,30 @@
             font-weight: 800;
 
             line-height: 1.3;
+
         }
 
+
+        /* =========================================================
+           DESCRIPTION
+        ========================================================== */
 
         .thesis-edit-description {
 
             margin: .35rem 0 0;
 
-            color: var(--thesis-muted);
+            color: var(--thesis-text-muted);
 
             font-size: .78rem;
 
             line-height: 1.5;
+
         }
 
 
         /* =========================================================
-       FORM
-    ========================================================== */
+           FORM
+        ========================================================== */
 
         .thesis-edit-form {
 
@@ -367,13 +538,16 @@
 
             padding: 1.5rem;
 
+            background: var(--thesis-card-bg);
+
             box-sizing: border-box;
+
         }
 
 
         /* =========================================================
-       GROUP
-    ========================================================== */
+           GROUP
+        ========================================================== */
 
         .thesis-edit-group {
 
@@ -382,18 +556,20 @@
             width: 100%;
 
             box-sizing: border-box;
+
         }
 
 
         .thesis-edit-full {
 
             grid-column: 1 / -1;
+
         }
 
 
         /* =========================================================
-       LABEL
-    ========================================================== */
+           LABEL
+        ========================================================== */
 
         .thesis-edit-label {
 
@@ -410,18 +586,21 @@
             letter-spacing: .05em;
 
             text-transform: uppercase;
+
         }
 
 
         /* =========================================================
-       INPUT
-    ========================================================== */
+           INPUT
+        ========================================================== */
 
         .thesis-edit-control {
 
             display: block;
 
             width: 100%;
+
+            max-width: 100%;
 
             height: 45px;
 
@@ -435,7 +614,8 @@
 
             background: var(--thesis-input-bg);
 
-            border: 1px solid var(--thesis-border);
+            border:
+                1px solid var(--thesis-border-soft);
 
             border-radius: 8px;
 
@@ -446,24 +626,27 @@
             font-size: .82rem;
 
             transition:
-                background .2s ease,
+                background-color .2s ease,
                 color .2s ease,
                 border-color .2s ease,
                 box-shadow .2s ease;
+
         }
 
 
         .thesis-edit-control::placeholder {
 
-            color: var(--thesis-muted);
+            color: var(--thesis-placeholder);
 
-            opacity: .8;
+            opacity: 1;
+
         }
 
 
         .thesis-edit-control:hover {
 
-            border-color: var(--thesis-text-secondary);
+            border-color: var(--thesis-border);
+
         }
 
 
@@ -471,40 +654,45 @@
 
             color: var(--thesis-text);
 
-            background: var(--thesis-input-focus-bg);
+            background: var(--thesis-input-bg);
 
-            border-color: var(--thesis-blue);
+            border-color: var(--thesis-purple);
 
             box-shadow:
-                0 0 0 3px rgba(13, 110, 253, .12);
+                0 0 0 3px rgba(101, 56, 217, .10);
+
         }
 
 
         .thesis-edit-control.is-invalid {
 
             border-color: var(--thesis-red);
+
+            box-shadow: none;
+
         }
 
 
         /* =========================================================
-       TEXTAREA
-    ========================================================== */
+           TEXTAREA
+        ========================================================== */
 
         .thesis-edit-textarea {
 
-            height: 100px;
+            height: 110px;
 
-            min-height: 100px;
+            min-height: 110px;
 
             resize: vertical;
 
             line-height: 1.5;
+
         }
 
 
         /* =========================================================
-       CURRENT FILES
-    ========================================================== */
+           CURRENT FILES
+        ========================================================== */
 
         .thesis-current-files {
 
@@ -515,6 +703,7 @@
             gap: .55rem;
 
             width: 100%;
+
         }
 
 
@@ -532,29 +721,27 @@
 
             padding: .55rem .7rem;
 
+            color: var(--thesis-text);
+
             background: var(--thesis-input-bg);
 
-            border: 1px solid var(--thesis-border);
+            border:
+                1px solid var(--thesis-border-soft);
 
             border-radius: 8px;
 
             box-sizing: border-box;
 
             transition:
-                background .2s ease,
+                background-color .2s ease,
                 border-color .2s ease;
-        }
 
-
-        .thesis-current-file:hover {
-
-            border-color: var(--thesis-text-secondary);
         }
 
 
         /* =========================================================
-       FILE NAME
-    ========================================================== */
+           FILE NAME
+        ========================================================== */
 
         .thesis-file-name {
 
@@ -566,9 +753,10 @@
 
             min-width: 0;
 
-            color: var(--thesis-text-secondary);
+            color: var(--thesis-text);
 
             font-size: .78rem;
+
         }
 
 
@@ -579,6 +767,7 @@
             color: var(--thesis-red);
 
             font-size: 1rem;
+
         }
 
 
@@ -589,12 +778,14 @@
             text-overflow: ellipsis;
 
             white-space: nowrap;
+
         }
 
 
         /* =========================================================
-       VIEW BUTTON
-    ========================================================== */
+           VIEW BUTTON
+           PURPLE BORDER
+        ========================================================== */
 
         .thesis-view-button {
 
@@ -604,17 +795,16 @@
 
             justify-content: center;
 
-            gap: .35rem;
-
             flex-shrink: 0;
 
-            padding: .4rem .7rem;
+            padding: .4rem .75rem;
 
-            color: #ffffff;
+            color: var(--thesis-purple);
 
-            background: var(--thesis-blue);
+            background: transparent;
 
-            border: 1px solid var(--thesis-blue);
+            border:
+                1px solid var(--thesis-purple);
 
             border-radius: 6px;
 
@@ -627,9 +817,10 @@
             text-transform: uppercase;
 
             transition:
-                background .2s ease,
-                border-color .2s ease,
-                transform .2s ease;
+                background-color .2s ease,
+                color .2s ease,
+                border-color .2s ease;
+
         }
 
 
@@ -637,37 +828,38 @@
 
             color: #ffffff;
 
-            background: var(--thesis-blue-hover);
+            background: var(--thesis-purple);
 
-            border-color: var(--thesis-blue-hover);
+            border-color: var(--thesis-purple);
 
-            transform: translateY(-1px);
         }
 
 
         /* =========================================================
-       NO FILE
-    ========================================================== */
+           NO FILE
+        ========================================================== */
 
         .thesis-no-file {
 
             padding: .75rem;
 
-            color: var(--thesis-muted);
+            color: var(--thesis-text-muted);
 
             background: var(--thesis-input-bg);
 
-            border: 1px solid var(--thesis-divider);
+            border:
+                1px solid var(--thesis-border-soft);
 
             border-radius: 8px;
 
             font-size: .72rem;
+
         }
 
 
         /* =========================================================
-       FILE INPUT
-    ========================================================== */
+           FILE INPUT
+        ========================================================== */
 
         .thesis-file-input {
 
@@ -676,20 +868,27 @@
             padding-bottom: .65rem;
 
             cursor: pointer;
+
         }
 
+
+        /* =========================================================
+           CHOOSE FILE
+           PURPLE
+        ========================================================== */
 
         .thesis-file-input::file-selector-button {
 
             margin-right: .6rem;
 
-            padding: .4rem .7rem;
+            padding: .4rem .75rem;
 
             color: #ffffff;
 
-            background: #111111;
+            background: var(--thesis-purple);
 
-            border: none;
+            border:
+                1px solid var(--thesis-purple);
 
             border-radius: 6px;
 
@@ -699,53 +898,61 @@
 
             cursor: pointer;
 
-            transition: background .2s ease;
+            transition:
+                background-color .2s ease,
+                border-color .2s ease;
+
         }
 
 
         .thesis-file-input::file-selector-button:hover {
 
-            background: #222222;
+            background: var(--thesis-purple-hover);
+
+            border-color: var(--thesis-purple-hover);
+
         }
 
 
         /* =========================================================
-       FILE HELP
-    ========================================================== */
+           FILE HELP
+        ========================================================== */
 
         .thesis-file-help {
 
             margin-top: .4rem;
 
-            color: var(--thesis-muted);
+            color: var(--thesis-text-muted);
 
             font-size: .68rem;
 
             line-height: 1.5;
+
         }
 
 
         /* =========================================================
-       ERROR
-    ========================================================== */
+           ERROR
+        ========================================================== */
 
         .thesis-edit-error {
 
             margin-top: .35rem;
 
-            color: var(--thesis-red);
+            color: var(--thesis-red) !important;
 
             font-size: .7rem;
 
             font-weight: 600;
 
             line-height: 1.4;
+
         }
 
 
         /* =========================================================
-       ACTIONS
-    ========================================================== */
+           ACTIONS
+        ========================================================== */
 
         .thesis-edit-actions {
 
@@ -764,22 +971,36 @@
             padding-top: 1rem;
 
             border-top:
-                1px solid var(--thesis-divider);
+                1px solid var(--thesis-border-soft);
 
             box-sizing: border-box;
+
         }
 
 
         /* =========================================================
-       BUTTON BASE
-    ========================================================== */
+           CANCEL
+           RED BORDER / NO ICON
+        ========================================================== */
 
-        .thesis-cancel-button,
-        .thesis-update-button {
+        .thesis-cancel-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
 
             min-height: 42px;
 
-            padding: .65rem 1rem;
+            padding: .65rem 1.1rem;
+
+            color: var(--thesis-red) !important;
+
+            background: transparent;
+
+            border:
+                1px solid var(--thesis-red);
 
             border-radius: 8px;
 
@@ -796,52 +1017,32 @@
             box-sizing: border-box;
 
             transition:
-                background .2s ease,
+                background-color .2s ease,
                 color .2s ease,
                 border-color .2s ease,
                 transform .2s ease;
-        }
 
-
-        /* =========================================================
-       CANCEL
-       RED BORDER
-       NO ICON
-    ========================================================== */
-
-        .thesis-cancel-button {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            color: var(--thesis-red);
-
-            background: transparent;
-
-            border: 1px solid var(--thesis-red);
         }
 
 
         .thesis-cancel-button:hover {
 
-            color: #ffffff;
+            color: #ffffff !important;
 
             background: var(--thesis-red);
 
             border-color: var(--thesis-red);
 
-            transform: translateY(-1px);
+            transform:
+                translateY(-1px);
+
         }
 
 
         /* =========================================================
-       UPDATE
-       BLUE BORDER
-       NO ICON
-    ========================================================== */
+           UPDATE
+           BLUE BORDER / NO ICON
+        ========================================================== */
 
         .thesis-update-button {
 
@@ -851,388 +1052,57 @@
 
             justify-content: center;
 
-            color: var(--thesis-blue);
+            min-height: 42px;
+
+            padding: .65rem 1.1rem;
+
+            color: var(--thesis-blue) !important;
 
             background: transparent;
 
-            border: 1px solid var(--thesis-blue);
+            border:
+                1px solid var(--thesis-blue);
+
+            border-radius: 8px;
+
+            font-size: .7rem;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            box-sizing: border-box;
+
+            transition:
+                background-color .2s ease,
+                color .2s ease,
+                border-color .2s ease,
+                transform .2s ease;
+
         }
 
 
         .thesis-update-button:hover {
 
-            color: #ffffff;
+            color: #ffffff !important;
 
             background: var(--thesis-blue);
 
             border-color: var(--thesis-blue);
 
-            transform: translateY(-1px);
+            transform:
+                translateY(-1px);
+
         }
 
 
         /* =========================================================
-       DARK MODE VARIABLES
-    ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-edit-wrapper {
-
-            --thesis-card-bg: #181d33;
-
-            --thesis-input-bg: #20253a;
-
-            --thesis-input-focus-bg: #20253a;
-
-            --thesis-text: #eeeef8;
-
-            --thesis-text-secondary: #d5d8e8;
-
-            --thesis-muted: #999fb9;
-
-            --thesis-border: #292e45;
-
-            --thesis-divider: #292e45;
-
-            --thesis-shadow:
-                0 8px 24px rgba(0, 0, 0, .50);
-        }
-
-
-        .dark .thesis-edit-wrapper {
-
-            --thesis-card-bg: #181d33;
-
-            --thesis-input-bg: #20253a;
-
-            --thesis-input-focus-bg: #20253a;
-
-            --thesis-text: #eeeef8;
-
-            --thesis-text-secondary: #d5d8e8;
-
-            --thesis-muted: #999fb9;
-
-            --thesis-border: #292e45;
-
-            --thesis-divider: #292e45;
-
-            --thesis-shadow:
-                0 8px 24px rgba(0, 0, 0, .50);
-        }
-
-
-        /* =========================================================
-       DARK MODE CARD
-    ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-edit-card,
-        .dark .thesis-edit-card {
-
-            background: #181d33;
-
-            color: #eeeef8;
-
-            box-shadow:
-                0 8px 24px rgba(0, 0, 0, .50);
-        }
-
-
-        /* =========================================================
-       DARK MODE HEADER
-    ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-edit-title,
-        .dark .thesis-edit-title {
-
-            color: #eeeef8;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-edit-overline,
-        .dark .thesis-edit-overline {
-
-            color: #999fb9;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-edit-description,
-        .dark .thesis-edit-description {
-
-            color: #999fb9;
-        }
-
-
-        /* =========================================================
-       DARK MODE LABEL
-    ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-edit-label,
-        .dark .thesis-edit-label {
-
-            color: #d5d8e8;
-        }
-
-
-        /* =========================================================
-       DARK MODE INPUTS
-    ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-edit-control,
-        .dark .thesis-edit-control {
-
-            color: #eeeef8;
-
-            background: #20253a;
-
-            border-color: #292e45;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-edit-control::placeholder,
-        .dark .thesis-edit-control::placeholder {
-
-            color: #999fb9;
-
-            opacity: .9;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-edit-control:hover,
-        .dark .thesis-edit-control:hover {
-
-            border-color: #555b75;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-edit-control:focus,
-        .dark .thesis-edit-control:focus {
-
-            color: #eeeef8;
-
-            background: #20253a;
-
-            border-color: var(--thesis-blue);
-
-            box-shadow:
-                0 0 0 3px rgba(13, 110, 253, .18);
-        }
-
-
-        /* =========================================================
-       DARK MODE CURRENT FILE
-    ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-current-file,
-        .dark .thesis-current-file {
-
-            color: #d5d8e8;
-
-            background: #20253a;
-
-            border-color: #292e45;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-current-file:hover,
-        .dark .thesis-current-file:hover {
-
-            border-color: #555b75;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-file-name,
-        .dark .thesis-file-name {
-
-            color: #d5d8e8;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-file-name i,
-        .dark .thesis-file-name i {
-
-            color: #f87171;
-        }
-
-
-        /* =========================================================
-       DARK MODE NO FILE
-    ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-no-file,
-        .dark .thesis-no-file {
-
-            color: #999fb9;
-
-            background: #20253a;
-
-            border-color: #292e45;
-        }
-
-
-        /* =========================================================
-       DARK MODE FILE INPUT
-    ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-file-input,
-        .dark .thesis-file-input {
-
-            color: #eeeef8;
-
-            background: #20253a;
-
-            border-color: #292e45;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-file-input::file-selector-button,
-        .dark .thesis-file-input::file-selector-button {
-
-            color: #111111;
-
-            background: #ffffff;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-file-input::file-selector-button:hover,
-        .dark .thesis-file-input::file-selector-button:hover {
-
-            color: #111111;
-
-            background: #e5e5e5;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-file-help,
-        .dark .thesis-file-help {
-
-            color: #999fb9;
-        }
-
-
-        /* =========================================================
-       DARK MODE ERRORS
-    ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-edit-error,
-        .dark .thesis-edit-error {
-
-            color: #fca5a5;
-        }
-
-
-        /* =========================================================
-       DARK MODE ACTION BORDER
-    ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-edit-actions,
-        .dark .thesis-edit-actions {
-
-            border-top-color: #292e45;
-        }
-
-
-        /* =========================================================
-       DARK MODE VIEW BUTTON
-    ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-view-button,
-        .dark .thesis-view-button {
-
-            color: #ffffff;
-
-            background: #0d6efd;
-
-            border-color: #0d6efd;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-view-button:hover,
-        .dark .thesis-view-button:hover {
-
-            color: #ffffff;
-
-            background: #0b5ed7;
-
-            border-color: #0b5ed7;
-        }
-
-
-        /* =========================================================
-       DARK MODE CANCEL
-       RED BORDER
-    ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-cancel-button,
-        .dark .thesis-cancel-button {
-
-            color: #f87171;
-
-            background: transparent;
-
-            border-color: #dc3545;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-cancel-button:hover,
-        .dark .thesis-cancel-button:hover {
-
-            color: #ffffff;
-
-            background: #dc3545;
-
-            border-color: #dc3545;
-        }
-
-
-        /* =========================================================
-       DARK MODE UPDATE
-       BLUE BORDER
-    ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-update-button,
-        .dark .thesis-update-button {
-
-            color: #60a5fa;
-
-            background: transparent;
-
-            border-color: #0d6efd;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-update-button:hover,
-        .dark .thesis-update-button:hover {
-
-            color: #ffffff;
-
-            background: #0d6efd;
-
-            border-color: #0d6efd;
-        }
-
-
-        /* =========================================================
-       DARK MODE AUTOFILL
-    ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-edit-control:-webkit-autofill,
-        .dark .thesis-edit-control:-webkit-autofill {
-
-            -webkit-text-fill-color: #eeeef8;
-
-            -webkit-box-shadow:
-                0 0 0 1000px #20253a inset;
-
-            box-shadow:
-                0 0 0 1000px #20253a inset;
-
-            border-color: #292e45;
-        }
-
-
-        /* =========================================================
-       MOBILE
-    ========================================================== */
+           MOBILE
+        ========================================================== */
 
         @media (max-width: 767.98px) {
 
@@ -1249,12 +1119,21 @@
                 padding-right: 10px;
 
                 padding-bottom: 20px;
+
+            }
+
+
+            .thesis-edit-card {
+
+                width: 100%;
+
             }
 
 
             .thesis-edit-header {
 
                 padding: 1rem;
+
             }
 
 
@@ -1265,12 +1144,14 @@
                 gap: 1rem;
 
                 padding: 1rem;
+
             }
 
 
             .thesis-edit-full {
 
                 grid-column: auto;
+
             }
 
 
@@ -1279,6 +1160,7 @@
                 flex-direction: column-reverse;
 
                 align-items: stretch;
+
             }
 
 
@@ -1288,30 +1170,15 @@
                 width: 100%;
 
                 text-align: center;
-            }
 
-
-            .thesis-current-file {
-
-                align-items: flex-start;
-
-                flex-direction: column;
-
-                gap: .6rem;
-            }
-
-
-            .thesis-view-button {
-
-                width: 100%;
             }
 
         }
 
 
         /* =========================================================
-       SMALL MOBILE
-    ========================================================== */
+           SMALL MOBILE
+        ========================================================== */
 
         @media (max-width: 575.98px) {
 
@@ -1322,30 +1189,35 @@
                 padding-left: 8px;
 
                 padding-right: 8px;
+
             }
 
 
             .thesis-edit-header {
 
                 padding: .9rem;
+
             }
 
 
             .thesis-edit-form {
 
                 padding: .9rem;
+
             }
 
 
             .thesis-edit-title {
 
                 font-size: 1.05rem;
+
             }
 
 
             .thesis-edit-description {
 
                 font-size: .7rem;
+
             }
 
 
@@ -1354,6 +1226,7 @@
                 height: 44px;
 
                 font-size: .8rem;
+
             }
 
 
@@ -1362,38 +1235,44 @@
                 height: 95px;
 
                 min-height: 95px;
+
             }
 
 
             .thesis-current-file {
 
                 padding: .5rem;
+
             }
 
 
             .thesis-file-name {
 
                 font-size: .72rem;
-            }
 
-
-            .thesis-view-button {
-
-                padding: .4rem .6rem;
-
-                font-size: .65rem;
-            }
-
-
-            .thesis-cancel-button,
-            .thesis-update-button {
-
-                min-height: 44px;
-
-                font-size: .68rem;
             }
 
         }
+
+
+        /* =========================================================
+           REDUCED MOTION
+        ========================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .thesis-edit-wrapper *,
+            .thesis-edit-wrapper *::before,
+            .thesis-edit-wrapper *::after {
+
+                transition: none !important;
+
+                animation: none !important;
+
+            }
+
+        }
+
     </style>
 
 </x-app-layout>

@@ -33,10 +33,10 @@ class DashboardController extends Controller
 
         // Bookmarks belong to users
         // Both students and guests can have bookmarks
-        $savedTheses = SavedThesis::where(
-            'user_id',
-            $user->id
-        )->count();
+        // $savedTheses = SavedThesis::where(
+        //     'user_id',
+        //     $user->id
+        // )->count();
 
         // Recent published theses
         $recentTheses = Thesis::whereNotNull('published_at')
@@ -61,7 +61,7 @@ class DashboardController extends Controller
             'totalTheses',
             'publishedTheses',
             'totalRequests',
-            'savedTheses',
+            // 'savedTheses',
             'recentTheses',
             'recentRequests',
             'student'

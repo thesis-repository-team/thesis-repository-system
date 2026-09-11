@@ -14,6 +14,7 @@ class ThesisRequest extends Model
         'title',
         'abstract',
         'description',
+        'academic_year',
         'pdf_file',
         'status',
         'remarks',
@@ -44,7 +45,7 @@ class ThesisRequest extends Model
     {
         return $this->belongsTo(Thesis::class);
     }
-    
+
     public function reviewer()
     {
         return $this->belongsTo(User::class, 'reviewed_by');

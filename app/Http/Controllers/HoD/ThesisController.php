@@ -4,6 +4,7 @@ namespace App\Http\Controllers\HoD;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\HoD;
 use App\Models\Keyword;
 use App\Models\Thesis;
 use App\Models\ThesisFile;
@@ -13,29 +14,54 @@ use Illuminate\Support\Facades\Storage;
 
 class ThesisController extends Controller
 {
-    public function index()
-    {
-        $theses = Thesis::with('files')
-            ->whereNotNull('published_at')
-            ->orderByDesc('published_at')
-            ->get();
-        $departments = Department::all();
+  public function index()
+{
+    $theses = Thesis::with('files')
+        ->whereNotNull('published_at')
+        ->orderByDesc('published_at')
+        ->get();
 
-        $published_at = Thesis::whereNotNull('published_at')
-            ->selectRaw('YEAR(published_at) as year')
-            ->distinct()
-            ->orderBy('year', 'desc')
-            ->pluck('year');
-        // $keywords = Keyword::orderBy('keyword_name')->get();
+    $departments = Department::all();
 
-        return view('hod.thesis.index', compact('theses', 'departments', 'published_at'));
-    }
+    $academicYears = Thesis::whereNotNull('academic_year')
+        ->select('academic_year')
+        ->distinct()
+        ->orderByDesc('academic_year')
+        ->pluck('academic_year');
+
+    return view('hod.thesis.index', compact(
+        'theses',
+        'departments',
+        'academicYears'
+    ));
+}
+    // public function index()
+    // {
+    //     $theses = Thesis::with('files')
+    //         ->whereNotNull('published_at')
+    //         ->orderByDesc('published_at')
+    //         ->get();
+    //     $departments = Department::all();
+
+    //     $published_at = Thesis::whereNotNull('published_at')
+    //         ->selectRaw('YEAR(published_at) as year')
+    //         ->distinct()
+    //         ->orderBy('year', 'desc')
+    //         ->pluck('year');
+    //     // $keywords = Keyword::orderBy('keyword_name')->get();
+
+    //     return view('hod.thesis.index', compact('theses', 'departments', 'published_at'));
+    // }
 
     public function create()
     {
-        $departments = Department::all();
+        $hod = HoD::with('department')
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
 
-        return view('hod.thesis.create', compact('departments'));
+        $department = $hod->department;
+
+        return view('hod.thesis.create', compact('department'));
     }
 
     public function store(Request $request)
@@ -45,6 +71,7 @@ class ThesisController extends Controller
             'abstract' => 'nullable|string',
             'description' => 'nullable|string',
             'author_name' => 'required|string|max:255',
+            'academic_year' => 'required|integer|digits:4',
 
             // thesis file
             'files' => 'required|array|min:1',
@@ -59,6 +86,7 @@ class ThesisController extends Controller
                 'description' => $request->description,
                 'department_id' => $department_id,
                 'author_name' => $request->author_name,
+                'academic_year' => $request->academic_year,
                 'submitted_by' => auth()->id(),
                 'published_by' => auth()->id(),
                 'published_at' => now(),
@@ -105,6 +133,7 @@ class ThesisController extends Controller
             'abstract' => 'nullable|string',
             'description' => 'nullable|string',
             'author_name' => 'required|string|max:255',
+            'academic_year' => 'required|integer|digits:4',
 
             // 'keyword_ids' => 'nullable|array',
             // 'keyword_ids.*' => 'exists:keywords,id',
@@ -113,6 +142,12 @@ class ThesisController extends Controller
             'files.*' => 'nullable|file|mimes:pdf|max:20480',
         ]);
 
+        if ($request->filled('academic_year')) {
+            $updateData['academic_year'] = $request->academic_year;
+        }
+
+        $thesis->update($updateData);
+
         DB::transaction(function () use ($request, $thesis) {
 
             $thesis->update([
@@ -120,6 +155,7 @@ class ThesisController extends Controller
                 'abstract' => $request->abstract,
                 'description' => $request->description,
                 'author_name' => $request->author_name,
+                'acadmic_year' => $request->acadmic_year,
             ]);
 
             // $thesis->keywords()->sync($request->keyword_ids ?? []);
@@ -192,6 +228,30 @@ class ThesisController extends Controller
         return view('hod.thesis.my-theses', compact('theses'));
     }
 
+    public function show(Thesis $thesis)
+    {
+
+        if (
+            is_null($thesis->published_at) ||
+            ! $thesis->publishedBy ||
+            ! in_array($thesis->publishedBy->role, ['admin', 'hod'], true)
+        ) {
+            abort(404);
+        }
+
+        // Load relationships needed by show.blade.php.
+        $thesis->load([
+            'department',
+            'publishedBy',
+            'files',
+        ]);
+
+        return view(
+            'hod.thesis.show',
+            compact('thesis')
+        );
+    }
+
     // Add a search function to search for theses by title, author_name, or department name
     public function search(Request $request)
     {
@@ -257,7 +317,8 @@ class ThesisController extends Controller
 
         // Year filter
         if ($request->filled('year')) {
-            $query->whereYear('published_at', $request->year);
+            $query->where('academic_year', $request->year);
+            // $query->whereYear('published_at', $request->year);
         }
 
         $theses = $query->get();

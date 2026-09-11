@@ -138,7 +138,7 @@
 
                     {{-- YEAR --}}
 
-                    <div class="col-12 col-md-6 col-lg-2">
+                   <div class="col-12 col-md-6 col-lg-2">
 
                         <label for="yearFilter" class="thesis-input-label">
                             Academic Year
@@ -150,15 +150,15 @@
                                 All Years
                             </option>
 
-                            <option value="2026">2026</option>
-                            <option value="2025">2025</option>
-                            <option value="2024">2024</option>
-                            <option value="2023">2023</option>
+                            @foreach ($academicYears as $year)
+                                <option value="{{ $year }}">
+                                    {{ $year }}
+                                </option>
+                            @endforeach
 
                         </select>
 
                     </div>
-
 
                     {{-- RESET --}}
 
@@ -2657,7 +2657,7 @@
 
         .thesis-table tbody tr:hover td {
 
-            background: var(--thesis-purple-light);
+            background: #fafafa;
         }
 
 

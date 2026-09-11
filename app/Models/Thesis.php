@@ -15,6 +15,7 @@ class Thesis extends Model
         'description',
         'department_id',
         'author_name',
+        'academic_year',
         'submitted_by',
         'published_by',
         'published_at',

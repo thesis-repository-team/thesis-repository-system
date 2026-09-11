@@ -61,6 +61,7 @@ class ThesisRequestsController extends Controller
             'title' => 'required|string|max:255',
             'abstract' => 'nullable|string',
             'description' => 'nullable|string',
+            'academic_year' => 'nullable|year',
             'pdf_file' => 'required|file|mimes:pdf|max:20480', // 20MB max
         ]);
 
@@ -74,6 +75,7 @@ class ThesisRequestsController extends Controller
             'title' => $request->title,
             'abstract' => $request->abstract,
             'description' => $request->description,
+            'academic_year' => $request->academic_year,
             'pdf_file' => $pdfFilePath,
             'status' => 'pending',
             'submitted_at' => now(),
@@ -167,6 +169,7 @@ class ThesisRequestsController extends Controller
             'author_name' => 'required|string|max:255',
             'abstract' => 'nullable|string',
             'description' => 'nullable|string',
+            'academic_year' => 'nullable|year',
             'thesis_file' => 'nullable|file|mimes:pdf,doc,docx|max:20480',
         ]);
 
@@ -175,6 +178,7 @@ class ThesisRequestsController extends Controller
         $thesisRequest->author_name = $request->author_name;
         $thesisRequest->abstract = $request->abstract;
         $thesisRequest->description = $request->description;
+        $thesisRequest->academic_year = $request->academic_year;
 
         if ($request->hasFile('thesis_file')) {
 
@@ -194,7 +198,7 @@ class ThesisRequestsController extends Controller
 
             $thesisRequest->pdf_file = $pdfFilePath;
         }
-        
+
         // Change request back to pending
         $thesisRequest->update([
             'status' => 'pending',

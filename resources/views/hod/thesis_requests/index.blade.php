@@ -1931,8 +1931,7 @@
 
         .request-table tbody tr:hover {
 
-            background:
-                var(--thesis-request-primary-soft);
+            background: #fafafa
         }
 
 

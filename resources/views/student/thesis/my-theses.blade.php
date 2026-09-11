@@ -294,7 +294,17 @@
 
                             <div class="admin-thesis-card-footer">
 
+                                {{-- VIEW DETAIL --}}
+                                <a href="{{ route('student.thesis.show', $thesis->id) }}"
+                                    class="admin-thesis-action admin-thesis-view-detail"
+                                    title="View Detail"
+                                    aria-label="View Detail">
+                                    <i class="bi bi-eye"></i>
+                                    <span>View Detail</span>
+                                </a>
+
                                 {{-- VIEW PDF --}}
+                                
 
                                 <a href="{{ route('student.thesis.view-pdf', $thesis->id) }}"
                                     class="admin-thesis-action admin-thesis-view-pdf" title="View PDF"
@@ -481,6 +491,14 @@
 
 
 
+
+                                                {{-- VIEW DETAIL --}}
+                                                <a href="{{ route('hod.thesis.show', $thesis->id) }}"
+                                                    class="thesis-table-action thesis-table-detail"
+                                                    title="View Detail"
+                                                    aria-label="View Detail">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
 
                                                 {{-- VIEW PDF --}}
 
@@ -1209,6 +1227,13 @@
             --thesis-border-soft: #E5E7EB;
 
 
+            /* VIEW DETAIL BLUE */
+
+            --thesis-detail: #2563EB;
+
+            --thesis-detail-hover: #1D4ED8;
+
+
             /* EDIT BLUE */
 
             --thesis-edit: #2563EB;
@@ -1277,6 +1302,13 @@
             --thesis-purple-light: #292342;
 
             --thesis-purple-soft: #342C52;
+
+
+            /* DARK VIEW DETAIL BLUE */
+
+            --thesis-detail: #60A5FA;
+
+            --thesis-detail-hover: #3B82F6;
 
 
             /* DARK EDIT BLUE */
@@ -2193,6 +2225,8 @@
 
             gap: .5rem;
 
+            flex-wrap: nowrap;
+
             padding: .75rem;
 
             background:
@@ -2239,12 +2273,29 @@
 
 
         /* =========================================================
+       VIEW DETAIL BUTTON - BLUE BORDER
+    ========================================================== */
+
+        .admin-thesis-view-detail {
+            color: var(--thesis-detail);
+            background: transparent;
+            border: 1px solid var(--thesis-detail);
+        }
+
+        .admin-thesis-view-detail:hover {
+            color: #FFFFFF;
+            background: var(--thesis-detail);
+            border-color: var(--thesis-detail);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, .18);
+        }
+
+
+        /* =========================================================
        VIEW PDF BUTTON - GREEN BORDER
     ========================================================== */
 
         .admin-thesis-view-pdf {
-
-            margin-left: auto;
 
             color:
                 var(--thesis-pdf);
@@ -2663,6 +2714,8 @@
 
             gap: .35rem;
 
+            flex-wrap: nowrap;
+
             width: 100%;
 
         }
@@ -2736,6 +2789,24 @@
             transform:
                 translateY(-1px);
 
+        }
+
+
+        /* =========================================================
+       TABLE VIEW DETAIL - BLUE
+    ========================================================== */
+
+        .thesis-table-detail {
+            color: var(--thesis-detail);
+            background: transparent;
+            border: 1px solid var(--thesis-detail);
+        }
+
+        .thesis-table-detail:hover {
+            color: #FFFFFF;
+            background: var(--thesis-detail);
+            border-color: var(--thesis-detail);
+            transform: translateY(-1px);
         }
 
 
@@ -2846,6 +2917,29 @@
             border-color:
                 #16A34A;
 
+        }
+
+
+        [data-bs-theme="dark"] .admin-thesis-view-detail {
+            color: #60A5FA;
+            border-color: #60A5FA;
+        }
+
+        [data-bs-theme="dark"] .admin-thesis-view-detail:hover {
+            color: #FFFFFF;
+            background: #3B82F6;
+            border-color: #3B82F6;
+        }
+
+        [data-bs-theme="dark"] .thesis-table-detail {
+            color: #60A5FA;
+            border-color: #60A5FA;
+        }
+
+        [data-bs-theme="dark"] .thesis-table-detail:hover {
+            color: #FFFFFF;
+            background: #3B82F6;
+            border-color: #3B82F6;
         }
 
 

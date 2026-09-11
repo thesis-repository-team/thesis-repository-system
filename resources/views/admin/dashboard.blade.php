@@ -295,13 +295,13 @@
                                     </div>
 
 
-                                    @if ($request->is_approved === 1)
+                                    @if ($request->status === 'approved')
 
                                         <span class="status-badge status-approved">
                                             Approved
                                         </span>
 
-                                    @elseif ($request->is_approved === 0)
+                                    @elseif ($request->status === 'reject')
 
                                         <span class="status-badge status-rejected">
                                             Rejected

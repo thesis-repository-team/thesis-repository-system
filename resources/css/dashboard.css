@@ -362,7 +362,7 @@ body {
     color: #525879;
 }
 
-.header-user > i {
+.header-user>i {
     font-size: 14px;
 }
 
@@ -577,8 +577,7 @@ body {
     display: grid;
 
     grid-template-columns:
-        minmax(0, 1.65fr)
-        minmax(280px, 0.95fr);
+        minmax(0, 1.65fr) minmax(280px, 0.95fr);
 
     gap: 16px;
 }
@@ -1185,22 +1184,76 @@ body {
         display: none;
     }
 
+    /* =========================================================
+       MOBILE BURGER / MENU BUTTON
+       MOBILE ONLY - DESKTOP IS UNCHANGED
+    ========================================================= */
     .mobile-menu-button {
         display: flex;
-
-        width: 45px;
-        height: 45px;
-
-        border: 0;
-
-        border-radius: 9px;
-
-        background: #f3f1fa;
-
         align-items: center;
         justify-content: center;
 
+        width: 45px;
+        height: 45px;
+        min-width: 45px;
+
+        padding: 0;
+        margin: 0;
+
+        border: 1px solid #e7e3f5;
+        border-radius: 10px;
+
+        background: #f3f1fa;
+        color: #151a3b;
+
         font-size: 20px;
+        line-height: 1;
+
+        cursor: pointer;
+        flex-shrink: 0;
+
+        box-sizing: border-box;
+        appearance: none;
+        -webkit-appearance: none;
+
+        transition:
+            background 0.2s ease,
+            color 0.2s ease,
+            border-color 0.2s ease,
+            transform 0.2s ease;
+    }
+
+    .mobile-menu-button i,
+    .mobile-menu-button svg {
+        display: block;
+        margin: 0;
+        line-height: 1;
+    }
+
+    .mobile-menu-button:hover,
+    .mobile-menu-button:focus {
+        background: #ebe6fb;
+        color: var(--dashboard-purple);
+        border-color: #d9d0f2;
+        outline: none;
+    }
+
+    .mobile-menu-button:active {
+        transform: scale(0.96);
+    }
+
+    /* DARK MODE - MOBILE BURGER BUTTON ONLY */
+    [data-bs-theme="dark"] .mobile-menu-button {
+        background: #222740;
+        color: #ffffff;
+        border-color: #343a52;
+    }
+
+    [data-bs-theme="dark"] .mobile-menu-button:hover,
+    [data-bs-theme="dark"] .mobile-menu-button:focus {
+        background: #292f4b;
+        color: #ffffff;
+        border-color: #454c6b;
     }
 
     .mobile-navigation {
@@ -1412,6 +1465,13 @@ body {
     .header-icon-button {
         width: 42px;
         height: 42px;
+    }
+
+    /* Keep burger button consistent on small phones */
+    .mobile-menu-button {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
     }
 
     .desktop-welcome h2 {

@@ -1,1354 +1,643 @@
 <x-app-layout>
 
-    <style>
-        /* =========================================================
-           SAVED THESES PAGE
-        ========================================================= */
+    <div class="dashboard-content thesis-page">
 
-        .saved-theses-page {
-            --st-purple: #6538d9;
-            --st-purple-dark: #5030b8;
-            --st-purple-light: #eee8ff;
-            --st-bg: #f8f8fc;
-            --st-card: #ffffff;
-            --st-border: #e7e7ef;
-            --st-text: #151a3b;
-            --st-muted: #6d7392;
-            --st-success: #20955b;
-            --st-danger: #d83232;
-            --st-shadow: 0 4px 15px rgba(30, 25, 70, 0.06);
+        <div class="thesis-page-header">
 
-            min-height: 100vh;
-            background: var(--st-bg);
-            color: var(--st-text);
-            padding: 18px 0 35px;
-        }
+            <div class="thesis-header-content">
 
+                <div class="thesis-title-row">
 
-        /* =========================================================
-           CONTAINER
-        ========================================================= */
+                    <div>
 
-        .saved-theses-container {
-            width: 100%;
-            max-width: 1320px;
-            margin: 0 auto;
-            padding: 0 18px;
-            margin-top: 10%;
-            box-sizing: border-box;
-        }
+                        <span class="thesis-overline">
+                            STUDENT
+                        </span>
 
+                        <h1 class="thesis-title">
+                            Saved Theses
+                        </h1>
 
-        /* =========================================================
-           PAGE HEADER
-        ========================================================= */
+                    </div>
 
-        .saved-page-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            margin-bottom: 18px;
-        }
+                </div>
 
-        .saved-page-title {
-            margin: 0;
-            color: var(--st-text);
-            font-size: 23px;
-            font-weight: 700;
-            line-height: 1.3;
-        }
+            </div>
 
-        .saved-page-title i {
-            color: var(--st-purple);
-            margin-right: 7px;
-        }
+        </div>
 
 
-        /* =========================================================
-           BACK BUTTON
-        ========================================================= */
-
-        .saved-back-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            min-height: 36px;
-            padding: 0 13px;
-            border: 1px solid #ddd5f7;
-            border-radius: 7px;
-            background: var(--st-purple-light);
-            color: var(--st-purple);
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .saved-back-button:hover {
-            background: var(--st-purple);
-            border-color: var(--st-purple);
-            color: #ffffff;
-            transform: translateY(-1px);
-        }
-
-
-        /* =========================================================
-           ALERTS
-        ========================================================= */
-
-        .saved-alert {
-            border: 0;
-            border-radius: 8px;
-            padding: 10px 13px;
-            margin-bottom: 15px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .saved-alert-success {
-            background: #e6f7ed;
-            color: #188650;
-            border-left: 4px solid var(--st-success);
-        }
-
-        .saved-alert-info {
-            background: #e8f2ff;
-            color: #2875c7;
-            border-left: 4px solid #3484dc;
-        }
-
-
-        /* =========================================================
-           MAIN CARD
-        ========================================================= */
-
-        .saved-theses-card {
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-
-        /* =========================================================
-           CARD HEADER
-        ========================================================= */
-
-        .saved-card-header {
-            min-height: 52px;
-            padding: 0 16px;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg,
-                    #7040df 0%,
-                    #6234d4 100%);
-            color: #ffffff;
-        }
-
-        .saved-card-header h5 {
-            margin: 0;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .saved-card-header i {
-            margin-right: 6px;
-        }
-
-
-        /* =========================================================
-           CARD BODY
-        ========================================================= */
-
-        .saved-card-body {
-            padding: 15px;
-        }
-
-
-        /* =========================================================
-           VIEW SWITCHER
-        ========================================================= */
-
-        .saved-view-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            margin-bottom: 15px;
-        }
-
-        .saved-view-toggle {
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-            padding: 4px;
-            background: var(--st-card);
-            border: 1px solid var(--st-border);
-            border-radius: 9px;
-            box-shadow: 0 3px 10px rgba(30, 25, 70, 0.05);
-        }
-
-        .saved-view-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            min-height: 34px;
-            padding: 0 12px;
-            border: 0;
-            border-radius: 6px;
-            background: transparent;
-            color: var(--st-muted);
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-            transition:
-                background 0.2s ease,
-                color 0.2s ease,
-                transform 0.2s ease;
-        }
-
-        .saved-view-button i {
-            font-size: 11px;
-        }
-
-        .saved-view-button:hover {
-            background: var(--st-purple-light);
-            color: var(--st-purple);
-        }
-
-        .saved-view-button.active {
-            background: var(--st-purple);
-            color: #ffffff;
-            box-shadow: 0 3px 8px rgba(101, 56, 217, 0.25);
-        }
-
-        .saved-view-button.active:hover {
-            background: var(--st-purple-dark);
-            color: #ffffff;
-        }
-
-
-        /* =========================================================
-           HIDDEN VIEW
-        ========================================================= */
-
-        .saved-card-view[hidden],
-        .saved-table-view[hidden] {
-            display: none !important;
-        }
-
-
-        /* =========================================================
-           THESIS GRID
-           4 CARDS PER ROW
-        ========================================================= */
-
-        .saved-theses-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 14px;
-            width: 100%;
-        }
-
-
-        /* =========================================================
-           THESIS ITEM
-        ========================================================= */
-
-        .saved-thesis-item {
-            min-width: 0;
-            padding: 15px;
-            background: var(--st-card);
-            border: 1px solid var(--st-border);
-            border-radius: 9px;
-            transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease,
-                border-color 0.2s ease;
-        }
-
-        .saved-thesis-item:hover {
-            transform: translateY(-2px);
-            border-color: #d8cff5;
-            box-shadow: 0 7px 20px rgba(50, 35, 100, 0.08);
-        }
-
-
-        /* =========================================================
-           THESIS CONTENT
-        ========================================================= */
-
-        .saved-thesis-content {
-            display: flex;
-            flex-direction: column;
-            gap: 13px;
-            height: 100%;
-        }
-
-        .saved-thesis-info {
-            min-width: 0;
-        }
-
-
-        /* =========================================================
-           THESIS TITLE
-        ========================================================= */
-
-        .saved-thesis-title {
-            margin: 0 0 10px;
-            color: var(--st-text);
-            font-size: 15px;
-            font-weight: 700;
-            line-height: 1.4;
-            word-break: break-word;
-
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-
-        /* =========================================================
-           INFORMATION
-        ========================================================= */
-
-        .saved-info-row {
-            margin-bottom: 5px;
-            color: var(--st-muted);
-            font-size: 11.5px;
-            line-height: 1.45;
-            word-break: break-word;
-        }
-
-        .saved-info-row strong {
-            color: var(--st-text);
-            font-weight: 600;
-        }
-
-        .saved-info-row i {
-            width: 16px;
-            margin-right: 3px;
-            color: var(--st-purple);
-        }
-
-
-        /* =========================================================
-           SAVED DATE
-        ========================================================= */
-
-        .saved-date {
-            margin-top: 8px;
-            color: var(--st-muted);
-            font-size: 10.5px;
-            line-height: 1.4;
-        }
-
-        .saved-date i {
-            color: var(--st-purple);
-            margin-right: 3px;
-        }
-
-
-        /* =========================================================
-           ACTIONS
-        ========================================================= */
-
-        .saved-actions {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            width: 100%;
-            margin-top: auto;
-        }
-
-        .saved-action-button {
-            min-height: 32px;
-            padding: 0 10px;
-            border-radius: 6px;
-
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-
-            font-size: 11px;
-            font-weight: 600;
-
-            transition: all 0.2s ease;
-
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .saved-action-view {
-            flex: 1;
-            background: var(--st-purple);
-            border: 1px solid var(--st-purple);
-            color: #ffffff;
-        }
-
-        .saved-action-view:hover {
-            background: var(--st-purple-dark);
-            border-color: var(--st-purple-dark);
-            color: #ffffff;
-            transform: translateY(-1px);
-        }
-
-        .saved-action-remove {
-            flex: 1;
-            background: #fff0f0;
-            border: 1px solid #ffd7d7;
-            color: var(--st-danger);
-        }
-
-        .saved-action-remove:hover {
-            background: var(--st-danger);
-            border-color: var(--st-danger);
-            color: #ffffff;
-            transform: translateY(-1px);
-        }
-
-        .saved-actions form {
-            flex: 1;
-            margin: 0;
-        }
-
-        .saved-actions form button {
-            width: 100%;
-        }
-
-
-        /* =========================================================
-           TABLE VIEW
-        ========================================================= */
-
-        .saved-table-view {
-            width: 100%;
-        }
-
-        .saved-table-wrapper {
-            width: 100%;
-            overflow-x: auto;
-            background: var(--st-card);
-            border: 1px solid var(--st-border);
-            border-radius: 9px;
-            box-shadow: 0 3px 12px rgba(30, 25, 70, 0.04);
-        }
-
-        .saved-theses-table {
-            width: 100%;
-            min-width: 900px;
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
-
-        .saved-theses-table th {
-            padding: 12px 13px;
-            background: #faf9fe;
-            border-bottom: 1px solid var(--st-border);
-            color: var(--st-muted);
-            font-size: 10px;
-            font-weight: 700;
-            text-align: left;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            white-space: nowrap;
-        }
-
-        .saved-theses-table td {
-            padding: 13px;
-            border-bottom: 1px solid var(--st-border);
-            color: var(--st-text);
-            font-size: 11.5px;
-            line-height: 1.45;
-            vertical-align: middle;
-        }
-
-        .saved-theses-table tbody tr:last-child td {
-            border-bottom: 0;
-        }
-
-        .saved-theses-table tbody tr {
-            transition: background 0.2s ease;
-        }
-
-        .saved-theses-table tbody tr:hover {
-            background: #faf8ff;
-        }
-
-        .saved-table-number {
-            width: 45px;
-            color: var(--st-muted) !important;
-            font-weight: 700;
-            text-align: center;
-        }
-
-        .saved-table-title {
-            min-width: 250px;
-            max-width: 380px;
-            color: var(--st-text);
-            font-weight: 700;
-            word-break: break-word;
-        }
-
-        .saved-table-author {
-            min-width: 150px;
-            color: var(--st-muted);
-        }
-
-        .saved-table-department {
-            min-width: 130px;
-            color: var(--st-muted);
-        }
-
-        .saved-table-date {
-            min-width: 145px;
-            color: var(--st-muted);
-            white-space: nowrap;
-        }
-
-        .saved-table-action-cell {
-            width: 1%;
-            min-width: 155px;
-            white-space: nowrap;
-        }
-
-
-        /* =========================================================
-           TABLE ACTION BUTTONS
-        ========================================================= */
-
-        .saved-table-actions {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 6px;
-            flex-wrap: nowrap;
-            white-space: nowrap;
-        }
-
-        .saved-table-actions .saved-action-button {
-            flex: 0 0 auto;
-            min-height: 30px;
-            padding: 0 9px;
-            font-size: 10.5px;
-        }
-
-        .saved-table-actions form {
-            flex: 0 0 auto;
-            margin: 0;
-        }
-
-        .saved-table-actions form button {
-            width: auto;
-        }
-
-
-        /* =========================================================
-           EMPTY STATE
-        ========================================================= */
-
-        .saved-empty-state {
-            padding: 55px 20px;
-            text-align: center;
-        }
-
-        .saved-empty-icon {
-            width: 62px;
-            height: 62px;
-            margin: 0 auto 15px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 50%;
-            background: var(--st-purple-light);
-            color: var(--st-purple);
-            font-size: 25px;
-        }
-
-        .saved-empty-state h5 {
-            margin: 0 0 6px;
-            color: var(--st-text);
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .saved-empty-state p {
-            margin: 0;
-            color: var(--st-muted);
-            font-size: 12px;
-        }
-
-
-        /* =========================================================
-           DARK MODE
-        ========================================================= */
-
-        [data-bs-theme="dark"] .saved-theses-page {
-            --st-bg: #101426;
-            --st-card: #181d33;
-            --st-border: #292e45;
-            --st-text: #ffffff;
-            --st-muted: #999fb9;
-            --st-shadow: 0 5px 18px rgba(0, 0, 0, 0.22);
-        }
-
-        [data-bs-theme="dark"] .saved-thesis-item {
-            background: #181d33;
-            border-color: #292e45;
-        }
-
-        [data-bs-theme="dark"] .saved-thesis-item:hover {
-            border-color: #443a67;
-            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.25);
-        }
-
-        [data-bs-theme="dark"] .saved-back-button {
-            background: #25203f;
-            border-color: #39315c;
-            color: #bdaeff;
-        }
-
-        [data-bs-theme="dark"] .saved-back-button:hover {
-            background: var(--st-purple);
-            border-color: var(--st-purple);
-            color: #ffffff;
-        }
-
-        [data-bs-theme="dark"] .saved-alert-success {
-            background: #173728;
-            color: #7bd5a6;
-            border-left-color: var(--st-success);
-        }
-
-        [data-bs-theme="dark"] .saved-alert-info {
-            background: #182f4a;
-            color: #82b9ee;
-            border-left-color: #3484dc;
-        }
-
-        [data-bs-theme="dark"] .saved-action-remove {
-            background: #351d23;
-            border-color: #55303a;
-            color: #ff7777;
-        }
-
-        [data-bs-theme="dark"] .saved-action-remove:hover {
-            background: var(--st-danger);
-            border-color: var(--st-danger);
-            color: #ffffff;
-        }
-
-        [data-bs-theme="dark"] .saved-empty-icon {
-            background: #25203f;
-            color: #bdaeff;
-        }
-
-        [data-bs-theme="dark"] .saved-view-toggle {
-            background: #181d33;
-            border-color: #292e45;
-        }
-
-        [data-bs-theme="dark"] .saved-view-button:hover {
-            background: #25203f;
-            color: #bdaeff;
-        }
-
-        [data-bs-theme="dark"] .saved-view-button.active {
-            background: var(--st-purple);
-            color: #ffffff;
-        }
-
-        [data-bs-theme="dark"] .saved-table-wrapper {
-            background: #181d33;
-            border-color: #292e45;
-        }
-
-        [data-bs-theme="dark"] .saved-theses-table th {
-            background: #20253a;
-            border-color: #292e45;
-            color: #999fb9;
-        }
-
-        [data-bs-theme="dark"] .saved-theses-table td {
-            border-color: #292e45;
-        }
-
-        [data-bs-theme="dark"] .saved-theses-table tbody tr:hover {
-            background: #20253a;
-        }
-
-
-        /* =========================================================
-           LARGE DESKTOP
-           4 CARDS PER ROW
-        ========================================================= */
-
-        @media (min-width: 1200px) {
-
-            .saved-theses-container {
-                max-width: 1320px;
-            }
-
-            .saved-theses-grid {
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-            }
-        }
-
-
-        /* =========================================================
-           TABLET
-           2 CARDS PER ROW
-        ========================================================= */
-
-        @media (max-width: 1199px) {
-
-            .saved-theses-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-
-        @media (max-width: 900px) {
-
-            .saved-theses-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .saved-table-wrapper {
-                border-radius: 8px;
-            }
-        }
-
-
-        /* =========================================================
-           MOBILE
-           CARD ONLY
-        ========================================================= */
-
-        @media (max-width: 768px) {
-
-            .saved-theses-page {
-                padding-top: 14px;
-                padding-bottom: 25px;
-            }
-
-            .saved-theses-container {
-                padding: 0 12px;
-                margin-top: 5%;
-            }
-
-            .saved-page-header {
-                align-items: flex-start;
-                flex-direction: column;
-                margin-bottom: 15px;
-            }
-
-            .saved-page-title {
-                font-size: 20px;
-            }
-
-            .saved-back-button {
-                width: auto;
-                min-height: 34px;
-            }
-
-            .saved-card-header {
-                min-height: 48px;
-                padding: 0 13px;
-            }
-
-            .saved-card-header h5 {
-                font-size: 13px;
-            }
-
-            .saved-card-body {
-                padding: 12px;
-            }
-
-
-            /* Hide Card/Table switcher on mobile */
-
-            .saved-view-toolbar {
-                display: none;
-            }
-
-
-            /* Always use cards on mobile */
-
-            .saved-card-view {
-                display: block !important;
-            }
-
-            .saved-table-view {
-                display: none !important;
-            }
-
-            .saved-theses-grid {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-
-            .saved-thesis-item {
-                padding: 13px;
-            }
-
-            .saved-thesis-title {
-                font-size: 14px;
-            }
-
-            .saved-info-row {
-                font-size: 11px;
-            }
-
-            .saved-actions {
-                gap: 6px;
-            }
-
-            .saved-action-button {
-                min-height: 34px;
-                font-size: 11px;
-            }
-        }
-
-
-        /* =========================================================
-           SMALL MOBILE
-        ========================================================= */
-
-        @media (max-width: 480px) {
-
-            .saved-theses-container {
-                padding: 0 10px;
-                margin-top: 3%;
-            }
-
-            .saved-page-title {
-                font-size: 18px;
-            }
-
-            .saved-back-button {
-                width: 100%;
-            }
-
-            .saved-card-body {
-                padding: 10px;
-            }
-
-            .saved-thesis-item {
-                padding: 12px;
-            }
-
-            .saved-thesis-title {
-                font-size: 14px;
-                margin-bottom: 8px;
-            }
-
-            .saved-info-row {
-                font-size: 10.5px;
-            }
-
-            .saved-date {
-                font-size: 10px;
-            }
-
-            .saved-actions {
-                flex-direction: row;
-            }
-
-            .saved-action-button {
-                min-height: 32px;
-                padding: 0 7px;
-                font-size: 10px;
-            }
-
-            .saved-action-button i {
-                font-size: 10px;
-            }
-
-            .saved-empty-state {
-                padding: 45px 12px;
-            }
-
-            .saved-empty-icon {
-                width: 55px;
-                height: 55px;
-                font-size: 22px;
-            }
-        }
-
-
-        /* =========================================================
-           VERY SMALL MOBILE
-        ========================================================= */
-
-        @media (max-width: 380px) {
-
-            .saved-theses-container {
-                padding-left: 8px;
-                padding-right: 8px;
-            }
-
-            .saved-action-button {
-                padding: 0 6px;
-                font-size: 9.5px;
-            }
-        }
-    </style>
-
-
-    {{-- =========================================================
-         MAIN PAGE
-    ========================================================== --}}
-
-    <div class="dashboard-content saved-theses-page">
-
-        <div class="saved-theses-container">
-
+        <div class="thesis-results-wrapper">
 
             {{-- =====================================================
-                 PAGE HEADER
+                VIEW TOGGLE
             ====================================================== --}}
 
-            <div class="saved-page-header">
+            <div class="thesis-results-toolbar">
 
-                <h2 class="saved-page-title">
+                <div class="thesis-view-toggle">
 
-                    <i class="fas fa-bookmark"></i>
+                    <button
+                        type="button"
+                        id="thesisCardViewButton"
+                        class="thesis-view-button is-active"
+                        aria-label="Card View"
+                    >
 
-                    Saved Theses
+                        <i class="bi bi-grid-3x3-gap"></i>
 
-                </h2>
+                        <span>
+                            Cards
+                        </span>
+
+                    </button>
 
 
-                <a href="{{ route('student.thesis.index') }}" class="saved-back-button">
+                    <button
+                        type="button"
+                        id="thesisTableViewButton"
+                        class="thesis-view-button"
+                        aria-label="Table View"
+                    >
 
-                    <i class="fas fa-arrow-left"></i>
+                        <i class="bi bi-table"></i>
 
-                    Back to Theses
+                        <span>
+                            Table
+                        </span>
 
-                </a>
+                    </button>
+
+                </div>
 
             </div>
 
 
             {{-- =====================================================
-                 SUCCESS ALERT
+                SAVED THESIS RESULTS
             ====================================================== --}}
 
-            @if (session('success'))
-                <div class="saved-alert saved-alert-success">
+            <div
+                id="savedThesisResults"
+                class="thesis-results-container"
+            >
 
-                    <i class="fas fa-check-circle me-1"></i>
 
-                    {{ session('success') }}
+                {{-- =================================================
+                    CARD VIEW
+                ================================================== --}}
 
-                </div>
-            @endif
+                <div class="thesis-partial-card-results">
 
+                    @forelse ($savedTheses as $saved)
 
-            {{-- =====================================================
-                 INFO ALERT
-            ====================================================== --}}
+                        @php
+                            $thesis = $saved->thesis;
+                        @endphp
 
-            @if (session('info'))
-                <div class="saved-alert saved-alert-info">
+                        @if ($thesis)
 
-                    <i class="fas fa-info-circle me-1"></i>
+                            <div class="admin-thesis-card">
 
-                    {{ session('info') }}
 
-                </div>
-            @endif
+                                {{-- =================================
+                                    CARD HEADER
+                                ================================== --}}
 
+                                <div class="admin-thesis-card-top">
 
-            {{-- =====================================================
-                 MAIN CARD
-            ====================================================== --}}
+                                    <div class="admin-thesis-card-heading">
 
-            <div class="saved-theses-card">
+                                        <div class="admin-thesis-icon">
 
+                                            <i class="bi bi-bookmark-fill"></i>
 
-                @if ($savedTheses->count() > 0)
+                                        </div>
 
 
-                    {{-- =================================================
-                         CARD / TABLE VIEW BUTTONS
-                    ================================================== --}}
+                                        <h3 class="admin-thesis-card-title">
 
-                    <div class="saved-view-toolbar">
+                                            {{ $thesis->title }}
 
-                        <div class="saved-view-toggle" role="group" aria-label="Choose saved theses view">
+                                        </h3>
 
-                            <button type="button" class="saved-view-button active" data-saved-view="card"
-                                aria-pressed="true">
+                                    </div>
 
-                                <i class="fas fa-th-large"></i>
+                                </div>
 
-                                Card
 
-                            </button>
+                                {{-- =================================
+                                    AUTHOR / SAVED DATE
+                                ================================== --}}
 
+                                <div class="admin-thesis-published">
 
-                            <button type="button" class="saved-view-button" data-saved-view="table"
-                                aria-pressed="false">
+                                    <div class="admin-thesis-published-item">
 
-                                <i class="fas fa-table"></i>
+                                        <div class="admin-thesis-published-icon">
 
-                                Table
+                                            <i class="bi bi-person"></i>
 
-                            </button>
+                                        </div>
 
-                        </div>
 
-                    </div>
+                                        <div class="admin-thesis-published-content">
 
+                                            <span class="admin-thesis-published-label">
+                                                Author
+                                            </span>
 
-                    {{-- =================================================
-                         CARD VIEW
-                    ================================================== --}}
+                                            <span class="admin-thesis-published-value">
 
-                    <div class="saved-card-view">
+                                                {{ $thesis->author_name ?? '—' }}
 
-                        <div class="saved-theses-grid">
-
-
-                            @foreach ($savedTheses as $saved)
-                                @if ($saved->thesis)
-                                    {{-- =================================
-                                         THESIS CARD
-                                    ================================== --}}
-
-                                    <div class="saved-thesis-item">
-
-                                        <div class="saved-thesis-content">
-
-
-                                            {{-- ==========================
-                                                 THESIS INFORMATION
-                                            =========================== --}}
-
-                                            <div class="saved-thesis-info">
-
-
-                                                {{-- Thesis Title --}}
-
-                                                <h5 class="saved-thesis-title">
-
-                                                    {{ $saved->thesis->title }}
-
-                                                </h5>
-
-
-                                                {{-- Author --}}
-
-                                                @if ($saved->thesis->author_name)
-                                                    <div class="saved-info-row">
-
-                                                        <strong>
-                                                            Author:
-                                                        </strong>
-
-                                                        {{ $saved->thesis->author_name }}
-
-                                                    </div>
-                                                @endif
-
-
-                                                {{-- Department --}}
-
-                                                @if ($saved->thesis->department)
-                                                    <div class="saved-info-row">
-
-                                                        <strong>
-                                                            Department:
-                                                        </strong>
-
-                                                        {{ $saved->thesis->department->dept_name }}
-
-                                                    </div>
-                                                @endif
-
-
-                                                {{-- Saved Date --}}
-
-                                                <div class="saved-date">
-
-                                                    <i class="fas fa-clock"></i>
-
-                                                    Saved:
-
-                                                    @if ($saved->saved_at)
-                                                        {{ $saved->saved_at->format('d M Y, h:i A') }}
-                                                    @elseif ($saved->created_at)
-                                                        {{ $saved->created_at->format('d M Y, h:i A') }}
-                                                    @else
-                                                        N/A
-                                                    @endif
-
-                                                </div>
-
-                                            </div>
-
-
-                                            {{-- ==========================
-                                                 ACTION BUTTONS
-                                            =========================== --}}
-
-                                            <div class="saved-actions">
-
-
-                                                {{-- View --}}
-
-                                                <a href="{{ route('student.thesis.show', $saved->thesis->id) }}"
-                                                    class="saved-action-button saved-action-view">
-
-                                                    <i class="fas fa-eye"></i>
-
-                                                    View
-
-                                                </a>
-
-
-                                                {{-- Remove --}}
-
-                                                <form
-                                                    action="{{ route('student.saved_thesis.destroy', $saved->thesis->id) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to remove this thesis from your saved theses?');">
-
-                                                    @csrf
-
-                                                    @method('DELETE')
-
-
-                                                    <button type="submit"
-                                                        class="saved-action-button saved-action-remove">
-
-                                                        <i class="fas fa-trash"></i>
-
-                                                        Remove
-
-                                                    </button>
-
-                                                </form>
-
-                                            </div>
+                                            </span>
 
                                         </div>
 
                                     </div>
-                                @endif
-                            @endforeach
+
+
+                                    <div class="admin-thesis-published-item">
+
+                                        <div class="admin-thesis-published-icon">
+
+                                            <i class="bi bi-bookmark"></i>
+
+                                        </div>
+
+
+                                        <div class="admin-thesis-published-content">
+
+                                            <span class="admin-thesis-published-label">
+                                                Saved At
+                                            </span>
+
+                                            <span class="admin-thesis-published-value">
+
+                                                {{ $saved->saved_at
+                                                    ? \Carbon\Carbon::parse($saved->saved_at)->format('M d, Y')
+                                                    : '—'
+                                                }}
+
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                {{-- =================================
+                                    CARD BODY
+                                ================================== --}}
+
+                                <div class="admin-thesis-card-body">
+
+
+                                    {{-- DEPARTMENT --}}
+                                    <div class="admin-thesis-detail">
+
+                                        <div class="admin-thesis-detail-icon">
+
+                                            <i class="bi bi-building"></i>
+
+                                        </div>
+
+
+                                        <div class="admin-thesis-detail-content">
+
+                                            <span class="admin-thesis-detail-label">
+                                                Department
+                                            </span>
+
+                                            <span class="admin-thesis-detail-value">
+
+                                                {{ optional($thesis->department)->name ?? '—' }}
+
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    {{-- ACADEMIC YEAR --}}
+                                    <div class="admin-thesis-detail">
+
+                                        <div class="admin-thesis-detail-icon">
+
+                                            <i class="bi bi-calendar3"></i>
+
+                                        </div>
+
+
+                                        <div class="admin-thesis-detail-content">
+
+                                            <span class="admin-thesis-detail-label">
+                                                Academic Year
+                                            </span>
+
+                                            <span class="admin-thesis-detail-value">
+
+                                                {{ $thesis->academic_year ?? '—' }}
+
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    {{-- PUBLISHED BY --}}
+                                    <div class="admin-thesis-detail">
+
+                                        <div class="admin-thesis-detail-icon">
+
+                                            <i class="bi bi-person-check"></i>
+
+                                        </div>
+
+
+                                        <div class="admin-thesis-detail-content">
+
+                                            <span class="admin-thesis-detail-label">
+                                                Published By
+                                            </span>
+
+                                            <span class="admin-thesis-detail-value">
+
+                                                {{
+                                                    optional($thesis->publishedBy)->username
+                                                    ?? optional($thesis->publishedBy)->full_name
+                                                    ?? '—'
+                                                }}
+
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    {{-- PUBLISHED AT --}}
+                                    <div class="admin-thesis-submitted">
+
+                                        <span class="admin-thesis-submitted-label">
+                                            Published At
+                                        </span>
+
+                                        <span class="admin-thesis-submitted-value">
+
+                                            {{ $thesis->published_at
+                                                ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y')
+                                                : '—'
+                                            }}
+
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                {{-- =================================
+                                    CARD FOOTER
+                                ================================== --}}
+
+                                <div class="admin-thesis-card-footer">
+
+
+                                    {{-- VIEW DETAIL --}}
+                                    <a
+                                        href="{{ route('student.thesis.show', $thesis->id) }}"
+                                        class="admin-thesis-action admin-thesis-view-detail"
+                                        title="View Detail"
+                                    >
+
+                                        <i class="bi bi-eye"></i>
+
+                                        <span>
+                                            View Detail
+                                        </span>
+
+                                    </a>
+
+
+                                    {{-- VIEW PDF --}}
+                                    <a
+                                        href="{{ route('student.thesis.view-pdf', $thesis->id) }}"
+                                        class="admin-thesis-action admin-thesis-view-pdf"
+                                        title="View PDF"
+                                    >
+
+                                        <i class="bi bi-file-earmark-pdf"></i>
+
+                                        <span>
+                                            View PDF
+                                        </span>
+
+                                    </a>
+
+
+                                    {{-- REMOVE --}}
+                                    <form
+                                        method="POST"
+                                        action="{{ route('student.saved_thesis.destroy', $thesis->id) }}"
+                                        class="saved-remove-form"
+                                    >
+
+                                        @csrf
+
+                                        @method('DELETE')
+
+                                        <button
+                                            type="submit"
+                                            class="admin-thesis-action admin-thesis-remove"
+                                            title="Remove from Saved"
+                                        >
+
+                                            <i class="bi bi-bookmark-x"></i>
+
+                                            <span>
+                                                Remove
+                                            </span>
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        @endif
+
+                    @empty
+
+                        <div class="admin-thesis-empty">
+
+                            <div class="admin-thesis-empty-icon">
+
+                                <i class="bi bi-bookmark-x"></i>
+
+                            </div>
+
+
+                            <h3>
+                                No Saved Theses
+                            </h3>
+
+
+                            <p>
+                                You have not saved any thesis records yet.
+                            </p>
 
                         </div>
 
-                    </div>
+                    @endforelse
+
+                </div>
 
 
-                    {{-- =================================================
-                         TABLE VIEW
-                    ================================================== --}}
 
-                    <div class="saved-table-view" hidden>
+                {{-- =================================================
+                    TABLE VIEW
+                ================================================== --}}
 
-                        <div class="saved-table-wrapper">
+                <div class="thesis-partial-table-results">
 
-                            <table class="saved-theses-table">
+                    <div class="thesis-table-wrapper">
 
-                                <thead>
+                        <table class="thesis-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        #
+                                    </th>
+
+                                    <th>
+                                        Thesis
+                                    </th>
+
+                                    <th>
+                                        Author
+                                    </th>
+
+                                    <th>
+                                        Department
+                                    </th>
+
+                                    <th>
+                                        Academic Year
+                                    </th>
+
+                                    <th>
+                                        Published By
+                                    </th>
+
+                                    <th>
+                                        Published At
+                                    </th>
+
+                                    <th>
+                                        Saved At
+                                    </th>
+
+                                    <th>
+                                        Actions
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody>
+
+                                @forelse ($savedTheses as $saved)
+
+                                    @php
+                                        $thesis = $saved->thesis;
+                                    @endphp
+
+                                    @if ($thesis)
+
+                                        <tr>
+
+
+                                            {{-- NUMBER --}}
+                                            <td class="thesis-table-number">
+
+                                                {{ $loop->iteration }}
+
+                                            </td>
+
+
+                                            {{-- THESIS --}}
+                                            <td class="thesis-table-title-cell">
+
+                                                <span class="thesis-table-title-text">
+
+                                                    {{ $thesis->title }}
+
+                                                </span>
+
+                                            </td>
+
+
+                                            {{-- AUTHOR --}}
+                                            <td>
+
+                                                {{ $thesis->author_name ?? '—' }}
+
+                                            </td>
+
+
+                                            {{-- DEPARTMENT --}}
+                                            <td>
+
+                                                {{ optional($thesis->department)->name ?? '—' }}
+
+                                            </td>
+
+
+                                            {{-- ACADEMIC YEAR --}}
+                                            <td>
+
+                                                {{ $thesis->academic_year ?? '—' }}
+
+                                            </td>
+
+
+                                            {{-- PUBLISHED BY --}}
+                                            <td>
+
+                                                {{
+                                                    optional($thesis->publishedBy)->username
+                                                    ?? optional($thesis->publishedBy)->full_name
+                                                    ?? '—'
+                                                }}
+
+                                            </td>
+
+
+                                            {{-- PUBLISHED AT --}}
+                                            <td>
+
+                                                {{ $thesis->published_at
+                                                    ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y')
+                                                    : '—'
+                                                }}
+
+                                            </td>
+
+
+                                            {{-- SAVED AT --}}
+                                            <td>
+
+                                                {{ $saved->saved_at
+                                                    ? \Carbon\Carbon::parse($saved->saved_at)->format('M d, Y')
+                                                    : '—'
+                                                }}
+
+                                            </td>
+
+
+                                            {{-- ACTIONS --}}
+                                            <td>
+
+                                                <div class="thesis-table-actions">
+
+
+                                                    {{-- VIEW DETAIL --}}
+                                                    <a
+                                                        href="{{ route('student.thesis.show', $thesis->id) }}"
+                                                        class="thesis-table-action thesis-table-view"
+                                                        title="View Detail"
+                                                    >
+
+                                                        <i class="bi bi-eye"></i>
+
+                                                    </a>
+
+
+                                                    {{-- VIEW PDF --}}
+                                                    <a
+                                                        href="{{ route('student.thesis.view-pdf', $thesis->id) }}"
+                                                        class="thesis-table-action thesis-table-pdf"
+                                                        title="View PDF"
+                                                    >
+
+                                                        <i class="bi bi-file-earmark-pdf"></i>
+
+                                                    </a>
+
+
+                                                    {{-- REMOVE --}}
+                                                    <form
+                                                        method="POST"
+                                                        action="{{ route('student.saved_thesis.destroy', $thesis->id) }}"
+                                                    >
+
+                                                        @csrf
+
+                                                        @method('DELETE')
+
+                                                        <button
+                                                            type="submit"
+                                                            class="thesis-table-action thesis-table-remove"
+                                                            title="Remove"
+                                                        >
+
+                                                            <i class="bi bi-bookmark-x"></i>
+
+                                                        </button>
+
+                                                    </form>
+
+                                                </div>
+
+                                            </td>
+
+                                        </tr>
+
+                                    @endif
+
+                                @empty
 
                                     <tr>
 
-                                        <th class="saved-table-number">
-                                            #
-                                        </th>
+                                        <td
+                                            colspan="9"
+                                            class="thesis-table-empty"
+                                        >
 
-                                        <th>
-                                            Title
-                                        </th>
+                                            <strong>
+                                                No Saved Theses
+                                            </strong>
 
-                                        <th>
-                                            Author
-                                        </th>
+                                            <span>
+                                                You have not saved any thesis records yet.
+                                            </span>
 
-                                        <th>
-                                            Department
-                                        </th>
-
-                                        <th>
-                                            Saved Date
-                                        </th>
-
-                                        <th>
-                                            Action
-                                        </th>
+                                        </td>
 
                                     </tr>
 
-                                </thead>
+                                @endforelse
 
+                            </tbody>
 
-                                <tbody>
-
-                                    @php
-                                        $tableNumber = 1;
-                                    @endphp
-
-
-                                    @foreach ($savedTheses as $saved)
-                                        @if ($saved->thesis)
-                                            <tr>
-
-
-                                                {{-- Number --}}
-
-                                                <td class="saved-table-number">
-
-                                                    {{ $tableNumber++ }}
-
-                                                </td>
-
-
-                                                {{-- Title --}}
-
-                                                <td class="saved-table-title">
-
-                                                    {{ $saved->thesis->title }}
-
-                                                </td>
-
-
-                                                {{-- Author --}}
-
-                                                <td class="saved-table-author">
-
-                                                    @if ($saved->thesis->author_name)
-                                                        {{ $saved->thesis->author_name }}
-                                                    @else
-                                                        <span>—</span>
-                                                    @endif
-
-                                                </td>
-
-
-                                                {{-- Department --}}
-
-                                                <td class="saved-table-department">
-
-                                                    @if ($saved->thesis->department)
-                                                        {{ $saved->thesis->department->dept_name }}
-                                                    @else
-                                                        <span>—</span>
-                                                    @endif
-
-                                                </td>
-
-
-                                                {{-- Saved Date --}}
-
-                                                <td class="saved-table-date">
-
-                                                    <i class="fas fa-clock"
-                                                        style="color: var(--st-purple); margin-right: 4px;"></i>
-
-                                                    @if ($saved->saved_at)
-                                                        {{ $saved->saved_at->format('d M Y, h:i A') }}
-                                                    @elseif ($saved->created_at)
-                                                        {{ $saved->created_at->format('d M Y, h:i A') }}
-                                                    @else
-                                                        N/A
-                                                    @endif
-
-                                                </td>
-
-
-                                                {{-- Actions --}}
-
-                                                <td class="saved-table-action-cell">
-
-                                                    <div class="saved-table-actions">
-
-
-                                                        {{-- View --}}
-
-                                                        <a href="{{ route('student.thesis.show', $saved->thesis->id) }}"
-                                                            class="saved-action-button saved-action-view">
-
-                                                            <i class="fas fa-eye"></i>
-
-                                                            View
-
-                                                        </a>
-
-
-                                                        {{-- Remove --}}
-
-                                                        <form
-                                                            action="{{ route('student.saved_thesis.destroy', $saved->thesis->id) }}"
-                                                            method="POST"
-                                                            onsubmit="return confirm('Are you sure you want to remove this thesis from your saved theses?');">
-
-                                                            @csrf
-
-                                                            @method('DELETE')
-
-
-                                                            <button type="submit"
-                                                                class="saved-action-button saved-action-remove">
-
-                                                                <i class="fas fa-trash"></i>
-
-                                                                Remove
-
-                                                            </button>
-
-                                                        </form>
-
-                                                    </div>
-
-                                                </td>
-
-                                            </tr>
-                                        @endif
-                                    @endforeach
-
-                                </tbody>
-
-                            </table>
-
-                        </div>
+                        </table>
 
                     </div>
-                @else
-                    {{-- =================================================
-                         EMPTY STATE
-                    ================================================== --}}
 
-                    <div class="saved-empty-state">
-
-                        <div class="saved-empty-icon">
-
-                            <i class="fas fa-bookmark"></i>
-
-                        </div>
-
-
-                        <h5>
-                            No Saved Theses
-                        </h5>
-
-
-                        <p>
-                            You have not saved any theses yet.
-                        </p>
-
-                    </div>
-
-                @endif
+                </div>
 
             </div>
 
@@ -1357,132 +646,58 @@
     </div>
 
 
-    {{-- =========================================================
-         JAVASCRIPT
-    ========================================================== --}}
+
+    {{-- =============================================================
+        JAVASCRIPT
+    ============================================================== --}}
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
 
-            const page =
-                document.querySelector('.saved-theses-page');
+        document.addEventListener('DOMContentLoaded', function () {
 
-            if (!page) {
-                return;
-            }
+            const results =
+                document.getElementById('savedThesisResults');
 
+            const cardButton =
+                document.getElementById('thesisCardViewButton');
 
-            const viewButtons =
-                page.querySelectorAll('[data-saved-view]');
-
-            const cardView =
-                page.querySelector('.saved-card-view');
-
-            const tableView =
-                page.querySelector('.saved-table-view');
+            const tableButton =
+                document.getElementById('thesisTableViewButton');
 
 
-            if (
-                !viewButtons.length ||
-                !cardView ||
-                !tableView
-            ) {
-                return;
-            }
+            function setView(view) {
 
-
-            const storageKey =
-                'savedThesesView';
-
-
-            /* =========================================================
-               CHECK MOBILE
-            ========================================================= */
-
-            function isMobile() {
-
-                return window.innerWidth <= 768;
-
-            }
-
-
-            /* =========================================================
-               SET VIEW
-            ========================================================= */
-
-            function setView(
-                view,
-                savePreference = true
-            ) {
-
-                /*
-                 * Mobile always uses Card view.
-                 */
-
-                if (isMobile()) {
-
-                    view = 'card';
-
+                if (!results) {
+                    return;
                 }
 
 
-                const showCard =
-                    view === 'card';
+                if (view === 'table') {
 
+                    results.classList.add('table-mode');
 
-                /* Card */
+                    tableButton?.classList.add('is-active');
 
-                cardView.hidden = !showCard;
+                    cardButton?.classList.remove('is-active');
 
-
-                /* Table */
-
-                tableView.hidden =
-                    showCard;
-
-
-                /* Buttons */
-
-                viewButtons.forEach(function(button) {
-
-                    const buttonView =
-                        button.getAttribute(
-                            'data-saved-view'
-                        );
-
-
-                    const isActive =
-                        buttonView === view;
-
-
-                    button.classList.toggle(
-                        'active',
-                        isActive
-                    );
-
-
-                    button.setAttribute(
-                        'aria-pressed',
-                        isActive ?
-                        'true' :
-                        'false'
-                    );
-
-                });
-
-
-                /*
-                 * Save only desktop preference.
-                 */
-
-                if (
-                    savePreference &&
-                    !isMobile()
-                ) {
 
                     localStorage.setItem(
-                        storageKey,
-                        view
+                        'studentSavedThesisView',
+                        'table'
+                    );
+
+                } else {
+
+                    results.classList.remove('table-mode');
+
+                    cardButton?.classList.add('is-active');
+
+                    tableButton?.classList.remove('is-active');
+
+
+                    localStorage.setItem(
+                        'studentSavedThesisView',
+                        'cards'
                     );
 
                 }
@@ -1490,119 +705,1776 @@
             }
 
 
-            /* =========================================================
-               LOAD SAVED VIEW
-            ========================================================= */
+            cardButton?.addEventListener(
+                'click',
+                function () {
 
-            let savedView =
+                    setView('cards');
+
+                }
+            );
+
+
+            tableButton?.addEventListener(
+                'click',
+                function () {
+
+                    setView('table');
+
+                }
+            );
+
+
+            const savedView =
                 localStorage.getItem(
-                    storageKey
+                    'studentSavedThesisView'
                 );
-
-
-            if (
-                savedView !== 'card' &&
-                savedView !== 'table'
-            ) {
-
-                savedView = 'card';
-
-            }
 
 
             setView(
-                savedView,
-                false
-            );
-
-
-            /* =========================================================
-               BUTTON CLICK
-            ========================================================= */
-
-            viewButtons.forEach(function(button) {
-
-                button.addEventListener(
-                    'click',
-                    function() {
-
-                        const selectedView =
-                            button.getAttribute(
-                                'data-saved-view'
-                            );
-
-
-                        setView(
-                            selectedView,
-                            true
-                        );
-
-                    }
-                );
-
-            });
-
-
-            /* =========================================================
-               WINDOW RESIZE
-            ========================================================= */
-
-            let resizeTimer;
-
-
-            window.addEventListener(
-                'resize',
-                function() {
-
-                    clearTimeout(
-                        resizeTimer
-                    );
-
-
-                    resizeTimer =
-                        setTimeout(
-                            function() {
-
-                                /*
-                                 * Mobile = Card only
-                                 */
-
-                                if (isMobile()) {
-
-                                    setView(
-                                        'card',
-                                        false
-                                    );
-
-                                    return;
-
-                                }
-
-
-                                /*
-                                 * Desktop = restore selected
-                                 * desktop preference
-                                 */
-
-                                const currentView =
-                                    localStorage.getItem(
-                                        storageKey
-                                    ) || 'card';
-
-
-                                setView(
-                                    currentView,
-                                    false
-                                );
-
-                            },
-                            100
-                        );
-
-                }
+                savedView === 'table'
+                    ? 'table'
+                    : 'cards'
             );
 
         });
+
     </script>
+
+
+
+    {{-- =============================================================
+        CSS
+    ============================================================== --}}
+
+    <style>
+
+        :root {
+
+            --thesis-purple: #6538D9;
+            --thesis-purple-hover: #5428C7;
+
+            --thesis-purple-light: #F5F3FF;
+            --thesis-purple-soft: #EDE9FE;
+
+            --thesis-page-bg: #FAFAFA;
+            --thesis-card-bg: #FFFFFF;
+            --thesis-input-bg: #F9FAFB;
+
+            --thesis-text: #111111;
+            --thesis-text-secondary: #4B5563;
+            --thesis-text-muted: #6B7280;
+
+            --thesis-border-soft: #E5E7EB;
+
+            --thesis-green: #16A34A;
+            --thesis-green-hover: #15803D;
+
+            --thesis-blue: #2563EB;
+            --thesis-blue-hover: #1D4ED8;
+
+            --thesis-remove: #DC2626;
+            --thesis-remove-hover: #B91C1C;
+
+            --thesis-shadow:
+                0 8px 24px rgba(17,17,17,.08);
+
+            --thesis-card-shadow:
+                0 2px 10px rgba(17,17,17,.05);
+
+        }
+
+
+
+        [data-bs-theme="dark"] {
+
+            --thesis-page-bg: #101426;
+            --thesis-card-bg: #181D33;
+            --thesis-input-bg: #20253A;
+
+            --thesis-text: #FFFFFF;
+            --thesis-text-secondary: #D5D8E8;
+            --thesis-text-muted: #999FB9;
+
+            --thesis-border-soft: #292E45;
+
+            --thesis-purple: #7C5CE3;
+            --thesis-purple-light: #292342;
+            --thesis-purple-soft: #342C52;
+
+            --thesis-green: #4ADE80;
+            --thesis-green-hover: #22C55E;
+
+            --thesis-blue: #60A5FA;
+            --thesis-blue-hover: #3B82F6;
+
+            --thesis-remove: #F87171;
+            --thesis-remove-hover: #EF4444;
+
+            --thesis-shadow:
+                0 8px 24px rgba(0,0,0,.35);
+
+            --thesis-card-shadow:
+                0 2px 10px rgba(0,0,0,.30);
+
+        }
+
+
+
+        [data-bs-theme="dark"] body,
+        [data-bs-theme="dark"] .dashboard-content {
+
+            background: var(--thesis-page-bg);
+
+            color: var(--thesis-text);
+
+        }
+
+
+
+        .thesis-page {
+
+            padding: 20px;
+
+            color: var(--thesis-text);
+
+            background: var(--thesis-page-bg);
+
+        }
+
+
+
+        .thesis-page-header {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            padding: 15px;
+
+            margin: 100px 0 20px;
+
+            background: var(--thesis-page-bg);
+
+        }
+
+
+
+        [data-bs-theme="dark"] .thesis-page-header {
+
+            background: #171B30;
+
+        }
+
+
+
+        .thesis-header-content {
+
+            min-width: 0;
+
+            flex: 1;
+
+        }
+
+
+
+        .thesis-title-row {
+
+            display: flex;
+
+            align-items: center;
+
+        }
+
+
+
+        .thesis-overline {
+
+            display: block;
+
+            margin-bottom: .2rem;
+
+            color: var(--thesis-purple);
+
+            font-size: .72rem;
+
+            font-weight: 800;
+
+            letter-spacing: .13em;
+
+            text-transform: uppercase;
+
+        }
+
+
+
+        .thesis-title {
+
+            margin: 0;
+
+            color: var(--thesis-text);
+
+            font-size: 1.9rem;
+
+            font-weight: 700;
+
+            line-height: 1.2;
+
+        }
+
+
+
+        .thesis-results-wrapper {
+
+            position: relative;
+
+            width: 100%;
+
+        }
+
+
+
+        .thesis-results-toolbar {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            width: 100%;
+
+            margin: 1rem 0 .85rem;
+
+        }
+
+
+
+        .thesis-view-toggle {
+
+            display: inline-flex;
+
+            gap: 3px;
+
+            padding: 3px;
+
+            background: var(--thesis-purple-light);
+
+            border: 1px solid #DDD6FE;
+
+            border-radius: 8px;
+
+        }
+
+
+
+        .thesis-view-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: .4rem;
+
+            min-width: 82px;
+
+            height: 38px;
+
+            padding: .4rem .75rem;
+
+            color: var(--thesis-text-muted);
+
+            background: transparent;
+
+            border: 0;
+
+            border-radius: 6px;
+
+            font-size: .75rem;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: .2s ease;
+
+        }
+
+
+
+        .thesis-view-button:hover {
+
+            color: var(--thesis-purple);
+
+            background: var(--thesis-purple-soft);
+
+        }
+
+
+
+        .thesis-view-button.is-active {
+
+            color: #FFFFFF;
+
+            background: var(--thesis-purple);
+
+        }
+
+
+
+        [data-bs-theme="dark"] .thesis-view-toggle {
+
+            background: #292342;
+
+            border-color: #403765;
+
+        }
+
+
+
+        .thesis-results-container {
+
+            width: 100%;
+
+        }
+
+
+
+        /* =========================================================
+           CARD GRID
+        ========================================================== */
+
+        .thesis-partial-card-results {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 1.25rem;
+
+        }
+
+
+
+        .thesis-partial-table-results {
+
+            display: none;
+
+            width: 100%;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .thesis-results-container.table-mode
+        .thesis-partial-card-results {
+
+            display: none;
+
+        }
+
+
+
+        .thesis-results-container.table-mode
+        .thesis-partial-table-results {
+
+            display: block;
+
+        }
+
+
+
+        /* =========================================================
+           CARD
+        ========================================================== */
+
+        .admin-thesis-card {
+
+            display: flex;
+
+            flex-direction: column;
+
+            min-width: 0;
+
+            overflow: hidden;
+
+            color: var(--thesis-text);
+
+            background: var(--thesis-card-bg);
+
+            border: 1px solid var(--thesis-border-soft);
+
+            border-radius: 16px;
+
+            box-shadow: var(--thesis-card-shadow);
+
+            transition: .25s ease;
+
+        }
+
+
+
+        .admin-thesis-card:hover {
+
+            transform: translateY(-5px);
+
+            border-color: #D8CCFF;
+
+            box-shadow: var(--thesis-shadow);
+
+        }
+
+
+
+        .admin-thesis-card-top {
+
+            min-width: 0;
+
+            padding: 1rem;
+
+        }
+
+
+
+        .admin-thesis-card-heading {
+
+            display: flex;
+
+            align-items: center;
+
+            min-width: 0;
+
+            gap: .7rem;
+
+        }
+
+
+
+        .admin-thesis-icon {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 34px;
+
+            height: 34px;
+
+            flex-shrink: 0;
+
+            color: #FFFFFF;
+
+            background: var(--thesis-purple);
+
+            border-radius: 9px;
+
+        }
+
+
+
+        .admin-thesis-card-title {
+
+            display: -webkit-box;
+
+            min-width: 0;
+
+            margin: 0;
+
+            overflow: hidden;
+
+            color: var(--thesis-text);
+
+            font-size: 1.05rem;
+
+            font-weight: 800;
+
+            line-height: 1.4;
+
+            text-overflow: ellipsis;
+
+            -webkit-line-clamp: 3;
+
+            -webkit-box-orient: vertical;
+
+        }
+
+
+
+        /* =========================================================
+           PUBLISHED INFORMATION
+        ========================================================== */
+
+        .admin-thesis-published {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: .45rem;
+
+            margin: 0 .85rem .75rem;
+
+            padding: .55rem .65rem;
+
+            background: var(--thesis-input-bg);
+
+            border: 1px solid var(--thesis-border-soft);
+
+            border-radius: 8px;
+
+        }
+
+
+
+        .admin-thesis-published-item {
+
+            display: flex;
+
+            align-items: center;
+
+            min-width: 0;
+
+            gap: .4rem;
+
+        }
+
+
+
+        .admin-thesis-published-icon,
+        .admin-thesis-detail-icon {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            color: var(--thesis-purple);
+
+            background: var(--thesis-purple-light);
+
+            border: 1px solid #DDD6FE;
+
+        }
+
+
+
+        .admin-thesis-published-icon {
+
+            width: 24px;
+
+            height: 24px;
+
+            border-radius: 6px;
+
+            font-size: .58rem;
+
+        }
+
+
+
+        .admin-thesis-published-content,
+        .admin-thesis-detail-content {
+
+            display: flex;
+
+            flex-direction: column;
+
+            min-width: 0;
+
+        }
+
+
+
+        .admin-thesis-published-label,
+        .admin-thesis-detail-label,
+        .admin-thesis-submitted-label {
+
+            color: var(--thesis-text-muted);
+
+            font-size: .6rem;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+        }
+
+
+
+        .admin-thesis-published-value {
+
+            overflow: hidden;
+
+            color: var(--thesis-text-secondary);
+
+            font-size: .66rem;
+
+            font-weight: 700;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+        }
+
+
+
+        /* =========================================================
+           CARD BODY
+        ========================================================== */
+
+        .admin-thesis-card-body {
+
+            display: flex;
+
+            flex-direction: column;
+
+            flex: 1;
+
+            min-width: 0;
+
+            padding: .15rem 1rem 1rem;
+
+        }
+
+
+
+        .admin-thesis-detail {
+
+            display: flex;
+
+            align-items: center;
+
+            min-width: 0;
+
+            gap: .65rem;
+
+            margin-bottom: .7rem;
+
+        }
+
+
+
+        .admin-thesis-detail-icon {
+
+            width: 32px;
+
+            height: 32px;
+
+            border-radius: 8px;
+
+            font-size: .75rem;
+
+        }
+
+
+
+        .admin-thesis-detail-content {
+
+            min-width: 0;
+
+        }
+
+
+
+        .admin-thesis-detail-value {
+
+            overflow: hidden;
+
+            color: var(--thesis-text-secondary);
+
+            font-size: .78rem;
+
+            font-weight: 600;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+        }
+
+
+
+        .admin-thesis-submitted {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            min-width: 0;
+
+            gap: 1rem;
+
+            margin-top: .3rem;
+
+            padding-top: .8rem;
+
+            border-top: 1px solid var(--thesis-border-soft);
+
+        }
+
+
+
+        .admin-thesis-submitted-value {
+
+            overflow: hidden;
+
+            color: var(--thesis-text-secondary);
+
+            font-size: .78rem;
+
+            font-weight: 700;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+        }
+
+
+
+        /* =========================================================
+           CARD FOOTER
+        ========================================================== */
+
+        .admin-thesis-card-footer {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: stretch;
+
+            gap: .35rem;
+
+            width: 100%;
+
+            padding: .65rem;
+
+            background: var(--thesis-input-bg);
+
+            border-top: 1px solid var(--thesis-border-soft);
+
+        }
+
+
+
+        .admin-thesis-action {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex: 1 1 0;
+
+            min-width: 0;
+
+            width: 0;
+
+            min-height: 34px;
+
+            padding: .35rem .25rem;
+
+            border-radius: 7px;
+
+            background: transparent;
+
+            text-decoration: none;
+
+            font-size: .63rem;
+
+            font-weight: 800;
+
+            line-height: 1;
+
+            white-space: nowrap;
+
+            cursor: pointer;
+
+            transition:
+
+                color .2s ease,
+
+                background-color .2s ease,
+
+                border-color .2s ease,
+
+                transform .2s ease;
+
+        }
+
+
+
+        .admin-thesis-action i {
+
+            flex-shrink: 0;
+
+            font-size: .68rem;
+
+        }
+
+
+
+        .saved-remove-form {
+
+            display: flex;
+
+            flex: 1 1 0;
+
+            min-width: 0;
+
+            width: 0;
+
+            margin: 0;
+
+        }
+
+
+
+        .saved-remove-form .admin-thesis-action {
+
+            width: 100%;
+
+        }
+
+
+
+        /* =========================================================
+           VIEW DETAIL = GREEN
+        ========================================================== */
+
+        .admin-thesis-view-detail {
+
+            color: var(--thesis-green);
+
+            border: 1px solid var(--thesis-green);
+
+        }
+
+
+
+        .admin-thesis-view-detail:hover {
+
+            color: #FFFFFF;
+
+            background: var(--thesis-green);
+
+            border-color: var(--thesis-green);
+
+        }
+
+
+
+        /* =========================================================
+           VIEW PDF = BLUE
+        ========================================================== */
+
+        .admin-thesis-view-pdf {
+
+            color: var(--thesis-blue);
+
+            border: 1px solid var(--thesis-blue);
+
+        }
+
+
+
+        .admin-thesis-view-pdf:hover {
+
+            color: #FFFFFF;
+
+            background: var(--thesis-blue);
+
+            border-color: var(--thesis-blue);
+
+        }
+
+
+
+        /* =========================================================
+           REMOVE = RED
+        ========================================================== */
+
+        .admin-thesis-remove {
+
+            color: var(--thesis-remove);
+
+            border: 1px solid var(--thesis-remove);
+
+        }
+
+
+
+        .admin-thesis-remove:hover {
+
+            color: #FFFFFF;
+
+            background: var(--thesis-remove);
+
+            border-color: var(--thesis-remove);
+
+        }
+
+
+
+        /* =========================================================
+           EMPTY
+        ========================================================== */
+
+        .admin-thesis-empty {
+
+            grid-column: 1 / -1;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-height: 260px;
+
+            padding: 2rem;
+
+            text-align: center;
+
+            background: var(--thesis-card-bg);
+
+            border: 1px solid var(--thesis-border-soft);
+
+            border-radius: 16px;
+
+            box-shadow: var(--thesis-card-shadow);
+
+        }
+
+
+
+        .admin-thesis-empty-icon {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 55px;
+
+            height: 55px;
+
+            margin-bottom: 1rem;
+
+            color: #FFFFFF;
+
+            background: var(--thesis-purple);
+
+            border-radius: 13px;
+
+        }
+
+
+
+        .admin-thesis-empty h3 {
+
+            margin: 0 0 .35rem;
+
+            color: var(--thesis-text);
+
+            font-size: 1rem;
+
+            font-weight: 800;
+
+        }
+
+
+
+        .admin-thesis-empty p {
+
+            margin: 0;
+
+            color: var(--thesis-text-muted);
+
+            font-size: .78rem;
+
+        }
+
+
+
+        /* =========================================================
+           TABLE
+        ========================================================== */
+
+        .thesis-table-wrapper {
+
+            width: 100%;
+
+            overflow: hidden;
+
+            background: var(--thesis-card-bg);
+
+            border: 1px solid var(--thesis-border-soft);
+
+            border-radius: 14px;
+
+            box-shadow: var(--thesis-card-shadow);
+
+        }
+
+
+
+        .thesis-table {
+
+            width: 100%;
+
+            margin: 0;
+
+            table-layout: fixed;
+
+            border-collapse: collapse;
+
+            background: var(--thesis-card-bg);
+
+        }
+
+
+
+        .thesis-table th:nth-child(1),
+        .thesis-table td:nth-child(1) {
+
+            width: 4%;
+
+        }
+
+
+
+        .thesis-table th:nth-child(2),
+        .thesis-table td:nth-child(2) {
+
+            width: 22%;
+
+        }
+
+
+
+        .thesis-table th:nth-child(3),
+        .thesis-table td:nth-child(3) {
+
+            width: 12%;
+
+        }
+
+
+
+        .thesis-table th:nth-child(4),
+        .thesis-table td:nth-child(4) {
+
+            width: 12%;
+
+        }
+
+
+
+        .thesis-table th:nth-child(5),
+        .thesis-table td:nth-child(5) {
+
+            width: 10%;
+
+        }
+
+
+
+        .thesis-table th:nth-child(6),
+        .thesis-table td:nth-child(6) {
+
+            width: 12%;
+
+        }
+
+
+
+        .thesis-table th:nth-child(7),
+        .thesis-table td:nth-child(7) {
+
+            width: 10%;
+
+        }
+
+
+
+        .thesis-table th:nth-child(8),
+        .thesis-table td:nth-child(8) {
+
+            width: 10%;
+
+        }
+
+
+
+        .thesis-table th:nth-child(9),
+        .thesis-table td:nth-child(9) {
+
+            width: 8%;
+
+        }
+
+
+
+        .thesis-table thead th {
+
+            padding: .85rem .65rem;
+
+            color: #4C3A8A;
+
+            background: #E9E2FF;
+
+            border-bottom: 1px solid #D8CCFF;
+
+            font-size: .72rem;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+        }
+
+
+
+        [data-bs-theme="dark"] .thesis-table thead th {
+
+            color: #D8CCFF;
+
+            background: #292342;
+
+            border-bottom-color: #403765;
+
+        }
+
+
+
+        .thesis-table tbody td {
+
+            padding: .85rem .65rem;
+
+            color: var(--thesis-text-secondary);
+
+            background: var(--thesis-card-bg);
+
+            border-bottom: 1px solid var(--thesis-border-soft);
+
+            font-size: .80rem;
+
+            font-weight: 600;
+
+            line-height: 1.45;
+
+            vertical-align: middle;
+
+            overflow-wrap: anywhere;
+
+        }
+
+
+
+        .thesis-table tbody tr:last-child td {
+
+            border-bottom: 0;
+
+        }
+
+
+
+        .thesis-table tbody tr:hover td {
+
+            background: var(--thesis-purple-light);
+
+        }
+
+
+
+        [data-bs-theme="dark"] .thesis-table tbody tr:hover td {
+
+            background: #20253A;
+
+        }
+
+
+
+        .thesis-table-number {
+
+            color: var(--thesis-purple) !important;
+
+            font-weight: 800 !important;
+
+            text-align: center !important;
+
+        }
+
+
+
+        .thesis-table-title-text {
+
+            display: block;
+
+            color: var(--thesis-text);
+
+            font-size: .82rem;
+
+            font-weight: 800;
+
+            line-height: 1.45;
+
+        }
+
+
+
+        /* =========================================================
+           TABLE ACTIONS
+        ========================================================== */
+
+        .thesis-table-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: .3rem;
+
+        }
+
+
+
+        .thesis-table-actions form {
+
+            display: flex;
+
+            margin: 0;
+
+        }
+
+
+
+        .thesis-table-action {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: 34px;
+
+            height: 34px;
+
+            min-width: 34px;
+
+            padding: 0;
+
+            border-radius: 6px;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            transition: .2s ease;
+
+        }
+
+
+
+        /* TABLE VIEW DETAIL = GREEN */
+
+        .thesis-table-view {
+
+            color: var(--thesis-green);
+
+            border: 1px solid var(--thesis-green);
+
+        }
+
+
+
+        .thesis-table-view:hover {
+
+            color: #FFFFFF;
+
+            background: var(--thesis-green);
+
+        }
+
+
+
+        /* TABLE VIEW PDF = BLUE */
+
+        .thesis-table-pdf {
+
+            color: var(--thesis-blue);
+
+            border: 1px solid var(--thesis-blue);
+
+        }
+
+
+
+        .thesis-table-pdf:hover {
+
+            color: #FFFFFF;
+
+            background: var(--thesis-blue);
+
+        }
+
+
+
+        /* TABLE REMOVE = RED */
+
+        .thesis-table-remove {
+
+            color: var(--thesis-remove);
+
+            border: 1px solid var(--thesis-remove);
+
+        }
+
+
+
+        .thesis-table-remove:hover {
+
+            color: #FFFFFF;
+
+            background: var(--thesis-remove);
+
+        }
+
+
+
+        .thesis-table-empty {
+
+            padding: 2rem !important;
+
+            text-align: center;
+
+        }
+
+
+
+        .thesis-table-empty strong,
+        .thesis-table-empty span {
+
+            display: block;
+
+        }
+
+
+
+        .thesis-table-empty strong {
+
+            margin-bottom: .3rem;
+
+            color: var(--thesis-text);
+
+        }
+
+
+
+        .thesis-table-empty span {
+
+            color: var(--thesis-text-muted);
+
+        }
+
+
+
+        /* =========================================================
+           LARGE SCREEN
+        ========================================================== */
+
+        @media (max-width: 1399.98px) {
+
+            .thesis-partial-card-results {
+
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr));
+
+            }
+
+        }
+
+
+
+        /* =========================================================
+           MEDIUM SCREEN
+        ========================================================== */
+
+        @media (max-width: 1199.98px) {
+
+            .thesis-partial-card-results {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+            }
+
+
+            .thesis-table thead th {
+
+                padding: .75rem .5rem;
+
+                font-size: .68rem;
+
+            }
+
+
+            .thesis-table tbody td {
+
+                padding: .75rem .5rem;
+
+                font-size: .74rem;
+
+            }
+
+        }
+
+
+
+        /* =========================================================
+           TABLET / MOBILE
+        ========================================================== */
+
+        @media (max-width: 767.98px) {
+
+            .thesis-page {
+
+                padding: 12px;
+
+            }
+
+
+            .thesis-page-header {
+
+                margin: 70px 0 1rem;
+
+                padding: 1rem;
+
+            }
+
+
+            .thesis-title {
+
+                font-size: 1.4rem;
+
+            }
+
+
+            .thesis-view-button {
+
+                width: 38px;
+
+                min-width: 38px;
+
+                height: 36px;
+
+                padding: 0;
+
+            }
+
+
+            .thesis-view-button span {
+
+                display: none;
+
+            }
+
+
+            .thesis-partial-card-results {
+
+                grid-template-columns: 1fr;
+
+                gap: 1rem;
+
+                padding: 0 .75rem 1rem;
+
+            }
+
+
+            .admin-thesis-published {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .admin-thesis-card-footer {
+
+                gap: .3rem;
+
+                padding: .6rem;
+
+            }
+
+
+            .admin-thesis-action {
+
+                min-height: 34px;
+
+                padding: .3rem .25rem;
+
+                font-size: .60rem;
+
+            }
+
+
+            .admin-thesis-action i {
+
+                font-size: .66rem;
+
+            }
+
+
+            .thesis-results-container.table-mode {
+
+                padding: 0 .65rem 1rem;
+
+            }
+
+
+            .thesis-table th:nth-child(5),
+            .thesis-table td:nth-child(5),
+            .thesis-table th:nth-child(6),
+            .thesis-table td:nth-child(6),
+            .thesis-table th:nth-child(7),
+            .thesis-table td:nth-child(7) {
+
+                display: none;
+
+            }
+
+
+            .thesis-table th:nth-child(1),
+            .thesis-table td:nth-child(1) {
+
+                width: 8%;
+
+            }
+
+
+            .thesis-table th:nth-child(2),
+            .thesis-table td:nth-child(2) {
+
+                width: 43%;
+
+            }
+
+
+            .thesis-table th:nth-child(3),
+            .thesis-table td:nth-child(3) {
+
+                width: 20%;
+
+            }
+
+
+            .thesis-table th:nth-child(4),
+            .thesis-table td:nth-child(4) {
+
+                width: 17%;
+
+            }
+
+
+            .thesis-table th:nth-child(8),
+            .thesis-table td:nth-child(8) {
+
+                width: 14%;
+
+            }
+
+
+            .thesis-table th:nth-child(9),
+            .thesis-table td:nth-child(9) {
+
+                width: 14%;
+
+            }
+
+
+            .thesis-table thead th {
+
+                padding: .65rem .3rem;
+
+                font-size: .62rem;
+
+            }
+
+
+            .thesis-table tbody td {
+
+                padding: .7rem .3rem;
+
+                font-size: .68rem;
+
+            }
+
+
+            .thesis-table-title-text {
+
+                font-size: .70rem;
+
+            }
+
+
+            .thesis-table-action {
+
+                width: 28px;
+
+                height: 28px;
+
+                min-width: 28px;
+
+            }
+
+        }
+
+
+
+        /* =========================================================
+           SMALL MOBILE
+        ========================================================== */
+
+        @media (max-width: 575.98px) {
+
+            .thesis-page-header {
+
+                padding: .85rem;
+
+            }
+
+
+            .thesis-title {
+
+                font-size: 1.25rem;
+
+            }
+
+
+            .thesis-partial-card-results {
+
+                gap: .85rem;
+
+                padding: 0 .65rem 1rem;
+
+            }
+
+
+            .admin-thesis-card-footer {
+
+                gap: .25rem;
+
+                padding: .55rem;
+
+            }
+
+
+            .admin-thesis-action {
+
+                min-height: 32px;
+
+                padding: .28rem .2rem;
+
+                gap: .18rem;
+
+                font-size: .55rem;
+
+                border-radius: 6px;
+
+            }
+
+
+            .admin-thesis-action i {
+
+                font-size: .60rem;
+
+            }
+
+
+            .thesis-table thead th {
+
+                padding: .6rem .25rem;
+
+                font-size: .56rem;
+
+            }
+
+
+            .thesis-table tbody td {
+
+                padding: .6rem .25rem;
+
+                font-size: .62rem;
+
+            }
+
+
+            .thesis-table-title-text {
+
+                font-size: .64rem;
+
+            }
+
+
+            .thesis-table-action {
+
+                width: 25px;
+
+                height: 25px;
+
+                min-width: 25px;
+
+                font-size: .55rem;
+
+            }
+
+        }
+
+
+
+        /* =========================================================
+           REDUCED MOTION
+        ========================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .thesis-page *,
+            .thesis-page *::before,
+            .thesis-page *::after {
+
+                animation-duration: .01ms !important;
+
+                transition-duration: .01ms !important;
+
+            }
+
+        }
+
+    </style>
 
 </x-app-layout>
