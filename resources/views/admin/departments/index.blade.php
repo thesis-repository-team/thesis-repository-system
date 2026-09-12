@@ -2,9 +2,6 @@
 
     <div class="dashboard-content departments-page">
 
-        {{-- =====================================================
-            PAGE HEADER
-        ====================================================== --}}
         <div class="departments-header">
 
             <div class="departments-heading">
@@ -32,10 +29,6 @@
 
         </div>
 
-
-        {{-- =====================================================
-            SUCCESS MESSAGE
-        ====================================================== --}}
         @if (session('success'))
 
             <div class="department-alert">
@@ -63,10 +56,6 @@
 
         @endif
 
-
-        {{-- =====================================================
-            VIEW TOGGLE
-        ====================================================== --}}
         <div class="departments-toolbar">
 
             <div class="view-toggle">
@@ -96,18 +85,9 @@
         </div>
 
 
-        {{-- =====================================================
-            DEPARTMENT CONTENT
-        ====================================================== --}}
         @if ($departments->count())
 
-            {{-- =================================================
-                CARD VIEW
-            ================================================== --}}
-            <div
-                id="cardView"
-                class="departments-grid"
-            >
+            <div id="cardView" class="departments-grid">
 
                 @foreach ($departments as $department)
 
@@ -183,9 +163,6 @@
             </div>
 
 
-            {{-- =================================================
-                TABLE VIEW
-            ================================================== --}}
             <div
                 id="tableView"
                 class="department-table-wrapper"
@@ -325,10 +302,6 @@
             </div>
 
         @else
-
-            {{-- =================================================
-                EMPTY STATE
-            ================================================== --}}
             <div class="department-empty">
 
                 <div class="empty-icon">
@@ -360,19 +333,12 @@
     </div>
 
 
-    {{-- =====================================================
-        MODALS
-    ====================================================== --}}
     @include('admin.departments.create')
     @include('admin.departments.edit')
     @include('admin.departments.delete')
 
 
     <style>
-
-        /* =====================================================
-           VARIABLES
-        ====================================================== */
 
         :root {
 
@@ -400,10 +366,6 @@
         }
 
 
-        /* =====================================================
-           DARK MODE VARIABLES
-        ====================================================== */
-
         [data-bs-theme="dark"] {
 
             --purple: #8b6cf0;
@@ -429,15 +391,9 @@
                 0 3px 12px rgba(0, 0, 0, .30);
         }
 
-
-        /* =====================================================
-           PAGE
-        ====================================================== */
-
         .departments-page {
 
             padding: 20px;
-
             color: var(--text);
         }
 
@@ -445,40 +401,22 @@
         [data-bs-theme="dark"] body {
 
             background: #101426;
-
             color: #eeeef8;
         }
-
-
-        /* =====================================================
-           HEADER
-        ====================================================== */
 
         .departments-header {
 
             display: flex;
             align-items: center;
             justify-content: space-between;
-
             gap: 20px;
-
             margin: 100px 0 20px;
-
             padding: 20px 22px;
-
             background: var(--card-bg);
-
             border: 1px solid var(--border);
-
             border-radius: 12px;
-
             box-shadow: var(--shadow);
         }
-
-
-        /* =====================================================
-           HEADER CONTENT
-        ====================================================== */
 
         .departments-heading {
 
@@ -489,17 +427,11 @@
         .departments-overline {
 
             display: block;
-
             margin-bottom: 5px;
-
             color: var(--purple);
-
             font-size: .68rem;
-
             font-weight: 700;
-
             letter-spacing: .14em;
-
             text-transform: uppercase;
         }
 
@@ -507,13 +439,9 @@
         .departments-title {
 
             margin: 0;
-
             color: var(--text);
-
             font-size: 1.7rem;
-
             font-weight: 800;
-
             line-height: 1.2;
         }
 
@@ -524,42 +452,23 @@
         }
 
 
-        /* =====================================================
-           ADD DEPARTMENT BUTTON
-        ====================================================== */
-
         .add-department-btn {
 
             display: inline-flex;
-
             align-items: center;
-
             justify-content: center;
-
             gap: 7px;
-
             min-height: 38px;
-
             padding: 8px 14px;
-
             border: 1px solid var(--purple);
-
             border-radius: 7px;
-
             background: var(--purple);
-
             color: #ffffff;
-
             font-size: .74rem;
-
             font-weight: 600;
-
             cursor: pointer;
-
             text-decoration: none;
-
             white-space: nowrap;
-
             transition:
                 background-color .2s ease,
                 transform .2s ease,
@@ -570,43 +479,25 @@
         .add-department-btn:hover {
 
             background: var(--purple-hover);
-
             border-color: var(--purple-hover);
-
             color: #ffffff;
-
             transform: translateY(-1px);
-
             box-shadow:
                 0 5px 15px
                 rgba(101, 56, 217, .25);
         }
 
-
-        /* =====================================================
-           SUCCESS ALERT
-        ====================================================== */
-
         .department-alert {
 
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
             gap: 15px;
-
             margin-bottom: 18px;
-
             padding: 11px 14px;
-
             border: 1px solid var(--border);
-
             border-radius: 8px;
-
             background: var(--card-bg);
-
             box-shadow: var(--shadow);
         }
 
@@ -614,15 +505,10 @@
         .department-alert-message {
 
             display: flex;
-
             align-items: center;
-
             gap: 8px;
-
             color: var(--text);
-
             font-size: .76rem;
-
             font-weight: 600;
         }
 
@@ -679,10 +565,6 @@
             margin-bottom: 18px;
         }
 
-
-        /* =====================================================
-           VIEW TOGGLE
-        ====================================================== */
 
         .view-toggle {
 
@@ -755,11 +637,6 @@
                 rgba(101, 56, 217, .20);
         }
 
-
-        /* =====================================================
-           CARD GRID
-        ====================================================== */
-
         .departments-grid {
 
             display: grid;
@@ -770,10 +647,6 @@
             gap: 16px;
         }
 
-
-        /* =====================================================
-           DEPARTMENT CARD
-        ====================================================== */
 
         .department-card {
 
@@ -823,10 +696,6 @@
         }
 
 
-        /* =====================================================
-           CARD INFORMATION
-        ====================================================== */
-
         .department-info {
 
             display: flex;
@@ -836,10 +705,6 @@
             gap: 12px;
         }
 
-
-        /* =====================================================
-           DEPARTMENT ICON
-        ====================================================== */
 
         .department-icon {
 
@@ -1105,8 +970,7 @@
 
         .department-table tbody tr:hover {
 
-            background:
-                var(--purple-soft);
+            background: #fafafa;
         }
 
 

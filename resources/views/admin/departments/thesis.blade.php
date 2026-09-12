@@ -1,4 +1,3 @@
-```blade
 <x-app-layout>
 
     <div class="dashboard-content thesis-page">
@@ -11,8 +10,7 @@
 
             <div class="thesis-header-left">
 
-                <a href="{{ route('admin.departments.index') }}"
-                   class="thesis-back-link">
+                <a href="{{ route('admin.departments.index') }}" class="thesis-back-link">
 
                     <span class="thesis-back-icon">
                         &lt;
@@ -51,8 +49,7 @@
 
             {{-- LOADING --}}
 
-            <div id="thesisSearchSpinner"
-                 class="thesis-loading d-none">
+            <div id="thesisSearchSpinner" class="thesis-loading d-none">
 
                 <div class="thesis-spinner"></div>
 
@@ -70,10 +67,8 @@
 
                 <div class="thesis-view-toggle">
 
-                    <button type="button"
-                            id="thesisCardViewButton"
-                            class="thesis-view-button is-active"
-                            aria-label="Card View">
+                    <button type="button" id="thesisCardViewButton" class="thesis-view-button is-active"
+                        aria-label="Card View">
 
                         <i class="bi bi-grid-3x3-gap"></i>
 
@@ -84,10 +79,8 @@
                     </button>
 
 
-                    <button type="button"
-                            id="thesisTableViewButton"
-                            class="thesis-view-button"
-                            aria-label="Table View">
+                    <button type="button" id="thesisTableViewButton" class="thesis-view-button"
+                        aria-label="Table View">
 
                         <i class="bi bi-table"></i>
 
@@ -105,29 +98,17 @@
 
             {{-- RESULTS CONTAINER --}}
 
-            <div id="adminThesisCards"
-                 class="thesis-results-container">
+            <div id="adminThesisCards" class="thesis-results-container">
 
                 @php
-
-                    /*
-                    |--------------------------------------------------------------------------
-                    | ONLY APPROVED / PUBLISHED THESIS
-                    |--------------------------------------------------------------------------
-                    |
-                    | A thesis is considered approved when published_at is not null.
-                    | Your Admin/HoD approval process sets published_at when approved.
-                    |
-                    */
 
                     $thesisCollection = method_exists($theses, 'getCollection')
                         ? $theses->getCollection()
                         : collect($theses);
 
-                    $approvedTheses = $thesisCollection
-                        ->filter(function ($thesis) {
-                            return !is_null($thesis->published_at);
-                        });
+                    $approvedTheses = $thesisCollection->filter(function ($thesis) {
+                        return !is_null($thesis->published_at);
+                    });
 
                     $groupedTheses = $approvedTheses->groupBy(function ($thesis) {
                         return optional($thesis->department)->name ?? 'No Department';
@@ -150,7 +131,6 @@
                             <div class="thesis-department-grid">
 
                                 @foreach ($departmentTheses as $thesis)
-
                                     <div class="admin-thesis-card">
 
                                         {{-- CARD TOP --}}
@@ -197,9 +177,7 @@
 
                                                     <span class="admin-thesis-published-value">
 
-                                                        {{ optional($thesis->publishedBy)->username
-                                                            ?? optional($thesis->publishedBy)->full_name
-                                                            ?? '—' }}
+                                                        {{ optional($thesis->publishedBy)->username ?? (optional($thesis->publishedBy)->full_name ?? '—') }}
 
                                                     </span>
 
@@ -225,9 +203,7 @@
 
                                                     <span class="admin-thesis-published-value">
 
-                                                        {{ $thesis->published_at
-                                                            ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y')
-                                                            : '—' }}
+                                                        {{ $thesis->published_at ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y') : '—' }}
 
                                                     </span>
 
@@ -331,9 +307,7 @@
 
                                                 <span class="admin-thesis-submitted-value">
 
-                                                    {{ optional($thesis->submittedBy)->username
-                                                        ?? optional($thesis->submittedBy)->full_name
-                                                        ?? '—' }}
+                                                    {{ optional($thesis->submittedBy)->username ?? (optional($thesis->submittedBy)->full_name ?? '—') }}
 
                                                 </span>
 
@@ -352,9 +326,9 @@
                                             {{-- VIEW DETAIL --}}
 
                                             <a href="{{ route('admin.thesis.show', $thesis->id) }}"
-                                               class="admin-thesis-action admin-thesis-detail-button">
+                                                class="admin-thesis-action admin-thesis-detail-button">
 
-                                                <i class="bi bi-eye"></i>
+                                                <i class="bi bi-file-text"></i>
 
                                                 <span>
                                                     View Detail
@@ -367,13 +341,12 @@
                                             {{-- VIEW PDF --}}
 
                                             <a href="{{ route('admin.thesis.view-pdf', $thesis->id) }}"
-                                            
-                                               class="admin-thesis-action admin-thesis-pdf-button">
+                                                class="admin-thesis-action admin-thesis-pdf-button">
 
                                                 <i class="bi bi-file-earmark-pdf"></i>
 
                                                 <span>
-                                                    View PDF
+                                                    PDF
                                                 </span>
 
                                             </a>
@@ -381,7 +354,6 @@
                                         </div>
 
                                     </div>
-
                                 @endforeach
 
                             </div>
@@ -450,7 +422,6 @@
                                     <tbody>
 
                                         @foreach ($departmentTheses as $thesis)
-
                                             <tr>
 
                                                 <td class="thesis-table-number">
@@ -484,27 +455,21 @@
 
                                                 <td>
 
-                                                    {{ optional($thesis->submittedBy)->username
-                                                        ?? optional($thesis->submittedBy)->full_name
-                                                        ?? '—' }}
+                                                    {{ optional($thesis->submittedBy)->username ?? (optional($thesis->submittedBy)->full_name ?? '—') }}
 
                                                 </td>
 
 
                                                 <td>
 
-                                                    {{ optional($thesis->publishedBy)->username
-                                                        ?? optional($thesis->publishedBy)->full_name
-                                                        ?? '—' }}
+                                                    {{ optional($thesis->publishedBy)->username ?? (optional($thesis->publishedBy)->full_name ?? '—') }}
 
                                                 </td>
 
 
                                                 <td>
 
-                                                    {{ $thesis->published_at
-                                                        ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y')
-                                                        : '—' }}
+                                                    {{ $thesis->published_at ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y') : '—' }}
 
                                                 </td>
 
@@ -518,11 +483,10 @@
                                                         {{-- VIEW DETAIL --}}
 
                                                         <a href="{{ route('admin.thesis.show', $thesis->id) }}"
-                                                           class="thesis-table-action thesis-table-detail"
-                                                           title="View Detail"
-                                                           aria-label="View Detail">
+                                                            class="thesis-table-action thesis-table-detail"
+                                                            title="View Detail" aria-label="View Detail">
 
-                                                            <i class="bi bi-eye"></i>
+                                                            <i class="bi bi-file-text"></i>
 
                                                         </a>
 
@@ -531,10 +495,8 @@
                                                         {{-- VIEW PDF --}}
 
                                                         <a href="{{ route('admin.thesis.view-pdf', $thesis->id) }}"
-                                                           target="_blank"
-                                                           class="thesis-table-action thesis-table-pdf"
-                                                           title="View PDF"
-                                                           aria-label="View PDF">
+                                                            target="_blank" class="thesis-table-action thesis-table-pdf"
+                                                            title="View PDF" aria-label="View PDF">
 
                                                             <i class="bi bi-file-earmark-pdf"></i>
 
@@ -545,7 +507,6 @@
                                                 </td>
 
                                             </tr>
-
                                         @endforeach
 
                                     </tbody>
@@ -593,8 +554,7 @@
     ============================================================= --}}
 
     <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
             let searchTimeout = null;
             let currentController = null;
@@ -691,7 +651,7 @@
 
                 thesisCardViewButton.addEventListener(
                     'click',
-                    function () {
+                    function() {
                         setThesisView('cards');
                     }
                 );
@@ -704,7 +664,7 @@
 
                 thesisTableViewButton.addEventListener(
                     'click',
-                    function () {
+                    function() {
                         setThesisView('table');
                     }
                 );
@@ -718,9 +678,9 @@
 
 
             setThesisView(
-                savedThesisView === 'table'
-                    ? 'table'
-                    : 'cards'
+                savedThesisView === 'table' ?
+                'table' :
+                'cards'
             );
 
 
@@ -756,16 +716,16 @@
                 if (window.innerWidth <= 767.98) {
 
                     currentSearch =
-                        mobileSearchInput
-                            ? mobileSearchInput.value.trim()
-                            : '';
+                        mobileSearchInput ?
+                        mobileSearchInput.value.trim() :
+                        '';
 
                 } else {
 
                     currentSearch =
-                        searchInput
-                            ? searchInput.value.trim()
-                            : '';
+                        searchInput ?
+                        searchInput.value.trim() :
+                        '';
 
                 }
 
@@ -775,107 +735,101 @@
 
                         search: currentSearch,
 
-                        department:
-                            departmentFilter
-                                ? departmentFilter.value
-                                : '',
+                        department: departmentFilter ?
+                            departmentFilter.value :
+                            '',
 
-                        year:
-                            yearFilter
-                                ? yearFilter.value
-                                : ''
+                        year: yearFilter ?
+                            yearFilter.value :
+                            ''
 
                     });
 
 
                 fetch(
-                    "{{ route('admin.thesis.search') }}?" +
-                    query.toString(),
-                    {
+                        "{{ route('admin.thesis.search') }}?" +
+                        query.toString(), {
 
-                        signal:
-                            currentController.signal,
+                            signal: currentController.signal,
 
-                        headers: {
+                            headers: {
 
-                            'X-Requested-With':
-                                'XMLHttpRequest',
+                                'X-Requested-With': 'XMLHttpRequest',
 
-                            'Accept':
-                                'text/html'
+                                'Accept': 'text/html'
+
+                            }
+
+                        }
+                    )
+
+                    .then(function(response) {
+
+                        if (!response.ok) {
+
+                            throw new Error(
+                                'Network response failed'
+                            );
 
                         }
 
-                    }
-                )
+                        return response.text();
 
-                .then(function (response) {
+                    })
 
-                    if (!response.ok) {
+                    .then(function(html) {
 
-                        throw new Error(
-                            'Network response failed'
-                        );
+                        if (thesisResultsContainer) {
 
-                    }
-
-                    return response.text();
-
-                })
-
-                .then(function (html) {
-
-                    if (thesisResultsContainer) {
-
-                        thesisResultsContainer.innerHTML =
-                            html;
+                            thesisResultsContainer.innerHTML =
+                                html;
 
 
-                        const currentView =
-                            localStorage.getItem(
-                                'adminThesisView'
+                            const currentView =
+                                localStorage.getItem(
+                                    'adminThesisView'
+                                );
+
+
+                            setThesisView(
+                                currentView === 'table' ?
+                                'table' :
+                                'cards'
                             );
 
+                        }
 
-                        setThesisView(
-                            currentView === 'table'
-                                ? 'table'
-                                : 'cards'
-                        );
+                    })
 
-                    }
+                    .catch(function(error) {
 
-                })
+                        if (error.name !== 'AbortError') {
 
-                .catch(function (error) {
+                            console.error(
+                                'Error loading thesis records:',
+                                error
+                            );
 
-                    if (error.name !== 'AbortError') {
+                        }
 
-                        console.error(
-                            'Error loading thesis records:',
-                            error
-                        );
+                    })
 
-                    }
+                    .finally(function() {
 
-                })
-
-                .finally(function () {
-
-                    if (spinner) {
-                        spinner.classList.add('d-none');
-                    }
+                        if (spinner) {
+                            spinner.classList.add('d-none');
+                        }
 
 
-                    if (thesisResultsContainer) {
+                        if (thesisResultsContainer) {
 
-                        thesisResultsContainer.classList.remove(
-                            'is-loading'
-                        );
+                            thesisResultsContainer.classList.remove(
+                                'is-loading'
+                            );
 
-                    }
+                        }
 
-                });
+                    });
 
             }
 
@@ -889,7 +843,7 @@
 
                 searchInput.addEventListener(
                     'input',
-                    function () {
+                    function() {
 
                         clearTimeout(searchTimeout);
 
@@ -914,7 +868,7 @@
 
                 mobileSearchInput.addEventListener(
                     'input',
-                    function () {
+                    function() {
 
                         clearTimeout(searchTimeout);
 
@@ -1016,7 +970,7 @@
 
                 mobileSearchToggle.addEventListener(
                     'click',
-                    function () {
+                    function() {
 
                         if (!mobileSearchPanel) {
                             return;
@@ -1065,7 +1019,7 @@
 
 
                             setTimeout(
-                                function () {
+                                function() {
 
                                     if (mobileSearchInput) {
                                         mobileSearchInput.focus();
@@ -1090,7 +1044,7 @@
 
             document.addEventListener(
                 'keydown',
-                function (event) {
+                function(event) {
 
                     if (
                         event.key === 'Escape' &&
@@ -1132,7 +1086,7 @@
 
             window.addEventListener(
                 'resize',
-                function () {
+                function() {
 
                     if (window.innerWidth > 767.98) {
 
@@ -1165,7 +1119,6 @@
             );
 
         });
-
     </script>
 
 
@@ -1175,7 +1128,6 @@
     ============================================================= --}}
 
     <style>
-
         /* =========================================================
            COLOR SYSTEM
         ========================================================== */
@@ -1201,8 +1153,8 @@
 
             --thesis-border-soft: #E5E7EB;
 
-            --thesis-detail: #16A34A;
-            --thesis-pdf: #2563EB;
+            --thesis-detail: #5428C7;
+            --thesis-pdf: #DC2626;
 
             --thesis-shadow:
                 0 8px 24px rgba(17, 17, 17, .08);
@@ -1211,11 +1163,9 @@
                 0 2px 10px rgba(17, 17, 17, .05);
 
             --thesis-header-bg:
-                linear-gradient(
-                    135deg,
+                linear-gradient(135deg,
                     #FFFFFF 0%,
-                    #FAF9FF 100%
-                );
+                    #FAF9FF 100%);
 
             --thesis-header-border:
                 #E5E7EB;
@@ -1249,8 +1199,8 @@
             --thesis-purple-light: #292342;
             --thesis-purple-soft: #342C52;
 
-            --thesis-detail: #4ADE80;
-            --thesis-pdf: #60A5FA;
+            --thesis-detail: #5428C7;
+            --thesis-pdf: #DC2626;
 
             --thesis-shadow:
                 0 8px 24px rgba(0, 0, 0, .35);
@@ -1259,11 +1209,9 @@
                 0 2px 10px rgba(0, 0, 0, .30);
 
             --thesis-header-bg:
-                linear-gradient(
-                    135deg,
+                linear-gradient(135deg,
                     #181D33 0%,
-                    #1E1A35 100%
-                );
+                    #1E1A35 100%);
 
             --thesis-header-border:
                 #2F3550;
@@ -2513,19 +2461,19 @@
 
 
         /* =========================================================
-           VIEW DETAIL - GREEN
+           VIEW DETAIL - DARK PURPLE
         ========================================================== */
 
         .admin-thesis-detail-button {
 
             color:
-                var(--thesis-detail);
+                #5428C7;
 
             background:
                 transparent;
 
             border:
-                1px solid var(--thesis-detail);
+                1px solid #5428C7;
 
         }
 
@@ -2537,29 +2485,29 @@
                 #FFFFFF;
 
             background:
-                var(--thesis-detail);
+                #5428C7;
 
             border-color:
-                var(--thesis-detail);
+                #5428C7;
 
         }
 
 
 
         /* =========================================================
-           VIEW PDF - BLUE
+           VIEW PDF - RED
         ========================================================== */
 
         .admin-thesis-pdf-button {
 
             color:
-                var(--thesis-pdf);
+                #DC2626;
 
             background:
                 transparent;
 
             border:
-                1px solid var(--thesis-pdf);
+                1px solid #DC2626;
 
         }
 
@@ -2571,10 +2519,10 @@
                 #FFFFFF;
 
             background:
-                var(--thesis-pdf);
+                #DC2626;
 
             border-color:
-                var(--thesis-pdf);
+                #DC2626;
 
         }
 
@@ -2714,8 +2662,7 @@
 
 
 
-        .thesis-results-container.table-mode
-        .thesis-partial-card-results {
+        .thesis-results-container.table-mode .thesis-partial-card-results {
 
             display:
                 none;
@@ -2724,8 +2671,7 @@
 
 
 
-        .thesis-results-container.table-mode
-        .thesis-partial-table-results {
+        .thesis-results-container.table-mode .thesis-partial-table-results {
 
             display:
                 block;
@@ -3035,15 +2981,20 @@
 
 
 
-        /* DETAIL GREEN */
+        /* =========================================================
+           TABLE VIEW DETAIL - DARK PURPLE
+        ========================================================== */
 
         .thesis-table-detail {
 
             color:
-                var(--thesis-detail);
+                #5428C7;
+
+            background:
+                transparent;
 
             border:
-                1px solid var(--thesis-detail);
+                1px solid #5428C7;
 
         }
 
@@ -3055,21 +3006,29 @@
                 #FFFFFF;
 
             background:
-                var(--thesis-detail);
+                #5428C7;
+
+            border-color:
+                #5428C7;
 
         }
 
 
 
-        /* PDF BLUE */
+        /* =========================================================
+           TABLE VIEW PDF - RED
+        ========================================================== */
 
         .thesis-table-pdf {
 
             color:
-                var(--thesis-pdf);
+                #DC2626;
+
+            background:
+                transparent;
 
             border:
-                1px solid var(--thesis-pdf);
+                1px solid #DC2626;
 
         }
 
@@ -3081,7 +3040,10 @@
                 #FFFFFF;
 
             background:
-                var(--thesis-pdf);
+                #DC2626;
+
+            border-color:
+                #DC2626;
 
         }
 
@@ -3515,9 +3477,6 @@
             }
 
         }
-
     </style>
 
 </x-app-layout>
-```
-

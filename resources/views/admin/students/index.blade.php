@@ -37,14 +37,8 @@
 
                 {{-- MOBILE SEARCH TOGGLE --}}
 
-                <button
-                    type="button"
-                    id="mobileSearchToggle"
-                    class="student-mobile-search-button"
-                    aria-label="Open Search"
-                    aria-expanded="false"
-                    data-tooltip="Search"
-                >
+                <button type="button" id="mobileSearchToggle" class="student-mobile-search-button"
+                    aria-label="Open Search" aria-expanded="false" data-tooltip="Search">
 
                     <i class="bi bi-search"></i>
 
@@ -59,10 +53,7 @@
             MOBILE SEARCH PANEL
         ========================================================== --}}
 
-        <div
-            id="mobileSearchPanel"
-            class="student-mobile-search-panel"
-        >
+        <div id="mobileSearchPanel" class="student-mobile-search-panel">
 
             <div class="student-mobile-search-content">
 
@@ -70,23 +61,14 @@
 
                     <i class="bi bi-search"></i>
 
-                    <input
-                        type="text"
-                        id="mobileSearchInput"
-                        placeholder="Search name, department, email..."
-                        autocomplete="off"
-                    >
+                    <input type="text" id="mobileSearchInput" placeholder="Search name, department, email..."
+                        autocomplete="off">
 
                 </div>
 
 
-                <button
-                    type="button"
-                    id="mobileResetFilter"
-                    class="student-mobile-reset-button"
-                    aria-label="Reset Search"
-                    data-tooltip="Reset"
-                >
+                <button type="button" id="mobileResetFilter" class="student-mobile-reset-button"
+                    aria-label="Reset Search" data-tooltip="Reset">
 
                     <i class="bi bi-arrow-counterclockwise"></i>
 
@@ -111,10 +93,7 @@
 
                     <div class="col-12 col-lg-5">
 
-                        <label
-                            for="search"
-                            class="student-input-label"
-                        >
+                        <label for="search" class="student-input-label">
                             Search
                         </label>
 
@@ -122,12 +101,8 @@
 
                             <i class="bi bi-search"></i>
 
-                            <input
-                                type="text"
-                                id="search"
-                                placeholder="Search name, department, email..."
-                                autocomplete="off"
-                            >
+                            <input type="text" id="search" placeholder="Search name, department, email..."
+                                autocomplete="off">
 
                         </div>
 
@@ -138,29 +113,20 @@
 
                     <div class="col-12 col-md-4 col-lg-2">
 
-                        <label
-                            for="departmentFilter"
-                            class="student-input-label"
-                        >
+                        <label for="departmentFilter" class="student-input-label">
                             Department
                         </label>
 
-                        <select
-                            class="student-filter-select"
-                            id="departmentFilter"
-                            name="department"
-                        >
+                        <select class="student-filter-select" id="departmentFilter" name="department">
 
                             <option value="">
                                 All Departments
                             </option>
 
                             @foreach ($departments as $department)
-
                                 <option value="{{ $department->name }}">
                                     {{ $department->name }}
                                 </option>
-
                             @endforeach
 
                         </select>
@@ -172,34 +138,24 @@
 
                     <div class="col-12 col-md-4 col-lg-2">
 
-                        <label
-                            for="yearFilter"
-                            class="student-input-label"
-                        >
+                        <label for="yearFilter" class="student-input-label">
                             Started Year
                         </label>
 
-                        <select
-                            class="student-filter-select student-year-select"
-                            id="yearFilter"
-                            name="started_year"
-                        >
+                        <select class="student-filter-select student-year-select" id="yearFilter" name="started_year">
 
                             <option value="">
                                 All Years
                             </option>
 
-                            <option value="2026">
-                                2026
-                            </option>
-
-                            <option value="2025">
-                                2025
-                            </option>
-
-                            <option value="2024">
-                                2024
-                            </option>
+                            @forelse ($students->pluck('started_year')->filter()->unique()->sortDesc() as $year)
+                                <option value="{{ $year }}"
+                                    {{ request('started_year') == $year ? 'selected' : '' }}>
+                                    {{ $year }}
+                                </option>
+                            @empty
+                                {{-- No years available --}}
+                            @endforelse
 
                         </select>
 
@@ -210,13 +166,8 @@
 
                     <div class="col-12 col-md-4 col-lg-3">
 
-                        <button
-                            type="button"
-                            id="resetFilter"
-                            class="student-reset-button"
-                            data-tooltip="Reset Filters"
-                            aria-label="Reset Filters"
-                        >
+                        <button type="button" id="resetFilter" class="student-reset-button"
+                            data-tooltip="Reset Filters" aria-label="Reset Filters">
 
                             <i class="bi bi-arrow-counterclockwise"></i>
 
@@ -240,11 +191,7 @@
         ========================================================== --}}
 
         @if (session('success'))
-
-            <div
-                class="student-success-alert"
-                role="alert"
-            >
+            <div class="student-success-alert" role="alert">
 
                 <div class="student-alert-content">
 
@@ -257,19 +204,13 @@
                 </div>
 
 
-                <button
-                    type="button"
-                    class="student-alert-close"
-                    data-bs-dismiss="alert"
-                    aria-label="Close"
-                >
+                <button type="button" class="student-alert-close" data-bs-dismiss="alert" aria-label="Close">
 
                     <i class="bi bi-x-lg"></i>
 
                 </button>
 
             </div>
-
         @endif
 
 
@@ -290,13 +231,8 @@
 
                     {{-- CARDS --}}
 
-                    <button
-                        type="button"
-                        id="studentCardViewButton"
-                        class="student-view-button is-active"
-                        aria-label="Card View"
-                        title="Card View"
-                    >
+                    <button type="button" id="studentCardViewButton" class="student-view-button is-active"
+                        aria-label="Card View" title="Card View">
 
                         <i class="bi bi-grid-3x3-gap"></i>
 
@@ -309,13 +245,8 @@
 
                     {{-- TABLE --}}
 
-                    <button
-                        type="button"
-                        id="studentTableViewButton"
-                        class="student-view-button"
-                        aria-label="Table View"
-                        title="Table View"
-                    >
+                    <button type="button" id="studentTableViewButton" class="student-view-button"
+                        aria-label="Table View" title="Table View">
 
                         <i class="bi bi-table"></i>
 
@@ -334,10 +265,7 @@
                 LOADING
             ====================================================== --}}
 
-            <div
-                id="studentSearchSpinner"
-                class="student-loading d-none"
-            >
+            <div id="studentSearchSpinner" class="student-loading d-none">
 
                 <div class="student-spinner"></div>
 
@@ -352,10 +280,7 @@
                 CARD / TABLE RESULTS
             ====================================================== --}}
 
-            <div
-                id="adminStudentTable"
-                class="student-results-container"
-            >
+            <div id="adminStudentTable" class="student-results-container">
 
                 @include('admin.students.table')
 
@@ -371,10 +296,9 @@
     ============================================================== --}}
 
     <script>
-
         document.addEventListener(
             'DOMContentLoaded',
-            function () {
+            function() {
 
                 let searchTimeout = null;
 
@@ -506,7 +430,7 @@
 
                     studentCardViewButton.addEventListener(
                         'click',
-                        function () {
+                        function() {
 
                             setStudentView('cards');
 
@@ -524,7 +448,7 @@
 
                     studentTableViewButton.addEventListener(
                         'click',
-                        function () {
+                        function() {
 
                             setStudentView('table');
 
@@ -602,16 +526,16 @@
                     if (window.innerWidth <= 767.98) {
 
                         search =
-                            mobileSearchInput
-                                ? mobileSearchInput.value.trim()
-                                : '';
+                            mobileSearchInput ?
+                            mobileSearchInput.value.trim() :
+                            '';
 
                     } else {
 
                         search =
-                            searchInput
-                                ? searchInput.value.trim()
-                                : '';
+                            searchInput ?
+                            searchInput.value.trim() :
+                            '';
 
                     }
 
@@ -621,9 +545,9 @@
                     ================================================== */
 
                     const department =
-                        departmentFilter
-                            ? departmentFilter.value
-                            : '';
+                        departmentFilter ?
+                        departmentFilter.value :
+                        '';
 
 
                     /* =================================================
@@ -631,9 +555,9 @@
                     ================================================== */
 
                     const year =
-                        yearFilter
-                            ? yearFilter.value
-                            : '';
+                        yearFilter ?
+                        yearFilter.value :
+                        '';
 
 
                     /* =================================================
@@ -657,104 +581,100 @@
                     ================================================== */
 
                     fetch(
-                        "{{ route('admin.students.search') }}?" +
-                        query.toString(),
-                        {
-                            signal:
-                                currentController.signal,
+                            "{{ route('admin.students.search') }}?" +
+                            query.toString(), {
+                                signal: currentController.signal,
 
-                            headers: {
-                                'X-Requested-With':
-                                    'XMLHttpRequest',
+                                headers: {
+                                    'X-Requested-With': 'XMLHttpRequest',
 
-                                'Accept':
-                                    'text/html'
+                                    'Accept': 'text/html'
+                                }
                             }
-                        }
-                    )
+                        )
 
-                    .then(function (response) {
+                        .then(function(response) {
 
-                        if (!response.ok) {
+                            if (!response.ok) {
 
-                            throw new Error(
-                                'Network response failed'
-                            );
+                                throw new Error(
+                                    'Network response failed'
+                                );
 
-                        }
+                            }
 
-                        return response.text();
+                            return response.text();
 
-                    })
+                        })
 
-                    .then(function (data) {
+                        .then(function(data) {
 
-                        if (studentResultsContainer) {
+                            if (studentResultsContainer) {
 
-                            studentResultsContainer.innerHTML =
-                                data;
+                                studentResultsContainer.innerHTML =
+                                    data;
 
-                        }
-
-
-                        /*
-                         * Re-apply current view after AJAX.
-                         */
-
-                        const currentView =
-                            localStorage.getItem(
-                                'adminStudentView'
-                            );
+                            }
 
 
-                        if (currentView === 'table') {
+                            /*
+                             * Re-apply current view after AJAX.
+                             */
 
-                            setStudentView('table');
-
-                        } else {
-
-                            setStudentView('cards');
-
-                        }
-
-                    })
-
-                    .catch(function (error) {
-
-                        if (
-                            error.name !==
-                            'AbortError'
-                        ) {
-
-                            console.error(
-                                'Error loading students:',
-                                error
-                            );
-
-                        }
-
-                    })
-
-                    .finally(function () {
-
-                        if (spinner) {
-
-                            spinner.classList.add(
-                                'd-none'
-                            );
-
-                        }
+                            const currentView =
+                                localStorage.getItem(
+                                    'adminStudentView'
+                                );
 
 
-                        if (studentResultsContainer) {
+                            if (currentView === 'table') {
 
-                            studentResultsContainer
-                                .classList
-                                .remove('is-loading');
+                                setStudentView('table');
 
-                        }
+                            } else {
 
-                    });
+                                setStudentView('cards');
+
+                            }
+
+                        })
+
+                        .catch(function(error) {
+
+                            if (
+                                error.name !==
+                                'AbortError'
+                            ) {
+
+                                console.error(
+                                    'Error loading students:',
+                                    error
+                                );
+
+                            }
+
+                        })
+
+                        .finally(function() {
+
+                            if (spinner) {
+
+                                spinner.classList.add(
+                                    'd-none'
+                                );
+
+                            }
+
+
+                            if (studentResultsContainer) {
+
+                                studentResultsContainer
+                                    .classList
+                                    .remove('is-loading');
+
+                            }
+
+                        });
 
                 }
 
@@ -767,7 +687,7 @@
 
                     searchInput.addEventListener(
                         'input',
-                        function () {
+                        function() {
 
                             clearTimeout(
                                 searchTimeout
@@ -794,7 +714,7 @@
 
                     mobileSearchInput.addEventListener(
                         'input',
-                        function () {
+                        function() {
 
                             clearTimeout(
                                 searchTimeout
@@ -849,7 +769,7 @@
 
                     resetButton.addEventListener(
                         'click',
-                        function () {
+                        function() {
 
                             if (searchInput) {
 
@@ -898,12 +818,12 @@
 
                     mobileSearchToggle.addEventListener(
                         'click',
-                        function () {
+                        function() {
 
                             const isOpen =
                                 mobileSearchPanel
-                                    .classList
-                                    .contains('is-open');
+                                .classList
+                                .contains('is-open');
 
 
                             if (isOpen) {
@@ -944,7 +864,7 @@
 
 
                                 setTimeout(
-                                    function () {
+                                    function() {
 
                                         if (
                                             mobileSearchInput
@@ -974,7 +894,7 @@
 
                     mobileResetButton.addEventListener(
                         'click',
-                        function () {
+                        function() {
 
                             if (mobileSearchInput) {
 
@@ -1018,14 +938,14 @@
 
                 document.addEventListener(
                     'keydown',
-                    function (event) {
+                    function(event) {
 
                         if (
                             event.key === 'Escape' &&
                             mobileSearchPanel &&
                             mobileSearchPanel
-                                .classList
-                                .contains('is-open')
+                            .classList
+                            .contains('is-open')
                         ) {
 
                             mobileSearchPanel
@@ -1060,7 +980,7 @@
 
                 window.addEventListener(
                     'resize',
-                    function () {
+                    function() {
 
                         if (
                             window.innerWidth >
@@ -1099,7 +1019,6 @@
             }
 
         );
-
     </script>
 
 
@@ -1108,7 +1027,6 @@
     ============================================================== --}}
 
     <style>
-
         /* =========================================================
            COLOR VARIABLES
         ========================================================== */
@@ -1543,8 +1461,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .student-mobile-search-button {
+        [data-bs-theme="dark"] .student-mobile-search-button {
 
             color:
                 #FFFFFF;
@@ -1558,11 +1475,9 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .student-mobile-search-button:hover,
+        [data-bs-theme="dark"] .student-mobile-search-button:hover,
 
-        [data-bs-theme="dark"]
-        .student-mobile-search-button.is-active {
+        [data-bs-theme="dark"] .student-mobile-search-button.is-active {
 
             color:
                 #FFFFFF;
@@ -1791,8 +1706,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .student-filter-select option {
+        [data-bs-theme="dark"] .student-filter-select option {
 
             color:
                 #FFFFFF;
@@ -2078,16 +1992,14 @@
         }
 
 
-        .student-results-container.table-mode
-        .student-partial-card-results {
+        .student-results-container.table-mode .student-partial-card-results {
 
             display: none;
 
         }
 
 
-        .student-results-container.table-mode
-        .student-partial-table-results {
+        .student-results-container.table-mode .student-partial-table-results {
 
             display: block;
 
@@ -2377,8 +2289,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .student-table-permission.allowed {
+        [data-bs-theme="dark"] .student-table-permission.allowed {
 
             color:
                 #4ADE80;
@@ -2392,8 +2303,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .student-table-permission.denied {
+        [data-bs-theme="dark"] .student-table-permission.denied {
 
             color:
                 #F87171;
@@ -2441,8 +2351,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .student-table-year {
+        [data-bs-theme="dark"] .student-table-year {
 
             color:
                 #B8A7F2;
@@ -3253,8 +3162,7 @@
 
         @media (max-width: 767.98px) {
 
-            [data-bs-theme="dark"]
-            .student-page-header {
+            [data-bs-theme="dark"] .student-page-header {
 
                 background:
                     #181D33;
@@ -3265,8 +3173,7 @@
             }
 
 
-            [data-bs-theme="dark"]
-            .student-mobile-search-panel {
+            [data-bs-theme="dark"] .student-mobile-search-panel {
 
                 background:
                     #181D33;
@@ -3277,8 +3184,7 @@
             }
 
 
-            [data-bs-theme="dark"]
-            .student-mobile-reset-button {
+            [data-bs-theme="dark"] .student-mobile-reset-button {
 
                 color:
                     #D5D8E8;
@@ -3292,8 +3198,7 @@
             }
 
 
-            [data-bs-theme="dark"]
-            .student-mobile-reset-button:hover {
+            [data-bs-theme="dark"] .student-mobile-reset-button:hover {
 
                 color:
                     #FFFFFF;
@@ -3348,7 +3253,6 @@
             }
 
         }
-
     </style>
 
 </x-app-layout>

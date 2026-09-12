@@ -76,14 +76,10 @@
 
                     <div class="thesis-show-header-content">
 
-                        {{-- OVERLINE --}}
-
                         <span class="thesis-show-overline">
                             THESIS #{{ $thesis->id }}
                         </span>
 
-
-                        {{-- TITLE --}}
 
                         <div class="thesis-show-title-row">
 
@@ -326,6 +322,12 @@
 
                                     </span>
 
+                                @else
+
+                                    <span>
+                                        N/A
+                                    </span>
+
                                 @endif
 
                             </div>
@@ -516,9 +518,9 @@
                                 class="thesis-view-pdf-button"
                             >
 
-                                <i class="bi bi-eye-fill"></i>
+                                <i class="bi bi-file-earmark-pdf"></i>
 
-                                View PDF
+                                PDF
 
                             </a>
 
@@ -543,6 +545,7 @@
                     </div>
 
                 </div>
+
             </div>
 
 
@@ -1202,10 +1205,64 @@
 
 
         /* =========================================================
-           VIEW PDF - BLUE
+           VIEW PDF - RED
         ========================================================== */
 
         .thesis-view-pdf-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 5px;
+
+            min-height: 36px;
+
+            padding: 7px 12px;
+
+            color: var(--thesis-red) !important;
+
+            background: transparent;
+
+            border: 1px solid var(--thesis-red) !important;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            font-size: .61rem;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+            transition:
+                color .2s ease,
+                background-color .2s ease,
+                border-color .2s ease,
+                transform .2s ease;
+        }
+
+
+        .thesis-view-pdf-button:hover {
+
+            color: #ffffff !important;
+
+            background: var(--thesis-red);
+
+            border-color: var(--thesis-red) !important;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================================================
+           DOWNLOAD PDF - BLUE
+        ========================================================== */
+
+        .thesis-download-pdf-button {
 
             display: inline-flex;
 
@@ -1243,67 +1300,13 @@
         }
 
 
-        .thesis-view-pdf-button:hover {
+        .thesis-download-pdf-button:hover {
 
             color: #ffffff !important;
 
             background: var(--thesis-blue);
 
             border-color: var(--thesis-blue) !important;
-
-            transform: translateY(-1px);
-        }
-
-
-        /* =========================================================
-           DOWNLOAD PDF - GREEN
-        ========================================================== */
-
-        .thesis-download-pdf-button {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 5px;
-
-            min-height: 36px;
-
-            padding: 7px 12px;
-
-            color: var(--thesis-green) !important;
-
-            background: transparent;
-
-            border: 1px solid var(--thesis-green) !important;
-
-            border-radius: 7px;
-
-            text-decoration: none;
-
-            font-size: .61rem;
-
-            font-weight: 700;
-
-            white-space: nowrap;
-
-            transition:
-                color .2s ease,
-                background-color .2s ease,
-                border-color .2s ease,
-                transform .2s ease;
-        }
-
-
-        .thesis-download-pdf-button:hover {
-
-            color: #ffffff !important;
-
-            background: var(--thesis-green);
-
-            border-color: var(--thesis-green) !important;
 
             transform: translateY(-1px);
         }
@@ -1382,7 +1385,7 @@
 
 
         /* =========================================================
-           FOOTER PDF BUTTON
+           FOOTER PDF BUTTON - BLUE
         ========================================================== */
 
         .thesis-footer-pdf-button {
@@ -1796,10 +1799,34 @@
 
 
         /* =========================================================
-           DARK VIEW PDF
+           DARK VIEW PDF - RED
         ========================================================== */
 
         [data-bs-theme="dark"] .thesis-view-pdf-button {
+
+            color: #f87171 !important;
+
+            background: transparent;
+
+            border-color: #f87171 !important;
+        }
+
+
+        [data-bs-theme="dark"] .thesis-view-pdf-button:hover {
+
+            color: #ffffff !important;
+
+            background: #dc3545;
+
+            border-color: #dc3545 !important;
+        }
+
+
+        /* =========================================================
+           DARK DOWNLOAD PDF - BLUE
+        ========================================================== */
+
+        [data-bs-theme="dark"] .thesis-download-pdf-button {
 
             color: #60a5fa !important;
 
@@ -1809,37 +1836,13 @@
         }
 
 
-        [data-bs-theme="dark"] .thesis-view-pdf-button:hover {
+        [data-bs-theme="dark"] .thesis-download-pdf-button:hover {
 
             color: #ffffff !important;
 
             background: #3b82f6;
 
             border-color: #3b82f6 !important;
-        }
-
-
-        /* =========================================================
-           DARK DOWNLOAD
-        ========================================================== */
-
-        [data-bs-theme="dark"] .thesis-download-pdf-button {
-
-            color: #2fbf71 !important;
-
-            background: transparent;
-
-            border-color: #2fbf71 !important;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-download-pdf-button:hover {
-
-            color: #ffffff !important;
-
-            background: #25a761;
-
-            border-color: #25a761 !important;
         }
 
 

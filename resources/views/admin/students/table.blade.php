@@ -1420,11 +1420,11 @@
 
     [data-bs-theme="dark"] .student-table th {
 
-        color: #d5d8e8;
+        color: #D8CCFF;
 
-        background: #20253a;
+        background: #292342;
 
-        border-color: #343a52;
+        border-bottom-color: #403765;
 
     }
 

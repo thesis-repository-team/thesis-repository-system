@@ -380,9 +380,9 @@
                                 class="view-pdf-button"
                             >
 
-                                <i class="bi bi-eye-fill"></i>
+                               <i class="bi bi-file-earmark-pdf"></i>
 
-                                View PDF
+                                PDF
 
                             </a>
 

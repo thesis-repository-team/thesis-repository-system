@@ -14,6 +14,10 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
+        if (! $user) {
+            abort(403);
+        }
+
         if ($user->role !== 'hod') {
             abort(403);
         }
@@ -30,25 +34,40 @@ class DashboardController extends Controller
 
         $departmentId = $department->id;
 
-        $pendingRequestsCount = ThesisRequest::where('department_id', $departmentId)
+        $pendingRequestsCount = ThesisRequest::where(
+            'department_id',
+            $departmentId
+        )
             ->where('status', 'pending')
             ->count();
 
-        $approvedThesisCount = ThesisRequest::where('department_id', $departmentId)
+        $approvedThesisCount = ThesisRequest::where(
+            'department_id',
+            $departmentId
+        )
             ->where('status', 'approved')
             ->count();
 
-        $rejectedRequestsCount = ThesisRequest::where('department_id', $departmentId)
+        $rejectedRequestsCount = ThesisRequest::where(
+            'department_id',
+            $departmentId
+        )
             ->where('status', 'rejected')
             ->count();
 
-        $thesesCount = Thesis::where('department_id', $departmentId)
+        $thesesCount = Thesis::where(
+            'department_id',
+            $departmentId
+        )
+            ->whereNotNull('published_at')
             ->count();
 
-        $publishedThesisCount = Thesis::where('department_id', $departmentId)
-            ->count();
+        $publishedThesisCount = $thesesCount;
 
-        $studentsCount = Student::where('department_id', $departmentId)
+        $studentsCount = Student::where(
+            'department_id',
+            $departmentId
+        )
             ->count();
 
         $recentRequests = ThesisRequest::with([
@@ -56,21 +75,22 @@ class DashboardController extends Controller
             'thesis',
         ])
             ->where('department_id', $departmentId)
-            ->latest()
+            ->latest('submitted_at')
             ->take(5)
             ->get();
 
         $recentTheses = Thesis::with([
-            'student',
-            'author',
             'submittedBy',
         ])
             ->where('department_id', $departmentId)
-            ->latest()
+            ->whereNotNull('published_at')
+            ->latest('published_at')
             ->take(5)
             ->get();
 
-        $recentStudents = Student::with('user')
+        $recentStudents = Student::with([
+            'user',
+        ])
             ->where('department_id', $departmentId)
             ->latest()
             ->take(5)

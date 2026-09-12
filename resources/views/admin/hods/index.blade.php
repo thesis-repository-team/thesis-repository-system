@@ -37,14 +37,8 @@
 
                 {{-- MOBILE SEARCH TOGGLE --}}
 
-                <button
-                    type="button"
-                    id="mobileSearchToggle"
-                    class="hod-mobile-search-button"
-                    aria-label="Open Search"
-                    aria-expanded="false"
-                    data-tooltip="Search"
-                >
+                <button type="button" id="mobileSearchToggle" class="hod-mobile-search-button" aria-label="Open Search"
+                    aria-expanded="false" data-tooltip="Search">
 
                     <i class="bi bi-search"></i>
 
@@ -55,12 +49,8 @@
 
                 <div class="hod-header-action">
 
-                    <a
-                        href="{{ route('admin.hods.create') }}"
-                        class="hod-add-button"
-                        data-tooltip="Add New HoD"
-                        aria-label="Add New HoD"
-                    >
+                    <a href="{{ route('admin.hods.create') }}" class="hod-add-button" data-tooltip="Add New HoD"
+                        aria-label="Add New HoD">
 
                         <i class="bi bi-plus-lg"></i>
 
@@ -81,10 +71,7 @@
             MOBILE SEARCH PANEL
         ========================================================== --}}
 
-        <div
-            id="mobileSearchPanel"
-            class="hod-mobile-search-panel"
-        >
+        <div id="mobileSearchPanel" class="hod-mobile-search-panel">
 
             <div class="hod-mobile-search-content">
 
@@ -92,23 +79,14 @@
 
                     <i class="bi bi-search"></i>
 
-                    <input
-                        type="text"
-                        id="mobileSearchInput"
-                        placeholder="Search name, email, or department..."
-                        autocomplete="off"
-                    >
+                    <input type="text" id="mobileSearchInput" placeholder="Search name, email, or department..."
+                        autocomplete="off">
 
                 </div>
 
 
-                <button
-                    type="button"
-                    id="mobileResetFilter"
-                    class="hod-mobile-reset-button"
-                    aria-label="Reset Search"
-                    data-tooltip="Reset"
-                >
+                <button type="button" id="mobileResetFilter" class="hod-mobile-reset-button" aria-label="Reset Search"
+                    data-tooltip="Reset">
 
                     <i class="bi bi-arrow-counterclockwise"></i>
 
@@ -131,10 +109,7 @@
 
                 <div class="col-12 col-lg-5">
 
-                    <label
-                        for="search"
-                        class="hod-input-label"
-                    >
+                    <label for="search" class="hod-input-label">
                         Search
                     </label>
 
@@ -143,12 +118,8 @@
 
                         <i class="bi bi-search"></i>
 
-                        <input
-                            type="text"
-                            id="search"
-                            placeholder="Search name, email, or department..."
-                            autocomplete="off"
-                        >
+                        <input type="text" id="search" placeholder="Search name, email, or department..."
+                            autocomplete="off">
 
                     </div>
 
@@ -159,19 +130,12 @@
 
                 <div class="col-12 col-md-6 col-lg-3">
 
-                    <label
-                        for="departmentFilter"
-                        class="hod-input-label"
-                    >
+                    <label for="departmentFilter" class="hod-input-label">
                         Department
                     </label>
 
 
-                    <select
-                        class="hod-filter-select"
-                        id="departmentFilter"
-                        name="department"
-                    >
+                    <select class="hod-filter-select" id="departmentFilter" name="department">
 
                         <option value="">
                             All Departments
@@ -179,11 +143,9 @@
 
 
                         @foreach ($departments as $department)
-
                             <option value="{{ $department->name }}">
                                 {{ $department->name }}
                             </option>
-
                         @endforeach
 
                     </select>
@@ -195,35 +157,26 @@
 
                 <div class="col-12 col-md-6 col-lg-2">
 
-                    <label
-                        for="yearFilter"
-                        class="hod-input-label"
-                    >
+                    <label for="yearFilter" class="hod-input-label">
                         Started Year
                     </label>
 
-
-                    <select
-                        class="hod-filter-select"
-                        id="yearFilter"
-                        name="started_year"
-                    >
+                    <select class="hod-filter-select" id="yearFilter" name="started_year">
 
                         <option value="">
                             All Years
                         </option>
 
-                        <option value="2026">
-                            2026
-                        </option>
+                        @forelse ($hods->pluck('started_year')->filter()->unique()->sortDesc() as $year)
+                            <option value="{{ $year }}"
+                                {{ request('started_year') == $year ? 'selected' : '' }}>
+                                {{ $year }}
+                            </option>
 
-                        <option value="2025">
-                            2025
-                        </option>
+                        @empty
 
-                        <option value="2024">
-                            2024
-                        </option>
+                            {{-- No started years found --}}
+                        @endforelse
 
                     </select>
 
@@ -234,13 +187,8 @@
 
                 <div class="col-12 col-lg-2">
 
-                    <button
-                        type="button"
-                        id="resetFilter"
-                        class="hod-reset-button"
-                        data-tooltip="Reset Filters"
-                        aria-label="Reset Filters"
-                    >
+                    <button type="button" id="resetFilter" class="hod-reset-button" data-tooltip="Reset Filters"
+                        aria-label="Reset Filters">
 
                         <i class="bi bi-arrow-counterclockwise"></i>
 
@@ -270,9 +218,6 @@
 
                 <div class="hod-results-title">
 
-                    <span>
-                        HOD RECORDS
-                    </span>
 
                 </div>
 
@@ -283,13 +228,8 @@
 
                     {{-- CARD VIEW --}}
 
-                    <button
-                        type="button"
-                        id="cardViewButton"
-                        class="hod-view-button is-active"
-                        data-tooltip="Card View"
-                        aria-label="Card View"
-                    >
+                    <button type="button" id="cardViewButton" class="hod-view-button is-active"
+                        data-tooltip="Card View" aria-label="Card View">
 
                         <i class="bi bi-grid-3x3-gap"></i>
 
@@ -302,13 +242,8 @@
 
                     {{-- TABLE VIEW --}}
 
-                    <button
-                        type="button"
-                        id="tableViewButton"
-                        class="hod-view-button"
-                        data-tooltip="Table View"
-                        aria-label="Table View"
-                    >
+                    <button type="button" id="tableViewButton" class="hod-view-button" data-tooltip="Table View"
+                        aria-label="Table View">
 
                         <i class="bi bi-table"></i>
 
@@ -327,10 +262,7 @@
                 LOADING
             ====================================================== --}}
 
-            <div
-                id="searchSpinner"
-                class="hod-loading d-none"
-            >
+            <div id="searchSpinner" class="hod-loading d-none">
 
                 <div class="hod-spinner"></div>
 
@@ -345,10 +277,7 @@
                 HOD RESULTS
             ====================================================== --}}
 
-            <div
-                id="adminHodTable"
-                class="hod-results-container"
-            >
+            <div id="adminHodTable" class="hod-results-container">
 
                 @include('admin.hods.table')
 
@@ -365,10 +294,9 @@
     ========================================================== --}}
 
     <script>
-
         document.addEventListener(
             'DOMContentLoaded',
-            function () {
+            function() {
 
                 let searchTimeout = null;
 
@@ -524,7 +452,7 @@
 
                     cardViewButton.addEventListener(
                         'click',
-                        function () {
+                        function() {
 
                             setHodView('cards');
 
@@ -543,7 +471,7 @@
 
                     tableViewButton.addEventListener(
                         'click',
-                        function () {
+                        function() {
 
                             setHodView('table');
 
@@ -621,16 +549,16 @@
                     if (window.innerWidth <= 767.98) {
 
                         currentSearch =
-                            mobileSearchInput
-                                ? mobileSearchInput.value
-                                : '';
+                            mobileSearchInput ?
+                            mobileSearchInput.value :
+                            '';
 
                     } else {
 
                         currentSearch =
-                            searchInput
-                                ? searchInput.value
-                                : '';
+                            searchInput ?
+                            searchInput.value :
+                            '';
 
                     }
 
@@ -640,18 +568,15 @@
                     const query =
                         new URLSearchParams({
 
-                            search:
-                                currentSearch,
+                            search: currentSearch,
 
-                            department:
-                                departmentFilter
-                                    ? departmentFilter.value
-                                    : '',
+                            department: departmentFilter ?
+                                departmentFilter.value :
+                                '',
 
-                            year:
-                                yearFilter
-                                    ? yearFilter.value
-                                    : ''
+                            year: yearFilter ?
+                                yearFilter.value :
+                                ''
 
                         });
 
@@ -659,84 +584,82 @@
                     /* AJAX */
 
                     fetch(
-                        "{{ route('admin.hods.search') }}?" +
-                        query.toString(),
-                        {
-                            signal:
-                                currentController.signal
-                        }
-                    )
+                            "{{ route('admin.hods.search') }}?" +
+                            query.toString(), {
+                                signal: currentController.signal
+                            }
+                        )
 
-                    .then(
-                        response => {
+                        .then(
+                            response => {
 
-                            if (!response.ok) {
+                                if (!response.ok) {
 
-                                throw new Error(
-                                    'Network response failed'
-                                );
+                                    throw new Error(
+                                        'Network response failed'
+                                    );
+
+                                }
+
+
+                                return response.text();
 
                             }
+                        )
 
+                        .then(
+                            html => {
 
-                            return response.text();
+                                if (hodResultsContainer) {
 
-                        }
-                    )
+                                    hodResultsContainer.innerHTML =
+                                        html;
 
-                    .then(
-                        html => {
-
-                            if (hodResultsContainer) {
-
-                                hodResultsContainer.innerHTML =
-                                    html;
+                                }
 
                             }
+                        )
 
-                        }
-                    )
+                        .catch(
+                            error => {
 
-                    .catch(
-                        error => {
+                                if (
+                                    error.name !==
+                                    'AbortError'
+                                ) {
 
-                            if (
-                                error.name !==
-                                'AbortError'
-                            ) {
+                                    console.error(
+                                        'Error loading HoD records:',
+                                        error
+                                    );
 
-                                console.error(
-                                    'Error loading HoD records:',
-                                    error
-                                );
-
-                            }
-
-                        }
-                    )
-
-                    .finally(
-                        () => {
-
-                            if (spinner) {
-
-                                spinner.classList.add(
-                                    'd-none'
-                                );
+                                }
 
                             }
+                        )
+
+                        .finally(
+                            () => {
+
+                                if (spinner) {
+
+                                    spinner.classList.add(
+                                        'd-none'
+                                    );
+
+                                }
 
 
-                            if (hodResultsContainer) {
+                                if (hodResultsContainer) {
 
-                                hodResultsContainer.classList.remove(
-                                    'is-loading'
-                                );
+                                    hodResultsContainer.classList.remove(
+                                        'is-loading'
+                                    );
+
+                                }
 
                             }
-
-                        }
-                    );
+                        );
 
                 }
 
@@ -750,7 +673,7 @@
 
                     searchInput.addEventListener(
                         'input',
-                        function () {
+                        function() {
 
                             clearTimeout(
                                 searchTimeout
@@ -778,7 +701,7 @@
 
                     mobileSearchInput.addEventListener(
                         'input',
-                        function () {
+                        function() {
 
                             clearTimeout(
                                 searchTimeout
@@ -897,7 +820,7 @@
 
                     mobileSearchToggle.addEventListener(
                         'click',
-                        function () {
+                        function() {
 
                             if (!mobileSearchPanel) {
                                 return;
@@ -906,10 +829,10 @@
 
                             const isOpen =
                                 mobileSearchPanel
-                                    .classList
-                                    .contains(
-                                        'is-open'
-                                    );
+                                .classList
+                                .contains(
+                                    'is-open'
+                                );
 
 
                             if (isOpen) {
@@ -987,16 +910,16 @@
 
                 document.addEventListener(
                     'keydown',
-                    function (event) {
+                    function(event) {
 
                         if (
                             event.key === 'Escape' &&
                             mobileSearchPanel &&
                             mobileSearchPanel
-                                .classList
-                                .contains(
-                                    'is-open'
-                                )
+                            .classList
+                            .contains(
+                                'is-open'
+                            )
                         ) {
 
                             mobileSearchPanel
@@ -1036,7 +959,7 @@
 
                 window.addEventListener(
                     'resize',
-                    function () {
+                    function() {
 
                         if (window.innerWidth > 767.98) {
 
@@ -1076,7 +999,6 @@
             }
 
         );
-
     </script>
 
 
@@ -1086,7 +1008,6 @@
     ========================================================== --}}
 
     <style>
-
         /* =========================================================
            COLOR VARIABLES
            MATCHES NOTIFICATIONS THEME
@@ -1488,11 +1409,9 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .hod-mobile-search-button:hover,
+        [data-bs-theme="dark"] .hod-mobile-search-button:hover,
 
-        [data-bs-theme="dark"]
-        .hod-mobile-search-button.is-active {
+        [data-bs-theme="dark"] .hod-mobile-search-button.is-active {
 
             color:
                 var(--hod-primary);
@@ -1663,8 +1582,7 @@
                 var(--hod-primary);
 
             box-shadow:
-                0 0 0 3px
-                rgba(101, 56, 217, .10);
+                0 0 0 3px rgba(101, 56, 217, .10);
         }
 
 
@@ -1719,8 +1637,7 @@
                 var(--hod-primary);
 
             box-shadow:
-                0 0 0 3px
-                rgba(101, 56, 217, .10);
+                0 0 0 3px rgba(101, 56, 217, .10);
         }
 
 
@@ -1734,8 +1651,7 @@
         }
 
 
-        [data-bs-theme="dark"]
-        .hod-filter-select option {
+        [data-bs-theme="dark"] .hod-filter-select option {
 
             color:
                 #ffffff;
@@ -1961,8 +1877,7 @@
                 var(--hod-primary);
 
             box-shadow:
-                0 0 0 3px
-                rgba(101, 56, 217, .10);
+                0 0 0 3px rgba(101, 56, 217, .10);
         }
 
 
@@ -2048,16 +1963,13 @@
 
             align-items: center;
 
-            justify-content: space-between;
+            justify-content: flex-end;
 
-            gap:
-                1rem;
+            width: 100%;
 
-            margin-bottom:
-                12px;
+            margin-top: 1rem;
 
-            padding:
-                0 2px;
+            margin-bottom: .75rem;
         }
 
 
@@ -2187,8 +2099,7 @@
                 var(--hod-primary);
 
             box-shadow:
-                0 3px 10px
-                rgba(101, 56, 217, .20);
+                0 3px 10px rgba(101, 56, 217, .20);
         }
 
 
@@ -2243,7 +2154,7 @@
         }
 
 
-        .hod-partial-card-results > * {
+        .hod-partial-card-results>* {
 
             min-width:
                 0;
@@ -2274,16 +2185,14 @@
         }
 
 
-        .hod-results-container.table-mode
-        .hod-partial-card-results {
+        .hod-results-container.table-mode .hod-partial-card-results {
 
             display:
                 none;
         }
 
 
-        .hod-results-container.table-mode
-        .hod-partial-table-results {
+        .hod-results-container.table-mode .hod-partial-table-results {
 
             display:
                 block;
@@ -2437,8 +2346,7 @@
                 none;
 
             transform:
-                translateX(-50%)
-                translateY(-3px);
+                translateX(-50%) translateY(-3px);
 
             transition:
                 opacity .15s ease,
@@ -2455,8 +2363,7 @@
                 1;
 
             transform:
-                translateX(-50%)
-                translateY(0);
+                translateX(-50%) translateY(0);
         }
 
 
@@ -2832,7 +2739,6 @@
             }
 
         }
-
     </style>
 
 </x-app-layout>

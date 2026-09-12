@@ -143,7 +143,7 @@
 
 
                     {{-- YEAR --}}
-<div class="col-12 col-md-6 col-lg-2">
+                    <div class="col-12 col-md-6 col-lg-2">
 
                         <label for="yearFilter" class="thesis-input-label">
                             Academic Year
@@ -875,6 +875,10 @@
             --thesis-view: #16A34A;
             --thesis-view-hover: #15803D;
 
+            /* pdf */
+            --thesis-pdf: #dc2626;
+            --thesis-pdf-hover: #b91c1c;
+
             --thesis-download: #2563EB;
             --thesis-download-hover: #1D4ED8;
 
@@ -919,6 +923,10 @@
             --thesis-purple-hover: #9278EA;
             --thesis-purple-light: #292342;
             --thesis-purple-soft: #342C52;
+
+            /* pdf */
+            --thesis-pdf: #dc2626;
+            --thesis-pdf-hover: #b91c1c;
 
             --thesis-view: #4ADE80;
             --thesis-view-hover: #22C55E;
@@ -2337,25 +2345,28 @@
 
 
         .admin-thesis-view {
-
-            color: var(--thesis-view);
-
+            color: #5428C7;
             background: transparent;
-
-            border:
-                1px solid var(--thesis-view);
+            border: 1px solid #5428C7;
         }
 
-
         .admin-thesis-view:hover {
-
             color: #FFFFFF;
-
-            background: var(--thesis-view);
-
-            border-color: var(--thesis-view);
-
+            background: #5428C7;
+            border-color: #5428C7;
             transform: translateY(-1px);
+        }
+
+        [data-bs-theme="dark"] .admin-thesis-view {
+            color: #8B6FE8;
+            background: transparent;
+            border-color: #8B6FE8;
+        }
+
+        [data-bs-theme="dark"] .admin-thesis-view:hover {
+            color: #FFFFFF;
+            background: #6538D9;
+            border-color: #6538D9;
         }
 
 
@@ -2369,7 +2380,6 @@
                 1px solid var(--thesis-download);
         }
 
-
         .admin-thesis-download:hover {
 
             color: #FFFFFF;
@@ -2380,7 +2390,6 @@
 
             transform: translateY(-1px);
         }
-
 
         .admin-thesis-download.disabled {
 
@@ -2395,6 +2404,54 @@
             cursor: not-allowed;
 
             pointer-events: none;
+        }
+
+        /* VIEW PDF */
+
+        .admin-thesis-pdf {
+
+            color: var(--thesis-pdf);
+
+            background: transparent;
+
+            border:
+                1px solid var(--thesis-pdf);
+        }
+
+
+        .admin-thesis-pdf:hover {
+
+            color: #FFFFFF;
+
+            background: var(--thesis-pdf-hover);
+
+            border-color: var(--thesis-pdf-hover);
+
+            transform: translateY(-1px);
+        }
+
+        /* TABLE VIEW PDF */
+
+        .thesis-table-pdf {
+
+            color: var(--thesis-pdf);
+
+            background: transparent;
+
+            border:
+                1px solid var(--thesis-pdf);
+        }
+
+
+        .thesis-table-pdf:hover {
+
+            color: #FFFFFF;
+
+            background: var(--thesis-pdf-hover);
+
+            border-color: var(--thesis-pdf-hover);
+
+            transform: translateY(-1px);
         }
 
 
@@ -2795,23 +2852,17 @@
 
         .thesis-table-view {
 
-            color: var(--thesis-view);
-
+            color: #5428C7;
             background: transparent;
-
-            border:
-                1px solid var(--thesis-view);
+            border: 1px solid #5428C7;
         }
 
 
         .thesis-table-view:hover {
 
             color: #FFFFFF;
-
-            background: var(--thesis-view);
-
-            border-color: var(--thesis-view);
-
+            background: #5428C7;
+            border-color: #5428C7;
             transform: translateY(-1px);
         }
 

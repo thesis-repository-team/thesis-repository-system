@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use App\Models\SavedThesis;
 use App\Models\Thesis;
 use App\Models\ThesisRequest;
@@ -13,15 +14,17 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
-        // Student record exists only for students
         $student = $user->student;
 
-        // Repository statistics
-        $totalTheses = Thesis::count();
+        $department = null;
 
-        $publishedTheses = Thesis::whereNotNull('published_at')->count();
+        if ($student && $student->department_id) {
+            $department = Department::find($student->department_id);
+        }
 
-        // Only students can submit thesis requests
+        $thesesCount = Thesis::whereNotNull('published_at')
+            ->count();
+
         $totalRequests = 0;
 
         if ($user->role === 'student') {
@@ -31,20 +34,21 @@ class DashboardController extends Controller
             )->count();
         }
 
-        // Bookmarks belong to users
-        // Both students and guests can have bookmarks
-        // $savedTheses = SavedThesis::where(
-        //     'user_id',
-        //     $user->id
-        // )->count();
+        $savedThesesCount = SavedThesis::where(
+            'user_id',
+            $user->id
+        )->count();
 
-        // Recent published theses
-        $recentTheses = Thesis::whereNotNull('published_at')
+        $downloadsCount = 0;
+
+        $recentTheses = Thesis::with([
+            'department',
+        ])
+            ->whereNotNull('published_at')
             ->latest('published_at')
             ->take(5)
             ->get();
 
-        // Recent requests only for students
         $recentRequests = collect();
 
         if ($user->role === 'student') {
@@ -52,78 +56,20 @@ class DashboardController extends Controller
                 'submitted_by',
                 $user->id
             )
-                ->latest()
+                ->latest('submitted_at')
                 ->take(5)
                 ->get();
         }
 
         return view('student.dashboard', compact(
-            'totalTheses',
-            'publishedTheses',
+            'student',
+            'department',
+            'thesesCount',
+            'savedThesesCount',
             'totalRequests',
-            // 'savedTheses',
+            'downloadsCount',
             'recentTheses',
-            'recentRequests',
-            'student'
+            'recentRequests'
         ));
     }
 }
-
-
-
-
-
-// class DashboardController extends Controller
-// {
-//     public function index()
-//     {
-//         $student = auth()->user()->student;
-
-//         $totalTheses = Thesis::where(
-//             'student_id',
-//             $student->id
-//         )->count();
-
-//         $publishedTheses = Thesis::where(
-//             'student_id',
-//             $student->id
-//         )
-//             ->whereNotNull('published_at')
-//             ->count();
-
-//         $totalRequests = ThesisRequest::where(
-//             'submitted_by',
-//             auth()->id()
-//         )->count();
-
-//         $savedTheses = SavedThesis::where(
-//             'user_id',
-//             auth()->id()
-//         )->count();
-
-//         $recentTheses = Thesis::where(
-//             'student_id',
-//             $student->id
-//         )
-//             ->latest()
-//             ->take(5)
-//             ->get();
-
-//         $recentRequests = ThesisRequest::where(
-//             'submitted_by',
-//             auth()->id()
-//         )
-//             ->latest()
-//             ->take(5)
-//             ->get();
-
-//         return view('student.dashboard', compact(
-//             'totalTheses',
-//             'publishedTheses',
-//             'totalRequests',
-//             'savedTheses',
-//             'recentTheses',
-//             'recentRequests'
-//         ));
-//     }
-// }

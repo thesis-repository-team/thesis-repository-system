@@ -234,12 +234,12 @@
 
                         <a href="{{ route('admin.thesis.view-pdf', $file->id) }}"
                             target="_blank"
-                            class="admin-thesis-action admin-thesis-download">
+                            class="admin-thesis-action admin-thesis-pdf">
 
                             <i class="bi bi-file-earmark-pdf"></i>
 
                             <span>
-                                View PDF
+                                PDF
                             </span>
 
                         </a>
@@ -466,18 +466,13 @@
 
                                     <a href="{{ route('admin.thesis.show', $thesis->id) }}"
                                     
-                                        class="thesis-table-action thesis-table-view"
+                                        class="thesis-table-action admin-thesis-view"
                                         title="View Thesis"
                                         aria-label="View Thesis">
 
                                         <i class="bi bi-file-text"></i>
 
                                     </a>
-
-
-                                    {{-- =============================================
-                                        VIEW PDF
-                                    ============================================== --}}
 
                                     @if ($thesis->files && $thesis->files->count())
 
@@ -487,7 +482,7 @@
 
                                         <a href="{{ route('admin.thesis.view-pdf', $file->id) }}"
                                             target="_blank"
-                                            class="thesis-table-action thesis-table-download"
+                                            class="thesis-table-action admin-thesis-pdf"
                                             title="View PDF"
                                             aria-label="View PDF">
 

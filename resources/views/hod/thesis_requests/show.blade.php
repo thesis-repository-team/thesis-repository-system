@@ -1,54 +1,31 @@
 <x-app-layout>
 
     <div class="dashboard-content thesis-request-page">
+
         @php
             $isSameDepartment =
                 auth()->user()->hod && auth()->user()->hod->department_id === $thesisRequest?->department_id;
         @endphp
 
-        {{-- =========================================================
-            ALERTS
-        ========================================================== --}}
-
         @if (session('success'))
             <div class="request-alert request-alert-success">
-
                 <i class="bi bi-check-circle-fill"></i>
-
-                <span>
-                    {{ session('success') }}
-                </span>
-
+                <span>{{ session('success') }}</span>
             </div>
         @endif
-
 
         @if (session('error'))
             <div class="request-alert request-alert-danger">
-
                 <i class="bi bi-exclamation-triangle-fill"></i>
-
-                <span>
-                    {{ session('error') }}
-                </span>
-
+                <span>{{ session('error') }}</span>
             </div>
         @endif
 
-
         @if ($thesisRequest)
-
-            {{-- =====================================================
-                MAIN CARD
-            ====================================================== --}}
 
             <div class="request-form-card">
 
-
-                {{-- =================================================
-                    HEADER
-                ================================================== --}}
-
+                {{-- HEADER --}}
                 <div class="request-header">
 
                     <div class="request-header-content">
@@ -56,7 +33,6 @@
                         <span class="request-overline">
                             REQUEST #{{ $thesisRequest->id }}
                         </span>
-
 
                         <div class="request-title-row">
 
@@ -70,43 +46,36 @@
 
                     </div>
 
-
-                    {{-- STATUS --}}
-
                     <div class="request-status-wrapper">
 
                         @if ($thesisRequest->status === 'approved')
+
                             <span class="request-status status-approved">
-
                                 <i class="bi bi-check-circle-fill"></i>
-
                                 Approved
-
                             </span>
+
                         @elseif ($thesisRequest->status === 'pending')
+
                             <span class="request-status status-pending">
-
                                 <i class="bi bi-clock-fill"></i>
-
                                 Pending
-
                             </span>
+
                         @elseif ($thesisRequest->status === 'rejected')
+
                             <span class="request-status status-rejected">
-
                                 <i class="bi bi-x-circle-fill"></i>
-
                                 Rejected
-
                             </span>
+
                         @else
+
                             <span class="request-status status-default">
-
                                 <i class="bi bi-question-circle-fill"></i>
-
                                 {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
-
                             </span>
+
                         @endif
 
                     </div>
@@ -114,40 +83,24 @@
                 </div>
 
 
-                {{-- =================================================
-                    REQUEST INFORMATION
-                ================================================== --}}
-
+                {{-- REQUEST INFORMATION --}}
                 <div class="request-content-section">
 
                     <div class="section-heading">
 
                         <div class="section-heading-icon">
-
                             <i class="bi bi-info-circle-fill"></i>
-
                         </div>
 
-
                         <div>
-
-                            <h2>
-                                Request Information
-                            </h2>
-
-                            <p>
-                                Details about this thesis submission.
-                            </p>
-
+                            <h2>Request Information</h2>
+                            <p>Details about this thesis submission.</p>
                         </div>
 
                     </div>
 
 
                     <div class="request-information-form">
-
-
-                        {{-- AUTHOR --}}
 
                         <div class="request-form-group">
 
@@ -156,15 +109,11 @@
                             </span>
 
                             <div class="request-form-control">
-
                                 {{ $thesisRequest->author_name ?? 'N/A' }}
-
                             </div>
 
                         </div>
 
-
-                        {{-- DEPARTMENT --}}
 
                         <div class="request-form-group">
 
@@ -173,15 +122,11 @@
                             </span>
 
                             <div class="request-form-control">
-
                                 {{ $thesisRequest->department?->name ?? 'N/A' }}
-
                             </div>
 
                         </div>
 
-
-                        {{-- SUBMITTED BY --}}
 
                         <div class="request-form-group">
 
@@ -190,15 +135,11 @@
                             </span>
 
                             <div class="request-form-control">
-
                                 {{ $thesisRequest->user?->name ?? ($thesisRequest->user?->username ?? 'N/A') }}
-
                             </div>
 
                         </div>
 
-
-                        {{-- SUBMITTED AT --}}
 
                         <div class="request-form-group">
 
@@ -217,8 +158,6 @@
                         </div>
 
 
-                        {{-- REVIEWED BY --}}
-
                         <div class="request-form-group">
 
                             <span class="request-form-label">
@@ -233,8 +172,6 @@
 
                         </div>
 
-
-                        {{-- REVIEWED AT --}}
 
                         <div class="request-form-group">
 
@@ -257,109 +194,64 @@
                 </div>
 
 
-                {{-- =================================================
-                    ABSTRACT
-                ================================================== --}}
-
+                {{-- ABSTRACT --}}
                 <div class="request-content-section">
 
                     <div class="section-heading">
 
                         <div class="section-heading-icon">
-
                             <i class="bi bi-file-text-fill"></i>
-
                         </div>
 
-
                         <div>
-
-                            <h2>
-                                Abstract
-                            </h2>
-
-                            <p>
-                                Abstract submitted with the thesis request.
-                            </p>
-
+                            <h2>Abstract</h2>
+                            <p>Abstract submitted with the thesis request.</p>
                         </div>
 
                     </div>
 
-
                     <div class="text-content">
-
                         {{ $thesisRequest->abstract ?? 'No abstract provided.' }}
-
                     </div>
 
                 </div>
 
 
-                {{-- =================================================
-                    DESCRIPTION
-                ================================================== --}}
-
+                {{-- DESCRIPTION --}}
                 <div class="request-content-section">
 
                     <div class="section-heading">
 
                         <div class="section-heading-icon">
-
                             <i class="bi bi-card-text"></i>
-
                         </div>
 
-
                         <div>
-
-                            <h2>
-                                Description
-                            </h2>
-
-                            <p>
-                                Description of the thesis project.
-                            </p>
-
+                            <h2>Description</h2>
+                            <p>Description of the thesis project.</p>
                         </div>
 
                     </div>
 
-
                     <div class="text-content">
-
                         {{ $thesisRequest->description ?? 'No description provided.' }}
-
                     </div>
 
                 </div>
 
 
-                {{-- =================================================
-                    THESIS DOCUMENT
-                ================================================== --}}
-
+                {{-- THESIS DOCUMENT --}}
                 <div class="request-content-section">
 
                     <div class="section-heading">
 
                         <div class="section-heading-icon document-icon">
-
                             <i class="bi bi-file-earmark-pdf-fill"></i>
-
                         </div>
 
-
                         <div>
-
-                            <h2>
-                                Thesis Document
-                            </h2>
-
-                            <p>
-                                Submitted thesis document.
-                            </p>
-
+                            <h2>Thesis Document</h2>
+                            <p>Submitted thesis document.</p>
                         </div>
 
                     </div>
@@ -370,11 +262,8 @@
                         <div class="document-left">
 
                             <div class="document-file-icon">
-
                                 <i class="bi bi-file-earmark-pdf-fill"></i>
-
                             </div>
-
 
                             <div class="document-details">
 
@@ -391,55 +280,44 @@
                         </div>
 
 
-                        <a href="{{ route('hod.thesis_requests.view-request-pdf', $thesisRequest) }}" target="_blank"
-                            class="view-pdf-button">
+                        <div class="document-actions">
 
-                            <i class="bi bi-eye-fill"></i>
+                            <a href="{{ route('hod.thesis_requests.view-request-pdf', $thesisRequest) }}"
+                               target="_blank"
+                               class="view-pdf-button">
 
-                            View PDF
+                                <i class="bi bi-file-earmark-pdf"></i>
+                                PDF
 
-                        </a>
+                            </a>
+
+                        </div>
 
                     </div>
 
                 </div>
 
 
-                {{-- =================================================
-                    REJECTION DETAILS
-                ================================================== --}}
-
+                {{-- REJECTION DETAILS --}}
                 @if ($thesisRequest->status === 'rejected')
+
                     <div class="request-content-section">
 
                         <div class="section-heading">
 
                             <div class="section-heading-icon rejection-icon">
-
                                 <i class="bi bi-exclamation-triangle-fill"></i>
-
                             </div>
 
-
                             <div>
-
-                                <h2>
-                                    Rejection Details
-                                </h2>
-
-                                <p>
-                                    Information about why this request was rejected.
-                                </p>
-
+                                <h2>Rejection Details</h2>
+                                <p>Information about why this request was rejected.</p>
                             </div>
 
                         </div>
 
 
                         <div class="request-information-form">
-
-
-                            {{-- REJECTED BY --}}
 
                             <div class="request-form-group">
 
@@ -455,8 +333,6 @@
 
                             </div>
 
-
-                            {{-- REJECTION REASON --}}
 
                             <div class="request-form-group">
 
@@ -475,21 +351,14 @@
                         </div>
 
                     </div>
+
                 @endif
 
 
-                {{-- =================================================
-                    REVIEW DECISION
-                ================================================== --}}
-
-
-
-
+                {{-- REVIEW DECISION --}}
                 @if ($thesisRequest->status === 'pending' && $isSameDepartment)
+
                     <div class="review-decision-section">
-                        {{-- =================================================
-                            REVIEW HEADER
-                        ================================================== --}}
 
                         <div class="review-decision-header">
 
@@ -512,20 +381,14 @@
                         </div>
 
 
-                        {{-- =================================================
-                            APPROVE
-                        ================================================== --}}
-
+                        {{-- APPROVE --}}
                         <div class="approve-box">
 
                             <div class="approve-content">
 
                                 <div class="approve-icon">
-
                                     <i class="bi bi-check-lg"></i>
-
                                 </div>
-
 
                                 <div>
 
@@ -542,7 +405,8 @@
                             </div>
 
 
-                            <form action="{{ route('hod.thesis_requests.approve', $thesisRequest) }}" method="POST">
+                            <form action="{{ route('hod.thesis_requests.approve', $thesisRequest) }}"
+                                  method="POST">
 
                                 @csrf
 
@@ -559,20 +423,14 @@
                         </div>
 
 
-                        {{-- =================================================
-                            REJECT
-                        ================================================== --}}
-
+                        {{-- REJECT --}}
                         <div class="reject-box">
 
                             <div class="reject-heading">
 
                                 <div class="reject-icon">
-
                                     <i class="bi bi-x-lg"></i>
-
                                 </div>
-
 
                                 <div>
 
@@ -589,12 +447,11 @@
                             </div>
 
 
-                            <form action="{{ route('hod.thesis_requests.reject', $thesisRequest) }}" method="POST">
+                            <form action="{{ route('hod.thesis_requests.reject', $thesisRequest) }}"
+                                  method="POST">
 
                                 @csrf
-
                                 @method('PUT')
-
 
                                 <div class="review-textarea-wrapper">
 
@@ -602,12 +459,16 @@
                                         Rejection Reason
                                     </label>
 
-
-                                    <textarea name="remarks" id="remarks" rows="5" class="review-textarea"
-                                        placeholder="Explain why this thesis request is being rejected..." required>{{ old('remarks') }}</textarea>
-
+                                    <textarea
+                                        name="remarks"
+                                        id="remarks"
+                                        rows="5"
+                                        class="review-textarea"
+                                        placeholder="Explain why this thesis request is being rejected..."
+                                        required>{{ old('remarks') }}</textarea>
 
                                     @error('remarks')
+
                                         <div class="review-validation-error">
 
                                             <i class="bi bi-exclamation-circle"></i>
@@ -615,6 +476,7 @@
                                             {{ $message }}
 
                                         </div>
+
                                     @enderror
 
                                 </div>
@@ -637,8 +499,9 @@
                         </div>
 
                     </div>
+
                 @else
-                    {{-- DIFFERENT DEPARTMENT NOTICE --}}
+
                     <div class="department-restriction-notice">
 
                         <div class="department-restriction-icon">
@@ -646,38 +509,36 @@
                         </div>
 
                         <div class="department-restriction-content">
-                            <h4>Approval Restricted</h4>
+
+                            <h4>
+                                Approval Restricted
+                            </h4>
 
                             <p>
-                                This thesis request is associated with another department. You are not authorized to
-                                approve or reject this request, as it falls outside your departmental
-                                responsibility.
+                                This thesis request is associated with another department.
+                                You are not authorized to approve or reject this request,
+                                as it falls outside your departmental responsibility.
                             </p>
+
                         </div>
 
                     </div>
+
                 @endif
 
-
             </div>
+
         @else
-            {{-- =====================================================
-                EMPTY STATE
-            ====================================================== --}}
 
             <div class="empty-request">
 
                 <div class="empty-icon">
-
                     <i class="bi bi-journal-x"></i>
-
                 </div>
-
 
                 <h2>
                     No Requests Found
                 </h2>
-
 
                 <p>
                     There are currently no thesis upload requests.
@@ -691,6 +552,7 @@
 
 
     <style>
+
         /* =========================================================
            VARIABLES
         ========================================================== */
@@ -703,15 +565,18 @@
 
             --request-card: #ffffff;
             --request-soft: #f8f8f8;
-            --request-soft-blue: #f1f5ff;
 
-            --request-blue: #0d6efd;
+            /* DARK PURPLE */
+            --request-purple: #5428C7;
+            --request-purple-hover: #4520AA;
+            --request-purple-soft: #f0ebff;
+
             --request-green: #198754;
             --request-red: #dc3545;
             --request-yellow: #997404;
 
             --request-shadow:
-                0 4px 18px rgba(0, 0, 0, .055);
+                0 4px 18px rgba(35, 20, 65, .08);
 
             color: var(--request-text);
         }
@@ -725,8 +590,7 @@
 
             color: var(--request-text);
 
-            transition:
-                color .25s ease;
+            transition: color .25s ease;
         }
 
 
@@ -737,37 +601,28 @@
         .request-alert {
 
             display: flex;
-
             align-items: center;
-
             gap: 8px;
 
             margin-bottom: 16px;
-
             padding: 10px 13px;
 
             border: none !important;
-
             border-radius: 8px;
 
             font-size: .72rem;
-
             font-weight: 600;
         }
 
 
         .request-alert-success {
-
             color: #176b3a;
-
             background: #eefaf3;
         }
 
 
         .request-alert-danger {
-
             color: #b42318;
-
             background: #fff1f1;
         }
 
@@ -779,13 +634,11 @@
         .request-form-card {
 
             width: 100%;
-
             padding: 22px;
 
             background: var(--request-card);
 
             border: none !important;
-
             border-radius: 14px;
 
             box-shadow: var(--request-shadow);
@@ -805,15 +658,12 @@
         .request-header {
 
             display: flex;
-
             align-items: flex-start;
-
             justify-content: space-between;
 
             gap: 20px;
 
             margin-bottom: 25px;
-
             padding-bottom: 18px;
 
             border: none !important;
@@ -823,7 +673,6 @@
         .request-header-content {
 
             min-width: 0;
-
             flex: 1;
         }
 
@@ -837,11 +686,9 @@
             color: var(--request-muted);
 
             font-size: .61rem;
-
             font-weight: 800;
 
             letter-spacing: .13em;
-
             text-transform: uppercase;
         }
 
@@ -849,23 +696,20 @@
         .request-title-row {
 
             display: flex;
-
             align-items: center;
 
             gap: 9px;
-
             min-width: 0;
         }
 
 
-        .request-title-row>i {
+        .request-title-row > i {
 
             flex-shrink: 0;
 
-            color: var(--request-black);
+            color: var(--request-purple);
 
             font-size: 1.15rem;
-
             line-height: 1;
         }
 
@@ -879,9 +723,7 @@
             color: var(--request-black);
 
             font-size: 1.4rem;
-
             font-weight: 800;
-
             line-height: 1.35;
 
             letter-spacing: -.025em;
@@ -897,7 +739,6 @@
         .request-status-wrapper {
 
             flex-shrink: 0;
-
             padding-top: 13px;
         }
 
@@ -905,7 +746,6 @@
         .request-status {
 
             display: inline-flex;
-
             align-items: center;
 
             gap: 5px;
@@ -913,11 +753,9 @@
             padding: 6px 11px;
 
             border: none !important;
-
             border-radius: 999px;
 
             font-size: .62rem;
-
             font-weight: 700;
 
             white-space: nowrap;
@@ -925,33 +763,25 @@
 
 
         .status-approved {
-
             color: var(--request-green);
-
             background: #eaf7ef;
         }
 
 
         .status-pending {
-
             color: var(--request-yellow);
-
             background: #fff8df;
         }
 
 
         .status-rejected {
-
             color: var(--request-red);
-
             background: #fff0f1;
         }
 
 
         .status-default {
-
             color: #555555;
-
             background: #f1f1f1;
         }
 
@@ -963,7 +793,6 @@
         .request-content-section {
 
             margin-bottom: 25px;
-
             padding-bottom: 23px;
 
             border: none !important;
@@ -973,7 +802,6 @@
         .request-content-section:last-child {
 
             margin-bottom: 0;
-
             padding-bottom: 0;
 
             border-bottom: none !important;
@@ -987,7 +815,6 @@
         .section-heading {
 
             display: flex;
-
             align-items: center;
 
             gap: 9px;
@@ -999,23 +826,19 @@
         .section-heading-icon {
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             width: 32px;
-
             height: 32px;
 
             flex-shrink: 0;
 
-            color: var(--request-blue);
+            color: var(--request-purple);
 
-            background: var(--request-soft-blue);
+            background: var(--request-purple-soft);
 
             border: none !important;
-
             border-radius: 8px;
 
             font-size: .75rem;
@@ -1029,7 +852,6 @@
             color: var(--request-black);
 
             font-size: .83rem;
-
             font-weight: 800;
         }
 
@@ -1052,8 +874,7 @@
 
             display: grid;
 
-            grid-template-columns:
-                1.2fr 1fr;
+            grid-template-columns: 1.2fr 1fr;
 
             gap: 12px 28px;
 
@@ -1067,15 +888,13 @@
 
             display: grid;
 
-            grid-template-columns:
-                105px minmax(0, 1fr);
+            grid-template-columns: 105px minmax(0, 1fr);
 
             align-items: center;
 
             gap: 10px;
 
             width: 100%;
-
             min-width: 0;
 
             box-sizing: border-box;
@@ -1091,11 +910,9 @@
             color: var(--request-text);
 
             font-size: .63rem;
-
             font-weight: 800;
 
             letter-spacing: .04em;
-
             text-transform: uppercase;
 
             white-space: nowrap;
@@ -1105,11 +922,9 @@
         .request-form-control {
 
             display: flex;
-
             align-items: center;
 
             width: 90%;
-
             min-height: 42px;
 
             padding: .55rem .75rem;
@@ -1121,17 +936,13 @@
             background: var(--request-soft);
 
             border: none !important;
-
             border-radius: 8px;
 
             outline: none;
 
             font-family: inherit;
-
             font-size: .69rem;
-
             font-weight: 600;
-
             line-height: 1.45;
 
             overflow-wrap: anywhere;
@@ -1143,7 +954,6 @@
 
 
         .request-form-control:hover {
-
             background: #f3f3f3;
         }
 
@@ -1173,11 +983,9 @@
             background: var(--request-soft);
 
             border: none !important;
-
             border-radius: 9px;
 
             font-size: .7rem;
-
             line-height: 1.7;
 
             white-space: pre-line;
@@ -1193,9 +1001,7 @@
         .document-box {
 
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
 
             gap: 15px;
@@ -1205,7 +1011,6 @@
             background: var(--request-soft);
 
             border: none !important;
-
             border-radius: 9px;
         }
 
@@ -1213,7 +1018,6 @@
         .document-left {
 
             display: flex;
-
             align-items: center;
 
             gap: 10px;
@@ -1225,13 +1029,10 @@
         .document-file-icon {
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             width: 36px;
-
             height: 36px;
 
             flex-shrink: 0;
@@ -1241,7 +1042,6 @@
             background: #fff0f1;
 
             border: none !important;
-
             border-radius: 8px;
 
             font-size: .85rem;
@@ -1251,7 +1051,6 @@
         .document-details {
 
             display: flex;
-
             flex-direction: column;
 
             gap: 2px;
@@ -1265,7 +1064,6 @@
             color: var(--request-text);
 
             font-size: .7rem;
-
             font-weight: 700;
         }
 
@@ -1279,40 +1077,57 @@
 
 
         /* =========================================================
-           VIEW PDF
+           DOCUMENT ACTIONS
+        ========================================================== */
+
+        .document-actions {
+
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            gap: 8px;
+
+            flex-shrink: 0;
+        }
+
+
+        /* =========================================================
+           VIEW PDF - RED
         ========================================================== */
 
         .view-pdf-button {
 
             display: inline-flex;
-
             align-items: center;
-
             justify-content: center;
 
             gap: 5px;
 
-            flex-shrink: 0;
+            min-height: 34px;
 
             padding: 7px 12px;
 
-            color: #ffffff !important;
+            color: var(--request-red) !important;
 
-            background: var(--request-red);
+            background: transparent;
 
-            border: none !important;
-
+            border: 1px solid var(--request-red) !important;
             border-radius: 7px;
 
             text-decoration: none;
 
             font-size: .61rem;
-
             font-weight: 700;
 
             white-space: nowrap;
 
-            transition: .2s ease;
+            transition:
+                background-color .2s ease,
+                color .2s ease,
+                border-color .2s ease,
+                transform .2s ease,
+                box-shadow .2s ease;
         }
 
 
@@ -1320,9 +1135,14 @@
 
             color: #ffffff !important;
 
-            background: #bb2d3b;
+            background: var(--request-red);
+
+            border-color: var(--request-red) !important;
 
             transform: translateY(-1px);
+
+            box-shadow:
+                0 4px 10px rgba(220, 53, 69, .18);
         }
 
 
@@ -1345,14 +1165,9 @@
         .review-decision-section {
 
             margin-top: 8px;
-
             padding-top: 5px;
         }
 
-
-        /* =========================================================
-           REVIEW HEADER
-        ========================================================== */
 
         .review-decision-header {
 
@@ -1369,11 +1184,9 @@
             color: var(--request-red);
 
             font-size: .59rem;
-
             font-weight: 800;
 
             letter-spacing: .12em;
-
             text-transform: uppercase;
         }
 
@@ -1385,7 +1198,6 @@
             color: var(--request-black);
 
             font-size: .95rem;
-
             font-weight: 800;
 
             letter-spacing: -.01em;
@@ -1409,9 +1221,7 @@
         .approve-box {
 
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
 
             gap: 18px;
@@ -1419,7 +1229,6 @@
             width: 100%;
 
             padding: 14px;
-
             margin-bottom: 12px;
 
             box-sizing: border-box;
@@ -1427,7 +1236,6 @@
             background: #f5faf7;
 
             border: none !important;
-
             border-radius: 10px;
         }
 
@@ -1435,7 +1243,6 @@
         .approve-content {
 
             display: flex;
-
             align-items: center;
 
             gap: 11px;
@@ -1447,13 +1254,10 @@
         .approve-icon {
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             width: 38px;
-
             height: 38px;
 
             flex-shrink: 0;
@@ -1468,10 +1272,9 @@
         }
 
 
-        .approve-content>div:last-child {
+        .approve-content > div:last-child {
 
             display: flex;
-
             flex-direction: column;
 
             gap: 3px;
@@ -1485,7 +1288,6 @@
             color: var(--request-text);
 
             font-size: .69rem;
-
             font-weight: 800;
         }
 
@@ -1495,7 +1297,6 @@
             color: var(--request-muted);
 
             font-size: .59rem;
-
             line-height: 1.4;
         }
 
@@ -1507,9 +1308,7 @@
         .approve-button {
 
             display: inline-flex;
-
             align-items: center;
-
             justify-content: center;
 
             gap: 6px;
@@ -1525,13 +1324,11 @@
             background: var(--request-green);
 
             border: none !important;
-
             border-radius: 7px;
 
             font-family: inherit;
 
             font-size: .61rem;
-
             font-weight: 700;
 
             cursor: pointer;
@@ -1560,10 +1357,6 @@
 
             padding: 14px;
 
-            /* background: lightpink; */
-
-            /* border: none !important; */
-
             border-radius: 10px;
         }
 
@@ -1571,7 +1364,6 @@
         .reject-heading {
 
             display: flex;
-
             align-items: center;
 
             gap: 11px;
@@ -1583,13 +1375,10 @@
         .reject-icon {
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             width: 38px;
-
             height: 38px;
 
             flex-shrink: 0;
@@ -1604,10 +1393,9 @@
         }
 
 
-        .reject-heading>div:last-child {
+        .reject-heading > div:last-child {
 
             display: flex;
-
             flex-direction: column;
 
             gap: 3px;
@@ -1619,7 +1407,6 @@
             color: var(--request-text);
 
             font-size: .69rem;
-
             font-weight: 800;
         }
 
@@ -1629,7 +1416,6 @@
             color: var(--request-muted);
 
             font-size: .59rem;
-
             line-height: 1.4;
         }
 
@@ -1653,7 +1439,6 @@
             color: var(--request-text);
 
             font-size: .63rem;
-
             font-weight: 700;
         }
 
@@ -1663,7 +1448,6 @@
             display: block;
 
             width: 100%;
-
             min-height: 100px;
 
             padding: 10px 11px;
@@ -1675,7 +1459,6 @@
             background: #ffffff;
 
             border: 1px solid #eeeeee !important;
-
             border-radius: 8px;
 
             outline: none;
@@ -1683,9 +1466,7 @@
             resize: vertical;
 
             font-family: inherit;
-
             font-size: .66rem;
-
             line-height: 1.55;
 
             transition: .2s ease;
@@ -1699,12 +1480,11 @@
             outline: none;
 
             box-shadow:
-                0 0 0 2px rgba(220, 53, 69, .08);
+                0 0 0 2px rgba(84, 40, 199, .08);
         }
 
 
         .review-textarea::placeholder {
-
             color: #999999;
         }
 
@@ -1716,7 +1496,6 @@
         .review-validation-error {
 
             display: flex;
-
             align-items: center;
 
             gap: 5px;
@@ -1736,7 +1515,6 @@
         .reject-submit {
 
             display: flex;
-
             justify-content: flex-end;
 
             margin-top: 9px;
@@ -1746,9 +1524,7 @@
         .reject-button {
 
             display: inline-flex;
-
             align-items: center;
-
             justify-content: center;
 
             gap: 6px;
@@ -1762,13 +1538,11 @@
             background: var(--request-red);
 
             border: none !important;
-
             border-radius: 7px;
 
             font-family: inherit;
 
             font-size: .61rem;
-
             font-weight: 700;
 
             cursor: pointer;
@@ -1796,11 +1570,8 @@
         .empty-request {
 
             display: flex;
-
             flex-direction: column;
-
             align-items: center;
-
             justify-content: center;
 
             min-height: 320px;
@@ -1810,7 +1581,6 @@
             background: var(--request-card);
 
             border: none !important;
-
             border-radius: 14px;
 
             box-shadow: var(--request-shadow);
@@ -1822,23 +1592,19 @@
         .empty-icon {
 
             display: flex;
-
             align-items: center;
-
             justify-content: center;
 
             width: 54px;
-
             height: 54px;
 
             margin-bottom: 12px;
 
             color: #ffffff;
 
-            background: #111111;
+            background: var(--request-purple);
 
             border: none !important;
-
             border-radius: 11px;
 
             font-size: 1.2rem;
@@ -1852,7 +1618,6 @@
             color: var(--request-black);
 
             font-size: .95rem;
-
             font-weight: 800;
         }
 
@@ -1879,9 +1644,11 @@
 
             --request-card: #181d33;
             --request-soft: #20253a;
-            --request-soft-blue: #252b42;
 
-            --request-blue: #ffffff;
+            --request-purple: #9278EA;
+            --request-purple-hover: #7C5CE3;
+            --request-purple-soft: #292342;
+
             --request-green: #198754;
             --request-red: #dc3545;
             --request-yellow: #ffc107;
@@ -1898,7 +1665,6 @@
         [data-bs-theme="dark"] body {
 
             background: #101426;
-
             color: #eeeef8;
         }
 
@@ -1906,14 +1672,11 @@
         [data-bs-theme="dark"] .dashboard-content {
 
             background: #101426;
-
             color: #eeeef8;
         }
 
 
-        /* =========================================================
-           DARK MAIN CARD
-        ========================================================== */
+        /* DARK CARD */
 
         [data-bs-theme="dark"] .request-form-card {
 
@@ -1926,51 +1689,40 @@
         }
 
 
-        /* =========================================================
-           DARK HEADER
-        ========================================================== */
+        /* DARK HEADER */
 
         [data-bs-theme="dark"] .request-header {
 
             background: #171b30;
 
-            margin:
-                -22px -22px 25px;
+            margin: -22px -22px 25px;
 
-            padding:
-                18px 22px;
+            padding: 18px 22px;
 
-            border-radius:
-                14px 14px 0 0;
+            border-radius: 14px 14px 0 0;
         }
 
 
         [data-bs-theme="dark"] .request-overline {
-
             color: #999fb9;
         }
 
 
-        [data-bs-theme="dark"] .request-title-row>i {
-
-            color: #ffffff;
+        [data-bs-theme="dark"] .request-title-row > i {
+            color: #9278EA;
         }
 
 
         [data-bs-theme="dark"] .request-title {
-
             color: #ffffff;
         }
 
 
-        /* =========================================================
-           DARK STATUS
-        ========================================================== */
+        /* DARK STATUS */
 
         [data-bs-theme="dark"] .status-approved {
 
             color: #9de2bb;
-
             background: #19352a;
         }
 
@@ -1978,7 +1730,6 @@
         [data-bs-theme="dark"] .status-pending {
 
             color: #f5d36b;
-
             background: #3a321b;
         }
 
@@ -1986,7 +1737,6 @@
         [data-bs-theme="dark"] .status-rejected {
 
             color: #ff9da5;
-
             background: #3a2028;
         }
 
@@ -1994,48 +1744,38 @@
         [data-bs-theme="dark"] .status-default {
 
             color: #d5d8e8;
-
             background: #20253a;
         }
 
 
-        /* =========================================================
-           DARK SECTION HEADINGS
-        ========================================================== */
+        /* DARK SECTION ICONS */
 
         [data-bs-theme="dark"] .section-heading-icon {
 
-            color: #ffffff;
+            color: #9278EA;
 
-            background: #20253a;
+            background: #292342;
         }
 
 
         [data-bs-theme="dark"] .section-heading h2 {
-
             color: #ffffff;
         }
 
 
         [data-bs-theme="dark"] .section-heading p {
-
             color: #999fb9;
         }
 
 
-        /* =========================================================
-           DARK FORM LABELS
-        ========================================================== */
+        /* DARK LABELS */
 
         [data-bs-theme="dark"] .request-form-label {
-
             color: #d5d8e8;
         }
 
 
-        /* =========================================================
-           DARK FORM VALUES
-        ========================================================== */
+        /* DARK VALUES */
 
         [data-bs-theme="dark"] .request-form-control {
 
@@ -2048,14 +1788,11 @@
 
 
         [data-bs-theme="dark"] .request-form-control:hover {
-
             background: #252b42;
         }
 
 
-        /* =========================================================
-           DARK ABSTRACT / DESCRIPTION
-        ========================================================== */
+        /* DARK ABSTRACT */
 
         [data-bs-theme="dark"] .text-content {
 
@@ -2065,12 +1802,9 @@
         }
 
 
-        /* =========================================================
-           DARK DOCUMENT
-        ========================================================== */
+        /* DARK DOCUMENT */
 
         [data-bs-theme="dark"] .document-box {
-
             background: #20253a;
         }
 
@@ -2078,63 +1812,71 @@
         [data-bs-theme="dark"] .document-file-icon {
 
             color: #ff9da5;
-
             background: #3a2028;
         }
 
 
         [data-bs-theme="dark"] .document-details strong {
-
             color: #ffffff;
         }
 
 
         [data-bs-theme="dark"] .document-details span {
-
             color: #999fb9;
         }
 
 
-        /* =========================================================
-           DARK REJECTION
-        ========================================================== */
+        /* DARK PDF */
+
+        [data-bs-theme="dark"] .view-pdf-button {
+
+            color: #ff9da5 !important;
+
+            background: transparent;
+
+            border-color: #ff9da5 !important;
+        }
+
+
+        [data-bs-theme="dark"] .view-pdf-button:hover {
+
+            color: #ffffff !important;
+
+            background: #dc3545;
+
+            border-color: #dc3545 !important;
+        }
+
+
+        /* DARK REJECTION */
 
         [data-bs-theme="dark"] .rejection-icon {
 
             color: #ff9da5;
-
             background: #3a2028;
         }
 
 
-        /* =========================================================
-           DARK REVIEW HEADER
-        ========================================================== */
+        /* DARK REVIEW */
 
         [data-bs-theme="dark"] .review-decision-overline {
-
             color: #ff9da5;
         }
 
 
         [data-bs-theme="dark"] .review-decision-header h3 {
-
             color: #ffffff;
         }
 
 
         [data-bs-theme="dark"] .review-decision-header p {
-
             color: #999fb9;
         }
 
 
-        /* =========================================================
-           DARK APPROVE BOX
-        ========================================================== */
+        /* DARK APPROVE */
 
         [data-bs-theme="dark"] .approve-box {
-
             background: #19352a;
         }
 
@@ -2142,29 +1884,23 @@
         [data-bs-theme="dark"] .approve-icon {
 
             color: #9de2bb;
-
             background: #214c39;
         }
 
 
         [data-bs-theme="dark"] .approve-content strong {
-
             color: #ffffff;
         }
 
 
         [data-bs-theme="dark"] .approve-content span {
-
             color: #999fb9;
         }
 
 
-        /* =========================================================
-           DARK REJECT BOX
-        ========================================================== */
+        /* DARK REJECT */
 
         [data-bs-theme="dark"] .reject-box {
-
             background: #3a2028;
         }
 
@@ -2172,26 +1908,21 @@
         [data-bs-theme="dark"] .reject-icon {
 
             color: #ff9da5;
-
             background: #4a2730;
         }
 
 
         [data-bs-theme="dark"] .reject-heading strong {
-
             color: #ffffff;
         }
 
 
         [data-bs-theme="dark"] .reject-heading span {
-
             color: #999fb9;
         }
 
 
-        /* =========================================================
-           DARK TEXTAREA
-        ========================================================== */
+        /* DARK TEXTAREA */
 
         [data-bs-theme="dark"] .review-textarea {
 
@@ -2204,7 +1935,6 @@
 
 
         [data-bs-theme="dark"] .review-textarea-wrapper label {
-
             color: #d5d8e8;
         }
 
@@ -2216,24 +1946,20 @@
             border: none !important;
 
             box-shadow:
-                0 0 0 2px rgba(255, 255, 255, .10);
+                0 0 0 2px rgba(146, 120, 234, .16);
         }
 
 
         [data-bs-theme="dark"] .review-textarea::placeholder {
-
             color: #777f9c;
         }
 
 
-        /* =========================================================
-           DARK ALERTS
-        ========================================================== */
+        /* DARK ALERTS */
 
         [data-bs-theme="dark"] .request-alert-success {
 
             color: #9de2bb;
-
             background: #19352a;
         }
 
@@ -2241,14 +1967,11 @@
         [data-bs-theme="dark"] .request-alert-danger {
 
             color: #ffb4b4;
-
             background: #3a2028;
         }
 
 
-        /* =========================================================
-           DARK EMPTY STATE
-        ========================================================== */
+        /* DARK EMPTY */
 
         [data-bs-theme="dark"] .empty-request {
 
@@ -2261,21 +1984,116 @@
 
         [data-bs-theme="dark"] .empty-icon {
 
-            color: #000000;
-
-            background: #ffffff;
+            color: #ffffff;
+            background: #7C5CE3;
         }
 
 
         [data-bs-theme="dark"] .empty-request h2 {
-
             color: #ffffff;
         }
 
 
         [data-bs-theme="dark"] .empty-request p {
-
             color: #999fb9;
+        }
+
+
+        /* =========================================================
+           DEPARTMENT NOTICE
+        ========================================================== */
+
+        .department-restriction-notice {
+
+            display: flex;
+            align-items: center;
+
+            gap: 14px;
+
+            margin-top: 20px;
+
+            padding: 16px 18px;
+
+            background: #fff9e6;
+
+            border: 1px solid #f3df9a;
+
+            border-radius: 10px;
+        }
+
+
+        .department-restriction-icon {
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 42px;
+            height: 42px;
+
+            flex-shrink: 0;
+
+            background: #fff1bd;
+
+            color: #997404;
+
+            border-radius: 50%;
+
+            font-size: 18px;
+        }
+
+
+        .department-restriction-content {
+            flex: 1;
+        }
+
+
+        .department-restriction-content h4 {
+
+            margin: 0 0 4px;
+
+            color: #765b00;
+
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+
+        .department-restriction-content p {
+
+            margin: 0;
+
+            color: #806d35;
+
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+
+        /* DARK DEPARTMENT NOTICE */
+
+        [data-bs-theme="dark"] .department-restriction-notice {
+
+            background: #332d19;
+
+            border-color: #5a4d22;
+        }
+
+
+        [data-bs-theme="dark"] .department-restriction-icon {
+
+            background: #4a401d;
+            color: #f5d36b;
+        }
+
+
+        [data-bs-theme="dark"] .department-restriction-content h4 {
+            color: #f5d36b;
+        }
+
+
+        [data-bs-theme="dark"] .department-restriction-content p {
+            color: #c9b978;
         }
 
 
@@ -2286,9 +2104,7 @@
         @media (max-width: 900px) {
 
             .request-information-form {
-
                 grid-template-columns: 1fr;
-
                 gap: 12px;
             }
 
@@ -2302,21 +2118,17 @@
         @media (max-width: 767.98px) {
 
             .request-form-card {
-
                 padding: 17px;
             }
 
 
             [data-bs-theme="dark"] .request-header {
 
-                margin:
-                    -17px -17px 20px;
+                margin: -17px -17px 20px;
 
-                padding:
-                    16px 17px;
+                padding: 16px 17px;
 
-                border-radius:
-                    14px 14px 0 0;
+                border-radius: 14px 14px 0 0;
             }
 
 
@@ -2331,13 +2143,11 @@
 
 
             .request-status-wrapper {
-
                 padding-top: 0;
             }
 
 
             .request-title {
-
                 font-size: 1.2rem;
             }
 
@@ -2359,13 +2169,20 @@
             }
 
 
-            .view-pdf-button {
+            .document-actions {
+
+                display: grid;
+
+                grid-template-columns: 1fr;
 
                 width: 100%;
             }
 
 
-            /* REVIEW DECISION */
+            .view-pdf-button {
+                width: 100%;
+            }
+
 
             .approve-box {
 
@@ -2376,20 +2193,44 @@
 
 
             .approve-button {
-
                 width: 100%;
             }
 
 
             .reject-submit {
-
                 justify-content: stretch;
             }
 
 
             .reject-button {
-
                 width: 100%;
+            }
+
+
+            .department-restriction-notice {
+
+                align-items: flex-start;
+
+                padding: 14px;
+            }
+
+
+            .department-restriction-icon {
+
+                width: 38px;
+                height: 38px;
+
+                font-size: 16px;
+            }
+
+
+            .department-restriction-content h4 {
+                font-size: 13px;
+            }
+
+
+            .department-restriction-content p {
+                font-size: 12px;
             }
 
         }
@@ -2411,14 +2252,11 @@
 
             [data-bs-theme="dark"] .request-header {
 
-                margin:
-                    -14px -14px 20px;
+                margin: -14px -14px 20px;
 
-                padding:
-                    14px;
+                padding: 14px;
 
-                border-radius:
-                    11px 11px 0 0;
+                border-radius: 11px 11px 0 0;
             }
 
 
@@ -2430,14 +2268,12 @@
             }
 
 
-            .request-title-row>i {
-
+            .request-title-row > i {
                 font-size: 1rem;
             }
 
 
             .request-title {
-
                 font-size: 1.05rem;
             }
 
@@ -2453,7 +2289,6 @@
             .section-heading-icon {
 
                 width: 29px;
-
                 height: 29px;
 
                 font-size: .67rem;
@@ -2461,13 +2296,11 @@
 
 
             .section-heading h2 {
-
                 font-size: .76rem;
             }
 
 
             .section-heading p {
-
                 font-size: .56rem;
             }
 
@@ -2481,7 +2314,6 @@
 
 
             .request-information-form {
-
                 gap: 10px;
             }
 
@@ -2526,7 +2358,6 @@
 
 
             .document-box {
-
                 padding: 9px;
             }
 
@@ -2534,33 +2365,42 @@
             .document-file-icon {
 
                 width: 33px;
-
                 height: 33px;
             }
 
 
             .document-details strong {
-
                 font-size: .66rem;
             }
 
 
             .document-details span {
-
                 font-size: .56rem;
             }
 
 
-            /* REVIEW */
+            .document-actions {
+
+                grid-template-columns: 1fr;
+
+                gap: 7px;
+            }
+
+
+            .view-pdf-button {
+
+                min-height: 36px;
+
+                width: 100%;
+            }
+
 
             .review-decision-header h3 {
-
                 font-size: .86rem;
             }
 
 
             .review-decision-header p {
-
                 font-size: .59rem;
             }
 
@@ -2578,7 +2418,6 @@
             .reject-icon {
 
                 width: 34px;
-
                 height: 34px;
 
                 font-size: .78rem;
@@ -2587,14 +2426,12 @@
 
             .approve-content strong,
             .reject-heading strong {
-
                 font-size: .65rem;
             }
 
 
             .approve-content span,
             .reject-heading span {
-
                 font-size: .56rem;
             }
 
@@ -2625,7 +2462,6 @@
 
 
             .request-form-label {
-
                 font-size: .56rem;
             }
 
@@ -2635,7 +2471,6 @@
                 font-size: .6rem;
 
                 padding-left: .55rem;
-
                 padding-right: .55rem;
             }
 
@@ -2659,121 +2494,7 @@
 
         }
 
-        /* =========================================================
-        DIFFERENT DEPARTMENT NOTICE
-        ========================================================= */
-
-        .department-restriction-notice {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-top: 20px;
-            padding: 16px 18px;
-
-            background: #fff9e6;
-            border: 1px solid #f3df9a;
-            border-radius: 10px;
-        }
-
-
-        /* Icon */
-
-        .department-restriction-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            width: 42px;
-            height: 42px;
-            flex-shrink: 0;
-
-            background: #fff1bd;
-            color: #997404;
-
-            border-radius: 50%;
-
-            font-size: 18px;
-        }
-
-
-        /* Content */
-
-        .department-restriction-content {
-            flex: 1;
-        }
-
-
-        .department-restriction-content h4 {
-            margin: 0 0 4px;
-
-            color: #765b00;
-
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-
-        .department-restriction-content p {
-            margin: 0;
-
-            color: #806d35;
-
-            font-size: 13px;
-            line-height: 1.55;
-        }
-
-
-        /* =========================================================
-        DARK MODE
-        ========================================================= */
-
-        [data-bs-theme="dark"] .department-restriction-notice {
-            background: #332d19;
-            border-color: #5a4d22;
-        }
-
-
-        [data-bs-theme="dark"] .department-restriction-icon {
-            background: #4a401d;
-            color: #f5d36b;
-        }
-
-
-        [data-bs-theme="dark"] .department-restriction-content h4 {
-            color: #f5d36b;
-        }
-
-
-        [data-bs-theme="dark"] .department-restriction-content p {
-            color: #c9b978;
-        }
-
-
-        /* =========================================================
-        MOBILE
-        ========================================================= */
-
-        @media (max-width: 767.98px) {
-
-            .department-restriction-notice {
-                align-items: flex-start;
-                padding: 14px;
-            }
-
-            .department-restriction-icon {
-                width: 38px;
-                height: 38px;
-                font-size: 16px;
-            }
-
-            .department-restriction-content h4 {
-                font-size: 13px;
-            }
-
-            .department-restriction-content p {
-                font-size: 12px;
-            }
-        }
     </style>
 
 </x-app-layout>
+

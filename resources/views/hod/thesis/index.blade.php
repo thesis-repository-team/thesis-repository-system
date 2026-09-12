@@ -32,16 +32,24 @@
 
                 {{-- MOBILE SEARCH --}}
 
-                <button type="button" id="mobileThesisSearchToggle" class="thesis-mobile-search-button"
-                    data-tooltip="Search" aria-label="Open Search" aria-expanded="false">
+                <button
+                    type="button"
+                    id="mobileThesisSearchToggle"
+                    class="thesis-mobile-search-button"
+                    data-tooltip="Search"
+                    aria-label="Open Search"
+                    aria-expanded="false"
+                >
                     <i class="bi bi-search"></i>
                 </button>
 
 
-
                 {{-- ADD NEW THESIS --}}
 
-                <a href="{{ route('hod.thesis.create') }}" class="thesis-add-button thesis-new-thesis-button">
+                <a
+                    href="{{ route('hod.thesis.create') }}"
+                    class="thesis-add-button thesis-new-thesis-button"
+                >
                     <i class="bi bi-plus-lg"></i>
 
                     <span class="thesis-button-text">
@@ -58,7 +66,10 @@
             MOBILE SEARCH
         ========================================================== --}}
 
-        <div id="mobileThesisSearchPanel" class="thesis-mobile-search-panel">
+        <div
+            id="mobileThesisSearchPanel"
+            class="thesis-mobile-search-panel"
+        >
 
             <div class="thesis-mobile-search-content">
 
@@ -66,13 +77,22 @@
 
                     <i class="bi bi-search"></i>
 
-                    <input type="text" id="mobileThesisSearchInput"
-                        placeholder="Search title, author, or department..." autocomplete="off">
+                    <input
+                        type="text"
+                        id="mobileThesisSearchInput"
+                        placeholder="Search title, author, or department..."
+                        autocomplete="off"
+                    >
 
                 </div>
 
-                <button type="button" id="mobileThesisResetFilter" class="thesis-mobile-reset-button"
-                    data-tooltip="Reset Search" aria-label="Reset Search">
+                <button
+                    type="button"
+                    id="mobileThesisResetFilter"
+                    class="thesis-mobile-reset-button"
+                    data-tooltip="Reset Search"
+                    aria-label="Reset Search"
+                >
                     <i class="bi bi-arrow-counterclockwise"></i>
                 </button>
 
@@ -95,7 +115,10 @@
 
                     <div class="col-12 col-lg-5">
 
-                        <label for="search" class="thesis-input-label">
+                        <label
+                            for="search"
+                            class="thesis-input-label"
+                        >
                             Search
                         </label>
 
@@ -103,8 +126,12 @@
 
                             <i class="bi bi-search"></i>
 
-                            <input type="text" id="search" placeholder="Search title, author, or department..."
-                                autocomplete="off">
+                            <input
+                                type="text"
+                                id="search"
+                                placeholder="Search title, author, or department..."
+                                autocomplete="off"
+                            >
 
                         </div>
 
@@ -115,20 +142,28 @@
 
                     <div class="col-12 col-md-6 col-lg-3">
 
-                        <label for="departmentFilter" class="thesis-input-label">
+                        <label
+                            for="departmentFilter"
+                            class="thesis-input-label"
+                        >
                             Department
                         </label>
 
-                        <select class="thesis-filter-select" id="departmentFilter">
+                        <select
+                            class="thesis-filter-select"
+                            id="departmentFilter"
+                        >
 
                             <option value="">
                                 All Departments
                             </option>
 
                             @foreach ($departments as $department)
+
                                 <option value="{{ $department->name }}">
                                     {{ $department->name }}
                                 </option>
+
                             @endforeach
 
                         </select>
@@ -138,34 +173,47 @@
 
                     {{-- YEAR --}}
 
-                   <div class="col-12 col-md-6 col-lg-2">
+                    <div class="col-12 col-md-6 col-lg-2">
 
-                        <label for="yearFilter" class="thesis-input-label">
+                        <label
+                            for="yearFilter"
+                            class="thesis-input-label"
+                        >
                             Academic Year
                         </label>
 
-                        <select class="thesis-filter-select thesis-year-select" id="yearFilter">
+                        <select
+                            class="thesis-filter-select thesis-year-select"
+                            id="yearFilter"
+                        >
 
                             <option value="">
                                 All Years
                             </option>
 
                             @foreach ($academicYears as $year)
+
                                 <option value="{{ $year }}">
                                     {{ $year }}
                                 </option>
+
                             @endforeach
 
                         </select>
 
                     </div>
 
+
                     {{-- RESET --}}
 
                     <div class="col-12 col-lg-2">
 
-                        <button type="button" id="resetFilter" class="thesis-reset-button"
-                            data-tooltip="Reset Filters">
+                        <button
+                            type="button"
+                            id="resetFilter"
+                            class="thesis-reset-button"
+                            data-tooltip="Reset Filters"
+                        >
 
                             <i class="bi bi-arrow-counterclockwise"></i>
 
@@ -192,7 +240,10 @@
 
             {{-- LOADING --}}
 
-            <div id="thesisSearchSpinner" class="thesis-loading d-none">
+            <div
+                id="thesisSearchSpinner"
+                class="thesis-loading d-none"
+            >
 
                 <div class="thesis-spinner"></div>
 
@@ -209,8 +260,12 @@
 
                 <div class="thesis-view-toggle">
 
-                    <button type="button" id="thesisCardViewButton" class="thesis-view-button is-active"
-                        aria-label="Card View">
+                    <button
+                        type="button"
+                        id="thesisCardViewButton"
+                        class="thesis-view-button is-active"
+                        aria-label="Card View"
+                    >
 
                         <i class="bi bi-grid-3x3-gap"></i>
 
@@ -221,8 +276,12 @@
                     </button>
 
 
-                    <button type="button" id="thesisTableViewButton" class="thesis-view-button"
-                        aria-label="Table View">
+                    <button
+                        type="button"
+                        id="thesisTableViewButton"
+                        class="thesis-view-button"
+                        aria-label="Table View"
+                    >
 
                         <i class="bi bi-table"></i>
 
@@ -239,7 +298,10 @@
 
             {{-- RESULTS --}}
 
-            <div id="adminThesisCards" class="thesis-results-container">
+            <div
+                id="adminThesisCards"
+                class="thesis-results-container"
+            >
 
                 @include('hod.thesis.table')
 
@@ -255,43 +317,56 @@
     ============================================================= --}}
 
     <script>
+
         document.addEventListener('DOMContentLoaded', function() {
 
             let searchTimeout = null;
             let currentController = null;
 
+
             const searchInput =
                 document.getElementById('search');
+
 
             const mobileSearchInput =
                 document.getElementById('mobileThesisSearchInput');
 
+
             const departmentFilter =
                 document.getElementById('departmentFilter');
+
 
             const yearFilter =
                 document.getElementById('yearFilter');
 
+
             const resetButton =
                 document.getElementById('resetFilter');
+
 
             const mobileResetButton =
                 document.getElementById('mobileThesisResetFilter');
 
+
             const mobileSearchToggle =
                 document.getElementById('mobileThesisSearchToggle');
+
 
             const mobileSearchPanel =
                 document.getElementById('mobileThesisSearchPanel');
 
+
             const spinner =
                 document.getElementById('thesisSearchSpinner');
+
 
             const thesisResultsContainer =
                 document.getElementById('adminThesisCards');
 
+
             const thesisCardViewButton =
                 document.getElementById('thesisCardViewButton');
+
 
             const thesisTableViewButton =
                 document.getElementById('thesisTableViewButton');
@@ -307,11 +382,13 @@
                     return;
                 }
 
+
                 if (view === 'table') {
 
                     thesisResultsContainer.classList.add(
                         'table-mode'
                     );
+
 
                     if (thesisTableViewButton) {
 
@@ -321,6 +398,7 @@
 
                     }
 
+
                     if (thesisCardViewButton) {
 
                         thesisCardViewButton.classList.remove(
@@ -328,6 +406,7 @@
                         );
 
                     }
+
 
                     localStorage.setItem(
                         'adminThesisView',
@@ -340,6 +419,7 @@
                         'table-mode'
                     );
 
+
                     if (thesisCardViewButton) {
 
                         thesisCardViewButton.classList.add(
@@ -348,6 +428,7 @@
 
                     }
 
+
                     if (thesisTableViewButton) {
 
                         thesisTableViewButton.classList.remove(
@@ -355,6 +436,7 @@
                         );
 
                     }
+
 
                     localStorage.setItem(
                         'adminThesisView',
@@ -407,10 +489,11 @@
                     'adminThesisView'
                 );
 
+
             setThesisView(
-                savedThesisView === 'table' ?
-                'table' :
-                'cards'
+                savedThesisView === 'table'
+                    ? 'table'
+                    : 'cards'
             );
 
 
@@ -426,8 +509,10 @@
 
                 }
 
+
                 currentController =
                     new AbortController();
+
 
                 if (spinner) {
 
@@ -437,6 +522,7 @@
 
                 }
 
+
                 if (thesisResultsContainer) {
 
                     thesisResultsContainer.classList.add(
@@ -445,120 +531,136 @@
 
                 }
 
+
                 let currentSearch = '';
+
 
                 if (window.innerWidth <= 767.98) {
 
                     currentSearch =
-                        mobileSearchInput ?
-                        mobileSearchInput.value.trim() :
-                        '';
+                        mobileSearchInput
+                            ? mobileSearchInput.value.trim()
+                            : '';
 
                 } else {
 
                     currentSearch =
-                        searchInput ?
-                        searchInput.value.trim() :
-                        '';
+                        searchInput
+                            ? searchInput.value.trim()
+                            : '';
 
                 }
 
-                const query = new URLSearchParams({
 
-                    search: currentSearch,
+                const query =
+                    new URLSearchParams({
 
-                    department: departmentFilter ?
-                        departmentFilter.value : '',
+                        search: currentSearch,
 
-                    year: yearFilter ?
-                        yearFilter.value : ''
+                        department:
+                            departmentFilter
+                                ? departmentFilter.value
+                                : '',
 
-                });
-
-                fetch(
-                        "{{ route('hod.thesis.search') }}?" +
-                        query.toString(), {
-                            signal: currentController.signal,
-
-                            headers: {
-                                'X-Requested-With': 'XMLHttpRequest',
-
-                                'Accept': 'text/html'
-                            }
-                        }
-                    )
-
-                    .then(function(response) {
-
-                        if (!response.ok) {
-
-                            throw new Error(
-                                'Network response failed'
-                            );
-
-                        }
-
-                        return response.text();
-
-                    })
-
-                    .then(function(html) {
-
-                        if (thesisResultsContainer) {
-
-                            thesisResultsContainer.innerHTML =
-                                html;
-
-                            const currentView =
-                                localStorage.getItem(
-                                    'adminThesisView'
-                                );
-
-                            setThesisView(
-                                currentView === 'table' ?
-                                'table' :
-                                'cards'
-                            );
-
-                        }
-
-                    })
-
-                    .catch(function(error) {
-
-                        if (
-                            error.name !==
-                            'AbortError'
-                        ) {
-
-                            console.error(
-                                'Error loading thesis records:',
-                                error
-                            );
-
-                        }
-
-                    })
-
-                    .finally(function() {
-
-                        if (spinner) {
-
-                            spinner.classList.add(
-                                'd-none'
-                            );
-
-                        }
-
-                        if (thesisResultsContainer) {
-
-                            thesisResultsContainer.classList.remove(
-                                'is-loading'
-                            );
-
-                        }
+                        year:
+                            yearFilter
+                                ? yearFilter.value
+                                : ''
 
                     });
+
+
+                fetch(
+                    "{{ route('hod.thesis.search') }}?" +
+                    query.toString(),
+                    {
+                        signal: currentController.signal,
+
+                        headers: {
+                            'X-Requested-With':
+                                'XMLHttpRequest',
+
+                            'Accept':
+                                'text/html'
+                        }
+                    }
+                )
+
+                .then(function(response) {
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            'Network response failed'
+                        );
+
+                    }
+
+
+                    return response.text();
+
+                })
+
+                .then(function(html) {
+
+                    if (thesisResultsContainer) {
+
+                        thesisResultsContainer.innerHTML =
+                            html;
+
+
+                        const currentView =
+                            localStorage.getItem(
+                                'adminThesisView'
+                            );
+
+
+                        setThesisView(
+                            currentView === 'table'
+                                ? 'table'
+                                : 'cards'
+                        );
+
+                    }
+
+                })
+
+                .catch(function(error) {
+
+                    if (
+                        error.name !==
+                        'AbortError'
+                    ) {
+
+                        console.error(
+                            'Error loading thesis records:',
+                            error
+                        );
+
+                    }
+
+                })
+
+                .finally(function() {
+
+                    if (spinner) {
+
+                        spinner.classList.add(
+                            'd-none'
+                        );
+
+                    }
+
+
+                    if (thesisResultsContainer) {
+
+                        thesisResultsContainer.classList.remove(
+                            'is-loading'
+                        );
+
+                    }
+
+                });
 
             }
 
@@ -576,6 +678,7 @@
                         clearTimeout(
                             searchTimeout
                         );
+
 
                         searchTimeout =
                             setTimeout(
@@ -602,6 +705,7 @@
                         clearTimeout(
                             searchTimeout
                         );
+
 
                         searchTimeout =
                             setTimeout(
@@ -646,20 +750,32 @@
             function resetFilters() {
 
                 if (searchInput) {
+
                     searchInput.value = '';
+
                 }
+
 
                 if (mobileSearchInput) {
+
                     mobileSearchInput.value = '';
+
                 }
+
 
                 if (departmentFilter) {
+
                     departmentFilter.value = '';
+
                 }
 
+
                 if (yearFilter) {
+
                     yearFilter.value = '';
+
                 }
+
 
                 loadData();
 
@@ -697,13 +813,17 @@
                     function() {
 
                         if (!mobileSearchPanel) {
+
                             return;
+
                         }
+
 
                         const isOpen =
                             mobileSearchPanel.classList.contains(
                                 'is-open'
                             );
+
 
                         if (isOpen) {
 
@@ -711,10 +831,12 @@
                                 'is-open'
                             );
 
+
                             mobileSearchToggle.setAttribute(
                                 'aria-expanded',
                                 'false'
                             );
+
 
                             mobileSearchToggle.classList.remove(
                                 'is-active'
@@ -726,14 +848,17 @@
                                 'is-open'
                             );
 
+
                             mobileSearchToggle.setAttribute(
                                 'aria-expanded',
                                 'true'
                             );
 
+
                             mobileSearchToggle.classList.add(
                                 'is-active'
                             );
+
 
                             setTimeout(
                                 function() {
@@ -776,12 +901,14 @@
                             'is-open'
                         );
 
+
                         if (mobileSearchToggle) {
 
                             mobileSearchToggle.setAttribute(
                                 'aria-expanded',
                                 'false'
                             );
+
 
                             mobileSearchToggle.classList.remove(
                                 'is-active'
@@ -813,12 +940,14 @@
 
                         }
 
+
                         if (mobileSearchToggle) {
 
                             mobileSearchToggle.setAttribute(
                                 'aria-expanded',
                                 'false'
                             );
+
 
                             mobileSearchToggle.classList.remove(
                                 'is-active'
@@ -832,6 +961,7 @@
             );
 
         });
+
     </script>
 
 
@@ -840,6 +970,7 @@
     ============================================================= --}}
 
     <style>
+
         /* =========================================================
            COLOR SYSTEM
         ========================================================== */
@@ -866,11 +997,11 @@
             --thesis-border: #111111;
             --thesis-border-soft: #E5E7EB;
 
-            --thesis-view: #16A34A;
-            --thesis-view-hover: #15803D;
+            --thesis-view: #5428C7;
+            --thesis-view-hover: #6538D9;
 
-            --thesis-download: #2563EB;
-            --thesis-download-hover: #1D4ED8;
+            --thesis-pdf: #DC3545;
+            --thesis-pdf-hover: #BB2D3B;
 
             --thesis-pending-text: #92400E;
             --thesis-pending-bg: #FEF3C7;
@@ -888,6 +1019,7 @@
                 0 2px 10px rgba(17, 17, 17, .05);
 
             --thesis-primary: #6538D9;
+
         }
 
 
@@ -898,11 +1030,15 @@
         [data-bs-theme="dark"] {
 
             --thesis-page-bg: #101426;
+
             --thesis-card-bg: #181D33;
+
             --thesis-input-bg: #20253A;
 
             --thesis-text: #FFFFFF;
+
             --thesis-text-secondary: #D5D8E8;
+
             --thesis-text-muted: #999FB9;
 
             --thesis-border-soft: #292E45;
@@ -910,23 +1046,38 @@
             --thesis-primary: #6538D9;
 
             --thesis-purple: #7C5CE3;
+
             --thesis-purple-hover: #9278EA;
+
             --thesis-purple-light: #292342;
+
             --thesis-purple-soft: #342C52;
 
-            --thesis-view: #4ADE80;
-            --thesis-view-hover: #22C55E;
 
-            --thesis-download: #60A5FA;
-            --thesis-download-hover: #3B82F6;
+            /* VIEW DETAIL */
+
+            --thesis-view: #9278EA;
+
+            --thesis-view-hover: #7C5CE3;
+
+
+            /* VIEW PDF */
+
+            --thesis-pdf: #F87171;
+
+            --thesis-pdf-hover: #DC3545;
+
 
             --thesis-pending-text: #FCD34D;
+
             --thesis-pending-bg: #422006;
 
             --thesis-approved-text: #86EFAC;
+
             --thesis-approved-bg: #14532D;
 
             --thesis-refused-text: #FCA5A5;
+
             --thesis-refused-bg: #450A0A;
 
             --thesis-shadow:
@@ -934,6 +1085,7 @@
 
             --thesis-card-shadow:
                 0 2px 10px rgba(0, 0, 0, .30);
+
         }
 
 
@@ -943,6 +1095,7 @@
             background: var(--thesis-page-bg);
 
             color: var(--thesis-text);
+
         }
 
 
@@ -961,6 +1114,7 @@
             transition:
                 color .25s ease,
                 background-color .25s ease;
+
         }
 
 
@@ -985,12 +1139,14 @@
             background: var(--thesis-page-bg);
 
             box-sizing: border-box;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-page-header {
 
             background: #171B30;
+
         }
 
 
@@ -999,6 +1155,7 @@
             min-width: 0;
 
             flex: 1;
+
         }
 
 
@@ -1007,6 +1164,7 @@
             display: flex;
 
             align-items: center;
+
         }
 
 
@@ -1031,6 +1189,7 @@
             line-height: 1.2;
 
             text-transform: uppercase;
+
         }
 
 
@@ -1047,12 +1206,14 @@
             line-height: 1.2;
 
             letter-spacing: -.035em;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-title {
 
             color: #FFFFFF;
+
         }
 
 
@@ -1069,6 +1230,7 @@
             gap: .5rem;
 
             flex-shrink: 0;
+
         }
 
 
@@ -1110,6 +1272,7 @@
                 color .2s ease,
                 transform .2s ease,
                 box-shadow .2s ease;
+
         }
 
 
@@ -1125,36 +1288,12 @@
 
             box-shadow:
                 0 5px 14px rgba(101, 56, 217, .20);
-        }
 
-
-        /* =========================================================
-           MY UPLOAD
-        ========================================================== */
-
-        .thesis-my-upload-button {
-
-            color: var(--thesis-purple);
-
-            background: var(--thesis-purple-light);
-
-            border-color: #DDD6FE;
-        }
-
-
-        .thesis-my-upload-button:hover {
-
-            color: #FFFFFF;
-
-            background: var(--thesis-purple);
-
-            border-color: var(--thesis-purple);
         }
 
 
         /* =========================================================
            ADD NEW THESIS
-           SAME COLOR AS MY UPLOAD
         ========================================================== */
 
         .thesis-new-thesis-button {
@@ -1164,6 +1303,7 @@
             background: var(--thesis-purple-light);
 
             border-color: #DDD6FE;
+
         }
 
 
@@ -1179,6 +1319,7 @@
 
             box-shadow:
                 0 5px 14px rgba(101, 56, 217, .20);
+
         }
 
 
@@ -1193,6 +1334,7 @@
             background: #20253A;
 
             border-color: #343A52;
+
         }
 
 
@@ -1203,10 +1345,10 @@
             background: var(--thesis-purple);
 
             border-color: var(--thesis-purple);
+
         }
 
 
-        [data-bs-theme="dark"] .thesis-my-upload-button,
         [data-bs-theme="dark"] .thesis-new-thesis-button {
 
             color: #C4B5FD;
@@ -1214,10 +1356,10 @@
             background: #292342;
 
             border-color: #403765;
+
         }
 
 
-        [data-bs-theme="dark"] .thesis-my-upload-button:hover,
         [data-bs-theme="dark"] .thesis-new-thesis-button:hover {
 
             color: #FFFFFF;
@@ -1225,6 +1367,7 @@
             background: var(--thesis-purple);
 
             border-color: var(--thesis-purple);
+
         }
 
 
@@ -1259,6 +1402,7 @@
             cursor: pointer;
 
             transition: .2s ease;
+
         }
 
 
@@ -1270,6 +1414,7 @@
             background: var(--thesis-purple);
 
             border-color: var(--thesis-purple);
+
         }
 
 
@@ -1280,6 +1425,7 @@
             background: #292342;
 
             border-color: #403765;
+
         }
 
 
@@ -1291,6 +1437,7 @@
             background: var(--thesis-purple);
 
             border-color: var(--thesis-purple);
+
         }
 
 
@@ -1306,6 +1453,7 @@
             background: var(--thesis-card-bg);
 
             box-sizing: border-box;
+
         }
 
 
@@ -1322,6 +1470,7 @@
 
             box-shadow:
                 var(--thesis-card-shadow);
+
         }
 
 
@@ -1340,6 +1489,7 @@
             letter-spacing: .05em;
 
             text-transform: uppercase;
+
         }
 
 
@@ -1350,6 +1500,7 @@
         .thesis-search {
 
             position: relative;
+
         }
 
 
@@ -1368,6 +1519,7 @@
             color: var(--thesis-purple);
 
             pointer-events: none;
+
         }
 
 
@@ -1399,6 +1551,7 @@
                 border-color .2s ease,
                 box-shadow .2s ease,
                 background-color .2s ease;
+
         }
 
 
@@ -1408,12 +1561,14 @@
 
             box-shadow:
                 0 0 0 3px rgba(101, 56, 217, .12);
+
         }
 
 
         .thesis-search input::placeholder {
 
             color: var(--thesis-text-muted);
+
         }
 
 
@@ -1450,6 +1605,7 @@
             transition:
                 border-color .2s ease,
                 box-shadow .2s ease;
+
         }
 
 
@@ -1459,6 +1615,7 @@
 
             box-shadow:
                 0 0 0 3px rgba(101, 56, 217, .12);
+
         }
 
 
@@ -1467,6 +1624,7 @@
             color: #111111;
 
             background: #FFFFFF;
+
         }
 
 
@@ -1475,12 +1633,14 @@
             color: #FFFFFF;
 
             background: #20253A;
+
         }
 
 
         .thesis-year-select {
 
             font-family: monospace;
+
         }
 
 
@@ -1522,6 +1682,7 @@
             cursor: pointer;
 
             transition: .2s ease;
+
         }
 
 
@@ -1532,6 +1693,7 @@
             background: var(--thesis-purple);
 
             border-color: var(--thesis-purple);
+
         }
 
 
@@ -1542,6 +1704,7 @@
             background: #20253A;
 
             border-color: #343A52;
+
         }
 
 
@@ -1552,6 +1715,7 @@
             background: var(--thesis-purple);
 
             border-color: var(--thesis-purple);
+
         }
 
 
@@ -1568,6 +1732,7 @@
             min-height: 100px;
 
             box-sizing: border-box;
+
         }
 
 
@@ -1588,6 +1753,7 @@
             padding: 0;
 
             box-sizing: border-box;
+
         }
 
 
@@ -1611,6 +1777,7 @@
                 1px solid #DDD6FE;
 
             border-radius: 8px;
+
         }
 
 
@@ -1649,6 +1816,7 @@
             cursor: pointer;
 
             transition: .2s ease;
+
         }
 
 
@@ -1657,6 +1825,7 @@
             color: var(--thesis-purple);
 
             background: var(--thesis-purple-soft);
+
         }
 
 
@@ -1668,6 +1837,7 @@
 
             box-shadow:
                 0 3px 8px rgba(101, 56, 217, .25);
+
         }
 
 
@@ -1676,12 +1846,14 @@
             background: #292342;
 
             border-color: #403765;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-view-button {
 
             color: #999FB9;
+
         }
 
 
@@ -1690,6 +1862,7 @@
             color: #C4B5FD;
 
             background: #342C52;
+
         }
 
 
@@ -1701,6 +1874,7 @@
 
             box-shadow:
                 0 3px 9px rgba(101, 56, 217, .35);
+
         }
 
 
@@ -1713,6 +1887,7 @@
             box-sizing: border-box;
 
             transition: opacity .2s ease;
+
         }
 
 
@@ -1721,6 +1896,7 @@
             opacity: .45;
 
             pointer-events: none;
+
         }
 
 
@@ -1740,6 +1916,7 @@
             width: 100%;
 
             box-sizing: border-box;
+
         }
 
 
@@ -1758,18 +1935,23 @@
             overflow: hidden;
 
             box-sizing: border-box;
+
         }
 
 
-        .thesis-results-container.table-mode .thesis-partial-card-results {
+        .thesis-results-container.table-mode
+        .thesis-partial-card-results {
 
             display: none;
+
         }
 
 
-        .thesis-results-container.table-mode .thesis-partial-table-results {
+        .thesis-results-container.table-mode
+        .thesis-partial-table-results {
 
             display: block;
+
         }
 
 
@@ -1803,6 +1985,7 @@
                 transform .25s ease,
                 box-shadow .25s ease,
                 border-color .25s ease;
+
         }
 
 
@@ -1814,12 +1997,14 @@
 
             box-shadow:
                 var(--thesis-shadow);
+
         }
 
 
         [data-bs-theme="dark"] .admin-thesis-card:hover {
 
             border-color: #51447A;
+
         }
 
 
@@ -1838,6 +2023,7 @@
             gap: 1rem;
 
             padding: 1rem;
+
         }
 
 
@@ -1852,6 +2038,7 @@
             min-width: 0;
 
             flex: 1;
+
         }
 
 
@@ -1879,6 +2066,7 @@
 
             box-shadow:
                 0 3px 8px rgba(101, 56, 217, .18);
+
         }
 
 
@@ -1905,12 +2093,14 @@
             -webkit-box-orient: vertical;
 
             word-break: break-word;
+
         }
 
 
         [data-bs-theme="dark"] .admin-thesis-card-title {
 
             color: #FFFFFF;
+
         }
 
 
@@ -1921,6 +2111,7 @@
         .admin-thesis-status {
 
             flex-shrink: 0;
+
         }
 
 
@@ -1943,6 +2134,7 @@
             text-transform: uppercase;
 
             white-space: nowrap;
+
         }
 
 
@@ -1953,6 +2145,7 @@
             background: var(--thesis-pending-bg);
 
             border: 1px solid #FDE68A;
+
         }
 
 
@@ -1963,6 +2156,7 @@
             background: var(--thesis-refused-bg);
 
             border: 1px solid #FECACA;
+
         }
 
 
@@ -1973,6 +2167,7 @@
             background: var(--thesis-approved-bg);
 
             border: 1px solid #BBF7D0;
+
         }
 
 
@@ -2003,6 +2198,7 @@
             border-radius: 8px;
 
             box-sizing: border-box;
+
         }
 
 
@@ -2015,6 +2211,7 @@
             gap: .4rem;
 
             min-width: 0;
+
         }
 
 
@@ -2042,6 +2239,7 @@
             border-radius: 6px;
 
             font-size: .58rem;
+
         }
 
 
@@ -2054,6 +2252,7 @@
             min-width: 0;
 
             line-height: 1.2;
+
         }
 
 
@@ -2072,6 +2271,7 @@
             line-height: 1.2;
 
             text-transform: uppercase;
+
         }
 
 
@@ -2094,6 +2294,7 @@
             text-overflow: ellipsis;
 
             white-space: nowrap;
+
         }
 
 
@@ -2102,6 +2303,7 @@
             background: #20253A;
 
             border-color: #343A52;
+
         }
 
 
@@ -2112,6 +2314,7 @@
             background: #292342;
 
             border-color: #403765;
+
         }
 
 
@@ -2129,6 +2332,7 @@
 
             padding:
                 .15rem 1rem 1rem;
+
         }
 
 
@@ -2143,6 +2347,7 @@
             min-width: 0;
 
             margin-bottom: .7rem;
+
         }
 
 
@@ -2170,6 +2375,7 @@
             border-radius: 8px;
 
             font-size: .75rem;
+
         }
 
 
@@ -2180,6 +2386,7 @@
             background: #292342;
 
             border-color: #403765;
+
         }
 
 
@@ -2190,6 +2397,7 @@
             flex-direction: column;
 
             min-width: 0;
+
         }
 
 
@@ -2206,6 +2414,7 @@
             letter-spacing: .06em;
 
             text-transform: uppercase;
+
         }
 
 
@@ -2222,6 +2431,7 @@
             text-overflow: ellipsis;
 
             white-space: nowrap;
+
         }
 
 
@@ -2241,6 +2451,7 @@
 
             border-top:
                 1px solid var(--thesis-border-soft);
+
         }
 
 
@@ -2255,6 +2466,7 @@
             letter-spacing: .05em;
 
             text-transform: uppercase;
+
         }
 
 
@@ -2273,6 +2485,7 @@
             text-overflow: ellipsis;
 
             white-space: nowrap;
+
         }
 
 
@@ -2294,6 +2507,7 @@
 
             border-top:
                 1px solid var(--thesis-border-soft);
+
         }
 
 
@@ -2327,17 +2541,24 @@
                 color .2s ease,
                 transform .2s ease,
                 box-shadow .2s ease;
+
         }
 
 
+        /* =========================================================
+           CARD VIEW DETAIL
+           DARK PURPLE
+        ========================================================== */
+
         .admin-thesis-view {
 
-            color: var(--thesis-view);
+            color: #5428C7;
 
             background: transparent;
 
             border:
-                1px solid var(--thesis-view);
+                1px solid #5428C7;
+
         }
 
 
@@ -2345,22 +2566,29 @@
 
             color: #FFFFFF;
 
-            background: var(--thesis-view);
+            background: #5428C7;
 
-            border-color: var(--thesis-view);
+            border-color: #5428C7;
 
             transform: translateY(-1px);
+
         }
 
 
+        /* =========================================================
+           CARD VIEW PDF
+           RED
+        ========================================================== */
+
         .admin-thesis-download {
 
-            color: var(--thesis-download);
+            color: #DC3545;
 
             background: transparent;
 
             border:
-                1px solid var(--thesis-download);
+                1px solid #DC3545;
+
         }
 
 
@@ -2368,11 +2596,12 @@
 
             color: #FFFFFF;
 
-            background: var(--thesis-download);
+            background: #DC3545;
 
-            border-color: var(--thesis-download);
+            border-color: #DC3545;
 
             transform: translateY(-1px);
+
         }
 
 
@@ -2389,6 +2618,55 @@
             cursor: not-allowed;
 
             pointer-events: none;
+
+        }
+
+
+        /* =========================================================
+           CARD BUTTONS — DARK MODE
+        ========================================================== */
+
+        [data-bs-theme="dark"] .admin-thesis-view {
+
+            color: #9278EA;
+
+            background: transparent;
+
+            border-color: #9278EA;
+
+        }
+
+
+        [data-bs-theme="dark"] .admin-thesis-view:hover {
+
+            color: #FFFFFF;
+
+            background: #7C5CE3;
+
+            border-color: #7C5CE3;
+
+        }
+
+
+        [data-bs-theme="dark"] .admin-thesis-download {
+
+            color: #F87171;
+
+            background: transparent;
+
+            border-color: #F87171;
+
+        }
+
+
+        [data-bs-theme="dark"] .admin-thesis-download:hover {
+
+            color: #FFFFFF;
+
+            background: #DC3545;
+
+            border-color: #DC3545;
+
         }
 
 
@@ -2425,6 +2703,7 @@
 
             box-shadow:
                 var(--thesis-card-shadow);
+
         }
 
 
@@ -2449,6 +2728,7 @@
             border-radius: 13px;
 
             font-size: 1.25rem;
+
         }
 
 
@@ -2461,6 +2741,7 @@
             font-size: 1rem;
 
             font-weight: 800;
+
         }
 
 
@@ -2471,6 +2752,7 @@
             color: var(--thesis-text-muted);
 
             font-size: .78rem;
+
         }
 
 
@@ -2489,6 +2771,7 @@
             overflow: hidden;
 
             box-sizing: border-box;
+
         }
 
 
@@ -2511,6 +2794,7 @@
                 var(--thesis-card-shadow);
 
             box-sizing: border-box;
+
         }
 
 
@@ -2531,6 +2815,7 @@
             color: var(--thesis-text);
 
             background: var(--thesis-card-bg);
+
         }
 
 
@@ -2539,40 +2824,48 @@
             width: 4%;
         }
 
+
         .thesis-table th:nth-child(2),
         .thesis-table td:nth-child(2) {
             width: 22%;
         }
+
 
         .thesis-table th:nth-child(3),
         .thesis-table td:nth-child(3) {
             width: 12%;
         }
 
+
         .thesis-table th:nth-child(4),
         .thesis-table td:nth-child(4) {
             width: 12%;
         }
+
 
         .thesis-table th:nth-child(5),
         .thesis-table td:nth-child(5) {
             width: 9%;
         }
 
+
         .thesis-table th:nth-child(6),
         .thesis-table td:nth-child(6) {
             width: 11%;
         }
+
 
         .thesis-table th:nth-child(7),
         .thesis-table td:nth-child(7) {
             width: 11%;
         }
 
+
         .thesis-table th:nth-child(8),
         .thesis-table td:nth-child(8) {
             width: 10%;
         }
+
 
         .thesis-table th:nth-child(9),
         .thesis-table td:nth-child(9) {
@@ -2581,6 +2874,7 @@
 
 
         .thesis-table thead th {
+
             padding: .85rem .65rem;
 
             color: #4C3A8A;
@@ -2604,16 +2898,20 @@
             white-space: normal;
 
             overflow-wrap: break-word;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-table thead th {
+
             color: #D8CCFF;
 
             background: #292342;
 
             border-bottom-color: #403765;
+
         }
+
 
         .thesis-table tbody td {
 
@@ -2639,12 +2937,14 @@
             overflow-wrap: anywhere;
 
             word-break: break-word;
+
         }
 
 
         .thesis-table tbody tr:last-child td {
 
             border-bottom: 0;
+
         }
 
 
@@ -2652,18 +2952,21 @@
 
             transition:
                 background-color .2s ease;
+
         }
 
 
         .thesis-table tbody tr:hover td {
 
             background: #fafafa;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-table tbody tr:hover td {
 
             background: #20253A;
+
         }
 
 
@@ -2676,6 +2979,7 @@
             font-weight: 800 !important;
 
             text-align: center !important;
+
         }
 
 
@@ -2684,6 +2988,7 @@
             min-width: 0;
 
             max-width: none;
+
         }
 
 
@@ -2706,12 +3011,14 @@
             overflow-wrap: anywhere;
 
             word-break: break-word;
+
         }
 
 
         [data-bs-theme="dark"] .thesis-table-title-text {
 
             color: #FFFFFF;
+
         }
 
 
@@ -2723,6 +3030,7 @@
             font-size: .68rem !important;
 
             line-height: 1.3;
+
         }
 
 
@@ -2734,6 +3042,7 @@
             line-height: 1.2;
 
             color: var(--thesis-text-muted);
+
         }
 
 
@@ -2748,6 +3057,7 @@
             gap: .35rem;
 
             width: 100%;
+
         }
 
 
@@ -2782,17 +3092,24 @@
                 border-color .2s ease,
                 color .2s ease,
                 transform .2s ease;
+
         }
 
 
+        /* =========================================================
+           TABLE VIEW DETAIL
+           DARK PURPLE
+        ========================================================== */
+
         .thesis-table-view {
 
-            color: var(--thesis-view);
+            color: #5428C7;
 
             background: transparent;
 
             border:
-                1px solid var(--thesis-view);
+                1px solid #5428C7;
+
         }
 
 
@@ -2800,22 +3117,29 @@
 
             color: #FFFFFF;
 
-            background: var(--thesis-view);
+            background: #5428C7;
 
-            border-color: var(--thesis-view);
+            border-color: #5428C7;
 
             transform: translateY(-1px);
+
         }
 
 
+        /* =========================================================
+           TABLE VIEW PDF
+           RED
+        ========================================================== */
+
         .thesis-table-download {
 
-            color: var(--thesis-download);
+            color: #DC3545;
 
             background: transparent;
 
             border:
-                1px solid var(--thesis-download);
+                1px solid #DC3545;
+
         }
 
 
@@ -2823,11 +3147,12 @@
 
             color: #FFFFFF;
 
-            background: var(--thesis-download);
+            background: #DC3545;
 
-            border-color: var(--thesis-download);
+            border-color: #DC3545;
 
             transform: translateY(-1px);
+
         }
 
 
@@ -2844,6 +3169,55 @@
             cursor: not-allowed;
 
             pointer-events: none;
+
+        }
+
+
+        /* =========================================================
+           TABLE BUTTONS — DARK MODE
+        ========================================================== */
+
+        [data-bs-theme="dark"] .thesis-table-view {
+
+            color: #9278EA;
+
+            background: transparent;
+
+            border-color: #9278EA;
+
+        }
+
+
+        [data-bs-theme="dark"] .thesis-table-view:hover {
+
+            color: #FFFFFF;
+
+            background: #7C5CE3;
+
+            border-color: #7C5CE3;
+
+        }
+
+
+        [data-bs-theme="dark"] .thesis-table-download {
+
+            color: #F87171;
+
+            background: transparent;
+
+            border-color: #F87171;
+
+        }
+
+
+        [data-bs-theme="dark"] .thesis-table-download:hover {
+
+            color: #FFFFFF;
+
+            background: #DC3545;
+
+            border-color: #DC3545;
+
         }
 
 
@@ -2852,6 +3226,7 @@
             background: #181D33;
 
             border-color: #292E45;
+
         }
 
 
@@ -2860,6 +3235,7 @@
             color: #FFFFFF;
 
             background: #181D33;
+
         }
 
 
@@ -2870,42 +3246,7 @@
             background: #181D33;
 
             border-bottom-color: #292E45;
-        }
 
-
-        [data-bs-theme="dark"] .thesis-table-view {
-
-            color: #4ADE80;
-
-            border-color: #4ADE80;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-table-view:hover {
-
-            color: #071B0D;
-
-            background: #4ADE80;
-
-            border-color: #4ADE80;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-table-download {
-
-            color: #60A5FA;
-
-            border-color: #60A5FA;
-        }
-
-
-        [data-bs-theme="dark"] .thesis-table-download:hover {
-
-            color: #071225;
-
-            background: #60A5FA;
-
-            border-color: #60A5FA;
         }
 
 
@@ -2914,6 +3255,7 @@
             padding: 3rem 1rem !important;
 
             text-align: center !important;
+
         }
 
 
@@ -2926,6 +3268,7 @@
             color: var(--thesis-text);
 
             font-size: .9rem;
+
         }
 
 
@@ -2936,6 +3279,7 @@
             color: var(--thesis-text-muted);
 
             font-size: .78rem;
+
         }
 
 
@@ -2965,6 +3309,7 @@
             transition:
                 opacity .2s ease,
                 transform .2s ease;
+
         }
 
 
@@ -2973,6 +3318,7 @@
             opacity: 1;
 
             transform: translateY(0);
+
         }
 
 
@@ -2985,6 +3331,7 @@
             gap: .5rem;
 
             padding: .75rem;
+
         }
 
 
@@ -2993,6 +3340,7 @@
             position: relative;
 
             flex: 1;
+
         }
 
 
@@ -3009,6 +3357,7 @@
             color: var(--thesis-purple);
 
             pointer-events: none;
+
         }
 
 
@@ -3037,6 +3386,7 @@
             box-sizing: border-box;
 
             transition: .2s ease;
+
         }
 
 
@@ -3046,6 +3396,7 @@
 
             box-shadow:
                 0 0 0 3px rgba(101, 56, 217, .12);
+
         }
 
 
@@ -3075,6 +3426,7 @@
             cursor: pointer;
 
             transition: .2s ease;
+
         }
 
 
@@ -3085,6 +3437,7 @@
             background: var(--thesis-purple);
 
             border-color: var(--thesis-purple);
+
         }
 
 
@@ -3129,6 +3482,7 @@
             font-weight: 700;
 
             white-space: nowrap;
+
         }
 
 
@@ -3148,6 +3502,7 @@
 
             animation:
                 thesisSpin .7s linear infinite;
+
         }
 
 
@@ -3170,6 +3525,7 @@
 
                 grid-template-columns:
                     repeat(3, minmax(0, 1fr));
+
             }
 
         }
@@ -3185,6 +3541,7 @@
 
                 grid-template-columns:
                     repeat(2, minmax(0, 1fr));
+
             }
 
 
@@ -3193,6 +3550,7 @@
                 padding: .75rem .5rem;
 
                 font-size: .68rem;
+
             }
 
 
@@ -3201,12 +3559,14 @@
                 padding: .75rem .5rem;
 
                 font-size: .74rem;
+
             }
 
 
             .thesis-table-title-text {
 
                 font-size: .76rem;
+
             }
 
 
@@ -3217,6 +3577,7 @@
                 height: 31px;
 
                 min-width: 31px;
+
             }
 
         }
@@ -3231,6 +3592,7 @@
             .thesis-page {
 
                 padding: 12px;
+
             }
 
 
@@ -3242,36 +3604,42 @@
                 padding: 1rem;
 
                 gap: 1rem;
+
             }
 
 
             .thesis-title {
 
                 font-size: 1.4rem;
+
             }
 
 
             .thesis-overline {
 
                 font-size: .68rem;
+
             }
 
 
             .thesis-mobile-search-button {
 
                 display: flex;
+
             }
 
 
             .thesis-filter-card {
 
                 display: none;
+
             }
 
 
             .thesis-mobile-search-panel {
 
                 display: block;
+
             }
 
 
@@ -3282,6 +3650,7 @@
                 margin-bottom: .75rem;
 
                 padding: 0 .75rem;
+
             }
 
 
@@ -3294,12 +3663,14 @@
                 height: 36px;
 
                 padding: 0;
+
             }
 
 
             .thesis-view-button span {
 
                 display: none;
+
             }
 
 
@@ -3311,6 +3682,7 @@
 
                 padding:
                     0 .75rem 1rem;
+
             }
 
 
@@ -3323,24 +3695,28 @@
                 min-width: 44px;
 
                 padding: 0;
+
             }
 
 
             .thesis-add-button .thesis-button-text {
 
                 display: none;
+
             }
 
 
             .admin-thesis-card-title {
 
                 font-size: 1rem;
+
             }
 
 
             .admin-thesis-detail-value {
 
                 font-size: .76rem;
+
             }
 
 
@@ -3355,6 +3731,7 @@
 
                 padding:
                     .5rem .6rem;
+
             }
 
 
@@ -3365,18 +3742,21 @@
                 height: 23px;
 
                 font-size: .55rem;
+
             }
 
 
             .admin-thesis-published-label {
 
                 font-size: .52rem;
+
             }
 
 
             .admin-thesis-published-value {
 
                 font-size: .63rem;
+
             }
 
 
@@ -3392,6 +3772,7 @@
                 box-sizing: border-box;
 
                 overflow: hidden;
+
             }
 
 
@@ -3402,6 +3783,7 @@
                 max-width: 100%;
 
                 overflow: hidden;
+
             }
 
 
@@ -3414,6 +3796,7 @@
                 overflow: hidden;
 
                 border-radius: 10px;
+
             }
 
 
@@ -3426,6 +3809,7 @@
                 min-width: 0;
 
                 table-layout: fixed;
+
             }
 
 
@@ -3439,6 +3823,7 @@
             .thesis-table td:nth-child(8) {
 
                 display: none;
+
             }
 
 
@@ -3446,6 +3831,7 @@
             .thesis-table td:nth-child(1) {
 
                 width: 8%;
+
             }
 
 
@@ -3453,6 +3839,7 @@
             .thesis-table td:nth-child(2) {
 
                 width: 43%;
+
             }
 
 
@@ -3460,6 +3847,7 @@
             .thesis-table td:nth-child(3) {
 
                 width: 20%;
+
             }
 
 
@@ -3467,6 +3855,7 @@
             .thesis-table td:nth-child(4) {
 
                 width: 17%;
+
             }
 
 
@@ -3474,6 +3863,7 @@
             .thesis-table td:nth-child(5) {
 
                 width: 12%;
+
             }
 
 
@@ -3483,6 +3873,7 @@
                 display: table-cell;
 
                 width: 14%;
+
             }
 
 
@@ -3496,6 +3887,7 @@
                 letter-spacing: .02em;
 
                 line-height: 1.3;
+
             }
 
 
@@ -3507,6 +3899,7 @@
                 font-size: .68rem;
 
                 line-height: 1.4;
+
             }
 
 
@@ -3515,18 +3908,21 @@
                 font-size: .70rem;
 
                 line-height: 1.4;
+
             }
 
 
             .thesis-table-number {
 
                 font-size: .65rem !important;
+
             }
 
 
             .thesis-table-actions {
 
                 gap: .2rem;
+
             }
 
 
@@ -3541,6 +3937,7 @@
                 border-radius: 5px;
 
                 font-size: .65rem;
+
             }
 
         }
@@ -3555,18 +3952,21 @@
             .thesis-page-header {
 
                 padding: .85rem;
+
             }
 
 
             .thesis-title {
 
                 font-size: 1.25rem;
+
             }
 
 
             .thesis-mobile-search-content {
 
                 padding: .6rem;
+
             }
 
 
@@ -3575,6 +3975,7 @@
                 height: 42px;
 
                 font-size: .84rem;
+
             }
 
 
@@ -3584,6 +3985,7 @@
                 width: 42px;
 
                 height: 42px;
+
             }
 
 
@@ -3593,6 +3995,7 @@
 
                 padding:
                     0 .65rem 1rem;
+
             }
 
 
@@ -3600,12 +4003,14 @@
 
                 padding:
                     .15rem .9rem .9rem;
+
             }
 
 
             .admin-thesis-card-footer {
 
                 padding: .65rem;
+
             }
 
 
@@ -3614,6 +4019,7 @@
                 min-height: 36px;
 
                 font-size: .66rem;
+
             }
 
 
@@ -3623,6 +4029,7 @@
                     .35rem .5rem;
 
                 font-size: .58rem;
+
             }
 
 
@@ -3632,6 +4039,7 @@
                     .45rem .55rem;
 
                 gap: .35rem;
+
             }
 
 
@@ -3642,18 +4050,21 @@
                 height: 21px;
 
                 font-size: .5rem;
+
             }
 
 
             .admin-thesis-published-label {
 
                 font-size: .48rem;
+
             }
 
 
             .admin-thesis-published-value {
 
                 font-size: .60rem;
+
             }
 
 
@@ -3665,6 +4076,7 @@
                 font-size: .56rem;
 
                 line-height: 1.25;
+
             }
 
 
@@ -3676,6 +4088,7 @@
                 font-size: .62rem;
 
                 line-height: 1.4;
+
             }
 
 
@@ -3684,6 +4097,7 @@
                 font-size: .64rem;
 
                 line-height: 1.4;
+
             }
 
 
@@ -3696,6 +4110,7 @@
                 min-width: 25px;
 
                 font-size: .55rem;
+
             }
 
         }
@@ -3719,9 +4134,11 @@
 
                 transition-duration:
                     .01ms !important;
+
             }
 
         }
+
     </style>
 
 </x-app-layout>

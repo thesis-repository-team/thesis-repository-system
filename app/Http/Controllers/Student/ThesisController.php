@@ -26,31 +26,13 @@ class ThesisController extends Controller
             ->get();
 
         $departments = Department::all();
-
-        /*
-        |--------------------------------------------------------------------------
-        | Academic Years
-        |--------------------------------------------------------------------------
-        | academic_year contains a single year:
-        |
-        | 2026
-        | 2025
-        | 2024
-        | 2020
-        |
-        | Do not use YEAR(published_at) here.
-        */
+        
         $academicYears = Thesis::whereNotNull('academic_year')
             ->select('academic_year')
             ->distinct()
             ->orderByDesc('academic_year')
             ->pluck('academic_year');
 
-        /*
-        |--------------------------------------------------------------------------
-        | Saved Theses
-        |--------------------------------------------------------------------------
-        */
         $savedThesisIds = SavedThesis::where(
             'user_id',
             auth()->id()
@@ -85,11 +67,6 @@ class ThesisController extends Controller
                 ->with('error', 'File not found.');
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | Record View History
-        |--------------------------------------------------------------------------
-        */
         ViewHistory::create([
             'user_id' => auth()->id(),
             'thesis_id' => $thesis->id,
@@ -143,11 +120,7 @@ class ThesisController extends Controller
             'publishedBy',
         ]);
 
-        /*
-        |--------------------------------------------------------------------------
-        | SEARCH
-        |--------------------------------------------------------------------------
-        */
+        
         if ($request->filled('search')) {
 
             $query->where(function ($q) use ($search) {
@@ -174,11 +147,6 @@ class ThesisController extends Controller
                         }
                     )
 
-                /*
-                |--------------------------------------------------------------------------
-                | Submitted By
-                |--------------------------------------------------------------------------
-                */
                     ->orWhereHas(
                         'submittedBy',
                         function ($u) use ($search) {

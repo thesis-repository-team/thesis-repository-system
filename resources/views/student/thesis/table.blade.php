@@ -215,7 +215,7 @@
                             <i class="bi bi-file-earmark-pdf"></i>
 
                             <span>
-                                View PDF
+                                PDF
                             </span>
                         </a>
 

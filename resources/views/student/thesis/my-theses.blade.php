@@ -1,6 +1,5 @@
 <x-app-layout>
 
- 
     <div class="dashboard-content thesis-page">
 
         <div class="thesis-page-header">
@@ -30,7 +29,7 @@
 
         {{-- =========================================================
         RESULTS
-    ========================================================== --}}
+        ========================================================== --}}
 
         <div class="thesis-results-wrapper">
 
@@ -49,14 +48,18 @@
 
             {{-- =====================================================
             VIEW TOGGLE
-        ====================================================== --}}
+            ====================================================== --}}
 
             <div class="thesis-results-toolbar">
 
                 <div class="thesis-view-toggle">
 
-                    <button type="button" id="thesisCardViewButton" class="thesis-view-button is-active"
-                        aria-label="Card View">
+                    <button
+                        type="button"
+                        id="thesisCardViewButton"
+                        class="thesis-view-button is-active"
+                        aria-label="Card View"
+                    >
 
                         <i class="bi bi-grid-3x3-gap"></i>
 
@@ -67,8 +70,12 @@
                     </button>
 
 
-                    <button type="button" id="thesisTableViewButton" class="thesis-view-button"
-                        aria-label="Table View">
+                    <button
+                        type="button"
+                        id="thesisTableViewButton"
+                        class="thesis-view-button"
+                        aria-label="Table View"
+                    >
 
                         <i class="bi bi-table"></i>
 
@@ -85,23 +92,25 @@
 
             {{-- =====================================================
             RESULTS
-        ====================================================== --}}
+            ====================================================== --}}
 
             <div id="adminThesisCards" class="thesis-results-container">
 
 
                 {{-- =================================================
                 CARD RESULTS
-            ================================================== --}}
+                ================================================== --}}
 
                 <div class="thesis-partial-card-results">
 
                     @forelse ($theses as $thesis)
+
                         <div class="admin-thesis-card">
+
 
                             {{-- =================================================
                             CARD TOP
-                        ================================================== --}}
+                            ================================================== --}}
 
                             <div class="admin-thesis-card-top">
 
@@ -126,7 +135,7 @@
 
                             {{-- =================================================
                             PUBLISHED
-                        ================================================== --}}
+                            ================================================== --}}
 
                             <div class="admin-thesis-published">
 
@@ -184,9 +193,10 @@
 
                             {{-- =================================================
                             CARD BODY
-                        ================================================== --}}
+                            ================================================== --}}
 
                             <div class="admin-thesis-card-body">
+
 
                                 {{-- AUTHOR --}}
 
@@ -290,30 +300,42 @@
 
                             {{-- =================================================
                             CARD FOOTER
-                        ================================================== --}}
+                            ================================================== --}}
 
                             <div class="admin-thesis-card-footer">
 
+
                                 {{-- VIEW DETAIL --}}
-                                <a href="{{ route('student.thesis.show', $thesis->id) }}"
+
+                                <a
+                                    href="{{ route('student.thesis.show', $thesis->id) }}"
                                     class="admin-thesis-action admin-thesis-view-detail"
                                     title="View Detail"
-                                    aria-label="View Detail">
-                                    <i class="bi bi-eye"></i>
-                                    <span>View Detail</span>
+                                    aria-label="View Detail"
+                                >
+
+                                    <i class="bi bi-file-text"></i>
+
+                                    <span>
+                                        View Detail
+                                    </span>
+
                                 </a>
 
-                                {{-- VIEW PDF --}}
-                                
 
-                                <a href="{{ route('student.thesis.view-pdf', $thesis->id) }}"
-                                    class="admin-thesis-action admin-thesis-view-pdf" title="View PDF"
-                                    aria-label="View PDF">
+                                {{-- VIEW PDF --}}
+
+                                <a
+                                    href="{{ route('student.thesis.view-pdf', $thesis->id) }}"
+                                    class="admin-thesis-action admin-thesis-view-pdf"
+                                    title="View PDF"
+                                    aria-label="View PDF"
+                                >
 
                                     <i class="bi bi-file-earmark-pdf"></i>
 
                                     <span>
-                                        View PDF
+                                        PDF
                                     </span>
 
                                 </a>
@@ -341,6 +363,7 @@
                             </p>
 
                         </div>
+
                     @endforelse
 
                 </div>
@@ -348,7 +371,7 @@
 
                 {{-- =================================================
                 TABLE RESULTS
-            ================================================== --}}
+                ================================================== --}}
 
                 <div class="thesis-partial-table-results">
 
@@ -404,6 +427,7 @@
                             <tbody>
 
                                 @forelse ($theses as $thesis)
+
                                     <tr>
 
                                         {{-- NUMBER --}}
@@ -489,22 +513,28 @@
                                             <div class="thesis-table-actions">
 
 
-
-
-
                                                 {{-- VIEW DETAIL --}}
-                                                <a href="{{ route('hod.thesis.show', $thesis->id) }}"
+
+                                                <a
+                                                    href="{{ route('student.thesis.show', $thesis->id) }}"
                                                     class="thesis-table-action thesis-table-detail"
                                                     title="View Detail"
-                                                    aria-label="View Detail">
+                                                    aria-label="View Detail"
+                                                >
+
                                                     <i class="bi bi-eye"></i>
+
                                                 </a>
+
 
                                                 {{-- VIEW PDF --}}
 
-                                                <a href="{{ route('hod.thesis.view-pdf', $thesis->id) }}"
-                                                    class="thesis-table-action thesis-table-pdf" title="View PDF"
-                                                    aria-label="View PDF">
+                                                <a
+                                                    href="{{ route('student.thesis.view-pdf', $thesis->id) }}"
+                                                    class="thesis-table-action thesis-table-pdf"
+                                                    title="View PDF"
+                                                    aria-label="View PDF"
+                                                >
 
                                                     <i class="bi bi-file-earmark-pdf"></i>
 
@@ -520,7 +550,10 @@
 
                                     <tr>
 
-                                        <td colspan="9" class="thesis-table-empty">
+                                        <td
+                                            colspan="9"
+                                            class="thesis-table-empty"
+                                        >
 
                                             <strong>
                                                 No Thesis Found
@@ -533,6 +566,7 @@
                                         </td>
 
                                     </tr>
+
                                 @endforelse
 
                             </tbody>
@@ -552,10 +586,11 @@
 
     {{-- =============================================================
     JAVASCRIPT
-============================================================= --}}
+    ============================================================= --}}
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+
+        document.addEventListener('DOMContentLoaded', function () {
 
             let searchTimeout = null;
 
@@ -683,7 +718,7 @@
 
                 thesisCardViewButton.addEventListener(
                     'click',
-                    function() {
+                    function () {
 
                         setThesisView('cards');
 
@@ -697,7 +732,7 @@
 
                 thesisTableViewButton.addEventListener(
                     'click',
-                    function() {
+                    function () {
 
                         setThesisView('table');
 
@@ -718,9 +753,9 @@
 
 
             setThesisView(
-                savedThesisView === 'table' ?
-                'table' :
-                'cards'
+                savedThesisView === 'table'
+                    ? 'table'
+                    : 'cards'
             );
 
 
@@ -765,16 +800,16 @@
                 if (window.innerWidth <= 767.98) {
 
                     currentSearch =
-                        mobileSearchInput ?
-                        mobileSearchInput.value.trim() :
-                        '';
+                        mobileSearchInput
+                            ? mobileSearchInput.value.trim()
+                            : '';
 
                 } else {
 
                     currentSearch =
-                        searchInput ?
-                        searchInput.value.trim() :
-                        '';
+                        searchInput
+                            ? searchInput.value.trim()
+                            : '';
 
                 }
 
@@ -784,108 +819,111 @@
 
                         search: currentSearch,
 
-                        department: departmentFilter ?
-                            departmentFilter.value :
-                            '',
+                        department: departmentFilter
+                            ? departmentFilter.value
+                            : '',
 
-                        year: yearFilter ?
-                            yearFilter.value :
-                            ''
+                        year: yearFilter
+                            ? yearFilter.value
+                            : ''
 
                     });
 
 
                 fetch(
-                        "{{ route('hod.thesis.search') }}?" +
-                        query.toString(), {
-                            signal: currentController.signal,
+                    "{{ route('hod.thesis.search') }}?" +
+                    query.toString(),
+                    {
+                        signal: currentController.signal,
 
-                            headers: {
+                        headers: {
 
-                                'X-Requested-With': 'XMLHttpRequest',
+                            'X-Requested-With':
+                                'XMLHttpRequest',
 
-                                'Accept': 'text/html'
-
-                            }
+                            'Accept':
+                                'text/html'
 
                         }
-                    )
 
-                    .then(function(response) {
+                    }
+                )
 
-                        if (!response.ok) {
+                .then(function (response) {
 
-                            throw new Error(
-                                'Network response failed'
+                    if (!response.ok) {
+
+                        throw new Error(
+                            'Network response failed'
+                        );
+
+                    }
+
+
+                    return response.text();
+
+                })
+
+                .then(function (html) {
+
+                    if (thesisResultsContainer) {
+
+                        thesisResultsContainer.innerHTML =
+                            html;
+
+
+                        const currentView =
+                            localStorage.getItem(
+                                'adminThesisView'
                             );
 
-                        }
+
+                        setThesisView(
+                            currentView === 'table'
+                                ? 'table'
+                                : 'cards'
+                        );
+
+                    }
+
+                })
+
+                .catch(function (error) {
+
+                    if (
+                        error.name !==
+                        'AbortError'
+                    ) {
+
+                        console.error(
+                            'Error loading thesis records:',
+                            error
+                        );
+
+                    }
+
+                })
+
+                .finally(function () {
+
+                    if (spinner) {
+
+                        spinner.classList.add(
+                            'd-none'
+                        );
+
+                    }
 
 
-                        return response.text();
+                    if (thesisResultsContainer) {
 
-                    })
+                        thesisResultsContainer.classList.remove(
+                            'is-loading'
+                        );
 
-                    .then(function(html) {
+                    }
 
-                        if (thesisResultsContainer) {
-
-                            thesisResultsContainer.innerHTML =
-                                html;
-
-
-                            const currentView =
-                                localStorage.getItem(
-                                    'adminThesisView'
-                                );
-
-
-                            setThesisView(
-                                currentView === 'table' ?
-                                'table' :
-                                'cards'
-                            );
-
-                        }
-
-                    })
-
-                    .catch(function(error) {
-
-                        if (
-                            error.name !==
-                            'AbortError'
-                        ) {
-
-                            console.error(
-                                'Error loading thesis records:',
-                                error
-                            );
-
-                        }
-
-                    })
-
-                    .finally(function() {
-
-                        if (spinner) {
-
-                            spinner.classList.add(
-                                'd-none'
-                            );
-
-                        }
-
-
-                        if (thesisResultsContainer) {
-
-                            thesisResultsContainer.classList.remove(
-                                'is-loading'
-                            );
-
-                        }
-
-                    });
+                });
 
             }
 
@@ -898,7 +936,7 @@
 
                 searchInput.addEventListener(
                     'input',
-                    function() {
+                    function () {
 
                         clearTimeout(
                             searchTimeout
@@ -925,7 +963,7 @@
 
                 mobileSearchInput.addEventListener(
                     'input',
-                    function() {
+                    function () {
 
                         clearTimeout(
                             searchTimeout
@@ -1035,7 +1073,7 @@
 
                 mobileSearchToggle.addEventListener(
                     'click',
-                    function() {
+                    function () {
 
                         if (!mobileSearchPanel) {
                             return;
@@ -1084,7 +1122,7 @@
 
 
                             setTimeout(
-                                function() {
+                                function () {
 
                                     if (mobileSearchInput) {
 
@@ -1110,7 +1148,7 @@
 
             document.addEventListener(
                 'keydown',
-                function(event) {
+                function (event) {
 
                     if (
                         event.key === 'Escape' &&
@@ -1151,7 +1189,7 @@
 
             window.addEventListener(
                 'resize',
-                function() {
+                function () {
 
                     if (window.innerWidth > 767.98) {
 
@@ -1184,17 +1222,19 @@
             );
 
         });
+
     </script>
 
 
     {{-- =============================================================
     CSS
-============================================================= --}}
+    ============================================================= --}}
 
     <style>
+
         /* =========================================================
-       COLOR SYSTEM
-    ========================================================== */
+           COLOR SYSTEM
+        ========================================================== */
 
         :root {
 
@@ -1227,25 +1267,18 @@
             --thesis-border-soft: #E5E7EB;
 
 
-            /* VIEW DETAIL BLUE */
+            /* VIEW DETAIL - DARK PURPLE */
 
-            --thesis-detail: #2563EB;
+            --thesis-detail: #6538D9;
 
-            --thesis-detail-hover: #1D4ED8;
-
-
-            /* EDIT BLUE */
-
-            --thesis-edit: #2563EB;
-
-            --thesis-edit-hover: #1D4ED8;
+            --thesis-detail-hover: #5428C7;
 
 
-            /* VIEW PDF GREEN */
+            /* PDF - RED */
 
-            --thesis-pdf: #16A34A;
+            --thesis-pdf: #DC2626;
 
-            --thesis-pdf-hover: #15803D;
+            --thesis-pdf-hover: #B91C1C;
 
 
             --thesis-pending-text: #92400E;
@@ -1273,8 +1306,8 @@
 
 
         /* =========================================================
-       DARK MODE
-    ========================================================== */
+           DARK MODE
+        ========================================================== */
 
         [data-bs-theme="dark"] {
 
@@ -1294,7 +1327,6 @@
 
             --thesis-primary: #6538D9;
 
-
             --thesis-purple: #7C5CE3;
 
             --thesis-purple-hover: #9278EA;
@@ -1304,25 +1336,18 @@
             --thesis-purple-soft: #342C52;
 
 
-            /* DARK VIEW DETAIL BLUE */
+            /* DARK PURPLE DETAIL */
 
-            --thesis-detail: #60A5FA;
+            --thesis-detail: #8B6CE8;
 
-            --thesis-detail-hover: #3B82F6;
-
-
-            /* DARK EDIT BLUE */
-
-            --thesis-edit: #60A5FA;
-
-            --thesis-edit-hover: #3B82F6;
+            --thesis-detail-hover: #A78BFA;
 
 
-            /* DARK VIEW PDF GREEN */
+            /* DARK RED PDF */
 
-            --thesis-pdf: #4ADE80;
+            --thesis-pdf: #F87171;
 
-            --thesis-pdf-hover: #22C55E;
+            --thesis-pdf-hover: #EF4444;
 
 
             --thesis-pending-text: #FCD34D;
@@ -1360,8 +1385,8 @@
 
 
         /* =========================================================
-       PAGE
-    ========================================================== */
+           PAGE
+        ========================================================== */
 
         .thesis-page {
 
@@ -1381,8 +1406,8 @@
 
 
         /* =========================================================
-       HEADER
-    ========================================================== */
+           HEADER
+        ========================================================== */
 
         .thesis-page-header {
 
@@ -1432,8 +1457,8 @@
 
 
         /* =========================================================
-       TITLE
-    ========================================================== */
+           TITLE
+        ========================================================== */
 
         .thesis-overline {
 
@@ -1483,8 +1508,8 @@
 
 
         /* =========================================================
-       RESULTS
-    ========================================================== */
+           RESULTS
+        ========================================================== */
 
         .thesis-results-wrapper {
 
@@ -1521,8 +1546,8 @@
 
 
         /* =========================================================
-       CARD / TABLE TOGGLE
-    ========================================================== */
+           CARD / TABLE TOGGLE
+        ========================================================== */
 
         .thesis-view-toggle {
 
@@ -1646,8 +1671,8 @@
 
 
         /* =========================================================
-       RESULTS CONTAINER
-    ========================================================== */
+           RESULTS CONTAINER
+        ========================================================== */
 
         .thesis-results-container {
 
@@ -1673,8 +1698,8 @@
 
 
         /* =========================================================
-       CARD GRID
-    ========================================================== */
+           CARD GRID
+        ========================================================== */
 
         .thesis-partial-card-results {
 
@@ -1693,8 +1718,8 @@
 
 
         /* =========================================================
-       TABLE VISIBILITY
-    ========================================================== */
+           TABLE VISIBILITY
+        ========================================================== */
 
         .thesis-partial-table-results {
 
@@ -1726,8 +1751,8 @@
 
 
         /* =========================================================
-       CARD
-    ========================================================== */
+           CARD
+        ========================================================== */
 
         .admin-thesis-card {
 
@@ -1784,8 +1809,8 @@
 
 
         /* =========================================================
-       CARD TOP
-    ========================================================== */
+           CARD TOP
+        ========================================================== */
 
         .admin-thesis-card-top {
 
@@ -1882,8 +1907,8 @@
 
 
         /* =========================================================
-       PUBLISHED
-    ========================================================== */
+           PUBLISHED
+        ========================================================== */
 
         .admin-thesis-published {
 
@@ -2035,8 +2060,8 @@
 
 
         /* =========================================================
-       CARD BODY
-    ========================================================== */
+           CARD BODY
+        ========================================================== */
 
         .admin-thesis-card-body {
 
@@ -2212,8 +2237,8 @@
 
 
         /* =========================================================
-       CARD FOOTER
-    ========================================================== */
+           CARD FOOTER
+        ========================================================== */
 
         .admin-thesis-card-footer {
 
@@ -2273,38 +2298,56 @@
 
 
         /* =========================================================
-       VIEW DETAIL BUTTON - BLUE BORDER
-    ========================================================== */
+           VIEW DETAIL - DARK PURPLE BORDER
+        ========================================================== */
 
         .admin-thesis-view-detail {
-            color: var(--thesis-detail);
-            background: transparent;
-            border: 1px solid var(--thesis-detail);
-        }
-
-        .admin-thesis-view-detail:hover {
-            color: #FFFFFF;
-            background: var(--thesis-detail);
-            border-color: var(--thesis-detail);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 10px rgba(37, 99, 235, .18);
-        }
-
-
-        /* =========================================================
-       VIEW PDF BUTTON - GREEN BORDER
-    ========================================================== */
-
-        .admin-thesis-view-pdf {
 
             color:
-                var(--thesis-pdf);
+                #6538D9;
 
             background:
                 transparent;
 
             border:
-                1px solid var(--thesis-pdf);
+                1px solid #6538D9;
+
+        }
+
+
+        .admin-thesis-view-detail:hover {
+
+            color: #FFFFFF;
+
+            background:
+                #6538D9;
+
+            border-color:
+                #6538D9;
+
+            transform:
+                translateY(-1px);
+
+            box-shadow:
+                0 4px 10px rgba(101, 56, 217, .22);
+
+        }
+
+
+        /* =========================================================
+           VIEW PDF - RED BORDER
+        ========================================================== */
+
+        .admin-thesis-view-pdf {
+
+            color:
+                #DC2626;
+
+            background:
+                transparent;
+
+            border:
+                1px solid #DC2626;
 
         }
 
@@ -2314,23 +2357,23 @@
             color: #FFFFFF;
 
             background:
-                var(--thesis-pdf);
+                #DC2626;
 
             border-color:
-                var(--thesis-pdf);
+                #DC2626;
 
             transform:
                 translateY(-1px);
 
             box-shadow:
-                0 4px 10px rgba(22, 163, 74, .18);
+                0 4px 10px rgba(220, 38, 38, .20);
 
         }
 
 
         /* =========================================================
-       EMPTY
-    ========================================================== */
+           EMPTY
+        ========================================================== */
 
         .admin-thesis-empty {
 
@@ -2422,8 +2465,8 @@
 
 
         /* =========================================================
-       TABLE
-    ========================================================== */
+           TABLE
+        ========================================================== */
 
         .thesis-table-wrapper {
 
@@ -2529,8 +2572,8 @@
 
 
         /* =========================================================
-       TABLE HEADER
-    ========================================================== */
+           TABLE HEADER
+        ========================================================== */
 
         .thesis-table thead th {
 
@@ -2580,8 +2623,8 @@
 
 
         /* =========================================================
-       TABLE BODY
-    ========================================================== */
+           TABLE BODY
+        ========================================================== */
 
         .thesis-table tbody td {
 
@@ -2701,8 +2744,8 @@
 
 
         /* =========================================================
-       TABLE ACTIONS
-    ========================================================== */
+           TABLE ACTIONS
+        ========================================================== */
 
         .thesis-table-actions {
 
@@ -2759,32 +2802,32 @@
 
 
         /* =========================================================
-       TABLE EDIT - BLUE
-    ========================================================== */
+           TABLE VIEW DETAIL - DARK PURPLE
+        ========================================================== */
 
-        .thesis-table-edit {
+        .thesis-table-detail {
 
             color:
-                var(--thesis-edit);
+                #6538D9;
 
             background:
                 transparent;
 
             border:
-                1px solid var(--thesis-edit);
+                1px solid #6538D9;
 
         }
 
 
-        .thesis-table-edit:hover {
+        .thesis-table-detail:hover {
 
             color: #FFFFFF;
 
             background:
-                var(--thesis-edit);
+                #6538D9;
 
             border-color:
-                var(--thesis-edit);
+                #6538D9;
 
             transform:
                 translateY(-1px);
@@ -2793,37 +2836,19 @@
 
 
         /* =========================================================
-       TABLE VIEW DETAIL - BLUE
-    ========================================================== */
-
-        .thesis-table-detail {
-            color: var(--thesis-detail);
-            background: transparent;
-            border: 1px solid var(--thesis-detail);
-        }
-
-        .thesis-table-detail:hover {
-            color: #FFFFFF;
-            background: var(--thesis-detail);
-            border-color: var(--thesis-detail);
-            transform: translateY(-1px);
-        }
-
-
-        /* =========================================================
-       TABLE VIEW PDF - GREEN
-    ========================================================== */
+           TABLE VIEW PDF - RED
+        ========================================================== */
 
         .thesis-table-pdf {
 
             color:
-                var(--thesis-pdf);
+                #DC2626;
 
             background:
                 transparent;
 
             border:
-                1px solid var(--thesis-pdf);
+                1px solid #DC2626;
 
         }
 
@@ -2833,10 +2858,10 @@
             color: #FFFFFF;
 
             background:
-                var(--thesis-pdf);
+                #DC2626;
 
             border-color:
-                var(--thesis-pdf);
+                #DC2626;
 
             transform:
                 translateY(-1px);
@@ -2845,16 +2870,40 @@
 
 
         /* =========================================================
-       DARK MODE - ACTIONS
-    ========================================================== */
+           DARK MODE - ACTIONS
+        ========================================================== */
+
+        [data-bs-theme="dark"] .admin-thesis-view-detail {
+
+            color:
+                #8B6CE8;
+
+            border-color:
+                #8B6CE8;
+
+        }
+
+
+        [data-bs-theme="dark"] .admin-thesis-view-detail:hover {
+
+            color: #FFFFFF;
+
+            background:
+                #6538D9;
+
+            border-color:
+                #6538D9;
+
+        }
+
 
         [data-bs-theme="dark"] .admin-thesis-view-pdf {
 
             color:
-                #4ADE80;
+                #F87171;
 
             border-color:
-                #4ADE80;
+                #F87171;
 
         }
 
@@ -2864,34 +2913,34 @@
             color: #FFFFFF;
 
             background:
-                #16A34A;
+                #DC2626;
 
             border-color:
-                #16A34A;
+                #DC2626;
 
         }
 
 
-        [data-bs-theme="dark"] .thesis-table-edit {
+        [data-bs-theme="dark"] .thesis-table-detail {
 
             color:
-                #60A5FA;
+                #8B6CE8;
 
             border-color:
-                #60A5FA;
+                #8B6CE8;
 
         }
 
 
-        [data-bs-theme="dark"] .thesis-table-edit:hover {
+        [data-bs-theme="dark"] .thesis-table-detail:hover {
 
             color: #FFFFFF;
 
             background:
-                #3B82F6;
+                #6538D9;
 
             border-color:
-                #3B82F6;
+                #6538D9;
 
         }
 
@@ -2899,10 +2948,10 @@
         [data-bs-theme="dark"] .thesis-table-pdf {
 
             color:
-                #4ADE80;
+                #F87171;
 
             border-color:
-                #4ADE80;
+                #F87171;
 
         }
 
@@ -2912,40 +2961,17 @@
             color: #FFFFFF;
 
             background:
-                #16A34A;
+                #DC2626;
 
             border-color:
-                #16A34A;
+                #DC2626;
 
-        }
-
-
-        [data-bs-theme="dark"] .admin-thesis-view-detail {
-            color: #60A5FA;
-            border-color: #60A5FA;
-        }
-
-        [data-bs-theme="dark"] .admin-thesis-view-detail:hover {
-            color: #FFFFFF;
-            background: #3B82F6;
-            border-color: #3B82F6;
-        }
-
-        [data-bs-theme="dark"] .thesis-table-detail {
-            color: #60A5FA;
-            border-color: #60A5FA;
-        }
-
-        [data-bs-theme="dark"] .thesis-table-detail:hover {
-            color: #FFFFFF;
-            background: #3B82F6;
-            border-color: #3B82F6;
         }
 
 
         /* =========================================================
-       LOADING
-    ========================================================== */
+           LOADING
+        ========================================================== */
 
         .thesis-loading {
 
@@ -3024,8 +3050,8 @@
 
 
         /* =========================================================
-       DESKTOP
-    ========================================================== */
+           DESKTOP
+        ========================================================== */
 
         @media (max-width: 1399.98px) {
 
@@ -3040,8 +3066,8 @@
 
 
         /* =========================================================
-       TABLET
-    ========================================================== */
+           TABLET
+        ========================================================== */
 
         @media (max-width: 1199.98px) {
 
@@ -3097,8 +3123,8 @@
 
 
         /* =========================================================
-       MOBILE
-    ========================================================== */
+           MOBILE
+        ========================================================== */
 
         @media (max-width: 767.98px) {
 
@@ -3464,8 +3490,8 @@
 
 
         /* =========================================================
-       SMALL MOBILE
-    ========================================================== */
+           SMALL MOBILE
+        ========================================================== */
 
         @media (max-width: 575.98px) {
 
@@ -3634,8 +3660,8 @@
 
 
         /* =========================================================
-       REDUCED MOTION
-    ========================================================== */
+           REDUCED MOTION
+        ========================================================== */
 
         @media (prefers-reduced-motion: reduce) {
 
@@ -3655,6 +3681,8 @@
             }
 
         }
+
     </style>
 
 </x-app-layout>
+

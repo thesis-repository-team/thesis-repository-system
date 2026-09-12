@@ -1064,9 +1064,8 @@
 
     .admin-student-edit-button:hover {
 
-        color: var(--hod-primary);
-
-        background: #ffffff;
+        color: #ffffff;
+        background: var(--hod-primary);
 
         border-color: var(--hod-primary);
 
@@ -1677,9 +1676,8 @@
 
     .hod-table-edit-button:hover {
 
-        color: var(--hod-primary);
-
-        background: #ffffff;
+        color: #ffffff;
+        background: var(--hod-primary);
 
         border-color: var(--hod-primary);
 
@@ -1822,11 +1820,11 @@
     [data-bs-theme="dark"] .hod-data-table thead th,
     .dark .hod-data-table thead th {
 
-        color: #d5d8e8;
+        color: #D8CCFF;
 
-        background: #20253a;
+        background: #292342;
 
-        border-color: #292e45;
+        border-bottom-color: #403765;
 
     }
 
@@ -1846,7 +1844,8 @@
     [data-bs-theme="dark"] .hod-data-table tbody tr:hover td,
     .dark .hod-data-table tbody tr:hover td {
 
-        background: #292342;
+        background:
+            rgba(139, 108, 240, .08);
 
     }
 
@@ -1902,9 +1901,8 @@
     [data-bs-theme="dark"] .admin-student-edit-button:hover,
     .dark .admin-student-edit-button:hover {
 
-        color: #7c5ce3;
-
-        background: #ffffff;
+        color: #ffffff;
+        background: #7c5ce3;
 
         border-color: #7c5ce3;
 

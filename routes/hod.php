@@ -2,13 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HoD\HoDController;
+use App\Http\Controllers\HoD\DashboardController as HoDDashboardController;
 use App\Http\Controllers\HoD\StudentController as HoDStudentController;
 use App\Http\Controllers\HoD\ThesisController as HoDThesisController;
 use App\Http\Controllers\HoD\ThesisRequestsController as HoDThesisRequestsController;
 
 Route::prefix('hod')->name('hod.')->middleware(['auth', 'role:hod'])->group(function () {
 
-    Route::get('/dashboard', [HoDController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [HoDDashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/students', [HoDStudentController::class, 'index'])->name('students.index');
     Route::get('/students/edit/{student}', [HoDStudentController::class, 'edit'])->name('students.edit');

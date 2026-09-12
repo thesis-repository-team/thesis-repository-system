@@ -6,7 +6,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
     <title>Thesis Repository</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -1438,7 +1437,7 @@
                     <div class="brand-text">
 
                         <span class="brand-title">
-                            Thesis Repository
+                            Digital Thesis Repository Platform
                         </span>
 
                         <span class="brand-subtitle">
@@ -2018,7 +2017,7 @@
                                                                 target="_blank"
                                                                 class="public-action-btn public-view-btn">
 
-                                                                <i class="bi bi-eye"></i>
+                                                                <i class="bi bi-file-text"></i>
 
                                                                 View
 

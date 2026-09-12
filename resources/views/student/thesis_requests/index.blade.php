@@ -67,7 +67,6 @@
 
         <div id="requestResultsContainer">
 
-
             <div class="request-view-row">
 
                 <div class="request-view-toggle">
@@ -97,6 +96,7 @@
             <div id="requestCardView" class="request-grid">
 
                 @forelse ($thesisRequests as $thesisRequest)
+
                     <article class="request-card">
 
                         <div class="request-card-content">
@@ -119,37 +119,33 @@
 
 
                                 @if ($thesisRequest->status === 'pending')
+
                                     <span class="request-status pending">
-
                                         <i class="bi bi-clock"></i>
-
                                         Pending
-
                                     </span>
+
                                 @elseif ($thesisRequest->status === 'approved')
+
                                     <span class="request-status approved">
-
                                         <i class="bi bi-check-circle"></i>
-
                                         Approved
-
                                     </span>
+
                                 @elseif ($thesisRequest->status === 'rejected')
+
                                     <span class="request-status rejected">
-
                                         <i class="bi bi-x-circle"></i>
-
                                         Rejected
-
                                     </span>
+
                                 @else
+
                                     <span class="request-status unknown">
-
                                         <i class="bi bi-question-circle"></i>
-
                                         {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
-
                                     </span>
+
                                 @endif
 
                             </div>
@@ -248,6 +244,7 @@
 
 
                                 @if ($thesisRequest->thesis)
+
                                     <div class="request-info">
 
                                         <div class="request-info-icon">
@@ -268,6 +265,7 @@
                                         </div>
 
                                     </div>
+
                                 @endif
 
                             </div>
@@ -278,26 +276,39 @@
                         <div class="request-actions">
 
                             <a href="{{ route('student.thesis_requests.show', $thesisRequest->id) }}"
-                                class="request-action request-action-details">
-                                <i class="bi bi-eye"></i>
+                                class="request-action request-action-details"
+                                title="View Details"
+                                aria-label="View Details">
+
+                                <i class="bi bi-file-text"></i>
 
                                 <span>
                                     View Details
                                 </span>
+
                             </a>
 
 
                             @if ($thesisRequest->thesis)
+
                                 <a href="{{ route('student.thesis.view-pdf', $thesisRequest->thesis->id) }}"
-                                    target="_blank" class="request-action request-action-pdf">
+                                    target="_blank"
+                                    class="request-action request-action-pdf"
+                                    title="View PDF"
+                                    aria-label="View PDF">
+
                                     <i class="bi bi-file-earmark-pdf"></i>
 
                                     <span>
-                                        View PDF
+                                        PDF
                                     </span>
+
                                 </a>
+
                             @else
-                                <span class="request-action request-action-pdf request-action-disabled">
+
+                                <span class="request-action request-action-pdf request-action-disabled"
+                                    title="No PDF">
 
                                     <i class="bi bi-file-earmark-x"></i>
 
@@ -306,6 +317,7 @@
                                     </span>
 
                                 </span>
+
                             @endif
 
                         </div>
@@ -329,6 +341,7 @@
                         </p>
 
                     </div>
+
                 @endforelse
 
             </div>
@@ -344,41 +357,23 @@
 
                             <tr>
 
-                                <th>
-                                    #
-                                </th>
+                                <th>#</th>
 
-                                <th>
-                                    Thesis Title
-                                </th>
+                                <th>Thesis Title</th>
 
-                                <th>
-                                    Author
-                                </th>
+                                <th>Author</th>
 
-                                <th>
-                                    Department
-                                </th>
+                                <th>Department</th>
 
-                                <th>
-                                    Submitted By
-                                </th>
+                                <th>Submitted By</th>
 
-                                <th>
-                                    Submitted At
-                                </th>
+                                <th>Submitted At</th>
 
-                                <th>
-                                    Published By
-                                </th>
+                                <th>Published By</th>
 
-                                <th>
-                                    Status
-                                </th>
+                                <th>Status</th>
 
-                                <th>
-                                    Actions
-                                </th>
+                                <th>Actions</th>
 
                             </tr>
 
@@ -388,6 +383,7 @@
                         <tbody>
 
                             @forelse ($thesisRequests as $thesisRequest)
+
                                 <tr>
 
                                     <td class="request-table-number">
@@ -440,9 +436,13 @@
                                         <span class="request-table-text">
 
                                             @if ($thesisRequest->submitted_at)
+
                                                 {{ \Carbon\Carbon::parse($thesisRequest->submitted_at)->format('d M Y') }}
+
                                             @else
+
                                                 N/A
+
                                             @endif
 
                                         </span>
@@ -455,10 +455,14 @@
                                         <span class="request-table-text">
 
                                             @if ($thesisRequest->thesis)
+
                                                 {{ $thesisRequest->thesis?->publishedBy?->full_name ??
                                                     ($thesisRequest->thesis?->publishedBy?->username ?? 'N/A') }}
+
                                             @else
+
                                                 N/A
+
                                             @endif
 
                                         </span>
@@ -469,37 +473,33 @@
                                     <td>
 
                                         @if ($thesisRequest->status === 'pending')
+
                                             <span class="request-table-status pending">
-
                                                 <i class="bi bi-clock"></i>
-
                                                 Pending
-
                                             </span>
+
                                         @elseif ($thesisRequest->status === 'approved')
+
                                             <span class="request-table-status approved">
-
                                                 <i class="bi bi-check-circle"></i>
-
                                                 Approved
-
                                             </span>
+
                                         @elseif ($thesisRequest->status === 'rejected')
+
                                             <span class="request-table-status rejected">
-
                                                 <i class="bi bi-x-circle"></i>
-
                                                 Rejected
-
                                             </span>
+
                                         @else
+
                                             <span class="request-table-status unknown">
-
                                                 <i class="bi bi-question-circle"></i>
-
                                                 {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
-
                                             </span>
+
                                         @endif
 
                                     </td>
@@ -511,22 +511,36 @@
 
                                             <a href="{{ route('student.thesis_requests.show', $thesisRequest->id) }}"
                                                 class="request-table-action request-table-details"
-                                                title="View Details">
+                                                title="View Details"
+                                                aria-label="View Details">
+
                                                 <i class="bi bi-eye"></i>
+
                                             </a>
 
 
                                             @if ($thesisRequest->thesis)
+
                                                 <a href="{{ route('student.thesis.view-pdf', $thesisRequest->thesis->id) }}"
-                                                    target="_blank" class="request-table-action request-table-pdf"
-                                                    title="View PDF">
+                                                    target="_blank"
+                                                    class="request-table-action request-table-pdf"
+                                                    title="View PDF"
+                                                    aria-label="View PDF">
+
                                                     <i class="bi bi-file-earmark-pdf"></i>
+
                                                 </a>
+
                                             @else
+
                                                 <span class="request-table-action request-table-pdf disabled"
-                                                    title="No PDF">
+                                                    title="No PDF"
+                                                    aria-label="No PDF">
+
                                                     <i class="bi bi-file-earmark-x"></i>
+
                                                 </span>
+
                                             @endif
 
                                         </div>
@@ -560,6 +574,7 @@
                                     </td>
 
                                 </tr>
+
                             @endforelse
 
                         </tbody>
@@ -576,6 +591,7 @@
 
 
     <style>
+
         :root {
 
             --thesis-request-page-bg: #f0f2f5;
@@ -594,9 +610,11 @@
             --thesis-request-primary-hover: #5630bd;
             --thesis-request-primary-soft: #f0ebff;
 
-            --thesis-request-details: #2563eb;
-            --thesis-request-details-hover: #1d4ed8;
+            /* DARK PURPLE VIEW DETAILS */
+            --thesis-request-details: #5426a8;
+            --thesis-request-details-hover: #421d87;
 
+            /* RED VIEW PDF */
             --thesis-request-pdf: #dc2626;
             --thesis-request-pdf-hover: #b91c1c;
 
@@ -627,11 +645,13 @@
             --thesis-request-primary-hover: #9278ea;
             --thesis-request-primary-soft: #292342;
 
-            --thesis-request-details: #60a5fa;
-            --thesis-request-details-hover: #93c5fd;
+            /* DARK PURPLE VIEW DETAILS */
+            --thesis-request-details: #7c5ce3;
+            --thesis-request-details-hover: #6538d9;
 
-            --thesis-request-pdf: #f87171;
-            --thesis-request-pdf-hover: #fca5a5;
+            /* RED VIEW PDF */
+            --thesis-request-pdf: #ef4444;
+            --thesis-request-pdf-hover: #dc2626;
 
             --thesis-request-shadow:
                 0 8px 24px rgba(0, 0, 0, .35);
@@ -1268,7 +1288,7 @@
         }
 
 
-        .request-title-with-icon>i {
+        .request-title-with-icon > i {
 
             display: flex;
 
@@ -1564,10 +1584,16 @@
         }
 
 
+        /* ================================
+           VIEW DETAILS - DARK PURPLE
+        ================================= */
+
         .request-action-details {
 
             color:
                 var(--thesis-request-details);
+
+            background: transparent;
 
             border-color:
                 var(--thesis-request-details);
@@ -1586,15 +1612,21 @@
                 var(--thesis-request-details);
 
             box-shadow:
-                0 5px 12px rgba(37, 99, 235, .20);
+                0 5px 12px rgba(84, 38, 168, .25);
 
         }
 
+
+        /* ================================
+           VIEW PDF - RED
+        ================================= */
 
         .request-action-pdf {
 
             color:
                 var(--thesis-request-pdf);
+
+            background: transparent;
 
             border-color:
                 var(--thesis-request-pdf);
@@ -2032,7 +2064,8 @@
                 background-color .2s ease,
                 color .2s ease,
                 border-color .2s ease,
-                transform .2s ease;
+                transform .2s ease,
+                box-shadow .2s ease;
 
         }
 
@@ -2046,10 +2079,16 @@
         }
 
 
+        /* ================================
+           TABLE VIEW DETAILS - DARK PURPLE
+        ================================= */
+
         .request-table-details {
 
             color:
                 var(--thesis-request-details);
+
+            background: transparent;
 
             border-color:
                 var(--thesis-request-details);
@@ -2067,13 +2106,22 @@
             border-color:
                 var(--thesis-request-details);
 
+            box-shadow:
+                0 5px 12px rgba(84, 38, 168, .25);
+
         }
 
+
+        /* ================================
+           TABLE VIEW PDF - RED
+        ================================= */
 
         .request-table-pdf {
 
             color:
                 var(--thesis-request-pdf);
+
+            background: transparent;
 
             border-color:
                 var(--thesis-request-pdf);
@@ -2090,6 +2138,9 @@
 
             border-color:
                 var(--thesis-request-pdf);
+
+            box-shadow:
+                0 5px 12px rgba(220, 38, 38, .20);
 
         }
 
@@ -2368,10 +2419,12 @@
             }
 
         }
+
     </style>
 
 
     <script>
+
         document.addEventListener('DOMContentLoaded', function() {
 
             const requestResultsContainer =
@@ -2473,12 +2526,13 @@
 
 
             setRequestView(
-                savedRequestView === 'table' ?
-                'table' :
-                'cards'
+                savedRequestView === 'table'
+                    ? 'table'
+                    : 'cards'
             );
 
         });
+
     </script>
 
 

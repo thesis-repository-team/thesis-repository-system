@@ -1,13 +1,12 @@
 <x-app-layout>
 
-
     <div class="student-edit-wrapper">
 
         <div class="student-edit-card">
 
             {{-- =================================================
             FORM HEADER
-        ================================================== --}}
+            ================================================== --}}
 
             <div class="student-edit-header">
 
@@ -32,9 +31,11 @@
 
             {{-- =================================================
             FORM
-        ================================================== --}}
+            ================================================== --}}
 
-            <form action="{{ route('hod.students.update', $student->id) }}" method="POST" class="student-edit-form">
+            <form action="{{ route('hod.students.update', $student->id) }}"
+                  method="POST"
+                  class="student-edit-form">
 
                 @csrf
                 @method('PUT')
@@ -45,15 +46,18 @@
                 <div class="student-form-group">
 
                     <label for="full_name" class="student-form-label">
-
                         Full Name
-
                     </label>
 
-                    <input type="text" id="full_name" name="full_name"
+                    <input
+                        type="text"
+                        id="full_name"
+                        name="full_name"
                         value="{{ old('full_name', $student->full_name) }}"
                         class="student-form-control @error('full_name') is-invalid @enderror"
-                        placeholder="Enter full name" required>
+                        placeholder="Enter full name"
+                        required
+                    >
 
                     @error('full_name')
                         <div class="student-error">
@@ -69,15 +73,18 @@
                 <div class="student-form-group">
 
                     <label for="email" class="student-form-label">
-
                         Email
-
                     </label>
 
-                    <input type="email" id="email" name="email"
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
                         value="{{ old('email', $student->user->email) }}"
                         class="student-form-control @error('email') is-invalid @enderror"
-                        placeholder="Enter email address" required>
+                        placeholder="Enter email address"
+                        required
+                    >
 
                     @error('email')
                         <div class="student-error">
@@ -93,15 +100,18 @@
                 <div class="student-form-group">
 
                     <label for="username" class="student-form-label">
-
                         Username
-
                     </label>
 
-                    <input type="text" id="username" name="username"
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
                         value="{{ old('username', $student->user->username) }}"
                         class="student-form-control @error('username') is-invalid @enderror"
-                        placeholder="Enter username" required>
+                        placeholder="Enter username"
+                        required
+                    >
 
                     @error('username')
                         <div class="student-error">
@@ -112,32 +122,29 @@
                 </div>
 
 
-                {{-- STATUS / UPLOAD PERMISSION --}}
+                {{-- UPLOAD PERMISSION --}}
 
                 <div class="student-form-group">
 
                     <label for="upload_permission" class="student-form-label">
-
                         Upload Permission
-
                     </label>
 
-                    <select id="upload_permission" name="upload_permission"
+                    <select
+                        id="upload_permission"
+                        name="upload_permission"
                         class="student-form-control student-form-select @error('upload_permission') is-invalid @enderror"
-                        required>
+                        required
+                    >
 
                         <option value="1"
                             {{ old('upload_permission', $student->upload_permission) == 1 ? 'selected' : '' }}>
-
                             Allowed
-
                         </option>
 
                         <option value="0"
                             {{ old('upload_permission', $student->upload_permission) == 0 ? 'selected' : '' }}>
-
                             Not Allowed
-
                         </option>
 
                     </select>
@@ -151,34 +158,45 @@
                 </div>
 
 
-
-                
                 {{-- =================================================
                 ACTIONS
                 ================================================== --}}
+
                 <div class="student-form-actions">
 
-    <div class="student-form-note">
-        <i class="bi bi-info-circle"></i>
-        <span>
-            <strong>Upload Permission</strong> controls whether this student can request to upload thesis documents.
-        </span>
-    </div>
+                    <div class="student-form-note">
 
-    <div class="student-form-buttons">
+                        <i class="bi bi-info-circle"></i>
 
-        <a href="{{ route('hod.students.index') }}" class="student-cancel-button">
-            Cancel
-        </a>
+                        <span>
+                            <strong>Upload Permission</strong>
+                            controls whether this student can request to upload thesis documents.
+                        </span>
 
-        <button type="submit" class="student-save-button">
-            <i class="bi bi-check-lg"></i>
-            Save Student
-        </button>
+                    </div>
 
-    </div>
 
-</div>
+                    <div class="student-form-buttons">
+
+                        <a
+                            href="{{ route('hod.students.index') }}"
+                            class="student-cancel-button"
+                        >
+                            Cancel
+                        </a>
+
+
+                        <button
+                            type="submit"
+                            class="student-save-button"
+                        >
+                            <i class="bi bi-check-lg"></i>
+                            Save Student
+                        </button>
+
+                    </div>
+
+                </div>
 
             </form>
 
@@ -188,25 +206,104 @@
 
 
     <style>
+
+        /* =========================================================
+           LIGHT MODE VARIABLES
+        ========================================================== */
+
         :root {
+
+            --student-purple: #6538d9;
+            --student-purple-dark: #5428c7;
+            --student-purple-light: #f4f0ff;
+
+            --student-red: #dc3545;
+            --student-red-dark: #bb2d3b;
+            --student-red-light: #fff1f2;
 
             --student-black: #000000;
             --student-white: #ffffff;
+
+            --student-page-bg: #ffffff;
+            --student-card-bg: #ffffff;
+            --student-card-bg-soft: #fafafa;
+
+            --student-input-bg: #fafafa;
 
             --student-text: #000000;
             --student-text-secondary: #333333;
             --student-text-muted: #777777;
 
             --student-border: #dddddd;
+            --student-border-soft: #eeeeee;
 
-            --student-input-bg: #fafafa;
+            --student-hover: #fafafa;
+
+            --student-primary: #6538d9;
+            --student-primary-hover: #5428c7;
+
+            --student-primary-soft: #f4f0ff;
+            --student-primary-soft-hover: #eee8ff;
+
+            --student-shadow:
+                0 8px 24px rgba(101, 56, 217, .08);
+
+            --student-card-shadow:
+                0 4px 18px rgba(101, 56, 217, .08);
 
         }
 
 
         /* =========================================================
-       PAGE
-    ========================================================== */
+           DARK MODE VARIABLES
+        ========================================================== */
+
+        [data-bs-theme="dark"] {
+
+            --student-black: #000000;
+            --student-white: #FFFFFF;
+
+            --student-page-bg: #101426;
+            --student-card-bg: #181D33;
+            --student-card-bg-soft: #1C2138;
+
+            --student-input-bg: #20253A;
+
+            --student-text: #FFFFFF;
+            --student-text-secondary: #D5D8E8;
+            --student-text-muted: #999FB9;
+
+            --student-border: #292E45;
+            --student-border-soft: #292E45;
+
+            --student-hover: #20253A;
+
+            --student-primary: #7C5CE3;
+            --student-primary-hover: #9278EA;
+
+            --student-primary-soft: #292342;
+            --student-primary-soft-hover: #342C52;
+
+            --student-purple: #7C5CE3;
+            --student-purple-dark: #9278EA;
+            --student-purple-light: #292342;
+
+            --student-red: #dc3545;
+            --student-red-dark: #bb2d3b;
+            --student-red-light: #3A2027;
+
+            --student-shadow:
+                0 8px 24px rgba(0, 0, 0, .35);
+
+            --student-card-shadow:
+                0 2px 10px rgba(0, 0, 0, .30);
+
+        }
+
+
+        /* =========================================================
+           PAGE
+        ========================================================== */
 
         .student-edit-wrapper {
 
@@ -216,9 +313,9 @@
 
             padding-top: 118px;
 
-            padding-left: 20px;
+            padding-left: 40px;
 
-            padding-right: 20px;
+            padding-right: 40px;
 
             padding-bottom: 30px;
 
@@ -232,8 +329,8 @@
 
 
         /* =========================================================
-       FULL SCREEN CARD
-    ========================================================== */
+           CARD
+        ========================================================== */
 
         .student-edit-card {
 
@@ -243,12 +340,11 @@
 
             margin: 0;
 
-            background: #ffffff;
+            background: var(--student-card-bg);
 
             border-radius: 12px;
 
-            box-shadow:
-                0 4px 18px rgba(0, 0, 0, .06);
+            box-shadow: var(--student-card-shadow);
 
             overflow: hidden;
 
@@ -258,8 +354,8 @@
 
 
         /* =========================================================
-       FORM HEADER
-    ========================================================== */
+           HEADER
+        ========================================================== */
 
         .student-edit-header {
 
@@ -284,7 +380,7 @@
 
             margin-bottom: .25rem;
 
-            color: #777777;
+            color: var(--student-primary);
 
             font-size: .65rem;
 
@@ -301,7 +397,7 @@
 
             margin: 0;
 
-            color: #000000;
+            color: var(--student-text);
 
             font-size: 1.25rem;
 
@@ -316,7 +412,7 @@
 
             margin: .35rem 0 0;
 
-            color: #777777;
+            color: var(--student-text-muted);
 
             font-size: .78rem;
 
@@ -326,8 +422,8 @@
 
 
         /* =========================================================
-       FORM
-    ========================================================== */
+           FORM
+        ========================================================== */
 
         .student-edit-form {
 
@@ -348,8 +444,8 @@
 
 
         /* =========================================================
-       FORM GROUP
-    ========================================================== */
+           FORM GROUP
+        ========================================================== */
 
         .student-form-group {
 
@@ -363,8 +459,8 @@
 
 
         /* =========================================================
-       LABEL
-    ========================================================== */
+           LABEL
+        ========================================================== */
 
         .student-form-label {
 
@@ -372,7 +468,7 @@
 
             margin-bottom: .45rem;
 
-            color: #333333;
+            color: var(--student-text-secondary);
 
             font-size: .68rem;
 
@@ -386,8 +482,8 @@
 
 
         /* =========================================================
-       INPUT / SELECT
-    ========================================================== */
+           INPUT / SELECT
+        ========================================================== */
 
         .student-form-control {
 
@@ -403,11 +499,11 @@
 
             padding: .55rem .85rem;
 
-            color: #000000;
+            color: var(--student-text);
 
-            background: #fafafa;
+            background: var(--student-input-bg);
 
-            border: 1px solid #dddddd;
+            border: 1px solid var(--student-border);
 
             border-radius: 8px;
 
@@ -424,28 +520,46 @@
         }
 
 
+        .student-form-control:hover {
+
+            border-color: var(--student-primary);
+
+        }
+
+
         .student-form-control:focus {
 
-            background: #ffffff;
+            color: var(--student-text);
 
-            border-color: #000000;
+            background: var(--student-card-bg);
+
+            border-color: var(--student-primary);
 
             box-shadow:
-                0 0 0 3px rgba(0, 0, 0, .08);
+                0 0 0 3px rgba(124, 92, 227, .15);
+
+        }
+
+
+        .student-form-control::placeholder {
+
+            color: var(--student-text-muted);
+
+            opacity: 1;
 
         }
 
 
         .student-form-control.is-invalid {
 
-            border-color: #000000;
+            border-color: var(--student-red);
 
         }
 
 
         /* =========================================================
-       SELECT
-    ========================================================== */
+           SELECT
+        ========================================================== */
 
         .student-form-select {
 
@@ -456,22 +570,22 @@
 
         .student-form-select option {
 
-            color: #000000;
+            color: var(--student-text);
 
-            background: #ffffff;
+            background: var(--student-card-bg);
 
         }
 
 
         /* =========================================================
-       ERROR
-    ========================================================== */
+           ERROR
+        ========================================================== */
 
         .student-error {
 
             margin-top: .35rem;
 
-            color: #000000;
+            color: var(--student-red);
 
             font-size: .7rem;
 
@@ -483,85 +597,97 @@
 
 
         /* =========================================================
-       ACTIONS
-    ========================================================== */
-.student-form-actions {
-    grid-column: 1 / -1;
+           ACTIONS
+        ========================================================== */
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+        .student-form-actions {
 
-    width: 100%;
+            grid-column: 1 / -1;
 
-    padding-top: 1rem;
+            display: flex;
 
-    border-top: 1px solid #eeeeee;
+            align-items: center;
 
-    box-sizing: border-box;
-}
+            justify-content: space-between;
 
+            width: 100%;
 
-/* =========================================================
-   NOTE
-========================================================= */
+            padding-top: 1rem;
 
-.student-form-note {
+            border-top: 1px solid var(--student-border-soft);
 
-    display: flex;
-    align-items: flex-start;
+            box-sizing: border-box;
 
-    gap: .5rem;
-
-    max-width: 55%;
-
-    color: #777777;
-
-    font-size: .7rem;
-
-    line-height: 1.5;
-}
-
-.student-form-note i {
-
-    margin-top: .1rem;
-
-    color: #999999;
-
-    font-size: .8rem;
-
-    flex-shrink: 0;
-}
-
-.student-form-note strong {
-
-    color: #555555;
-
-    font-weight: 800;
-}
-
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-.student-form-buttons {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: flex-end;
-
-    gap: .6rem;
-
-    flex-shrink: 0;
-}
+        }
 
 
         /* =========================================================
-       BUTTONS
-    ========================================================== */
+           NOTE
+        ========================================================== */
+
+        .student-form-note {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: .5rem;
+
+            max-width: 55%;
+
+            color: var(--student-text-muted);
+
+            font-size: .7rem;
+
+            line-height: 1.5;
+
+        }
+
+
+        .student-form-note i {
+
+            margin-top: .1rem;
+
+            color: var(--student-primary);
+
+            font-size: .8rem;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .student-form-note strong {
+
+            color: var(--student-text-secondary);
+
+            font-weight: 800;
+
+        }
+
+
+        /* =========================================================
+           BUTTON CONTAINER
+        ========================================================== */
+
+        .student-form-buttons {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            gap: .6rem;
+
+            flex-shrink: 0;
+
+        }
+
+
+        /* =========================================================
+           BUTTON BASE
+        ========================================================== */
 
         .student-cancel-button,
         .student-save-button {
@@ -590,16 +716,23 @@
 
 
         /* =========================================================
-       CANCEL
-    ========================================================== */
+           CANCEL BUTTON
+           WHITE / DARK CARD + RED BORDER
+        ========================================================== */
 
         .student-cancel-button {
 
-            color: #000000;
+            display: inline-flex;
 
-            background: #ffffff;
+            align-items: center;
 
-            border: 1px solid #dddddd;
+            justify-content: center;
+
+            color: var(--student-red);
+
+            background: var(--student-card-bg);
+
+            border: 1px solid var(--student-red);
 
         }
 
@@ -608,16 +741,22 @@
 
             color: #ffffff;
 
-            background: #000000;
+            background: var(--student-red);
 
-            border-color: #000000;
+            border-color: var(--student-red);
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 4px 12px rgba(220, 53, 69, .18);
 
         }
 
 
         /* =========================================================
-       SAVE
-    ========================================================== */
+           SAVE BUTTON
+           NO BACKGROUND — PURPLE BORDER
+        ========================================================== */
 
         .student-save-button {
 
@@ -629,31 +768,38 @@
 
             gap: .4rem;
 
-            color: #ffffff;
+            color: var(--student-primary);
 
-            background: #000000;
+            background: var(--student-card-bg);
 
-            border: 1px solid #000000;
-
-        }
-
-
-        .student-save-button:hover {
-
-            color: #ffffff;
-
-            background: #222222;
-
-            border-color: #222222;
-
-            transform: translateY(-1px);
+            border: 1px solid var(--student-primary-hover);
 
         }
 
 
         /* =========================================================
-       TABLET
-    ========================================================== */
+           SAVE BUTTON HOVER
+        ========================================================== */
+
+        .student-save-button:hover {
+
+            color: #ffffff;
+
+            background: var(--student-primary);
+
+            border-color: var(--student-primary-hover);
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 4px 12px rgba(84, 40, 199, .25);
+
+        }
+
+
+        /* =========================================================
+           TABLET
+        ========================================================== */
 
         @media (max-width: 1000px) {
 
@@ -669,8 +815,8 @@
 
 
         /* =========================================================
-       MOBILE
-    ========================================================== */
+           MOBILE
+        ========================================================== */
 
         @media (max-width: 767.98px) {
 
@@ -736,9 +882,25 @@
 
             .student-form-actions {
 
-                flex-direction: column-reverse;
+                flex-direction: column;
 
                 align-items: stretch;
+
+                gap: 1rem;
+
+            }
+
+
+            .student-form-note {
+
+                max-width: 100%;
+
+            }
+
+
+            .student-form-buttons {
+
+                width: 100%;
 
             }
 
@@ -756,8 +918,8 @@
 
 
         /* =========================================================
-       SMALL MOBILE
-    ========================================================== */
+           SMALL MOBILE
+        ========================================================== */
 
         @media (max-width: 575.98px) {
 
@@ -809,7 +971,7 @@
             }
 
         }
-    </style>
 
+    </style>
 
 </x-app-layout>

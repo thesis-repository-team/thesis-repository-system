@@ -15,7 +15,7 @@ class DashboardController extends Controller
     {
         $departmentsCount = Department::count();
 
-        $hodsCount = Hod::where('is_active', true)->count();
+        $hodsCount = Hod::count();
 
         $studentsCount = Student::count();
 

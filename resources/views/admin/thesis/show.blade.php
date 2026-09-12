@@ -2,44 +2,20 @@
 
     <div class="dashboard-content thesis-show-page">
 
-        {{-- =========================================================
-            ALERTS
-        ========================================================== --}}
-
         @if (session('success'))
-
             <div class="thesis-alert thesis-alert-success">
-
                 <i class="bi bi-check-circle-fill"></i>
-
-                <span>
-                    {{ session('success') }}
-                </span>
-
+                <span>{{ session('success') }}</span>
             </div>
-
         @endif
-
 
         @if (session('error'))
-
             <div class="thesis-alert thesis-alert-danger">
-
                 <i class="bi bi-exclamation-triangle-fill"></i>
-
-                <span>
-                    {{ session('error') }}
-                </span>
-
+                <span>{{ session('error') }}</span>
             </div>
-
         @endif
 
-
-        {{-- =========================================================
-            CHECK THESIS
-            ONLY ADMIN OR HOD APPROVED THESIS IS ALLOWED
-        ========================================================== --}}
 
         @php
 
@@ -55,44 +31,25 @@
         @endphp
 
 
-        {{-- =========================================================
-            APPROVED THESIS
-        ========================================================== --}}
-
         @if ($isApprovedThesis)
-
-            {{-- =====================================================
-                MAIN CARD
-            ====================================================== --}}
 
             <div class="thesis-show-card">
 
-
-                {{-- =================================================
-                    HEADER
-                ================================================== --}}
+                {{-- HEADER --}}
 
                 <div class="thesis-show-header">
 
                     <div class="thesis-show-header-content">
 
-                        {{-- OVERLINE --}}
-
                         <span class="thesis-show-overline">
                             THESIS #{{ $thesis->id }}
                         </span>
 
-
-                        {{-- TITLE --}}
-
                         <div class="thesis-show-title-row">
 
                             <div class="thesis-show-title-icon">
-
                                 <i class="bi bi-journal-text"></i>
-
                             </div>
-
 
                             <h1 class="thesis-show-title">
                                 {{ $thesis->title }}
@@ -100,17 +57,12 @@
 
                         </div>
 
-
                         <p class="thesis-show-subtitle">
                             Approved thesis available in the Digital Thesis Repository.
                         </p>
 
                     </div>
 
-
-                    {{-- =================================================
-                        STATUS
-                    ================================================== --}}
 
                     <div class="thesis-show-status-wrapper">
 
@@ -127,30 +79,22 @@
                 </div>
 
 
-                {{-- =================================================
-                    THESIS INFORMATION
-                ================================================== --}}
+                {{-- THESIS INFORMATION --}}
 
                 <div class="thesis-show-content-section">
 
                     <div class="thesis-section-heading">
 
                         <div class="thesis-section-heading-icon">
-
                             <i class="bi bi-info-circle-fill"></i>
-
                         </div>
 
                         <div>
-
-                            <h2>
-                                Thesis Information
-                            </h2>
+                            <h2>Thesis Information</h2>
 
                             <p>
                                 General information about this approved thesis.
                             </p>
-
                         </div>
 
                     </div>
@@ -158,10 +102,7 @@
 
                     <div class="thesis-information-form">
 
-
-                        {{-- =================================================
-                            TITLE
-                        ================================================== --}}
+                        {{-- TITLE --}}
 
                         <div class="thesis-form-group">
 
@@ -176,9 +117,7 @@
                         </div>
 
 
-                        {{-- =================================================
-                            AUTHOR
-                        ================================================== --}}
+                        {{-- AUTHOR --}}
 
                         <div class="thesis-form-group">
 
@@ -193,9 +132,7 @@
                         </div>
 
 
-                        {{-- =================================================
-                            DEPARTMENT
-                        ================================================== --}}
+                        {{-- DEPARTMENT --}}
 
                         <div class="thesis-form-group">
 
@@ -210,9 +147,7 @@
                         </div>
 
 
-                        {{-- =================================================
-                            ACADEMIC YEAR
-                        ================================================== --}}
+                        {{-- ACADEMIC YEAR --}}
 
                         <div class="thesis-form-group">
 
@@ -227,9 +162,7 @@
                         </div>
 
 
-                        {{-- =================================================
-                            SUBMITTED BY
-                        ================================================== --}}
+                        {{-- SUBMITTED BY --}}
 
                         <div class="thesis-form-group">
 
@@ -250,9 +183,7 @@
                         </div>
 
 
-                        {{-- =================================================
-                            SUBMITTED AT
-                        ================================================== --}}
+                        {{-- SUBMITTED AT --}}
 
                         <div class="thesis-form-group">
 
@@ -272,9 +203,7 @@
                         </div>
 
 
-                        {{-- =================================================
-                            PUBLISHED BY
-                        ================================================== --}}
+                        {{-- PUBLISHED BY --}}
 
                         <div class="thesis-form-group">
 
@@ -294,9 +223,7 @@
                         </div>
 
 
-                        {{-- =================================================
-                            APPROVED BY
-                        ================================================== --}}
+                        {{-- APPROVED BY --}}
 
                         <div class="thesis-form-group">
 
@@ -326,6 +253,10 @@
 
                                     </span>
 
+                                @else
+
+                                    N/A
+
                                 @endif
 
                             </div>
@@ -333,9 +264,7 @@
                         </div>
 
 
-                        {{-- =================================================
-                            PUBLISHED AT
-                        ================================================== --}}
+                        {{-- PUBLISHED AT --}}
 
                         <div class="thesis-form-group">
 
@@ -359,106 +288,78 @@
                 </div>
 
 
-                {{-- =================================================
-                    ABSTRACT
-                ================================================== --}}
+                {{-- ABSTRACT --}}
 
                 <div class="thesis-show-content-section">
 
                     <div class="thesis-section-heading">
 
                         <div class="thesis-section-heading-icon">
-
                             <i class="bi bi-file-text-fill"></i>
-
                         </div>
 
                         <div>
-
-                            <h2>
-                                Abstract
-                            </h2>
+                            <h2>Abstract</h2>
 
                             <p>
                                 Abstract of the approved thesis.
                             </p>
-
                         </div>
 
                     </div>
 
 
                     <div class="thesis-text-content">
-
                         {{ $thesis->abstract ?? 'No abstract provided.' }}
-
                     </div>
 
                 </div>
 
 
-                {{-- =================================================
-                    DESCRIPTION
-                ================================================== --}}
+                {{-- DESCRIPTION --}}
 
                 <div class="thesis-show-content-section">
 
                     <div class="thesis-section-heading">
 
                         <div class="thesis-section-heading-icon">
-
                             <i class="bi bi-card-text"></i>
-
                         </div>
 
                         <div>
-
-                            <h2>
-                                Description
-                            </h2>
+                            <h2>Description</h2>
 
                             <p>
                                 Description of the thesis project.
                             </p>
-
                         </div>
 
                     </div>
 
 
                     <div class="thesis-text-content">
-
                         {{ $thesis->description ?? 'No description provided.' }}
-
                     </div>
 
                 </div>
 
 
-                {{-- =================================================
-                    THESIS DOCUMENT
-                ================================================== --}}
+                {{-- THESIS DOCUMENT --}}
 
                 <div class="thesis-show-content-section">
 
                     <div class="thesis-section-heading">
 
                         <div class="thesis-section-heading-icon thesis-document-icon">
-
                             <i class="bi bi-file-earmark-pdf-fill"></i>
-
                         </div>
 
                         <div>
-
-                            <h2>
-                                Thesis Document
-                            </h2>
+                            <h2>Thesis Document</h2>
 
                             <p>
                                 Official approved thesis document.
                             </p>
-
                         </div>
 
                     </div>
@@ -467,16 +368,12 @@
                     <div class="thesis-document-box">
 
 
-                        {{-- =================================================
-                            DOCUMENT INFORMATION
-                        ================================================== --}}
+                        {{-- DOCUMENT INFORMATION --}}
 
                         <div class="thesis-document-left">
 
                             <div class="thesis-document-file-icon">
-
                                 <i class="bi bi-file-earmark-pdf-fill"></i>
-
                             </div>
 
 
@@ -499,16 +396,11 @@
                         </div>
 
 
-                        {{-- =================================================
-                            DOCUMENT ACTIONS
-                        ================================================== --}}
+                        {{-- DOCUMENT ACTIONS --}}
 
                         <div class="thesis-document-actions">
 
-
-                            {{-- =================================================
-                                VIEW PDF
-                            ================================================== --}}
+                            {{-- VIEW PDF --}}
 
                             <a
                                 href="{{ route('admin.thesis.view-pdf', $thesis->id) }}"
@@ -516,16 +408,14 @@
                                 class="thesis-view-pdf-button"
                             >
 
-                                <i class="bi bi-eye-fill"></i>
+                                <i class="bi bi-file-earmark-pdf"></i>
 
-                                View PDF
+                                PDF
 
                             </a>
 
 
-                            {{-- =================================================
-                                DOWNLOAD PDF
-                            ================================================== --}}
+                            {{-- DOWNLOAD PDF --}}
 
                             <a
                                 href="{{ route('admin.thesis.download', $thesis->id) }}"
@@ -543,21 +433,18 @@
                     </div>
 
                 </div>
+
             </div>
 
 
         @else
 
-            {{-- =====================================================
-                NOT APPROVED / NOT FOUND
-            ====================================================== --}}
+            {{-- NOT APPROVED / NOT FOUND --}}
 
             <div class="thesis-empty-state">
 
                 <div class="thesis-empty-icon">
-
                     <i class="bi bi-journal-x"></i>
-
                 </div>
 
 
@@ -615,8 +502,8 @@
             --thesis-green: #198754;
             --thesis-green-hover: #157347;
 
-            --thesis-red: #dc3545;
-            --thesis-red-hover: #bb2d3b;
+            --thesis-red: #dc2626;
+            --thesis-red-hover: #b91c1c;
 
             --thesis-border: #eeeeee;
 
@@ -1214,7 +1101,7 @@
 
 
         /* =========================================================
-           VIEW PDF - BLUE
+           VIEW PDF - RED
         ========================================================== */
 
         .thesis-view-pdf-button {
@@ -1231,11 +1118,11 @@
 
             padding: 7px 12px;
 
-            color: var(--thesis-blue) !important;
+            color: var(--thesis-red) !important;
 
-            background: transparent;
+            background: transparent !important;
 
-            border: 1px solid var(--thesis-blue) !important;
+            border: 1px solid var(--thesis-red) !important;
 
             border-radius: 7px;
 
@@ -1259,16 +1146,16 @@
 
             color: #ffffff !important;
 
-            background: var(--thesis-blue);
+            background: var(--thesis-red) !important;
 
-            border-color: var(--thesis-blue) !important;
+            border-color: var(--thesis-red) !important;
 
             transform: translateY(-1px);
         }
 
 
         /* =========================================================
-           DOWNLOAD PDF - GREEN
+           DOWNLOAD PDF - BLUE
         ========================================================== */
 
         .thesis-download-pdf-button {
@@ -1285,11 +1172,11 @@
 
             padding: 7px 12px;
 
-            color: var(--thesis-green) !important;
+            color: var(--thesis-blue) !important;
 
-            background: transparent;
+            background: transparent !important;
 
-            border: 1px solid var(--thesis-green) !important;
+            border: 1px solid var(--thesis-blue) !important;
 
             border-radius: 7px;
 
@@ -1313,9 +1200,9 @@
 
             color: #ffffff !important;
 
-            background: var(--thesis-green);
+            background: var(--thesis-blue) !important;
 
-            border-color: var(--thesis-green) !important;
+            border-color: var(--thesis-blue) !important;
 
             transform: translateY(-1px);
         }
@@ -1570,31 +1457,23 @@
         [data-bs-theme="dark"] .thesis-show-page {
 
             --thesis-black: #ffffff;
-
             --thesis-text: #eeeef8;
-
             --thesis-muted: #999fb9;
 
             --thesis-card: #181d33;
-
             --thesis-soft: #20253a;
-
             --thesis-soft-purple: #292342;
 
             --thesis-purple: #7c5ce3;
-
             --thesis-purple-hover: #9278ea;
 
             --thesis-blue: #60a5fa;
-
             --thesis-blue-hover: #3b82f6;
 
             --thesis-green: #2fbf71;
-
             --thesis-green-hover: #25a761;
 
             --thesis-red: #ff6470;
-
             --thesis-red-hover: #ff4d5b;
 
             --thesis-border: #292e45;
@@ -1808,16 +1687,16 @@
 
 
         /* =========================================================
-           DARK VIEW PDF
+           DARK PDF BUTTON - RED
         ========================================================== */
 
         [data-bs-theme="dark"] .thesis-view-pdf-button {
 
-            color: #60a5fa !important;
+            color: #ff6470 !important;
 
-            background: transparent;
+            background: transparent !important;
 
-            border-color: #60a5fa !important;
+            border-color: #ff6470 !important;
         }
 
 
@@ -1825,23 +1704,23 @@
 
             color: #ffffff !important;
 
-            background: #3b82f6;
+            background: #ff6470 !important;
 
-            border-color: #3b82f6 !important;
+            border-color: #ff6470 !important;
         }
 
 
         /* =========================================================
-           DARK DOWNLOAD
+           DARK DOWNLOAD BUTTON - BLUE
         ========================================================== */
 
         [data-bs-theme="dark"] .thesis-download-pdf-button {
 
-            color: #2fbf71 !important;
+            color: #60a5fa !important;
 
-            background: transparent;
+            background: transparent !important;
 
-            border-color: #2fbf71 !important;
+            border-color: #60a5fa !important;
         }
 
 
@@ -1849,9 +1728,9 @@
 
             color: #ffffff !important;
 
-            background: #25a761;
+            background: #3b82f6 !important;
 
-            border-color: #25a761 !important;
+            border-color: #3b82f6 !important;
         }
 
 
@@ -2034,10 +1913,6 @@
             }
 
 
-            /* =====================================================
-               MOBILE DOCUMENT
-            ====================================================== */
-
             .thesis-document-box {
 
                 align-items: flex-start;
@@ -2064,10 +1939,6 @@
                 width: 100%;
             }
 
-
-            /* =====================================================
-               MOBILE FOOTER
-            ====================================================== */
 
             .thesis-footer-actions {
 
@@ -2249,10 +2120,6 @@
                 font-size: .56rem;
             }
 
-
-            /* =====================================================
-               SMALL MOBILE BUTTONS
-            ====================================================== */
 
             .thesis-document-actions {
 
