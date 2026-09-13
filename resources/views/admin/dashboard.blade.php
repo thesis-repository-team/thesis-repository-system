@@ -1,4 +1,3 @@
-
 <x-app-layout>
 
     <div class="dashboard-page">
@@ -130,7 +129,38 @@
 
                 </div>
 
+                {{-- Guests --}}
+                <div class="stat-card">
+
+                    <div class="stat-card-top">
+
+                        <div class="stat-icon blue">
+                            <i class="bi bi-person-badge"></i>
+                        </div>
+
+                        <div>
+
+                            <div class="stat-card-title">
+                                Guests Users
+                            </div>
+
+                            <div class="stat-number">
+                                {{ $guestsCount ?? 0 }}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="stat-footer">
+                        Total Guests without School Email
+                    </div>
+
+                </div>
+
             </section>
+
+
 
 
             {{-- =========================================================
@@ -167,10 +197,7 @@
 
                             </div>
 
-                            <a
-                                href="{{ route('admin.thesis.index') }}"
-                                class="view-all"
-                            >
+                            <a href="{{ route('admin.thesis.index') }}" class="view-all">
                                 <span>View all</span>
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -181,7 +208,6 @@
                         <div class="thesis-list">
 
                             @forelse($recentTheses ?? [] as $thesis)
-
                                 <div class="thesis-item">
 
                                     <div class="thesis-avatar">
@@ -196,9 +222,7 @@
                                         </strong>
 
                                         <span>
-                                            {{ $thesis->publishedBy?->username
-                                                ?? $thesis->publishedBy?->full_name
-                                                ?? 'Unknown Publisher' }}
+                                            {{ $thesis->publishedBy?->username ?? ($thesis->publishedBy?->full_name ?? 'Unknown Publisher') }}
                                         </span>
 
                                     </div>
@@ -215,7 +239,6 @@
                                 <div class="dashboard-empty">
                                     No recent theses.
                                 </div>
-
                             @endforelse
 
                         </div>
@@ -243,10 +266,7 @@
 
                             </div>
 
-                            <a
-                                href="{{ route('admin.thesis_requests.index') }}"
-                                class="view-all"
-                            >
+                            <a href="{{ route('admin.thesis_requests.index') }}" class="view-all">
                                 <span>View all</span>
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -257,26 +277,15 @@
                         <div class="request-list">
 
                             @forelse($recentThesisRequests ?? [] as $request)
-
                                 <div class="request-item">
 
 
                                     <div class="request-avatar">
 
                                         @if ($request->user)
-
-                                            {{ strtoupper(
-                                                substr(
-                                                    $request->user->username ?? 'U',
-                                                    0,
-                                                    2
-                                                )
-                                            ) }}
-
+                                            {{ strtoupper(substr($request->user->username ?? 'U', 0, 2)) }}
                                         @else
-
                                             TR
-
                                         @endif
 
                                     </div>
@@ -296,23 +305,17 @@
 
 
                                     @if ($request->status === 'approved')
-
                                         <span class="status-badge status-approved">
                                             Approved
                                         </span>
-
-                                    @elseif ($request->status === 'reject')
-
+                                    @elseif ($request->status === 'rejected')
                                         <span class="status-badge status-rejected">
                                             Rejected
                                         </span>
-
                                     @else
-
                                         <span class="status-badge status-pending">
                                             Pending
                                         </span>
-
                                     @endif
 
                                 </div>
@@ -322,7 +325,6 @@
                                 <div class="dashboard-empty">
                                     No recent thesis requests.
                                 </div>
-
                             @endforelse
 
                         </div>
@@ -359,10 +361,7 @@
 
                             </div>
 
-                            <a
-                                href="{{ route('admin.students.index') }}"
-                                class="view-all"
-                            >
+                            <a href="{{ route('admin.students.index') }}" class="view-all">
                                 <span>View all</span>
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -373,18 +372,11 @@
                         <div class="student-list">
 
                             @forelse($recentStudents ?? [] as $student)
-
                                 <div class="student-item">
 
                                     <div class="student-avatar">
 
-                                        {{ strtoupper(
-                                            substr(
-                                                $student->full_name ?? 'S',
-                                                0,
-                                                2
-                                            )
-                                        ) }}
+                                        {{ strtoupper(substr($student->full_name ?? 'S', 0, 2)) }}
 
                                     </div>
 
@@ -408,7 +400,6 @@
                                 <div class="dashboard-empty">
                                     No recent students.
                                 </div>
-
                             @endforelse
 
                         </div>
@@ -436,10 +427,7 @@
 
                             </div>
 
-                            <a
-                                href="{{ route('admin.hods.index') }}"
-                                class="view-all"
-                            >
+                            <a href="{{ route('admin.hods.index') }}" class="view-all">
                                 <span>View all</span>
                                 <i class="bi bi-chevron-right"></i>
                             </a>
@@ -450,18 +438,11 @@
                         <div class="hod-list">
 
                             @forelse($recentHods ?? [] as $hod)
-
                                 <div class="hod-item">
 
                                     <div class="hod-avatar">
 
-                                        {{ strtoupper(
-                                            substr(
-                                                $hod->full_name ?? 'H',
-                                                0,
-                                                2
-                                            )
-                                        ) }}
+                                        {{ strtoupper(substr($hod->full_name ?? 'H', 0, 2)) }}
 
                                     </div>
 
@@ -485,7 +466,6 @@
                                 <div class="dashboard-empty">
                                     No recent HoDs.
                                 </div>
-
                             @endforelse
 
                         </div>
@@ -523,30 +503,19 @@
 
                             <div class="calendar-header">
 
-                                <button
-                                    type="button"
-                                    class="calendar-nav"
-                                    id="calendarPrev"
-                                    aria-label="Previous month"
-                                >
+                                <button type="button" class="calendar-nav" id="calendarPrev"
+                                    aria-label="Previous month">
                                     <i class="bi bi-chevron-left"></i>
                                 </button>
 
 
-                                <div
-                                    class="calendar-month"
-                                    id="calendarMonth"
-                                >
+                                <div class="calendar-month" id="calendarMonth">
                                     September 2026
                                 </div>
 
 
-                                <button
-                                    type="button"
-                                    class="calendar-nav"
-                                    id="calendarNext"
-                                    aria-label="Next month"
-                                >
+                                <button type="button" class="calendar-nav" id="calendarNext"
+                                    aria-label="Next month">
                                     <i class="bi bi-chevron-right"></i>
                                 </button>
 
@@ -570,10 +539,7 @@
 
                             {{-- Days --}}
 
-                            <div
-                                class="calendar-days"
-                                id="calendarDays"
-                            ></div>
+                            <div class="calendar-days" id="calendarDays"></div>
 
                         </div>
 
@@ -590,7 +556,6 @@
 
 
     <style>
-
         /* =========================================================
            THEME VARIABLES
         ========================================================== */
@@ -748,8 +713,7 @@
             display: grid;
 
             grid-template-columns:
-                minmax(0, 1.65fr)
-                minmax(280px, 0.75fr);
+                minmax(0, 1.65fr) minmax(280px, 0.75fr);
 
             gap: 20px;
 
@@ -799,6 +763,30 @@
                 box-shadow .25s ease;
         }
 
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 1000px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
         .dashboard-large-card,
         .dashboard-small-card {
@@ -929,7 +917,7 @@
         }
 
 
-        .thesis-item + .thesis-item {
+        .thesis-item+.thesis-item {
 
             border-top:
                 1px solid var(--dashboard-divider);
@@ -1032,7 +1020,7 @@
         }
 
 
-        .request-item + .request-item {
+        .request-item+.request-item {
 
             border-top:
                 1px solid var(--dashboard-divider);
@@ -1192,7 +1180,7 @@
         }
 
 
-        .student-item + .student-item {
+        .student-item+.student-item {
 
             border-top:
                 1px solid var(--dashboard-divider);
@@ -1297,7 +1285,7 @@
         }
 
 
-        .hod-item + .hod-item {
+        .hod-item+.hod-item {
 
             border-top:
                 1px solid var(--dashboard-divider);
@@ -1591,8 +1579,7 @@
             .dashboard-lower-grid {
 
                 grid-template-columns:
-                    minmax(0, 1.5fr)
-                    minmax(260px, 0.8fr);
+                    minmax(0, 1.5fr) minmax(260px, 0.8fr);
 
                 gap: 16px;
             }
@@ -1734,7 +1721,6 @@
             }
 
         }
-
     </style>
 
 
@@ -1743,8 +1729,7 @@
     ============================================================= --}}
 
     <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
             const calendarMonth =
                 document.getElementById('calendarMonth');
@@ -1792,8 +1777,7 @@
                  */
                 const monthName =
                     currentDate.toLocaleString(
-                        'default',
-                        {
+                        'default', {
                             month: 'long'
                         }
                     );
@@ -1857,9 +1841,7 @@
                  * Empty cells before day 1.
                  */
                 for (
-                    let i = 0;
-                    i < firstDay;
-                    i++
+                    let i = 0; i < firstDay; i++
                 ) {
 
                     const emptyDay =
@@ -1880,9 +1862,7 @@
                  * Create every day.
                  */
                 for (
-                    let day = 1;
-                    day <= daysInMonth;
-                    day++
+                    let day = 1; day <= daysInMonth; day++
                 ) {
 
                     const dayElement =
@@ -1928,7 +1908,7 @@
              */
             calendarPrev.addEventListener(
                 'click',
-                function () {
+                function() {
 
                     currentDate.setMonth(
                         currentDate.getMonth() - 1
@@ -1945,7 +1925,7 @@
              */
             calendarNext.addEventListener(
                 'click',
-                function () {
+                function() {
 
                     currentDate.setMonth(
                         currentDate.getMonth() + 1
@@ -1963,8 +1943,6 @@
             renderCalendar();
 
         });
-
     </script>
 
 </x-app-layout>
-

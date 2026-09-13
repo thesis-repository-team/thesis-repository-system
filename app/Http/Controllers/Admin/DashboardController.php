@@ -8,6 +8,7 @@ use App\Models\Hod;
 use App\Models\Student;
 use App\Models\Thesis;
 use App\Models\ThesisRequest;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -24,6 +25,8 @@ class DashboardController extends Controller
         $recentTheses = Thesis::latest()
             ->take(5)
             ->get();
+
+        $guestsCount = User::where('role', 'guest')->count();
 
         $recentThesisRequests = ThesisRequest::with([
             'user',
@@ -51,6 +54,7 @@ class DashboardController extends Controller
             'hodsCount',
             'studentsCount',
             'thesesCount',
+            'guestsCount',
             'recentTheses',
             'recentThesisRequests',
             'recentStudents',

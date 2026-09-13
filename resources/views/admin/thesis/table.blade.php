@@ -10,19 +10,13 @@
             $publishedBy = $thesis->publishedBy;
 
             $isApprovedByAdminOrHod =
-                $thesis->published_at &&
-                $publishedBy &&
-                in_array($publishedBy->role, ['admin', 'hod'], true);
+                $thesis->published_at && $publishedBy && in_array($publishedBy->role, ['admin', 'hod'], true);
 
-            $publishedByName =
-                optional($publishedBy)->username ??
-                optional($publishedBy)->full_name ??
-                '—';
+            $publishedByName = optional($publishedBy)->username ?? (optional($publishedBy)->full_name ?? '—');
         @endphp
 
 
         @if ($isApprovedByAdminOrHod)
-
             {{-- =================================================
                 THESIS CARD
             ================================================== --}}
@@ -44,10 +38,15 @@
                         <h3 class="admin-thesis-card-title">
                             {{ $thesis->title }}
                         </h3>
+                        <a href="{{ route('admin.thesis.edit', $thesis->id) }}" class="admin-thesis-edit"
+                            title="Edit Thesis" aria-label="Edit Thesis">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
 
                     </div>
 
                 </div>
+
 
 
                 {{-- =================================================
@@ -94,9 +93,7 @@
                             </span>
 
                             <span class="admin-thesis-published-value">
-                                {{ $thesis->published_at
-                                    ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y')
-                                    : '—' }}
+                                {{ $thesis->published_at ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y') : '—' }}
                             </span>
 
                         </div>
@@ -190,9 +187,7 @@
                         </span>
 
                         <span class="admin-thesis-submitted-value">
-                            {{ optional($thesis->submittedBy)->username
-                                ?? optional($thesis->submittedBy)->full_name
-                                ?? '—' }}
+                            {{ optional($thesis->submittedBy)->username ?? (optional($thesis->submittedBy)->full_name ?? '—') }}
                         </span>
 
                     </div>
@@ -227,13 +222,11 @@
                     ================================================== --}}
 
                     @if ($thesis->files && $thesis->files->count())
-
                         @php
                             $file = $thesis->files->first();
                         @endphp
 
-                        <a href="{{ route('admin.thesis.view-pdf', $file->id) }}"
-                            target="_blank"
+                        <a href="{{ route('admin.thesis.view-pdf', $file->id) }}" target="_blank"
                             class="admin-thesis-action admin-thesis-pdf">
 
                             <i class="bi bi-file-earmark-pdf"></i>
@@ -243,9 +236,7 @@
                             </span>
 
                         </a>
-
                     @else
-
                         <span class="admin-thesis-action admin-thesis-download disabled">
 
                             <i class="bi bi-file-earmark-pdf"></i>
@@ -255,13 +246,11 @@
                             </span>
 
                         </span>
-
                     @endif
 
                 </div>
 
             </div>
-
         @endif
 
     @empty
@@ -360,14 +349,11 @@
                             in_array($publishedBy->role, ['admin', 'hod'], true);
 
                         $publishedByName =
-                            optional($publishedBy)->username ??
-                            optional($publishedBy)->full_name ??
-                            '—';
+                            optional($publishedBy)->username ?? (optional($publishedBy)->full_name ?? '—');
                     @endphp
 
 
                     @if ($isApprovedByAdminOrHod)
-
                         <tr>
 
                             {{-- =================================================
@@ -424,9 +410,7 @@
                             ================================================== --}}
 
                             <td>
-                                {{ optional($thesis->submittedBy)->username
-                                    ?? optional($thesis->submittedBy)->full_name
-                                    ?? '—' }}
+                                {{ optional($thesis->submittedBy)->username ?? (optional($thesis->submittedBy)->full_name ?? '—') }}
                             </td>
 
 
@@ -445,9 +429,7 @@
 
                             <td>
 
-                                {{ $thesis->published_at
-                                    ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y')
-                                    : '—' }}
+                                {{ $thesis->published_at ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y') : '—' }}
 
                             </td>
 
@@ -465,9 +447,7 @@
                                     ============================================== --}}
 
                                     <a href="{{ route('admin.thesis.show', $thesis->id) }}"
-                                    
-                                        class="thesis-table-action admin-thesis-view"
-                                        title="View Thesis"
+                                        class="thesis-table-action admin-thesis-view" title="View Thesis"
                                         aria-label="View Thesis">
 
                                         <i class="bi bi-file-text"></i>
@@ -475,39 +455,36 @@
                                     </a>
 
                                     @if ($thesis->files && $thesis->files->count())
-
                                         @php
                                             $file = $thesis->files->first();
                                         @endphp
 
-                                        <a href="{{ route('admin.thesis.view-pdf', $file->id) }}"
-                                            target="_blank"
-                                            class="thesis-table-action admin-thesis-pdf"
-                                            title="View PDF"
+                                        <a href="{{ route('admin.thesis.view-pdf', $file->id) }}" target="_blank"
+                                            class="thesis-table-action admin-thesis-pdf" title="View PDF"
                                             aria-label="View PDF">
 
                                             <i class="bi bi-file-earmark-pdf"></i>
 
                                         </a>
-
                                     @else
-
-                                        <span class="thesis-table-action thesis-table-download disabled"
-                                            title="No File"
+                                        <span class="thesis-table-action thesis-table-download disabled" title="No File"
                                             aria-label="No File">
 
                                             <i class="bi bi-file-earmark-pdf"></i>
 
                                         </span>
-
                                     @endif
+                                    <a href="{{ route('admin.thesis.edit', $thesis->id) }}"
+                                        class="thesis-table-action admin-thesis-edit" title="Edit Thesis"
+                                        aria-label="Edit Thesis">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
 
                                 </div>
 
                             </td>
 
                         </tr>
-
                     @endif
 
                 @empty

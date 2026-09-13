@@ -15,12 +15,12 @@
                     <div>
 
                         <span class="student-overline">
-                            MANAGEMENT
+                           {{ $department->name }} 
                         </span>
 
-                        <h1 class="student-title">
-                            Student
-                        </h1>
+                        <h3 class="student-title">
+                            Student Management
+                        </h3>
 
                     </div>
 
@@ -111,7 +111,7 @@
 
                     {{-- DEPARTMENT --}}
 
-                    <div class="col-12 col-md-4 col-lg-2">
+                    {{-- <div class="col-12 col-md-4 col-lg-2">
 
                         <label for="departmentFilter" class="student-input-label">
                             Department
@@ -131,7 +131,7 @@
 
                         </select>
 
-                    </div>
+                    </div> --}}
 
 
                     {{-- YEAR --}}
