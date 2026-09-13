@@ -938,18 +938,18 @@
 
             margin-bottom: 20px;
 
-            padding: 16px 18px;
+            padding: 20px 0 15px 0;
 
-            background:
+            /* background:
                 var(--thesis-request-card-bg);
 
             border:
-                1px solid var(--thesis-request-border-soft);
+                1px solid var(--thesis-request-border-soft); */
 
             border-radius: 12px;
 
-            box-shadow:
-                var(--thesis-request-card-shadow);
+            /* box-shadow:
+                var(--thesis-request-card-shadow); */
         }
 
 

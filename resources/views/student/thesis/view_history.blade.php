@@ -678,13 +678,13 @@
 
             gap: 1rem;
 
-            padding: 15px;
+            padding: 20px 0 10px 0;
 
-            margin: 100px 0 20px;
+            margin: 90px 0 20px;
 
-            background: var(--thesis-page-bg);
+            /* background: var(--thesis-page-bg); */
 
-            box-sizing: border-box;
+            /* box-sizing: border-box; */
         }
 
 

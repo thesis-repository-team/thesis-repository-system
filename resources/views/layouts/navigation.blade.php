@@ -288,10 +288,10 @@
                 <h2>
                     Hi, {{ Auth::user()->username }}
                 </h2>
-
                 <p>
                     Let's manage the thesis repository today!
                 </p>
+
 
             </div>
 

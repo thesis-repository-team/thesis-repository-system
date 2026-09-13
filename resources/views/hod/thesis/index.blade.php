@@ -32,24 +32,15 @@
 
                 {{-- MOBILE SEARCH --}}
 
-                <button
-                    type="button"
-                    id="mobileThesisSearchToggle"
-                    class="thesis-mobile-search-button"
-                    data-tooltip="Search"
-                    aria-label="Open Search"
-                    aria-expanded="false"
-                >
+                <button type="button" id="mobileThesisSearchToggle" class="thesis-mobile-search-button"
+                    data-tooltip="Search" aria-label="Open Search" aria-expanded="false">
                     <i class="bi bi-search"></i>
                 </button>
 
 
                 {{-- ADD NEW THESIS --}}
 
-                <a
-                    href="{{ route('hod.thesis.create') }}"
-                    class="thesis-add-button thesis-new-thesis-button"
-                >
+                <a href="{{ route('hod.thesis.create') }}" class="thesis-add-button thesis-new-thesis-button">
                     <i class="bi bi-plus-lg"></i>
 
                     <span class="thesis-button-text">
@@ -66,10 +57,7 @@
             MOBILE SEARCH
         ========================================================== --}}
 
-        <div
-            id="mobileThesisSearchPanel"
-            class="thesis-mobile-search-panel"
-        >
+        <div id="mobileThesisSearchPanel" class="thesis-mobile-search-panel">
 
             <div class="thesis-mobile-search-content">
 
@@ -77,22 +65,13 @@
 
                     <i class="bi bi-search"></i>
 
-                    <input
-                        type="text"
-                        id="mobileThesisSearchInput"
-                        placeholder="Search title, author, or department..."
-                        autocomplete="off"
-                    >
+                    <input type="text" id="mobileThesisSearchInput"
+                        placeholder="Search title, author, or department..." autocomplete="off">
 
                 </div>
 
-                <button
-                    type="button"
-                    id="mobileThesisResetFilter"
-                    class="thesis-mobile-reset-button"
-                    data-tooltip="Reset Search"
-                    aria-label="Reset Search"
-                >
+                <button type="button" id="mobileThesisResetFilter" class="thesis-mobile-reset-button"
+                    data-tooltip="Reset Search" aria-label="Reset Search">
                     <i class="bi bi-arrow-counterclockwise"></i>
                 </button>
 
@@ -115,10 +94,7 @@
 
                     <div class="col-12 col-lg-5">
 
-                        <label
-                            for="search"
-                            class="thesis-input-label"
-                        >
+                        <label for="search" class="thesis-input-label">
                             Search
                         </label>
 
@@ -126,12 +102,8 @@
 
                             <i class="bi bi-search"></i>
 
-                            <input
-                                type="text"
-                                id="search"
-                                placeholder="Search title, author, or department..."
-                                autocomplete="off"
-                            >
+                            <input type="text" id="search" placeholder="Search title, author, or department..."
+                                autocomplete="off">
 
                         </div>
 
@@ -142,28 +114,20 @@
 
                     <div class="col-12 col-md-6 col-lg-3">
 
-                        <label
-                            for="departmentFilter"
-                            class="thesis-input-label"
-                        >
+                        <label for="departmentFilter" class="thesis-input-label">
                             Department
                         </label>
 
-                        <select
-                            class="thesis-filter-select"
-                            id="departmentFilter"
-                        >
+                        <select class="thesis-filter-select" id="departmentFilter">
 
                             <option value="">
                                 All Departments
                             </option>
 
                             @foreach ($departments as $department)
-
                                 <option value="{{ $department->name }}">
                                     {{ $department->name }}
                                 </option>
-
                             @endforeach
 
                         </select>
@@ -175,28 +139,20 @@
 
                     <div class="col-12 col-md-6 col-lg-2">
 
-                        <label
-                            for="yearFilter"
-                            class="thesis-input-label"
-                        >
+                        <label for="yearFilter" class="thesis-input-label">
                             Academic Year
                         </label>
 
-                        <select
-                            class="thesis-filter-select thesis-year-select"
-                            id="yearFilter"
-                        >
+                        <select class="thesis-filter-select thesis-year-select" id="yearFilter">
 
                             <option value="">
                                 All Years
                             </option>
 
                             @foreach ($academicYears as $year)
-
                                 <option value="{{ $year }}">
                                     {{ $year }}
                                 </option>
-
                             @endforeach
 
                         </select>
@@ -208,12 +164,8 @@
 
                     <div class="col-12 col-lg-2">
 
-                        <button
-                            type="button"
-                            id="resetFilter"
-                            class="thesis-reset-button"
-                            data-tooltip="Reset Filters"
-                        >
+                        <button type="button" id="resetFilter" class="thesis-reset-button"
+                            data-tooltip="Reset Filters">
 
                             <i class="bi bi-arrow-counterclockwise"></i>
 
@@ -240,10 +192,7 @@
 
             {{-- LOADING --}}
 
-            <div
-                id="thesisSearchSpinner"
-                class="thesis-loading d-none"
-            >
+            <div id="thesisSearchSpinner" class="thesis-loading d-none">
 
                 <div class="thesis-spinner"></div>
 
@@ -260,12 +209,8 @@
 
                 <div class="thesis-view-toggle">
 
-                    <button
-                        type="button"
-                        id="thesisCardViewButton"
-                        class="thesis-view-button is-active"
-                        aria-label="Card View"
-                    >
+                    <button type="button" id="thesisCardViewButton" class="thesis-view-button is-active"
+                        aria-label="Card View">
 
                         <i class="bi bi-grid-3x3-gap"></i>
 
@@ -276,12 +221,8 @@
                     </button>
 
 
-                    <button
-                        type="button"
-                        id="thesisTableViewButton"
-                        class="thesis-view-button"
-                        aria-label="Table View"
-                    >
+                    <button type="button" id="thesisTableViewButton" class="thesis-view-button"
+                        aria-label="Table View">
 
                         <i class="bi bi-table"></i>
 
@@ -298,10 +239,7 @@
 
             {{-- RESULTS --}}
 
-            <div
-                id="adminThesisCards"
-                class="thesis-results-container"
-            >
+            <div id="adminThesisCards" class="thesis-results-container">
 
                 @include('hod.thesis.table')
 
@@ -317,7 +255,6 @@
     ============================================================= --}}
 
     <script>
-
         document.addEventListener('DOMContentLoaded', function() {
 
             let searchTimeout = null;
@@ -491,9 +428,9 @@
 
 
             setThesisView(
-                savedThesisView === 'table'
-                    ? 'table'
-                    : 'cards'
+                savedThesisView === 'table' ?
+                'table' :
+                'cards'
             );
 
 
@@ -538,16 +475,16 @@
                 if (window.innerWidth <= 767.98) {
 
                     currentSearch =
-                        mobileSearchInput
-                            ? mobileSearchInput.value.trim()
-                            : '';
+                        mobileSearchInput ?
+                        mobileSearchInput.value.trim() :
+                        '';
 
                 } else {
 
                     currentSearch =
-                        searchInput
-                            ? searchInput.value.trim()
-                            : '';
+                        searchInput ?
+                        searchInput.value.trim() :
+                        '';
 
                 }
 
@@ -557,110 +494,105 @@
 
                         search: currentSearch,
 
-                        department:
-                            departmentFilter
-                                ? departmentFilter.value
-                                : '',
+                        department: departmentFilter ?
+                            departmentFilter.value :
+                            '',
 
-                        year:
-                            yearFilter
-                                ? yearFilter.value
-                                : ''
+                        year: yearFilter ?
+                            yearFilter.value :
+                            ''
 
                     });
 
 
                 fetch(
-                    "{{ route('hod.thesis.search') }}?" +
-                    query.toString(),
-                    {
-                        signal: currentController.signal,
+                        "{{ route('hod.thesis.search') }}?" +
+                        query.toString(), {
+                            signal: currentController.signal,
 
-                        headers: {
-                            'X-Requested-With':
-                                'XMLHttpRequest',
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
 
-                            'Accept':
-                                'text/html'
+                                'Accept': 'text/html'
+                            }
                         }
-                    }
-                )
+                    )
 
-                .then(function(response) {
+                    .then(function(response) {
 
-                    if (!response.ok) {
+                        if (!response.ok) {
 
-                        throw new Error(
-                            'Network response failed'
-                        );
-
-                    }
-
-
-                    return response.text();
-
-                })
-
-                .then(function(html) {
-
-                    if (thesisResultsContainer) {
-
-                        thesisResultsContainer.innerHTML =
-                            html;
-
-
-                        const currentView =
-                            localStorage.getItem(
-                                'adminThesisView'
+                            throw new Error(
+                                'Network response failed'
                             );
 
-
-                        setThesisView(
-                            currentView === 'table'
-                                ? 'table'
-                                : 'cards'
-                        );
-
-                    }
-
-                })
-
-                .catch(function(error) {
-
-                    if (
-                        error.name !==
-                        'AbortError'
-                    ) {
-
-                        console.error(
-                            'Error loading thesis records:',
-                            error
-                        );
-
-                    }
-
-                })
-
-                .finally(function() {
-
-                    if (spinner) {
-
-                        spinner.classList.add(
-                            'd-none'
-                        );
-
-                    }
+                        }
 
 
-                    if (thesisResultsContainer) {
+                        return response.text();
 
-                        thesisResultsContainer.classList.remove(
-                            'is-loading'
-                        );
+                    })
 
-                    }
+                    .then(function(html) {
 
-                });
+                        if (thesisResultsContainer) {
+
+                            thesisResultsContainer.innerHTML =
+                                html;
+
+
+                            const currentView =
+                                localStorage.getItem(
+                                    'adminThesisView'
+                                );
+
+
+                            setThesisView(
+                                currentView === 'table' ?
+                                'table' :
+                                'cards'
+                            );
+
+                        }
+
+                    })
+
+                    .catch(function(error) {
+
+                        if (
+                            error.name !==
+                            'AbortError'
+                        ) {
+
+                            console.error(
+                                'Error loading thesis records:',
+                                error
+                            );
+
+                        }
+
+                    })
+
+                    .finally(function() {
+
+                        if (spinner) {
+
+                            spinner.classList.add(
+                                'd-none'
+                            );
+
+                        }
+
+
+                        if (thesisResultsContainer) {
+
+                            thesisResultsContainer.classList.remove(
+                                'is-loading'
+                            );
+
+                        }
+
+                    });
 
             }
 
@@ -961,7 +893,6 @@
             );
 
         });
-
     </script>
 
 
@@ -970,7 +901,6 @@
     ============================================================= --}}
 
     <style>
-
         /* =========================================================
            COLOR SYSTEM
         ========================================================== */
@@ -1132,13 +1062,13 @@
 
             gap: 1rem;
 
-            padding: 15px;
+            padding: 15px 0 10px 0;
 
-            margin: 100px 0 20px;
+            margin: 90px 0 10px;
 
-            background: var(--thesis-page-bg);
+            /* background: var(--thesis-page-bg); */
 
-            box-sizing: border-box;
+            /* box-sizing: border-box; */
 
         }
 
@@ -1939,16 +1869,14 @@
         }
 
 
-        .thesis-results-container.table-mode
-        .thesis-partial-card-results {
+        .thesis-results-container.table-mode .thesis-partial-card-results {
 
             display: none;
 
         }
 
 
-        .thesis-results-container.table-mode
-        .thesis-partial-table-results {
+        .thesis-results-container.table-mode .thesis-partial-table-results {
 
             display: block;
 
@@ -4138,7 +4066,6 @@
             }
 
         }
-
     </style>
 
 </x-app-layout>

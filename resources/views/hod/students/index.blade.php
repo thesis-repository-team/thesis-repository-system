@@ -1173,22 +1173,11 @@
 
             gap: 1rem;
 
-            padding: 15px;
+            padding: 20px 0 10px 0;
 
-            margin: 100px 0 20px;
-
-            background:
-                var(--student-card-bg);
-
-            border:
-                1px solid var(--student-border-soft);
+            margin: 90px 0 10px;
 
             border-radius: 12px;
-
-            box-shadow:
-                var(--student-card-shadow);
-
-            box-sizing: border-box;
 
         }
 

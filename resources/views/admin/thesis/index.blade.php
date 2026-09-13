@@ -992,11 +992,11 @@
 
             gap: 1rem;
 
-            padding: 15px;
+            padding: 20px 0 15px 0;
 
             margin: 100px 0 20px;
 
-            background: var(--thesis-page-bg);
+            /* background: var(--thesis-page-bg); */
 
             box-sizing: border-box;
         }

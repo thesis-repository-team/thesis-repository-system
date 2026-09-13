@@ -1149,23 +1149,10 @@
             margin:
                 80px 0 18px;
 
-            padding:
-                20px 22px;
-
-            background:
-                var(--hod-card-bg);
-
-            border:
-                1px solid var(--hod-border);
+            padding: 20px 0 15px 0;
 
             border-radius:
                 10px;
-
-            box-shadow:
-                var(--hod-card-shadow);
-
-            box-sizing:
-                border-box;
 
             transition:
                 background-color .2s ease,

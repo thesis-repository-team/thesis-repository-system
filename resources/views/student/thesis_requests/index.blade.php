@@ -16,9 +16,9 @@
                         Thesis Requests
                     </h2>
 
-                    <p class="request-page-description">
+                    {{-- <p class="request-page-description">
                         Review and manage thesis upload requests.
-                    </p>
+                    </p> --}}
 
                 </div>
 
@@ -696,23 +696,23 @@
 
             width: 100%;
 
-            margin-top: 100px;
+            margin-top: 90px;
             margin-bottom: 12px;
+            padding: 20px 0 15px 0;
 
-            padding: 18px 20px;
 
-            box-sizing: border-box;
+            /* box-sizing: border-box;
 
             background:
                 var(--thesis-request-card-bg);
 
             border:
-                1px solid var(--thesis-request-border-soft);
+                1px solid var(--thesis-request-border-soft); */
 
-            border-radius: 12px;
+            /* border-radius: 12px;
 
             box-shadow:
-                var(--thesis-request-card-shadow);
+                var(--thesis-request-card-shadow); */
 
         }
 

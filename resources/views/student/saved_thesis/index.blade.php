@@ -714,11 +714,11 @@
 
             justify-content: space-between;
 
-            padding: 15px;
+            padding: 20px 0 10px 0;
 
-            margin: 100px 0 20px;
+            margin: 80px 0 10px;
 
-            background: var(--thesis-page-bg);
+            /* background: var(--thesis-page-bg); */
 
         }
 

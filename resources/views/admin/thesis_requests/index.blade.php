@@ -871,22 +871,14 @@
 
             gap: 20px;
 
-            margin-top: 100px;
+            margin-top: 80px;
 
             margin-bottom: 20px;
 
-            padding: 16px 18px;
-
-            background:
-                var(--thesis-request-card-bg);
-
-            border:
-                1px solid var(--thesis-request-border-soft);
+            padding: 20px 0 15px 0;
 
             border-radius: 12px;
 
-            box-shadow:
-                var(--thesis-request-card-shadow);
         }
 
 

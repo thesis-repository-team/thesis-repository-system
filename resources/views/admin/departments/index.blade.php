@@ -411,11 +411,8 @@
             justify-content: space-between;
             gap: 20px;
             margin: 100px 0 20px;
-            padding: 20px 22px;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
+            padding: 20px 0 15px 0;
             border-radius: 12px;
-            box-shadow: var(--shadow);
         }
 
         .departments-heading {
