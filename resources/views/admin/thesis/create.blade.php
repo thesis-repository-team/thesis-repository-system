@@ -339,7 +339,7 @@
 
             color: var(--thesis-text);
 
-            background-color: var(--thesis-page-bg);
+            /* background-color: var(--thesis-page-bg); */
 
             transition:
                 background-color .25s ease,

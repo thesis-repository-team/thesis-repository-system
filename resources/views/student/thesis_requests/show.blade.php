@@ -183,8 +183,7 @@
                     </div>
                     <div class="thesis-document-actions">
                         <a href="#thesis-request-pdf-preview" class="thesis-view-pdf-button" id="viewPdfButton">
-                            <i class="bi bi-eye-fill"></i>
-                            View PDF
+                            <i class="bi bi-file-earmark-pdf">PDF</i> 
                         </a>
                     </div>
                 </div>
@@ -210,7 +209,7 @@
 
                                 {{ ucfirst($status) }}
                             </span>
-                    
+
                             <button type="button" class="thesis-pdf-close-button" id="closePdfButton">
                                 <i class="bi bi-x-lg"></i>
                                 Close

@@ -96,7 +96,6 @@
             <div id="requestCardView" class="request-grid">
 
                 @forelse ($thesisRequests as $thesisRequest)
-
                     <article class="request-card">
 
                         <div class="request-card-content">
@@ -119,33 +118,25 @@
 
 
                                 @if ($thesisRequest->status === 'pending')
-
                                     <span class="request-status pending">
                                         <i class="bi bi-clock"></i>
                                         Pending
                                     </span>
-
                                 @elseif ($thesisRequest->status === 'approved')
-
                                     <span class="request-status approved">
                                         <i class="bi bi-check-circle"></i>
                                         Approved
                                     </span>
-
                                 @elseif ($thesisRequest->status === 'rejected')
-
                                     <span class="request-status rejected">
                                         <i class="bi bi-x-circle"></i>
                                         Rejected
                                     </span>
-
                                 @else
-
                                     <span class="request-status unknown">
                                         <i class="bi bi-question-circle"></i>
                                         {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
                                     </span>
-
                                 @endif
 
                             </div>
@@ -244,7 +235,6 @@
 
 
                                 @if ($thesisRequest->thesis)
-
                                     <div class="request-info">
 
                                         <div class="request-info-icon">
@@ -265,7 +255,6 @@
                                         </div>
 
                                     </div>
-
                                 @endif
 
                             </div>
@@ -276,8 +265,7 @@
                         <div class="request-actions">
 
                             <a href="{{ route('student.thesis_requests.show', $thesisRequest->id) }}"
-                                class="request-action request-action-details"
-                                title="View Details"
+                                class="request-action request-action-details" title="View Details"
                                 aria-label="View Details">
 
                                 <i class="bi bi-file-text"></i>
@@ -290,11 +278,8 @@
 
 
                             @if ($thesisRequest->thesis)
-
                                 <a href="{{ route('student.thesis.view-pdf', $thesisRequest->thesis->id) }}"
-                                    target="_blank"
-                                    class="request-action request-action-pdf"
-                                    title="View PDF"
+                                    target="_blank" class="request-action request-action-pdf" title="View PDF"
                                     aria-label="View PDF">
 
                                     <i class="bi bi-file-earmark-pdf"></i>
@@ -304,11 +289,8 @@
                                     </span>
 
                                 </a>
-
                             @else
-
-                                <span class="request-action request-action-pdf request-action-disabled"
-                                    title="No PDF">
+                                <span class="request-action request-action-pdf request-action-disabled" title="No PDF">
 
                                     <i class="bi bi-file-earmark-x"></i>
 
@@ -317,7 +299,6 @@
                                     </span>
 
                                 </span>
-
                             @endif
 
                         </div>
@@ -341,7 +322,6 @@
                         </p>
 
                     </div>
-
                 @endforelse
 
             </div>
@@ -383,7 +363,6 @@
                         <tbody>
 
                             @forelse ($thesisRequests as $thesisRequest)
-
                                 <tr>
 
                                     <td class="request-table-number">
@@ -436,13 +415,9 @@
                                         <span class="request-table-text">
 
                                             @if ($thesisRequest->submitted_at)
-
                                                 {{ \Carbon\Carbon::parse($thesisRequest->submitted_at)->format('d M Y') }}
-
                                             @else
-
                                                 N/A
-
                                             @endif
 
                                         </span>
@@ -455,14 +430,10 @@
                                         <span class="request-table-text">
 
                                             @if ($thesisRequest->thesis)
-
                                                 {{ $thesisRequest->thesis?->publishedBy?->full_name ??
                                                     ($thesisRequest->thesis?->publishedBy?->username ?? 'N/A') }}
-
                                             @else
-
                                                 N/A
-
                                             @endif
 
                                         </span>
@@ -473,33 +444,25 @@
                                     <td>
 
                                         @if ($thesisRequest->status === 'pending')
-
                                             <span class="request-table-status pending">
                                                 <i class="bi bi-clock"></i>
                                                 Pending
                                             </span>
-
                                         @elseif ($thesisRequest->status === 'approved')
-
                                             <span class="request-table-status approved">
                                                 <i class="bi bi-check-circle"></i>
                                                 Approved
                                             </span>
-
                                         @elseif ($thesisRequest->status === 'rejected')
-
                                             <span class="request-table-status rejected">
                                                 <i class="bi bi-x-circle"></i>
                                                 Rejected
                                             </span>
-
                                         @else
-
                                             <span class="request-table-status unknown">
                                                 <i class="bi bi-question-circle"></i>
                                                 {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
                                             </span>
-
                                         @endif
 
                                     </td>
@@ -511,36 +474,28 @@
 
                                             <a href="{{ route('student.thesis_requests.show', $thesisRequest->id) }}"
                                                 class="request-table-action request-table-details"
-                                                title="View Details"
-                                                aria-label="View Details">
+                                                title="View Details" aria-label="View Details">
 
-                                                <i class="bi bi-eye"></i>
+                                                <i class="bi bi-file-text"></i>
 
                                             </a>
 
 
                                             @if ($thesisRequest->thesis)
-
                                                 <a href="{{ route('student.thesis.view-pdf', $thesisRequest->thesis->id) }}"
-                                                    target="_blank"
-                                                    class="request-table-action request-table-pdf"
-                                                    title="View PDF"
-                                                    aria-label="View PDF">
+                                                    target="_blank" class="request-table-action request-table-pdf"
+                                                    title="View PDF" aria-label="View PDF">
 
                                                     <i class="bi bi-file-earmark-pdf"></i>
 
                                                 </a>
-
                                             @else
-
                                                 <span class="request-table-action request-table-pdf disabled"
-                                                    title="No PDF"
-                                                    aria-label="No PDF">
+                                                    title="No PDF" aria-label="No PDF">
 
                                                     <i class="bi bi-file-earmark-x"></i>
 
                                                 </span>
-
                                             @endif
 
                                         </div>
@@ -574,7 +529,6 @@
                                     </td>
 
                                 </tr>
-
                             @endforelse
 
                         </tbody>
@@ -591,7 +545,6 @@
 
 
     <style>
-
         :root {
 
             --thesis-request-page-bg: #f0f2f5;
@@ -1288,7 +1241,7 @@
         }
 
 
-        .request-title-with-icon > i {
+        .request-title-with-icon>i {
 
             display: flex;
 
@@ -2419,12 +2372,10 @@
             }
 
         }
-
     </style>
 
 
     <script>
-
         document.addEventListener('DOMContentLoaded', function() {
 
             const requestResultsContainer =
@@ -2526,13 +2477,12 @@
 
 
             setRequestView(
-                savedRequestView === 'table'
-                    ? 'table'
-                    : 'cards'
+                savedRequestView === 'table' ?
+                'table' :
+                'cards'
             );
 
         });
-
     </script>
 
 

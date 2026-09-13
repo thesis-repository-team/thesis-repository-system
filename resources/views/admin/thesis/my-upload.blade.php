@@ -1417,9 +1417,9 @@
 
             gap: 1rem;
 
-            padding: 15px;
+            padding: 20px 0 10px;
 
-            margin: 100px 0 20px;
+            margin: 80px 0 10px;
 
             background:
                 var(--thesis-page-bg);

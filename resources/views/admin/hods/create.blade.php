@@ -1,13 +1,9 @@
-```blade
+
 <x-app-layout>
 
     <div class="hod-create-wrapper">
 
         <div class="hod-create-card">
-
-            {{-- =================================================
-                FORM HEADER
-            ================================================== --}}
 
             <div class="hod-create-header">
 
@@ -29,10 +25,6 @@
 
             </div>
 
-
-            {{-- =================================================
-                FORM
-            ================================================== --}}
 
             <form
                 action="{{ route('admin.hods.store') }}"
@@ -244,9 +236,7 @@
                 </div>
 
 
-                {{-- =================================================
-                    ACTIONS
-                ================================================== --}}
+                {{-- ACTIONS --}}
 
                 <div class="hod-form-actions">
 
@@ -256,22 +246,20 @@
                         href="{{ route('admin.hods.index') }}"
                         class="hod-cancel-button">
 
-                        <i class="bi bi-x-lg"></i>
+                        {{-- <i class="bi bi-x-lg"></i> --}}
 
                         Cancel
 
                     </a>
 
 
-                    {{-- SAVE --}}
+                    {{-- CREATE --}}
 
                     <button
                         type="submit"
-                        class="hod-save-button">
+                        class="hod-create-button">
 
-                        <i class="bi bi-check-lg"></i>
-
-                        Save HoD
+                        Create HoD
 
                     </button>
 
@@ -292,8 +280,8 @@
 
         :root {
 
-            --hod-blue: #2563eb;
-            --hod-blue-hover: #1d4ed8;
+            --hod-purple: #4c2a9d;
+            --hod-purple-hover: #3d2185;
 
             --hod-red: #dc2626;
             --hod-red-hover: #b91c1c;
@@ -322,8 +310,6 @@
 
         /* =========================================================
            DARK MODE VARIABLES
-           
-           SAME DASHBOARD / DEPARTMENT CARD DESIGN
         ========================================================== */
 
         [data-bs-theme="dark"] {
@@ -331,34 +317,20 @@
             --hod-black: #111111;
             --hod-white: #ffffff;
 
-            /* PAGE */
-
             --hod-page-bg: #101426;
-
-            /* CARD */
 
             --hod-card-bg: #181d33;
 
-            /* INPUT */
-
             --hod-input-bg: #20253a;
-
-            /* TEXT */
 
             --hod-text: #ffffff;
             --hod-text-secondary: #eeeef8;
             --hod-text-muted: #999fb9;
 
-            /* BORDER */
-
             --hod-border: #343a52;
             --hod-border-soft: #292e45;
 
-            /* PLACEHOLDER */
-
             --hod-placeholder: #777f9c;
-
-            /* SHADOW */
 
             --hod-shadow:
                 0 4px 18px rgba(0, 0, 0, .30);
@@ -386,7 +358,7 @@
 
             color: var(--hod-text);
 
-            background: var(--hod-page-bg);
+            /* background: var(--hod-page-bg); */
 
             transition:
                 background-color .25s ease,
@@ -464,7 +436,7 @@
 
             margin-bottom: .25rem;
 
-            color: var(--hod-text);
+            color: var(--hod-purple);
 
             font-size: .65rem;
 
@@ -644,11 +616,11 @@
 
             background: var(--hod-input-bg);
 
-            border-color: var(--hod-blue);
+            border-color: var(--hod-purple);
 
             box-shadow:
                 0 0 0 3px
-                rgba(37, 99, 235, .10);
+                rgba(76, 42, 157, .10);
         }
 
 
@@ -682,11 +654,11 @@
 
             background: #20253a;
 
-            border-color: #ffffff;
+            border-color: var(--hod-purple);
 
             box-shadow:
                 0 0 0 3px
-                rgba(255, 255, 255, .10);
+                rgba(76, 42, 157, .18);
         }
 
 
@@ -786,7 +758,7 @@
         ========================================================== */
 
         .hod-cancel-button,
-        .hod-save-button {
+        .hod-create-button {
 
             display: inline-flex;
 
@@ -823,27 +795,27 @@
 
 
         /* =========================================================
-           SAVE HOD
+           CREATE HOD
         ========================================================== */
 
-        .hod-save-button {
+        .hod-create-button {
 
-            color: #ffffff !important;
+            color: var(--hod-purple) !important;
 
-            background: var(--hod-blue);
+            background: transparent;
 
             border:
-                1px solid var(--hod-blue);
+                1px solid var(--hod-purple);
         }
 
 
-        .hod-save-button:hover {
+        .hod-create-button:hover {
 
             color: #ffffff !important;
 
-            background: var(--hod-blue-hover);
+            background: var(--hod-purple);
 
-            border-color: var(--hod-blue-hover);
+            border-color: var(--hod-purple);
 
             transform: translateY(-1px);
         }
@@ -855,9 +827,9 @@
 
         .hod-cancel-button {
 
-            color: #ffffff !important;
+            color: var(--hod-red) !important;
 
-            background: var(--hod-red);
+            background: transparent;
 
             border:
                 1px solid var(--hod-red);
@@ -868,9 +840,9 @@
 
             color: #ffffff !important;
 
-            background: var(--hod-red-hover);
+            background: var(--hod-red);
 
-            border-color: var(--hod-red-hover);
+            border-color: var(--hod-red);
 
             transform: translateY(-1px);
         }
@@ -880,12 +852,26 @@
            BUTTON ICONS
         ========================================================== */
 
-        .hod-save-button i,
-        .hod-cancel-button i {
+        .hod-create-button i {
 
-            color: #ffffff !important;
+            color: var(--hod-purple) !important;
 
             font-size: .85rem;
+        }
+
+
+        .hod-cancel-button i {
+
+            color: var(--hod-red) !important;
+
+            font-size: .85rem;
+        }
+
+
+        .hod-create-button:hover i,
+        .hod-cancel-button:hover i {
+
+            color: #ffffff !important;
         }
 
 
@@ -979,7 +965,7 @@
 
 
             .hod-cancel-button,
-            .hod-save-button {
+            .hod-create-button {
 
                 width: 100%;
 
@@ -1056,4 +1042,4 @@
     </style>
 
 </x-app-layout>
-```
+

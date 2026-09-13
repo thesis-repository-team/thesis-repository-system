@@ -20,11 +20,7 @@
             $isApprovedThesis =
                 $thesis &&
                 !is_null($thesis->published_at) &&
-                in_array(
-                    strtolower($thesis->publishedBy?->role ?? ''),
-                    ['admin', 'hod'],
-                    true
-                );
+                in_array(strtolower($thesis->publishedBy?->role ?? ''), ['admin', 'hod'], true);
         @endphp
 
         @if ($isApprovedThesis)
@@ -108,31 +104,21 @@
                         <div class="thesis-form-group">
                             <span class="thesis-form-label">Submitted By</span>
                             <div class="thesis-form-control">
-                                {{ $thesis->submittedBy?->name
-                                    ?? $thesis->submittedBy?->username
-                                    ?? $thesis->author_name
-                                    ?? 'N/A'
-                                }}
+                                {{ $thesis->submittedBy?->name ?? ($thesis->submittedBy?->username ?? ($thesis->author_name ?? 'N/A')) }}
                             </div>
                         </div>
 
                         <div class="thesis-form-group">
                             <span class="thesis-form-label">Submitted At</span>
                             <div class="thesis-form-control">
-                                {{ $thesis->created_at
-                                    ? \Carbon\Carbon::parse($thesis->created_at)->format('d M Y, h:i A')
-                                    : 'N/A'
-                                }}
+                                {{ $thesis->created_at ? \Carbon\Carbon::parse($thesis->created_at)->format('d M Y, h:i A') : 'N/A' }}
                             </div>
                         </div>
 
                         <div class="thesis-form-group">
                             <span class="thesis-form-label">Published By</span>
                             <div class="thesis-form-control">
-                                {{ $thesis->publishedBy?->name
-                                    ?? $thesis->publishedBy?->username
-                                    ?? 'N/A'
-                                }}
+                                {{ $thesis->publishedBy?->name ?? ($thesis->publishedBy?->username ?? 'N/A') }}
                             </div>
                         </div>
 
@@ -141,23 +127,17 @@
                             <div class="thesis-form-control">
 
                                 @if ($thesis->publishedBy?->role === 'admin')
-
                                     <span class="publisher-role publisher-admin">
                                         <i class="bi bi-shield-check"></i>
                                         Admin
                                     </span>
-
                                 @elseif ($thesis->publishedBy?->role === 'hod')
-
                                     <span class="publisher-role publisher-hod">
                                         <i class="bi bi-person-check-fill"></i>
                                         Head of Department
                                     </span>
-
                                 @else
-
                                     N/A
-
                                 @endif
 
                             </div>
@@ -166,10 +146,7 @@
                         <div class="thesis-form-group">
                             <span class="thesis-form-label">Published At</span>
                             <div class="thesis-form-control">
-                                {{ $thesis->published_at
-                                    ? \Carbon\Carbon::parse($thesis->published_at)->format('d M Y, h:i A')
-                                    : 'N/A'
-                                }}
+                                {{ $thesis->published_at ? \Carbon\Carbon::parse($thesis->published_at)->format('d M Y, h:i A') : 'N/A' }}
                             </div>
                         </div>
 
@@ -241,10 +218,7 @@
 
                                 <span>
                                     Official thesis document approved by
-                                    {{ $thesis->publishedBy?->role === 'admin'
-                                        ? 'Admin'
-                                        : 'Head of Department'
-                                    }}
+                                    {{ $thesis->publishedBy?->role === 'admin' ? 'Admin' : 'Head of Department' }}
                                 </span>
                             </div>
 
@@ -252,19 +226,12 @@
 
                         <div class="thesis-document-actions">
 
-                            <a
-                                href="#thesis-pdf-preview"
-                                class="thesis-view-pdf-button"
-                                id="viewPdfButton"
-                            >
-                                <i class="bi bi-eye-fill"></i>
-                                View PDF
+                            <a href="#thesis-pdf-preview" class="thesis-view-pdf-button" id="viewPdfButton">
+                                <i class="bi bi-file-earmark-pdf">PDF</i> 
                             </a>
 
-                            <a
-                                href="{{ route('student.thesis.download', $thesis->id) }}"
-                                class="thesis-download-pdf-button"
-                            >
+                            <a href="{{ route('student.thesis.download', $thesis->id) }}"
+                                class="thesis-download-pdf-button">
                                 <i class="bi bi-download"></i>
                                 Download PDF
                             </a>
@@ -273,10 +240,7 @@
 
                     </div>
 
-                    <div
-                        class="thesis-pdf-preview-box"
-                        id="thesis-pdf-preview"
-                    >
+                    <div class="thesis-pdf-preview-box" id="thesis-pdf-preview">
 
                         <div class="thesis-pdf-preview-header">
 
@@ -291,11 +255,7 @@
                                     Approved Document
                                 </span>
 
-                                <button
-                                    type="button"
-                                    class="thesis-pdf-close-button"
-                                    id="closePdfButton"
-                                >
+                                <button type="button" class="thesis-pdf-close-button" id="closePdfButton">
                                     <i class="bi bi-x-lg"></i>
                                     Close
                                 </button>
@@ -306,11 +266,8 @@
 
                         <div class="thesis-pdf-frame-wrapper">
 
-                            <iframe
-                                src="{{ route('student.thesis.view-pdf', $thesis->id) }}"
-                                title="Approved Thesis PDF Preview"
-                                class="thesis-pdf-frame"
-                            ></iframe>
+                            <iframe src="{{ route('student.thesis.view-pdf', $thesis->id) }}"
+                                title="Approved Thesis PDF Preview" class="thesis-pdf-frame"></iframe>
 
                         </div>
 
@@ -319,9 +276,7 @@
                 </div>
 
             </div>
-
         @else
-
             <div class="thesis-empty-state">
 
                 <div class="thesis-empty-icon">
@@ -1299,7 +1254,7 @@
     </style>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
             const viewPdfButton = document.getElementById('viewPdfButton');
             const closePdfButton = document.getElementById('closePdfButton');
@@ -1307,13 +1262,13 @@
 
             if (viewPdfButton && pdfPreview) {
 
-                viewPdfButton.addEventListener('click', function (event) {
+                viewPdfButton.addEventListener('click', function(event) {
 
                     event.preventDefault();
 
                     pdfPreview.classList.add('pdf-preview-visible');
 
-                    setTimeout(function () {
+                    setTimeout(function() {
 
                         pdfPreview.scrollIntoView({
                             behavior: 'smooth',
@@ -1328,11 +1283,11 @@
 
             if (closePdfButton && pdfPreview) {
 
-                closePdfButton.addEventListener('click', function () {
+                closePdfButton.addEventListener('click', function() {
 
                     pdfPreview.classList.remove('pdf-preview-visible');
 
-                    setTimeout(function () {
+                    setTimeout(function() {
 
                         viewPdfButton.scrollIntoView({
                             behavior: 'smooth',

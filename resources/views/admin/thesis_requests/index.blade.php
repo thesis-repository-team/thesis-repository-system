@@ -1909,7 +1909,7 @@
 
         .request-table tbody tr:hover {
 
-            background: #20253A !important;
+            background: #fafafa !important;
         }
 
 

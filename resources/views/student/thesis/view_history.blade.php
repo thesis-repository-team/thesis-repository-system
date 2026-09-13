@@ -41,9 +41,7 @@
 
                 <div class="thesis-view-toggle">
 
-                    <button type="button"
-                        id="thesisCardViewButton"
-                        class="thesis-view-button is-active"
+                    <button type="button" id="thesisCardViewButton" class="thesis-view-button is-active"
                         aria-label="Card View">
 
                         <i class="bi bi-grid-3x3-gap"></i>
@@ -54,9 +52,7 @@
 
                     </button>
 
-                    <button type="button"
-                        id="thesisTableViewButton"
-                        class="thesis-view-button"
+                    <button type="button" id="thesisTableViewButton" class="thesis-view-button"
                         aria-label="Table View">
 
                         <i class="bi bi-table"></i>
@@ -71,13 +67,11 @@
 
             </div>
 
-            <div id="historyThesisResults"
-                class="thesis-results-container">
+            <div id="historyThesisResults" class="thesis-results-container">
 
                 <div class="thesis-partial-card-results">
 
                     @forelse ($uniqueHistories as $history)
-
                         @php
                             $thesis = $history->thesis;
                         @endphp
@@ -249,8 +243,7 @@
                             <div class="admin-thesis-card-footer">
 
                                 <a href="{{ route('student.thesis.show', $thesis->id) }}"
-                                    class="admin-thesis-action admin-thesis-view-detail"
-                                    title="View Detail"
+                                    class="admin-thesis-action admin-thesis-view-detail" title="View Detail"
                                     aria-label="View Detail">
 
                                     <i class="bi bi-file-text"></i>
@@ -262,8 +255,7 @@
                                 </a>
 
                                 <a href="{{ route('student.thesis.view-pdf', $thesis->id) }}"
-                                    class="admin-thesis-action admin-thesis-view-pdf"
-                                    title="View PDF"
+                                    class="admin-thesis-action admin-thesis-view-pdf" title="View PDF"
                                     aria-label="View PDF">
 
                                     <i class="bi bi-file-earmark-pdf"></i>
@@ -297,7 +289,6 @@
                             </p>
 
                         </div>
-
                     @endforelse
 
                 </div>
@@ -355,7 +346,6 @@
                             <tbody>
 
                                 @forelse ($uniqueHistories as $history)
-
                                     @php
                                         $thesis = $history->thesis;
                                     @endphp
@@ -419,17 +409,14 @@
                                             <div class="thesis-table-actions">
 
                                                 <a href="{{ route('student.thesis.show', $thesis->id) }}"
-                                                    class="thesis-table-action thesis-table-view"
-                                                    title="View Detail"
+                                                    class="thesis-table-action thesis-table-view" title="View Detail"
                                                     aria-label="View Detail">
 
-                                                    <i class="bi bi-eye"></i>
-
+                                                    <i class="bi bi-file-text"></i>
                                                 </a>
 
                                                 <a href="{{ route('student.thesis.view-pdf', $thesis->id) }}"
-                                                    class="thesis-table-action thesis-table-pdf"
-                                                    title="View PDF"
+                                                    class="thesis-table-action thesis-table-pdf" title="View PDF"
                                                     aria-label="View PDF">
 
                                                     <i class="bi bi-file-earmark-pdf"></i>
@@ -446,8 +433,7 @@
 
                                     <tr>
 
-                                        <td colspan="9"
-                                            class="thesis-table-empty">
+                                        <td colspan="9" class="thesis-table-empty">
 
                                             <strong>
                                                 No View History
@@ -460,7 +446,6 @@
                                         </td>
 
                                     </tr>
-
                                 @endforelse
 
                             </tbody>
@@ -479,8 +464,7 @@
 
 
     <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
             const results =
                 document.getElementById('historyThesisResults');
@@ -529,14 +513,14 @@
 
             cardButton?.addEventListener(
                 'click',
-                function () {
+                function() {
                     setView('cards');
                 }
             );
 
             tableButton?.addEventListener(
                 'click',
-                function () {
+                function() {
                     setView('table');
                 }
             );
@@ -545,18 +529,16 @@
                 localStorage.getItem('studentHistoryView');
 
             setView(
-                savedView === 'table'
-                    ? 'table'
-                    : 'cards'
+                savedView === 'table' ?
+                'table' :
+                'cards'
             );
 
         });
-
     </script>
 
 
     <style>
-
         :root {
 
             --thesis-black: #111111;
@@ -596,10 +578,10 @@
             --thesis-pdf-hover: #B91C1C;
 
             --thesis-shadow:
-                0 8px 24px rgba(17,17,17,.08);
+                0 8px 24px rgba(17, 17, 17, .08);
 
             --thesis-card-shadow:
-                0 2px 10px rgba(17,17,17,.05);
+                0 2px 10px rgba(17, 17, 17, .05);
         }
 
 
@@ -638,10 +620,10 @@
             --thesis-pdf-hover: #DC2626;
 
             --thesis-shadow:
-                0 8px 24px rgba(0,0,0,.35);
+                0 8px 24px rgba(0, 0, 0, .35);
 
             --thesis-card-shadow:
-                0 2px 10px rgba(0,0,0,.30);
+                0 2px 10px rgba(0, 0, 0, .30);
         }
 
 
@@ -843,7 +825,7 @@
             background: var(--thesis-purple);
 
             box-shadow:
-                0 3px 8px rgba(101,56,217,.25);
+                0 3px 8px rgba(101, 56, 217, .25);
         }
 
 
@@ -892,7 +874,7 @@
             display: grid;
 
             grid-template-columns:
-                repeat(4,minmax(0,1fr));
+                repeat(4, minmax(0, 1fr));
 
             gap: 1.25rem;
 
@@ -910,15 +892,13 @@
         }
 
 
-        .thesis-results-container.table-mode
-        .thesis-partial-card-results {
+        .thesis-results-container.table-mode .thesis-partial-card-results {
 
             display: none;
         }
 
 
-        .thesis-results-container.table-mode
-        .thesis-partial-table-results {
+        .thesis-results-container.table-mode .thesis-partial-table-results {
 
             display: block;
         }
@@ -1046,7 +1026,7 @@
             display: grid;
 
             grid-template-columns:
-                repeat(2,minmax(0,1fr));
+                repeat(2, minmax(0, 1fr));
 
             gap: .45rem;
 
@@ -1364,7 +1344,7 @@
             transform: translateY(-1px);
 
             box-shadow:
-                0 4px 10px rgba(101,56,217,.18);
+                0 4px 10px rgba(101, 56, 217, .18);
         }
 
 
@@ -1393,7 +1373,7 @@
             transform: translateY(-1px);
 
             box-shadow:
-                0 4px 10px rgba(220,38,38,.18);
+                0 4px 10px rgba(220, 38, 38, .18);
         }
 
 
@@ -1729,7 +1709,7 @@
             transform: translateY(-1px);
 
             box-shadow:
-                0 3px 8px rgba(101,56,217,.18);
+                0 3px 8px rgba(101, 56, 217, .18);
         }
 
 
@@ -1758,7 +1738,7 @@
             transform: translateY(-1px);
 
             box-shadow:
-                0 3px 8px rgba(220,38,38,.18);
+                0 3px 8px rgba(220, 38, 38, .18);
         }
 
 
@@ -1796,7 +1776,7 @@
             .thesis-partial-card-results {
 
                 grid-template-columns:
-                    repeat(3,minmax(0,1fr));
+                    repeat(3, minmax(0, 1fr));
             }
 
         }
@@ -1807,7 +1787,7 @@
             .thesis-partial-card-results {
 
                 grid-template-columns:
-                    repeat(2,minmax(0,1fr));
+                    repeat(2, minmax(0, 1fr));
             }
 
 
@@ -2076,7 +2056,6 @@
             }
 
         }
-
     </style>
 
 </x-app-layout>

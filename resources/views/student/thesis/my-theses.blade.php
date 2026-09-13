@@ -522,7 +522,7 @@
                                                     aria-label="View Detail"
                                                 >
 
-                                                    <i class="bi bi-eye"></i>
+                                                    <i class="bi bi-file-text"></i>
 
                                                 </a>
 

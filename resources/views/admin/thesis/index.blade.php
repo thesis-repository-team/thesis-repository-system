@@ -994,7 +994,7 @@
 
             padding: 20px 0 15px 0;
 
-            margin: 100px 0 20px;
+            margin: 90px 0 20px;
 
             /* background: var(--thesis-page-bg); */
 
