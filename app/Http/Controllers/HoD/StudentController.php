@@ -11,17 +11,32 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $students = Student::with('department', 'user')->get();
-        $departments = Department::all();
-        $started_year = Student::whereNotNull('started_year')
+        $departmentId = auth()->user()->hod->department_id;
+        $department = auth()->user()->hod->department;
+
+        $students = Student::with('department', 'user')
+            ->where('department_id', $departmentId)
+            ->get();
+
+        $departments = Department::where('id', $departmentId)->get();
+
+        $started_year = Student::where('department_id', $departmentId)
+            ->whereNotNull('started_year')
             ->select('started_year')
             ->distinct()
             ->orderBy('started_year', 'desc')
             ->pluck('started_year');
-        $totalStudent = Student::count();
-        return view('hod.students.index', compact('students', 'departments','started_year', 'totalStudent'));
-    }
 
+        $totalStudent = Student::where('department_id', $departmentId)->count();
+
+        return view('hod.students.index', compact(
+            'department',
+            'students',
+            'departments',
+            'started_year',
+            'totalStudent'
+        ));
+    }
     public function edit(Student $student)
     {
         return view('hod.students.edit', compact('student'));
@@ -39,9 +54,11 @@ class StudentController extends Controller
     // Add a method to handle the search functionality for HoDs
     public function search(Request $request)
     {
+        $departmentId = auth()->user()->hod->department_id;
         $search = $request->search;
 
-        $query = Student::with(['user', 'department']);
+        $query = Student::with(['user', 'department'])
+            ->where('department_id', $departmentId);
 
         // Search
         if ($request->filled('search')) {
@@ -50,17 +67,7 @@ class StudentController extends Controller
                     ->orWhereHas('user', function ($user) use ($search) {
                         $user->where('username', 'like', "%{$search}%")
                             ->orWhere('email', 'like', "%{$search}%");
-                    })
-                    ->orWhereHas('department', function ($department) use ($search) {
-                        $department->where('name', 'like', "%{$search}%");
                     });
-            });
-        }
-
-        // Department filter
-        if ($request->filled('department')) {
-            $query->whereHas('department', function ($q) use ($request) {
-                $q->where('name', $request->department);
             });
         }
 
@@ -73,5 +80,4 @@ class StudentController extends Controller
 
         return view('hod.students.table', compact('students'));
     }
-
 }

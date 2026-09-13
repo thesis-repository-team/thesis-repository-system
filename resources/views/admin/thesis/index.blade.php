@@ -15,7 +15,7 @@
                         </span>
 
                         <h1 class="thesis-title">
-                            Thesis
+                            All Thesis
                         </h1>
 
                     </div>
@@ -1069,7 +1069,80 @@
             color: #FFFFFF;
         }
 
+        /* =========================================================
+   THESIS CARD EDIT BUTTON
+========================================================= */
 
+.admin-thesis-card-heading {
+    position: relative;
+    padding-right: 48px;
+}
+
+.admin-thesis-edit {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    background: transparent;
+
+    color: #6b7280;
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.admin-thesis-edit i {
+    font-size: 17px;
+}
+
+.admin-thesis-edit:hover {
+    color: #374151;
+    background: #f3f4f6;
+}
+
+.thesis-table-action.admin-thesis-edit {
+    position: static;
+    width: auto;
+    height: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    background: transparent;
+
+    color: #6b7280;
+    text-decoration: none;
+
+    padding: 0;
+    margin: 0;
+
+    border-radius: 0;
+
+    transition: color 0.2s ease;
+}
+
+.thesis-table-action.admin-thesis-edit:hover {
+    color: #374151;
+    background: transparent;
+}
+
+.thesis-table-action.admin-thesis-edit i {
+    font-size: 17px;
+}
         /* =========================================================
            HEADER BUTTONS
         ========================================================== */
