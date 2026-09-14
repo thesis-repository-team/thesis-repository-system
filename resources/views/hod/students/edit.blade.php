@@ -188,9 +188,7 @@
 
                         <button
                             type="submit"
-                            class="student-save-button"
-                        >
-                            <i class="bi bi-check-lg"></i>
+                            class="student-save-button">
                             Save Student
                         </button>
 
@@ -311,13 +309,13 @@
 
             width: 86%;
 
-            padding-top: 118px;
+            padding-top: 130px;
 
-            padding-left: 40px;
+            padding-left: 30px;
 
             padding-right: 40px;
 
-            padding-bottom: 30px;
+            padding-bottom: 40px;
 
             box-sizing: border-box;
 

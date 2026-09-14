@@ -936,7 +936,7 @@
 
                         {{-- MARK AS READ --}}
 
-                        @if ($isUnread)
+                        {{-- @if ($isUnread)
 
                             <form
                                 method="POST"
@@ -957,7 +957,7 @@
 
                             </form>
 
-                        @endif
+                        @endif --}}
 
                     </div>
 

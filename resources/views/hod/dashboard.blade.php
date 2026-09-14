@@ -645,6 +645,7 @@
 
         .dashboard-page {
             min-height: 100vh;
+            padding: 20px;
             color: var(--dashboard-text);
             background: var(--dashboard-page-bg);
             transition: color .25s ease, background-color .25s ease;

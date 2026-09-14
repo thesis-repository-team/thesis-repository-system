@@ -16,23 +16,25 @@
                         Thesis Requests
                     </h2>
 
-                    {{-- <p class="request-page-description">
+                    <p class="request-page-description">
                         Review and manage thesis upload requests.
-                    </p> --}}
+                    </p>
 
                 </div>
+                @if (auth()->user()->student->upload_permission)
+                    <div class="request-header-action">
 
-                <div class="request-header-action">
 
-                    <a href="{{ route('student.thesis_requests.create') }}" class="request-add-button">
-                        <i class="bi bi-plus-lg"></i>
+                        <a href="{{ route('student.thesis_requests.create') }}" class="request-add-button">
+                            <i class="bi bi-plus-lg"></i>
 
-                        <span>
-                            Add New Request
-                        </span>
-                    </a>
+                            <span>
+                                Add New Request
+                            </span>
+                        </a>
 
-                </div>
+                    </div>
+                @endif
 
             </div>
 
@@ -65,482 +67,773 @@
         @endif
 
 
-        <div id="requestResultsContainer">
+        @if (!auth()->user()->student->upload_permission)
 
-            <div class="request-view-row">
+            <div class="permission-card">
 
-                <div class="request-view-toggle">
+                <div class="permission-card-body">
 
-                    <button type="button" id="requestCardViewBtn" class="request-view-button active">
-                        <i class="bi bi-grid-3x3-gap-fill"></i>
+                    {{-- HEADER --}}
+                    <div class="permission-header">
 
-                        <span>
-                            Card
-                        </span>
-                    </button>
+                        <div class="permission-icon">
+                            <i class="bi bi-lock-fill"></i>
+                        </div>
 
+                        <h3>
+                            Thesis Upload Permission Required
+                        </h3>
 
-                    <button type="button" id="requestTableViewBtn" class="request-view-button">
-                        <i class="bi bi-table"></i>
+                        <p>
+                            Your account does not currently have permission
+                            to submit a thesis.
+                        </p>
 
-                        <span>
-                            Table
-                        </span>
-                    </button>
-
-                </div>
-
-            </div>
+                    </div>
 
 
-            <div id="requestCardView" class="request-grid">
+                    <div class="permission-divider"></div>
 
-                @forelse ($thesisRequests as $thesisRequest)
-                    <article class="request-card">
 
-                        <div class="request-card-content">
+                    {{-- WHY --}}
+                    <div class="information-section">
 
-                            <div class="request-title-row">
+                        <h4>
+                            Why can't I submit a thesis?
+                        </h4>
 
-                                <div class="request-title-area">
+                        <p>
+                            Students can only submit a thesis after receiving
+                            upload permission from their Head of Department.
+                            This process helps the school maintain control over
+                            thesis submissions and prevents unauthorized uploads.
+                        </p>
 
-                                    <div class="request-title-with-icon">
+                    </div>
 
-                                        <i class="bi bi-journal-text"></i>
 
-                                        <h3 class="request-title" title="{{ $thesisRequest->title }}">
-                                            {{ $thesisRequest->title }}
-                                        </h3>
+                    {{-- HOW TO GET PERMISSION --}}
+                    <div class="permission-information">
 
-                                    </div>
+                        <h4>
+                            How to get upload permission
+                        </h4>
 
+                        <p>
+                            If you are the
+                            <strong>
+                                team leader of a fourth-year academic group thesis
+                            </strong>,
+                            please go to your school and provide the following information:
+                        </p>
+
+
+                        <div class="information-grid">
+
+                            {{-- ACCOUNT --}}
+                            <div class="information-item">
+
+                                <div class="information-item-icon">
+                                    <i class="bi bi-person"></i>
                                 </div>
 
+                                <div>
+                                    <strong>
+                                        Account Name
+                                    </strong>
 
-                                @if ($thesisRequest->status === 'pending')
-                                    <span class="request-status pending">
-                                        <i class="bi bi-clock"></i>
-                                        Pending
-                                    </span>
-                                @elseif ($thesisRequest->status === 'approved')
-                                    <span class="request-status approved">
-                                        <i class="bi bi-check-circle"></i>
-                                        Approved
-                                    </span>
-                                @elseif ($thesisRequest->status === 'rejected')
-                                    <span class="request-status rejected">
-                                        <i class="bi bi-x-circle"></i>
-                                        Rejected
-                                    </span>
-                                @else
-                                    <span class="request-status unknown">
-                                        <i class="bi bi-question-circle"></i>
-                                        {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
-                                    </span>
-                                @endif
+                                    <small>
+                                        Your student account full name and username
+                                    </small>
+                                </div>
 
                             </div>
 
 
-                            <div class="request-information">
+                            {{-- EMAIL --}}
+                            <div class="information-item">
 
-                                <div class="request-info">
+                                <div class="information-item-icon">
+                                    <i class="bi bi-envelope"></i>
+                                </div>
 
-                                    <div class="request-info-icon">
-                                        <i class="bi bi-building"></i>
+                                <div>
+                                    <strong>
+                                        Email Address
+                                    </strong>
+
+                                    <small>
+                                        The email registered in your account
+                                    </small>
+                                </div>
+
+                            </div>
+
+
+                            {{-- DEPARTMENT --}}
+                            <div class="information-item">
+
+                                <div class="information-item-icon">
+                                    <i class="bi bi-building"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Department
+                                    </strong>
+
+                                    <small>
+                                        Your current academic department
+                                    </small>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <p class="permission-note">
+                            The Admin or Head of Department will review your
+                            information and grant upload permission when appropriate.
+                        </p>
+
+                    </div>
+
+
+                    {{-- WHEN TO SUBMIT --}}
+                    <div class="information-section">
+
+                        <h4>
+                            When should the thesis be submitted?
+                        </h4>
+
+                        <p>
+                            The thesis should be submitted to the repository only
+                            after the group has successfully completed the
+                            <strong>final thesis defense</strong>
+                            and finished all required corrections and final printing.
+                        </p>
+
+                        <p>
+                            At this stage, the final approved version of the thesis
+                            can be uploaded by the student team leader
+                            (with upload permission), the Head of Department,
+                            or the Admin.
+                        </p>
+
+                    </div>
+
+
+                    {{-- PROCESS --}}
+                    <div class="information-section">
+
+                        <h4>
+                            Thesis submission process
+                        </h4>
+
+
+                        {{-- STEP 1 --}}
+                        <div class="process-step">
+
+                            <div class="step-number">
+                                1
+                            </div>
+
+                            <div class="step-content">
+
+                                <strong>
+                                    Complete and pass the final defense
+                                </strong>
+
+                                <p>
+                                    Complete your thesis defense and make all
+                                    corrections required by your supervisor
+                                    or examination committee.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- STEP 2 --}}
+                        <div class="process-step">
+
+                            <div class="step-number">
+                                2
+                            </div>
+
+                            <div class="step-content">
+
+                                <strong>
+                                    Prepare the final version
+                                </strong>
+
+                                <p>
+                                    Prepare and print the final approved version
+                                    of your thesis before submitting it to the repository.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- STEP 3 --}}
+                        <div class="process-step">
+
+                            <div class="step-number">
+                                3
+                            </div>
+
+                            <div class="step-content">
+
+                                <strong>
+                                    Upload the final thesis
+                                </strong>
+
+                                <p>
+                                    The student team leader with upload permission,
+                                    Head of Department, or Admin can upload the
+                                    final thesis to the repository.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- STEP 4 --}}
+                        <div class="process-step">
+
+                            <div class="step-number">
+                                4
+                            </div>
+
+                            <div class="step-content">
+
+                                <strong>
+                                    Review and publish
+                                </strong>
+
+                                <p>
+                                    The submission is reviewed by the Head of
+                                    Department or Admin. Once approved, the final
+                                    thesis is published in the repository.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- REJECTION --}}
+                    <div class="rejection-notice">
+
+                        <div class="rejection-icon">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                If your thesis request is rejected
+                            </strong>
+
+                            <p>
+                                Please check the rejection comment from the Admin
+                                or Head of Department to understand what is wrong
+                                with your submission and make the necessary
+                                corrections before submitting again.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        @else
+            <div id="requestResultsContainer">
+
+                <div class="request-view-row">
+
+                    <div class="request-view-toggle">
+
+                        <button type="button" id="requestCardViewBtn" class="request-view-button active">
+                            <i class="bi bi-grid-3x3-gap-fill"></i>
+
+                            <span>
+                                Card
+                            </span>
+                        </button>
+
+
+                        <button type="button" id="requestTableViewBtn" class="request-view-button">
+                            <i class="bi bi-table"></i>
+
+                            <span>
+                                Table
+                            </span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div id="requestCardView" class="request-grid">
+
+                    @forelse ($thesisRequests as $thesisRequest)
+                        <article class="request-card">
+
+                            <div class="request-card-content">
+
+                                <div class="request-title-row">
+
+                                    <div class="request-title-area">
+
+                                        <div class="request-title-with-icon">
+
+                                            <i class="bi bi-journal-text"></i>
+
+                                            <h3 class="request-title" title="{{ $thesisRequest->title }}">
+                                                {{ $thesisRequest->title }}
+                                            </h3>
+
+                                        </div>
+
                                     </div>
 
-                                    <div class="request-info-content">
 
-                                        <span>
-                                            Department
+                                    @if ($thesisRequest->status === 'pending')
+                                        <span class="request-status pending">
+                                            <i class="bi bi-clock"></i>
+                                            Pending
                                         </span>
-
-                                        <strong>
-                                            {{ $thesisRequest->department?->name ?? 'N/A' }}
-                                        </strong>
-
-                                    </div>
+                                    @elseif ($thesisRequest->status === 'approved')
+                                        <span class="request-status approved">
+                                            <i class="bi bi-check-circle"></i>
+                                            Approved
+                                        </span>
+                                    @elseif ($thesisRequest->status === 'rejected')
+                                        <span class="request-status rejected">
+                                            <i class="bi bi-x-circle"></i>
+                                            Rejected
+                                        </span>
+                                    @else
+                                        <span class="request-status unknown">
+                                            <i class="bi bi-question-circle"></i>
+                                            {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
+                                        </span>
+                                    @endif
 
                                 </div>
 
 
-                                <div class="request-info">
+                                <div class="request-information">
 
-                                    <div class="request-info-icon">
-                                        <i class="bi bi-person"></i>
-                                    </div>
-
-                                    <div class="request-info-content">
-
-                                        <span>
-                                            Author
-                                        </span>
-
-                                        <strong>
-                                            {{ $thesisRequest->author_name ?? 'N/A' }}
-                                        </strong>
-
-                                    </div>
-
-                                </div>
-
-
-                                <div class="request-info">
-
-                                    <div class="request-info-icon">
-                                        <i class="bi bi-person-up"></i>
-                                    </div>
-
-                                    <div class="request-info-content">
-
-                                        <span>
-                                            Submitted By
-                                        </span>
-
-                                        <strong>
-                                            {{ $thesisRequest->user?->username ?? 'N/A' }}
-                                        </strong>
-
-                                    </div>
-
-                                </div>
-
-
-                                <div class="request-info">
-
-                                    <div class="request-info-icon">
-                                        <i class="bi bi-calendar3"></i>
-                                    </div>
-
-                                    <div class="request-info-content">
-
-                                        <span>
-                                            Submitted At
-                                        </span>
-
-                                        <strong>
-
-                                            @if ($thesisRequest->submitted_at)
-                                                {{ \Carbon\Carbon::parse($thesisRequest->submitted_at)->format('d M Y') }}
-                                            @else
-                                                N/A
-                                            @endif
-
-                                        </strong>
-
-                                    </div>
-
-                                </div>
-
-
-                                @if ($thesisRequest->thesis)
                                     <div class="request-info">
 
                                         <div class="request-info-icon">
-                                            <i class="bi bi-person-check"></i>
+                                            <i class="bi bi-building"></i>
                                         </div>
 
                                         <div class="request-info-content">
 
                                             <span>
-                                                Published By
+                                                Department
                                             </span>
 
                                             <strong>
-                                                {{ $thesisRequest->thesis?->publishedBy?->full_name ??
-                                                    ($thesisRequest->thesis?->publishedBy?->username ?? 'N/A') }}
+                                                {{ $thesisRequest->department?->name ?? 'N/A' }}
                                             </strong>
 
                                         </div>
 
                                     </div>
+
+
+                                    <div class="request-info">
+
+                                        <div class="request-info-icon">
+                                            <i class="bi bi-person"></i>
+                                        </div>
+
+                                        <div class="request-info-content">
+
+                                            <span>
+                                                Author
+                                            </span>
+
+                                            <strong>
+                                                {{ $thesisRequest->author_name ?? 'N/A' }}
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="request-info">
+
+                                        <div class="request-info-icon">
+                                            <i class="bi bi-person-up"></i>
+                                        </div>
+
+                                        <div class="request-info-content">
+
+                                            <span>
+                                                Submitted By
+                                            </span>
+
+                                            <strong>
+                                                {{ $thesisRequest->user?->username ?? 'N/A' }}
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="request-info">
+
+                                        <div class="request-info-icon">
+                                            <i class="bi bi-calendar3"></i>
+                                        </div>
+
+                                        <div class="request-info-content">
+
+                                            <span>
+                                                Submitted At
+                                            </span>
+
+                                            <strong>
+
+                                                @if ($thesisRequest->submitted_at)
+                                                    {{ \Carbon\Carbon::parse($thesisRequest->submitted_at)->format('d M Y') }}
+                                                @else
+                                                    N/A
+                                                @endif
+
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    @if ($thesisRequest->thesis)
+                                        <div class="request-info">
+
+                                            <div class="request-info-icon">
+                                                <i class="bi bi-person-check"></i>
+                                            </div>
+
+                                            <div class="request-info-content">
+
+                                                <span>
+                                                    Published By
+                                                </span>
+
+                                                <strong>
+                                                    {{ $thesisRequest->thesis?->publishedBy?->full_name ??
+                                                        ($thesisRequest->thesis?->publishedBy?->username ?? 'N/A') }}
+                                                </strong>
+
+                                            </div>
+
+                                        </div>
+                                    @endif
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="request-actions">
+
+                                <a href="{{ route('student.thesis_requests.show', $thesisRequest->id) }}"
+                                    class="request-action request-action-details" title="View Details"
+                                    aria-label="View Details">
+
+                                    <i class="bi bi-file-text"></i>
+
+                                    <span>
+                                        View Details
+                                    </span>
+
+                                </a>
+
+
+                                @if ($thesisRequest->thesis)
+                                    <a href="{{ route('student.thesis.view-pdf', $thesisRequest->thesis->id) }}"
+                                        target="_blank" class="request-action request-action-pdf" title="View PDF"
+                                        aria-label="View PDF">
+
+                                        <i class="bi bi-file-earmark-pdf"></i>
+
+                                        <span>
+                                            PDF
+                                        </span>
+
+                                    </a>
+                                @else
+                                    <span class="request-action request-action-pdf request-action-disabled"
+                                        title="No PDF">
+
+                                        <i class="bi bi-file-earmark-x"></i>
+
+                                        <span>
+                                            No PDF
+                                        </span>
+
+                                    </span>
                                 @endif
 
                             </div>
 
-                        </div>
+                        </article>
 
+                    @empty
 
-                        <div class="request-actions">
+                        <div class="request-empty">
 
-                            <a href="{{ route('student.thesis_requests.show', $thesisRequest->id) }}"
-                                class="request-action request-action-details" title="View Details"
-                                aria-label="View Details">
+                            <div class="request-empty-icon">
+                                <i class="bi bi-journal-x"></i>
+                            </div>
 
-                                <i class="bi bi-file-text"></i>
+                            <h3>
+                                No Thesis Requests
+                            </h3>
 
-                                <span>
-                                    View Details
-                                </span>
-
-                            </a>
-
-
-                            @if ($thesisRequest->thesis)
-                                <a href="{{ route('student.thesis.view-pdf', $thesisRequest->thesis->id) }}"
-                                    target="_blank" class="request-action request-action-pdf" title="View PDF"
-                                    aria-label="View PDF">
-
-                                    <i class="bi bi-file-earmark-pdf"></i>
-
-                                    <span>
-                                        PDF
-                                    </span>
-
-                                </a>
-                            @else
-                                <span class="request-action request-action-pdf request-action-disabled" title="No PDF">
-
-                                    <i class="bi bi-file-earmark-x"></i>
-
-                                    <span>
-                                        No PDF
-                                    </span>
-
-                                </span>
-                            @endif
+                            <p>
+                                There are currently no thesis upload requests.
+                            </p>
 
                         </div>
+                    @endforelse
 
-                    </article>
-
-                @empty
-
-                    <div class="request-empty">
-
-                        <div class="request-empty-icon">
-                            <i class="bi bi-journal-x"></i>
-                        </div>
-
-                        <h3>
-                            No Thesis Requests
-                        </h3>
-
-                        <p>
-                            There are currently no thesis upload requests.
-                        </p>
-
-                    </div>
-                @endforelse
-
-            </div>
+                </div>
 
 
-            <div id="requestTableView" class="request-table-container">
+                <div id="requestTableView" class="request-table-container">
 
-                <div class="request-table-scroll">
+                    <div class="request-table-scroll">
 
-                    <table class="request-table">
+                        <table class="request-table">
 
-                        <thead>
+                            <thead>
 
-                            <tr>
-
-                                <th>#</th>
-
-                                <th>Thesis Title</th>
-
-                                <th>Author</th>
-
-                                <th>Department</th>
-
-                                <th>Submitted By</th>
-
-                                <th>Submitted At</th>
-
-                                <th>Published By</th>
-
-                                <th>Status</th>
-
-                                <th>Actions</th>
-
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody>
-
-                            @forelse ($thesisRequests as $thesisRequest)
                                 <tr>
 
-                                    <td class="request-table-number">
-                                        {{ $loop->iteration }}
-                                    </td>
+                                    <th>#</th>
+
+                                    <th>Thesis Title</th>
+
+                                    <th>Author</th>
+
+                                    <th>Department</th>
+
+                                    <th>Submitted By</th>
+
+                                    <th>Submitted At</th>
+
+                                    <th>Published By</th>
+
+                                    <th>Status</th>
+
+                                    <th>Actions</th>
+
+                                </tr>
+
+                            </thead>
 
 
-                                    <td>
+                            <tbody>
 
-                                        <div class="request-table-title">
+                                @forelse ($thesisRequests as $thesisRequest)
+                                    <tr>
 
-                                            <span title="{{ $thesisRequest->title }}">
-                                                {{ $thesisRequest->title }}
+                                        <td class="request-table-number">
+                                            {{ $loop->iteration }}
+                                        </td>
+
+
+                                        <td>
+
+                                            <div class="request-table-title">
+
+                                                <span title="{{ $thesisRequest->title }}">
+                                                    {{ $thesisRequest->title }}
+                                                </span>
+
+                                            </div>
+
+                                        </td>
+
+
+                                        <td>
+
+                                            <span class="request-table-text">
+                                                {{ $thesisRequest->author_name ?? 'N/A' }}
                                             </span>
 
-                                        </div>
-
-                                    </td>
+                                        </td>
 
 
-                                    <td>
+                                        <td>
 
-                                        <span class="request-table-text">
-                                            {{ $thesisRequest->author_name ?? 'N/A' }}
-                                        </span>
+                                            <span class="request-table-department">
+                                                {{ $thesisRequest->department?->name ?? 'N/A' }}
+                                            </span>
 
-                                    </td>
-
-
-                                    <td>
-
-                                        <span class="request-table-department">
-                                            {{ $thesisRequest->department?->name ?? 'N/A' }}
-                                        </span>
-
-                                    </td>
+                                        </td>
 
 
-                                    <td>
+                                        <td>
 
-                                        <span class="request-table-text">
-                                            {{ $thesisRequest->user?->username ?? 'N/A' }}
-                                        </span>
+                                            <span class="request-table-text">
+                                                {{ $thesisRequest->user?->username ?? 'N/A' }}
+                                            </span>
 
-                                    </td>
+                                        </td>
 
 
-                                    <td>
+                                        <td>
 
-                                        <span class="request-table-text">
+                                            <span class="request-table-text">
 
-                                            @if ($thesisRequest->submitted_at)
-                                                {{ \Carbon\Carbon::parse($thesisRequest->submitted_at)->format('d M Y') }}
+                                                @if ($thesisRequest->submitted_at)
+                                                    {{ \Carbon\Carbon::parse($thesisRequest->submitted_at)->format('d M Y') }}
+                                                @else
+                                                    N/A
+                                                @endif
+
+                                            </span>
+
+                                        </td>
+
+
+                                        <td>
+
+                                            <span class="request-table-text">
+
+                                                @if ($thesisRequest->thesis)
+                                                    {{ $thesisRequest->thesis?->publishedBy?->full_name ??
+                                                        ($thesisRequest->thesis?->publishedBy?->username ?? 'N/A') }}
+                                                @else
+                                                    N/A
+                                                @endif
+
+                                            </span>
+
+                                        </td>
+
+
+                                        <td>
+
+                                            @if ($thesisRequest->status === 'pending')
+                                                <span class="request-table-status pending">
+                                                    <i class="bi bi-clock"></i>
+                                                    Pending
+                                                </span>
+                                            @elseif ($thesisRequest->status === 'approved')
+                                                <span class="request-table-status approved">
+                                                    <i class="bi bi-check-circle"></i>
+                                                    Approved
+                                                </span>
+                                            @elseif ($thesisRequest->status === 'rejected')
+                                                <span class="request-table-status rejected">
+                                                    <i class="bi bi-x-circle"></i>
+                                                    Rejected
+                                                </span>
                                             @else
-                                                N/A
-                                            @endif
-
-                                        </span>
-
-                                    </td>
-
-
-                                    <td>
-
-                                        <span class="request-table-text">
-
-                                            @if ($thesisRequest->thesis)
-                                                {{ $thesisRequest->thesis?->publishedBy?->full_name ??
-                                                    ($thesisRequest->thesis?->publishedBy?->username ?? 'N/A') }}
-                                            @else
-                                                N/A
-                                            @endif
-
-                                        </span>
-
-                                    </td>
-
-
-                                    <td>
-
-                                        @if ($thesisRequest->status === 'pending')
-                                            <span class="request-table-status pending">
-                                                <i class="bi bi-clock"></i>
-                                                Pending
-                                            </span>
-                                        @elseif ($thesisRequest->status === 'approved')
-                                            <span class="request-table-status approved">
-                                                <i class="bi bi-check-circle"></i>
-                                                Approved
-                                            </span>
-                                        @elseif ($thesisRequest->status === 'rejected')
-                                            <span class="request-table-status rejected">
-                                                <i class="bi bi-x-circle"></i>
-                                                Rejected
-                                            </span>
-                                        @else
-                                            <span class="request-table-status unknown">
-                                                <i class="bi bi-question-circle"></i>
-                                                {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
-                                            </span>
-                                        @endif
-
-                                    </td>
-
-
-                                    <td>
-
-                                        <div class="request-table-actions">
-
-                                            <a href="{{ route('student.thesis_requests.show', $thesisRequest->id) }}"
-                                                class="request-table-action request-table-details"
-                                                title="View Details" aria-label="View Details">
-
-                                                <i class="bi bi-file-text"></i>
-
-                                            </a>
-
-
-                                            @if ($thesisRequest->thesis)
-                                                <a href="{{ route('student.thesis.view-pdf', $thesisRequest->thesis->id) }}"
-                                                    target="_blank" class="request-table-action request-table-pdf"
-                                                    title="View PDF" aria-label="View PDF">
-
-                                                    <i class="bi bi-file-earmark-pdf"></i>
-
-                                                </a>
-                                            @else
-                                                <span class="request-table-action request-table-pdf disabled"
-                                                    title="No PDF" aria-label="No PDF">
-
-                                                    <i class="bi bi-file-earmark-x"></i>
-
+                                                <span class="request-table-status unknown">
+                                                    <i class="bi bi-question-circle"></i>
+                                                    {{ ucfirst($thesisRequest->status ?? 'Unknown') }}
                                                 </span>
                                             @endif
 
-                                        </div>
+                                        </td>
 
-                                    </td>
 
-                                </tr>
+                                        <td>
 
-                            @empty
+                                            <div class="request-table-actions">
 
-                                <tr>
+                                                <a href="{{ route('student.thesis_requests.show', $thesisRequest->id) }}"
+                                                    class="request-table-action request-table-details"
+                                                    title="View Details" aria-label="View Details">
 
-                                    <td colspan="9" class="request-table-empty">
+                                                    <i class="bi bi-eye"></i>
 
-                                        <div class="request-empty">
+                                                </a>
 
-                                            <div class="request-empty-icon">
-                                                <i class="bi bi-journal-x"></i>
+
+                                                @if ($thesisRequest->thesis)
+                                                    <a href="{{ route('student.thesis.view-pdf', $thesisRequest->thesis->id) }}"
+                                                        target="_blank" class="request-table-action request-table-pdf"
+                                                        title="View PDF" aria-label="View PDF">
+
+                                                        <i class="bi bi-file-earmark-pdf"></i>
+
+                                                    </a>
+                                                @else
+                                                    <span class="request-table-action request-table-pdf disabled"
+                                                        title="No PDF" aria-label="No PDF">
+
+                                                        <i class="bi bi-file-earmark-x"></i>
+
+                                                    </span>
+                                                @endif
+
                                             </div>
 
-                                            <h3>
-                                                No Thesis Requests
-                                            </h3>
+                                        </td>
 
-                                            <p>
-                                                There are currently no thesis upload requests.
-                                            </p>
+                                    </tr>
 
-                                        </div>
+                                @empty
 
-                                    </td>
+                                    <tr>
 
-                                </tr>
-                            @endforelse
+                                        <td colspan="9" class="request-table-empty">
 
-                        </tbody>
+                                            <div class="request-empty">
 
-                    </table>
+                                                <div class="request-empty-icon">
+                                                    <i class="bi bi-journal-x"></i>
+                                                </div>
+
+                                                <h3>
+                                                    No Thesis Requests
+                                                </h3>
+
+                                                <p>
+                                                    There are currently no thesis upload requests.
+                                                </p>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+                                @endforelse
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
 
                 </div>
 
             </div>
-
-        </div>
-
+        @endif
     </div>
 
 
@@ -649,23 +942,23 @@
 
             width: 100%;
 
-            margin-top: 90px;
+            margin-top: 100px;
             margin-bottom: 12px;
-            padding: 20px 0 15px 0;
 
+            padding: 18px 20px;
 
-            /* box-sizing: border-box;
+            box-sizing: border-box;
 
             background:
                 var(--thesis-request-card-bg);
 
             border:
-                1px solid var(--thesis-request-border-soft); */
+                1px solid var(--thesis-request-border-soft);
 
-            /* border-radius: 12px;
+            border-radius: 12px;
 
             box-shadow:
-                var(--thesis-request-card-shadow); */
+                var(--thesis-request-card-shadow);
 
         }
 
@@ -2160,6 +2453,310 @@
 
             border-bottom: none !important;
 
+        }
+
+
+        /* =========================================================
+   PERMISSION CARD
+========================================================= */
+
+        .permission-card {
+            width: 100%;
+            overflow: hidden;
+            background: var(--request-card, #fff);
+            border: 1px solid var(--request-border, #e8e8f0);
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(30, 25, 70, 0.06);
+        }
+
+        .permission-card-body {
+            padding: 36px;
+        }
+
+        /* =========================================================
+   HEADER
+========================================================= */
+
+        .permission-header {
+            text-align: center;
+        }
+
+        .permission-icon {
+            width: 68px;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            background: #fff0d8;
+            color: #ed8c16;
+            font-size: 1.65rem;
+        }
+
+        .permission-header h3 {
+            margin: 0 0 8px;
+            color: var(--request-text, #151a3b);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .permission-header p {
+            max-width: 650px;
+            margin: 0 auto;
+            color: var(--request-muted, #6d7392);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .permission-divider {
+            height: 1px;
+            margin: 28px 0;
+            background: var(--request-border, #e8e8f0);
+        }
+
+        /* =========================================================
+   INFORMATION
+========================================================= */
+
+        .information-section {
+            margin-bottom: 30px;
+        }
+
+        .information-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .information-section h4,
+        .permission-information h4 {
+            margin: 0 0 10px;
+            color: var(--request-text, #151a3b);
+            font-size: 1.02rem;
+            font-weight: 700;
+        }
+
+        .information-section p,
+        .permission-information p {
+            margin: 0 0 10px;
+            color: var(--request-muted, #6d7392);
+            font-size: 0.88rem;
+            line-height: 1.75;
+        }
+
+        .information-section strong,
+        .permission-information strong {
+            color: var(--request-text, #151a3b);
+        }
+
+        /* =========================================================
+   PERMISSION INFORMATION BOX
+========================================================= */
+
+        .permission-information {
+            padding: 22px;
+            margin-bottom: 30px;
+            background: #faf8ff;
+            border: 1px solid #ece6fc;
+            border-radius: 11px;
+        }
+
+        .information-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 13px;
+            margin: 18px 0;
+        }
+
+        .information-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #e8e8f0;
+            border-radius: 10px;
+            transition: 0.2s ease;
+        }
+
+        .information-item:hover {
+            border-color: #dcd0ff;
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(101, 56, 217, 0.07);
+        }
+
+        .information-item-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9px;
+            background: #e9ddff;
+            color: #6435d5;
+        }
+
+        .information-item strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.84rem;
+        }
+
+        .information-item small {
+            color: var(--request-muted, #6d7392);
+            font-size: 0.74rem;
+            line-height: 1.5;
+        }
+
+        .permission-note {
+            margin-bottom: 0 !important;
+        }
+
+        /* =========================================================
+   PROCESS STEPS
+========================================================= */
+
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+            margin-bottom: 18px;
+        }
+
+        .process-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            width: 31px;
+            height: 31px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #6538d9;
+            color: #fff;
+            font-size: 0.78rem;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(101, 56, 217, 0.18);
+        }
+
+        .step-content strong {
+            display: block;
+            margin-bottom: 3px;
+            color: var(--request-text, #151a3b);
+            font-size: 0.88rem;
+        }
+
+        .step-content p {
+            margin: 0;
+            color: var(--request-muted, #6d7392);
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+   REJECTION NOTICE
+========================================================= */
+
+        .rejection-notice {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+            padding: 16px;
+            background: #ffe9e9;
+            border: 1px solid #f5cccc;
+            border-radius: 10px;
+        }
+
+        .rejection-icon {
+            color: #e24242;
+            font-size: 1.2rem;
+        }
+
+        .rejection-notice strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #c92d2d;
+            font-size: 0.86rem;
+        }
+
+        .rejection-notice p {
+            margin: 0;
+            color: #b83333;
+            font-size: 0.78rem;
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+   RESPONSIVE
+========================================================= */
+
+        @media (max-width: 992px) {
+            .information-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .permission-card-body {
+                padding: 28px 22px;
+            }
+        }
+
+        /* =========================================================
+   DARK MODE
+========================================================= */
+
+        [data-bs-theme="dark"] .permission-card {
+            background: #181d33;
+            border-color: #292e45;
+        }
+
+        [data-bs-theme="dark"] .permission-header h3,
+        [data-bs-theme="dark"] .information-section h4,
+        [data-bs-theme="dark"] .permission-information h4,
+        [data-bs-theme="dark"] .information-section strong,
+        [data-bs-theme="dark"] .permission-information strong,
+        [data-bs-theme="dark"] .information-item strong {
+            color: #fff;
+        }
+
+        [data-bs-theme="dark"] .permission-header p,
+        [data-bs-theme="dark"] .information-section p,
+        [data-bs-theme="dark"] .permission-information p,
+        [data-bs-theme="dark"] .information-item small,
+        [data-bs-theme="dark"] .step-content p {
+            color: #999fb9;
+        }
+
+        [data-bs-theme="dark"] .permission-information {
+            background: #20253a;
+            border-color: #343a52;
+        }
+
+        [data-bs-theme="dark"] .information-item {
+            background: #181d33;
+            border-color: #343a52;
+        }
+
+        [data-bs-theme="dark"] .information-item:hover {
+            border-color: #4d3a8e;
+        }
+
+        [data-bs-theme="dark"] .permission-icon {
+            background: #3a2d19;
+            color: #f0a23a;
+        }
+
+        [data-bs-theme="dark"] .rejection-notice {
+            background: #3d2024;
+            border-color: #65343a;
+        }
+
+        [data-bs-theme="dark"] .rejection-icon,
+        [data-bs-theme="dark"] .rejection-notice strong,
+        [data-bs-theme="dark"] .rejection-notice p {
+            color: #f08080;
         }
 
 

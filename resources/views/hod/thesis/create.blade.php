@@ -1,4 +1,4 @@
-```blade
+
 <x-app-layout>
 
     <div class="thesis-create-wrapper">
@@ -339,10 +339,13 @@
             margin-left: 250px;
             width: 86%;
 
-            padding:
-                118px
-                20px
-                30px;
+            padding-top: 130px;
+
+            padding-left: 30px;
+
+            padding-right: 40px;
+
+            padding-bottom: 40px;
 
             box-sizing: border-box;
 
@@ -764,11 +767,11 @@
 
             gap: .6rem;
 
-            padding-top: 1rem;
+            padding-top: 0.5rem;
 
-            border-top:
+            /* border-top:
                 1px solid
-                var(--thesis-divider);
+                var(--thesis-divider); */
         }
 
 
@@ -1420,4 +1423,4 @@
     </style>
 
 </x-app-layout>
-```
+
