@@ -114,7 +114,7 @@
 
                             </div>
 
-                            <a href="{{ route('student.thesis.my-theses') }}" class="view-all">
+                            <a href="{{ route('student.my_thesis.my-theses') }}" class="view-all">
 
                                 <span>
                                     View all
@@ -298,7 +298,7 @@
 
                         @if (auth()->user()->role === 'student')
 
-                            <a href="{{ route('student.thesis.my-theses') }}" class="view-all">
+                            <a href="{{ route('student.my_thesis.my-theses') }}" class="view-all">
 
                                 <span>
                                     View my thesis
@@ -338,7 +338,7 @@
 
                         @if (auth()->user()->role === 'student')
 
-                            <a href="{{ route('student.thesis.my-theses') }}" class="hod-item quick-action">
+                            <a href="{{ route('student.my_thesis.my-theses') }}" class="hod-item quick-action">
 
                                 <div class="hod-avatar">
                                     <i class="bi bi-journal-text"></i>

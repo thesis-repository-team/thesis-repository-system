@@ -118,7 +118,7 @@ class ThesisController extends Controller
         // $keywords = Keyword::orderBy('keyword_name')->get();
         // $thesis->load('keywords');
 
-        return view('hod.thesis.edit', compact('thesis', 'departments'));
+        return view('hod.my_thesis.edit', compact('thesis', 'departments'));
     }
 
     public function update(Request $request, Thesis $thesis)
@@ -225,7 +225,7 @@ class ThesisController extends Controller
             ->with('files')
             ->get();
 
-        return view('hod.thesis.my-theses', compact('theses'));
+        return view('hod.my_thesis.my-theses', compact('theses'));
     }
 
     public function show(Thesis $thesis)

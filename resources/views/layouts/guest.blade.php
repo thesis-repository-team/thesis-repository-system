@@ -21,7 +21,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/css/auth.css', 'resources/css/dashboard.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 
+            'resources/css/auth.css', 
+            'resources/css/dashboard.css', 
+            'resources/js/app.js',
+            'resources/js/dashboard.js'])
 
 </head>
 

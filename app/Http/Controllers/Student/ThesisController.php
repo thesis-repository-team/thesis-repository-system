@@ -104,7 +104,7 @@ class ThesisController extends Controller
             ->get();
 
         return view(
-            'student.thesis.my-theses',
+            'student.my_thesis.my-theses',
             compact('theses')
         );
     }
@@ -344,7 +344,7 @@ class ThesisController extends Controller
             ->get();
 
         return view(
-            'student.thesis.view_history',
+            'student.history.view_history',
             compact('histories')
         );
     }

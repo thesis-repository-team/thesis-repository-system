@@ -83,6 +83,79 @@
                 </div>
 
 
+                {{-- THESIS DOCUMENT --}}
+                <div class="request-content-section">
+
+                    <div class="section-heading">
+
+                        <div class="section-heading-icon document-icon">
+                            <i class="bi bi-file-earmark-pdf-fill"></i>
+                        </div>
+
+                        <div>
+                            <h2>Thesis Document</h2>
+                            <p>Submitted thesis document.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="document-box">
+
+                        <div class="document-left">
+
+                            <div class="document-file-icon">
+                                <i class="bi bi-file-earmark-pdf-fill"></i>
+                            </div>
+
+                            <div class="document-details">
+
+                                <strong>
+                                    Submitted Thesis PDF
+                                </strong>
+
+                                <span>
+                                    Complete submitted document
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="document-actions">
+
+                            <a href="{{ route('hod.thesis_requests.view-request-pdf', $thesisRequest) }}"
+                               target="_blank"
+                               class="view-pdf-button">
+
+                                <i class="bi bi-file-earmark-pdf"></i>
+                                PDF
+
+                            </a>
+
+                            @if ($thesisRequest->status === 'approved' && $thesisRequest->thesis_id)
+
+                                <a
+                                    href="{{ route('hod.thesis.download', $thesisRequest->thesis_id) }}"
+                                    class="download-pdf-button"
+                                >
+
+                                    <i class="bi bi-download"></i>
+
+                                    Download PDF
+
+                                </a>
+
+                            @endif
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
                 {{-- REQUEST INFORMATION --}}
                 <div class="request-content-section">
 
@@ -235,64 +308,6 @@
 
                     <div class="text-content">
                         {{ $thesisRequest->description ?? 'No description provided.' }}
-                    </div>
-
-                </div>
-
-
-                {{-- THESIS DOCUMENT --}}
-                <div class="request-content-section">
-
-                    <div class="section-heading">
-
-                        <div class="section-heading-icon document-icon">
-                            <i class="bi bi-file-earmark-pdf-fill"></i>
-                        </div>
-
-                        <div>
-                            <h2>Thesis Document</h2>
-                            <p>Submitted thesis document.</p>
-                        </div>
-
-                    </div>
-
-
-                    <div class="document-box">
-
-                        <div class="document-left">
-
-                            <div class="document-file-icon">
-                                <i class="bi bi-file-earmark-pdf-fill"></i>
-                            </div>
-
-                            <div class="document-details">
-
-                                <strong>
-                                    Submitted Thesis PDF
-                                </strong>
-
-                                <span>
-                                    Complete submitted document
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="document-actions">
-
-                            <a href="{{ route('hod.thesis_requests.view-request-pdf', $thesisRequest) }}"
-                               target="_blank"
-                               class="view-pdf-button">
-
-                                <i class="bi bi-file-earmark-pdf"></i>
-                                PDF
-
-                            </a>
-
-                        </div>
-
                     </div>
 
                 </div>
@@ -570,6 +585,9 @@
             --request-purple: #5428C7;
             --request-purple-hover: #4520AA;
             --request-purple-soft: #f0ebff;
+
+            --request-blue: #2563eb;
+            --request-blue-hover: #1d4ed8;
 
             --request-green: #198754;
             --request-red: #dc3545;
@@ -1144,6 +1162,56 @@
             box-shadow:
                 0 4px 10px rgba(220, 53, 69, .18);
         }
+
+        .download-pdf-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 5px;
+
+            min-height: 36px;
+
+            padding: 7px 12px;
+
+            color: var(--request-blue) !important;
+
+            background: transparent;
+
+            border: 1px solid var(--request-blue) !important;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            font-size: .61rem;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+            transition:
+                color .2s ease,
+                background-color .2s ease,
+                border-color .2s ease,
+                transform .2s ease;
+        }
+
+
+        .download-pdf-button:hover {
+
+            color: #ffffff !important;
+
+            background: var(--request-blue);
+
+            border-color: var(--request-blue) !important;
+
+            transform: translateY(-1px);
+        }
+
 
 
         /* =========================================================
@@ -1845,6 +1913,25 @@
             background: #dc3545;
 
             border-color: #dc3545 !important;
+        }
+
+        [data-bs-theme="dark"] .download-pdf-button {
+
+            color: #60a5fa !important;
+
+            background: transparent;
+
+            border-color: #60a5fa !important;
+        }
+
+
+        [data-bs-theme="dark"] .download-pdf-button:hover {
+
+            color: #ffffff !important;
+
+            background: #3b82f6;
+
+            border-color: #3b82f6 !important;
         }
 
 

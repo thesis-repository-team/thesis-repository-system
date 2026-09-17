@@ -102,6 +102,107 @@
 
                 </div>
 
+                {{-- =================================================
+                    THESIS DOCUMENT
+                ================================================== --}}
+
+                <div class="request-content-section">
+
+                    <div class="section-heading">
+
+                        <div class="section-heading-icon document-icon">
+                            <i class="bi bi-file-earmark-pdf-fill"></i>
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Thesis Document
+                            </h2>
+
+                            <p>
+                                Submitted thesis document.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="document-box">
+
+                        {{-- DOCUMENT INFORMATION --}}
+
+                        <div class="document-left">
+
+                            <div class="document-file-icon">
+                                <i class="bi bi-file-earmark-pdf-fill"></i>
+                            </div>
+
+                            <div class="document-details">
+
+                                <strong>
+                                    Submitted Thesis PDF
+                                </strong>
+
+                                <span>
+                                    Complete submitted document
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- =================================================
+                            DOCUMENT ACTIONS
+                        ================================================== --}}
+
+                        <div class="document-actions">
+
+                            {{-- =================================================
+                                VIEW PDF
+                            ================================================== --}}
+
+                            <a
+                                href="{{ route('admin.thesis_requests.view-request-pdf', $thesisRequest) }}"
+                                target="_blank"
+                                class="view-pdf-button"
+                            >
+
+                               <i class="bi bi-file-earmark-pdf"></i>
+
+                                PDF
+
+                            </a>
+
+
+                            {{-- =================================================
+                                DOWNLOAD PDF
+                                ONLY WHEN APPROVED
+                            ================================================== --}}
+
+                            @if ($thesisRequest->status === 'approved' && $thesisRequest->thesis_id)
+
+                                <a
+                                    href="{{ route('admin.thesis.download', $thesisRequest->thesis_id) }}"
+                                    class="download-pdf-button"
+                                >
+
+                                    <i class="bi bi-download"></i>
+
+                                    Download PDF
+
+                                </a>
+
+                            @endif
+
+                        </div>
+
+                    </div>
+
+                </div>
+
 
                 {{-- =================================================
                     REQUEST INFORMATION
@@ -128,6 +229,8 @@
                         </div>
 
                     </div>
+
+                    
 
 
                     <div class="request-information-form">
@@ -312,106 +415,7 @@
                 </div>
 
 
-                {{-- =================================================
-                    THESIS DOCUMENT
-                ================================================== --}}
-
-                <div class="request-content-section">
-
-                    <div class="section-heading">
-
-                        <div class="section-heading-icon document-icon">
-                            <i class="bi bi-file-earmark-pdf-fill"></i>
-                        </div>
-
-                        <div>
-
-                            <h2>
-                                Thesis Document
-                            </h2>
-
-                            <p>
-                                Submitted thesis document.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="document-box">
-
-                        {{-- DOCUMENT INFORMATION --}}
-
-                        <div class="document-left">
-
-                            <div class="document-file-icon">
-                                <i class="bi bi-file-earmark-pdf-fill"></i>
-                            </div>
-
-                            <div class="document-details">
-
-                                <strong>
-                                    Submitted Thesis PDF
-                                </strong>
-
-                                <span>
-                                    Complete submitted document
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        {{-- =================================================
-                            DOCUMENT ACTIONS
-                        ================================================== --}}
-
-                        <div class="document-actions">
-
-                            {{-- =================================================
-                                VIEW PDF
-                            ================================================== --}}
-
-                            <a
-                                href="{{ route('admin.thesis_requests.view-request-pdf', $thesisRequest) }}"
-                                target="_blank"
-                                class="view-pdf-button"
-                            >
-
-                               <i class="bi bi-file-earmark-pdf"></i>
-
-                                PDF
-
-                            </a>
-
-
-                            {{-- =================================================
-                                DOWNLOAD PDF
-                                ONLY WHEN APPROVED
-                            ================================================== --}}
-
-                            @if ($thesisRequest->status === 'approved' && $thesisRequest->thesis_id)
-
-                                <a
-                                    href="{{ route('admin.thesis.download', $thesisRequest->thesis_id) }}"
-                                    class="download-pdf-button"
-                                >
-
-                                    <i class="bi bi-download"></i>
-
-                                    Download PDF
-
-                                </a>
-
-                            @endif
-
-                        </div>
-
-                    </div>
-
-                </div>
+                
 
 
                 {{-- =================================================

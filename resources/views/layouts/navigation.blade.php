@@ -40,11 +40,13 @@
 
             {{-- DASHBOARD --}}
             <a href="
-    @if (auth()->user()->role === 'admin') {{ route('admin.dashboard') }}
-    @elseif(auth()->user()->role === 'hod')
-        {{ route('hod.dashboard') }}
-    @else
-        {{ route('student.dashboard') }} @endif
+                @if (auth()->user()->role === 'admin')
+                    {{ route('admin.dashboard') }}
+                @elseif(auth()->user()->role === 'hod')
+                    {{ route('hod.dashboard') }}
+                @else
+                    {{ route('student.dashboard') }} 
+                @endif
 "
                 class="sidebar-link">
                 <i class="bi bi-grid"></i>
@@ -134,7 +136,7 @@
                 </a>
 
                 <a href="{{ route('hod.thesis.index') }}"
-                    class="sidebar-link {{ request()->routeIs('hod.thesis.index') ? 'active' : '' }}">
+                    class="sidebar-link {{ request()->routeIs('hod.thesis.*') ? 'active' : '' }}">
 
                     <i class="bi bi-journal-bookmark"></i>
                     <span>Theses</span>
@@ -142,8 +144,8 @@
                 </a>
 
 
-                <a href="{{ route('hod.thesis.my-theses') }}"
-                    class="sidebar-link {{ request()->routeIs('hod.thesis.my-theses') ? 'active' : '' }}">
+                <a href="{{ route('hod.my_thesis.my-theses') }}"
+                    class="sidebar-link {{ request()->routeIs('hod.my_thesis.*') ? 'active' : '' }}">
 
                     <i class="bi bi-bookmark-heart"></i>
                     <span>My Theses</span>
@@ -170,15 +172,15 @@
 
 
                 <a href="{{ route('student.thesis.index') }}"
-                    class="sidebar-link {{ request()->routeIs('student.thesis.index') ? 'active' : '' }}">
+                    class="sidebar-link {{ request()->routeIs('student.thesis.*') ? 'active' : '' }}">
 
                     <i class="bi bi-journal-bookmark"></i>
                     <span>Theses</span>
 
                 </a>
 
-                <a href="{{ route('student.thesis.my-theses') }}"
-                    class="sidebar-link {{ request()->routeIs('student.thesis.my-theses') ? 'active' : '' }}">
+                <a href="{{ route('student.my_thesis.my-theses') }}"
+                    class="sidebar-link {{ request()->routeIs('student.my_thesis.*') ? 'active' : '' }}">
 
                     <i class="bi bi-bookmark-heart"></i>
                     <span>My Theses</span>
@@ -195,8 +197,8 @@
                 </a>
 
 
-                <a href="{{ route('student.thesis.view_history') }}"
-                    class="sidebar-link {{ request()->routeIs('student.thesis.view_history') ? 'active' : '' }}">
+                <a href="{{ route('student.history.view_history') }}"
+                    class="sidebar-link {{ request()->routeIs('student.history.view_history') ? 'active' : '' }}">
 
                     <i class="bi bi-clock-history"></i>
                     <span>View History</span>
@@ -224,7 +226,7 @@
 
                 </a>
 
-                <a href="{{ route('student.thesis.view_history') }}"
+                <a href="{{ route('student.history.view_history') }}"
                     class="sidebar-link {{ request()->routeIs('student.thesis.view_history') ? 'active' : '' }}">
 
                     <i class="bi bi-clock-history"></i>
@@ -347,7 +349,7 @@
 
                     </div>
 
-                    <i class="bi bi-chevron-down"></i>
+                    {{-- <i class="bi bi-chevron-down"></i> --}}
 
                 </a>
 
@@ -467,8 +469,8 @@
                 </a>
 
 
-                <a href="{{ route('hod.thesis.my-theses') }}"
-                    class="mobile-nav-link {{ request()->routeIs('hod.thesis.my-theses') ? 'active' : '' }}">
+                <a href="{{ route('hod.my_thesis.my-theses') }}"
+                    class="mobile-nav-link {{ request()->routeIs('hod.my_thesis.my-theses') ? 'active' : '' }}">
 
                     <i class="bi bi-bookmark-heart"></i>
                     <span>My Theses</span>
@@ -493,8 +495,8 @@
                 </a>
 
 
-                <a href="{{ route('student.thesis.my-theses') }}"
-                    class="mobile-nav-link {{ request()->routeIs('student.thesis.my-theses') ? 'active' : '' }}">
+                <a href="{{ route('student.my_thesis.my-theses') }}"
+                    class="mobile-nav-link {{ request()->routeIs('student.my_thesis.my-theses') ? 'active' : '' }}">
 
                     <i class="bi bi-bookmark-heart"></i>
                     <span>My Theses</span>
@@ -511,8 +513,8 @@
                 </a>
 
 
-                <a href="{{ route('student.thesis.view_history') }}"
-                    class="mobile-nav-link {{ request()->routeIs('student.thesis.view_history') ? 'active' : '' }}">
+                <a href="{{ route('student.history.view_history') }}"
+                    class="mobile-nav-link {{ request()->routeIs('student.history.view_history') ? 'active' : '' }}">
 
                     <i class="bi bi-clock-history"></i>
                     <span>View History</span>
@@ -536,8 +538,8 @@
 
                 </a>
 
-                <a href="{{ route('student.thesis.view_history') }}"
-                    class="mobile-nav-link {{ request()->routeIs('student.thesis.view_history') ? 'active' : '' }}">
+                <a href="{{ route('student.history.view_history') }}"
+                    class="mobile-nav-link {{ request()->routeIs('student.thesis.*') ? 'active' : '' }}">
 
                     <i class="bi bi-clock-history"></i>
                     <span>View History</span>

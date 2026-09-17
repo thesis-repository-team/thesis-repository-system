@@ -58,6 +58,89 @@
                     </div>
                 </div>
 
+                 <div class="thesis-show-content-section">
+
+                    <div class="thesis-section-heading">
+                        <div class="thesis-section-heading-icon thesis-document-icon">
+                            <i class="bi bi-file-earmark-pdf-fill"></i>
+                        </div>
+
+                        <div>
+                            <h2>Thesis Document</h2>
+                            <p>Official approved thesis document.</p>
+                        </div>
+                    </div>
+
+                    <div class="thesis-document-box">
+
+                        <div class="thesis-document-left">
+
+                            <div class="thesis-document-file-icon">
+                                <i class="bi bi-file-earmark-pdf-fill"></i>
+                            </div>
+
+                            <div class="thesis-document-details">
+                                <strong>Approved Thesis PDF</strong>
+
+                                <span>
+                                    Official thesis document approved by
+                                    {{ $thesis->publishedBy?->role === 'admin' ? 'Admin' : 'Head of Department' }}
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="thesis-document-actions">
+
+                            <a href="#thesis-pdf-preview" class="thesis-view-pdf-button" id="viewPdfButton">
+                                <i class="bi bi-file-earmark-pdf">PDF</i> 
+                            </a>
+
+                            <a href="{{ route('student.thesis.download', $thesis->id) }}"
+                                class="thesis-download-pdf-button">
+                                <i class="bi bi-download"></i>
+                                Download PDF
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div class="thesis-pdf-preview-box" id="thesis-pdf-preview">
+
+                        <div class="thesis-pdf-preview-header">
+
+                            <div class="thesis-pdf-preview-title">
+                                <i class="bi bi-file-earmark-pdf-fill"></i>
+                                <span>PDF Preview</span>
+                            </div>
+
+                            <div class="thesis-pdf-preview-header-actions">
+
+                                <span class="thesis-pdf-preview-status">
+                                    Approved Document
+                                </span>
+
+                                <button type="button" class="thesis-pdf-close-button" id="closePdfButton">
+                                    <i class="bi bi-x-lg"></i>
+                                    Close
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <div class="thesis-pdf-frame-wrapper">
+
+                            <iframe src="{{ route('student.thesis.view-pdf', $thesis->id) }}"
+                                title="Approved Thesis PDF Preview" class="thesis-pdf-frame"></iframe>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
                 <div class="thesis-show-content-section">
 
                     <div class="thesis-section-heading">
@@ -192,88 +275,7 @@
 
                 </div>
 
-                <div class="thesis-show-content-section">
-
-                    <div class="thesis-section-heading">
-                        <div class="thesis-section-heading-icon thesis-document-icon">
-                            <i class="bi bi-file-earmark-pdf-fill"></i>
-                        </div>
-
-                        <div>
-                            <h2>Thesis Document</h2>
-                            <p>Official approved thesis document.</p>
-                        </div>
-                    </div>
-
-                    <div class="thesis-document-box">
-
-                        <div class="thesis-document-left">
-
-                            <div class="thesis-document-file-icon">
-                                <i class="bi bi-file-earmark-pdf-fill"></i>
-                            </div>
-
-                            <div class="thesis-document-details">
-                                <strong>Approved Thesis PDF</strong>
-
-                                <span>
-                                    Official thesis document approved by
-                                    {{ $thesis->publishedBy?->role === 'admin' ? 'Admin' : 'Head of Department' }}
-                                </span>
-                            </div>
-
-                        </div>
-
-                        <div class="thesis-document-actions">
-
-                            <a href="#thesis-pdf-preview" class="thesis-view-pdf-button" id="viewPdfButton">
-                                <i class="bi bi-file-earmark-pdf">PDF</i> 
-                            </a>
-
-                            <a href="{{ route('student.thesis.download', $thesis->id) }}"
-                                class="thesis-download-pdf-button">
-                                <i class="bi bi-download"></i>
-                                Download PDF
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                    <div class="thesis-pdf-preview-box" id="thesis-pdf-preview">
-
-                        <div class="thesis-pdf-preview-header">
-
-                            <div class="thesis-pdf-preview-title">
-                                <i class="bi bi-file-earmark-pdf-fill"></i>
-                                <span>PDF Preview</span>
-                            </div>
-
-                            <div class="thesis-pdf-preview-header-actions">
-
-                                <span class="thesis-pdf-preview-status">
-                                    Approved Document
-                                </span>
-
-                                <button type="button" class="thesis-pdf-close-button" id="closePdfButton">
-                                    <i class="bi bi-x-lg"></i>
-                                    Close
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                        <div class="thesis-pdf-frame-wrapper">
-
-                            <iframe src="{{ route('student.thesis.view-pdf', $thesis->id) }}"
-                                title="Approved Thesis PDF Preview" class="thesis-pdf-frame"></iframe>
-
-                        </div>
-
-                    </div>
-
-                </div>
+               
 
             </div>
         @else

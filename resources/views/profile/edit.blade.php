@@ -20,7 +20,7 @@
                 CLOSE BUTTON
                 GO BACK TO DASHBOARD
             ================================================== --}}
-                @php
+                {{-- @php
                     $dashboardRoute = match (auth()->user()->role) {
                         'admin' => 'admin.dashboard',
                         'hod' => 'hod.dashboard',
@@ -28,7 +28,15 @@
                     };
                 @endphp
 
+
                 <a href="{{ route($dashboardRoute) }}" class="profile-popup-close" aria-label="{{ __('Close') }}"
+                    title="{{ __('Close') }}">
+                    <i class="bi bi-x-lg"></i>
+                </a> --}}
+
+                {{-- Go back to the page they came from --}}
+
+                <a href="{{ url()->previous() }}" class="profile-popup-close" aria-label="{{ __('Close') }}"
                     title="{{ __('Close') }}">
                     <i class="bi bi-x-lg"></i>
                 </a>
@@ -565,50 +573,101 @@
     PROFILE POPUP CSS
     STYLE ONLY
 ============================================================= --}}
-
     <style>
         /* =========================================================
-       VARIABLES
+       PROFILE THEME VARIABLES
+       LIGHT = WHITE + PURPLE
+       DARK  = BLACK + PURPLE
     ========================================================= */
 
         :root {
+            --profile-black: #111111;
+            --profile-white: #ffffff;
 
-            --profile-bg: #f5f6f8;
-            --profile-card: #ffffff;
-            --profile-text: #171717;
-            --profile-muted: #6b7280;
-            --profile-border: #e5e7eb;
-            --profile-input: #ffffff;
+            --profile-purple: #6538D9;
+            --profile-purple-hover: #5428C7;
 
-            --profile-primary: #4f46e5;
-            --profile-primary-hover: #4338ca;
+            --profile-purple-light: #F5F3FF;
+            --profile-purple-soft: #EDE9FE;
 
-            --profile-danger: #dc2626;
-            --profile-danger-bg: #fef2f2;
-            --profile-danger-border: #fecaca;
+            --profile-page-bg: #FAFAFA;
+            --profile-card: #FFFFFF;
+            --profile-input: #F9FAFB;
 
-            --profile-success: #16a34a;
-            --profile-success-bg: #f0fdf4;
-            --profile-success-border: #bbf7d0;
+            --profile-text: #111111;
+            --profile-text-secondary: #4B5563;
+            --profile-muted: #6B7280;
 
-            --profile-warning: #92400e;
-            --profile-warning-bg: #fffbeb;
-            --profile-warning-border: #fde68a;
+            --profile-border: #E5E7EB;
+
+            --profile-danger: #DC2626;
+            --profile-danger-hover: #B91C1C;
+            --profile-danger-bg: #FEF2F2;
+            --profile-danger-border: #FECACA;
+
+            --profile-success: #16A34A;
+            --profile-success-bg: #F0FDF4;
+            --profile-success-border: #BBF7D0;
+
+            --profile-warning: #92400E;
+            --profile-warning-bg: #FFFBEB;
+            --profile-warning-border: #FDE68A;
 
             --profile-shadow:
-                0 25px 80px rgba(0, 0, 0, .25);
+                0 25px 80px rgba(17, 17, 17, .18);
         }
 
 
         /* =========================================================
-       POPUP PAGE
+       DARK MODE
+       BLACK + PURPLE
+    ========================================================= */
+
+        [data-bs-theme="dark"] {
+            --profile-black: #000000;
+            --profile-white: #ffffff;
+
+            --profile-purple: #7C5CE3;
+            --profile-purple-hover: #9278EA;
+
+            --profile-purple-light: #292342;
+            --profile-purple-soft: #342C52;
+
+            --profile-page-bg: #101426;
+            --profile-card: #181D33;
+            --profile-input: #20253A;
+
+            --profile-text: #FFFFFF;
+            --profile-text-secondary: #D5D8E8;
+            --profile-muted: #999FB9;
+
+            --profile-border: #292E45;
+
+            --profile-danger: #F87171;
+            --profile-danger-hover: #EF4444;
+            --profile-danger-bg: rgba(127, 29, 29, .20);
+            --profile-danger-border: rgba(248, 113, 113, .30);
+
+            --profile-success: #4ADE80;
+            --profile-success-bg: rgba(20, 83, 45, .20);
+            --profile-success-border: rgba(74, 222, 128, .28);
+
+            --profile-warning: #FBBF24;
+            --profile-warning-bg: rgba(120, 53, 15, .20);
+            --profile-warning-border: rgba(251, 191, 36, .28);
+
+            --profile-shadow:
+                0 25px 80px rgba(0, 0, 0, .55);
+        }
+
+
+        /* =========================================================
+       PAGE
     ========================================================= */
 
         .profile-modal-page {
-
             position: fixed;
             inset: 0;
-
             width: 100%;
             height: 100vh;
 
@@ -622,7 +681,6 @@
             overflow-y: auto;
 
             background: transparent !important;
-
             color: var(--profile-text);
 
             z-index: 9999;
@@ -634,25 +692,30 @@
     ========================================================= */
 
         .profile-modal-page::before {
-
             content: "";
 
             position: fixed;
             inset: 0;
 
-            background: rgba(0, 0, 0, .38);
+            background: rgba(17, 17, 17, .38);
 
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
 
             z-index: -1;
-
             pointer-events: all;
         }
 
 
+        /* DARK OVERLAY */
+
+        [data-bs-theme="dark"] .profile-modal-page::before {
+            background: rgba(0, 0, 0, .68);
+        }
+
+
         /* =========================================================
-       LOCK BODY SCROLL
+       BODY SCROLL LOCK
     ========================================================= */
 
         body.profile-modal-open {
@@ -661,11 +724,10 @@
 
 
         /* =========================================================
-       POPUP WRAPPER
+       WRAPPER
     ========================================================= */
 
         .profile-modal-wrapper {
-
             position: relative;
 
             width: 100%;
@@ -678,15 +740,15 @@
 
 
         /* =========================================================
-       POPUP CARD
+       PROFILE CARD
+       LIGHT = WHITE
+       DARK = BLACK/DARK
     ========================================================= */
 
         .profile-modal-card {
-
             position: relative;
 
             width: 100%;
-
             max-height: calc(100vh - 60px);
 
             overflow-y: auto;
@@ -694,17 +756,45 @@
             background: var(--profile-card);
 
             border: 1px solid var(--profile-border);
-
             border-radius: 18px;
 
             box-shadow: var(--profile-shadow);
 
             scrollbar-width: thin;
-
             scrollbar-color:
-                rgba(107, 114, 128, .35) transparent;
+                rgba(101, 56, 217, .45) transparent;
 
             animation: profilePopupIn .28s ease-out;
+        }
+
+
+        /* DARK CARD */
+
+        [data-bs-theme="dark"] .profile-modal-card {
+            background: #111111;
+            border-color: #292E45;
+        }
+
+
+        /* =========================================================
+       SCROLLBAR
+    ========================================================= */
+
+        .profile-modal-card::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        .profile-modal-card::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .profile-modal-card::-webkit-scrollbar-thumb {
+            background: rgba(101, 56, 217, .45);
+            border-radius: 20px;
+        }
+
+        .profile-modal-card::-webkit-scrollbar-thumb:hover {
+            background: var(--profile-purple);
         }
 
 
@@ -713,7 +803,6 @@
     ========================================================= */
 
         .profile-popup-close {
-
             position: absolute;
 
             top: 18px;
@@ -727,11 +816,9 @@
             justify-content: center;
 
             border: 1px solid var(--profile-border);
-
             border-radius: 10px;
 
             background: var(--profile-card);
-
             color: var(--profile-muted);
 
             text-decoration: none;
@@ -752,40 +839,45 @@
 
 
         .profile-popup-close:hover {
-
-            background: var(--profile-danger-bg);
-
-            color: var(--profile-danger);
-
-            border-color: var(--profile-danger-border);
+            background: var(--profile-purple);
+            color: #ffffff;
+            border-color: var(--profile-purple);
 
             transform: rotate(4deg);
 
             box-shadow:
-                0 5px 15px rgba(0, 0, 0, .08);
+                0 5px 15px rgba(101, 56, 217, .25);
+        }
+
+
+        /* DARK CLOSE */
+
+        [data-bs-theme="dark"] .profile-popup-close {
+            background: #181D33;
+            border-color: #292E45;
+            color: #999FB9;
+        }
+
+        [data-bs-theme="dark"] .profile-popup-close:hover {
+            background: var(--profile-purple);
+            border-color: var(--profile-purple);
+            color: #ffffff;
         }
 
 
         /* =========================================================
-       POPUP ANIMATION
+       ANIMATION
     ========================================================= */
 
         @keyframes profilePopupIn {
-
             from {
-
                 opacity: 0;
-
-                transform:
-                    translateY(18px) scale(.97);
+                transform: translateY(18px) scale(.97);
             }
 
             to {
-
                 opacity: 1;
-
-                transform:
-                    translateY(0) scale(1);
+                transform: translateY(0) scale(1);
             }
         }
 
@@ -806,7 +898,6 @@
 
 
         .profile-title {
-
             margin: 0;
 
             color: var(--profile-text);
@@ -819,7 +910,6 @@
 
 
         .profile-description {
-
             margin-top: 6px;
             margin-bottom: 0;
 
@@ -835,9 +925,7 @@
     ========================================================= */
 
         .profile-form {
-
             display: flex;
-
             flex-direction: column;
 
             gap: 20px;
@@ -850,11 +938,20 @@
 
 
         /* =========================================================
+       LABEL
+    ========================================================= */
+
+        .profile-modal-card label {
+            color: var(--profile-text);
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
        INPUT
     ========================================================= */
 
         .form-input {
-
             display: block;
 
             width: 100%;
@@ -862,7 +959,6 @@
             margin-top: 7px;
 
             background: var(--profile-input) !important;
-
             color: var(--profile-text) !important;
 
             border: 1px solid var(--profile-border) !important;
@@ -876,17 +972,52 @@
         }
 
 
-        .form-input:focus {
+        .form-input:hover {
+            border-color: var(--profile-purple) !important;
+        }
 
-            border-color:
-                var(--profile-primary) !important;
+
+        .form-input:focus {
+            border-color: var(--profile-purple) !important;
 
             box-shadow:
-                0 0 0 4px rgba(79, 70, 229, .12) !important;
+                0 0 0 4px rgba(101, 56, 217, .14) !important;
 
             outline: none;
         }
 
+
+        /* DARK INPUT */
+
+        [data-bs-theme="dark"] .form-input {
+            background: #20253A !important;
+            color: #FFFFFF !important;
+
+            border-color: #292E45 !important;
+        }
+
+
+        [data-bs-theme="dark"] .form-input:hover {
+            border-color: var(--profile-purple) !important;
+        }
+
+
+        [data-bs-theme="dark"] .form-input:focus {
+            border-color: var(--profile-purple) !important;
+
+            box-shadow:
+                0 0 0 4px rgba(124, 92, 227, .18) !important;
+        }
+
+
+        .form-input::placeholder {
+            color: var(--profile-muted) !important;
+        }
+
+
+        /* =========================================================
+       ERROR
+    ========================================================= */
 
         .form-error {
             margin-top: 6px;
@@ -898,11 +1029,9 @@
     ========================================================= */
 
         .profile-alert {
-
             position: relative;
 
             display: flex;
-
             align-items: flex-start;
 
             gap: 12px;
@@ -916,7 +1045,6 @@
             border-radius: 10px;
 
             font-size: 14px;
-
             line-height: 1.5;
 
             transition:
@@ -927,14 +1055,12 @@
 
 
         .profile-alert-icon {
-
             flex: 0 0 auto;
 
             width: 22px;
             height: 22px;
 
             display: flex;
-
             align-items: center;
             justify-content: center;
 
@@ -943,37 +1069,29 @@
 
 
         .profile-alert-content {
-
             min-width: 0;
-
             flex: 1;
         }
 
 
         .profile-alert-content strong {
-
             display: block;
 
             font-size: 14px;
-
             font-weight: 700;
         }
 
 
         .profile-alert-content p {
-
             margin: 3px 0 0;
 
             font-size: 13px;
-
             line-height: 1.5;
         }
 
 
         .profile-alert-content ul {
-
             margin: 6px 0 0;
-
             padding-left: 18px;
         }
 
@@ -984,25 +1102,21 @@
 
 
         .profile-alert-close {
-
             flex: 0 0 auto;
 
             width: 28px;
             height: 28px;
 
             display: flex;
-
             align-items: center;
             justify-content: center;
 
             margin: -3px -5px 0 0;
 
             border: 0;
-
             border-radius: 7px;
 
             background: transparent;
-
             color: inherit;
 
             font-size: 12px;
@@ -1018,11 +1132,10 @@
 
 
         .profile-alert-close:hover {
-
             opacity: 1;
 
             background:
-                rgba(0, 0, 0, .06);
+                rgba(101, 56, 217, .10);
         }
 
 
@@ -1031,22 +1144,26 @@
     ========================================================= */
 
         .profile-alert-danger {
+            border: 1px solid var(--profile-danger-border);
 
-            border:
-                1px solid var(--profile-danger-border);
+            background: var(--profile-danger-bg);
 
-            background:
-                var(--profile-danger-bg);
-
-            color:
-                #991b1b;
+            color: #991B1B;
         }
 
 
         .profile-alert-danger .profile-alert-icon {
+            color: var(--profile-danger);
+        }
 
-            color:
-                var(--profile-danger);
+
+        [data-bs-theme="dark"] .profile-alert-danger {
+            background: rgba(127, 29, 29, .20);
+
+            border-color:
+                rgba(248, 113, 113, .30);
+
+            color: #FCA5A5;
         }
 
 
@@ -1055,22 +1172,26 @@
     ========================================================= */
 
         .profile-alert-success {
+            border: 1px solid var(--profile-success-border);
 
-            border:
-                1px solid var(--profile-success-border);
+            background: var(--profile-success-bg);
 
-            background:
-                var(--profile-success-bg);
-
-            color:
-                #166534;
+            color: #166534;
         }
 
 
         .profile-alert-success .profile-alert-icon {
+            color: var(--profile-success);
+        }
 
-            color:
-                var(--profile-success);
+
+        [data-bs-theme="dark"] .profile-alert-success {
+            background: rgba(20, 83, 45, .20);
+
+            border-color:
+                rgba(74, 222, 128, .28);
+
+            color: #86EFAC;
         }
 
 
@@ -1079,21 +1200,26 @@
     ========================================================= */
 
         .profile-alert-warning {
+            border: 1px solid var(--profile-warning-border);
 
-            border:
-                1px solid var(--profile-warning-border);
+            background: var(--profile-warning-bg);
 
-            background:
-                var(--profile-warning-bg);
-
-            color:
-                var(--profile-warning);
+            color: var(--profile-warning);
         }
 
 
         .profile-alert-warning .profile-alert-icon {
+            color: #D97706;
+        }
 
-            color: #d97706;
+
+        [data-bs-theme="dark"] .profile-alert-warning {
+            background: rgba(120, 53, 15, .20);
+
+            border-color:
+                rgba(251, 191, 36, .28);
+
+            color: #FBBF24;
         }
 
 
@@ -1102,17 +1228,14 @@
     ========================================================= */
 
         .verification-button {
-
             display: inline-block;
 
             margin-top: 5px;
-
             padding: 0;
 
             border: 0;
 
             background: transparent;
-
             color: inherit;
 
             font-size: 13px;
@@ -1135,9 +1258,7 @@
     ========================================================= */
 
         .form-actions {
-
             display: flex;
-
             align-items: center;
 
             gap: 14px;
@@ -1147,15 +1268,45 @@
 
 
         /* =========================================================
+       PRIMARY BUTTON
+       PURPLE + WHITE
+    ========================================================= */
+
+        .profile-modal-card .form-actions button {
+            background: var(--profile-purple) !important;
+            border-color: var(--profile-purple) !important;
+
+            color: #FFFFFF !important;
+
+            border-radius: 9px !important;
+
+            transition:
+                background .2s ease,
+                border-color .2s ease,
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        .profile-modal-card .form-actions button:hover {
+            background: var(--profile-purple-hover) !important;
+            border-color: var(--profile-purple-hover) !important;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 6px 18px rgba(101, 56, 217, .25);
+        }
+
+
+        /* =========================================================
        DIVIDER
     ========================================================= */
 
         .profile-divider {
-
             height: 1px;
 
-            background:
-                var(--profile-border);
+            background: var(--profile-border);
 
             margin: 0 30px;
         }
@@ -1166,14 +1317,11 @@
     ========================================================= */
 
         .delete-title {
-
-            color:
-                var(--profile-danger);
+            color: var(--profile-danger);
         }
 
 
         .delete-box {
-
             display: flex;
 
             align-items: center;
@@ -1185,16 +1333,13 @@
 
             border-radius: 12px;
 
-            background:
-                var(--profile-danger-bg);
+            background: var(--profile-danger-bg);
 
-            border:
-                1px solid var(--profile-danger-border);
+            border: 1px solid var(--profile-danger-border);
         }
 
 
         .delete-warning {
-
             display: flex;
 
             align-items: center;
@@ -1206,46 +1351,38 @@
 
 
         .delete-icon {
-
             flex: 0 0 auto;
 
             width: 42px;
             height: 42px;
 
             display: flex;
-
             align-items: center;
             justify-content: center;
 
             border-radius: 10px;
 
             background:
-                rgba(220, 38, 38, .1);
+                rgba(220, 38, 38, .10);
 
-            color:
-                var(--profile-danger);
+            color: var(--profile-danger);
         }
 
 
         .delete-warning h3 {
-
             margin: 0;
 
             font-size: 15px;
-
             font-weight: 700;
 
-            color:
-                var(--profile-danger);
+            color: var(--profile-danger);
         }
 
 
         .delete-warning p {
-
             margin: 3px 0 0;
 
-            color:
-                var(--profile-muted);
+            color: var(--profile-muted);
 
             font-size: 13px;
         }
@@ -1253,6 +1390,16 @@
 
         .delete-button {
             flex-shrink: 0;
+        }
+
+
+        /* =========================================================
+       DELETE BUTTON
+    ========================================================= */
+
+        .delete-button:hover {
+            box-shadow:
+                0 6px 18px rgba(220, 38, 38, .18);
         }
 
 
@@ -1266,12 +1413,10 @@
 
 
         .delete-modal-icon {
-
             width: 48px;
             height: 48px;
 
             display: flex;
-
             align-items: center;
             justify-content: center;
 
@@ -1279,48 +1424,38 @@
 
             border-radius: 12px;
 
-            background:
-                var(--profile-danger-bg);
+            background: var(--profile-danger-bg);
 
-            color:
-                var(--profile-danger);
+            color: var(--profile-danger);
 
             font-size: 20px;
         }
 
 
         .delete-modal-title {
-
             margin: 0;
 
-            color:
-                var(--profile-text);
+            color: var(--profile-text);
 
             font-size: 20px;
-
             font-weight: 700;
         }
 
 
         .delete-modal-description {
-
             margin-top: 8px;
 
-            color:
-                var(--profile-muted);
+            color: var(--profile-muted);
 
             font-size: 14px;
-
             line-height: 1.6;
         }
 
 
         .delete-modal-actions {
-
             display: flex;
 
             justify-content: flex-end;
-
             align-items: center;
 
             gap: 10px;
@@ -1330,224 +1465,21 @@
 
 
         /* =========================================================
-       DARK MODE
+       DARK MODE MODAL
     ========================================================= */
 
-        [data-bs-theme="dark"] .profile-modal-page,
-        .dark .profile-modal-page,
-        body.dark .profile-modal-page,
-        [data-theme="dark"] .profile-modal-page {
-
-            --profile-bg: #101426;
-
-            --profile-card: #181d33;
-
-            --profile-text: #f3f4f6;
-
-            --profile-muted: #999fb9;
-
-            --profile-border: #292e45;
-
-            --profile-input: #20253a;
-
-            --profile-primary: #6366f1;
-
-            --profile-primary-hover: #818cf8;
-
-            --profile-danger: #f87171;
-
-            --profile-danger-bg:
-                rgba(127, 29, 29, .20);
-
-            --profile-danger-border:
-                rgba(248, 113, 113, .30);
-
-            --profile-success: #4ade80;
-
-            --profile-success-bg:
-                rgba(20, 83, 45, .20);
-
-            --profile-success-border:
-                rgba(74, 222, 128, .28);
-
-            --profile-warning: #fbbf24;
-
-            --profile-warning-bg:
-                rgba(120, 53, 15, .20);
-
-            --profile-warning-border:
-                rgba(251, 191, 36, .28);
-
-            --profile-shadow:
-                0 25px 80px rgba(0, 0, 0, .55);
+        [data-bs-theme="dark"] .delete-modal {
+            background: #181D33;
         }
 
 
-        /* =========================================================
-       DARK OVERLAY
-    ========================================================= */
-
-        [data-bs-theme="dark"] .profile-modal-page::before,
-        .dark .profile-modal-page::before,
-        body.dark .profile-modal-page::before,
-        [data-theme="dark"] .profile-modal-page::before {
-
-            background:
-                rgba(0, 0, 0, .58);
+        [data-bs-theme="dark"] .delete-modal-title {
+            color: #FFFFFF;
         }
 
 
-        /* =========================================================
-       DARK INPUT
-    ========================================================= */
-
-        [data-bs-theme="dark"] .profile-modal-page .form-input,
-        .dark .profile-modal-page .form-input,
-        body.dark .profile-modal-page .form-input,
-        [data-theme="dark"] .profile-modal-page .form-input {
-
-            background:
-                var(--profile-input) !important;
-
-            border-color:
-                var(--profile-border) !important;
-
-            color:
-                var(--profile-text) !important;
-        }
-
-
-        [data-bs-theme="dark"] .profile-modal-page .form-input::placeholder,
-        .dark .profile-modal-page .form-input::placeholder,
-        body.dark .profile-modal-page .form-input::placeholder,
-        [data-theme="dark"] .profile-modal-page .form-input::placeholder {
-
-            color:
-                #8f96ad !important;
-        }
-
-
-        /* =========================================================
-       DARK CLOSE BUTTON
-    ========================================================= */
-
-        [data-bs-theme="dark"] .profile-popup-close,
-        .dark .profile-popup-close,
-        body.dark .profile-popup-close,
-        [data-theme="dark"] .profile-popup-close {
-
-            background:
-                var(--profile-card);
-
-            border-color:
-                var(--profile-border);
-
-            color:
-                var(--profile-muted);
-        }
-
-
-        [data-bs-theme="dark"] .profile-popup-close:hover,
-        .dark .profile-popup-close:hover,
-        body.dark .profile-popup-close:hover,
-        [data-theme="dark"] .profile-popup-close:hover {
-
-            background:
-                rgba(127, 29, 29, .25);
-
-            color:
-                #f87171;
-
-            border-color:
-                rgba(248, 113, 113, .35);
-        }
-
-
-        /* =========================================================
-       DARK DANGER ALERT
-    ========================================================= */
-
-        [data-bs-theme="dark"] .profile-alert-danger,
-        .dark .profile-alert-danger,
-        body.dark .profile-alert-danger,
-        [data-theme="dark"] .profile-alert-danger {
-
-            background:
-                rgba(127, 29, 29, .20);
-
-            border-color:
-                rgba(248, 113, 113, .30);
-
-            color:
-                #fca5a5;
-        }
-
-
-        /* =========================================================
-       DARK SUCCESS ALERT
-    ========================================================= */
-
-        [data-bs-theme="dark"] .profile-alert-success,
-        .dark .profile-alert-success,
-        body.dark .profile-alert-success,
-        [data-theme="dark"] .profile-alert-success {
-
-            background:
-                rgba(20, 83, 45, .20);
-
-            border-color:
-                rgba(74, 222, 128, .28);
-
-            color:
-                #86efac;
-        }
-
-
-        /* =========================================================
-       DARK WARNING ALERT
-    ========================================================= */
-
-        [data-bs-theme="dark"] .profile-alert-warning,
-        .dark .profile-alert-warning,
-        body.dark .profile-alert-warning,
-        [data-theme="dark"] .profile-alert-warning {
-
-            background:
-                rgba(120, 53, 15, .20);
-
-            border-color:
-                rgba(251, 191, 36, .28);
-
-            color:
-                #fbbf24;
-        }
-
-
-        /* =========================================================
-       DARK ALERT CLOSE
-    ========================================================= */
-
-        [data-bs-theme="dark"] .profile-alert-close:hover,
-        .dark .profile-alert-close:hover,
-        body.dark .profile-alert-close:hover,
-        [data-theme="dark"] .profile-alert-close:hover {
-
-            background:
-                rgba(255, 255, 255, .08);
-        }
-
-
-        /* =========================================================
-       DARK DELETE
-    ========================================================= */
-
-        [data-bs-theme="dark"] .delete-warning p,
-        .dark .delete-warning p,
-        body.dark .delete-warning p,
-        [data-theme="dark"] .delete-warning p {
-
-            color:
-                var(--profile-muted);
+        [data-bs-theme="dark"] .delete-modal-description {
+            color: #999FB9;
         }
 
 
@@ -1558,38 +1490,28 @@
         @media (max-width: 768px) {
 
             .profile-modal-page {
-
-                padding:
-                    20px 12px;
+                padding: 20px 12px;
             }
 
 
             .profile-modal-card {
+                max-height: calc(100vh - 40px);
 
-                max-height:
-                    calc(100vh - 40px);
-
-                border-radius:
-                    16px;
+                border-radius: 16px;
             }
 
 
             .profile-section {
-
-                padding:
-                    24px;
+                padding: 24px;
             }
 
 
             .profile-divider {
-
-                margin:
-                    0 24px;
+                margin: 0 24px;
             }
 
 
             .profile-popup-close {
-
                 top: 14px;
                 right: 14px;
 
@@ -1599,23 +1521,17 @@
 
 
             .delete-box {
+                align-items: flex-start;
 
-                align-items:
-                    flex-start;
-
-                flex-direction:
-                    column;
+                flex-direction: column;
             }
 
 
             .delete-button {
-
                 width: 100%;
 
-                justify-content:
-                    center;
+                justify-content: center;
             }
-
         }
 
 
@@ -1626,48 +1542,35 @@
         @media (max-width: 640px) {
 
             .profile-modal-page {
+                padding: 10px 8px;
 
-                padding:
-                    10px 8px;
-
-                align-items:
-                    flex-start;
+                align-items: flex-start;
             }
 
 
             .profile-modal-card {
+                max-height: calc(100vh - 20px);
 
-                max-height:
-                    calc(100vh - 20px);
-
-                border-radius:
-                    14px;
+                border-radius: 14px;
             }
 
 
             .profile-section {
-
-                padding:
-                    20px;
+                padding: 20px;
             }
 
 
             .profile-section-header {
-
-                padding-right:
-                    44px;
+                padding-right: 44px;
             }
 
 
             .profile-divider {
-
-                margin:
-                    0 20px;
+                margin: 0 20px;
             }
 
 
             .profile-popup-close {
-
                 top: 12px;
                 right: 12px;
 
@@ -1681,123 +1584,87 @@
 
 
             .profile-title {
-
-                font-size:
-                    18px;
+                font-size: 18px;
             }
 
 
             .profile-description {
-
-                font-size:
-                    13px;
+                font-size: 13px;
             }
 
 
             .profile-form {
-
-                gap:
-                    18px;
+                gap: 18px;
             }
 
 
             .form-actions {
+                align-items: stretch;
 
-                align-items:
-                    stretch;
-
-                flex-direction:
-                    column;
+                flex-direction: column;
             }
 
 
             .form-actions button {
-
                 width: 100%;
 
-                justify-content:
-                    center;
+                justify-content: center;
             }
 
 
             .profile-alert {
+                padding: 14px;
 
-                padding:
-                    14px;
+                gap: 10px;
 
-                gap:
-                    10px;
-
-                font-size:
-                    13px;
+                font-size: 13px;
             }
 
 
             .profile-alert-content strong {
-
-                font-size:
-                    13px;
+                font-size: 13px;
             }
 
 
             .profile-alert-content p,
             .profile-alert-content li {
-
-                font-size:
-                    12px;
+                font-size: 12px;
             }
 
 
             .profile-alert-close {
-
-                width:
-                    26px;
-
-                height:
-                    26px;
+                width: 26px;
+                height: 26px;
             }
 
 
             .delete-box {
-
-                padding:
-                    15px;
+                padding: 15px;
             }
 
 
             .delete-warning {
-
-                align-items:
-                    flex-start;
+                align-items: flex-start;
             }
 
 
             .delete-modal {
-
-                padding:
-                    22px;
+                padding: 22px;
             }
 
 
             .delete-modal-actions {
+                flex-direction: column;
 
-                flex-direction:
-                    column;
-
-                align-items:
-                    stretch;
+                align-items: stretch;
             }
 
 
             .delete-modal-actions button {
+                width: 100%;
 
-                width:
-                    100%;
-
-                justify-content:
-                    center;
+                justify-content: center;
             }
-
         }
 
 
@@ -1808,45 +1675,33 @@
         @media (max-width: 380px) {
 
             .profile-modal-page {
-
-                padding:
-                    6px;
+                padding: 6px;
             }
 
 
             .profile-modal-card {
+                max-height: calc(100vh - 12px);
 
-                max-height:
-                    calc(100vh - 12px);
-
-                border-radius:
-                    12px;
+                border-radius: 12px;
             }
 
 
             .profile-section {
-
-                padding:
-                    16px;
+                padding: 16px;
             }
 
 
             .profile-section-header {
-
-                padding-right:
-                    42px;
+                padding-right: 42px;
             }
 
 
             .profile-divider {
-
-                margin:
-                    0 16px;
+                margin: 0 16px;
             }
 
 
             .profile-popup-close {
-
                 top: 10px;
                 right: 10px;
 
@@ -1856,35 +1711,24 @@
 
 
             .profile-title {
-
-                font-size:
-                    17px;
+                font-size: 17px;
             }
 
 
             .profile-alert {
-
-                padding:
-                    12px;
+                padding: 12px;
             }
 
 
             .delete-warning {
-
-                gap:
-                    10px;
+                gap: 10px;
             }
 
 
             .delete-icon {
-
-                width:
-                    38px;
-
-                height:
-                    38px;
+                width: 38px;
+                height: 38px;
             }
-
         }
     </style>
 

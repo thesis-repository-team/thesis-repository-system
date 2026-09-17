@@ -122,6 +122,115 @@
 
                 </div>
 
+                {{-- =================================================
+                    THESIS DOCUMENT
+                ================================================== --}}
+
+                <div class="thesis-show-content-section">
+
+                    <div class="thesis-section-heading">
+
+                        <div class="thesis-section-heading-icon thesis-document-icon">
+
+                            <i class="bi bi-file-earmark-pdf-fill"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Thesis Document
+                            </h2>
+
+                            <p>
+                                Official approved thesis document.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="thesis-document-box">
+
+
+                        {{-- =================================================
+                            DOCUMENT INFORMATION
+                        ================================================== --}}
+
+                        <div class="thesis-document-left">
+
+                            <div class="thesis-document-file-icon">
+
+                                <i class="bi bi-file-earmark-pdf-fill"></i>
+
+                            </div>
+
+
+                            <div class="thesis-document-details">
+
+                                <strong>
+                                    Approved Thesis PDF
+                                </strong>
+
+                                <span>
+                                    Official thesis document approved by
+                                    {{ $thesis->publishedBy?->role === 'admin'
+                                        ? 'Admin'
+                                        : 'Head of Department'
+                                    }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- =================================================
+                            DOCUMENT ACTIONS
+                        ================================================== --}}
+
+                        <div class="thesis-document-actions">
+
+
+                            {{-- =================================================
+                                VIEW PDF
+                            ================================================== --}}
+
+                            <a
+                                href="{{ route('hod.thesis.view-pdf', $thesis->id) }}"
+                                target="_blank"
+                                class="thesis-view-pdf-button"
+                            >
+
+                                <i class="bi bi-file-earmark-pdf"></i>
+
+                                PDF
+
+                            </a>
+
+
+                            {{-- =================================================
+                                DOWNLOAD PDF
+                            ================================================== --}}
+
+                            <a
+                                href="{{ route('hod.thesis.download', $thesis->id) }}"
+                                class="thesis-download-pdf-button"
+                            >
+
+                                <i class="bi bi-download"></i>
+
+                                Download PDF
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
 
                 {{-- =================================================
                     THESIS INFORMATION
@@ -437,114 +546,7 @@
                 </div>
 
 
-                {{-- =================================================
-                    THESIS DOCUMENT
-                ================================================== --}}
-
-                <div class="thesis-show-content-section">
-
-                    <div class="thesis-section-heading">
-
-                        <div class="thesis-section-heading-icon thesis-document-icon">
-
-                            <i class="bi bi-file-earmark-pdf-fill"></i>
-
-                        </div>
-
-                        <div>
-
-                            <h2>
-                                Thesis Document
-                            </h2>
-
-                            <p>
-                                Official approved thesis document.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="thesis-document-box">
-
-
-                        {{-- =================================================
-                            DOCUMENT INFORMATION
-                        ================================================== --}}
-
-                        <div class="thesis-document-left">
-
-                            <div class="thesis-document-file-icon">
-
-                                <i class="bi bi-file-earmark-pdf-fill"></i>
-
-                            </div>
-
-
-                            <div class="thesis-document-details">
-
-                                <strong>
-                                    Approved Thesis PDF
-                                </strong>
-
-                                <span>
-                                    Official thesis document approved by
-                                    {{ $thesis->publishedBy?->role === 'admin'
-                                        ? 'Admin'
-                                        : 'Head of Department'
-                                    }}
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        {{-- =================================================
-                            DOCUMENT ACTIONS
-                        ================================================== --}}
-
-                        <div class="thesis-document-actions">
-
-
-                            {{-- =================================================
-                                VIEW PDF
-                            ================================================== --}}
-
-                            <a
-                                href="{{ route('hod.thesis.view-pdf', $thesis->id) }}"
-                                target="_blank"
-                                class="thesis-view-pdf-button"
-                            >
-
-                                <i class="bi bi-file-earmark-pdf"></i>
-
-                                PDF
-
-                            </a>
-
-
-                            {{-- =================================================
-                                DOWNLOAD PDF
-                            ================================================== --}}
-
-                            <a
-                                href="{{ route('hod.thesis.download', $thesis->id) }}"
-                                class="thesis-download-pdf-button"
-                            >
-
-                                <i class="bi bi-download"></i>
-
-                                Download PDF
-
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                
 
             </div>
 

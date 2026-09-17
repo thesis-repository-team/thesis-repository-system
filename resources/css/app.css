@@ -1,12 +1,12 @@
+/* @import 'bootstrap-icons/font/bootstrap-icons.css'; */
+
 @import './auth.css';
 @import './dashboard.css';
-
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import 'bootstrap-icons/font/bootstrap-icons.css';
 
 
 

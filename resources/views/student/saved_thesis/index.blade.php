@@ -33,12 +33,8 @@
 
                 <div class="thesis-view-toggle">
 
-                    <button
-                        type="button"
-                        id="thesisCardViewButton"
-                        class="thesis-view-button is-active"
-                        aria-label="Card View"
-                    >
+                    <button type="button" id="thesisCardViewButton" class="thesis-view-button is-active"
+                        aria-label="Card View">
                         <i class="bi bi-grid-3x3-gap"></i>
 
                         <span>
@@ -47,12 +43,8 @@
                     </button>
 
 
-                    <button
-                        type="button"
-                        id="thesisTableViewButton"
-                        class="thesis-view-button"
-                        aria-label="Table View"
-                    >
+                    <button type="button" id="thesisTableViewButton" class="thesis-view-button"
+                        aria-label="Table View">
                         <i class="bi bi-table"></i>
 
                         <span>
@@ -65,10 +57,7 @@
             </div>
 
 
-            <div
-                id="savedThesisResults"
-                class="thesis-results-container"
-            >
+            <div id="savedThesisResults" class="thesis-results-container">
 
                 {{-- =================================================
                     CARD VIEW
@@ -77,13 +66,11 @@
                 <div class="thesis-partial-card-results">
 
                     @forelse ($savedTheses as $saved)
-
                         @php
                             $thesis = $saved->thesis;
                         @endphp
 
                         @if ($thesis)
-
                             <div class="admin-thesis-card">
 
                                 <div class="admin-thesis-card-top">
@@ -139,10 +126,7 @@
                                             </span>
 
                                             <span class="admin-thesis-published-value">
-                                                {{ $saved->saved_at
-                                                    ? \Carbon\Carbon::parse($saved->saved_at)->format('M d, Y')
-                                                    : '—'
-                                                }}
+                                                {{ $saved->saved_at ? \Carbon\Carbon::parse($saved->saved_at)->format('M d, Y') : '—' }}
                                             </span>
 
                                         </div>
@@ -209,11 +193,7 @@
                                             </span>
 
                                             <span class="admin-thesis-detail-value">
-                                                {{
-                                                    optional($thesis->publishedBy)->username
-                                                    ?? optional($thesis->publishedBy)->full_name
-                                                    ?? '—'
-                                                }}
+                                                {{ optional($thesis->publishedBy)->username ?? (optional($thesis->publishedBy)->full_name ?? '—') }}
                                             </span>
 
                                         </div>
@@ -228,10 +208,7 @@
                                         </span>
 
                                         <span class="admin-thesis-submitted-value">
-                                            {{ $thesis->published_at
-                                                ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y')
-                                                : '—'
-                                            }}
+                                            {{ $thesis->published_at ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y') : '—' }}
                                         </span>
 
                                     </div>
@@ -242,11 +219,8 @@
                                 <div class="admin-thesis-card-footer">
 
                                     {{-- VIEW DETAIL --}}
-                                    <a
-                                        href="{{ route('student.thesis.show', $thesis->id) }}"
-                                        class="admin-thesis-action admin-thesis-view-detail"
-                                        title="View Detail"
-                                    >
+                                    <a href="{{ route('student.thesis.show', $thesis->id) }}"
+                                        class="admin-thesis-action admin-thesis-view-detail" title="View Detail">
                                         <i class="bi bi-file-text"></i>
 
                                         <span>
@@ -256,11 +230,8 @@
 
 
                                     {{-- VIEW PDF --}}
-                                    <a
-                                        href="{{ route('student.thesis.view-pdf', $thesis->id) }}"
-                                        class="admin-thesis-action admin-thesis-view-pdf"
-                                        title="View PDF"
-                                    >
+                                    <a href="{{ route('student.thesis.view-pdf', $thesis->id) }}"
+                                        class="admin-thesis-action admin-thesis-view-pdf" title="View PDF">
                                         <i class="bi bi-file-earmark-pdf"></i>
 
                                         <span>
@@ -270,20 +241,15 @@
 
 
                                     {{-- REMOVE --}}
-                                    <form
-                                        method="POST"
+                                    <form method="POST"
                                         action="{{ route('student.saved_thesis.destroy', $thesis->id) }}"
-                                        class="saved-remove-form"
-                                    >
+                                        class="saved-remove-form">
 
                                         @csrf
                                         @method('DELETE')
 
-                                        <button
-                                            type="submit"
-                                            class="admin-thesis-action admin-thesis-remove"
-                                            title="Remove from Saved"
-                                        >
+                                        <button type="submit" class="admin-thesis-action admin-thesis-remove"
+                                            title="Remove from Saved">
                                             <i class="bi bi-bookmark-x"></i>
 
                                             <span>
@@ -296,7 +262,6 @@
                                 </div>
 
                             </div>
-
                         @endif
 
                     @empty
@@ -316,7 +281,6 @@
                             </p>
 
                         </div>
-
                     @endforelse
 
                 </div>
@@ -362,13 +326,11 @@
                             <tbody>
 
                                 @forelse ($savedTheses as $saved)
-
                                     @php
                                         $thesis = $saved->thesis;
                                     @endphp
 
                                     @if ($thesis)
-
                                         <tr>
 
                                             <td class="thesis-table-number">
@@ -401,27 +363,17 @@
 
 
                                             <td>
-                                                {{
-                                                    optional($thesis->publishedBy)->username
-                                                    ?? optional($thesis->publishedBy)->full_name
-                                                    ?? '—'
-                                                }}
+                                                {{ optional($thesis->publishedBy)->username ?? (optional($thesis->publishedBy)->full_name ?? '—') }}
                                             </td>
 
 
                                             <td>
-                                                {{ $thesis->published_at
-                                                    ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y')
-                                                    : '—'
-                                                }}
+                                                {{ $thesis->published_at ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y') : '—' }}
                                             </td>
 
 
                                             <td>
-                                                {{ $saved->saved_at
-                                                    ? \Carbon\Carbon::parse($saved->saved_at)->format('M d, Y')
-                                                    : '—'
-                                                }}
+                                                {{ $saved->saved_at ? \Carbon\Carbon::parse($saved->saved_at)->format('M d, Y') : '—' }}
                                             </td>
 
 
@@ -430,39 +382,30 @@
                                                 <div class="thesis-table-actions">
 
                                                     {{-- VIEW DETAIL --}}
-                                                    <a
-                                                        href="{{ route('student.thesis.show', $thesis->id) }}"
+                                                    <a href="{{ route('student.thesis.show', $thesis->id) }}"
                                                         class="thesis-table-action thesis-table-view"
-                                                        title="View Detail"
-                                                    >
+                                                        title="View Detail">
                                                         <i class="bi bi-file-text"></i>
                                                     </a>
 
 
                                                     {{-- VIEW PDF --}}
-                                                    <a
-                                                        href="{{ route('student.thesis.view-pdf', $thesis->id) }}"
-                                                        class="thesis-table-action thesis-table-pdf"
-                                                        title="PDF"
-                                                    >
+                                                    <a href="{{ route('student.thesis.view-pdf', $thesis->id) }}"
+                                                        class="thesis-table-action thesis-table-pdf" title="PDF">
                                                         <i class="bi bi-file-earmark-pdf"></i>
                                                     </a>
 
 
                                                     {{-- REMOVE --}}
-                                                    <form
-                                                        method="POST"
-                                                        action="{{ route('student.saved_thesis.destroy', $thesis->id) }}"
-                                                    >
+                                                    <form method="POST"
+                                                        action="{{ route('student.saved_thesis.destroy', $thesis->id) }}">
 
                                                         @csrf
                                                         @method('DELETE')
 
-                                                        <button
-                                                            type="submit"
+                                                        <button type="submit"
                                                             class="thesis-table-action thesis-table-remove"
-                                                            title="Remove"
-                                                        >
+                                                            title="Remove">
                                                             <i class="bi bi-bookmark-x"></i>
                                                         </button>
 
@@ -473,17 +416,13 @@
                                             </td>
 
                                         </tr>
-
                                     @endif
 
                                 @empty
 
                                     <tr>
 
-                                        <td
-                                            colspan="9"
-                                            class="thesis-table-empty"
-                                        >
+                                        <td colspan="9" class="thesis-table-empty">
 
                                             <strong>
                                                 No Saved Theses
@@ -496,7 +435,6 @@
                                         </td>
 
                                     </tr>
-
                                 @endforelse
 
                             </tbody>
@@ -519,8 +457,7 @@
     ============================================================== --}}
 
     <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
             const results =
                 document.getElementById('savedThesisResults');
@@ -574,7 +511,7 @@
 
             cardButton?.addEventListener(
                 'click',
-                function () {
+                function() {
                     setView('cards');
                 }
             );
@@ -582,7 +519,7 @@
 
             tableButton?.addEventListener(
                 'click',
-                function () {
+                function() {
                     setView('table');
                 }
             );
@@ -595,13 +532,12 @@
 
 
             setView(
-                savedView === 'table'
-                    ? 'table'
-                    : 'cards'
+                savedView === 'table' ?
+                'table' :
+                'cards'
             );
 
         });
-
     </script>
 
 
@@ -610,7 +546,6 @@
     ============================================================== --}}
 
     <style>
-
         :root {
 
             --thesis-purple: #6538D9;
@@ -642,10 +577,10 @@
             --thesis-remove-hover: #B91C1C;
 
             --thesis-shadow:
-                0 8px 24px rgba(17,17,17,.08);
+                0 8px 24px rgba(17, 17, 17, .08);
 
             --thesis-card-shadow:
-                0 2px 10px rgba(17,17,17,.05);
+                0 2px 10px rgba(17, 17, 17, .05);
 
         }
 
@@ -677,10 +612,10 @@
             --thesis-remove-hover: #EF4444;
 
             --thesis-shadow:
-                0 8px 24px rgba(0,0,0,.35);
+                0 8px 24px rgba(0, 0, 0, .35);
 
             --thesis-card-shadow:
-                0 2px 10px rgba(0,0,0,.30);
+                0 2px 10px rgba(0, 0, 0, .30);
 
         }
 
@@ -915,16 +850,14 @@
         }
 
 
-        .thesis-results-container.table-mode
-        .thesis-partial-card-results {
+        .thesis-results-container.table-mode .thesis-partial-card-results {
 
             display: none;
 
         }
 
 
-        .thesis-results-container.table-mode
-        .thesis-partial-table-results {
+        .thesis-results-container.table-mode .thesis-partial-table-results {
 
             display: block;
 
@@ -1661,7 +1594,7 @@
 
 
         .thesis-table tbody tr:hover td {
-            background: var(--thesis-purple-light);
+            background: #FAFAFA;
         }
 
 
@@ -1707,6 +1640,8 @@
             align-items: center;
 
             justify-content: center;
+
+            margin-right: 20px;
 
             gap: .3rem;
 
@@ -2180,7 +2115,6 @@
             }
 
         }
-
     </style>
 
 </x-app-layout>

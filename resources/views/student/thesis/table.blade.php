@@ -6,25 +6,16 @@
             $publishedBy = $thesis->publishedBy;
 
             $isApprovedByAdminOrHod =
-                $thesis->published_at &&
-                $publishedBy &&
-                in_array($publishedBy->role, ['admin', 'hod'], true);
+                $thesis->published_at && $publishedBy && in_array($publishedBy->role, ['admin', 'hod'], true);
 
-            $publishedByName =
-                optional($publishedBy)->username ??
-                optional($publishedBy)->full_name ??
-                '—';
+            $publishedByName = optional($publishedBy)->username ?? (optional($publishedBy)->full_name ?? '—');
 
             $savedThesisIds = $savedThesisIds ?? [];
 
-            $isSaved = in_array(
-                $thesis->id,
-                $savedThesisIds
-            );
+            $isSaved = in_array($thesis->id, $savedThesisIds);
         @endphp
 
         @if ($isApprovedByAdminOrHod)
-
             <div class="admin-thesis-card">
 
                 <div class="admin-thesis-card-top">
@@ -42,15 +33,12 @@
                     </div>
 
 
-                    <button
-                        type="button"
-                        class="thesis-save-button {{ $isSaved ? 'saved' : '' }}"
+                    <button type="button" class="thesis-save-button {{ $isSaved ? 'saved' : '' }}"
                         data-thesis-id="{{ $thesis->id }}"
                         data-save-url="{{ route('student.saved_thesis.store', $thesis) }}"
                         data-remove-url="{{ route('student.saved_thesis.destroy', $thesis) }}"
                         title="{{ $isSaved ? 'Remove from Saved' : 'Save Thesis' }}"
-                        aria-label="{{ $isSaved ? 'Remove from Saved' : 'Save Thesis' }}"
-                    >
+                        aria-label="{{ $isSaved ? 'Remove from Saved' : 'Save Thesis' }}">
                         <i class="bi {{ $isSaved ? 'bi-bookmark-fill' : 'bi-bookmark' }}"></i>
                     </button>
 
@@ -93,9 +81,7 @@
                             </span>
 
                             <span class="admin-thesis-published-value">
-                                {{ $thesis->published_at
-                                    ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y')
-                                    : '—' }}
+                                {{ $thesis->published_at ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y') : '—' }}
                             </span>
 
                         </div>
@@ -177,9 +163,7 @@
                         </span>
 
                         <span class="admin-thesis-submitted-value">
-                            {{ optional($thesis->submittedBy)->username
-                                ?? optional($thesis->submittedBy)->full_name
-                                ?? '—' }}
+                            {{ optional($thesis->submittedBy)->username ?? (optional($thesis->submittedBy)->full_name ?? '—') }}
                         </span>
 
                     </div>
@@ -189,10 +173,8 @@
 
                 <div class="admin-thesis-card-footer">
 
-                    <a
-                        href="{{ route('student.thesis.show', $thesis->id) }}"
-                        class="admin-thesis-action admin-thesis-view"
-                    >
+                    <a href="{{ route('student.thesis.show', $thesis->id) }}"
+                        class="admin-thesis-action admin-thesis-view">
                         <i class="bi bi-file-text"></i>
 
                         <span>
@@ -202,25 +184,19 @@
 
 
                     @if ($thesis->files && $thesis->files->count())
-
                         @php
                             $file = $thesis->files->first();
                         @endphp
 
-                        <a
-                            href="{{ route('student.thesis.view-pdf', $file->id) }}"
-                            target="_blank"
-                            class="admin-thesis-action admin-thesis-download"
-                        >
+                        <a href="{{ route('student.thesis.view-pdf', $file->id) }}" target="_blank"
+                            class="admin-thesis-action admin-thesis-download">
                             <i class="bi bi-file-earmark-pdf"></i>
 
                             <span>
                                 PDF
                             </span>
                         </a>
-
                     @else
-
                         <span class="admin-thesis-action admin-thesis-download disabled">
 
                             <i class="bi bi-file-earmark-pdf"></i>
@@ -230,13 +206,11 @@
                             </span>
 
                         </span>
-
                     @endif
 
                 </div>
 
             </div>
-
         @endif
 
     @empty
@@ -326,20 +300,14 @@
                             in_array($publishedBy->role, ['admin', 'hod'], true);
 
                         $publishedByName =
-                            optional($publishedBy)->username ??
-                            optional($publishedBy)->full_name ??
-                            '—';
+                            optional($publishedBy)->username ?? (optional($publishedBy)->full_name ?? '—');
 
                         $savedThesisIds = $savedThesisIds ?? [];
 
-                        $isSaved = in_array(
-                            $thesis->id,
-                            $savedThesisIds
-                        );
+                        $isSaved = in_array($thesis->id, $savedThesisIds);
                     @endphp
 
                     @if ($isApprovedByAdminOrHod)
-
                         <tr>
 
                             <td class="thesis-table-number">
@@ -372,9 +340,7 @@
 
 
                             <td>
-                                {{ optional($thesis->submittedBy)->username
-                                    ?? optional($thesis->submittedBy)->full_name
-                                    ?? '—' }}
+                                {{ optional($thesis->submittedBy)->username ?? (optional($thesis->submittedBy)->full_name ?? '—') }}
                             </td>
 
 
@@ -384,9 +350,7 @@
 
 
                             <td>
-                                {{ $thesis->published_at
-                                    ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y')
-                                    : '—' }}
+                                {{ $thesis->published_at ? \Carbon\Carbon::parse($thesis->published_at)->format('M d, Y') : '—' }}
                             </td>
 
 
@@ -394,55 +358,38 @@
 
                                 <div class="thesis-table-actions">
 
-                                    <button
-                                        type="button"
-                                        class="thesis-save-button {{ $isSaved ? 'saved' : '' }}"
+                                    <button type="button" class="thesis-save-button {{ $isSaved ? 'saved' : '' }}"
                                         data-thesis-id="{{ $thesis->id }}"
                                         data-save-url="{{ route('student.saved_thesis.store', $thesis) }}"
                                         data-remove-url="{{ route('student.saved_thesis.destroy', $thesis) }}"
                                         title="{{ $isSaved ? 'Remove from Saved' : 'Save Thesis' }}"
-                                        aria-label="{{ $isSaved ? 'Remove from Saved' : 'Save Thesis' }}"
-                                    >
+                                        aria-label="{{ $isSaved ? 'Remove from Saved' : 'Save Thesis' }}">
                                         <i class="bi {{ $isSaved ? 'bi-bookmark-fill' : 'bi-bookmark' }}"></i>
                                     </button>
 
 
-                                    <a
-                                        href="{{ route('student.thesis.show', $thesis->id) }}"
-                                        class="thesis-table-action thesis-table-view"
-                                        title="View Thesis"
-                                        aria-label="View Thesis"
-                                    >
+                                    <a href="{{ route('student.thesis.show', $thesis->id) }}"
+                                        class="thesis-table-action thesis-table-view" title="View Thesis"
+                                        aria-label="View Thesis">
                                         <i class="bi bi-file-text"></i>
                                     </a>
 
 
                                     @if ($thesis->files && $thesis->files->count())
-
                                         @php
                                             $file = $thesis->files->first();
                                         @endphp
 
-                                        <a
-                                            href="{{ route('student.thesis.view-pdf', $file->id) }}"
-                                            target="_blank"
-                                            class="thesis-table-action thesis-table-download"
-                                            title="View PDF"
-                                            aria-label="View PDF"
-                                        >
+                                        <a href="{{ route('student.thesis.view-pdf', $file->id) }}" target="_blank"
+                                            class="thesis-table-action thesis-table-download" title="View PDF"
+                                            aria-label="View PDF">
                                             <i class="bi bi-file-earmark-pdf"></i>
                                         </a>
-
                                     @else
-
-                                        <span
-                                            class="thesis-table-action thesis-table-download disabled"
-                                            title="No File"
-                                            aria-label="No File"
-                                        >
+                                        <span class="thesis-table-action thesis-table-download disabled" title="No File"
+                                            aria-label="No File">
                                             <i class="bi bi-file-earmark-pdf"></i>
                                         </span>
-
                                     @endif
 
                                 </div>
@@ -450,17 +397,13 @@
                             </td>
 
                         </tr>
-
                     @endif
 
                 @empty
 
                     <tr>
 
-                        <td
-                            colspan="9"
-                            class="thesis-table-empty"
-                        >
+                        <td colspan="9" class="thesis-table-empty">
                             <strong>
                                 No Thesis Found
                             </strong>
@@ -484,7 +427,6 @@
 
 
 <style>
-
     .admin-thesis-card-top {
         position: relative;
     }
@@ -597,5 +539,4 @@
         }
 
     }
-
 </style>

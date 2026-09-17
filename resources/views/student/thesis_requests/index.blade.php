@@ -769,7 +769,7 @@
                                                     class="request-table-action request-table-details"
                                                     title="View Details" aria-label="View Details">
 
-                                                    <i class="bi bi-eye"></i>
+                                                    <i class="bi bi-file-text"></i>
 
                                                 </a>
 
@@ -2112,8 +2112,7 @@
 
         .request-table tbody tr:hover {
 
-            background:
-                var(--thesis-request-primary-soft);
+            background: #fafafa;
 
         }
 

@@ -1603,7 +1603,7 @@
 
         .thesis-table tbody tr:hover td {
 
-            background: var(--thesis-purple-light);
+            background: #FAFAFA;
         }
 
 

@@ -16,17 +16,19 @@ Route::prefix('student')->name('student.')->middleware(['auth', 'role:student,gu
     Route::get('/thesis/view-pdf/{file}', [StudentThesisController::class, 'viewPDF'])->name('thesis.view-pdf');
     Route::get('/thesis/search', [StudentThesisController::class, 'search'])->name('thesis.search');
     Route::get('/thesis/download/{file}', [StudentThesisController::class, 'downloadPDF'])->name('thesis.download');
-    Route::get('/thesis/view_history', [StudentThesisController::class, 'history'])->name('thesis.view_history');
 
     // Saved Thesis
     Route::get('/saved_thesis/index', [StudentSaveThesisController::class, 'index'])->name('saved_thesis.index');
     Route::post('/saved_thesis/store/{thesis}', [StudentSaveThesisController::class, 'store'])->name('saved_thesis.store');
     Route::delete('/saved_thesis/delete/{thesis}', [StudentSaveThesisController::class, 'destroy'])->name('saved_thesis.destroy');
 
+    // History Thesis
+    Route::get('/history/view_history', [StudentThesisController::class, 'history'])->name('history.view_history');
+
     // Student-only routes
     Route::middleware(['verified', 'role:student'])->group(function () {
         // My Thesis
-        Route::get('/thesis/my-theses', [StudentThesisController::class, 'myTheses'])->name('thesis.my-theses');
+        Route::get('/my_thesis/my-theses', [StudentThesisController::class, 'myTheses'])->name('my_thesis.my-theses');
 
         // Thesis Requests
         Route::get('/thesis-requests/index', [StudentThesisRequestsController::class, 'index'])->name('thesis_requests.index');
