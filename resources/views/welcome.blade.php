@@ -98,19 +98,22 @@
         }
 
         .brand-logo {
-            width: 42px;
-            height: 42px;
-
+            width: 46px;
+            height: 46px;
+            flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-
-            background: var(--black);
-            color: var(--white);
-
+            background: var(--white);
             border-radius: 10px;
+            overflow: hidden;
+        }
 
-            font-size: 19px;
+        .brand-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
         }
 
         .brand-text {
@@ -209,10 +212,6 @@
             color: var(--black);
         }
 
-
-        /* =========================================================
-       HERO
-    ========================================================== */
 
         .hero {
             position: relative;
@@ -323,10 +322,6 @@
         }
 
 
-        /* =========================================================
-       HERO SEARCH
-    ========================================================== */
-
         .hero-search {
             max-width: 780px;
 
@@ -407,10 +402,6 @@
         }
 
 
-        /* =========================================================
-       HERO HINT
-    ========================================================== */
-
         .search-hint {
             margin-top: 12px;
 
@@ -423,10 +414,6 @@
             margin-right: 3px;
         }
 
-
-        /* =========================================================
-       STATISTICS
-    ========================================================== */
 
         .hero-stats {
             max-width: 760px;
@@ -482,10 +469,6 @@
         }
 
 
-        /* =========================================================
-       FEATURED SECTION
-    ========================================================== */
-
         .section {
             padding: 85px 0;
         }
@@ -531,10 +514,6 @@
             line-height: 1.7;
         }
 
-
-        /* =========================================================
-       FEATURED CARDS
-    ========================================================== */
 
         .featured-grid {
             display: grid;
@@ -840,10 +819,6 @@
             transform: translateY(-1px);
         }
 
-
-        /* =========================================================
-       PUBLIC THESIS COLLECTION
-    ========================================================== */
 
         .collection-section {
             padding: 85px 0;
@@ -1432,8 +1407,9 @@
                 <a href="{{ url('/') }}" class="brand">
 
                     <div class="brand-logo">
-                        <i class="bi bi-mortarboard-fill"></i>
+                        <img src="{{ asset('image/Small LU Logo.png') }}" alt="Life University Logo">
                     </div>
+
 
                     <div class="brand-text">
 
@@ -2085,126 +2061,6 @@
             </section>
 
 
-
-            {{-- =========================================================
-         CALL TO ACTION
-    ========================================================== --}}
-
-            {{-- <section class="cta">
-
-                <div class="container">
-
-                    <div class="cta-inner">
-
-
-                        <div>
-
-                            <h2 class="cta-title">
-
-                                Ready to explore research?
-
-                            </h2>
-
-
-                            <p class="cta-text">
-
-                                Discover academic knowledge and find research
-                                that supports your next idea.
-
-                            </p>
-
-                        </div>
-
-
-                        <div class="cta-actions">
-
-
-                            <a href="#theses" class="btn btn-primary">
-
-                                <i class="bi bi-search"></i>
-
-                                Browse Theses
-
-                            </a>
-
-
-                            @guest
-
-                                <a href="{{ route('login') }}" class="btn btn-outline">
-
-                                    <i class="bi bi-box-arrow-in-right"></i>
-
-                                    Sign In
-
-                                </a>
-
-                            @endguest
-
-
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-            </section> --}}
-
-
-        </main>
-
-
-
-        {{-- =========================================================
-     FOOTER
-========================================================== --}}
-
-        {{-- <footer class="footer">
-
-    <div class="container footer-inner">
-
-
-        <div>
-
-            <div class="footer-brand">
-                Thesis Repository
-            </div>
-
-            <div class="footer-copy">
-                Academic Research Repository
-            </div>
-
-        </div>
-
-
-        <div class="footer-links">
-
-            <a href="#home">
-                Home
-            </a>
-
-            <a href="#featured">
-                Featured
-            </a>
-
-            <a href="#theses">
-                Theses
-            </a>
-
-            @guest
-
-                <a href="{{ route('login') }}">
-                    Login
-                </a>
-
-            @endguest
-
-        </div>
-
-
-    </div>
-
-</footer> --}}
 
 
     </div>
