@@ -3,14 +3,10 @@
         <div class="auth-card">
             <div class="row g-0">
                 <div class="col-md-5">
-
                     <div class="auth-left">
-
                         <img src="{{ asset('image/Small LU Logo.png') }}" alt="Life University Logo"
                             class="university-logo-register">
-
                         <div class="auth-brand-content">
-
                             <h2 class="university-name-register">
                                 A Digital Thesis Repository Platform in Life University
                             </h2>
@@ -35,9 +31,7 @@
 
                             @if (session('success'))
                                 <div class="alert alert-success">
-
                                     {{ session('success') }}
-
                                 </div>
                             @endif
 
@@ -54,7 +48,6 @@
                             @endif
 
                             <form method="POST" action="{{ route('register') }}">
-
                                 @csrf
                                 <div class="row g-3">
                                     <div class="col-md-6">
@@ -121,7 +114,6 @@
                                         aria-label="Show password">
                                         <i class="bi bi-eye" id="passwordIcon"></i>
                                     </button>
-
                                 </div>
 
                                 @error('password')
@@ -133,22 +125,15 @@
                                 <label for="password_confirmation" class="form-label">
                                     Confirm Password
                                 </label>
-
                                 <div class="input-group-custom">
-
                                     <i class="bi bi-lock-fill input-icon"></i>
-
                                     <input type="password" class="form-control" id="password_confirmation"
                                         name="password_confirmation" placeholder="Confirm your password" required
                                         autocomplete="new-password">
-
                                     <button type="button" class="password-toggle" id="toggleConfirmPassword"
                                         aria-label="Show password">
-
                                         <i class="bi bi-eye" id="confirmPasswordIcon"></i>
-
                                     </button>
-
                                 </div>
 
                                 @error('password_confirmation')
@@ -161,18 +146,15 @@
                                     style="display: {{ str_ends_with(old('email', ''), '@lifeun.edu.kh') ? 'block' : 'none' }};">
                                     <div class="row g-3">
                                         <div class="col-md-6">
-
                                             <label for="department_id" class="form-label">
                                                 Department
                                             </label>
-
                                             <div class="input-group-custom">
                                                 <select id="department_id" name="department_id"
                                                     class="department-select">
                                                     <option value="">
                                                         Select Department
                                                     </option>
-
                                                     @foreach ($departments as $department)
                                                         <option value="{{ $department->id }}"
                                                             {{ old('department_id') == $department->id ? 'selected' : '' }}>
@@ -205,7 +187,6 @@
                                                     {{ $message }}
                                                 </div>
                                             @enderror
-
                                         </div>
                                     </div>
                                 </div>
@@ -231,119 +212,43 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const passwordInput =
-                document.getElementById('password');
+            const passwordInput = document.getElementById('password');
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordIcon = document.getElementById('passwordIcon');
 
-            const togglePassword =
-                document.getElementById('togglePassword');
-
-            const passwordIcon =
-                document.getElementById('passwordIcon');
-
-            if (
-                togglePassword &&
-                passwordInput &&
-                passwordIcon
-            ) {
-                togglePassword.addEventListener(
-                    'click',
-                    function() {
-
-                        if (
-                            passwordInput.type === 'password'
-                        ) {
-
-                            passwordInput.type = 'text';
-
-                            passwordIcon.classList.replace(
-                                'bi-eye',
-                                'bi-eye-slash'
-                            );
-
-                            togglePassword.setAttribute(
-                                'aria-label',
-                                'Hide password'
-                            );
-
-                        } else {
-
-                            passwordInput.type = 'password';
-
-                            passwordIcon.classList.replace(
-                                'bi-eye-slash',
-                                'bi-eye'
-                            );
-
-                            togglePassword.setAttribute(
-                                'aria-label',
-                                'Show password'
-                            );
-
-                        }
-
+            if (togglePassword && passwordInput && passwordIcon) {
+                togglePassword.addEventListener('click', function() {
+                    if (passwordInput.type === 'password') {
+                        passwordInput.type = 'text';
+                        passwordIcon.classList.replace('bi-eye', 'bi-eye-slash');
+                        togglePassword.setAttribute('aria-label', 'Hide password');
+                    } else {
+                        passwordInput.type = 'password';
+                        passwordIcon.classList.replace('bi-eye-slash', 'bi-eye');
+                        togglePassword.setAttribute('aria-label', 'Show password');
                     }
-                );
-
+                });
             }
-            const confirmPasswordInput =
-                document.getElementById(
-                    'password_confirmation'
-                );
 
-            const toggleConfirmPassword =
-                document.getElementById(
-                    'toggleConfirmPassword'
-                );
+            const confirmPasswordInput = document.getElementById('password_confirmation');
+            const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+            const confirmPasswordIcon = document.getElementById('confirmPasswordIcon');
 
-            const confirmPasswordIcon =
-                document.getElementById(
-                    'confirmPasswordIcon'
-                );
-
-            if (
-                toggleConfirmPassword &&
-                confirmPasswordInput &&
-                confirmPasswordIcon
-            ) {
-
-                toggleConfirmPassword.addEventListener(
-                    'click',
-                    function() {
-
-                        if (
-                            confirmPasswordInput.type === 'password'
-                        ) {
-
-                            confirmPasswordInput.type = 'text';
-
-                            confirmPasswordIcon.classList.replace(
-                                'bi-eye',
-                                'bi-eye-slash'
-                            );
-
-                            toggleConfirmPassword.setAttribute(
-                                'aria-label',
-                                'Hide password'
-                            );
-
-                        } else {
-
-                            confirmPasswordInput.type = 'password';
-
-                            confirmPasswordIcon.classList.replace(
-                                'bi-eye-slash',
-                                'bi-eye'
-                            );
-
-                            toggleConfirmPassword.setAttribute(
-                                'aria-label',
-                                'Show password'
-                            );
-                        }
+            if (toggleConfirmPassword && confirmPasswordInput && confirmPasswordIcon) {
+                toggleConfirmPassword.addEventListener('click', function() {
+                    if (confirmPasswordInput.type === 'password') {
+                        confirmPasswordInput.type = 'text';
+                        confirmPasswordIcon.classList.replace('bi-eye', 'bi-eye-slash');
+                        toggleConfirmPassword.setAttribute('aria-label', 'Hide password');
+                    } else {
+                        confirmPasswordInput.type = 'password';
+                        confirmPasswordIcon.classList.replace('bi-eye-slash', 'bi-eye');
+                        toggleConfirmPassword.setAttribute('aria-label', 'Show password');
                     }
-                );
+                });
             }
         });
+
         const email = document.getElementById('email');
         const studentFields = document.getElementById('student-fields');
         const department = document.getElementById('department_id');
@@ -351,20 +256,14 @@
         const fullName = document.getElementById('full_name');
 
         function toggleStudentFields() {
-
-            const isStudent =
-                email.value.toLowerCase().endsWith('@lifeun.edu.kh');
-
-            studentFields.style.display =
-                isStudent ? 'block' : 'none';
-
+            const isStudent = email.value.toLowerCase().endsWith('@lifeun.edu.kh');
+            studentFields.style.display = isStudent ? 'block' : 'none';
             department.required = isStudent;
             startedYear.required = isStudent;
             fullName.required = isStudent;
         }
 
         toggleStudentFields();
-
         email.addEventListener('input', toggleStudentFields);
     </script>
 </x-guest-layout>

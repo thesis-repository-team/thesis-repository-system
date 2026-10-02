@@ -1,12 +1,5 @@
 <x-app-layout>
-
     <style>
-        /* =========================================================
-       REJECTED THESIS / RESUBMIT PAGE
-       Styled to match CREATE THESIS REQUEST
-       Frontend only - Backend/Input names unchanged
-    ========================================================= */
-
         .rejected-thesis-page {
             --tr-bg: #f5f6f8;
             --tr-card: #ffffff;
@@ -20,7 +13,6 @@
             --tr-danger: #dc2626;
             --tr-success: #16a34a;
             --tr-shadow: 0 25px 80px rgba(0, 0, 0, 0.25);
-
             position: fixed;
             inset: 0;
             width: 100%;
@@ -37,11 +29,6 @@
             box-sizing: border-box;
         }
 
-
-        /* =========================================================
-       BLURRED BACKGROUND
-    ========================================================= */
-
         .rejected-thesis-page::before {
             content: "";
             position: fixed;
@@ -53,19 +40,9 @@
             pointer-events: all;
         }
 
-
-        /* =========================================================
-       BODY SCROLL LOCK
-    ========================================================= */
-
         body.rejected-modal-open {
             overflow: hidden;
         }
-
-
-        /* =========================================================
-       MAIN WRAPPER
-    ========================================================= */
 
         .rejected-thesis-wrapper {
             position: relative;
@@ -75,11 +52,6 @@
             z-index: 2;
         }
 
-
-        /* =========================================================
-       MAIN CARD
-    ========================================================= */
-
         .rejected-thesis-card {
             position: relative;
             background: var(--tr-card);
@@ -87,22 +59,13 @@
             border-radius: 18px;
             overflow: hidden;
             box-shadow: var(--tr-shadow);
-            transition:
-                background 0.3s ease,
-                border-color 0.3s ease;
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
-
-
-        /* =========================================================
-       HEADER
-    ========================================================= */
 
         .rejected-thesis-header {
             position: relative;
             padding: 22px 28px;
-            background: linear-gradient(135deg,
-                    #6538d9,
-                    #4f46e5);
+            background: linear-gradient(135deg, #6538d9, #4f46e5);
             color: #ffffff;
         }
 
@@ -139,19 +102,9 @@
             opacity: 0.9;
         }
 
-
-        /* =========================================================
-       BODY
-    ========================================================= */
-
         .rejected-thesis-body {
             padding: 30px;
         }
-
-
-        /* =========================================================
-       ALERTS
-    ========================================================= */
 
         .rejected-alert {
             display: flex;
@@ -185,11 +138,6 @@
             border: 1px solid #bbf7d0;
             color: #166534;
         }
-
-
-        /* =========================================================
-       REJECTED MESSAGE
-    ========================================================= */
 
         .rejected-message {
             display: flex;
@@ -229,11 +177,6 @@
             font-size: 12px;
             line-height: 1.6;
         }
-
-
-        /* =========================================================
-       FEEDBACK CARD
-    ========================================================= */
 
         .rejected-feedback-card {
             margin-bottom: 24px;
@@ -332,11 +275,6 @@
             font-size: 16px;
         }
 
-
-        /* =========================================================
-       RESUBMIT SECTION
-    ========================================================= */
-
         .resubmit-section {
             margin-bottom: 0;
         }
@@ -374,11 +312,6 @@
             font-size: 11px;
         }
 
-
-        /* =========================================================
-       FORM GRID
-    ========================================================= */
-
         .rejected-form-layout {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -393,11 +326,6 @@
         .rejected-form-wide {
             grid-column: 1 / -1;
         }
-
-
-        /* =========================================================
-       FORM LABEL
-    ========================================================= */
 
         .rejected-form-label {
             display: block;
@@ -418,11 +346,6 @@
             margin-left: 3px;
         }
 
-
-        /* =========================================================
-       INPUT
-    ========================================================= */
-
         .rejected-form-control {
             width: 100%;
             min-height: 46px;
@@ -435,10 +358,7 @@
             font-family: inherit;
             font-size: 14px;
             box-sizing: border-box;
-            transition:
-                border-color 0.2s ease,
-                box-shadow 0.2s ease,
-                background 0.2s ease;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
         }
 
         .rejected-form-control:hover {
@@ -449,8 +369,7 @@
             border-color: var(--tr-primary);
             background: var(--tr-input);
             color: var(--tr-text);
-            box-shadow:
-                0 0 0 4px rgba(37, 99, 235, 0.12);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
             outline: none;
         }
 
@@ -458,21 +377,11 @@
             color: #9ca3af;
         }
 
-
-        /* =========================================================
-       TEXTAREA
-    ========================================================= */
-
         .rejected-textarea {
             min-height: 120px;
             resize: vertical;
             line-height: 1.7;
         }
-
-
-        /* =========================================================
-       CURRENT PDF
-    ========================================================= */
 
         .current-pdf-box {
             width: 100%;
@@ -529,11 +438,6 @@
             font-size: 11px;
         }
 
-
-        /* =========================================================
-       VIEW PDF BUTTON
-    ========================================================= */
-
         .view-pdf-button {
             min-height: 38px;
             padding: 0 13px;
@@ -560,11 +464,6 @@
             transform: translateY(-1px);
         }
 
-
-        /* =========================================================
-       NO PDF
-    ========================================================= */
-
         .no-pdf-box {
             min-height: 46px;
             display: flex;
@@ -578,11 +477,6 @@
             font-size: 12px;
             box-sizing: border-box;
         }
-
-
-        /* =========================================================
-       FILE INPUT
-    ========================================================= */
 
         .rejected-file-input {
             padding: 7px 8px;
@@ -606,11 +500,6 @@
             background: #dbeafe;
         }
 
-
-        /* =========================================================
-       FILE HELP
-    ========================================================= */
-
         .file-help {
             display: flex;
             align-items: flex-start;
@@ -626,11 +515,6 @@
             color: var(--tr-primary);
         }
 
-
-        /* =========================================================
-       FIELD ERROR
-    ========================================================= */
-
         .field-error {
             display: flex;
             align-items: flex-start;
@@ -641,21 +525,11 @@
             line-height: 1.4;
         }
 
-
-        /* =========================================================
-       FORM DIVIDER
-    ========================================================= */
-
         .rejected-form-divider {
             height: 1px;
             margin: 25px 0 20px;
             background: var(--tr-border);
         }
-
-
-        /* =========================================================
-       ACTIONS
-    ========================================================= */
 
         .rejected-form-actions {
             display: flex;
@@ -684,11 +558,6 @@
             transform: translateY(-1px);
         }
 
-
-        /* =========================================================
-       BACK BUTTON
-    ========================================================= */
-
         .rejected-btn-back {
             background: #f3f4f6;
             border: 1px solid #d1d5db;
@@ -700,11 +569,6 @@
             border-color: #cbd5e1;
             color: #1f2937;
         }
-
-
-        /* =========================================================
-       SUBMIT BUTTON
-    ========================================================= */
 
         .rejected-btn-submit {
             background: var(--tr-primary);
@@ -720,16 +584,10 @@
             box-shadow: 0 6px 16px rgba(37, 99, 235, 0.24);
         }
 
-
-        /* =========================================================
-       DARK MODE
-    ========================================================= */
-
         [data-bs-theme="dark"] .rejected-thesis-page,
         .dark .rejected-thesis-page,
         body.dark .rejected-thesis-page,
         [data-theme="dark"] .rejected-thesis-page {
-
             --tr-bg: #101426;
             --tr-card: #181d33;
             --tr-text: #f3f4f6;
@@ -743,44 +601,24 @@
             --tr-shadow: 0 25px 80px rgba(0, 0, 0, 0.55);
         }
 
-
-        /* =========================================================
-       DARK OVERLAY
-    ========================================================= */
-
         [data-bs-theme="dark"] .rejected-thesis-page::before,
         .dark .rejected-thesis-page::before,
         body.dark .rejected-thesis-page::before,
         [data-theme="dark"] .rejected-thesis-page::before {
-
             background: rgba(0, 0, 0, 0.55);
         }
-
-
-        /* =========================================================
-       DARK HEADER
-    ========================================================= */
 
         [data-bs-theme="dark"] .rejected-thesis-header,
         .dark .rejected-thesis-header,
         body.dark .rejected-thesis-header,
         [data-theme="dark"] .rejected-thesis-header {
-
-            background: linear-gradient(135deg,
-                    #6538d9,
-                    #4f46e5);
+            background: linear-gradient(135deg, #6538d9, #4f46e5);
         }
-
-
-        /* =========================================================
-       DARK FEEDBACK
-    ========================================================= */
 
         [data-bs-theme="dark"] .rejected-feedback-card,
         .dark .rejected-feedback-card,
         body.dark .rejected-feedback-card,
         [data-theme="dark"] .rejected-feedback-card {
-
             background: var(--tr-card);
             border-color: var(--tr-border);
         }
@@ -789,7 +627,6 @@
         .dark .rejected-feedback-header,
         body.dark .rejected-feedback-header,
         [data-theme="dark"] .rejected-feedback-header {
-
             background: #211d3b;
             border-bottom-color: #302b4b;
         }
@@ -798,20 +635,13 @@
         .dark .rejected-feedback-header h4,
         body.dark .rejected-feedback-header h4,
         [data-theme="dark"] .rejected-feedback-header h4 {
-
             color: #ffffff;
         }
-
-
-        /* =========================================================
-       DARK INPUT
-    ========================================================= */
 
         [data-bs-theme="dark"] .rejected-form-control,
         .dark .rejected-form-control,
         body.dark .rejected-form-control,
         [data-theme="dark"] .rejected-form-control {
-
             background: var(--tr-input);
             border-color: var(--tr-border);
             color: var(--tr-text);
@@ -821,7 +651,6 @@
         .dark .rejected-form-control:hover,
         body.dark .rejected-form-control:hover,
         [data-theme="dark"] .rejected-form-control:hover {
-
             border-color: #484e69;
         }
 
@@ -829,7 +658,6 @@
         .dark .rejected-form-control:focus,
         body.dark .rejected-form-control:focus,
         [data-theme="dark"] .rejected-form-control:focus {
-
             background: var(--tr-input);
             border-color: var(--tr-primary);
             color: #ffffff;
@@ -839,20 +667,13 @@
         .dark .rejected-form-control::placeholder,
         body.dark .rejected-form-control::placeholder,
         [data-theme="dark"] .rejected-form-control::placeholder {
-
             color: #8f96ad;
         }
-
-
-        /* =========================================================
-       DARK FEEDBACK BOX
-    ========================================================= */
 
         [data-bs-theme="dark"] .feedback-box,
         .dark .feedback-box,
         body.dark .feedback-box,
         [data-theme="dark"] .feedback-box {
-
             background: #321f27;
             border-color: #4e2a34;
             border-left-color: #e24444;
@@ -862,7 +683,6 @@
         .dark .feedback-icon,
         body.dark .feedback-icon,
         [data-theme="dark"] .feedback-icon {
-
             background: #4a2932;
             color: #ff7777;
         }
@@ -871,35 +691,22 @@
         .dark .feedback-text,
         body.dark .feedback-text,
         [data-theme="dark"] .feedback-text {
-
             color: #c2c5d3;
         }
-
-
-        /* =========================================================
-       DARK NO FEEDBACK
-    ========================================================= */
 
         [data-bs-theme="dark"] .no-feedback,
         .dark .no-feedback,
         body.dark .no-feedback,
         [data-theme="dark"] .no-feedback {
-
             background: var(--tr-input);
             border-color: var(--tr-border);
             color: var(--tr-muted);
         }
 
-
-        /* =========================================================
-       DARK CURRENT PDF
-    ========================================================= */
-
         [data-bs-theme="dark"] .current-pdf-box,
         .dark .current-pdf-box,
         body.dark .current-pdf-box,
         [data-theme="dark"] .current-pdf-box {
-
             background: var(--tr-input);
             border-color: var(--tr-border);
         }
@@ -908,7 +715,6 @@
         .dark .pdf-details strong,
         body.dark .pdf-details strong,
         [data-theme="dark"] .pdf-details strong {
-
             color: #ffffff;
         }
 
@@ -916,20 +722,13 @@
         .dark .pdf-details span,
         body.dark .pdf-details span,
         [data-theme="dark"] .pdf-details span {
-
             color: var(--tr-muted);
         }
-
-
-        /* =========================================================
-       DARK FILE INPUT
-    ========================================================= */
 
         [data-bs-theme="dark"] .rejected-file-input::file-selector-button,
         .dark .rejected-file-input::file-selector-button,
         body.dark .rejected-file-input::file-selector-button,
         [data-theme="dark"] .rejected-file-input::file-selector-button {
-
             background: #252b43;
             color: #60a5fa;
         }
@@ -938,20 +737,13 @@
         .dark .rejected-file-input::file-selector-button:hover,
         body.dark .rejected-file-input::file-selector-button:hover,
         [data-theme="dark"] .rejected-file-input::file-selector-button:hover {
-
             background: #303750;
         }
-
-
-        /* =========================================================
-       DARK REJECTED MESSAGE
-    ========================================================= */
 
         [data-bs-theme="dark"] .rejected-message,
         .dark .rejected-message,
         body.dark .rejected-message,
         [data-theme="dark"] .rejected-message {
-
             background: #321f27;
             border-color: #4e2a34;
         }
@@ -960,7 +752,6 @@
         .dark .rejected-message-icon,
         body.dark .rejected-message-icon,
         [data-theme="dark"] .rejected-message-icon {
-
             background: #4a2932;
             color: #ff7777;
         }
@@ -969,7 +760,6 @@
         .dark .rejected-message h3,
         body.dark .rejected-message h3,
         [data-theme="dark"] .rejected-message h3 {
-
             color: #ff7777;
         }
 
@@ -977,20 +767,13 @@
         .dark .rejected-message p,
         body.dark .rejected-message p,
         [data-theme="dark"] .rejected-message p {
-
             color: #c2a2a8;
         }
-
-
-        /* =========================================================
-       DARK ALERT
-    ========================================================= */
 
         [data-bs-theme="dark"] .rejected-alert-danger,
         .dark .rejected-alert-danger,
         body.dark .rejected-alert-danger,
         [data-theme="dark"] .rejected-alert-danger {
-
             background: rgba(127, 29, 29, 0.2);
             border-color: rgba(248, 113, 113, 0.3);
             color: #fca5a5;
@@ -1000,37 +783,24 @@
         .dark .rejected-alert-success,
         body.dark .rejected-alert-success,
         [data-theme="dark"] .rejected-alert-success {
-
             background: rgba(22, 101, 52, 0.2);
             border-color: rgba(74, 222, 128, 0.3);
             color: #86efac;
         }
 
-
-        /* =========================================================
-       DARK NO PDF
-    ========================================================= */
-
         [data-bs-theme="dark"] .no-pdf-box,
         .dark .no-pdf-box,
         body.dark .no-pdf-box,
         [data-theme="dark"] .no-pdf-box {
-
             background: rgba(120, 83, 8, 0.18);
             border-color: rgba(250, 204, 21, 0.25);
             color: #fcd34d;
         }
 
-
-        /* =========================================================
-       DARK BACK BUTTON
-    ========================================================= */
-
         [data-bs-theme="dark"] .rejected-btn-back,
         .dark .rejected-btn-back,
         body.dark .rejected-btn-back,
         [data-theme="dark"] .rejected-btn-back {
-
             background: #262a31;
             border-color: #3b4048;
             color: #f3f4f6;
@@ -1040,19 +810,12 @@
         .dark .rejected-btn-back:hover,
         body.dark .rejected-btn-back:hover,
         [data-theme="dark"] .rejected-btn-back:hover {
-
             background: #30353e;
             border-color: #464c57;
             color: #ffffff;
         }
 
-
-        /* =========================================================
-       TABLET
-    ========================================================= */
-
         @media (max-width: 992px) {
-
             .rejected-thesis-page {
                 padding: 25px 16px;
             }
@@ -1070,13 +833,7 @@
             }
         }
 
-
-        /* =========================================================
-       MOBILE
-    ========================================================= */
-
         @media (max-width: 768px) {
-
             .rejected-thesis-page {
                 padding: 15px 10px 20px;
                 align-items: flex-start;
@@ -1207,13 +964,7 @@
             }
         }
 
-
-        /* =========================================================
-       SMALL MOBILE
-    ========================================================= */
-
         @media (max-width: 480px) {
-
             .rejected-thesis-page {
                 padding-left: 8px;
                 padding-right: 8px;
@@ -1272,547 +1023,274 @@
         }
     </style>
 
-
-    {{-- =========================================================
-     RESUBMIT THESIS MODAL
-========================================================== --}}
-
     <div class="dashboard-content rejected-thesis-page">
-
         <div class="rejected-thesis-wrapper">
-
             <div class="rejected-thesis-card">
-
-                {{-- =====================================================
-                 HEADER
-            ====================================================== --}}
-
                 <div class="rejected-thesis-header">
-
                     <div class="rejected-header-content">
-
                         <div class="rejected-header-icon">
                             <i class="bi bi-file-earmark-x"></i>
                         </div>
-
                         <div>
-                            <h3>
-                                Thesis Rejected
-                            </h3>
-
-                            <p>
-                                Review the HoD feedback and resubmit your thesis.
-                            </p>
+                            <h3>Thesis Rejected</h3>
+                            <p>Review the HoD feedback and resubmit your thesis.</p>
                         </div>
-
                     </div>
-
                 </div>
 
-
-                {{-- =====================================================
-                 BODY
-            ====================================================== --}}
-
                 <div class="rejected-thesis-body">
-
-                    {{-- =================================================
-                     ERROR MESSAGE
-                ================================================== --}}
-
                     @if (session('error'))
                         <div class="rejected-alert rejected-alert-danger">
-
                             <div class="rejected-alert-icon">
                                 <i class="bi bi-exclamation-circle-fill"></i>
                             </div>
-
                             <div>
                                 {{ session('error') }}
                             </div>
-
                         </div>
                     @endif
-
-
-                    {{-- =================================================
-                     SUCCESS MESSAGE
-                ================================================== --}}
 
                     @if (session('success'))
                         <div class="rejected-alert rejected-alert-success">
-
                             <div class="rejected-alert-icon">
                                 <i class="bi bi-check-circle-fill"></i>
                             </div>
-
                             <div>
                                 {{ session('success') }}
                             </div>
-
                         </div>
                     @endif
 
-
-                    {{-- =================================================
-                     VALIDATION ERRORS
-                ================================================== --}}
-
                     @if ($errors->any())
-
                         <div class="rejected-alert rejected-alert-danger">
-
                             <div class="rejected-alert-icon">
                                 <i class="bi bi-exclamation-triangle-fill"></i>
                             </div>
-
                             <div>
-
-                                <strong>
-                                    Please correct the following errors:
-                                </strong>
-
+                                <strong>Please correct the following errors:</strong>
                                 <ul>
                                     @foreach ($errors->all() as $error)
-                                        <li>
-                                            {{ $error }}
-                                        </li>
+                                        <li>{{ $error }}</li>
                                     @endforeach
                                 </ul>
-
                             </div>
-
                         </div>
-
                     @endif
 
-
-                    {{-- =================================================
-                     REJECTED MESSAGE
-                ================================================== --}}
-
                     <div class="rejected-message">
-
                         <div class="rejected-message-icon">
                             <i class="bi bi-x-circle-fill"></i>
                         </div>
-
                         <div>
-
-                            <h3>
-                                Your thesis has been rejected
-                            </h3>
-
+                            <h3>Your thesis has been rejected</h3>
                             <p>
                                 Please review the feedback below and make the necessary
                                 changes before resubmitting.
                             </p>
-
                         </div>
-
                     </div>
 
-
-                    {{-- =================================================
-                     HOD FEEDBACK
-                ================================================== --}}
-
                     <div class="rejected-feedback-card">
-
                         <div class="rejected-feedback-header">
-
                             <div class="rejected-section-icon">
                                 <i class="bi bi-chat-left-text"></i>
                             </div>
-
                             <div>
-
-                                <h4>
-                                    HoD Feedback
-                                </h4>
-
-                                <p>
-                                    Feedback provided by the Head of Department
-                                </p>
-
+                                <h4>HoD Feedback</h4>
+                                <p>Feedback provided by the Head of Department</p>
                             </div>
-
                         </div>
 
-
                         <div class="rejected-feedback-body">
-
                             @if ($thesisRequest->remarks)
                                 <div class="feedback-box">
-
                                     <div class="feedback-icon">
                                         <i class="bi bi-quote"></i>
                                     </div>
-
                                     <div class="feedback-text">
                                         {{ $thesisRequest->remarks }}
                                     </div>
-
                                 </div>
                             @else
                                 <div class="no-feedback">
-
                                     <i class="bi bi-chat-left-dots"></i>
-
-                                    <span>
-                                        No feedback was provided.
-                                    </span>
-
+                                    <span>No feedback was provided.</span>
                                 </div>
                             @endif
-
                         </div>
-
                     </div>
 
-
-                    {{-- =================================================
-                     RESUBMIT SECTION
-                ================================================== --}}
-
                     <div class="resubmit-section">
-
                         <div class="resubmit-section-header">
-
                             <div class="resubmit-section-icon">
                                 <i class="bi bi-arrow-repeat"></i>
                             </div>
-
                             <div>
-
-                                <h4>
-                                    Resubmit Thesis
-                                </h4>
-
-                                <p>
-                                    Update your thesis information and submit it again.
-                                </p>
-
+                                <h4>Resubmit Thesis</h4>
+                                <p>Update your thesis information and submit it again.</p>
                             </div>
-
                         </div>
-
-
-                        {{-- =================================================
-                         FORM
-                    ================================================== --}}
 
                         <form action="{{ route('student.thesis_requests.resubmit', $thesisRequest) }}" method="POST"
                             enctype="multipart/form-data">
-
                             @csrf
                             @method('PUT')
 
-
                             <div class="rejected-form-layout">
-
-
-                                {{-- =================================================
-                                 TITLE
-                            ================================================== --}}
-
                                 <div class="rejected-form-group">
-
                                     <label class="rejected-form-label">
-
                                         Thesis Title
-
-                                        <span class="rejected-required">
-                                            *
-                                        </span>
-
+                                        <span class="rejected-required">*</span>
                                     </label>
-
                                     <input type="text" name="title"
                                         value="{{ old('title', $thesisRequest->title) }}" required
                                         class="rejected-form-control" placeholder="Enter thesis title">
-
                                     @error('title')
                                         <p class="field-error">
-
                                             <i class="bi bi-exclamation-circle"></i>
-
                                             {{ $message }}
-
                                         </p>
                                     @enderror
-
                                 </div>
 
-
-                                {{-- =================================================
-                                 AUTHOR
-                            ================================================== --}}
-
                                 <div class="rejected-form-group">
-
                                     <label class="rejected-form-label">
-
                                         Author Name
-
-                                        <span class="rejected-required">
-                                            *
-                                        </span>
-
+                                        <span class="rejected-required">*</span>
                                     </label>
-
                                     <input type="text" name="author_name"
                                         value="{{ old('author_name', $thesisRequest->author_name) }}" required
                                         class="rejected-form-control" placeholder="Enter author name">
-
                                     @error('author_name')
                                         <p class="field-error">
-
                                             <i class="bi bi-exclamation-circle"></i>
-
                                             {{ $message }}
-
                                         </p>
                                     @enderror
-
                                 </div>
-
-
-                                {{-- =================================================
-                                 ABSTRACT
-                            ================================================== --}}
-
-                                <div class="rejected-form-group rejected-form-wide">
-
-                                    <label class="rejected-form-label">
-
-                                        Abstract
-
-                                        <span class="rejected-required">
-                                            *
-                                        </span>
-
-                                    </label>
-
-                                    <textarea name="abstract" rows="7" required class="rejected-form-control rejected-textarea"
-                                        placeholder="Enter thesis abstract">{{ old('abstract', $thesisRequest->abstract) }}</textarea>
-
-                                    @error('abstract')
-                                        <p class="field-error">
-
-                                            <i class="bi bi-exclamation-circle"></i>
-
-                                            {{ $message }}
-
-                                        </p>
-                                    @enderror
-
-                                </div>
-
-
-                                {{-- =================================================
-                                 DESCRIPTION
-                            ================================================== --}}
-
-                                <div class="rejected-form-group rejected-form-wide">
-
-                                    <label class="rejected-form-label">
-
-                                        Description
-
-                                        <span class="rejected-required">
-                                            *
-                                        </span>
-
-                                    </label>
-
-                                    <textarea name="description" rows="7" required class="rejected-form-control rejected-textarea"
-                                        placeholder="Enter thesis description">{{ old('description', $thesisRequest->description) }}</textarea>
-
-                                    @error('description')
-                                        <p class="field-error">
-
-                                            <i class="bi bi-exclamation-circle"></i>
-
-                                            {{ $message }}
-
-                                        </p>
-                                    @enderror
-
-                                </div>
-
-
-                                {{-- =================================================
-                                 CURRENT PDF
-                            ================================================== --}}
 
                                 <div class="rejected-form-group">
-
                                     <label class="rejected-form-label">
-                                        Current Thesis PDF
+                                        Academic Year
+                                        <span class="rejected-required">*</span>
                                     </label>
+                                    <input type="text" name="academic_year"
+                                        value="{{ old('academic_year', $thesisRequest->academic_year) }}" required
+                                        class="rejected-form-control" placeholder="Enter academic year">
+                                    @error('academic_year')
+                                        <p class="field-error">
+                                            <i class="bi bi-exclamation-circle"></i>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
 
+                                <div class="rejected-form-group rejected-form-wide">
+                                    <label class="rejected-form-label">
+                                        Abstract
+                                        <span class="rejected-required">*</span>
+                                    </label>
+                                    <textarea name="abstract" rows="7" required class="rejected-form-control rejected-textarea"
+                                        placeholder="Enter thesis abstract">{{ old('abstract', $thesisRequest->abstract) }}</textarea>
+                                    @error('abstract')
+                                        <p class="field-error">
+                                            <i class="bi bi-exclamation-circle"></i>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+
+                                <div class="rejected-form-group rejected-form-wide">
+                                    <label class="rejected-form-label">
+                                        Description
+                                        <span class="rejected-required">*</span>
+                                    </label>
+                                    <textarea name="description" rows="7" required class="rejected-form-control rejected-textarea"
+                                        placeholder="Enter thesis description">{{ old('description', $thesisRequest->description) }}</textarea>
+                                    @error('description')
+                                        <p class="field-error">
+                                            <i class="bi bi-exclamation-circle"></i>
+                                            {{ $message }}
+                                        </p>
+                                    @enderror
+                                </div>
+
+                                <div class="rejected-form-group">
+                                    <label class="rejected-form-label">Current Thesis PDF</label>
                                     @if ($thesisRequest->pdf_file)
                                         <div class="current-pdf-box">
-
                                             <div class="current-pdf-info">
-
                                                 <div class="pdf-icon">
                                                     <i class="bi bi-file-earmark-pdf-fill"></i>
                                                 </div>
-
                                                 <div class="pdf-details">
-
-                                                    <strong>
-                                                        {{ $thesisRequest->thesis_name }}
-                                                    </strong>
-
-                                                    <span>
-                                                        Current thesis document
-                                                    </span>
-
+                                                    <strong>{{ $thesisRequest->thesis_name }}</strong>
+                                                    <span>Current thesis document</span>
                                                 </div>
-
                                             </div>
-
 
                                             <a href="{{ asset('storage/' . $thesisRequest->pdf_file) }}"
                                                 target="_blank" class="view-pdf-button">
-
                                                 <i class="bi bi-eye-fill"></i>
-
                                                 View PDF
-
                                             </a>
-
                                         </div>
                                     @else
                                         <div class="no-pdf-box">
-
                                             <i class="bi bi-file-earmark-x"></i>
-
-                                            <span>
-                                                No current thesis PDF was found.
-                                            </span>
-
+                                            <span>No current thesis PDF was found.</span>
                                         </div>
                                     @endif
-
                                 </div>
-
-
-                                {{-- =================================================
-                                 REPLACE PDF
-                            ================================================== --}}
 
                                 <div class="rejected-form-group">
-
                                     <label class="rejected-form-label">
-
                                         Replace Thesis PDF
-
-                                        <span class="optional-label">
-                                            (Optional)
-                                        </span>
-
+                                        <span class="optional-label">(Optional)</span>
                                     </label>
-
                                     <input type="file" name="thesis_file" accept=".pdf"
                                         class="rejected-form-control rejected-file-input">
-
                                     <div class="file-help">
-
                                         <i class="bi bi-info-circle"></i>
-
-                                        <span>
-                                            Leave empty to keep the current PDF.
-                                        </span>
-
+                                        <span>Leave empty to keep the current PDF.</span>
                                     </div>
-
                                     <div class="file-help">
-
                                         <i class="bi bi-file-earmark-pdf"></i>
-
-                                        <span>
-                                            Upload a new PDF to replace the current thesis.
-                                        </span>
-
+                                        <span>Upload a new PDF to replace the current thesis.</span>
                                     </div>
-
                                     @error('thesis_file')
                                         <p class="field-error">
-
                                             <i class="bi bi-exclamation-circle"></i>
-
                                             {{ $message }}
-
                                         </p>
                                     @enderror
-
                                 </div>
-
                             </div>
-
-
-                            {{-- =================================================
-                             DIVIDER
-                        ================================================== --}}
 
                             <div class="rejected-form-divider"></div>
 
-
-                            {{-- =================================================
-                             ACTIONS
-                        ================================================== --}}
-
                             <div class="rejected-form-actions">
-
                                 <a href="{{ route('student.thesis_requests.index') }}"
                                     class="rejected-btn rejected-btn-back">
-
                                     <i class="bi bi-arrow-left"></i>
-
                                     Back
-
                                 </a>
 
-
                                 <button type="submit" class="rejected-btn rejected-btn-submit">
-
                                     <i class="bi bi-arrow-repeat"></i>
-
                                     Resubmit Thesis
-
                                 </button>
-
                             </div>
-
                         </form>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
-
-    {{-- =========================================================
-     JAVASCRIPT
-     Only controls modal background scroll.
-     No backend/input behavior changed.
-========================================================== --}}
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-
             document.body.classList.add('rejected-modal-open');
-
         });
     </script>
-
 </x-app-layout>

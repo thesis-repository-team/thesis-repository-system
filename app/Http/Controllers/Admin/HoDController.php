@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
-use App\Models\HoD;
+use App\Models\Hod;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,7 +12,7 @@ class HoDController extends Controller
 {
     public function index()
     {
-        $hods = HoD::all();
+        $hods = Hod::all();
         $departments = Department::all();
         $started_year = HoD::whereNotNull('started_year')
             ->select('started_year')
@@ -20,14 +20,13 @@ class HoDController extends Controller
             ->orderBy('started_year', 'desc')
             ->pluck('started_year');
 
-        return view('admin.hods.index', compact('hods', 'departments','started_year'));
+        return view('admin.hods.index', compact('hods', 'departments', 'started_year'));
     }
 
     public function create()
     {
         $departments = Department::all();
-        $hods = HoD::all();
-
+        $hods = Hod::all();
         return view('admin.hods.create', compact('departments', 'hods'));
     }
 
@@ -66,15 +65,14 @@ class HoDController extends Controller
     public function edit(HoD $hod)
     {
         $departments = Department::all();
-
         return view('admin.hods.edit', compact('departments', 'hod'));
     }
 
     public function update(Request $request, HoD $hod)
     {
         $request->validate([
-            'email' => 'required|email|unique:users,email,'.$hod->user_id,
-            'username' => 'required|string|max:100|unique:users,username,'.$hod->user_id,
+            'email' => 'required|email|unique:users,email,' . $hod->user_id,
+            'username' => 'required|string|max:100|unique:users,username,' . $hod->user_id,
             'password' => 'nullable|string|min:8',
             'full_name' => 'required|string|max:255',
             'department_id' => 'required|exists:departments,id',
@@ -103,7 +101,6 @@ class HoDController extends Controller
         return redirect()->route('admin.hods.index');
     }
 
-    // Add a method to handle the search functionality for HoDs
     public function search(Request $request)
     {
         $search = $request->search;
@@ -137,7 +134,6 @@ class HoDController extends Controller
         }
 
         $hods = $query->get();
-
         return view('admin.hods.table', compact('hods'));
     }
 }

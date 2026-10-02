@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\URL;
 
 class ProfileController extends Controller
 {
@@ -16,6 +17,12 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $previous = URL::previous();
+
+        if (!str_contains($previous, '/profile')) {
+            session(['profile_return_url' => $previous]);
+        }
+
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
@@ -57,9 +64,7 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
-
         Auth::logout();
-
         $user->delete();
 
         $request->session()->invalidate();

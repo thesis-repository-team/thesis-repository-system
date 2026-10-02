@@ -58,14 +58,13 @@ Route::middleware('auth')->group(function () {
             );
         }
 
-         if (auth()->user()->role === 'student') {
-
-            // Rejected → My Theses
+        if (auth()->user()->role === 'student') {
+            // Rejected -> My Theses
             if ($status === 'rejected') {
                 return redirect()->route('student.thesis_requests.rejected', $requestId);
             }
 
-            // Approved → Thesis Show
+            // Approved -> Thesis Show
             if ($status === 'approved') {
                 return redirect()->route(
                     'student.thesis_requests.show',

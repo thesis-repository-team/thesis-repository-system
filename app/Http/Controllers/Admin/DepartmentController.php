@@ -12,14 +12,12 @@ class DepartmentController extends Controller
     public function index()
     {
         $departments = Department::all();
-
         return view('admin.departments.index', compact('departments'));
     }
 
     public function create()
     {
         $departments = Department::all();
-
         return view('admin.departments.create', compact('departments'));
     }
 
@@ -28,10 +26,7 @@ class DepartmentController extends Controller
         $request->validate([
             'name' => 'required|string|max:100|unique:departments,name',
         ]);
-        Department::create([
-            'name' => $request->name,
-        ]);
-
+        Department::create(['name' => $request->name]);
         return redirect()->route('admin.departments.index');
     }
 
@@ -47,14 +42,12 @@ class DepartmentController extends Controller
         ]);
 
         $department->update($data);
-
         return redirect()->route('admin.departments.index');
     }
 
     public function destroy(Department $department)
     {
         $department->delete();
-
         return redirect()->route('admin.departments.index');
     }
 
@@ -65,24 +58,14 @@ class DepartmentController extends Controller
             'publishedBy',
             'files',
         ])
-        ->where('department_id', $department->id)
+            ->where('department_id', $department->id)->whereNotNull('published_at')
+            ->whereHas('publishedBy', function ($query) {
+                $query->whereIn('role', ['admin', 'hod']);
+            })
 
-        // Thesis must be published/approved.
-        ->whereNotNull('published_at')
+            ->latest('published_at')
+            ->get();
 
-        // Publisher must be Admin or HoD.
-        ->whereHas('publishedBy', function ($query) {
-            $query->whereIn('role', ['admin', 'hod']);
-        })
-
-        ->latest('published_at')
-        ->get();
-
-        return view(
-            'admin.departments.thesis',
-            compact('department', 'theses')
-        );
+        return view('admin.departments.thesis', compact('department', 'theses'));
     }
-
-    
 }

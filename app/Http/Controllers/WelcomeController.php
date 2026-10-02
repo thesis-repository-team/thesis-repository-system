@@ -32,10 +32,7 @@ class WelcomeController extends Controller
 
         $theses = $query->paginate(10)->withQueryString();
 
-        $recentTheses = Thesis::with([
-            'department',
-            'files'
-        ])
+        $recentTheses = Thesis::with(['department', 'files'])
             ->whereNotNull('published_at')
             ->orderByDesc('published_at')
             ->take(3)

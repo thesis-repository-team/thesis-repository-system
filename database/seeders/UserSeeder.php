@@ -17,20 +17,68 @@ class UserSeeder extends Seeder
 
         User::insert([
             [
-                'email' => 'admin@gmail.com',
+                'email' => 'admin@lifeun.edu.kh',
                 'username' => 'Admin',
                 'password' => Hash::make('12345678'),
                 'role' => 'admin',
             ],
             [
-                'email' => 'hod@gmail.com',
-                'username' => 'Hod',
+                'email' => 'hodInformationTechnology@lifeun.edu.kh',
+                'username' => 'Sambath',
                 'password' => Hash::make('12345678'),
                 'role' => 'hod',
             ],
             [
-                'email' => 'student@lifeun.edu.kh',
-                'username' => 'Student',
+                'email' => 'hodComputerScience@lifeun.edu.kh',
+                'username' => 'Sitha',
+                'password' => Hash::make('12345678'),
+                'role' => 'hod',
+            ],
+            [
+                'email' => 'hodChineseLanguage@lifeun.edu.kh',
+                'username' => 'Piseth',
+                'password' => Hash::make('12345678'),
+                'role' => 'hod',
+            ],
+            [
+                'email' => 'hodEnglishLiterature@lifeun.edu.kh',
+                'username' => 'Andy',
+                'password' => Hash::make('12345678'),
+                'role' => 'hod',
+            ],
+            [
+                'email' => 'hodCivilEngineering@lifeun.edu.kh',
+                'username' => 'Mac',
+                'password' => Hash::make('12345678'),
+                'role' => 'hod',
+            ],
+            [
+                'email' => 'studentInformationTechnology@lifeun.edu.kh',
+                'username' => 'Sophea',
+                'password' => Hash::make('12345678'),
+                'role' => 'student',
+            ],
+            [
+                'email' => 'studentComputerScience@lifeun.edu.kh',
+                'username' => 'Rattana',
+                'password' => Hash::make('12345678'),
+                'role' => 'student',
+            ],
+            [
+                'email' => 'studentChineseLanguage@lifeun.edu.kh',
+                'username' => 'Sreyneang',
+                'password' => Hash::make('12345678'),
+                'role' => 'student',
+            ],
+            [
+                'email' => 'studentEnglishLiterature@lifeun.edu.kh',
+                'username' => 'Sopheak',
+                'password' => Hash::make('12345678'),
+                'role' => 'student',
+            ],
+            [
+                'email' => 'studentCivilEngineering@lifeun.edu.kh',
+                'username' => 'Sovan',
                 'password' => Hash::make('12345678'),
                 'role' => 'student',
             ],

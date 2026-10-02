@@ -8,7 +8,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-
         return match (Auth::user()->role) {
             'admin' => redirect()->route('admin.dashboard'),
             'hod' => redirect()->route('hod.dashboard'),

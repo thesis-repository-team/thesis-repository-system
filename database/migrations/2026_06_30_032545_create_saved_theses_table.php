@@ -19,13 +19,6 @@ return new class extends Migration
             $table->timestamps();
             $table->unique(['user_id', 'thesis_id']);
         });
-        // Schema::create('saved_theses', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->foreignId('student_id')->constrained('students', 'id')->cascadeOnDelete();
-        //     $table->foreignId('thesis_id')->constrained('theses', 'id')->cascadeOnDelete();
-        //     $table->dateTime('saved_at')->nullable();
-        //     $table->timestamps();
-        // });
     }
 
     /**

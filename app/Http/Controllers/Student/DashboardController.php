@@ -13,9 +13,7 @@ class DashboardController extends Controller
     public function index()
     {
         $user = auth()->user();
-
         $student = $user->student;
-
         $department = null;
 
         if ($student && $student->department_id) {
@@ -28,10 +26,7 @@ class DashboardController extends Controller
         $totalRequests = 0;
 
         if ($user->role === 'student') {
-            $totalRequests = ThesisRequest::where(
-                'submitted_by',
-                $user->id
-            )->count();
+            $totalRequests = ThesisRequest::where('submitted_by', $user->id)->count();
         }
 
         $savedThesesCount = SavedThesis::where(

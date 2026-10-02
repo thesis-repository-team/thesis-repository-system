@@ -1,16 +1,41 @@
 <x-app-layout>
 
-
     <style>
-        /* =========================================================
-       HOD NOTIFICATIONS PAGE
-    ========================================================== */
+        :root {
+            --bg-page: #f0f2f5;
+            --bg-card: #ffffff;
+            --bg-hover: #f7f7f9;
+            --bg-unread: #f3f0ff;
+            --bg-unread-hover: #ebe6ff;
+            --bg-purple-soft: #f0ebff;
+            --text-main: #11182f;
+            --text-muted: #777b86;
+            --border: #eeeeee;
+            --border-light: #f1f1f1;
+            --purple: #6538d9;
+            --purple-hover: #4f29b5;
+        }
+
+        [data-bs-theme="dark"] {
+            --bg-page: #101426;
+            --bg-card: #181D33;
+            --bg-hover: #20253A;
+            --bg-unread: #292342;
+            --bg-unread-hover: #342C52;
+            --bg-purple-soft: #292342;
+            --text-main: #FFFFFF;
+            --text-muted: #B7BDD4;
+            --border: #292E45;
+            --border-light: #24293D;
+            --purple: #7C5CE3;
+            --purple-hover: #9278EA;
+        }
 
         .hod-notifications-page {
             margin-left: 263px;
             padding: 118px 30px 40px;
             min-height: 100vh;
-            /* background: #f0f2f5; */
+            background: var(--bg-page);
             box-sizing: border-box;
         }
 
@@ -19,29 +44,21 @@
             margin: 0 auto;
         }
 
-        /* =========================================================
-       MAIN CARD
-    ========================================================== */
-
         .hod-notifications-card {
             width: 100%;
-            background: #ffffff;
+            background: var(--bg-card);
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
         }
-
-        /* =========================================================
-       HEADER
-    ========================================================== */
 
         .hod-notifications-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 18px 22px;
-            background: #ffffff;
-            border-bottom: 1px solid #eeeeee;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
         }
 
         .hod-notifications-title-wrapper {
@@ -57,22 +74,18 @@
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-            background: #f0ebff;
-            color: #6538d9;
+            background: var(--bg-purple-soft);
+            color: var(--purple);
             font-size: 18px;
         }
 
         .hod-notifications-title {
             margin: 0;
-            color: #11182f;
+            color: var(--text-main);
             font-size: 22px;
             font-weight: 700;
             line-height: 1.2;
         }
-
-        /* =========================================================
-       MARK ALL AS READ
-    ========================================================== */
 
         .hod-mark-all-form {
             margin: 0;
@@ -81,37 +94,29 @@
         .hod-mark-all-button {
             border: none;
             background: transparent;
-            color: #6538d9;
+            color: var(--purple);
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             padding: 7px 9px;
             border-radius: 6px;
-            transition: background 0.2s ease, color 0.2s ease;
+            transition: background .2s ease, color .2s ease;
         }
 
         .hod-mark-all-button:hover {
-            background: #f0ebff;
-            color: #4f29b5;
+            background: var(--bg-purple-soft);
+            color: var(--purple-hover);
         }
-
-        /* =========================================================
-       SECTION TITLE
-    ========================================================== */
 
         .hod-notification-section-title {
             margin: 0;
             padding: 16px 22px 9px;
-            background: #ffffff;
-            color: #11182f;
+            background: var(--bg-card);
+            color: var(--text-main);
             font-size: 15px;
             font-weight: 700;
             line-height: 1.3;
         }
-
-        /* =========================================================
-       NOTIFICATION LIST
-    ========================================================== */
 
         .hod-notifications-list {
             width: 100%;
@@ -125,10 +130,10 @@
             padding: 13px 22px;
             gap: 13px;
             text-decoration: none;
-            background: #ffffff;
+            background: var(--bg-card);
             box-sizing: border-box;
-            border-bottom: 1px solid #f1f1f1;
-            transition: background 0.15s ease;
+            border-bottom: 1px solid var(--border-light);
+            transition: background .15s ease;
         }
 
         .hod-notification-item:last-child {
@@ -136,24 +141,16 @@
         }
 
         .hod-notification-item:hover {
-            background: #f7f7f9;
+            background: var(--bg-hover);
         }
 
-        /* =========================================================
-       UNREAD
-    ========================================================== */
-
         .hod-notification-item.unread {
-            background: #f3f0ff;
+            background: var(--bg-unread);
         }
 
         .hod-notification-item.unread:hover {
-            background: #ebe6ff;
+            background: var(--bg-unread-hover);
         }
-
-        /* =========================================================
-       AVATAR
-    ========================================================== */
 
         .hod-notification-avatar {
             flex: 0 0 48px;
@@ -161,8 +158,8 @@
             height: 48px;
             border-radius: 50%;
             overflow: hidden;
-            background: #e4e6eb;
-            color: #65676b;
+            background: var(--bg-hover);
+            color: var(--text-muted);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -186,10 +183,6 @@
             justify-content: center;
         }
 
-        /* =========================================================
-       NOTIFICATION CONTENT
-    ========================================================== */
-
         .hod-notification-content {
             flex: 1;
             min-width: 0;
@@ -197,55 +190,43 @@
 
         .hod-notification-main-text {
             margin: 0;
-            color: #11182f;
+            color: var(--text-main);
             font-size: 14px;
             line-height: 1.45;
             word-break: break-word;
         }
 
         .hod-notification-main-text strong {
-            color: #11182f;
+            color: var(--text-main);
             font-weight: 700;
         }
 
         .hod-notification-time {
             margin-top: 3px;
-            color: #777b86;
+            color: var(--text-muted);
             font-size: 12px;
             line-height: 1.3;
         }
-
-        /* =========================================================
-       UNREAD DOT
-    ========================================================== */
 
         .hod-unread-dot {
             flex: 0 0 9px;
             width: 9px;
             height: 9px;
             border-radius: 50%;
-            background: #6538d9;
+            background: var(--purple);
         }
-
-        /* =========================================================
-       EMPTY SECTION
-    ========================================================== */
 
         .hod-notification-empty-section {
             padding: 10px 22px 18px;
-            background: #ffffff;
-            color: #777b86;
+            background: var(--bg-card);
+            color: var(--text-muted);
             font-size: 13px;
         }
-
-        /* =========================================================
-       EMPTY STATE
-    ========================================================== */
 
         .hod-notifications-empty {
             padding: 80px 20px;
             text-align: center;
-            background: #ffffff;
+            background: var(--bg-card);
         }
 
         .hod-empty-icon {
@@ -256,30 +237,25 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background: #f0ebff;
-            color: #6538d9;
+            background: var(--bg-purple-soft);
+            color: var(--purple);
             font-size: 21px;
         }
 
         .hod-empty-title {
             margin: 0;
-            color: #11182f;
+            color: var(--text-main);
             font-size: 16px;
             font-weight: 700;
         }
 
         .hod-empty-text {
             margin: 6px 0 0;
-            color: #777b86;
+            color: var(--text-muted);
             font-size: 13px;
         }
 
-        /* =========================================================
-       LARGE DESKTOP
-    ========================================================== */
-
         @media (min-width: 1200px) {
-
             .hod-notifications-page {
                 padding-left: 40px;
                 padding-right: 40px;
@@ -301,24 +277,14 @@
             }
         }
 
-        /* =========================================================
-       TABLET
-    ========================================================== */
-
         @media (max-width: 900px) {
-
             .hod-notifications-page {
                 margin-left: 263px;
                 padding: 118px 20px 35px;
             }
         }
 
-        /* =========================================================
-       MOBILE
-    ========================================================== */
-
         @media (max-width: 600px) {
-
             .hod-notifications-page {
                 margin-left: 0;
                 padding: 90px 10px 30px;
@@ -382,21 +348,11 @@
         }
     </style>
 
-
     <div class="hod-notifications-page">
-
         <div class="hod-notifications-wrapper">
-
             <div class="hod-notifications-card">
-
-                {{-- =================================================
-                 HEADER
-            ================================================== --}}
-
                 <div class="hod-notifications-header">
-
                     <div class="hod-notifications-title-wrapper">
-
                         <div class="hod-notifications-title-icon">
                             <i class="bi bi-bell-fill"></i>
                         </div>
@@ -404,31 +360,18 @@
                         <h2 class="hod-notifications-title">
                             Notifications
                         </h2>
-
                     </div>
 
-
-                    {{-- MARK ALL AS READ --}}
-
                     <form method="POST" action="{{ route('notifications.readAll') }}" class="hod-mark-all-form">
-
                         @csrf
 
                         <button type="submit" class="hod-mark-all-button">
                             Mark all as read
                         </button>
-
                     </form>
-
                 </div>
 
-
-                {{-- =================================================
-                 GET NOTIFICATIONS
-            ================================================== --}}
-
                 @php
-
                     $newNotifications = auth()
                         ->user()
                         ->notifications->filter(function ($notification) {
@@ -440,44 +383,26 @@
                         ->notifications->filter(function ($notification) {
                             return !is_null($notification->read_at);
                         });
-
                 @endphp
 
-
-                {{-- =================================================
-                 NEW NOTIFICATIONS
-            ================================================== --}}
-
                 @if ($newNotifications->count() > 0)
-
                     <h3 class="hod-notification-section-title">
                         New
                     </h3>
 
                     <div class="hod-notifications-list">
-
                         @foreach ($newNotifications as $notification)
                             @php
-
                                 $message = $notification->data['message'] ?? 'New notification';
-
                                 $authorName = $notification->data['author_name'] ?? null;
-
                                 $avatar =
                                     $notification->data['author_avatar'] ?? ($notification->data['avatar'] ?? null);
-
                                 $initial = $authorName ? strtoupper(substr($authorName, 0, 1)) : 'N';
-
                             @endphp
-
 
                             <a href="{{ route('notifications.open', $notification->id) }}"
                                 class="hod-notification-item unread">
-
-                                {{-- AVATAR --}}
-
                                 <div class="hod-notification-avatar">
-
                                     @if ($avatar)
                                         <img src="{{ asset($avatar) }}" alt="{{ $authorName ?? 'User' }}">
                                     @else
@@ -485,16 +410,10 @@
                                             {{ $initial }}
                                         </div>
                                     @endif
-
                                 </div>
 
-
-                                {{-- CONTENT --}}
-
                                 <div class="hod-notification-content">
-
                                     <p class="hod-notification-main-text">
-
                                         @if ($authorName)
                                             <strong>
                                                 {{ $authorName }}
@@ -502,65 +421,37 @@
                                         @endif
 
                                         {{ $message }}
-
                                     </p>
 
-
                                     <div class="hod-notification-time">
-
-                                        {{ $notification->created_at->format('l g:i A') }}
-
+                                        {{ $notification->created_at->format('l g\:i A') }}
                                     </div>
-
                                 </div>
 
-
-                                {{-- UNREAD DOT --}}
-
                                 <span class="hod-unread-dot"></span>
-
                             </a>
                         @endforeach
-
                     </div>
-
                 @endif
 
-
-                {{-- =================================================
-                 EARLIER NOTIFICATIONS
-            ================================================== --}}
-
                 @if ($earlierNotifications->count() > 0)
-
                     <h3 class="hod-notification-section-title">
                         Earlier
                     </h3>
 
                     <div class="hod-notifications-list">
-
                         @foreach ($earlierNotifications as $notification)
                             @php
-
                                 $message = $notification->data['message'] ?? 'New notification';
-
                                 $authorName = $notification->data['author_name'] ?? null;
-
                                 $avatar =
                                     $notification->data['author_avatar'] ?? ($notification->data['avatar'] ?? null);
-
                                 $initial = $authorName ? strtoupper(substr($authorName, 0, 1)) : 'N';
-
                             @endphp
-
 
                             <a href="{{ route('notifications.open', $notification->id) }}"
                                 class="hod-notification-item">
-
-                                {{-- AVATAR --}}
-
                                 <div class="hod-notification-avatar">
-
                                     @if ($avatar)
                                         <img src="{{ asset($avatar) }}" alt="{{ $authorName ?? 'User' }}">
                                     @else
@@ -568,16 +459,10 @@
                                             {{ $initial }}
                                         </div>
                                     @endif
-
                                 </div>
 
-
-                                {{-- CONTENT --}}
-
                                 <div class="hod-notification-content">
-
                                     <p class="hod-notification-main-text">
-
                                         @if ($authorName)
                                             <strong>
                                                 {{ $authorName }}
@@ -585,33 +470,19 @@
                                         @endif
 
                                         {{ $message }}
-
                                     </p>
 
-
                                     <div class="hod-notification-time">
-
-                                        {{ $notification->created_at->format('l g:i A') }}
-
+                                        {{ $notification->created_at->format('l g\:i A') }}
                                     </div>
-
                                 </div>
-
                             </a>
                         @endforeach
-
                     </div>
-
                 @endif
-
-
-                {{-- =================================================
-                 EMPTY STATE
-            ================================================== --}}
 
                 @if ($newNotifications->count() === 0 && $earlierNotifications->count() === 0)
                     <div class="hod-notifications-empty">
-
                         <div class="hod-empty-icon">
                             <i class="bi bi-bell"></i>
                         </div>
@@ -623,14 +494,10 @@
                         <p class="hod-empty-text">
                             You don't have any notifications yet.
                         </p>
-
                     </div>
                 @endif
-
             </div>
-
         </div>
-
     </div>
 
 </x-app-layout>

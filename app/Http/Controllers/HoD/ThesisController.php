@@ -14,44 +14,28 @@ use Illuminate\Support\Facades\Storage;
 
 class ThesisController extends Controller
 {
-  public function index()
-{
-    $theses = Thesis::with('files')
-        ->whereNotNull('published_at')
-        ->orderByDesc('published_at')
-        ->get();
+    public function index()
+    {
+        $theses = Thesis::with('files')
+            ->whereNotNull('published_at')
+            ->orderByDesc('published_at')
+            ->get();
 
-    $departments = Department::all();
+        $departments = Department::all();
 
-    $academicYears = Thesis::whereNotNull('academic_year')
-        ->select('academic_year')
-        ->distinct()
-        ->orderByDesc('academic_year')
-        ->pluck('academic_year');
+        $academicYears = Thesis::whereNotNull('academic_year')
+            ->select('academic_year')
+            ->distinct()
+            ->orderByDesc('academic_year')
+            ->pluck('academic_year');
 
-    return view('hod.thesis.index', compact(
-        'theses',
-        'departments',
-        'academicYears'
-    ));
-}
-    // public function index()
-    // {
-    //     $theses = Thesis::with('files')
-    //         ->whereNotNull('published_at')
-    //         ->orderByDesc('published_at')
-    //         ->get();
-    //     $departments = Department::all();
+        return view('hod.thesis.index', compact(
+            'theses',
+            'departments',
+            'academicYears'
+        ));
+    }
 
-    //     $published_at = Thesis::whereNotNull('published_at')
-    //         ->selectRaw('YEAR(published_at) as year')
-    //         ->distinct()
-    //         ->orderBy('year', 'desc')
-    //         ->pluck('year');
-    //     // $keywords = Keyword::orderBy('keyword_name')->get();
-
-    //     return view('hod.thesis.index', compact('theses', 'departments', 'published_at'));
-    // }
 
     public function create()
     {
@@ -96,7 +80,7 @@ class ThesisController extends Controller
                 $path = $file->store('thesis_files', 'public');
                 ThesisFile::create([
                     'thesis_id' => $thesis->id,
-                    'file_name' => $thesis->title.'.pdf',
+                    'file_name' => $thesis->title . '.pdf',
                     'file_type' => $file->getClientOriginalExtension(),
                     'file_path' => $path,
                     'uploaded_at' => now(),
@@ -115,9 +99,6 @@ class ThesisController extends Controller
             return redirect()->route('hod.thesis.index')->with('error', 'You are not allowed to edit theses from another department.');
         }
 
-        // $keywords = Keyword::orderBy('keyword_name')->get();
-        // $thesis->load('keywords');
-
         return view('hod.my_thesis.edit', compact('thesis', 'departments'));
     }
 
@@ -134,9 +115,6 @@ class ThesisController extends Controller
             'description' => 'nullable|string',
             'author_name' => 'required|string|max:255',
             'academic_year' => 'required|integer|digits:4',
-
-            // 'keyword_ids' => 'nullable|array',
-            // 'keyword_ids.*' => 'exists:keywords,id',
 
             'files' => 'nullable|array',
             'files.*' => 'nullable|file|mimes:pdf|max:20480',
@@ -158,8 +136,6 @@ class ThesisController extends Controller
                 'acadmic_year' => $request->acadmic_year,
             ]);
 
-            // $thesis->keywords()->sync($request->keyword_ids ?? []);
-
             // replace old files if new ones are uploaded
             if ($request->hasFile('files')) {
                 // delete old files from storage and database
@@ -173,7 +149,7 @@ class ThesisController extends Controller
                     $path = $file->store('thesis_files', 'public');
                     ThesisFile::create([
                         'thesis_id' => $thesis->id,
-                        'file_name' => $thesis->title.'.pdf',
+                        'file_name' => $thesis->title . '.pdf',
                         'file_type' => $file->getClientOriginalExtension(),
                         'file_path' => $path,
                         'uploaded_at' => now(),
@@ -192,7 +168,7 @@ class ThesisController extends Controller
         }
 
         return response()->file(
-            storage_path('app/public/'.$file->file_path)
+            storage_path('app/public/' . $file->file_path)
         );
     }
 
@@ -239,7 +215,6 @@ class ThesisController extends Controller
             abort(404);
         }
 
-        // Load relationships needed by show.blade.php.
         $thesis->load([
             'department',
             'publishedBy',
@@ -256,28 +231,21 @@ class ThesisController extends Controller
     public function search(Request $request)
     {
         $search = $request->search;
-
         $query = Thesis::with(['user', 'department']);
 
         // Search
         if ($request->filled('search')) {
-
             $query->where(function ($q) use ($search) {
-
                 $q->where('title', 'like', "%{$search}%")
-
                     ->orWhere('author_name', 'like', "%{$search}%")
-
                     ->orWhereHas('department', function ($d) use ($search) {
                         $d->where('name', 'like', "%{$search}%");
                     })
 
                     // Submitted By
                     ->orWhereHas('submittedBy', function ($u) use ($search) {
-
                         // Admin username
                         $u->where('username', 'like', "%{$search}%")
-
                             // Student full name
                             ->orWhereHas('student', function ($s) use ($search) {
                                 $s->where('full_name', 'like', "%{$search}%");
@@ -291,10 +259,8 @@ class ThesisController extends Controller
 
                     // Published By
                     ->orWhereHas('publishedBy', function ($u) use ($search) {
-
                         // Admin username
                         $u->where('username', 'like', "%{$search}%")
-
                             // Student full name
                             ->orWhereHas('student', function ($s) use ($search) {
                                 $s->where('full_name', 'like', "%{$search}%");
@@ -318,7 +284,6 @@ class ThesisController extends Controller
         // Year filter
         if ($request->filled('year')) {
             $query->where('academic_year', $request->year);
-            // $query->whereYear('published_at', $request->year);
         }
 
         $theses = $query->get();
@@ -328,7 +293,7 @@ class ThesisController extends Controller
 
     public function downloadPDF(ThesisFile $file)
     {
-        $filePath = storage_path('app/public/'.$file->file_path);
+        $filePath = storage_path('app/public/' . $file->file_path);
 
         if (! file_exists($filePath)) {
             return back()->with('error', 'PDF file not found.');
@@ -338,7 +303,7 @@ class ThesisController extends Controller
             '/[\/\\\\:*?"<>|]/',
             '-',
             $file->thesis->title
-        ).'.pdf';
+        ) . '.pdf';
 
         return response()->download(
             $filePath,

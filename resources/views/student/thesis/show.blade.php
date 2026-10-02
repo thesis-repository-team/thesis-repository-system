@@ -1,7 +1,5 @@
 <x-app-layout>
-
     <div class="dashboard-content thesis-show-page">
-
         @if (session('success'))
             <div class="thesis-alert thesis-alert-success">
                 <i class="bi bi-check-circle-fill"></i>
@@ -24,32 +22,22 @@
         @endphp
 
         @if ($isApprovedThesis)
-
             <div class="thesis-show-card">
-
                 <div class="thesis-show-header">
                     <div class="thesis-show-header-content">
-
                         <span class="thesis-show-overline">
                             THESIS #{{ $thesis->id }}
                         </span>
-
                         <div class="thesis-show-title-row">
                             <div class="thesis-show-title-icon">
                                 <i class="bi bi-journal-text"></i>
                             </div>
-
-                            <h1 class="thesis-show-title">
-                                {{ $thesis->title }}
-                            </h1>
+                            <h1 class="thesis-show-title">{{ $thesis->title }}</h1>
                         </div>
-
                         <p class="thesis-show-subtitle">
                             Approved thesis available in the Digital Thesis Repository.
                         </p>
-
                     </div>
-
                     <div class="thesis-show-status-wrapper">
                         <span class="thesis-show-status status-approved">
                             <i class="bi bi-check-circle-fill"></i>
@@ -58,13 +46,11 @@
                     </div>
                 </div>
 
-                 <div class="thesis-show-content-section">
-
+                <div class="thesis-show-content-section">
                     <div class="thesis-section-heading">
                         <div class="thesis-section-heading-icon thesis-document-icon">
                             <i class="bi bi-file-earmark-pdf-fill"></i>
                         </div>
-
                         <div>
                             <h2>Thesis Document</h2>
                             <p>Official approved thesis document.</p>
@@ -72,82 +58,59 @@
                     </div>
 
                     <div class="thesis-document-box">
-
                         <div class="thesis-document-left">
-
                             <div class="thesis-document-file-icon">
                                 <i class="bi bi-file-earmark-pdf-fill"></i>
                             </div>
-
                             <div class="thesis-document-details">
                                 <strong>Approved Thesis PDF</strong>
-
                                 <span>
                                     Official thesis document approved by
                                     {{ $thesis->publishedBy?->role === 'admin' ? 'Admin' : 'Head of Department' }}
                                 </span>
                             </div>
-
                         </div>
 
                         <div class="thesis-document-actions">
-
                             <a href="#thesis-pdf-preview" class="thesis-view-pdf-button" id="viewPdfButton">
-                                <i class="bi bi-file-earmark-pdf">PDF</i> 
+                                <i class="bi bi-file-earmark-pdf">PDF</i>
                             </a>
-
-                            <a href="{{ route('student.thesis.download', $thesis->id) }}"
-                                class="thesis-download-pdf-button">
+                            <a href="{{ route('student.thesis.download', $thesis->id) }}" class="thesis-download-pdf-button">
                                 <i class="bi bi-download"></i>
                                 Download PDF
                             </a>
-
                         </div>
-
                     </div>
 
                     <div class="thesis-pdf-preview-box" id="thesis-pdf-preview">
-
                         <div class="thesis-pdf-preview-header">
-
                             <div class="thesis-pdf-preview-title">
                                 <i class="bi bi-file-earmark-pdf-fill"></i>
                                 <span>PDF Preview</span>
                             </div>
-
                             <div class="thesis-pdf-preview-header-actions">
-
-                                <span class="thesis-pdf-preview-status">
-                                    Approved Document
-                                </span>
-
+                                <span class="thesis-pdf-preview-status">Approved Document</span>
                                 <button type="button" class="thesis-pdf-close-button" id="closePdfButton">
                                     <i class="bi bi-x-lg"></i>
                                     Close
                                 </button>
-
                             </div>
-
                         </div>
-
                         <div class="thesis-pdf-frame-wrapper">
-
-                            <iframe src="{{ route('student.thesis.view-pdf', $thesis->id) }}"
-                                title="Approved Thesis PDF Preview" class="thesis-pdf-frame"></iframe>
-
+                            <iframe
+                                src="{{ route('student.thesis.view-pdf', $thesis->id) }}"
+                                title="Approved Thesis PDF Preview"
+                                class="thesis-pdf-frame">
+                            </iframe>
                         </div>
-
                     </div>
-
                 </div>
 
                 <div class="thesis-show-content-section">
-
                     <div class="thesis-section-heading">
                         <div class="thesis-section-heading-icon">
                             <i class="bi bi-info-circle-fill"></i>
                         </div>
-
                         <div>
                             <h2>Thesis Information</h2>
                             <p>General information about this approved thesis.</p>
@@ -155,7 +118,6 @@
                     </div>
 
                     <div class="thesis-information-form">
-
                         <div class="thesis-form-group">
                             <span class="thesis-form-label">Title</span>
                             <div class="thesis-form-control">
@@ -208,7 +170,6 @@
                         <div class="thesis-form-group">
                             <span class="thesis-form-label">Approved By</span>
                             <div class="thesis-form-control">
-
                                 @if ($thesis->publishedBy?->role === 'admin')
                                     <span class="publisher-role publisher-admin">
                                         <i class="bi bi-shield-check"></i>
@@ -222,7 +183,6 @@
                                 @else
                                     N/A
                                 @endif
-
                             </div>
                         </div>
 
@@ -232,70 +192,51 @@
                                 {{ $thesis->published_at ? \Carbon\Carbon::parse($thesis->published_at)->format('d M Y, h:i A') : 'N/A' }}
                             </div>
                         </div>
-
                     </div>
-
                 </div>
 
                 <div class="thesis-show-content-section">
-
                     <div class="thesis-section-heading">
                         <div class="thesis-section-heading-icon">
                             <i class="bi bi-file-text-fill"></i>
                         </div>
-
                         <div>
                             <h2>Abstract</h2>
                             <p>Abstract of the approved thesis.</p>
                         </div>
                     </div>
-
                     <div class="thesis-text-content">
                         {{ $thesis->abstract ?? 'No abstract provided.' }}
                     </div>
-
                 </div>
 
                 <div class="thesis-show-content-section">
-
                     <div class="thesis-section-heading">
                         <div class="thesis-section-heading-icon">
                             <i class="bi bi-card-text"></i>
                         </div>
-
                         <div>
                             <h2>Description</h2>
                             <p>Description of the thesis project.</p>
                         </div>
                     </div>
-
                     <div class="thesis-text-content">
                         {{ $thesis->description ?? 'No description provided.' }}
                     </div>
-
                 </div>
-
-               
-
             </div>
         @else
             <div class="thesis-empty-state">
-
                 <div class="thesis-empty-icon">
                     <i class="bi bi-journal-x"></i>
                 </div>
-
                 <h2>Thesis Not Available</h2>
-
                 <p>
                     This thesis has not been approved by an Admin or Head of Department,
                     or the thesis could not be found.
                 </p>
-
             </div>
-
         @endif
-
     </div>
 
     <style>
@@ -639,8 +580,7 @@
             font-size: .61rem;
             font-weight: 700;
             white-space: nowrap;
-            transition: color .2s ease, background-color .2s ease,
-                border-color .2s ease, transform .2s ease;
+            transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease;
         }
 
         .thesis-view-pdf-button {
@@ -741,8 +681,7 @@
             font-size: .58rem;
             font-weight: 700;
             cursor: pointer;
-            transition: color .2s ease, background-color .2s ease,
-                border-color .2s ease, transform .2s ease;
+            transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease;
         }
 
         .thesis-pdf-close-button:hover {
@@ -988,16 +927,13 @@
         }
 
         @media (max-width: 900px) {
-
             .thesis-information-form {
                 grid-template-columns: 1fr;
                 gap: 12px;
             }
-
         }
 
         @media (max-width: 767.98px) {
-
             .thesis-show-card {
                 padding: 17px;
             }
@@ -1055,11 +991,9 @@
             .thesis-pdf-frame-wrapper {
                 height: 500px;
             }
-
         }
 
         @media (max-width: 480px) {
-
             .thesis-show-card {
                 padding: 14px;
                 border-radius: 11px;
@@ -1198,11 +1132,9 @@
             .thesis-pdf-frame-wrapper {
                 height: 420px;
             }
-
         }
 
         @media (max-width: 360px) {
-
             .thesis-form-group {
                 grid-template-columns: 80px minmax(0, 1fr);
                 gap: 7px;
@@ -1240,69 +1172,50 @@
             .thesis-pdf-frame-wrapper {
                 height: 380px;
             }
-
         }
 
         @media (prefers-reduced-motion: reduce) {
-
             .thesis-show-page *,
             .thesis-show-page *::before,
             .thesis-show-page *::after {
                 transition: none !important;
                 animation: none !important;
             }
-
         }
     </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-
             const viewPdfButton = document.getElementById('viewPdfButton');
             const closePdfButton = document.getElementById('closePdfButton');
             const pdfPreview = document.getElementById('thesis-pdf-preview');
 
             if (viewPdfButton && pdfPreview) {
-
                 viewPdfButton.addEventListener('click', function(event) {
-
                     event.preventDefault();
-
                     pdfPreview.classList.add('pdf-preview-visible');
 
                     setTimeout(function() {
-
                         pdfPreview.scrollIntoView({
                             behavior: 'smooth',
                             block: 'start'
                         });
-
                     }, 50);
-
                 });
-
             }
 
             if (closePdfButton && pdfPreview) {
-
                 closePdfButton.addEventListener('click', function() {
-
                     pdfPreview.classList.remove('pdf-preview-visible');
 
                     setTimeout(function() {
-
                         viewPdfButton.scrollIntoView({
                             behavior: 'smooth',
                             block: 'center'
                         });
-
                     }, 50);
-
                 });
-
             }
-
         });
     </script>
-
 </x-app-layout>

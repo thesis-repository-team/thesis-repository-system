@@ -1,469 +1,212 @@
 <x-app-layout>
     <div class="dashboard-page">
-
         <div class="dashboard-content">
-
             <section class="dashboard-grid">
-
                 <div class="stat-card">
-
                     <div class="stat-card-top">
-
                         <div class="stat-icon purple">
                             <i class="bi bi-journal-text"></i>
                         </div>
-
                         <div>
-
-                            <div class="stat-card-title">
-                                Total Thesis
-                            </div>
-
-                            <div class="stat-number">
-                                {{ $thesesCount ?? 0 }}
-                            </div>
-
+                            <div class="stat-card-title">Total Thesis</div>
+                            <div class="stat-number">{{ $thesesCount ?? 0 }}</div>
                         </div>
-
                     </div>
-
-                    <div class="stat-footer">
-                        Thesis in repository
-                    </div>
-
+                    <div class="stat-footer">Thesis in repository</div>
                 </div>
 
-
                 <div class="stat-card">
-
                     <div class="stat-card-top">
-
                         <div class="stat-icon blue">
                             <i class="bi bi-file-earmark-arrow-up"></i>
                         </div>
-
                         <div>
-
-                            <div class="stat-card-title">
-                                My Submitted Thesis
-                            </div>
-
-                            <div class="stat-number">
-                                {{ $totalRequests ?? 0 }}
-                            </div>
-
+                            <div class="stat-card-title">My Submitted Thesis</div>
+                            <div class="stat-number">{{ $totalRequests ?? 0 }}</div>
                         </div>
-
                     </div>
-
-                    <div class="stat-footer">
-                        Thesis submitted by you
-                    </div>
-
+                    <div class="stat-footer">Thesis submitted by you</div>
                 </div>
 
-
                 <div class="stat-card">
-
                     <div class="stat-card-top">
-
                         <div class="stat-icon green">
                             <i class="bi bi-bookmark"></i>
                         </div>
-
                         <div>
-
-                            <div class="stat-card-title">
-                                Saved Thesis
-                            </div>
-
-                            <div class="stat-number">
-                                {{ $savedThesesCount ?? 0 }}
-                            </div>
-
+                            <div class="stat-card-title">Saved Thesis</div>
+                            <div class="stat-number">{{ $savedThesesCount ?? 0 }}</div>
                         </div>
-
                     </div>
-
-                    <div class="stat-footer">
-                        Your saved thesis
-                    </div>
-
+                    <div class="stat-footer">Your saved thesis</div>
                 </div>
-
             </section>
 
-
             <section class="dashboard-lower-grid">
-
                 <div class="dashboard-lower-main">
-
                     <div class="dashboard-card dashboard-large-card">
-
                         <div class="dashboard-card-header">
-
                             <div>
-
-                                <span class="dashboard-section-label">
-                                    THESIS REPOSITORY
-                                </span>
-
-                                <h3>
-                                    My Recent Thesis
-                                </h3>
-
+                                <span class="dashboard-section-label">THESIS REPOSITORY</span>
+                                <h3>My Recent Thesis</h3>
                             </div>
-
                             <a href="{{ route('student.my_thesis.my-theses') }}" class="view-all">
-
-                                <span>
-                                    View all
-                                </span>
-
+                                <span>View all</span>
                                 <i class="bi bi-chevron-right"></i>
-
                             </a>
-
                         </div>
 
-
                         <div class="thesis-list">
-
                             @forelse($recentRequests ?? [] as $request)
-
                                 <div class="thesis-item">
-
                                     <div class="thesis-avatar">
                                         <i class="bi bi-journal-text"></i>
                                     </div>
-
                                     <div class="thesis-info">
-
-                                        <strong>
-                                            {{ $request->title ?? 'Untitled Thesis' }}
-                                        </strong>
-
-                                        <span>
-                                            {{ $request->submitted_at?->format('M d, Y') ?? 'Recent submission' }}
-                                        </span>
-
+                                        <strong>{{ $request->title ?? 'Untitled Thesis' }}</strong>
+                                        <span>{{ $request->submitted_at?->format('M d, Y') ?? 'Recent submission' }}</span>
                                     </div>
-
                                     @if ($request->status === 'approved')
-
-                                        <span class="status-badge status-approved">
-                                            Approved
-                                        </span>
-
+                                        <span class="status-badge status-approved">Approved</span>
                                     @elseif ($request->status === 'rejected')
-
-                                        <span class="status-badge status-rejected">
-                                            Rejected
-                                        </span>
-
+                                        <span class="status-badge status-rejected">Rejected</span>
                                     @else
-
-                                        <span class="status-badge status-pending">
-                                            Pending
-                                        </span>
-
+                                        <span class="status-badge status-pending">Pending</span>
                                     @endif
-
                                 </div>
-
                             @empty
-
                                 <div class="dashboard-empty">
-
                                     <i class="bi bi-journal-x"></i>
-
-                                    <span>
-                                        No thesis submitted yet.
-                                    </span>
-
+                                    <span>No thesis submitted yet.</span>
                                 </div>
-
                             @endforelse
-
                         </div>
-
                     </div>
 
-
                     <div class="dashboard-card dashboard-large-card-student">
-
                         <div class="dashboard-card-header">
-
                             <div>
-
-                                <span class="dashboard-section-label">
-                                    STUDENT
-                                </span>
-
-                                <h3>
-                                    Student Overview
-                                </h3>
-
+                                <span class="dashboard-section-label">STUDENT</span>
+                                <h3>Student Overview</h3>
                             </div>
-
                         </div>
 
-
                         <div class="hod-item">
-
                             <div class="hod-avatar">
                                 <i class="bi bi-person"></i>
                             </div>
-
                             <div class="hod-info">
-
-                                <strong>
-                                    {{ $student->full_name ??
-                                        ($student->user?->full_name ??
-                                            ($student->user?->username ??
-                                                (auth()->user()->username ?? 'Student'))) }}
-                                </strong>
-
-                                <span>
-                                    Student Account
-                                </span>
-
+                                <strong>{{ $student->full_name ?? ($student->user?->full_name ?? ($student->user?->username ?? (auth()->user()->username ?? 'Student'))) }}</strong>
+                                <span>Student Account</span>
                             </div>
-
                         </div>
 
-
                         <div class="hod-item">
-
                             <div class="hod-avatar">
                                 <i class="bi bi-building"></i>
                             </div>
-
                             <div class="hod-info">
-
-                                <strong>
-                                    {{ $department->name ?? 'Your Department' }}
-                                </strong>
-
-                                <span>
-                                    Your Department
-                                </span>
-
+                                <strong>{{ $department->name ?? 'Your Department' }}</strong>
+                                <span>Your Department</span>
                             </div>
-
                         </div>
 
-
                         <div class="hod-item">
-
                             <div class="hod-avatar">
                                 <i class="bi bi-file-earmark-arrow-up"></i>
                             </div>
-
                             <div class="hod-info">
-
-                                <strong>
-                                    {{ $totalRequests ?? 0 }}
-                                </strong>
-
-                                <span>
-                                    My Submitted Thesis
-                                </span>
-
+                                <strong>{{ $totalRequests ?? 0 }}</strong>
+                                <span>My Submitted Thesis</span>
                             </div>
-
                         </div>
 
-
                         <div class="hod-item">
-
                             <div class="hod-avatar">
                                 <i class="bi bi-bookmark"></i>
                             </div>
-
                             <div class="hod-info">
-
-                                <strong>
-                                    {{ $savedThesesCount ?? 0 }}
-                                </strong>
-
-                                <span>
-                                    Saved Thesis
-                                </span>
-
+                                <strong>{{ $savedThesesCount ?? 0 }}</strong>
+                                <span>Saved Thesis</span>
                             </div>
-
                         </div>
 
-
                         @if (auth()->user()->role === 'student')
-
                             <a href="{{ route('student.my_thesis.my-theses') }}" class="view-all">
-
-                                <span>
-                                    View my thesis
-                                </span>
-
+                                <span>View my thesis</span>
                                 <i class="bi bi-chevron-right"></i>
-
                             </a>
-
                         @endif
-
                     </div>
-
                 </div>
 
-
                 <div class="dashboard-lower-side">
-
                     <div class="dashboard-card dashboard-small-card">
-
                         <div class="dashboard-card-header">
-
                             <div>
-
-                                <span class="dashboard-section-label">
-                                    MANAGEMENT
-                                </span>
-
-                                <h3>
-                                    Quick Actions
-                                </h3>
-
+                                <span class="dashboard-section-label">MANAGEMENT</span>
+                                <h3>Quick Actions</h3>
                             </div>
-
                         </div>
 
-
                         @if (auth()->user()->role === 'student')
-
                             <a href="{{ route('student.my_thesis.my-theses') }}" class="hod-item quick-action">
-
                                 <div class="hod-avatar">
                                     <i class="bi bi-journal-text"></i>
                                 </div>
-
                                 <div class="hod-info">
-
-                                    <strong>
-                                        My Thesis
-                                    </strong>
-
-                                    <span>
-                                        View your thesis
-                                    </span>
-
+                                    <strong>My Thesis</strong>
+                                    <span>View your thesis</span>
                                 </div>
-
                                 <i class="bi bi-chevron-right"></i>
-
                             </a>
-
                         @endif
 
-
                         <a href="{{ route('student.saved_thesis.index') }}" class="hod-item quick-action">
-
                             <div class="hod-avatar">
                                 <i class="bi bi-bookmark"></i>
                             </div>
-
                             <div class="hod-info">
-
-                                <strong>
-                                    Saved Thesis
-                                </strong>
-
-                                <span>
-                                    View saved thesis
-                                </span>
-
+                                <strong>Saved Thesis</strong>
+                                <span>View saved thesis</span>
                             </div>
-
                             <i class="bi bi-chevron-right"></i>
-
                         </a>
 
-
                         <a href="{{ route('notifications.index') }}" class="hod-item quick-action">
-
                             <div class="hod-avatar">
                                 <i class="bi bi-bell"></i>
                             </div>
-
                             <div class="hod-info">
-
-                                <strong>
-                                    Notifications
-                                </strong>
-
-                                <span>
-                                    View recent notifications
-                                </span>
-
+                                <strong>Notifications</strong>
+                                <span>View recent notifications</span>
                             </div>
-
                             <i class="bi bi-chevron-right"></i>
-
                         </a>
-
                     </div>
 
-
                     <div class="dashboard-card dashboard-small-card calendar-card">
-
                         <div class="dashboard-card-header">
-
                             <div>
-
-                                <span class="dashboard-section-label">
-                                    SCHEDULE
-                                </span>
-
-                                <h3>
-                                    Calendar
-                                </h3>
-
+                                <span class="dashboard-section-label">SCHEDULE</span>
+                                <h3>Calendar</h3>
                             </div>
-
                         </div>
 
-
                         <div class="calendar-wrapper">
-
                             <div class="calendar-header">
-
-                                <button
-                                    type="button"
-                                    class="calendar-nav"
-                                    id="studentCalendarPrev"
-                                    aria-label="Previous month"
-                                >
+                                <button type="button" class="calendar-nav" id="studentCalendarPrev"
+                                    aria-label="Previous month">
                                     <i class="bi bi-chevron-left"></i>
                                 </button>
-
-
-                                <div
-                                    class="calendar-month"
-                                    id="studentCalendarMonth"
-                                ></div>
-
-
-                                <button
-                                    type="button"
-                                    class="calendar-nav"
-                                    id="studentCalendarNext"
-                                    aria-label="Next month"
-                                >
+                                <div class="calendar-month" id="studentCalendarMonth"></div>
+                                <button type="button" class="calendar-nav" id="studentCalendarNext"
+                                    aria-label="Next month">
                                     <i class="bi bi-chevron-right"></i>
                                 </button>
-
                             </div>
 
-
                             <div class="calendar-weekdays">
-
                                 <span>Sun</span>
                                 <span>Mon</span>
                                 <span>Tue</span>
@@ -471,27 +214,15 @@
                                 <span>Thu</span>
                                 <span>Fri</span>
                                 <span>Sat</span>
-
                             </div>
 
-
-                            <div
-                                class="calendar-days"
-                                id="studentCalendarDays"
-                            ></div>
-
+                            <div class="calendar-days" id="studentCalendarDays"></div>
                         </div>
-
                     </div>
-
                 </div>
-
             </section>
-
         </div>
-
     </div>
-
 
     <style>
         :root {
@@ -517,12 +248,9 @@
             --dashboard-orange-soft: #fff7ed;
             --dashboard-red: #dc2626;
             --dashboard-red-soft: #fef2f2;
-            --dashboard-card-shadow:
-                0 4px 18px rgba(20, 24, 40, .06);
-            --dashboard-card-shadow-hover:
-                0 8px 25px rgba(20, 24, 40, .09);
+            --dashboard-card-shadow: 0 4px 18px rgba(20, 24, 40, .06);
+            --dashboard-card-shadow-hover: 0 8px 25px rgba(20, 24, 40, .09);
         }
-
 
         [data-bs-theme="dark"] {
             --dashboard-black: #ffffff;
@@ -547,12 +275,9 @@
             --dashboard-orange-soft: #3b291d;
             --dashboard-red: #f87171;
             --dashboard-red-soft: #3a2025;
-            --dashboard-card-shadow:
-                0 5px 20px rgba(0, 0, 0, .28);
-            --dashboard-card-shadow-hover:
-                0 10px 30px rgba(0, 0, 0, .35);
+            --dashboard-card-shadow: 0 5px 20px rgba(0, 0, 0, .28);
+            --dashboard-card-shadow-hover: 0 10px 30px rgba(0, 0, 0, .35);
         }
-
 
         .dashboard-page {
             min-height: 100vh;
@@ -560,31 +285,24 @@
             background: var(--dashboard-page-bg);
             margin-bottom: 10px;
             padding: 20px;
-            transition:
-                color .25s ease,
-                background-color .25s ease;
+            transition: color .25s ease, background-color .25s ease;
         }
-
 
         .dashboard-content {
             color: var(--dashboard-text);
         }
 
-
         .dashboard-main {
             width: 100%;
         }
 
-
         .dashboard-grid {
             display: grid;
-            grid-template-columns:
-                repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 18px;
             width: 100%;
             margin-bottom: 20px;
         }
-
 
         .stat-card {
             min-width: 0;
@@ -593,23 +311,14 @@
             color: var(--dashboard-text);
             border: 1px solid var(--dashboard-border);
             border-radius: 14px;
-            box-shadow:
-                var(--dashboard-card-shadow);
-            transition:
-                background-color .25s ease,
-                color .25s ease,
-                border-color .25s ease,
-                box-shadow .25s ease,
-                transform .2s ease;
+            box-shadow: var(--dashboard-card-shadow);
+            transition: background-color .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease, transform .2s ease;
         }
-
 
         .stat-card:hover {
             transform: translateY(-2px);
-            box-shadow:
-                var(--dashboard-card-shadow-hover);
+            box-shadow: var(--dashboard-card-shadow-hover);
         }
-
 
         .stat-card-top {
             display: flex;
@@ -618,13 +327,11 @@
             margin-bottom: 15px;
         }
 
-
         .stat-card-title {
             color: var(--dashboard-text-secondary);
             font-size: 14px;
             font-weight: 600;
         }
-
 
         .stat-number {
             margin-top: 2px;
@@ -634,13 +341,11 @@
             font-weight: 750;
         }
 
-
         .stat-footer {
             color: var(--dashboard-text-muted);
             font-size: 12px;
             font-weight: 500;
         }
-
 
         .stat-icon {
             width: 44px;
@@ -653,46 +358,38 @@
             font-size: 17px;
         }
 
-
         .stat-icon.purple {
             background: var(--dashboard-purple-soft);
             color: var(--dashboard-purple);
         }
-
 
         .stat-icon.blue {
             background: var(--dashboard-blue-soft);
             color: var(--dashboard-blue);
         }
 
-
         .stat-icon.green {
             background: var(--dashboard-green-soft);
             color: var(--dashboard-green);
         }
-
 
         .stat-icon.orange {
             background: var(--dashboard-orange-soft);
             color: var(--dashboard-orange);
         }
 
-
         .dashboard-lower-grid {
             display: grid;
-            grid-template-columns:
-                repeat(10, minmax(0, 1fr));
+            grid-template-columns: repeat(10, minmax(0, 1fr));
             grid-auto-rows: auto;
             gap: 20px;
             width: 100%;
         }
 
-
         .dashboard-lower-main,
         .dashboard-lower-side {
             display: contents;
         }
-
 
         .dashboard-lower-main>.dashboard-large-card {
             grid-column: 1 / 8;
@@ -700,13 +397,11 @@
             width: 100%;
         }
 
-
         .dashboard-lower-side>.dashboard-small-card:not(.calendar-card) {
             grid-column: 8 / 11;
             grid-row: 1;
             width: 100%;
         }
-
 
         .dashboard-lower-main>.dashboard-large-card-student {
             grid-column: 1 / 6;
@@ -714,7 +409,6 @@
             width: 100%;
             min-width: 0;
         }
-
 
         .dashboard-lower-side>.calendar-card {
             grid-column: 6 / 11;
@@ -724,7 +418,6 @@
             min-height: 350px;
         }
 
-
         .dashboard-card {
             width: 100%;
             box-sizing: border-box;
@@ -733,21 +426,14 @@
             color: var(--dashboard-text);
             border: 1px solid var(--dashboard-border);
             border-radius: 14px;
-            box-shadow:
-                var(--dashboard-card-shadow);
-            transition:
-                background-color .25s ease,
-                color .25s ease,
-                border-color .25s ease,
-                box-shadow .25s ease;
+            box-shadow: var(--dashboard-card-shadow);
+            transition: background-color .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease;
         }
-
 
         .dashboard-large-card,
         .dashboard-small-card {
             min-height: 350px;
         }
-
 
         .dashboard-card-header {
             display: flex;
@@ -757,7 +443,6 @@
             min-height: 44px;
             margin-bottom: 16px;
         }
-
 
         .dashboard-section-label {
             display: block;
@@ -769,14 +454,12 @@
             text-transform: uppercase;
         }
 
-
         .dashboard-card-header h3 {
             margin: 0;
             color: var(--dashboard-text);
             font-size: 18px;
             font-weight: 700;
         }
-
 
         .view-all {
             display: inline-flex;
@@ -787,20 +470,16 @@
             font-size: 12px;
             font-weight: 600;
             text-decoration: none;
-            transition:
-                color .2s ease;
+            transition: color .2s ease;
         }
-
 
         .view-all:hover {
             color: var(--dashboard-purple);
         }
 
-
         .thesis-list {
             width: 100%;
         }
-
 
         .thesis-item {
             display: flex;
@@ -810,12 +489,9 @@
             padding: 9px 0;
         }
 
-
         .thesis-item+.thesis-item {
-            border-top:
-                1px solid var(--dashboard-divider);
+            border-top: 1px solid var(--dashboard-divider);
         }
-
 
         .thesis-avatar {
             width: 40px;
@@ -830,12 +506,10 @@
             font-size: 15px;
         }
 
-
         .thesis-info {
             min-width: 0;
             flex: 1;
         }
-
 
         .thesis-info strong {
             display: block;
@@ -848,7 +522,6 @@
             text-overflow: ellipsis;
         }
 
-
         .thesis-info span {
             display: block;
             overflow: hidden;
@@ -857,7 +530,6 @@
             white-space: nowrap;
             text-overflow: ellipsis;
         }
-
 
         .status-badge {
             display: inline-flex;
@@ -872,25 +544,21 @@
             white-space: nowrap;
         }
 
-
         .status-published,
         .status-approved {
             background: var(--dashboard-green-soft);
             color: var(--dashboard-green);
         }
 
-
         .status-pending {
             background: var(--dashboard-blue-soft);
             color: var(--dashboard-blue);
         }
 
-
         .status-rejected {
             background: var(--dashboard-red-soft);
             color: var(--dashboard-red);
         }
-
 
         .hod-item {
             display: flex;
@@ -900,12 +568,9 @@
             padding: 10px 0;
         }
 
-
         .hod-item+.hod-item {
-            border-top:
-                1px solid var(--dashboard-divider);
+            border-top: 1px solid var(--dashboard-divider);
         }
-
 
         .hod-avatar {
             width: 38px;
@@ -920,12 +585,10 @@
             font-size: 14px;
         }
 
-
         .hod-info {
             min-width: 0;
             flex: 1;
         }
-
 
         .hod-info strong {
             display: block;
@@ -938,7 +601,6 @@
             text-overflow: ellipsis;
         }
 
-
         .hod-info span {
             display: block;
             overflow: hidden;
@@ -948,48 +610,37 @@
             text-overflow: ellipsis;
         }
 
-
         .quick-action {
             position: relative;
             color: var(--dashboard-text);
             text-decoration: none;
             border-radius: 9px;
-            transition:
-                background-color .2s ease,
-                padding-left .2s ease;
+            transition: background-color .2s ease, padding-left .2s ease;
         }
-
 
         .quick-action:hover {
             padding-left: 7px;
             background: var(--dashboard-soft);
         }
 
-
         .quick-action>i.bi-chevron-right {
             color: var(--dashboard-text-muted);
             font-size: 12px;
-            transition:
-                color .2s ease,
-                transform .2s ease;
+            transition: color .2s ease, transform .2s ease;
         }
-
 
         .quick-action:hover>i.bi-chevron-right {
             color: var(--dashboard-purple);
             transform: translateX(2px);
         }
 
-
         .calendar-card {
             min-height: 350px;
         }
 
-
         .calendar-wrapper {
             width: 100%;
         }
-
 
         .calendar-header {
             display: flex;
@@ -999,7 +650,6 @@
             margin-bottom: 18px;
         }
 
-
         .calendar-month {
             flex: 1;
             color: var(--dashboard-text);
@@ -1007,7 +657,6 @@
             font-weight: 700;
             text-align: center;
         }
-
 
         .calendar-nav {
             width: 31px;
@@ -1021,12 +670,8 @@
             background: var(--dashboard-card-bg);
             color: var(--dashboard-text-secondary);
             cursor: pointer;
-            transition:
-                background-color .2s ease,
-                color .2s ease,
-                border-color .2s ease;
+            transition: background-color .2s ease, color .2s ease, border-color .2s ease;
         }
-
 
         .calendar-nav:hover {
             background: var(--dashboard-purple);
@@ -1034,19 +679,15 @@
             border-color: var(--dashboard-purple);
         }
 
-
         .calendar-nav i {
             font-size: 10px;
         }
 
-
         .calendar-weekdays {
             display: grid;
-            grid-template-columns:
-                repeat(7, 1fr);
+            grid-template-columns: repeat(7, 1fr);
             margin-bottom: 7px;
         }
-
 
         .calendar-weekdays span {
             color: var(--dashboard-text-muted);
@@ -1055,14 +696,11 @@
             text-align: center;
         }
 
-
         .calendar-days {
             display: grid;
-            grid-template-columns:
-                repeat(7, 1fr);
+            grid-template-columns: repeat(7, 1fr);
             gap: 4px;
         }
-
 
         .calendar-day {
             aspect-ratio: 1 / 1;
@@ -1073,31 +711,24 @@
             color: var(--dashboard-text-secondary);
             font-size: 11px;
             font-weight: 500;
-            transition:
-                background-color .2s ease,
-                color .2s ease;
+            transition: background-color .2s ease, color .2s ease;
         }
-
 
         .calendar-day.empty {
             visibility: hidden;
         }
 
-
         .calendar-day.today {
             background: var(--dashboard-purple);
             color: #ffffff;
             font-weight: 700;
-            box-shadow:
-                0 3px 8px rgba(101, 56, 217, .25);
+            box-shadow: 0 3px 8px rgba(101, 56, 217, .25);
         }
-
 
         .calendar-day:not(.empty):not(.today):hover {
             background: var(--dashboard-purple-soft);
             color: var(--dashboard-purple);
         }
-
 
         .dashboard-empty {
             display: flex;
@@ -1111,52 +742,37 @@
             font-size: 12px;
         }
 
-
         .dashboard-empty i {
             color: var(--dashboard-purple);
             font-size: 16px;
         }
 
-
         @media (max-width: 1200px) {
-
             .dashboard-grid {
-                grid-template-columns:
-                    repeat(3, minmax(0, 1fr));
+                grid-template-columns: repeat(3, minmax(0, 1fr));
             }
-
         }
 
-
         @media (max-width: 1000px) {
-
             .dashboard-card {
                 padding: 20px;
             }
-
         }
 
-
         @media (max-width: 800px) {
-
             .dashboard-grid {
-                grid-template-columns:
-                    repeat(2, minmax(0, 1fr));
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
-
 
             .dashboard-lower-grid {
-                grid-template-columns:
-                    minmax(0, 1fr);
+                grid-template-columns: minmax(0, 1fr);
                 gap: 16px;
             }
-
 
             .dashboard-lower-main,
             .dashboard-lower-side {
                 display: contents;
             }
-
 
             .dashboard-lower-main>.dashboard-large-card,
             .dashboard-lower-side>.dashboard-small-card:not(.calendar-card),
@@ -1166,47 +782,37 @@
                 grid-row: auto;
                 width: 100%;
             }
-
         }
 
-
         @media (max-width: 600px) {
-
             .dashboard-grid {
                 grid-template-columns: 1fr;
             }
-
 
             .dashboard-card {
                 padding: 17px;
                 min-height: auto;
             }
 
-
             .dashboard-card-header {
                 margin-bottom: 14px;
             }
-
 
             .dashboard-card-header h3 {
                 font-size: 16px;
             }
 
-
             .dashboard-section-label {
                 font-size: 9px;
             }
-
 
             .status-badge {
                 display: none;
             }
 
-
             .view-all span {
                 display: none;
             }
-
 
             .request-item,
             .thesis-item,
@@ -1214,13 +820,11 @@
                 min-height: 52px;
             }
 
-
             .request-title,
             .thesis-info strong,
             .student-info strong {
                 font-size: 12px;
             }
-
 
             .request-name,
             .thesis-info span,
@@ -1228,200 +832,80 @@
                 font-size: 10px;
             }
 
-
             .calendar-month {
                 font-size: 13px;
             }
-
 
             .calendar-day {
                 font-size: 10px;
             }
 
-
             .calendar-weekdays span {
                 font-size: 8px;
             }
-
         }
     </style>
 
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const calendarMonth = document.getElementById('studentCalendarMonth');
+            const calendarDays = document.getElementById('studentCalendarDays');
+            const calendarPrev = document.getElementById('studentCalendarPrev');
+            const calendarNext = document.getElementById('studentCalendarNext');
 
-            const calendarMonth =
-                document.getElementById('studentCalendarMonth');
-
-            const calendarDays =
-                document.getElementById('studentCalendarDays');
-
-            const calendarPrev =
-                document.getElementById('studentCalendarPrev');
-
-            const calendarNext =
-                document.getElementById('studentCalendarNext');
-
-
-            if (
-                !calendarMonth ||
-                !calendarDays ||
-                !calendarPrev ||
-                !calendarNext
-            ) {
+            if (!calendarMonth || !calendarDays || !calendarPrev || !calendarNext) {
                 return;
             }
 
-
             let currentDate = new Date();
 
-
             function renderCalendar() {
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth();
+                const monthName = currentDate.toLocaleString('default', {
+                    month: 'long'
+                });
 
-                const year =
-                    currentDate.getFullYear();
-
-                const month =
-                    currentDate.getMonth();
-
-
-                const monthName =
-                    currentDate.toLocaleString(
-                        'default',
-                        {
-                            month: 'long'
-                        }
-                    );
-
-
-                calendarMonth.textContent =
-                    `${monthName} ${year}`;
-
-
+                calendarMonth.textContent = `${monthName} ${year}`;
                 calendarDays.innerHTML = '';
 
-
-                const firstDay =
-                    new Date(
-                        year,
-                        month,
-                        1
-                    ).getDay();
-
-
-                const daysInMonth =
-                    new Date(
-                        year,
-                        month + 1,
-                        0
-                    ).getDate();
-
-
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
                 const today = new Date();
+                const todayYear = today.getFullYear();
+                const todayMonth = today.getMonth();
+                const todayDate = today.getDate();
 
-
-                const todayYear =
-                    today.getFullYear();
-
-                const todayMonth =
-                    today.getMonth();
-
-                const todayDate =
-                    today.getDate();
-
-
-                for (
-                    let i = 0;
-                    i < firstDay;
-                    i++
-                ) {
-
-                    const emptyDay =
-                        document.createElement('div');
-
-                    emptyDay.classList.add(
-                        'calendar-day',
-                        'empty'
-                    );
-
-                    calendarDays.appendChild(
-                        emptyDay
-                    );
-
+                for (let i = 0; i < firstDay; i++) {
+                    const emptyDay = document.createElement('div');
+                    emptyDay.classList.add('calendar-day', 'empty');
+                    calendarDays.appendChild(emptyDay);
                 }
 
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.classList.add('calendar-day');
+                    dayElement.textContent = day;
 
-                for (
-                    let day = 1;
-                    day <= daysInMonth;
-                    day++
-                ) {
-
-                    const dayElement =
-                        document.createElement('div');
-
-
-                    dayElement.classList.add(
-                        'calendar-day'
-                    );
-
-
-                    dayElement.textContent =
-                        day;
-
-
-                    if (
-                        year === todayYear &&
-                        month === todayMonth &&
-                        day === todayDate
-                    ) {
-
-                        dayElement.classList.add(
-                            'today'
-                        );
-
+                    if (year === todayYear && month === todayMonth && day === todayDate) {
+                        dayElement.classList.add('today');
                     }
 
-
-                    calendarDays.appendChild(
-                        dayElement
-                    );
-
+                    calendarDays.appendChild(dayElement);
                 }
-
             }
 
+            calendarPrev.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar();
+            });
 
-            calendarPrev.addEventListener(
-                'click',
-                function() {
-
-                    currentDate.setMonth(
-                        currentDate.getMonth() - 1
-                    );
-
-                    renderCalendar();
-
-                }
-            );
-
-
-            calendarNext.addEventListener(
-                'click',
-                function() {
-
-                    currentDate.setMonth(
-                        currentDate.getMonth() + 1
-                    );
-
-                    renderCalendar();
-
-                }
-            );
-
+            calendarNext.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar();
+            });
 
             renderCalendar();
-
         });
     </script>
 </x-app-layout>

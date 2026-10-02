@@ -24,14 +24,4 @@ class ThesisFile extends Model
     {
         return $this->belongsTo(Thesis::class);
     }
-    
-    // public function files()
-    // {
-    //     return $this->hasMany(ThesisFile::class);
-    // }
-
-    // public function thesis()
-    // {
-    //     return $this->belongsTo(Thesis::class);
-    // }
 }

@@ -17,37 +17,19 @@ class DashboardController extends Controller
         $departmentsCount = Department::count();
 
         $hodsCount = Hod::count();
-
         $studentsCount = Student::count();
-
         $thesesCount = Thesis::count();
-
-        $recentTheses = Thesis::latest()
-            ->take(5)
-            ->get();
-
+        $recentTheses = Thesis::latest()->take(5)->get();
         $guestsCount = User::where('role', 'guest')->count();
 
         $recentThesisRequests = ThesisRequest::with([
             'user',
             'thesis'
-        ])
-            ->latest()
-            ->take(5)
-            ->get();
+        ])->latest()->take(5)->get();
 
-        $recentStudents = Student::with('user')
-            ->latest()
-            ->take(5)
-            ->get();
+        $recentStudents = Student::with('user')->latest()->take(5)->get();
 
-        $recentHods = Hod::with([
-            'user',
-            'department'
-        ])
-            ->latest()
-            ->take(5)
-            ->get();
+        $recentHods = Hod::with(['user', 'department'])->latest()->take(5)->get();
 
         return view('admin.dashboard', compact(
             'departmentsCount',

@@ -50,7 +50,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/thesis/search', [AdminThesisController::class, 'search'])->name('thesis.search');
     Route::get('/thesis/download/{file}', [AdminThesisController::class, 'downloadPDF'])->name('thesis.download');
     Route::get('/thesis/{thesis}', [AdminThesisController::class, 'show'])
-    ->name('thesis.show');
+        ->name('thesis.show');
 
     // Thesis Requests Routes
     Route::get('/thesis-requests/index', [AdminThesisRequestsController::class, 'index'])->name('thesis_requests.index');
@@ -58,4 +58,5 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
     Route::get('/thesis-requests/view-pdf/{file}', [AdminThesisRequestsController::class, 'viewRequestPDF'])->name('thesis_requests.view-request-pdf');
     Route::post('/thesis-requests/approve/{thesisRequest}', [AdminThesisRequestsController::class, 'approveRequest'])->name('thesis_requests.approve');
     Route::put('/thesis-requests/{thesisRequest}/reject', [AdminThesisRequestsController::class, 'rejectRequest'])->name('thesis_requests.reject');
+    Route::delete('/thesis-requests/destroy/{thesisRequest}', [AdminThesisRequestsController::class, 'destroy'])->name('thesis_requests.destroy');
 });

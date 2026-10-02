@@ -18,7 +18,7 @@ class StudentController extends Controller
             ->distinct()
             ->orderBy('started_year', 'desc')
             ->pluck('started_year');
-        return view('admin.students.index', compact('students', 'departments','started_year'));
+        return view('admin.students.index', compact('students', 'departments', 'started_year'));
     }
 
     public function edit(Student $student)
@@ -35,7 +35,6 @@ class StudentController extends Controller
         return redirect()->route('admin.students.index')->with('success', 'Student updated successfully.');
     }
 
-    // Add a method to handle the search functionality for HoDs
     public function search(Request $request)
     {
         $search = $request->search;
@@ -67,10 +66,8 @@ class StudentController extends Controller
         if ($request->filled('year')) {
             $query->where('started_year', $request->year);
         }
-
         $students = $query->get();
 
         return view('admin.students.table', compact('students'));
     }
-
 }

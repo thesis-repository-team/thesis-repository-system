@@ -1,5 +1,7 @@
 <?php
 
+use App\Mail\MyTestEmail;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;

@@ -18,10 +18,39 @@ class HodSeeder extends Seeder
         //
         Hod::create([
             'user_id' => 2,
-            'full_name' => 'Dr. Smith',
+            'full_name' => 'Soeung Sambath',
             'department_id' => 1,
             'is_active' => True,
-            'started_year' => 2026,
+            'started_year' => 2009,
         ]);
+        Hod::create([
+            'user_id' => 3,
+            'full_name' => 'Pho Sitha',
+            'department_id' => 2,
+            'is_active' => True,
+            'started_year' => 2018,
+        ]);
+        Hod::create([
+            'user_id' => 4,
+            'full_name' => 'San Piseth',
+            'department_id' => 3,
+            'is_active' => false,
+            'started_year' => 2018,
+        ]);
+        Hod::create([
+            'user_id' => 5,
+            'full_name' => 'Andy Jung',
+            'department_id' => 4,
+            'is_active' => True,
+            'started_year' => 2019,
+        ]);
+        Hod::create([
+            'user_id' => 6,
+            'full_name' => 'Chrin Mac',
+            'department_id' => 5,
+            'is_active' => false,
+            'started_year' => 2009,
+        ]);
+
     }
 }

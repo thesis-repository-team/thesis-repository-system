@@ -27,25 +27,14 @@ class CustomVerifyEmail extends VerifyEmail
     {
         return (new MailMessage)
             ->subject('Verify Your Email - Life University Thesis Repository')
-            ->view('emails.verify-email', [
-                'user' => $notifiable,
-                'url' => $this->verificationUrl($notifiable),
-            ]);
+            ->view(
+                'emails.verify-email',
+                [
+                    'user' => $notifiable,
+                    'url' => $this->verificationUrl($notifiable),
+                ]
+            );
     }
-
-    
-    // public function toMail($notifiable)
-    // {
-    //     return (new MailMessage)
-    //         ->subject('Verify Your Email - Life University Thesis Repository')
-    //         ->greeting('Hello ' . ($notifiable->name ?? $notifiable->username) . '!')
-    //         ->line('Thank you for registering with the Life University Thesis Repository.')
-    //         ->line('Please verify your email address to activate your account.')
-    //         ->action('Verify Email Address', $this->verificationUrl($notifiable))
-    //         ->line('If you did not create this account, no further action is required.')
-    //         ->salutation('Regards,')
-    //         ->salutation('Life University Thesis Repository');
-    // }
 
     /**
      * Get the array representation of the notification.

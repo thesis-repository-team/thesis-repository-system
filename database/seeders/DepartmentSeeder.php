@@ -17,7 +17,9 @@ class DepartmentSeeder extends Seeder
         Department::insert([
             ['name' => 'Information Technology'],
             ['name' => 'Computer Science'],
-            ['name' => 'Software Engineering'],
+            ['name' => 'Chinese Language'],
+            ['name' => 'English Literature'],
+            ['name' => 'Civil Engineering'],
         ]);
     }
 }

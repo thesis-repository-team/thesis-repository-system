@@ -32,18 +32,6 @@ class ThesisRequestsController extends Controller
         return view('hod.thesis_requests.index', compact('thesisRequests'));
     }
 
-    //
-    // public function index()
-    // {
-    //     $thesisRequests = ThesisRequest::with([
-    //         'user',
-    //         'department',
-    //         'thesis.publishedBy'
-    //     ])->latest()->get();
-
-    //     return view('hod.thesis_requests.index', compact('thesisRequests'));
-    // }
-
     public function show(ThesisRequest $thesisRequest)
     {
         $thesis = null;
@@ -66,50 +54,6 @@ class ThesisRequestsController extends Controller
 
         return response()->file(storage_path('app/public/' . $file->pdf_file));
     }
-
-    // // approve a request
-    // public function approveRequest(ThesisRequest $thesisRequest)
-    // {
-    //     $request = ThesisRequest::findOrFail($thesisRequest->id);
-    //     // create the Thesis record
-    //     $thesis = Thesis::create([
-    //         'title' => $request->title,
-    //         'abstract' => $request->abstract,
-    //         'description' => $request->description ?? '',
-    //         'department_id' => $request->department_id,
-    //         'author_name' => $request->author_name,
-    //         'submitted_by' => $request->submitted_by,
-    //         'published_by' => auth()->user()->id,
-    //         'published_at' => now(),
-    //     ]);
-
-    //     ThesisFile::create([
-    //         'thesis_id' => $thesis->id,
-    //         'file_name' => $thesis->title . '.pdf',
-    //         'file_type' => 'pdf',
-    //         'file_path' => $request->pdf_file,
-    //         'uploaded_at' => now(),
-    //     ]);
-
-    //     $request->status = 'approved';
-    //     $request->thesis_id = $thesis->id;
-    //     $request->reviewed_by = auth()->id();
-    //     $request->reviewed_at = now();
-    //     $request->save();
-
-    //     // Notify the student
-    //     $student = User::find($request->submitted_by);
-    //     if ($student) {
-    //         $student->notify(
-    //             new ThesisRequestStatusUpdated($request)
-    //         );
-    //     }
-
-    //     session()->flash('request_approved', "Your thesis request '{$request->title}' has been approved!");
-
-    //     return redirect()->route('hod.dashboard')->with('success', 'Request approved and thesis created.');
-    // }
-
 
     // approve a request
     public function approveRequest(ThesisRequest $thesisRequest)
@@ -174,7 +118,6 @@ class ThesisRequestsController extends Controller
             $student->notify(new ThesisRequestStatusUpdated($thesisRequest));
         }
 
-        return redirect()->route('hod.dashboard')
-            ->with('error', 'Request rejected.');
+        return redirect()->route('hod.dashboard')->with('error', 'Request rejected.');
     }
 }

@@ -16,10 +16,7 @@ class SavedThesisController extends Controller
             ->latest('saved_at')
             ->get();
 
-        return view(
-            'student.saved_thesis.index',
-            compact('savedTheses')
-        );
+        return view('student.saved_thesis.index', compact('savedTheses'));
     }
 
     public function store(Request $request, Thesis $thesis)
@@ -28,30 +25,43 @@ class SavedThesisController extends Controller
             ->where('thesis_id', $thesis->id)
             ->exists();
 
-        if ($alreadySaved) {
-            return back()->with(
-                'info',
-                'This thesis is already saved.'
-            );
+        if (!$alreadySaved) {
+            SavedThesis::create([
+                'user_id' => auth()->id(),
+                'thesis_id' => $thesis->id,
+                'saved_at' => now(),
+            ]);
         }
 
-        SavedThesis::create([
-            'user_id' => auth()->id(),
-            'thesis_id' => $thesis->id,
-            'saved_at' => now(),
-        ]);
+        if ($request->expectsJson()) {
+            return response()->json([
+                'saved' => true,
+                'message' => $alreadySaved
+                    ? 'This thesis is already saved.'
+                    : 'Thesis saved successfully.',
+            ]);
+        }
 
         return back()->with(
-            'success',
-            'Thesis saved successfully.'
+            $alreadySaved ? 'info' : 'success',
+            $alreadySaved
+                ? 'This thesis is already saved.'
+                : 'Thesis saved successfully.'
         );
     }
 
-    public function destroy(Thesis $thesis)
+    public function destroy(Request $request, Thesis $thesis)
     {
         SavedThesis::where('user_id', auth()->id())
             ->where('thesis_id', $thesis->id)
             ->delete();
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'saved' => false,
+                'message' => 'Thesis removed from saved theses.',
+            ]);
+        }
 
         return back()->with(
             'success',
@@ -59,140 +69,3 @@ class SavedThesisController extends Controller
         );
     }
 }
-
-
-// class SavedThesisController extends Controller
-// {
-//     // Display saved thesis
-//     public function index()
-//     {
-//         $student = Student::where('user_id', auth()->id())->firstOrFail();
-
-//         $savedTheses = SavedThesis::with('thesis')
-//             ->where('student_id', $student->id)
-//             ->latest('saved_at')
-//             ->get();
-
-//         return view('student.saved_thesis.index', compact('savedTheses'));
-//     }
-
-//     // Save thesis
-//     public function store(Request $request, Thesis $thesis)
-//     {
-//         $student = Student::where('user_id', auth()->id())->firstOrFail();
-
-//         // Check if already saved
-//         $alreadySaved = SavedThesis::where('student_id', $student->id)
-//             ->where('thesis_id', $thesis->id)
-//             ->exists();
-//         if ($alreadySaved) {
-//             return back()->with('info', 'This thesis is already saved.');
-//         }
-//         SavedThesis::create(['student_id' => $student->id, 'thesis_id' => $thesis->id, 'saved_at' => now()]);
-
-//         return back()->with('success', 'Thesis saved successfully.');
-//     }
-
-//     // Remove saved thesis
-//     public function destroy(Thesis $thesis)
-//     {
-//         $student = Student::where('user_id', auth()->id())
-//             ->firstOrFail();
-//         SavedThesis::where('student_id', $student->id)
-//             ->where('thesis_id', $thesis->id)->delete();
-
-//         return back()->with('success', 'Thesis removed from saved theses.');
-//     }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // add search function to search for theses by title, author_name, or department name
-//     public function search(Request $request)
-//     {
-//         $search = $request->search;
-//         $query = Thesis::with(['user', 'department']);
-
-//         // Search
-//         if ($request->filled('search')) {
-//             $query->where(function ($q) use ($search) {
-//                 $q->where('title', 'like', "%{$search}%")
-//                     ->orWhere('author_name', 'like', "%{$search}%")
-//                     ->orWhereHas('department', function ($d) use ($search) {
-//                         $d->where('name', 'like', "%{$search}%");
-//                     })
-
-//                     //Keyword
-//                     ->orWhereHas('keywords', function ($k) use ($search) {
-//                         $k->where('keyword_name', 'like', "%{$search}%");
-//                     })
-
-//                     // Submitted By
-//                     ->orWhereHas('submittedBy', function ($u) use ($search) {
-
-//                         // Admin username
-//                         $u->where('username', 'like', "%{$search}%")
-
-//                             // Student full name
-//                             ->orWhereHas('student', function ($s) use ($search) {
-//                                 $s->where('full_name', 'like', "%{$search}%");
-//                             })
-
-//                             // HoD full name
-//                             ->orWhereHas('hod', function ($h) use ($search) {
-//                                 $h->where('full_name', 'like', "%{$search}%");
-//                             });
-//                     })
-
-//                     // Published By
-//                     ->orWhereHas('publishedBy', function ($u) use ($search) {
-
-//                         // Admin username
-//                         $u->where('username', 'like', "%{$search}%")
-
-//                             // Student full name
-//                             ->orWhereHas('student', function ($s) use ($search) {
-//                                 $s->where('full_name', 'like', "%{$search}%");
-//                             })
-
-//                             // HoD full name
-//                             ->orWhereHas('hod', function ($h) use ($search) {
-//                                 $h->where('full_name', 'like', "%{$search}%");
-//                             });
-//                     });
-//             });
-//         }
-
-//         // department filter
-//         if ($request->filled('department')) {
-//             $query->whereHas('department', function ($q) use ($request) {
-//                 $q->where('name', $request->department);
-//             });
-//         }
-
-//         // year filter
-//         if ($request->filled('year')) {
-//             $query->whereYear('published_at', $request->year);
-//         }
-
-//         $theses = $query->get();
-
-//         // Get all thesis IDs saved by this student
-//         $savedThesisIds = SavedThesis::where('student_id', auth()->user()->student->id)
-//             ->pluck('thesis_id')
-//             ->toArray();
-
-//         return view('student.thesis.table', compact('theses','savedThesisIds'));
-//     }

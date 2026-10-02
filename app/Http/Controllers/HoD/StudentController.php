@@ -37,6 +37,7 @@ class StudentController extends Controller
             'totalStudent'
         ));
     }
+    
     public function edit(Student $student)
     {
         return view('hod.students.edit', compact('student'));
@@ -51,7 +52,6 @@ class StudentController extends Controller
         return redirect()->route('hod.students.index')->with('success', 'Student updated successfully.');
     }
 
-    // Add a method to handle the search functionality for HoDs
     public function search(Request $request)
     {
         $departmentId = auth()->user()->hod->department_id;
@@ -71,7 +71,6 @@ class StudentController extends Controller
             });
         }
 
-        // Year filter
         if ($request->filled('year')) {
             $query->where('started_year', $request->year);
         }

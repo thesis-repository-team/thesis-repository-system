@@ -14,6 +14,7 @@ Route::prefix('student')->name('student.')->middleware(['auth', 'role:student,gu
     // Thesis
     Route::get('/thesis', [StudentThesisController::class, 'index'])->name('thesis.index');
     Route::get('/thesis/view-pdf/{file}', [StudentThesisController::class, 'viewPDF'])->name('thesis.view-pdf');
+    Route::get('/thesis/{thesis}', [StudentThesisController::class, 'show'])->name('thesis.show');
     Route::get('/thesis/search', [StudentThesisController::class, 'search'])->name('thesis.search');
     Route::get('/thesis/download/{file}', [StudentThesisController::class, 'downloadPDF'])->name('thesis.download');
 
@@ -42,7 +43,5 @@ Route::prefix('student')->name('student.')->middleware(['auth', 'role:student,gu
 
         // Resubmit Rejected Thesis
         Route::put('/thesis/{thesisRequest}/resubmit', [StudentThesisRequestsController::class, 'resubmit'])->name('thesis_requests.resubmit');
-
-        Route::get('/thesis/{thesis}', [StudentThesisController::class, 'show'])->name('thesis.show');
     });
 });

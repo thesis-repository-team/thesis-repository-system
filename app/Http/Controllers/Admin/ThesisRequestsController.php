@@ -10,6 +10,7 @@ use App\Models\ThesisRequest;
 use App\Notifications\ThesisRequestStatusUpdated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class ThesisRequestsController extends Controller
 {
@@ -38,7 +39,7 @@ class ThesisRequestsController extends Controller
 
         return view('admin.thesis_requests.show', compact('thesisRequest', 'thesis'));
     }
-    
+
     public function viewRequestPDF(ThesisRequest $file)
     {
         if (! Storage::disk('public')->exists($file->pdf_file)) {
@@ -87,7 +88,6 @@ class ThesisRequestsController extends Controller
                 new ThesisRequestStatusUpdated($request)
             );
         }
-
         session()->flash('request_approved', "Your thesis request '{$request->title}' has been approved!");
 
         return redirect()->route('admin.dashboard')->with('success', 'Request approved and thesis created.');
@@ -112,5 +112,40 @@ class ThesisRequestsController extends Controller
         }
 
         return redirect()->route('admin.dashboard')->with('error', 'Request rejected.');
+    }
+
+    public function destroy(ThesisRequest $thesisRequest)
+    {
+        DB::transaction(function () use ($thesisRequest) {
+
+            // If this request has an approved thesis, delete the related thesis
+            if ($thesisRequest->thesis_id) {
+                $thesis = Thesis::with('files')->find($thesisRequest->thesis_id);
+                if ($thesis) {
+                    // Delete thesis PDF files from storage
+                    foreach ($thesis->files as $file) {
+                        if (Storage::disk('public')->exists($file->file_path)) {
+                            Storage::disk('public')->delete($file->file_path);
+                        }
+                        $file->delete();
+                    }
+                    // Delete the thesis
+                    $thesis->delete();
+                }
+            }
+
+            // Delete the request's uploaded PDF if it still exists
+            if ($thesisRequest->pdf_file) {
+
+                if (Storage::disk('public')->exists($thesisRequest->pdf_file)) {
+                    Storage::disk('public')->delete($thesisRequest->pdf_file);
+                }
+            }
+
+            // Delete the thesis request
+            $thesisRequest->delete();
+        });
+
+        return redirect()->route('admin.thesis_requests.index')->with('success', 'Thesis request deleted successfully.');
     }
 }

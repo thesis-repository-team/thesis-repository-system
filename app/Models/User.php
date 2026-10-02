@@ -13,8 +13,6 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
-    // protected $primaryKey = 'user_id';
-
     protected $fillable = [
         'email',
         'username',
